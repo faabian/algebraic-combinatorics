@@ -1,0 +1,545 @@
+\subsubsection{The Pieri rules}
+
+Having proved the Littlewood--Richardson rule, let us discuss a few more of
+its consequences. As we know from Example \ref{exa.sf.schur-h-e}, the complete
+homogeneous symmetric polynomials $h_{n}$ and the elementary symmetric
+polynomials $e_{n}$ (for $n\in\left\{  0,1,\ldots,N\right\}  $) are instances
+of Schur polynomials. Thus, by appropriately specializing Theorem
+\ref{thm.sf.lr-zy}, we can obtain rules for expressing products of the form
+$h_{n}s_{\mu}$ and $e_{n}s_{\mu}$ as sums of Schur polynomials. These rules
+are known as the \emph{Pieri rules}. To formulate them, we need some more notations:
+
+\begin{definition}
+\label{def.sf.strips}Let $\lambda$ and $\mu$ be two $N$-partitions. \medskip
+
+\textbf{(a)} We write $\lambda/\mu$ for the pair $\left(  \mu,\lambda\right)
+$. Such a pair is called a \emph{skew partition}. \medskip
+
+\textbf{(b)} We say that $\lambda/\mu$ is a \emph{horizontal strip} if we have
+$\mu\subseteq\lambda$ and the Young diagram $Y\left(  \lambda/\mu\right)  $
+has no two boxes lying in the same column. \medskip
+
+\textbf{(c)} We say that $\lambda/\mu$ is a \emph{vertical strip} if we have
+$\mu\subseteq\lambda$ and the Young diagram $Y\left(  \lambda/\mu\right)  $
+has no two boxes lying in the same row. \medskip
+
+Now, let $n\in\mathbb{N}$. \medskip
+
+\textbf{(d)} We say that $\lambda/\mu$ is a \emph{horizontal }$n$\emph{-strip}
+if $\lambda/\mu$ is a horizontal strip and satisfies $\left\vert Y\left(
+\lambda/\mu\right)  \right\vert =n$. \medskip
+
+\textbf{(e)} We say that $\lambda/\mu$ is a \emph{vertical }$n$\emph{-strip}
+if $\lambda/\mu$ is a vertical strip and satisfies $\left\vert Y\left(
+\lambda/\mu\right)  \right\vert =n$.
+\end{definition}
+
+\Needspace{40pc}
+
+\begin{example}
+Let $N=4$. \medskip
+
+\textbf{(a)} If $\lambda=\left(  8,7,4,3\right)  $ and $\mu=\left(
+7,4,4,1\right)  $, then we have $\mu\subseteq\lambda$, and the Young diagram
+$Y\left(  \lambda/\mu\right)  $ looks as follows:%
+\[
+Y\left(  \lambda/\mu\right)  =\ydiagram{7+1,4+3,4+0,1+2}\ \ .
+\]
+From this picture, it is clear that this skew partition $\lambda/\mu$ is a
+horizontal strip (and, in fact, a horizontal $6$-strip, since $\left\vert
+Y\left(  \lambda/\mu\right)  \right\vert =6$), but not a vertical strip
+(since, e.g., there are $3$ boxes in the second row of $Y\left(  \lambda
+/\mu\right)  $). \medskip
+
+\textbf{(b)} If $\lambda=\left(  3,3,2,1\right)  $ and $\mu=\left(
+2,2,1,0\right)  $, then we have $\mu\subseteq\lambda$, and the Young diagram
+$Y\left(  \lambda/\mu\right)  $ looks as follows:%
+\[
+Y\left(  \lambda/\mu\right)  =\ydiagram{2+1,2+1,1+1,0+1}\ \ .
+\]
+From this picture, it is clear that this skew partition $\lambda/\mu$ is a
+vertical strip (and, in fact, a vertical $4$-strip, since $\left\vert Y\left(
+\lambda/\mu\right)  \right\vert =4$), but not a horizontal strip (since there
+are $2$ boxes in the third column of $Y\left(  \lambda/\mu\right)  $).
+\medskip
+
+\textbf{(c)} If $\lambda=\left(  4,3,1,1\right)  $ and $\mu=\left(
+3,2,1,0\right)  $, then we have $\mu\subseteq\lambda$, and the Young diagram
+$Y\left(  \lambda/\mu\right)  $ looks as follows:%
+\[
+Y\left(  \lambda/\mu\right)  =\ydiagram{3+1,2+1,1+0,0+1}\ \ .
+\]
+From this picture, it is clear that this skew partition $\lambda/\mu$ is both
+a horizontal strip (and, in fact, a horizontal $3$-strip) and a vertical strip
+(and, in fact, a vertical $3$-strip). \medskip
+
+\textbf{(d)} If $\lambda=\left(  3,3,2,1\right)  $ and $\mu=\left(
+1,1,1,1\right)  $, then we have $\mu\subseteq\lambda$, and the Young diagram
+$Y\left(  \lambda/\mu\right)  $ looks as follows:%
+\[
+Y\left(  \lambda/\mu\right)  =\ydiagram{1+2,1+2,1+1,1+0}\ \ .
+\]
+From this picture, it is clear that this skew partition $\lambda/\mu$ is
+neither a horizontal strip nor a vertical strip.
+\end{example}
+
+Horizontal and vertical strips can also be characterized in terms of the
+entries of the partitions:
+
+\begin{proposition}
+\label{prop.sf.strips.entries}Let $\lambda=\left(  \lambda_{1},\lambda
+_{2},\ldots,\lambda_{N}\right)  $ and $\mu=\left(  \mu_{1},\mu_{2},\ldots
+,\mu_{N}\right)  $ be two $N$-partitions. \medskip
+
+\textbf{(a)} The skew partition $\lambda/\mu$ is a horizontal strip if and
+only if we have%
+\[
+\lambda_{1}\geq\mu_{1}\geq\lambda_{2}\geq\mu_{2}\geq\cdots\geq\lambda_{N}%
+\geq\mu_{N}.
+\]
+
+
+\textbf{(b)} The skew partition $\lambda/\mu$ is a vertical strip if and only
+if we have%
+\[
+\mu_{i}\leq\lambda_{i}\leq\mu_{i}+1\ \ \ \ \ \ \ \ \ \ \text{for each }%
+i\in\left[  N\right]  .
+\]
+
+\end{proposition}
+
+\begin{proof}
+See Exercise \ref{exe.sf.strips.entries}.
+\end{proof}
+
+We can now state the \emph{Pieri rules}:
+
+\begin{theorem}
+[Pieri rules]\label{thm.sf.pieri}Let $n\in\mathbb{N}$. Let $\mu$ be an
+$N$-partition. Then: \medskip
+
+\textbf{(a)} We have%
+\[
+h_{n}s_{\mu}=\sum_{\substack{\lambda\text{ is an }N\text{-partition;}%
+\\\lambda/\mu\text{ is a horizontal }n\text{-strip}}}s_{\lambda}.
+\]
+
+
+\textbf{(b)} We have%
+\[
+e_{n}s_{\mu}=\sum_{\substack{\lambda\text{ is an }N\text{-partition;}%
+\\\lambda/\mu\text{ is a vertical }n\text{-strip}}}s_{\lambda}.
+\]
+
+\end{theorem}
+
+\begin{example}
+Let $N=4$ and $\mu=\left(  2,1,1,0\right)  $. Then: \medskip
+
+\textbf{(a)} Theorem \ref{thm.sf.pieri} \textbf{(a)} (applied to $n=2$) yields%
+\[
+h_{2}s_{\mu}=\sum_{\substack{\lambda\text{ is an }N\text{-partition;}%
+\\\lambda/\mu\text{ is a horizontal }2\text{-strip}}}s_{\lambda}=s_{\left(
+2,2,1,1\right)  }+s_{\left(  3,1,1,1\right)  }+s_{\left(  3,2,1,0\right)
+}+s_{\left(  4,1,1,0\right)  },
+\]
+since the $N$-partitions $\lambda$ for which $\lambda/\mu$ is a horizontal
+$2$-strip are precisely the four $N$-partitions $\left(  2,2,1,1\right)  $,
+$\left(  3,1,1,1\right)  $, $\left(  3,2,1,0\right)  $ and $\left(
+4,1,1,0\right)  $. Here are the Young diagrams $Y\left(  \lambda\right)  $ of
+these four $N$-partitions $\lambda$ (with the $Y\left(  \mu\right)  $
+subdiagram colored red each time):%
+\[
+\ydiagram{2,2,1,1} *[*(red)]{2,1,1}\ \ ,\ \ \ \ \ \ \ \ \ \ \ydiagram{3,1,1,1}
+*[*(red)]{2,1,1}\ \ ,\ \ \ \ \ \ \ \ \ \ \ydiagram{3,2,1,0} *[*(red)]{2,1,1}%
+\ \ ,\ \ \ \ \ \ \ \ \ \ \ydiagram{4,1,1,0} *[*(red)]{2,1,1}\ \ .
+\]
+
+
+\textbf{(b)} Theorem \ref{thm.sf.pieri} \textbf{(b)} (applied to $n=2$)
+yields
+\[
+e_{2}s_{\mu}=\sum_{\substack{\lambda\text{ is an }N\text{-partition;}%
+\\\lambda/\mu\text{ is a vertical }2\text{-strip}}}s_{\lambda}=s_{\left(
+2,2,1,1\right)  }+s_{\left(  2,2,2,0\right)  }+s_{\left(  3,1,1,1\right)
+}+s_{\left(  3,2,1,0\right)  },
+\]
+since the $N$-partitions $\lambda$ for which $\lambda/\mu$ is a vertical
+$2$-strip are precisely the four $N$-partitions $\left(  2,2,1,1\right)  $,
+$\left(  2,2,2,0\right)  $, $\left(  3,1,1,1\right)  $ and $\left(
+3,2,1,0\right)  $. Here are the Young diagrams $Y\left(  \lambda\right)  $ of
+these four $N$-partitions $\lambda$ (with the $Y\left(  \mu\right)  $
+subdiagram colored red each time):%
+\[
+\ydiagram{2,2,1,1} *[*(red)]{2,1,1}\ \ ,\ \ \ \ \ \ \ \ \ \ \ydiagram{2,2,2,0}
+*[*(red)]{2,1,1}\ \ ,\ \ \ \ \ \ \ \ \ \ \ydiagram{3,1,1,1} *[*(red)]{2,1,1}%
+\ \ ,\ \ \ \ \ \ \ \ \ \ \ydiagram{3,2,1,0} *[*(red)]{2,1,1}\ \ .
+\]
+
+\end{example}
+
+\begin{proof}
+[Proof of Theorem \ref{thm.sf.pieri}.]See Exercise \ref{exe.sf.pieri}.
+\end{proof}
+
+\subsubsection{The Jacobi--Trudi identities}
+
+The \emph{Jacobi--Trudi identities} are determinantal formulas expressing a
+skew Schur polynomial $s_{\lambda/\mu}$ in terms of complete homogeneous
+symmetric polynomials $h_{n}$ or elementary symmetric polynomials $e_{n}$. We
+begin with the former:
+
+\begin{theorem}
+[First Jacobi--Trudi formula]\label{thm.sf.jt-h}Let $M\in\mathbb{N}$. Let
+$\lambda=\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{M}\right)  $ and
+$\mu=\left(  \mu_{1},\mu_{2},\ldots,\mu_{M}\right)  $ be two $M$-partitions
+(i.e., weakly decreasing $M$-tuples of nonnegative integers). Then,%
+\[
+s_{\lambda/\mu}=\det\left(  \left(  h_{\lambda_{i}-\mu_{j}-i+j}\right)
+_{1\leq i\leq M,\ 1\leq j\leq M}\right)  .
+\]
+(Here, $s_{\lambda/\mu}$ is defined as in Definition \ref{def.sf.skew-schur},
+where the semistandard tableaux of shape $\lambda/\mu$ are defined as certain
+fillings of $Y\left(  \lambda/\mu\right)  :=\left\{  \left(  i,j\right)
+\ \mid\ i\in\left[  M\right]  \text{ and }j\in\left[  \lambda_{i}\right]
+\setminus\left[  \mu_{i}\right]  \right\}  $, but their entries are still
+supposed to be elements of $\left[  N\right]  $. Compare with Remark
+\ref{rmk.sf.N-par-vs-M-par}.)
+\end{theorem}
+
+\begin{example}
+If $M=3$, then Theorem \ref{thm.sf.jt-h} says that%
+\[
+s_{\lambda/\mu}=\det\left(  \left(  h_{\lambda_{i}-\mu_{j}-i+j}\right)
+_{1\leq i\leq3,\ 1\leq j\leq3}\right)  =\det\left(
+\begin{array}
+[c]{ccc}%
+h_{\lambda_{1}-\mu_{1}} & h_{\lambda_{1}-\mu_{2}+1} & h_{\lambda_{1}-\mu
+_{3}+2}\\
+h_{\lambda_{2}-\mu_{1}-1} & h_{\lambda_{2}-\mu_{2}} & h_{\lambda_{2}-\mu
+_{3}+1}\\
+h_{\lambda_{3}-\mu_{1}-2} & h_{\lambda_{3}-\mu_{2}-1} & h_{\lambda_{3}-\mu
+_{3}}%
+\end{array}
+\right)  .
+\]
+For instance, if $\lambda=\left(  4,2,1\right)  $ and $\mu=\left(
+1,0,0\right)  $, then%
+\begin{align*}
+s_{\lambda/\mu}  &  =\det\left(
+\begin{array}
+[c]{ccc}%
+h_{4-1} & h_{4-0+1} & h_{4-0+2}\\
+h_{2-1-1} & h_{2-0} & h_{2-0+1}\\
+h_{1-1-2} & h_{1-0-1} & h_{1-0}%
+\end{array}
+\right)  =\det\left(
+\begin{array}
+[c]{ccc}%
+h_{3} & h_{5} & h_{6}\\
+h_{0} & h_{2} & h_{3}\\
+h_{-2} & h_{0} & h_{1}%
+\end{array}
+\right) \\
+&  =\det\left(
+\begin{array}
+[c]{ccc}%
+h_{3} & h_{5} & h_{6}\\
+1 & h_{2} & h_{3}\\
+0 & 1 & h_{1}%
+\end{array}
+\right)  \ \ \ \ \ \ \ \ \ \ \left(  \text{since }h_{0}=1\text{ and }%
+h_{-2}=0\right)  .
+\end{align*}
+
+\end{example}
+
+The proof of Theorem \ref{thm.sf.jt-h} is not too hard using what we have
+learnt about lattice paths in Section \ref{sec.det.comb.lgv}. Here is an
+outline (with some details left to exercises):
+
+\begin{proof}
+[Proof of Theorem \ref{thm.sf.jt-h} (sketched).]Let us follow Convention
+\ref{conv.lgv.digraph}, Definition \ref{def.lgv.lattice} and Definition
+\ref{def.lgv.path-tups}. We will work with the digraph $\mathbb{Z}^{2}$. For
+each arc $a$ of the digraph $\mathbb{Z}^{2}$, we define an element $w\left(
+a\right)  \in\mathcal{P}$ (called the \emph{weight} of $a$) as follows:
+
+\begin{itemize}
+\item If $a$ is an east-step $\left(  i,j\right)  \rightarrow\left(
+i+1,j\right)  $ with $j\in\left[  N\right]  $, then we set $w\left(  a\right)
+:=x_{j}$.
+
+\item If $a$ is any other arc, then we set $w\left(  a\right)  :=1$.
+\end{itemize}
+
+For each path $p$ of $\mathbb{Z}^{2}$, define the \emph{weight} $w\left(
+p\right)  $ of $p$ by%
+\[
+w\left(  p\right)  :=\prod_{a\text{ is an arc of }p}w\left(  a\right)  .
+\]
+
+
+Now, it is not hard to see the following (compare with Proposition
+\ref{prop.lgv.1-paths.ct}):
+
+\begin{statement}
+\textit{Observation 1:} Let $a$ and $c$ be two integers. Then,%
+\[
+\sum_{\substack{p\text{ is a path}\\\text{from }\left(  a,1\right)  \text{ to
+}\left(  c,N\right)  }}w\left(  p\right)  =h_{c-a}.
+\]
+
+\end{statement}
+
+See Exercise \ref{exe.sf.jt-h} \textbf{(a)} for a proof of Observation 1.
+
+Next, for each path tuple $\mathbf{p}=\left(  p_{1},p_{2},\ldots,p_{k}\right)
+$, let us define the \emph{weight} $w\left(  \mathbf{p}\right)  $ of
+$\mathbf{p}$ by%
+\[
+w\left(  \mathbf{p}\right)  :=w\left(  p_{1}\right)  w\left(  p_{2}\right)
+\cdots w\left(  p_{k}\right)  .
+\]
+
+
+Set $k:=M$ (for the sake of convenience). Thus, $\lambda=\left(  \lambda
+_{1},\lambda_{2},\ldots,\lambda_{k}\right)  $ and $\mu=\left(  \mu_{1},\mu
+_{2},\ldots,\mu_{k}\right)  $.
+
+Define two $k$-vertices $\mathbf{A}=\left(  A_{1},A_{2},\ldots,A_{k}\right)  $
+and $\mathbf{B}=\left(  B_{1},B_{2},\ldots,B_{k}\right)  $ by setting%
+\[
+A_{i}:=\left(  \mu_{i}-i,\ 1\right)  \ \ \ \ \ \ \ \ \ \ \text{and}%
+\ \ \ \ \ \ \ \ \ \ B_{i}:=\left(  \lambda_{i}-i,\ N\right)
+\ \ \ \ \ \ \ \ \ \ \text{for each }i\in\left[  k\right]  .
+\]
+It is easy to see that the conditions (\ref{eq.cor.lgv.kpaths.wt-np.xA}),
+(\ref{eq.cor.lgv.kpaths.wt-np.yA}), (\ref{eq.cor.lgv.kpaths.wt-np.xB}) and
+(\ref{eq.cor.lgv.kpaths.wt-np.yB}) of Corollary \ref{cor.lgv.kpaths.wt-np} are
+satisfied. Hence, (\ref{eq.cor.lgv.kpaths.wt-np.claim}) yields%
+\begin{align}
+&  \det\left(  \left(  \sum_{p:A_{i}\rightarrow B_{j}}w\left(  p\right)
+\right)  _{1\leq i\leq k,\ 1\leq j\leq k}\right) \nonumber\\
+&  =\sum_{\substack{\mathbf{p}\text{ is a nipat}\\\text{from }\mathbf{A}\text{
+to }\mathbf{B}}}w\left(  \mathbf{p}\right)  , \label{pf.thm.sf.jt-h.5}%
+\end{align}
+where \textquotedblleft$p:A_{i}\rightarrow B_{j}$\textquotedblright\ means
+\textquotedblleft$p$ is a path from $A_{i}$ to $B_{j}$\textquotedblright. The
+left hand side of this equality is%
+\begin{align}
+&  \det\left(  \left(  \sum_{p:A_{i}\rightarrow B_{j}}w\left(  p\right)
+\right)  _{1\leq i\leq k,\ 1\leq j\leq k}\right) \nonumber\\
+&  =\det\left(  \left(  h_{\left(  \lambda_{j}-j\right)  -\left(  \mu
+_{i}-i\right)  }\right)  _{1\leq i\leq k,\ 1\leq j\leq k}\right)
+\ \ \ \ \ \ \ \ \ \ \left(  \text{by Observation 1}\right) \nonumber\\
+&  =\det\left(  \left(  h_{\left(  \lambda_{i}-i\right)  -\left(  \mu
+_{j}-j\right)  }\right)  _{1\leq i\leq k,\ 1\leq j\leq k}\right)
+\ \ \ \ \ \ \ \ \ \ \left(  \text{by Theorem \ref{thm.det.transp}}\right)
+\nonumber\\
+&  =\det\left(  \left(  h_{\lambda_{i}-\mu_{j}-i+j}\right)  _{1\leq i\leq
+k,\ 1\leq j\leq k}\right) \nonumber\\
+&  =\det\left(  \left(  h_{\lambda_{i}-\mu_{j}-i+j}\right)  _{1\leq i\leq
+M,\ 1\leq j\leq M}\right)  \label{pf.thm.sf.jt-h.6}%
+\end{align}
+(since $k=M$). We shall now analyze the right hand side of
+(\ref{pf.thm.sf.jt-h.5}). To that purpose, we need to understand the nipats
+from $\mathbf{A}$ to $\mathbf{B}$.
+
+We define the \emph{height} of an east-step $\left(  i,j\right)
+\rightarrow\left(  i+1,j\right)  $ to be the number $j$. We define the
+\emph{height sequence} of a path $p$ to be the sequence of the heights of the
+east-steps of $p$ (going from the starting point to the ending point of $p$).
+For example, the path shown in Example \ref{exa.lgv.lattice.path.53} has
+height sequence $\left(  1,1,1,2,3\right)  $. It is clear that the height
+sequence of a path is always weakly increasing.
+
+If $\mathbf{p}=\left(  p_{1},p_{2},\ldots,p_{k}\right)  $ is a nipat from
+$\mathbf{A}$ to $\mathbf{B}$, we let $T\left(  \mathbf{p}\right)  $ be the
+tableau of shape $Y\left(  \lambda/\mu\right)  $ such that the entries in the
+$i$-th row of $T\left(  \mathbf{p}\right)  $ (for each $i\in\left[  k\right]
+$) are the entries of the height sequence of $p_{i}$.
+
+\begin{example}
+Let $N=6$ and $M=3$ (so that $k=M=3$) and $\lambda=\left(  4,2,1\right)  $ and
+$\mu=\left(  1,0,0\right)  $. Here is a nipat $\mathbf{p}$ from $\mathbf{A}$
+to $\mathbf{B}$, and the corresponding tableau $T\left(  \mathbf{p}\right)  $:%
+\[
+\mathbf{p}=%
+%TCIMACRO{\TeXButton{tikz nipat}{\raisebox{-6.5pc}{
+%% [tikz figure removed]
+%}}}%
+%BeginExpansion
+\raisebox{-6.5pc}{
+% [tikz figure removed]
+}%
+%EndExpansion
+\ \ \Longrightarrow\ \ T\left(  \mathbf{p}\right)
+=\raisebox{1.4pc}{\ytableaushort{\none 125,25,4}}\ \ .
+\]
+
+\end{example}
+
+We could have defined the tableau $T\left(  \mathbf{p}\right)  $ just as
+easily for any path tuple $\mathbf{p}$ from $\mathbf{A}$ to $\mathbf{B}$ (not
+just for a nipat); however, the case of a nipat is particularly useful,
+because it turns out that the tableau $T\left(  \mathbf{p}\right)  $ is
+semistandard if and only if $\mathbf{p}$ is a nipat. Moreover, the following
+stronger statement holds:
+
+\begin{statement}
+\textit{Observation 2:} There is a bijection%
+\begin{align*}
+\left\{  \text{nipats from }\mathbf{A}\text{ to }\mathbf{B}\right\}   &
+\rightarrow\operatorname*{SSYT}\left(  \lambda/\mu\right)  ,\\
+\mathbf{p}  &  \mapsto T\left(  \mathbf{p}\right)  .
+\end{align*}
+
+\end{statement}
+
+See Exercise \ref{exe.sf.jt-h} \textbf{(b)} for a proof of Observation 2.
+
+It is easy to see that $w\left(  \mathbf{p}\right)  =x_{T\left(
+\mathbf{p}\right)  }$ for any nipat $\mathbf{p}$ from $\mathbf{A}$ to
+$\mathbf{B}$. Hence,%
+\begin{align*}
+\sum_{\substack{\mathbf{p}\text{ is a nipat}\\\text{from }\mathbf{A}\text{ to
+}\mathbf{B}}}\underbrace{w\left(  \mathbf{p}\right)  }_{=x_{T\left(
+\mathbf{p}\right)  }}  &  =\sum_{\substack{\mathbf{p}\text{ is a
+nipat}\\\text{from }\mathbf{A}\text{ to }\mathbf{B}}}x_{T\left(
+\mathbf{p}\right)  }=\sum_{T\in\operatorname*{SSYT}\left(  \lambda/\mu\right)
+}x_{T}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have substituted }T\text{ for }T\left(  \mathbf{p}\right) \\
+\text{in the sum, since the map in}\\
+\text{Observation 2 is a bijection}%
+\end{array}
+\right) \\
+&  =s_{\lambda/\mu}\ \ \ \ \ \ \ \ \ \ \left(  \text{since }s_{\lambda/\mu
+}\text{ is defined to be }\sum_{T\in\operatorname*{SSYT}\left(  \lambda
+/\mu\right)  }x_{T}\right)  .
+\end{align*}
+Thus,%
+\begin{align*}
+s_{\lambda/\mu}  &  =\sum_{\substack{\mathbf{p}\text{ is a nipat}\\\text{from
+}\mathbf{A}\text{ to }\mathbf{B}}}w\left(  \mathbf{p}\right)  =\det\left(
+\left(  \sum_{p:A_{i}\rightarrow B_{j}}w\left(  p\right)  \right)  _{1\leq
+i\leq k,\ 1\leq j\leq k}\right)  \ \ \ \ \ \ \ \ \ \ \left(  \text{by
+(\ref{pf.thm.sf.jt-h.5})}\right) \\
+&  =\det\left(  \left(  h_{\lambda_{i}-\mu_{j}-i+j}\right)  _{1\leq i\leq
+M,\ 1\leq j\leq M}\right)  \ \ \ \ \ \ \ \ \ \ \left(  \text{by
+(\ref{pf.thm.sf.jt-h.6})}\right)  .
+\end{align*}
+This proves Theorem \ref{thm.sf.jt-h}.
+\end{proof}
+
+Our above proof of Theorem \ref{thm.sf.jt-h} is essentially taken from
+\cite[First proof of Theorem 7.16.1]{Stanley-EC2}; other proofs can be found
+in \cite[Exercise 2.7.13]{GriRei} (see also \cite[paragraph after Theorem
+2.4.6]{GriRei} for several references).
+
+The \emph{second Jacobi--Trudi formula} involves elementary symmetric
+polynomials $e_{n}$ (instead of $h_{n}$) and transpose partitions (as in
+Exercise \ref{exe.pars.transpose}):
+
+\begin{theorem}
+[Second Jacobi--Trudi formula]\label{thm.sf.jt-e}Let $\lambda$ and $\mu$ be
+two partitions. Let $\lambda^{t}$ and $\mu^{t}$ be the transposes of $\lambda$
+and $\mu$. Let $M\in\mathbb{N}$ be such that both $\lambda^{t}$ and $\mu^{t}$
+have length $\leq M$. We extend the partitions $\lambda^{t}$ and $\mu^{t}$ to
+$M$-tuples (by inserting zeroes at the end). Write these $M$-tuples
+$\lambda^{t}$ and $\mu^{t}$ as $\lambda^{t}=\left(  \lambda_{1}^{t}%
+,\lambda_{2}^{t},\ldots,\lambda_{M}^{t}\right)  $ and $\mu=\left(  \mu_{1}%
+^{t},\mu_{2}^{t},\ldots,\mu_{M}^{t}\right)  $. Then,%
+\[
+s_{\lambda/\mu}=\det\left(  \left(  e_{\lambda_{i}^{t}-\mu_{j}^{t}%
+-i+j}\right)  _{1\leq i\leq M,\ 1\leq j\leq M}\right)  .
+\]
+
+\end{theorem}
+
+\begin{example}
+If $M=3$, then Theorem \ref{thm.sf.jt-e} says that%
+\[
+s_{\lambda/\mu}=\det\left(  \left(  e_{\lambda_{i}^{t}-\mu_{j}^{t}%
+-i+j}\right)  _{1\leq i\leq M,\ 1\leq j\leq M}\right)  =\det\left(
+\begin{array}
+[c]{ccc}%
+e_{\lambda_{1}^{t}-\mu_{1}^{t}} & e_{\lambda_{1}^{t}-\mu_{2}^{t}+1} &
+e_{\lambda_{1}^{t}-\mu_{3}^{t}+2}\\
+e_{\lambda_{2}^{t}-\mu_{1}^{t}-1} & e_{\lambda_{2}^{t}-\mu_{2}^{t}} &
+e_{\lambda_{2}^{t}-\mu_{3}^{t}+1}\\
+e_{\lambda_{3}^{t}-\mu_{1}^{t}-2} & e_{\lambda_{3}^{t}-\mu_{2}^{t}-1} &
+e_{\lambda_{3}^{t}-\mu_{3}^{t}}%
+\end{array}
+\right)  .
+\]
+For instance, if $\lambda=\left(  3,2,2\right)  $ and $\mu=\left(
+1,1,0\right)  $, then $\lambda^{t}=\left(  3,3,1\right)  $ and $\mu
+^{t}=\left(  2\right)  =\left(  2,0,0\right)  $ (here, we have extended the
+partition $\mu^{t}$ to an $M$-tuple by inserting zeroes at the end), so that
+this becomes
+\begin{align*}
+s_{\lambda/\mu}  &  =\det\left(
+\begin{array}
+[c]{ccc}%
+e_{3-2} & e_{3-0+1} & e_{3-0+2}\\
+e_{3-2-1} & e_{3-0} & e_{3-0+1}\\
+e_{1-2-2} & e_{1-0-1} & e_{1-0}%
+\end{array}
+\right)  =\det\left(
+\begin{array}
+[c]{ccc}%
+e_{1} & e_{4} & e_{5}\\
+e_{0} & e_{3} & e_{4}\\
+e_{-3} & e_{0} & e_{1}%
+\end{array}
+\right) \\
+&  =\det\left(
+\begin{array}
+[c]{ccc}%
+e_{1} & e_{4} & e_{5}\\
+1 & e_{3} & e_{4}\\
+0 & 1 & e_{1}%
+\end{array}
+\right)  \ \ \ \ \ \ \ \ \ \ \left(  \text{since }e_{0}=1\text{ and }%
+e_{-3}=0\right)  .
+\end{align*}
+
+\end{example}
+
+\begin{proof}
+[Proof of Theorem \ref{thm.sf.jt-e}.]See Exercise \ref{exe.sf.jt-e}.
+\end{proof}
+
+\newpage
+
+\appendix
+
+
+\section{\label{chap.hw}Homework exercises}
+
+What follows is a collection of problems (of varying difficulty) that are
+meant to illuminate, expand upon and otherwise complement the above text.
+
+The numbers in the squares (like \fbox{3}) are the experience points you gain
+for solving the problems. They are a mix of difficulty rating and relevance
+score: The harder or more important the problem, the larger is the number in
+the square. I believe a \fbox{5} represents a good graduate-level homework
+problem that requires thinking and work. A \fbox{3} usually requires some
+thinking \textbf{or} work. A \fbox{1} is a warm-up question. A \fbox{7} should
+be somewhat too hard for regular homework. Anything above \fbox{10} is not
+really meant as homework, but I'd be excited to hear your ideas. Multi-part
+exercises sometimes have points split between the parts -- i.e., if parts
+\textbf{(b)} and \textbf{(c)} of an exercise are solved using the same idea,
+then they may both be assigned \fbox{3} points even if each for itself would
+be a \fbox{5}.
+
+In solving an exercise, you can freely use (without proof) the claims of all
+exercises above it.
+
+Your goal (for an A grade in the 2024 iteration of Math 531) is to gain at
+least 20 experience points from each of the Chapters 3--7 (counting Chapter 2
+as part of Chapter 3).

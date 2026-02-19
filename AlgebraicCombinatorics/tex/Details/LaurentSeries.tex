@@ -1,0 +1,245 @@
+\subsection{\label{sec.details.gf.laure}Laurent power series}
+
+\begin{fineprint}
+Next, we shall prove some claims made in Section \ref{sec.gf.laure}. We shall
+not go into too many details here, since the proofs are mostly analogous to
+the corresponding proofs in the theory of \textquotedblleft
+usual\textquotedblright\ FPSs (with nonnegative exponents), which we have
+already seen. However, every once in a while, some minor change is required;
+we will mainly focus on these changes.
+
+\begin{proof}
+[Proof of Theorem \ref{thm.fps.laure.laupol-ring} (sketched).]First, we need
+to prove that the set $K\left[  x^{\pm}\right]  $ is closed under addition,
+under scaling, and under the multiplication introduced in Definition
+\ref{def.fps.laure.laupol}. The proof of this is analogous to Theorem
+\ref{thm.fps.pol.ring} (with the obvious changes, such as replacing the
+$\sum_{i=0}^{n}$ sums by $\sum_{i\in\mathbb{Z}}$ sums).
+
+Next, we need to prove that the multiplication on $K\left[  x^{\pm}\right]  $
+is associative, commutative, distributive and $K$-bilinear. This is analogous
+to the corresponding parts of Theorem \ref{thm.fps.ring}. Likewise, we can
+show that the element $\left(  \delta_{i,0}\right)  _{i\in\mathbb{Z}}$ (which
+is our analogue of the FPS $\underline{1}$) is a neutral element for this
+multiplication. Hence, $K\left[  x^{\pm}\right]  $ is a commutative
+$K$-algebra with unity $\left(  \delta_{i,0}\right)  _{i\in\mathbb{Z}}$.
+
+It remains to show that the element $x$ is invertible in this $K$-algebra. But
+this is easy: Set $\overline{x}:=\left(  \delta_{i,-1}\right)  _{i\in
+\mathbb{Z}}$, and show (by direct calculation) that $x\overline{x}%
+=\overline{x}x=1$. (For example, let us prove that $x\overline{x}=1$. Indeed,
+from $x=\left(  \delta_{i,1}\right)  _{i\in\mathbb{Z}}$ and $\overline
+{x}=\left(  \delta_{i,-1}\right)  _{i\in\mathbb{Z}}$, we obtain%
+\[
+x\overline{x}=\left(  \delta_{i,1}\right)  _{i\in\mathbb{Z}}\cdot\left(
+\delta_{i,-1}\right)  _{i\in\mathbb{Z}}=\left(  c_{n}\right)  _{n\in
+\mathbb{Z}},\ \ \ \ \ \ \ \ \ \ \text{where}\ \ \ \ \ \ \ \ \ \ c_{n}%
+=\sum_{i\in\mathbb{Z}}\delta_{i,1}\delta_{n-i,-1}%
+\]
+(by Definition \ref{def.fps.laure.laupol}). However, for each $n\in\mathbb{Z}%
+$, we have%
+\begin{align*}
+c_{n}  &  =\sum_{i\in\mathbb{Z}}\delta_{i,1}\delta_{n-i,-1}=\underbrace{\delta
+_{1,1}}_{=1}\delta_{n-1,-1}+\sum_{\substack{i\in\mathbb{Z};\\i\neq
+1}}\underbrace{\delta_{i,1}}_{\substack{=0\\\text{(since }i\neq1\text{)}%
+}}\delta_{n-i,-1}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have split off the addend for }i=1\\
+\text{from the sum}%
+\end{array}
+\right) \\
+&  =\delta_{n-1,-1}+\underbrace{\sum_{\substack{i\in\mathbb{Z};\\i\neq
+1}}0\delta_{n-i,-1}}_{=0}=\delta_{n-1,-1}=\delta_{n,0}%
+\ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{since }n-1=-1\text{ holds}\\
+\text{if and only if }n=0
+\end{array}
+\right)  .
+\end{align*}
+Thus, $\left(  c_{n}\right)  _{n\in\mathbb{Z}}=\left(  \delta_{n,0}\right)
+_{n\in\mathbb{Z}}=1$, so that $x\overline{x}=\left(  c_{n}\right)
+_{n\in\mathbb{Z}}=1$, as we wanted to prove. The proof of $\overline{x}x=1$ is
+analogous, or follows from $x\overline{x}=1$ by commutativity.)
+\end{proof}
+\end{fineprint}
+
+\begin{fineprint}
+Proposition \ref{prop.fps.laure.a=sumaixi} is an analogue of Corollary
+\ref{cor.fps.sumakxk}. Recall that we proved the latter corollary using Lemma
+\ref{lem.fps.xa} and Proposition \ref{prop.fps.xk}. Thus, in order to prove
+the former proposition, we need to find analogues of Lemma \ref{lem.fps.xa}
+and Proposition \ref{prop.fps.xk} for Laurent polynomials.
+
+The analogue of Lemma \ref{lem.fps.xa} for Laurent polynomials is the following:
+
+\begin{lemma}
+\label{lem.fps.laure.xa}Let $\mathbf{a}=\left(  a_{n}\right)  _{n\in
+\mathbb{Z}}$ be a Laurent polynomial in $K\left[  x^{\pm}\right]  $. Then,
+\[
+x\cdot\mathbf{a}=\left(  a_{n-1}\right)  _{n\in\mathbb{Z}}%
+\ \ \ \ \ \ \ \ \ \ \text{and}\ \ \ \ \ \ \ \ \ \ x^{-1}\cdot\mathbf{a}%
+=\left(  a_{n+1}\right)  _{n\in\mathbb{Z}}.
+\]
+
+\end{lemma}
+
+\begin{proof}
+[Proof of Lemma \ref{lem.fps.laure.xa} (sketched).]From $x=\left(
+\delta_{i,1}\right)  _{i\in\mathbb{Z}}$ and $\mathbf{a}=\left(  a_{n}\right)
+_{n\in\mathbb{Z}}=\left(  a_{i}\right)  _{i\in\mathbb{Z}}$, we obtain%
+\[
+x\cdot\mathbf{a}=\left(  \delta_{i,1}\right)  _{i\in\mathbb{Z}}\cdot\left(
+a_{i}\right)  _{i\in\mathbb{Z}}=\left(  c_{n}\right)  _{n\in\mathbb{Z}%
+},\ \ \ \ \ \ \ \ \ \ \text{where}\ \ \ \ \ \ \ \ \ \ c_{n}=\sum
+_{i\in\mathbb{Z}}\delta_{i,1}a_{n-i}%
+\]
+(by Definition \ref{def.fps.laure.laupol}). However, for each $n\in\mathbb{Z}%
+$, we have%
+\begin{align*}
+c_{n}  &  =\sum_{i\in\mathbb{Z}}\delta_{i,1}a_{n-i}=\underbrace{\delta_{1,1}%
+}_{=1}a_{n-1}+\sum_{\substack{i\in\mathbb{Z};\\i\neq1}}\underbrace{\delta
+_{i,1}}_{\substack{=0\\\text{(since }i\neq1\text{)}}}a_{n-i}%
+\ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have split off the}\\
+\text{addend for }i=1\\
+\text{from the sum}%
+\end{array}
+\right) \\
+&  =a_{n-1}+\underbrace{\sum_{\substack{i\in\mathbb{Z};\\i\neq1}}0a_{n-i}%
+}_{=0}=a_{n-1}.
+\end{align*}
+Thus, $\left(  c_{n}\right)  _{n\in\mathbb{Z}}=\left(  a_{n-1}\right)
+_{n\in\mathbb{Z}}$, so that $x\cdot\mathbf{a}=\left(  c_{n}\right)
+_{n\in\mathbb{Z}}=\left(  a_{n-1}\right)  _{n\in\mathbb{Z}}$. Thus we have
+proved%
+\begin{equation}
+x\cdot\mathbf{a}=\left(  a_{n-1}\right)  _{n\in\mathbb{Z}}.
+\label{pf.lem.fps.laure.xa.1}%
+\end{equation}
+
+
+It remains to prove that $x^{-1}\cdot\mathbf{a}=\left(  a_{n+1}\right)
+_{n\in\mathbb{Z}}$. Here we use a trick: Let $\mathbf{b}=\left(
+a_{n+1}\right)  _{n\in\mathbb{Z}}$; this is again a Laurent polynomial in
+$K\left[  x^{\pm}\right]  $. Hence, (\ref{pf.lem.fps.laure.xa.1}) (applied to
+$\mathbf{b}$ and $a_{n+1}$ instead of $\mathbf{a}$ and $a_{n}$) yields%
+\[
+x\cdot\mathbf{b}=\left(  a_{\left(  n-1\right)  +1}\right)  _{n\in\mathbb{Z}%
+}=\left(  a_{n}\right)  _{n\in\mathbb{Z}}%
+\]
+(since $a_{\left(  n-1\right)  +1}=a_{n}$ for each $n\in\mathbb{Z}$). In other
+words, $x\cdot\mathbf{b}=\mathbf{a}$ (since $\mathbf{a}=\left(  a_{n}\right)
+_{n\in\mathbb{Z}}$). Dividing this equality by the invertible element $x$, we
+find $\mathbf{b}=x^{-1}\cdot\mathbf{a}$, so that $x^{-1}\cdot\mathbf{a}%
+=\mathbf{b}=\left(  a_{n+1}\right)  _{n\in\mathbb{Z}}$. This completes the
+proof of Lemma \ref{lem.fps.laure.xa}.
+\end{proof}
+
+The analogue of Proposition \ref{prop.fps.xk} for Laurent polynomials is the following:
+
+\begin{proposition}
+\label{prop.fps.laure.xk}We have%
+\[
+x^{k}=\left(  \delta_{i,k}\right)  _{i\in\mathbb{Z}}%
+\ \ \ \ \ \ \ \ \ \ \text{for each }k\in\mathbb{Z}.
+\]
+
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.fps.laure.xk} (sketched).]This is similar to
+Proposition \ref{prop.fps.xk}, which we proved by induction on $k$. Here, too,
+we can use induction, but (since $k$ can be negative) we have to use
+\textquotedblleft two-sided induction\textquotedblright, which contains both
+an induction step from $k$ to $k+1$ and an induction step from $k$ to $k-1$.
+(See \cite[\S 2.15]{detnotes} for a detailed explanation of two-sided induction.)
+
+Both induction steps rely on Lemma \ref{lem.fps.laure.xa}. (Specifically, the
+step from $k$ to $k+1$ uses the $x\cdot\mathbf{a}=\left(  a_{n-1}\right)
+_{n\in\mathbb{Z}}$ part of Lemma \ref{lem.fps.laure.xa}, whereas the step from
+$k$ to $k-1$ uses the $x^{-1}\cdot\mathbf{a}=\left(  a_{n+1}\right)
+_{n\in\mathbb{Z}}$ part.)
+\end{proof}
+
+Now, Proposition \ref{prop.fps.laure.a=sumaixi} is easy:
+
+\begin{proof}
+[Proof of Proposition \ref{prop.fps.laure.a=sumaixi} (sketched).]Analogous to
+Corollary \ref{cor.fps.sumakxk}, but using Proposition \ref{prop.fps.laure.xk}
+instead of Proposition \ref{prop.fps.xk}.
+\end{proof}
+
+Next, let us prove Theorem \ref{thm.fps.laure.lauser-ring}:
+
+\begin{proof}
+[Proof of Theorem \ref{thm.fps.laure.lauser-ring} (sketched).]This is
+analogous to the proof of Theorem \ref{thm.fps.laure.laupol-ring}. The only
+(slightly) different piece is the proof that the set $K\left(  \left(
+x\right)  \right)  $ is closed under multiplication. So let us prove this:
+
+Let $\left(  a_{n}\right)  _{n\in\mathbb{Z}}$ and $\left(  b_{n}\right)
+_{n\in\mathbb{Z}}$ be two elements of $K\left(  \left(  x\right)  \right)  $.
+We must prove that their product $\left(  a_{n}\right)  _{n\in\mathbb{Z}}%
+\cdot\left(  b_{n}\right)  _{n\in\mathbb{Z}}$ belongs to $K\left(  \left(
+x\right)  \right)  $ as well. This product is defined by%
+\[
+\left(  a_{n}\right)  _{n\in\mathbb{Z}}\cdot\left(  b_{n}\right)
+_{n\in\mathbb{Z}}=\left(  c_{n}\right)  _{n\in\mathbb{Z}}%
+,\ \ \ \ \ \ \ \ \ \ \text{where}\ \ \ \ \ \ \ \ \ \ c_{n}=\sum_{i\in
+\mathbb{Z}}a_{i}b_{n-i}.
+\]
+Thus, we need to prove that $\left(  c_{n}\right)  _{n\in\mathbb{Z}}$ belongs
+to $K\left(  \left(  x\right)  \right)  $. In other words, we must prove that
+the sequence $\left(  c_{-1},c_{-2},c_{-3},\ldots\right)  $ is essentially
+finite (by the definition of $K\left(  \left(  x\right)  \right)  $).
+
+So let us prove this now. We know that the sequence $\left(  a_{-1}%
+,a_{-2},a_{-3},\ldots\right)  $ is essentially finite (since $\left(
+a_{n}\right)  _{n\in\mathbb{Z}}\in K\left(  \left(  x\right)  \right)  $).
+Thus, there exists some negative integer $p$ such that%
+\begin{equation}
+\text{all }i\leq p\text{ satisfy }a_{i}=0.
+\label{pf.thm.fps.laure.lauser-ring.3}%
+\end{equation}
+Similarly, there exists some negative integer $q$ such that%
+\begin{equation}
+\text{all }j\leq q\text{ satisfy }b_{j}=0
+\label{pf.thm.fps.laure.lauser-ring.4}%
+\end{equation}
+(since $\left(  b_{n}\right)  _{n\in\mathbb{Z}}\in K\left(  \left(  x\right)
+\right)  $). Consider these $p$ and $q$. Now, set $r:=p+q$. We shall show that
+all negative integers $n\leq r$ satisfy $c_{n}=0$.
+
+Indeed, let $n\leq r$ be any integer. Then, each integer $i\geq p$ satisfies
+$\underbrace{n}_{\leq r=p+q}-\underbrace{i}_{\geq p}\leq p+q-p=q$ and
+therefore
+\begin{equation}
+b_{n-i}=0 \label{pf.thm.fps.laure.lauser-ring.4b}%
+\end{equation}
+(by (\ref{pf.thm.fps.laure.lauser-ring.4}), applied to $j=n-i$). Now,%
+\[
+c_{n}=\sum_{i\in\mathbb{Z}}a_{i}b_{n-i}=\sum_{\substack{i\in\mathbb{Z}%
+;\\i<p}}\underbrace{a_{i}}_{\substack{=0\\\text{(by
+(\ref{pf.thm.fps.laure.lauser-ring.3}))}}}b_{n-i}+\sum_{\substack{i\in
+\mathbb{Z};\\i\geq p}}a_{i}\underbrace{b_{n-i}}_{\substack{=0\\\text{(by
+(\ref{pf.thm.fps.laure.lauser-ring.4b}))}}}=\underbrace{\sum_{\substack{i\in
+\mathbb{Z};\\i<p}}0b_{n-i}}_{=0}+\underbrace{\sum_{\substack{i\in
+\mathbb{Z};\\i\geq p}}a_{i}0}_{=0}=0.
+\]
+
+
+Forget that we fixed $n$. We thus have shown that all $n\leq r$ satisfy
+$c_{n}=0$. Hence, the sequence $\left(  c_{-1},c_{-2},c_{-3},\ldots\right)  $
+is essentially finite. As explained, this completes our proof of the claim
+that the set $K\left(  \left(  x\right)  \right)  $ is closed under multiplication.
+
+The rest of Theorem \ref{thm.fps.laure.lauser-ring} is proved just like
+Theorem \ref{thm.fps.laure.laupol-ring}.
+\end{proof}
+\end{fineprint}

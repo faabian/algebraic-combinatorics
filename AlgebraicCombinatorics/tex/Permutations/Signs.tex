@@ -1,0 +1,271 @@
+\subsection{\label{sec.perm.sign}Signs of permutations}
+
+The notion of the \emph{sign} (aka \emph{signature}) of a permutation is a
+simple consequence of that of its length; moreover, it is rather well-known,
+due to its role in the definition of a determinant. Thus we will survey its
+properties quickly and without proofs. More can be found in \cite[\S 5.3 and
+\S 5.6]{detnotes} and \cite[Appendix B]{Strick13}.
+
+\begin{definition}
+\label{def.perm.sign}Let $n\in\mathbb{N}$. The \emph{sign} of a permutation
+$\sigma\in S_{n}$ is defined to be the integer $\left(  -1\right)
+^{\ell\left(  \sigma\right)  }$.
+
+It is denoted by $\left(  -1\right)  ^{\sigma}$ or $\operatorname*{sgn}\left(
+\sigma\right)  $ or $\operatorname*{sign}\left(  \sigma\right)  $ or
+$\varepsilon\left(  \sigma\right)  $. It is also known as the \emph{signature}
+of $\sigma$.
+\end{definition}
+
+\begin{proposition}
+\label{prop.perm.sign.props}Let $n\in\mathbb{N}$. \medskip
+
+\textbf{(a)} The sign of the permutation $\operatorname*{id}\in S_{n}$ is
+$\left(  -1\right)  ^{\operatorname*{id}}=1$. \medskip
+
+\textbf{(b)} For any two distinct elements $i$ and $j$ of $\left[  n\right]
+$, the transposition $t_{i,j}\in S_{n}$ has sign $\left(  -1\right)
+^{t_{i,j}}=-1$. \medskip
+
+\textbf{(c)} For any positive integer $k$ and any distinct elements
+$i_{1},i_{2},\ldots,i_{k}\in\left[  n\right]  $, the $k$-cycle
+$\operatorname*{cyc}\nolimits_{i_{1},i_{2},\ldots,i_{k}}$ has sign $\left(
+-1\right)  ^{\operatorname*{cyc}\nolimits_{i_{1},i_{2},\ldots,i_{k}}}=\left(
+-1\right)  ^{k-1}$. \medskip
+
+\textbf{(d)} We have $\left(  -1\right)  ^{\sigma\tau}=\left(  -1\right)
+^{\sigma}\cdot\left(  -1\right)  ^{\tau}$ for any $\sigma\in S_{n}$ and
+$\tau\in S_{n}$. \medskip
+
+\textbf{(e)} We have $\left(  -1\right)  ^{\sigma_{1}\sigma_{2}\cdots
+\sigma_{p}}=\left(  -1\right)  ^{\sigma_{1}}\left(  -1\right)  ^{\sigma_{2}%
+}\cdots\left(  -1\right)  ^{\sigma_{p}}$ for any $\sigma_{1},\sigma_{2}%
+,\ldots,\sigma_{p}\in S_{n}$. \medskip
+
+\textbf{(f)} We have $\left(  -1\right)  ^{\sigma^{-1}}=\left(  -1\right)
+^{\sigma}$ for any $\sigma\in S_{n}$. (The left hand side here has to be
+understood as $\left(  -1\right)  ^{\left(  \sigma^{-1}\right)  }$.) \medskip
+
+\textbf{(g)} We have%
+\[
+\left(  -1\right)  ^{\sigma}=\prod_{1\leq i<j\leq n}\dfrac{\sigma\left(
+i\right)  -\sigma\left(  j\right)  }{i-j}\ \ \ \ \ \ \ \ \ \ \text{for each
+}\sigma\in S_{n}.
+\]
+(The product sign \textquotedblleft$\prod_{1\leq i<j\leq n}$\textquotedblright%
+\ means a product over all pairs $\left(  i,j\right)  $ of integers satisfying
+$1\leq i<j\leq n$. There are $\dbinom{n}{2}$ such pairs.) \medskip
+
+\textbf{(h)} If $x_{1},x_{2},\ldots,x_{n}$ are any elements of some
+commutative ring, and if $\sigma\in S_{n}$, then%
+\[
+\prod_{1\leq i<j\leq n}\left(  x_{\sigma\left(  i\right)  }-x_{\sigma\left(
+j\right)  }\right)  =\left(  -1\right)  ^{\sigma}\prod_{1\leq i<j\leq
+n}\left(  x_{i}-x_{j}\right)  .
+\]
+
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.perm.sign.props} (sketched).]Most of this
+follows easily from what we have proved above, but here are references to
+complete proofs: \medskip
+
+\textbf{(a)} This is \cite[Proposition 5.15 \textbf{(a)}]{detnotes}, and
+follows easily from $\ell\left(  \operatorname*{id}\right)  =0$. \medskip
+
+\textbf{(d)} This is \cite[Proposition 5.15 \textbf{(c)}]{detnotes}, and
+follows easily from Corollary \ref{cor.perm.red.sigtau} \textbf{(a)}. A
+different proof appears in \cite[Proposition B.13]{Strick13}. \medskip
+
+\textbf{(b)} This is \cite[Exercise 5.10 \textbf{(b)}]{detnotes}, and follows
+easily from Exercise \ref{exe.perm.len.cycles} \textbf{(a)}. \medskip
+
+\textbf{(c)} This is \cite[Exercise 5.17 \textbf{(d)}]{detnotes}, and follows
+easily from Exercise \ref{exe.perm.cycles.c-t} \textbf{(a)} and Exercise
+\ref{exe.perm.len.cycles} \textbf{(b)} using Proposition
+\ref{prop.perm.sign.props} \textbf{(d)}. \medskip
+
+\textbf{(e)} This is \cite[Proposition 5.28]{detnotes}, and follows by
+induction from Proposition \ref{prop.perm.sign.props} \textbf{(d)}. \medskip
+
+\textbf{(f)} This is \cite[Proposition 5.15 \textbf{(d)}]{detnotes}, and
+follows easily from Proposition \ref{prop.perm.sign.props} \textbf{(d)} or
+from Proposition \ref{prop.perm.len.inv}. \medskip
+
+\textbf{(h)} This is \cite[Exercise 5.13 \textbf{(a)}]{detnotes} (or, rather,
+the straightforward generalization of \cite[Exercise 5.13 \textbf{(a)}%
+]{detnotes} to arbitrary commutative rings). The proof is fairly easy: Each
+factor $x_{\sigma\left(  i\right)  }-x_{\sigma\left(  j\right)  }$ on the left
+hand side appears also on the right hand side, albeit with a different sign if
+$\left(  i,j\right)  $ is an inversion of $\sigma$. Thus, the products on both
+sides agree up to a sign, which is precisely $\left(  -1\right)  ^{\ell\left(
+\sigma\right)  }=\left(  -1\right)  ^{\sigma}$. \medskip
+
+\textbf{(g)} This is \cite[Exercise 5.13 \textbf{(c)}]{detnotes}, and is a
+particular case of Proposition \ref{prop.perm.sign.props} \textbf{(h)}.
+\end{proof}
+
+\begin{corollary}
+\label{cor.perm.sign.hom}Let $n\in\mathbb{N}$. The map%
+\begin{align*}
+S_{n}  &  \rightarrow\left\{  1,-1\right\}  ,\\
+\sigma &  \mapsto\left(  -1\right)  ^{\sigma}%
+\end{align*}
+is a group homomorphism from the symmetric group $S_{n}$ to the order-$2$
+group $\left\{  1,-1\right\}  $. (Of course, $\left\{  1,-1\right\}  $ is a
+group with respect to multiplication.)
+\end{corollary}
+
+This map is known as the \emph{sign homomorphism}.
+
+\begin{proof}
+[Proof of Corollary \ref{cor.perm.sign.hom} (sketched).]Proposition
+\ref{prop.perm.sign.props} \textbf{(d)} shows that this map respects
+multiplication (i.e., sends products to products). However, if a map between
+two groups respects multiplication, then it is automatically a group
+homomorphism. Thus, Corollary \ref{cor.perm.sign.hom} follows.
+\end{proof}
+
+\begin{definition}
+\label{def.perm.even-odd}Let $n\in\mathbb{N}$. A permutation $\sigma\in S_{n}$
+is said to be
+
+\begin{itemize}
+\item \emph{even} if $\left(  -1\right)  ^{\sigma}=1$ (that is, if
+$\ell\left(  \sigma\right)  $ is even);
+
+\item \emph{odd} if $\left(  -1\right)  ^{\sigma}=-1$ (that is, if
+$\ell\left(  \sigma\right)  $ is odd).
+\end{itemize}
+\end{definition}
+
+The sign and the \textquotedblleft parity\textquotedblright\ (i.e.,
+evenness/oddness) of a permutation have applications throughout mathematics
+(in the definition of determinants and the construction of exterior powers) as
+well as in the solution of \emph{permutation puzzles} (such as Rubik's cube
+and the $15$-game; see \cite[Chapters 7--8 and Theorem 20.2.1]{Mulhol21} for
+example). Even permutations are also crucial in group theory, as they form a group:
+
+\begin{corollary}
+\label{cor.perm.altgp}Let $n\in\mathbb{N}$. The set of all even permutations
+in $S_{n}$ is a normal subgroup of $S_{n}$.
+\end{corollary}
+
+This subgroup is known as the $n$\emph{-th alternating group} (commonly called
+$A_{n}$). If $n\geq5$, then this group is a simple group (meaning that it has
+no normal subgroups besides itself and the trivial group)\footnote{See, e.g.,
+\url{https://groupprops.subwiki.org/wiki/Alternating_groups_are_simple} or
+\cite[Theorem 10.3.4]{Goodman} for a proof.}, and this fact has been used by
+Galois to prove that the general $5$-th degree polynomial equation cannot be
+solved using radicals.
+
+\begin{proof}
+[Proof of Corollary \ref{cor.perm.altgp} (sketched).]The set of all even
+permutations in $S_{n}$ is the kernel of the group homomorphism $S_{n}%
+\rightarrow\left\{  1,-1\right\}  $ from Corollary \ref{cor.perm.sign.hom}.
+Thus, it is a normal subgroup of $S_{n}$ (since any kernel is a normal subgroup).
+\end{proof}
+
+\begin{corollary}
+\label{cor.perm.num-even}Let $n\geq2$. Then,%
+\[
+\left(  \text{\# of even permutations }\sigma\in S_{n}\right)  =\left(
+\text{\# of odd permutations }\sigma\in S_{n}\right)  =n!/2.
+\]
+
+\end{corollary}
+
+\begin{proof}
+[Proof of Corollary \ref{cor.perm.num-even} (sketched).]The symmetric group
+$S_{n}$ contains the simple transposition $s_{1}$ (since $n\geq2$). If
+$\sigma\in S_{n}$, then
+\begin{align*}
+\left(  -1\right)  ^{\sigma s_{1}}  &  =\left(  -1\right)  ^{\sigma}%
+\cdot\underbrace{\left(  -1\right)  ^{s_{1}}}_{\substack{=-1\\\text{(by
+Proposition \ref{prop.perm.sign.props} \textbf{(b)},}\\\text{since }%
+s_{1}=t_{1,2}\text{)}}}\ \ \ \ \ \ \ \ \ \ \left(  \text{by Proposition
+\ref{prop.perm.sign.props} \textbf{(d)}}\right) \\
+&  =-\left(  -1\right)  ^{\sigma}.
+\end{align*}
+Hence, a permutation $\sigma\in S_{n}$ is even if and only if the permutation
+$\sigma s_{1}$ is odd. Hence, the map%
+\begin{align*}
+\left\{  \text{even permutations }\sigma\in S_{n}\right\}   &  \rightarrow
+\left\{  \text{odd permutations }\sigma\in S_{n}\right\}  ,\\
+\sigma &  \mapsto\sigma s_{1}%
+\end{align*}
+is well-defined. This map is furthermore a bijection (since $S_{n}$ is a
+group). Thus, the bijection principle yields
+\[
+\left(  \text{\# of even permutations }\sigma\in S_{n}\right)  =\left(
+\text{\# of odd permutations }\sigma\in S_{n}\right)  .
+\]
+Both sides of this equality must furthermore equal to $n!/2$, since they add
+up to $\left\vert S_{n}\right\vert =n!$. This proves Corollary
+\ref{cor.perm.num-even}. (See \cite[Exercise 5.4]{detnotes} for details.)
+\end{proof}
+
+As a consequence of Corollary \ref{cor.perm.num-even}, we see that%
+\begin{equation}
+\sum_{\sigma\in S_{n}}\left(  -1\right)  ^{\sigma}%
+=0\ \ \ \ \ \ \ \ \ \ \text{for each }n\geq2.
+\label{eq.cor.perm.num-even.sum-sign}%
+\end{equation}
+(Indeed, the sum $\sum_{\sigma\in S_{n}}\left(  -1\right)  ^{\sigma}$ can be
+rewritten as
+\[
+\left(  \text{\# of even permutations }\sigma\in S_{n}\right)  -\left(
+\text{\# of odd permutations }\sigma\in S_{n}\right)  ,
+\]
+since the addends corresponding to the even permutations $\sigma\in S_{n}$ are
+equal to $1$ whereas the addends corresponding to the odd permutations
+$\sigma\in S_{n}$ are equal to $-1$.)
+
+We note that the sign can be defined not only for a permutation $\sigma\in
+S_{n}$, but also for any permutation of any finite set $X$ (even if the set
+$X$ has no chosen total order on it, as the set $\left[  n\right]  $ has).
+Here is one way to do so:
+
+\begin{proposition}
+\label{prop.perm.sign.X}Let $X$ be a finite set. We want to define the sign of
+any permutation of $X$.
+
+Fix a bijection $\phi:X\rightarrow\left[  n\right]  $ for some $n\in
+\mathbb{N}$. (Such a bijection always exists, since $X$ is finite.) For every
+permutation $\sigma$ of $X$, set%
+\[
+\left(  -1\right)  _{\phi}^{\sigma}:=\left(  -1\right)  ^{\phi\circ\sigma
+\circ\phi^{-1}}.
+\]
+Here, the right hand side is well-defined, since $\phi\circ\sigma\circ
+\phi^{-1}$ is a permutation of $\left[  n\right]  $. Now: \medskip
+
+\textbf{(a)} This number $\left(  -1\right)  _{\phi}^{\sigma}$ depends only on
+the permutation $\sigma$, but not on the bijection $\phi$. (In other words, if
+$\phi_{1}$ and $\phi_{2}$ are two bijections from $X$ to $\left[  n\right]  $,
+then $\left(  -1\right)  _{\phi_{1}}^{\sigma}=\left(  -1\right)  _{\phi_{2}%
+}^{\sigma}$.)
+
+Thus, we shall denote $\left(  -1\right)  _{\phi}^{\sigma}$ by $\left(
+-1\right)  ^{\sigma}$ from now on. We refer to this number $\left(  -1\right)
+^{\sigma}$ as the \emph{sign} of the permutation $\sigma\in S_{X}$. (When
+$X=\left[  n\right]  $, this notation does not clash with Definition
+\ref{def.perm.sign}, since we can pick the bijection $\phi=\operatorname*{id}$
+and obtain $\left(  -1\right)  _{\phi}^{\sigma}=\left(  -1\right)
+^{\operatorname*{id}\circ\sigma\circ\operatorname*{id}\nolimits^{-1}}=\left(
+-1\right)  ^{\sigma}$.) \medskip
+
+\textbf{(b)} The identity permutation $\operatorname*{id}:X\rightarrow X$
+satisfies $\left(  -1\right)  ^{\operatorname*{id}}=1$. \medskip
+
+\textbf{(c)} We have $\left(  -1\right)  ^{\sigma\tau}=\left(  -1\right)
+^{\sigma}\cdot\left(  -1\right)  ^{\tau}$ for any two permutations $\sigma$
+and $\tau$ of $X$.
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.perm.sign.X} (sketched).]This all follows
+quite easily from Proposition \ref{prop.perm.sign.props} \textbf{(d)}. See
+\cite[Exercise 5.12]{detnotes} for a detailed proof.
+\end{proof}

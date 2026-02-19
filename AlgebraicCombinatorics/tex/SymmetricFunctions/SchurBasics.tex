@@ -1,0 +1,767 @@
+\subsection{\label{sec.sf.schur}Schur polynomials}
+
+\subsubsection{Alternants}
+
+Here is one way to generate symmetric polynomials:
+
+\begin{example}
+Let $N=3$, and let us again abbreviate the indeterminates $x_{1},x_{2},x_{3}$
+as $x,y,z$. For simplicity, we assume that $K$ is a field. As we know (from
+the Vandermonde determinant -- specifically, Theorem \ref{thm.det.vander}
+\textbf{(a)}), we have%
+\[
+\det\left(
+\begin{array}
+[c]{ccc}%
+x^{2} & x & 1\\
+y^{2} & y & 1\\
+z^{2} & z & 1
+\end{array}
+\right)  =\prod_{i<j}\left(  x_{i}-x_{j}\right)  =\left(  x-y\right)  \left(
+x-z\right)  \left(  y-z\right)  .
+\]
+
+
+What about similar determinants, such as $\det\left(
+\begin{array}
+[c]{ccc}%
+x^{5} & x^{3} & 1\\
+y^{5} & y^{3} & 1\\
+z^{5} & z^{3} & 1
+\end{array}
+\right)  $ ? Just as in the proof of Lemma \ref{lem.det.vander.a.pol} (in
+which we computed the original Vandermonde determinant), we can argue that
+this is a polynomial in $x,y,z$ that is divisible by each of $x-y$ and $x-z$
+and $y-z$ (since it becomes $0$ if we set one of $x,y,z$ equal to another).
+Hence,%
+\[
+\det\left(
+\begin{array}
+[c]{ccc}%
+x^{5} & x^{3} & 1\\
+y^{5} & y^{3} & 1\\
+z^{5} & z^{3} & 1
+\end{array}
+\right)  =\left(  x-y\right)  \left(  x-z\right)  \left(  y-z\right)  \cdot q
+\]
+for some $q\in K\left[  x,y,z\right]  $. However, this time, degree
+considerations yield $\deg q=8-3=5$, so $q$ is no longer just a constant. What
+is $q$ ? Using computer algebra, we see that%
+\begin{align*}
+q  &  =\dfrac{\det\left(
+\begin{array}
+[c]{ccc}%
+x^{5} & x^{3} & 1\\
+y^{5} & y^{3} & 1\\
+z^{5} & z^{3} & 1
+\end{array}
+\right)  }{\left(  x-y\right)  \left(  x-z\right)  \left(  y-z\right)
+}=\dfrac{-x^{5}y^{3}+x^{5}z^{3}+x^{3}y^{5}-x^{3}z^{5}-y^{5}z^{3}+y^{3}z^{5}%
+}{-x^{2}y+x^{2}z+xy^{2}-xz^{2}-y^{2}z+yz^{2}}\\
+&  =x^{2}y^{3}+x^{3}y^{2}+x^{2}z^{3}+x^{3}z^{2}+y^{2}z^{3}+y^{3}z^{2}%
++xyz^{3}\\
+&  \ \ \ \ \ \ \ \ \ \ +xy^{3}z+x^{3}yz+2xy^{2}z^{2}+2x^{2}yz^{2}+2x^{2}%
+y^{2}z\\
+&  =m_{\left(  3,2,0\right)  }+m_{\left(  3,1,1\right)  }+2m_{\left(
+2,2,1\right)  }\in\mathcal{S}.
+\end{align*}
+Note that $q\in\mathcal{S}$ can be easily seen without computing $q$. Indeed,
+if we swap two of our variables $x,y,z$, then both $\det\left(
+\begin{array}
+[c]{ccc}%
+x^{5} & x^{3} & 1\\
+y^{5} & y^{3} & 1\\
+z^{5} & z^{3} & 1
+\end{array}
+\right)  $ and $\left(  x-y\right)  \left(  x-z\right)  \left(  y-z\right)  $
+get multiplied by $-1$, so their ratio $q$ stays unchanged. This shows that
+$\sigma\cdot q=q$ whenever $\sigma\in S_{3}$ is a transposition. Since the
+transpositions generate the group $S_{3}$ (indeed, Corollary
+\ref{cor.perm.generated} yields that the simple transpositions $s_{1},s_{2}$
+generate $S_{3}$), this entails that $\sigma\cdot q=q$ for any $\sigma\in
+S_{3}$ (not just for transpositions). This means that $q$ is symmetric.
+
+There is nothing special about the exponents $5$ and $3$ and $0$ in the above
+determinant. More generally, for any $a,b,c\in\mathbb{N}$, we can define the
+so-called \emph{alternant}%
+\[
+\det\left(
+\begin{array}
+[c]{ccc}%
+x^{a} & x^{b} & x^{c}\\
+y^{a} & y^{b} & y^{c}\\
+z^{a} & z^{b} & z^{c}%
+\end{array}
+\right)  \in\mathcal{P}.
+\]
+When studying this alternant, we can WLOG assume that $a,b,c$ are distinct
+(since otherwise, the alternant is just $0$) and furthermore assume that
+$a>b>c$ (since the general case is reduced to this one by swapping the columns
+around). The alternant is then a polynomial divisible by $x-y$ and $x-z$ and
+$y-z$ (since it becomes $0$ if we set one of $x,y,z$ equal to another), and
+thus divisible by $\left(  x-y\right)  \left(  x-z\right)  \left(  y-z\right)
+=\det\left(
+\begin{array}
+[c]{ccc}%
+x^{2} & x & 1\\
+y^{2} & y & 1\\
+z^{2} & z & 1
+\end{array}
+\right)  $ (the simplest nonzero alternant). Moreover, the ratio%
+\[
+\dfrac{\det\left(
+\begin{array}
+[c]{ccc}%
+x^{a} & x^{b} & x^{c}\\
+y^{a} & y^{b} & y^{c}\\
+z^{a} & z^{b} & z^{c}%
+\end{array}
+\right)  }{\left(  x-y\right)  \left(  x-z\right)  \left(  y-z\right)
+}=\dfrac{\det\left(
+\begin{array}
+[c]{ccc}%
+x^{a} & x^{b} & x^{c}\\
+y^{a} & y^{b} & y^{c}\\
+z^{a} & z^{b} & z^{c}%
+\end{array}
+\right)  }{\det\left(
+\begin{array}
+[c]{ccc}%
+x^{2} & x & 1\\
+y^{2} & y & 1\\
+z^{2} & z & 1
+\end{array}
+\right)  }%
+\]
+is a symmetric polynomial in $x,y,z$ (by the same argument that we used
+before). Some experimentation suggests that all coefficients of this
+polynomial are positive integers (to be rigorous, nonnegative integers). There
+is probably no way of showing this without explicitly finding this polynomial
+-- and the best way to do so is by defining this polynomial combinatorially.
+\end{example}
+
+Let us prepare for doing this.
+
+\begin{definition}
+\label{def.sf.alternants}\textbf{(a)} We let $\rho$ be the $N$-tuple $\left(
+N-1,N-2,\ldots,N-N\right)  \in\mathbb{N}^{N}$. \medskip
+
+\textbf{(b)} For any $N$-tuple $\alpha=\left(  \alpha_{1},\alpha_{2}%
+,\ldots,\alpha_{N}\right)  \in\mathbb{N}^{N}$, we define%
+\[
+a_{\alpha}:=\det\left(  \underbrace{\left(  x_{i}^{\alpha_{j}}\right)  _{1\leq
+i\leq N,\ 1\leq j\leq N}}_{\in\mathcal{P}^{N\times N}}\right)  \in
+\mathcal{P}.
+\]
+This is called the $\alpha$\emph{-alternant} (of $x_{1},x_{2},\ldots,x_{N}$).
+\end{definition}
+
+For example, for $N=3$, we have%
+\[
+a_{\left(  5,3,0\right)  }=\det\left(
+\begin{array}
+[c]{ccc}%
+x^{5} & x^{3} & 1\\
+y^{5} & y^{3} & 1\\
+z^{5} & z^{3} & 1
+\end{array}
+\right)  \ \ \ \ \ \ \ \ \ \ \left(  \text{where }\left(  x,y,z\right)
+=\left(  x_{1},x_{2},x_{3}\right)  \right)  .
+\]
+
+
+Note that the definition of $a_{\rho}$ yields%
+\begin{align}
+a_{\rho}  &  =\det\left(  \left(  x_{i}^{\rho_{j}}\right)  _{1\leq i\leq
+N,\ 1\leq j\leq N}\right)  =\det\left(  \left(  x_{i}^{N-j}\right)  _{1\leq
+i\leq N,\ 1\leq j\leq N}\right) \nonumber\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{since }\rho
+_{j}=N-j\text{ for each }j\in\left[  N\right]  \right) \nonumber\\
+&  =\prod_{1\leq i<j\leq N}\left(  x_{i}-x_{j}\right)
+\label{eq.def.sf.alternants.arho=vdm}%
+\end{align}
+(by Theorem \ref{thm.det.vander} \textbf{(a)}, applied to $N$, $\mathcal{P}$
+and $x_{i}$ instead of $n$, $K$ and $a_{i}$).
+
+Thus, we suspect:
+
+\begin{conjecture}
+\label{conj.sf.schur-alt}For every $\alpha=\left(  \alpha_{1},\alpha
+_{2},\ldots,\alpha_{N}\right)  \in\mathbb{N}^{N}$, the alternant $a_{\alpha}$
+is a multiple of $a_{\rho}$ in the polynomial ring $\mathcal{P}$. Furthermore,
+if $\alpha_{1}>\alpha_{2}>\cdots>\alpha_{N}$, then the polynomial $a_{\alpha
+}/a_{\rho}$ has positive (more precisely, nonnegative) integer coefficients.
+\end{conjecture}
+
+We will prove this by explicitly constructing $a_{\alpha}/a_{\rho}$ combinatorially.
+
+\subsubsection{Young diagrams and Schur polynomials}
+
+Let us first define the \emph{Young diagram} of an $N$-partition. This is
+analogous to the definition of the Young diagram of a partition (which we did
+back in the proof of Proposition \ref{prop.pars.pkn=dual}):
+
+\begin{definition}
+\label{def.sf.ydiag}Let $\lambda$ be an $N$-partition.
+
+The \emph{Young diagram} of $\lambda$ is defined to be a table of $N$
+left-aligned rows, with the $i$-th row (counted from the top, as always)
+having $\lambda_{i}$ boxes. Formally, the Young diagram of $\lambda$ is
+defined as the set%
+\[
+\left\{  \left(  i,j\right)  \ \mid\ i\in\left[  N\right]  \text{ and }%
+j\in\left[  \lambda_{i}\right]  \right\}  \subseteq\left\{  1,2,3,\ldots
+\right\}  ^{2}.
+\]
+We visually represent each element $\left(  i,j\right)  $ of this Young
+diagram as a box in row $i$ and column $j$; thus we obtain a table with $N$
+left-aligned rows (some of which might be empty).
+
+We denote the Young diagram of $\lambda$ by $Y\left(  \lambda\right)  $.
+\end{definition}
+
+For example, the $3$-partition $\left(  4,1,0\right)  $ has Young diagram%
+\[
+\ydiagram{4,1,0}\ \ .
+\]
+(The $3$-rd row is invisible since it has length $0$.) The four boxes in the
+$1$-st (i.e., topmost) row of this diagram are $\left(  1,1\right)  $,
+$\left(  1,2\right)  $, $\left(  1,3\right)  $ and $\left(  1,4\right)  $
+(from left to right), while the single box in its $2$-nd row is $\left(
+2,1\right)  $.
+
+Now, we are going to fill our Young diagrams -- i.e., to put numbers in the boxes:
+
+\begin{definition}
+\label{def.sf.ytab}Let $\lambda$ be an $N$-partition.
+
+A \emph{Young tableau} of shape $\lambda$ means a way of filling the boxes of
+$Y\left(  \lambda\right)  $ with elements of $\left[  N\right]  $ (one element
+per box). Formally speaking, it is defined as a map $T:Y\left(  \lambda
+\right)  \rightarrow\left[  N\right]  $. We visually represent such a map by
+filling in the number $T\left(  i,j\right)  $ into each box $\left(
+i,j\right)  $.
+
+We often abbreviate \textquotedblleft Young tableau\textquotedblright\ as
+\textquotedblleft\emph{tableau}\textquotedblright. The plural of
+\textquotedblleft tableau\textquotedblright\ is \textquotedblleft
+tableaux\textquotedblright.
+\end{definition}
+
+For instance, here is a Young tableau of shape $\left(  4,3,3,0,0,0,0,\ldots
+,0\right)  $ (defined for any $N\geq7$):%
+\[
+\ytableaushort{1724,336,261}\ \ .
+\]
+Formally speaking, this is a map $T:Y\left(  4,3,3,0,0,0,0,\ldots,0\right)
+\rightarrow\left[  N\right]  $ that sends the pairs $\left(  1,1\right)
+,\left(  1,2\right)  ,\left(  1,3\right)  ,\left(  1,4\right)  ,\left(
+2,1\right)  ,\ldots$ to $1,7,2,4,3,\ldots$, respectively.
+
+We will use some visually inspired language when talking about Young diagrams
+and tableaux:
+
+\begin{itemize}
+\item For instance, the \emph{entry} of a tableau $T$ in box $\left(
+i,j\right)  $ will mean the value $T\left(  i,j\right)  $.
+
+\item Also, the $u$\emph{-th row} of a tableau $T$ (for a given $u\geq1$) will
+mean the sequence of all entries of $T$ in the boxes $\left(  i,j\right)  $
+with $i=u$.
+
+\item Likewise, the $v$\emph{-th column} of a tableau $T$ (for a given
+$v\geq1$) will mean the sequence of all entries of $T$ in the boxes $\left(
+i,j\right)  $ with $j=v$.
+
+\item If $T$ is a Young tableau of shape $\lambda$, then the boxes of
+$Y\left(  \lambda\right)  $ will also be called the boxes of $T$.
+
+\item Two boxes of a Young diagram (or of a tableau) are said to be
+\emph{adjacent} if they have an edge in common when drawn on the picture
+(i.e., when one of them has the form $\left(  i,j\right)  $, while the other
+has the form $\left(  i,j+1\right)  $ or $\left(  i+1,j\right)  $).
+
+\item The words \textquotedblleft north\textquotedblright, \textquotedblleft
+west\textquotedblright, \textquotedblleft south\textquotedblright\ and
+\textquotedblleft east\textquotedblright\ are to be understood according to
+the picture of a Young diagram: e.g., the box $\left(  2,4\right)  $ lies one
+step north and three steps west of the box $\left(  3,7\right)  $.
+\end{itemize}
+
+Some tableaux are better than others:
+
+\begin{definition}
+\label{def.sf.ssyt}Let $\lambda$ be an $N$-partition.
+
+A Young tableau $T$ of shape $\lambda$ is said to be \emph{semistandard} if
+its entries
+
+\begin{itemize}
+\item increase weakly along each row (from left to right);
+
+\item increase strictly down each column (from top to bottom).
+\end{itemize}
+
+Formally speaking, this means that a Young tableau $T:Y\left(  \lambda\right)
+\rightarrow\left[  N\right]  $ is semistandard if and only if
+
+\begin{itemize}
+\item we have $T\left(  i,j\right)  \leq T\left(  i,j+1\right)  $ for any
+$\left(  i,j\right)  \in Y\left(  \lambda\right)  $ satisfying $\left(
+i,j+1\right)  \in Y\left(  \lambda\right)  $;
+
+\item we have $T\left(  i,j\right)  <T\left(  i+1,j\right)  $ for any $\left(
+i,j\right)  \in Y\left(  \lambda\right)  $ satisfying $\left(  i+1,j\right)
+\in Y\left(  \lambda\right)  $.
+\end{itemize}
+
+We let $\operatorname*{SSYT}\left(  \lambda\right)  $ denote the set of all
+semistandard Young tableaux of shape $\lambda$. (This depends on $N$ as well,
+but $N$ is fixed, so we omit it from our notation.) We will usually say
+\textquotedblleft\emph{semistandard tableau}\textquotedblright\ instead of
+\textquotedblleft semistandard Young tableau\textquotedblright.
+\end{definition}
+
+\begin{example}
+Consider the following $6$ Young tableaux of shape $\left(  4,2,1,0,0,0,\ldots
+,0\right)  $:%
+\begin{align}
+&  \ytableaushort{1334,235,4}\qquad\ytableaushort{2134,345,6}\qquad
+\ytableaushort{1123,245,6}\label{eq.def.sf.ssyt.1.1}\\
+& \nonumber\\
+&  \ytableaushort{1234,567,8}\qquad\ytableaushort{1111,222,3}\qquad
+\ytableaushort{1234,123,1}\nonumber
+\end{align}
+Which of these $6$ tableaux are semistandard? The first one is not
+semistandard, since the entries in its second column do not strictly increase
+down the column. The second one is not semistandard, since the entries in its
+first row do not weakly increase along the row. The third one is semistandard.
+The fourth one is semistandard, too. The fifth one is semistandard, too
+(actually it has a special property: each of its entries is the smallest
+possible value that an entry of a semistandard tableau could have in its box).
+The sixth one is not semistandard, again because of the columns.
+\end{example}
+
+\begin{definition}
+\label{def.sf.ytab.xT}Let $\lambda$ be an $N$-partition. If $T$ is any Young
+tableau of shape $\lambda$, then we define the corresponding monomial%
+\[
+x_{T}:=\prod_{c\text{ is a box of }Y\left(  \lambda\right)  }x_{T\left(
+c\right)  }=\prod_{\left(  i,j\right)  \in Y\left(  \lambda\right)
+}x_{T\left(  i,j\right)  }=\prod_{k=1}^{N}x_{k}^{\left(  \text{\# of times
+}k\text{ appears in }T\right)  }.
+\]
+
+\end{definition}
+
+For example, the three Young tableaux in (\ref{eq.def.sf.ssyt.1.1}) have
+corresponding monomials%
+\begin{align*}
+&  x_{1}x_{3}x_{3}x_{4}x_{2}x_{3}x_{5}x_{4}=x_{1}x_{2}x_{3}^{3}x_{4}^{2}%
+x_{5},\\
+&  x_{2}x_{1}x_{3}x_{4}x_{3}x_{4}x_{5}x_{6},\\
+&  x_{1}x_{1}x_{2}x_{3}x_{2}x_{4}x_{5}x_{6}.
+\end{align*}
+
+
+\begin{definition}
+\label{def.sf.schur}Let $\lambda$ be an $N$-partition. We define the
+\emph{Schur polynomial} $s_{\lambda}\in\mathcal{P}$ by%
+\[
+s_{\lambda}:=\sum_{T\in\operatorname*{SSYT}\left(  \lambda\right)  }x_{T}.
+\]
+
+\end{definition}
+
+\begin{example}
+\label{exa.sf.schur-h-e}\textbf{(a)} Let $n\in\mathbb{N}$. Consider the
+$N$-partition $\left(  n,0,0,\ldots,0\right)  $. The semistandard tableaux $T$
+of shape $\left(  n,0,0,\ldots,0\right)  $ are simply the fillings of a single
+row with $n$ elements of $\left[  N\right]  $ that weakly increase from left
+to right:%
+\[
+T=\begin{ytableau}
+i_1 & i_2 & \cdots & i_n
+\end{ytableau}\ \ \ \ \ \ \ \ \ \ \text{with }i_{1}\leq i_{2}\leq\cdots\leq
+i_{n}.
+\]
+Thus,
+\[
+s_{\left(  n,0,0,\ldots,0\right)  }=\sum_{i_{1}\leq i_{2}\leq\cdots\leq i_{n}%
+}x_{i_{1}}x_{i_{2}}\cdots x_{i_{n}}=h_{n}.
+\]
+
+
+\textbf{(b)} Let $n\in\left\{  0,1,\ldots,N\right\}  $. Consider the
+$N$-partition $\left(  1,1,\ldots,1,0,0,\ldots,0\right)  $ (with $n$ ones and
+$N-n$ zeroes). The semistandard tableaux $T$ of shape $\left(  1,1,\ldots
+,1,0,0,\ldots,0\right)  $ are simply the fillings of a single column with $n$
+elements of $\left[  N\right]  $ that strictly increase from top to bottom:%
+\[
+T=\begin{ytableau}
+i_1 \\ i_2 \\ \vdots \\ i_n
+\end{ytableau}\ \ \ \ \ \ \ \ \ \ \text{with }i_{1}<i_{2}<\cdots<i_{n}.
+\]
+Hence,%
+\[
+s_{\left(  1,1,\ldots,1,0,0,\ldots,0\right)  \text{ (with }n\text{ ones and
+}N-n\text{ zeroes)}}=\sum_{i_{1}<i_{2}<\cdots<i_{n}}x_{i_{1}}x_{i_{2}}\cdots
+x_{i_{n}}=e_{n}.
+\]
+
+
+\textbf{(c)} Assume that $N\geq2$. Consider the $N$-partition $\left(
+2,1,0,0,0,\ldots,0\right)  $ (with all entries from the third on being $0$).
+The semistandard tableaux $T$ of shape $\left(  2,1,0,0,0,\ldots,0\right)  $
+all have the form%
+\[
+T=\ytableaushort{ij,k}\ \ \ \ \ \ \ \ \ \ \text{with }i\leq j\text{ and }i<k.
+\]
+Hence,%
+\begin{align*}
+s_{\left(  2,1,0,0,0,\ldots,0\right)  }  &  =\sum_{\substack{i\leq
+j;\\i<k}}x_{i}x_{j}x_{k}=\underbrace{\sum_{\substack{i<k;\\j=i}}x_{i}%
+x_{j}x_{k}}_{=\sum_{i<k}x_{i}x_{i}x_{k}}+\underbrace{\sum_{i<j<k}x_{i}%
+x_{j}x_{k}}_{=e_{3}}+\underbrace{\sum_{\substack{i<k;\\j=k}}x_{i}x_{j}x_{k}%
+}_{=\sum_{i<k}x_{i}x_{k}x_{k}}+\underbrace{\sum_{i<k<j}x_{i}x_{j}x_{k}%
+}_{=e_{3}}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{since each triple }\left(  i,j,k\right)  \text{ of elements of }\left[
+N\right] \\
+\text{that satisfies }i\leq j\text{ and }i<k\text{ must satisfy}\\
+\text{\textbf{exactly one} of the four}\\
+\text{conditions }\left(  i<k\text{ and }j=i\right)  \text{ and }i<j<k\\
+\text{and }\left(  i<k\text{ and }j=k\right)  \text{ and }i<k<j\text{,}\\
+\text{and conversely, each triple satisfying one}\\
+\text{of the latter four conditions must}\\
+\text{satisfy }i\leq j\text{ and }i<k
+\end{array}
+\right) \\
+&  =\sum_{i<k}x_{i}x_{i}x_{k}+e_{3}+\sum_{i<k}x_{i}x_{k}x_{k}+e_{3}%
+=2e_{3}+\sum_{i<k}\underbrace{x_{i}x_{i}}_{=x_{i}^{2}}x_{k}+\sum_{i<k}%
+x_{i}\underbrace{x_{k}x_{k}}_{=x_{k}^{2}}\\
+&  =2e_{3}+\underbrace{\sum_{i<k}x_{i}^{2}x_{k}+\sum_{i<k}x_{i}x_{k}^{2}%
+}_{=m_{\left(  2,1,0,0,\ldots,0\right)  }}=2e_{3}+\underbrace{m_{\left(
+2,1,0,0,\ldots,0\right)  }}_{\substack{=e_{2}e_{1}-3e_{3}\\\text{(check
+this!)}}}\\
+&  =2e_{3}+e_{2}e_{1}-3e_{3}=e_{2}e_{1}-e_{3}.
+\end{align*}
+
+\end{example}
+
+\begin{theorem}
+\label{thm.sf.schur-symm}Let $\lambda$ be an $N$-partition. Then:\medskip
+
+\textbf{(a)} The polynomial $s_{\lambda}$ is symmetric. \medskip
+
+\textbf{(b)} We have
+\[
+a_{\lambda+\rho}=a_{\rho}\cdot s_{\lambda}.
+\]
+Here, the addition on $\mathbb{N}^{N}$ is defined entrywise: that is, if
+$\alpha=\left(  \alpha_{1},\alpha_{2},\ldots,\alpha_{N}\right)  $ and
+$\beta=\left(  \beta_{1},\beta_{2},\ldots,\beta_{N}\right)  $ are two
+$N$-tuples in $\mathbb{N}^{N}$, then we set%
+\[
+\alpha+\beta:=\left(  \alpha_{1}+\beta_{1},\alpha_{2}+\beta_{2},\ldots
+,\alpha_{N}+\beta_{N}\right)  .
+\]
+
+\end{theorem}
+
+This theorem (once it will be proved) will yield Conjecture
+\ref{conj.sf.schur-alt} in the case when $\alpha_{1}>\alpha_{2}>\cdots
+>\alpha_{N}$. Indeed, if $\alpha=\left(  \alpha_{1},\alpha_{2},\ldots
+,\alpha_{N}\right)  \in\mathbb{N}^{N}$ is an $N$-tuple satisfying $\alpha
+_{1}>\alpha_{2}>\cdots>\alpha_{N}$, then we can write $\alpha$ as
+$\alpha=\lambda+\rho$ for some $N$-partition $\lambda$ (namely, for
+$\lambda=\alpha-\rho=\left(  \alpha_{1}-\left(  N-1\right)  ,\alpha
+_{2}-\left(  N-2\right)  ,\ldots,\alpha_{N}-\left(  N-N\right)  \right)  $),
+and then Theorem \ref{thm.sf.schur-symm} \textbf{(b)} will yield $a_{\alpha
+}=a_{\rho}\cdot s_{\lambda}$, so that $a_{\alpha}/a_{\rho}=s_{\lambda}$, which
+is a symmetric polynomial (by Theorem \ref{thm.sf.schur-symm} \textbf{(a)})
+and furthermore has positive coefficients (by its combinatorial definition).
+Once Conjecture \ref{conj.sf.schur-alt} is proved in the case when $\alpha
+_{1}>\alpha_{2}>\cdots>\alpha_{N}$, the validity of its first claim in the
+general case easily follows (because the alternant $a_{\alpha}$ is $0$ when
+two of $\alpha_{1},\alpha_{2},\ldots,\alpha_{N}$ are equal\footnote{This is
+easy to prove (but see Lemma \ref{lem.sf.alternant-0} \textbf{(a)} below for a
+proof).}, and otherwise can be reduced to the case $\alpha_{1}>\alpha
+_{2}>\cdots>\alpha_{N}$ by swapping the columns around\footnote{See Lemma
+\ref{lem.sf.alternant-0} \textbf{(b)} below for the details of this.}).
+
+We will prove Theorem \ref{thm.sf.schur-symm} \textbf{(a)} soon and Theorem
+\ref{thm.sf.schur-symm} \textbf{(b)} later.
+
+\subsubsection{Skew Young diagrams and skew Schur polynomials}
+
+Before we get to the proof, let us generalize the situation a bit:
+
+\begin{definition}
+\label{def.sf.par-subset}Let $\lambda$ and $\mu$ be two $N$-partitions.
+
+We say that $\mu\subseteq\lambda$ if and only if $Y\left(  \mu\right)
+\subseteq Y\left(  \lambda\right)  $. Equivalently, $\mu\subseteq\lambda$ if
+and only if%
+\[
+\text{each }i\in\left[  N\right]  \text{ satisfies }\mu_{i}\leq\lambda_{i}%
+\]
+(where we write $\mu$ and $\lambda$ as $\mu=\left(  \mu_{1},\mu_{2},\ldots
+,\mu_{N}\right)  $ and $\lambda=\left(  \lambda_{1},\lambda_{2},\ldots
+,\lambda_{N}\right)  $). Thus we have defined a partial order $\subseteq$ on
+the set of all $N$-partitions.
+\end{definition}
+
+For example, we have $\left(  3,2,0\right)  \subseteq\left(  4,2,1\right)  $
+(since $3\leq4$ and $2\leq2$ and $0\leq1$), but we don't have $\left(
+2,2,0\right)  \subseteq\left(  3,1,0\right)  $ (since $2>1$). We can see this
+on the Young diagrams:%
+\begin{align*}
+&  \text{we have }\ydiagram{3,2,0} \subseteq\ydiagram{4,2,1}\text{\ \ ,}\\
+& \\
+&  \text{but we don't have }\ydiagram{2,2,0} \subseteq
+\ydiagram{3,1,0}\text{\ \ .}%
+\end{align*}
+
+
+\begin{definition}
+\label{def.sf.skew-diag}Let $\lambda$ and $\mu$ be two $N$-partitions such
+that $\mu\subseteq\lambda$. Then, we define the \emph{skew Young diagram}
+$Y\left(  \lambda/\mu\right)  $ to be the set difference%
+\begin{align*}
+Y\left(  \lambda\right)  \setminus Y\left(  \mu\right)   &  =\left\{  \left(
+i,j\right)  \ \mid\ i\in\left[  N\right]  \text{ and }j\in\left[  \lambda
+_{i}\right]  \setminus\left[  \mu_{i}\right]  \right\} \\
+&  =\left\{  \left(  i,j\right)  \ \mid\ i\in\left[  N\right]  \text{ and
+}j\in\mathbb{Z}\text{ and }\mu_{i}<j\leq\lambda_{i}\right\}  .
+\end{align*}
+
+\end{definition}
+
+For example,%
+\[
+Y\left(  \left(  4,3,1\right)  /\left(  2,1,0\right)  \right)
+=\ydiagram{2+2,1+2,0+1}\ \ .
+\]
+We note that any row or column of a skew Young diagram $Y\left(  \lambda
+/\mu\right)  $ is contiguous, i.e., has no holes between boxes. Better yet, if
+$\left(  a,b\right)  $ and $\left(  e,f\right)  $ are two boxes of $Y\left(
+\lambda/\mu\right)  $, then any box $\left(  c,d\right)  $ that lies
+\textquotedblleft between\textquotedblright\ them (i.e., that satisfies $a\leq
+c\leq e$ and $b\leq d\leq f$) must also belong to $Y\left(  \lambda
+/\mu\right)  $. Let us state this as a lemma:
+
+\begin{lemma}
+[Convexity of skew Young diagrams]\label{lem.sf.skew-diag.convexity}Let
+$\lambda$ and $\mu$ be two $N$-partitions such that $\mu\subseteq\lambda$. Let
+$\left(  a,b\right)  $ and $\left(  e,f\right)  $ be two elements of $Y\left(
+\lambda/\mu\right)  $. Let $\left(  c,d\right)  \in\mathbb{Z}^{2}$ satisfy
+$a\leq c\leq e$ and $b\leq d\leq f$. Then, $\left(  c,d\right)  \in Y\left(
+\lambda/\mu\right)  $.
+\end{lemma}
+
+\begin{proof}
+[Hints to the proof of Lemma \ref{lem.sf.skew-diag.convexity}.]This follows
+easily from the definition of $Y\left(  \lambda/\mu\right)  $ using the fact
+that $\lambda$ and $\mu$ are weakly decreasing $N$-tuples. A detailed proof
+can be found in Section \ref{sec.details.sf.schur}.
+\end{proof}
+
+Lemma \ref{lem.sf.skew-diag.convexity} is known as the \emph{convexity} of
+$Y\left(  \lambda/\mu\right)  $ (albeit in a very specific sense of the word
+\textquotedblleft convexity\textquotedblright).
+
+Next, we can define Young tableaux of shape $\lambda/\mu$ whenever $\lambda$
+and $\mu$ are two $N$-partitions satisfying $\mu\subseteq\lambda$. The
+definition is analogous to Definition \ref{def.sf.ytab}, except that we are
+only filling the boxes of $Y\left(  \lambda/\mu\right)  $ (rather than all
+boxes of $Y\left(  \lambda\right)  $) this time:
+
+\begin{definition}
+\label{def.sf.skew-tab}Let $\lambda$ and $\mu$ be two $N$-partitions such that
+$\mu\subseteq\lambda$. A \emph{Young tableau} of shape $\lambda/\mu$ means a
+way of filling the boxes of $Y\left(  \lambda/\mu\right)  $ with elements of
+$\left[  N\right]  $ (one element per box). Formally speaking, it is defined
+as a map $T:Y\left(  \lambda/\mu\right)  \rightarrow\left[  N\right]  $. We
+visually represent such a map by filling in the number $T\left(  i,j\right)  $
+into each box $\left(  i,j\right)  $.
+
+Young tableaux of shape $\lambda/\mu$ are often called \emph{skew Young
+tableaux}.
+
+If we don't have $\mu\subseteq\lambda$, then we agree that there are no Young
+tableaux of shape $\lambda/\mu$.
+\end{definition}
+
+The notion of a semistandard tableau of shape $\lambda/\mu$ is, again, defined
+in the same way as for shape $\lambda$:
+
+\begin{definition}
+\label{def.sf.skew-ssyt}Let $\lambda$ and $\mu$ be two $N$-partitions.
+
+A Young tableau $T$ of shape $\lambda/\mu$ is said to be \emph{semistandard}
+if its entries
+
+\begin{itemize}
+\item increase weakly along each row (from left to right);
+
+\item increase strictly down each column (from top to bottom).
+\end{itemize}
+
+Formally speaking, this means that a Young tableau $T:Y\left(  \lambda
+/\mu\right)  \rightarrow\left[  N\right]  $ is semistandard if and only if
+
+\begin{itemize}
+\item we have $T\left(  i,j\right)  \leq T\left(  i,j+1\right)  $ for any
+$\left(  i,j\right)  \in Y\left(  \lambda/\mu\right)  $ satisfying $\left(
+i,j+1\right)  \in Y\left(  \lambda/\mu\right)  $;
+
+\item we have $T\left(  i,j\right)  <T\left(  i+1,j\right)  $ for any $\left(
+i,j\right)  \in Y\left(  \lambda/\mu\right)  $ satisfying $\left(
+i+1,j\right)  \in Y\left(  \lambda/\mu\right)  $.
+\end{itemize}
+
+We let $\operatorname*{SSYT}\left(  \lambda/\mu\right)  $ denote the set of
+all semistandard Young tableaux of shape $\lambda/\mu$. We will usually say
+\textquotedblleft\emph{semistandard tableau}\textquotedblright\ instead of
+\textquotedblleft semistandard Young tableau\textquotedblright.
+\end{definition}
+
+For example, here is a semistandard Young tableau of shape $\left(
+4,3,1\right)  /\left(  2,1,0\right)  $:%
+\[
+\ytableaushort{\none\none 13,\none 22,1}\ \ .
+\]
+Meanwhile, there are no Young tableaux of shape $\left(  3,2,1\right)
+/\left(  2,2,2\right)  $ (since we don't have $\left(  2,2,2\right)
+\subseteq\left(  3,2,1\right)  $), and thus the set $\operatorname*{SSYT}%
+\left(  \left(  3,2,1\right)  /\left(  2,2,2\right)  \right)  $ is empty.
+
+The phrases \textquotedblleft increase weakly along each row\textquotedblright%
+\ and \textquotedblleft increase strictly down each column\textquotedblright%
+\ in Definition \ref{def.sf.skew-diag} have been formalized in terms of
+adjacent entries: e.g., we have declared \textquotedblleft increase weakly
+along each row\textquotedblright\ to mean \textquotedblleft$T\left(
+i,j\right)  \leq T\left(  i,j+1\right)  $\textquotedblright\ rather than
+\textquotedblleft$T\left(  i,j_{1}\right)  \leq T\left(  i,j_{2}\right)  $
+whenever $j_{1}\leq j_{2}$\textquotedblright. However, since any row or column
+of $Y\left(  \lambda/\mu\right)  $ is contiguous, the latter stronger meaning
+actually follows from the former. To wit:
+
+\begin{lemma}
+\label{lem.sf.skew-ssyt.increase}Let $\lambda$ and $\mu$ be two $N$%
+-partitions. Let $T$ be a semistandard Young tableau of shape $\lambda/\mu$.
+Then: \medskip
+
+\textbf{(a)} If $\left(  i,j_{1}\right)  $ and $\left(  i,j_{2}\right)  $ are
+two elements of $Y\left(  \lambda/\mu\right)  $ satisfying $j_{1}\leq j_{2}$,
+then $T\left(  i,j_{1}\right)  \leq T\left(  i,j_{2}\right)  $. \medskip
+
+\textbf{(b)} If $\left(  i_{1},j\right)  $ and $\left(  i_{2},j\right)  $ are
+two elements of $Y\left(  \lambda/\mu\right)  $ satisfying $i_{1}\leq i_{2}$,
+then $T\left(  i_{1},j\right)  \leq T\left(  i_{2},j\right)  $. \medskip
+
+\textbf{(c)} If $\left(  i_{1},j\right)  $ and $\left(  i_{2},j\right)  $ are
+two elements of $Y\left(  \lambda/\mu\right)  $ satisfying $i_{1}<i_{2}$, then
+$T\left(  i_{1},j\right)  <T\left(  i_{2},j\right)  $. \medskip
+
+\textbf{(d)} If $\left(  i_{1},j_{1}\right)  $ and $\left(  i_{2}%
+,j_{2}\right)  $ are two elements of $Y\left(  \lambda/\mu\right)  $
+satisfying $i_{1}\leq i_{2}$ and $j_{1}\leq j_{2}$, then $T\left(  i_{1}%
+,j_{1}\right)  \leq T\left(  i_{2},j_{2}\right)  $. \medskip
+
+\textbf{(e)} If $\left(  i_{1},j_{1}\right)  $ and $\left(  i_{2}%
+,j_{2}\right)  $ are two elements of $Y\left(  \lambda/\mu\right)  $
+satisfying $i_{1}<i_{2}$ and $j_{1}\leq j_{2}$, then $T\left(  i_{1}%
+,j_{1}\right)  <T\left(  i_{2},j_{2}\right)  $.
+\end{lemma}
+
+\begin{proof}
+[Hints to the proof of Lemma \ref{lem.sf.skew-ssyt.increase}.]This is easy
+using Lemma \ref{lem.sf.skew-diag.convexity}. A detailed proof can be found in
+Section \ref{sec.details.sf.schur}.
+\end{proof}
+
+We extend Definition \ref{def.sf.ytab.xT} to skew tableaux:
+
+\begin{definition}
+\label{def.sf.ytab.skew-xT}Let $\lambda$ and $\mu$ be two $N$-partitions. If
+$T$ is any Young tableau of shape $\lambda/\mu$, then we define the
+corresponding monomial%
+\[
+x_{T}:=\prod_{c\text{ is a box of }Y\left(  \lambda/\mu\right)  }x_{T\left(
+c\right)  }=\prod_{\left(  i,j\right)  \in Y\left(  \lambda/\mu\right)
+}x_{T\left(  i,j\right)  }=\prod_{k=1}^{N}x_{k}^{\left(  \text{\# of times
+}k\text{ appears in }T\right)  }.
+\]
+
+\end{definition}
+
+For example,%
+\[
+\text{if }T=\ytableaushort{\none\none 13,\none 22,344}\ \ \text{, then }%
+x_{T}=x_{1}x_{3}x_{2}x_{2}x_{3}x_{4}x_{4}=x_{1}x_{2}^{2}x_{3}^{2}x_{4}^{2}.
+\]
+
+
+Finally, we generalize Definition \ref{def.sf.schur} to $\lambda/\mu$:
+
+\begin{definition}
+\label{def.sf.skew-schur}Let $\lambda$ and $\mu$ be two $N$-partitions. We
+define the \emph{skew Schur polynomial} $s_{\lambda/\mu}\in\mathcal{P}$ by%
+\[
+s_{\lambda/\mu}:=\sum_{T\in\operatorname*{SSYT}\left(  \lambda/\mu\right)
+}x_{T}.
+\]
+
+\end{definition}
+
+\begin{example}
+\textbf{(a)} We have%
+\[
+s_{\left(  3,3,2,0,0,0,\ldots,0\right)  /\left(  2,1,0,0,0,\ldots,0\right)
+}=\sum_{i<j\geq k<\ell\geq m}x_{i}x_{j}x_{k}x_{\ell}x_{m},
+\]
+since the semistandard tableaux of shape $\left(  3,3,2,0,0,0,\ldots,0\right)
+/\left(  2,1,0,0,0,\ldots,0\right)  $ have the form
+$\ytableaushort{\none\none i,\none kj,m\ell}$ for $i,j,k,\ell,m\in\left[
+N\right]  $ satisfying $i<j\geq k<\ell\geq m$. \medskip
+
+\textbf{(b)} We have%
+\[
+s_{\left(  3,2,1,0,0,0,\ldots,0\right)  /\left(  2,1,0,0,0,\ldots,0\right)
+}=\sum_{i,j,k}x_{i}x_{j}x_{k},
+\]
+since the semistandard tableaux of shape $\left(  3,2,1,0,0,0,\ldots,0\right)
+/\left(  2,1,0,0,0,\ldots,0\right)  $ have the form
+$\ytableaushort{\none\none i,\none j,k}$ for $i,j,k\in\left[  N\right]  $
+satisfying no special requirements (as there are never two entries in the same
+row or in the same column of the tableau). Thus,%
+\[
+s_{\left(  3,2,1,0,0,0,\ldots,0\right)  /\left(  2,1,0,0,0,\ldots,0\right)
+}=\sum_{i,j,k}x_{i}x_{j}x_{k}=\left(  \sum_{i}x_{i}\right)  ^{3}=\left(
+x_{1}+x_{2}+\cdots+x_{N}\right)  ^{3}.
+\]
+
+\end{example}
+
+\begin{theorem}
+\label{thm.sf.skew-schur-symm}Let $\lambda$ and $\mu$ be any two
+$N$-partitions. Then, the polynomial $s_{\lambda/\mu}$ is symmetric.
+\end{theorem}
+
+\begin{remark}
+\label{rmk.sf.skew-0}If we set $\mathbf{0}=\left(  0,0,\ldots,0\right)
+\in\mathbb{N}^{N}$, then $s_{\lambda/\mathbf{0}}=s_{\lambda}$ (since the
+semistandard tableaux of shape $\lambda/\mathbf{0}$ are precisely the
+semistandard tableaux of shape $\lambda$). Hence, Theorem
+\ref{thm.sf.skew-schur-symm} generalizes Theorem \ref{thm.sf.schur-symm}
+\textbf{(a)}.
+\end{remark}
+
+We will now prove Theorem \ref{thm.sf.skew-schur-symm} bijectively, using a
+beautiful set of combinatorial bijections known as the \emph{Bender--Knuth
+involutions}.
+

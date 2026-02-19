@@ -1,0 +1,780 @@
+\section{Definitions and examples of symmetric polynomials}
+
+\subsection{Setup}
+
+\begin{convention}
+\label{conv.sf.KN}
+Fix a commutative ring $K$. Fix an $N\in\mathbb{N}$.
+Throughout this chapter, we will keep $K$ and $N$ fixed.
+Let $S_N$ denote the symmetric group, i.e., the group of all
+permutations of $[N] := \{1,2,\ldots,N\}$.
+\end{convention}
+
+\subsection{The polynomial ring and the symmetric group action}
+
+\begin{definition}
+\label{def.sf.PS}
+\lean{AlgebraicCombinatorics.SymmetricPolynomials.P, AlgebraicCombinatorics.SymmetricPolynomials.permAction, AlgebraicCombinatorics.SymmetricPolynomials.IsSymm, AlgebraicCombinatorics.SymmetricPolynomials.S}
+\leantarget
+\leanok
+\textbf{(a)} Let $\mathcal{P}$ be the polynomial ring
+$K[x_1, x_2, \ldots, x_N]$ in $N$ variables over $K$. This
+is not just a ring; it is a commutative $K$-algebra. \medskip
+
+\textbf{(b)} The symmetric group $S_N$ acts on the set $\mathcal{P}$
+according to the formula
+\[
+\sigma \cdot f = f[x_{\sigma(1)}, x_{\sigma(2)}, \ldots, x_{\sigma(N)}]
+\quad \text{for any } \sigma \in S_N \text{ and any } f \in \mathcal{P}.
+\]
+Here, $f[a_1, a_2, \ldots, a_N]$ means the result of
+substituting $a_1, a_2, \ldots, a_N$ for the indeterminates $x_1, x_2, \ldots, x_N$
+in a polynomial $f \in \mathcal{P}$.
+
+Roughly speaking, the group $S_N$ is thus acting on $\mathcal{P}$ by
+permuting variables: A permutation $\sigma \in S_N$ transforms a polynomial
+$f$ by substituting $x_{\sigma(i)}$ for each $x_i$.
+
+Note that this action of $S_N$ on $\mathcal{P}$ is a well-defined group
+action (as we will see in Proposition~\ref{prop.sf.SN-acts} below). \medskip
+
+\textbf{(c)} A polynomial $f \in \mathcal{P}$ is said to be \emph{symmetric} if
+it satisfies
+\[
+\sigma \cdot f = f \quad \text{for all } \sigma \in S_N.
+\]
+
+\textbf{(d)} We let $\mathcal{S}$ be the set of all symmetric polynomials
+$f \in \mathcal{P}$.
+\end{definition}
+
+\subsection{The action is well-defined}
+
+\begin{proposition}
+\label{prop.sf.SN-acts}
+\lean{AlgebraicCombinatorics.SymmetricPolynomials.permAction_id, AlgebraicCombinatorics.SymmetricPolynomials.permAction_mul, AlgebraicCombinatorics.SymmetricPolynomials.permMulAction}
+\leantarget
+\leanok
+The action of $S_N$ on $\mathcal{P}$ is a
+well-defined group action. In other words, the following holds: \medskip
+
+\textbf{(a)} We have $\operatorname{id}_{[N]} \cdot f = f$ for every $f \in \mathcal{P}$. \medskip
+
+\textbf{(b)} We have $(\sigma\tau) \cdot f = \sigma \cdot (\tau \cdot f)$
+for every $\sigma, \tau \in S_N$ and $f \in \mathcal{P}$.
+\end{proposition}
+
+\begin{proof}
+\textbf{(a)} If $f \in \mathcal{P}$, then the definition of
+$\operatorname{id}_{[N]} \cdot f$ yields
+\[
+\operatorname{id}_{[N]} \cdot f
+= f[x_{\operatorname{id}(1)}, x_{\operatorname{id}(2)}, \ldots, x_{\operatorname{id}(N)}]
+= f[x_1, x_2, \ldots, x_N]
+= f.
+\]
+This proves part \textbf{(a)}. \medskip
+
+\textbf{(b)} Let $\sigma, \tau \in S_N$ and $f \in \mathcal{P}$. The definition
+of $\sigma \cdot (\tau \cdot f)$ yields
+\begin{equation}
+\sigma \cdot (\tau \cdot f)
+= (\tau \cdot f)[x_{\sigma(1)}, x_{\sigma(2)}, \ldots, x_{\sigma(N)}].
+\label{pf.prop.sf.SN-acts.b.1}
+\end{equation}
+Write the polynomial $f$ in the form
+\begin{equation}
+f = \sum_{(a_1, a_2, \ldots, a_N) \in \mathbb{N}^N} f_{(a_1, a_2, \ldots, a_N)} x_1^{a_1} x_2^{a_2} \cdots x_N^{a_N}.
+\label{pf.prop.sf.SN-acts.b.f=}
+\end{equation}
+The definition of $\tau \cdot f$ yields
+\[
+\tau \cdot f = \sum_{(a_1, \ldots, a_N) \in \mathbb{N}^N} f_{(a_1, \ldots, a_N)} x_{\tau(1)}^{a_1} x_{\tau(2)}^{a_2} \cdots x_{\tau(N)}^{a_N}.
+\]
+Substituting $x_{\sigma(1)}, x_{\sigma(2)}, \ldots, x_{\sigma(N)}$
+for $x_1, x_2, \ldots, x_N$ on both sides, we obtain
+\begin{align*}
+(\tau \cdot f)[x_{\sigma(1)}, \ldots, x_{\sigma(N)}]
+&= \sum f_{(a_1, \ldots, a_N)} x_{\sigma(\tau(1))}^{a_1} \cdots x_{\sigma(\tau(N))}^{a_N} \\
+&= \sum f_{(a_1, \ldots, a_N)} x_{(\sigma\tau)(1)}^{a_1} \cdots x_{(\sigma\tau)(N)}^{a_N}
+= (\sigma\tau) \cdot f.
+\end{align*}
+Comparing with~\eqref{pf.prop.sf.SN-acts.b.1}, we obtain
+$(\sigma\tau) \cdot f = \sigma \cdot (\tau \cdot f)$.
+\end{proof}
+
+\subsection{The action is by algebra automorphisms}
+
+\begin{proposition}
+\label{prop.sf.SN-acts-by-alg-auts}
+\lean{AlgebraicCombinatorics.SymmetricPolynomials.permAutomorphism, AlgebraicCombinatorics.SymmetricPolynomials.permAutomorphismHom}
+\leantarget
+\leanok
+The group $S_N$ acts on $\mathcal{P}$ by
+$K$-algebra automorphisms. In other words, for each $\sigma \in S_N$, the map
+\begin{align*}
+\mathcal{P} &\to \mathcal{P}, \\
+f &\mapsto \sigma \cdot f
+\end{align*}
+is a $K$-algebra automorphism of $\mathcal{P}$.
+\end{proposition}
+
+\begin{proof}
+Fix $\sigma \in S_N$. For any $f, g \in \mathcal{P}$, we have
+\begin{equation}
+\sigma \cdot (fg) = (\sigma \cdot f) \cdot (\sigma \cdot g)
+\label{pf.prop.sf.SN-acts-by-alg-auts.1}
+\end{equation}
+(by expanding the substitution definition of the action).
+Thus, the map $f \mapsto \sigma \cdot f$
+respects multiplication. Similarly, this map respects addition, respects
+scaling, respects the zero and respects the unity. Hence, this map is a
+$K$-algebra morphism from $\mathcal{P}$ to $\mathcal{P}$. Furthermore, this
+map is invertible, since its inverse is the map $f \mapsto \sigma^{-1} \cdot f$.
+Thus, this map is a $K$-algebra automorphism of $\mathcal{P}$.
+\end{proof}
+
+\subsection{Symmetric polynomials form a subalgebra}
+
+\begin{theorem}
+\label{thm.sf.S-subalg}
+\lean{AlgebraicCombinatorics.SymmetricPolynomials.S_subalgebra}
+\leantarget
+\leanok
+The subset $\mathcal{S}$ is a $K$-subalgebra of $\mathcal{P}$.
+\end{theorem}
+
+\begin{proof}
+\leanok
+We need to show that $\mathcal{S}$ is closed under addition, multiplication and scaling, and that
+$\mathcal{S}$ contains the zero and the unity of $\mathcal{P}$. Let us show
+that $\mathcal{S}$ is closed under multiplication (since all the other
+claims are equally easy): Let $f, g \in \mathcal{S}$. We must show that
+$fg \in \mathcal{S}$.
+
+The polynomial $f$ is symmetric (since $f \in \mathcal{S}$); in other words,
+$\sigma \cdot f = f$ for each $\sigma \in S_N$. Similarly, $\sigma \cdot g = g$ for
+each $\sigma \in S_N$. Now, from~\eqref{pf.prop.sf.SN-acts-by-alg-auts.1}, we
+see that
+for each $\sigma \in S_N$, we have
+$\sigma \cdot (fg) = (\sigma \cdot f) \cdot (\sigma \cdot g) = fg$.
+This shows that $fg$ is symmetric, i.e., $fg \in \mathcal{S}$.
+The other claims are proved similarly.
+\end{proof}
+
+\begin{definition}
+\label{def.sf.ring-of-symm}
+\lean{AlgebraicCombinatorics.SymmetricPolynomials.S}
+\leantarget
+\leanok
+The $K$-subalgebra $\mathcal{S}$ of $\mathcal{P}$
+is called the \emph{ring of symmetric polynomials in} $N$ \emph{variables over} $K$.
+\end{definition}
+
+\subsection{Monomials}
+
+\begin{definition}
+\label{def.sf.monomial}
+\lean{AlgebraicCombinatorics.SymmetricPolynomials.Monomial, AlgebraicCombinatorics.SymmetricPolynomials.Monomial.degree, AlgebraicCombinatorics.SymmetricPolynomials.Monomial.IsSquarefree, AlgebraicCombinatorics.SymmetricPolynomials.Monomial.IsPrimal}
+\leantarget
+\leanok
+\textbf{(a)} A \emph{monomial} is an expression of the
+form $x_1^{a_1} x_2^{a_2} \cdots x_N^{a_N}$ with $a_1, a_2, \ldots, a_N \in \mathbb{N}$. \medskip
+
+\textbf{(b)} The \emph{degree} $\deg \mathfrak{m}$
+of a monomial $\mathfrak{m} = x_1^{a_1} x_2^{a_2} \cdots x_N^{a_N}$
+is defined to be $a_1 + a_2 + \cdots + a_N \in \mathbb{N}$. \medskip
+
+\textbf{(c)} A monomial $\mathfrak{m} = x_1^{a_1} x_2^{a_2} \cdots x_N^{a_N}$
+is said to be \emph{squarefree} if $a_1, a_2, \ldots, a_N \in \{0,1\}$.
+(This is saying that no square or higher power of
+an indeterminate appears in $\mathfrak{m}$; thus the name ``squarefree''.) \medskip
+
+\textbf{(d)} A monomial $\mathfrak{m} = x_1^{a_1} x_2^{a_2} \cdots x_N^{a_N}$
+is said to be \emph{primal} if there is at most one
+$i \in [N]$ satisfying $a_i > 0$. (This is saying that the
+monomial $\mathfrak{m}$ contains no two distinct indeterminates. Thus, a
+primal monomial is just $1$ or a power of an indeterminate.)
+\end{definition}
+
+\subsection{Elementary, complete homogeneous, and power sum symmetric polynomials}
+
+\begin{definition}
+\label{def.sf.ehp}
+\lean{AlgebraicCombinatorics.SymmetricPolynomials.e, AlgebraicCombinatorics.SymmetricPolynomials.h, AlgebraicCombinatorics.SymmetricPolynomials.p}
+\leantarget
+\leanok
+\textbf{(a)} For each $n \in \mathbb{Z}$, define a symmetric
+polynomial $e_n \in \mathcal{S}$ by
+\[
+e_n = \sum_{\substack{(i_1, i_2, \ldots, i_n) \in [N]^n; \\ i_1 < i_2 < \cdots < i_n}}
+x_{i_1} x_{i_2} \cdots x_{i_n}
+= (\text{sum of all squarefree monomials of degree } n).
+\]
+This $e_n$ is called the $n$-th \emph{elementary symmetric polynomial} in
+$x_1, x_2, \ldots, x_N$. \medskip
+
+\textbf{(b)} For each $n \in \mathbb{Z}$, define a symmetric polynomial
+$h_n \in \mathcal{S}$ by
+\[
+h_n = \sum_{\substack{(i_1, i_2, \ldots, i_n) \in [N]^n; \\ i_1 \leq i_2 \leq \cdots \leq i_n}}
+x_{i_1} x_{i_2} \cdots x_{i_n}
+= (\text{sum of all monomials of degree } n).
+\]
+This $h_n$ is called the $n$-th \emph{complete homogeneous symmetric polynomial}
+in $x_1, x_2, \ldots, x_N$. \medskip
+
+\textbf{(c)} For each $n \in \mathbb{Z}$, define a symmetric polynomial
+$p_n \in \mathcal{S}$ by
+\begin{align*}
+p_n &=
+\begin{cases}
+x_1^n + x_2^n + \cdots + x_N^n, & \text{if } n > 0; \\
+1, & \text{if } n = 0; \\
+0, & \text{if } n < 0
+\end{cases}
+\\
+&= (\text{sum of all primal monomials of degree } n).
+\end{align*}
+This $p_n$ is called the $n$-th \emph{power sum} in $x_1, x_2, \ldots, x_N$.
+\end{definition}
+
+\subsection{Elementary symmetric polynomials vanish for large degree}
+
+\begin{proposition}
+\label{prop.sf.en=0}
+\lean{AlgebraicCombinatorics.SymmetricPolynomials.e_eq_zero_of_gt}
+\leantarget
+\leanok
+For each integer $n > N$, we have $e_n = 0$.
+\end{proposition}
+
+\begin{proof}
+\leanok
+Let $n > N$ be an integer. Then, the set $[N]$ has no $n$
+distinct elements. Thus, there exists no $n$-tuple $(i_1, i_2, \ldots, i_n)
+\in [N]^n$ satisfying $i_1 < i_2 < \cdots < i_n$.
+Now, the definition of $e_n$ yields
+\begin{align*}
+e_n &= \sum_{\substack{(i_1, \ldots, i_n) \in [N]^n; \\ i_1 < \cdots < i_n}}
+x_{i_1} \cdots x_{i_n}
+= (\text{empty sum}) = 0.
+\end{align*}
+\end{proof}
+
+\subsection{Generating function identities}
+
+\begin{proposition}
+\label{prop.sf.e-h-FPS}
+\lean{AlgebraicCombinatorics.SymmetricPolynomials.esymm_genfunc, AlgebraicCombinatorics.SymmetricPolynomials.esymm_genfunc_two_var, AlgebraicCombinatorics.SymmetricPolynomials.hsymm_genfunc}
+\leantarget
+\leanok
+\textbf{(a)} In the polynomial ring $\mathcal{P}[t]$, we have
+\[
+\prod_{i=1}^{N} (1 - t x_i) = \sum_{n \in \mathbb{N}} (-1)^n t^n e_n.
+\]
+
+\textbf{(b)} In the polynomial ring $\mathcal{P}[u,v]$, we have
+\[
+\prod_{i=1}^{N} (u - v x_i) = \sum_{n=0}^{N} (-1)^n u^{N-n} v^n e_n.
+\]
+
+\textbf{(c)} In the FPS ring $\mathcal{P}[[t]]$, we have
+\[
+\prod_{i=1}^{N} \frac{1}{1 - t x_i} = \sum_{n \in \mathbb{N}} t^n h_n.
+\]
+\end{proposition}
+
+\begin{proof}
+\textbf{(a)} For each $i \in \{1, 2, \ldots, N\}$, we have
+$1 + t x_i = \sum_{a \in \{0,1\}} (t x_i)^a$.
+Multiplying these equalities over all $i \in \{1, 2, \ldots, N\}$, we obtain
+\begin{align*}
+\prod_{i=1}^{N} (1 + t x_i)
+&= \sum_{(a_1, \ldots, a_N) \in \{0,1\}^N} t^{a_1 + \cdots + a_N} x_1^{a_1} \cdots x_N^{a_N} \\
+&= \sum_{\substack{\mathfrak{m} \text{ squarefree}}} t^{\deg \mathfrak{m}} \mathfrak{m}
+= \sum_{n \in \mathbb{N}} t^n e_n.
+\end{align*}
+Substituting $-t$ for $t$ gives the stated identity. \medskip
+
+\textbf{(b)} This is similar to part \textbf{(a)}, using two variables $u$ and $v$.  \medskip
+
+\textbf{(c)} For each $i \in \{1, 2, \ldots, N\}$, we have
+$\frac{1}{1 - t x_i} = \sum_{a \in \mathbb{N}} (t x_i)^a$.
+Multiplying these equalities over all $i \in \{1, 2, \ldots, N\}$, we obtain
+\begin{align*}
+\prod_{i=1}^{N} \frac{1}{1 - t x_i}
+&= \sum_{(a_1, \ldots, a_N) \in \mathbb{N}^N} t^{a_1 + \cdots + a_N} x_1^{a_1} \cdots x_N^{a_N} \\
+&= \sum_{\mathfrak{m} \text{ monomial}} t^{\deg \mathfrak{m}} \mathfrak{m}
+= \sum_{n \in \mathbb{N}} t^n h_n.
+\end{align*}
+\end{proof}
+
+\subsubsection{Helpers for the generating function proofs}
+
+\begin{lemma}
+\label{lem.sf.geom-series}
+\lean{AlgebraicCombinatorics.SymmetricPolynomials.geom_series_mul_one_sub, AlgebraicCombinatorics.SymmetricPolynomials.prod_geom_series_mul_prod_one_sub}
+\leanhelper
+\leanok
+For each $i$, the geometric series identity
+$(1 - t x_i) \cdot \sum_{k \geq 0} (t x_i)^k = 1$
+holds in the power series ring $\mathcal{P}[[t]]$.
+Taking the product over all $i \in [N]$, we obtain the generating function identity
+$E(t) \cdot H(t) = 1$, where
+$E(t) = \prod_{i=1}^N (1 - t x_i)$ and
+$H(t) = \prod_{i=1}^N \sum_{k \geq 0} (t x_i)^k$.
+\end{lemma}
+
+\begin{proof}
+The identity $(1 - t x_i) \cdot \sum_{k \geq 0} (t x_i)^k = 1$ is proved by extracting
+coefficients: the coefficient of $t^n$ on the left is $x_i^n - x_i \cdot x_i^{n-1} = 0$ for $n > 0$
+and $1$ for $n = 0$. The product identity follows from
+$\prod_i (1 - t x_i) \cdot \prod_i \sum_k (t x_i)^k = \prod_i 1 = 1$.
+\end{proof}
+
+\subsection{Newton--Girard formulas}
+
+\begin{theorem}[Newton--Girard formulas]
+\label{thm.sf.NG}
+\lean{AlgebraicCombinatorics.SymmetricPolynomials.newtonGirard_eh, AlgebraicCombinatorics.SymmetricPolynomials.newtonGirard_hp, AlgebraicCombinatorics.SymmetricPolynomials.newtonGirard_esymm}
+\leantarget
+\leanok
+For any positive integer $n$, we have
+\begin{align}
+\sum_{j=0}^{n} (-1)^j e_j h_{n-j} &= 0; \label{eq.thm.sf.NG.eh} \\
+\sum_{j=1}^{n} (-1)^{j-1} e_{n-j} p_j &= n e_n; \label{eq.thm.sf.NG.ep} \\
+\sum_{j=1}^{n} h_{n-j} p_j &= n h_n. \label{eq.thm.sf.NG.hp}
+\end{align}
+\end{theorem}
+
+\begin{proof}
+We prove formulas~\eqref{eq.thm.sf.NG.eh} and~\eqref{eq.thm.sf.NG.hp}; the formula~\eqref{eq.thm.sf.NG.ep}
+can be derived by differentiating the generating function
+$\prod_{i=1}^N (1 - t x_i) = \sum_n (-1)^n t^n e_n$
+with respect to $t$, and comparing coefficients (see the source for details).
+
+\textbf{Proof of~\eqref{eq.thm.sf.NG.eh}:}
+In the FPS ring $\mathcal{P}[[t]]$, by Proposition~\ref{prop.sf.e-h-FPS}~(a) and~(c) we have
+\[
+\prod_{i=1}^{N} (1 - t x_i) = \sum_{n \in \mathbb{N}} (-1)^n t^n e_n
+\]
+and
+\[
+\prod_{i=1}^{N} \frac{1}{1 - t x_i} = \sum_{n \in \mathbb{N}} t^n h_n.
+\]
+Multiplying these two equalities, the left-hand side becomes
+\[
+\left(\prod_{i=1}^{N} (1 - t x_i)\right) \left(\prod_{i=1}^{N} \frac{1}{1 - t x_i}\right)
+= \prod_{i=1}^{N} 1 = 1.
+\]
+The right-hand side product is
+$\sum_{n \in \mathbb{N}} \left(\sum_{j=0}^n (-1)^j e_j h_{n-j}\right) t^n$.
+Comparing coefficients of $t^n$ for $n > 0$, we obtain~\eqref{eq.thm.sf.NG.eh}.
+
+\textbf{Proof of~\eqref{eq.thm.sf.NG.hp}:}
+The proof is by a counting argument on monomials.
+Each monomial in $h_n$ corresponds to a multiset $s$ of size $n$ from $[N]$.
+On the left-hand side, each such monomial appears exactly $n$ times:
+once for each way to pick an element $i$ in the support of $s$
+and a positive integer $j \leq \text{count}(i, s)$,
+contributing to the term $h_{n-j} p_j$.
+For each $s$, the total count is $\sum_{i=1}^N \text{count}(i, s) = n$, matching the right-hand side.
+\end{proof}
+
+\subsection{Fundamental Theorem of Symmetric Polynomials}
+
+\begin{theorem}[Fundamental Theorem of Symmetric Polynomials]
+\label{thm.sf.ftsf}
+\lean{AlgebraicCombinatorics.SymmetricPolynomials.esymmAlgEquiv', AlgebraicCombinatorics.SymmetricPolynomials.esymm_algebraicIndependent, AlgebraicCombinatorics.SymmetricPolynomials.esymm_generates_symmetric, AlgebraicCombinatorics.SymmetricPolynomials.hsymm_algebraicIndependent, AlgebraicCombinatorics.SymmetricPolynomials.hsymm_generates_symmetric, AlgebraicCombinatorics.SymmetricPolynomials.psum_algebraicIndependent, AlgebraicCombinatorics.SymmetricPolynomials.psum_generates_symmetric}
+\leantarget
+\leanok
+\textbf{(a)} The elementary symmetric polynomials $e_1, e_2, \ldots, e_N$
+are algebraically independent (over $K$) and generate the $K$-algebra $\mathcal{S}$.
+
+In other words, each $f \in \mathcal{S}$ can be uniquely written as a polynomial
+in $e_1, e_2, \ldots, e_N$.
+
+In yet other words, the map
+\begin{align*}
+K[y_1, y_2, \ldots, y_N] &\to \mathcal{S}, \\
+g &\mapsto g[e_1, e_2, \ldots, e_N]
+\end{align*}
+is a $K$-algebra isomorphism. \medskip
+
+\textbf{(b)} The complete homogeneous symmetric polynomials $h_1, h_2, \ldots, h_N$
+are algebraically independent (over $K$) and generate the $K$-algebra $\mathcal{S}$.
+
+In other words, each $f \in \mathcal{S}$ can be uniquely written as a polynomial
+in $h_1, h_2, \ldots, h_N$.
+
+In yet other words, the map
+\begin{align*}
+K[y_1, y_2, \ldots, y_N] &\to \mathcal{S}, \\
+g &\mapsto g[h_1, h_2, \ldots, h_N]
+\end{align*}
+is a $K$-algebra isomorphism. \medskip
+
+\textbf{(c)} Now assume that $K$ is a commutative $\mathbb{Q}$-algebra (e.g.,
+a field of characteristic $0$). Then, the power sums $p_1, p_2, \ldots, p_N$
+are algebraically independent (over $K$) and generate the $K$-algebra $\mathcal{S}$.
+
+In other words, each $f \in \mathcal{S}$ can be uniquely written as a polynomial
+in $p_1, p_2, \ldots, p_N$.
+
+In yet other words, the map
+\begin{align*}
+K[y_1, y_2, \ldots, y_N] &\to \mathcal{S}, \\
+g &\mapsto g[p_1, p_2, \ldots, p_N]
+\end{align*}
+is a $K$-algebra isomorphism.
+\end{theorem}
+
+\begin{proof}
+Various proofs can be found in \cite[Theorem 171]{Benede25}, \cite[proof of Theorem 1]{BluCos16},
+\cite[Theorem 1.2.1]{Dumas08}, \cite[Theorem 9.6.6]{Goodman}, \cite[\S 1.1]{Smith95}.
+
+\textbf{Part (a):}
+Part (a) is proved by constructing the evaluation map
+$K[y_1, \ldots, y_N] \to \mathcal{S}$ sending $y_k \mapsto e_k$
+and showing it is a $K$-algebra isomorphism.
+Algebraic independence follows from injectivity;
+generation follows from surjectivity.
+
+\textbf{Part (b):}
+The proof uses the Newton--Girard relations to show that each $e_k$ (for $k \leq N$)
+can be expressed as a polynomial in $h_1, \ldots, h_N$, by strong induction on $k$.
+The key identity is: from~\eqref{eq.thm.sf.NG.eh},
+$(-1)^{k+1} e_{k+1} = -\sum_{j=0}^{k} (-1)^j e_j h_{k+1-j}$,
+where by the induction hypothesis $e_0, \ldots, e_k$ are already in the range of the
+evaluation map at $h_1, \ldots, h_N$. The algebraic independence of the $h_i$ then
+follows by a transcendence degree argument: the composition
+$K[y_1, \ldots, y_N] \to \mathcal{S} \xrightarrow{\sim} K[y_1, \ldots, y_N]$
+(via the isomorphism from part (a)) is a surjective endomorphism, hence bijective
+since polynomial rings over integral domains have finite transcendence degree.
+
+Note: The Lean proof of part (b) requires the additional hypothesis that $K$ is an integral domain.
+
+\textbf{Part (c):}
+The argument is analogous to part (b). Newton's identity~\eqref{eq.thm.sf.NG.ep}
+gives $n \cdot e_n = \sum_{j=1}^n (-1)^{j-1} e_{n-j} p_j$. Since $K$ is a
+$\mathbb{Q}$-algebra, $n$ is invertible in $K$, so we can solve for $e_n$ as a
+polynomial in $e_0, \ldots, e_{n-1}$ and $p_1, \ldots, p_n$. By strong induction,
+each $e_k$ lies in the range of the evaluation map at $p_1, \ldots, p_N$.
+Algebraic independence again follows by the transcendence degree argument.
+
+Note: The Lean formalization of part (c) contains sorry in some helper lemmas
+(weight constraint and triangular structure arguments).
+\end{proof}
+
+\subsection{Simple transpositions suffice}
+
+\begin{lemma}
+\label{lem.sf.simples-enough}
+\lean{AlgebraicCombinatorics.SymmetricPolynomials.isSymm_iff_simpleTranspositions}
+\leantarget
+\leanok
+For each $i \in [N-1]$, let $s_i \in S_N$ denote the simple transposition
+that swaps $i$ and $i+1$.
+
+Let $f \in \mathcal{P}$. Assume that
+\begin{equation}
+s_k \cdot f = f \quad \text{for each } k \in [N-1].
+\label{eq.lem.sf.simples-enough.ass}
+\end{equation}
+Then, the polynomial $f$ is symmetric.
+\end{lemma}
+
+\begin{proof}
+The proof proceeds by showing that invariance under simple transpositions
+implies invariance under all transpositions of the form $\text{swap}(i, j)$
+for any $i, j \in [N]$.
+
+\textbf{Step 1:} Invariance under adjacent transpositions
+implies invariance under arbitrary transpositions.
+We prove by induction on $|j - i|$ that $\text{swap}(i, j) \cdot f = f$.
+The base case $|j - i| = 1$ is the hypothesis~\eqref{eq.lem.sf.simples-enough.ass}.
+For the inductive step, use the conjugation identity:
+$\text{swap}(i, j) = \text{swap}(i, i+1) \cdot \text{swap}(i+1, j) \cdot \text{swap}(i, i+1)$.
+
+\textbf{Step 2:} Every permutation $\sigma \in S_N$ can be written as a product
+of transpositions (this is a standard fact about the symmetric group).
+Since each transposition fixes $f$, so does $\sigma$.
+\end{proof}
+
+\subsection{Helper lemmas from the Lean formalization}
+
+The following results appear in the Lean formalization but not in the TeX source.
+They provide API for the definitions above.
+
+\begin{lemma}
+\label{lem.sf.monomial-degree-le-squarefree}
+\lean{AlgebraicCombinatorics.SymmetricPolynomials.Monomial.degree_le_of_isSquarefree}
+\leanhelper
+\leanok
+A squarefree monomial has degree at most $N$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+If $\mathfrak{m} = x_1^{a_1} \cdots x_N^{a_N}$ is squarefree, then
+each $a_i \leq 1$, so $\deg \mathfrak{m} = a_1 + \cdots + a_N \leq N$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.sum-count-eq-card}
+\lean{AlgebraicCombinatorics.SymmetricPolynomials.sum_count_eq_card}
+\leanhelper
+\leanok
+For any multiset $s$ of elements from $[N]$ of size $m$,
+the sum of counts $\sum_{i=1}^N \text{count}(i, s)$ equals $m$.
+\end{lemma}
+
+\begin{proof}
+This is the standard identity that the sum of all multiplicities in
+a multiset equals its cardinality. The proof splits the sum over
+elements that appear in $s$ and elements that do not, the latter contributing zero.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.e-isSymm}
+\lean{AlgebraicCombinatorics.SymmetricPolynomials.e_isSymm, AlgebraicCombinatorics.SymmetricPolynomials.h_isSymm, AlgebraicCombinatorics.SymmetricPolynomials.p_isSymm}
+\leanhelper
+\leanok
+The elementary symmetric polynomial $e_n$, the complete homogeneous symmetric
+polynomial $h_n$, and the power sum $p_n$ are all symmetric (i.e., belong to
+$\mathcal{S}$) for every $n$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+For $e_n$: permuting the variables permutes the strictly increasing
+$n$-tuples $(i_1 < \cdots < i_n)$, so the sum is unchanged.
+For $h_n$ and $p_n$: the argument is analogous, using the fact that
+permuting variables permutes the non-decreasing tuples (for $h_n$)
+or the individual terms $x_i^n$ (for $p_n$).
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.monomial-isPrimal-iff}
+\lean{AlgebraicCombinatorics.SymmetricPolynomials.Monomial.isPrimal_iff}
+\leanhelper
+\leanok
+A monomial $\mathfrak{m}$ is primal if and only if $\mathfrak{m} = 1$
+or $\mathfrak{m} = x_i^k$ for some $i \in [N]$ and some $k > 0$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+If $\mathfrak{m}$ is primal, its support has at most one element.
+If the support is empty, then $\mathfrak{m} = 1$.
+If the support is $\{i\}$, then $\mathfrak{m} = x_i^{m_i}$ for some $m_i > 0$.
+The converse is immediate.
+\end{proof}
+
+\subsection{Monomial API}
+
+The following lemmas develop the API for monomials, connecting the exponent vector
+representation with the polynomial representation.
+
+\begin{lemma}
+\label{lem.sf.monomial-toPoly}
+\lean{AlgebraicCombinatorics.SymmetricPolynomials.Monomial.toPoly}
+\leanhelper
+\leanok
+A monomial $\mathfrak{m}$ with exponent vector $(a_1, \ldots, a_N)$ corresponds to the
+polynomial $x_1^{a_1} \cdots x_N^{a_N}$.
+The polynomial corresponding to the zero exponent vector is $1$,
+the polynomial corresponding to the $i$-th standard basis vector is $x_i$,
+and the polynomial corresponding to a sum of exponent vectors $m_1 + m_2$ is
+the product of the corresponding polynomials.
+\end{lemma}
+
+\begin{proof}
+Direct from the definition of monomials in a multivariable polynomial ring.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.monomial-ofFinset}
+\lean{AlgebraicCombinatorics.SymmetricPolynomials.Monomial.ofFinset, AlgebraicCombinatorics.SymmetricPolynomials.Monomial.toPoly_ofFinset, AlgebraicCombinatorics.SymmetricPolynomials.Monomial.isSquarefree_ofFinset, AlgebraicCombinatorics.SymmetricPolynomials.Monomial.degree_ofFinset, AlgebraicCombinatorics.SymmetricPolynomials.Monomial.support_ofFinset}
+\leanhelper
+\leanok
+For a subset $S \subseteq [N]$, the monomial $\mathfrak{m}_S = \prod_{i \in S} x_i$
+is squarefree, has degree $|S|$, and has support equal to $S$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The monomial $\mathfrak{m}_S$ is defined as $\sum_{i \in S} e_i$ where $e_i$ is the
+$i$-th standard basis vector. Each entry is $0$ or $1$ (squarefree),
+the sum of entries equals $|S|$ (degree), and the support is exactly $S$.
+All properties are proved by induction on $|S|$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.monomial-degree-add}
+\lean{AlgebraicCombinatorics.SymmetricPolynomials.Monomial.degree_add}
+\leanhelper
+\leanok
+The degree of the product of two monomials is the sum of their degrees:
+$\deg(\mathfrak{m}_1 \cdot \mathfrak{m}_2) = \deg \mathfrak{m}_1 + \deg \mathfrak{m}_2$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The degree is defined as the sum of all exponents. Since the exponent vector
+of $\mathfrak{m}_1 \cdot \mathfrak{m}_2$ is the pointwise sum of the
+exponent vectors, the degree of the product equals the sum of the degrees.
+\end{proof}
+
+\subsection{Basic values of $e_n$, $h_n$, $p_n$}
+
+\begin{lemma}
+\label{lem.sf.basic-values}
+\lean{AlgebraicCombinatorics.SymmetricPolynomials.e_zero, AlgebraicCombinatorics.SymmetricPolynomials.e_one, AlgebraicCombinatorics.SymmetricPolynomials.h_zero, AlgebraicCombinatorics.SymmetricPolynomials.h_one, AlgebraicCombinatorics.SymmetricPolynomials.p_zero, AlgebraicCombinatorics.SymmetricPolynomials.p_one}
+\leanhelper
+\leanok
+We have the following basic values:
+\begin{itemize}
+\item $e_0 = h_0 = 1$;
+\item $e_1 = h_1 = p_1 = \sum_{i=1}^N x_i$;
+\item $p_0 = N$ (the number of variables; note this differs from the textbook convention $p_0 = 1$).
+\end{itemize}
+\end{lemma}
+
+\begin{proof}
+These follow directly from the definitions. For $e_0$ and $h_0$, the only
+$0$-tuple is the empty tuple, giving an empty product equal to $1$. For $e_1$
+and $h_1$, the $1$-tuples are the singletons $(i)$ for $i \in [N]$, giving
+$\sum_{i=1}^N x_i$. For $p_1$, this is $\sum_{i=1}^N x_i^1 = \sum_{i=1}^N x_i$.
+For $p_0$, the Lean definition follows Mathlib's convention, which gives
+$p_0 = \sum_{i=1}^N x_i^0 = N$.
+\end{proof}
+
+\subsection{Alternative characterizations of $e_n$, $h_n$, $p_n$}
+
+\begin{lemma}
+\label{lem.sf.ehp-alt-characterizations}
+\lean{AlgebraicCombinatorics.SymmetricPolynomials.e_eq_sum_prod_subsets, AlgebraicCombinatorics.SymmetricPolynomials.p_eq_sum_pow}
+\leanhelper
+\leanok
+The defining formulas for $e_n$ and $p_n$ are:
+\[
+e_n = \sum_{\substack{S \subseteq [N] \\ |S| = n}} \prod_{i \in S} x_i,
+\qquad
+p_n = \sum_{i=1}^N x_i^n.
+\]
+\end{lemma}
+
+\begin{proof}
+Both follow immediately from the definitions:
+$e_n$ is the sum over strictly increasing $n$-tuples, which bijects with
+$n$-element subsets $S \subseteq [N]$; and $p_n = \sum_{i=1}^N x_i^n$
+is the definition for $n > 0$.
+\end{proof}
+
+\subsection{Integer-indexed versions}
+
+\begin{lemma}
+\label{lem.sf.integer-indexed}
+\lean{AlgebraicCombinatorics.SymmetricPolynomials.eZ, AlgebraicCombinatorics.SymmetricPolynomials.hZ, AlgebraicCombinatorics.SymmetricPolynomials.pZ}
+\leanhelper
+\leanok
+The integer-indexed versions $e_n$, $h_n$, $p_n$ for $n \in \mathbb{Z}$ satisfy:
+\begin{itemize}
+\item $e_n = 0$ for $n < 0$, and $e_n$ agrees with Definition~\ref{def.sf.ehp}~\textbf{(a)} for $n \geq 0$;
+\item $h_n = 0$ for $n < 0$, and $h_n$ agrees with Definition~\ref{def.sf.ehp}~\textbf{(b)} for $n \geq 0$;
+\item $p_n = 0$ for $n < 0$, $p_0 = 1$, and $p_n = x_1^n + x_2^n + \cdots + x_N^n$ for $n > 0$.
+\end{itemize}
+All are symmetric for every $n \in \mathbb{Z}$.
+\end{lemma}
+
+\begin{proof}
+By case analysis on the sign of $n$.
+For non-negative $n$, symmetry follows from Lemma~\ref{lem.sf.e-isSymm}.
+For negative $n$, the polynomial is $0$ which is trivially symmetric.
+\end{proof}
+
+\subsection{Adding a variable recurrence}
+
+\begin{lemma}
+\label{lem.sf.esymm-add-var}
+\lean{AlgebraicCombinatorics.SymmetricPolynomials.esymm_succ_add_var', AlgebraicCombinatorics.SymmetricPolynomials.esymm_succ_add_var}
+\leanhelper
+\leanok
+For each $n \geq 0$, the elementary symmetric polynomial satisfies the recurrence
+\[
+e_{n+1}(x_1, \ldots, x_N, y) = e_{n+1}(x_1, \ldots, x_N) + y \cdot e_n(x_1, \ldots, x_N).
+\]
+This follows by partitioning the $n$-element subsets of $\{1, \ldots, N+1\}$ into those
+containing $N+1$ and those not.
+\end{lemma}
+
+\begin{proof}
+Partition $\binom{[N+1]}{n+1}$ into subsets not containing $N+1$ and subsets containing $N+1$.
+The first group yields $e_{n+1}(x_1, \ldots, x_N)$ (via a bijection with $\binom{[N]}{n+1}$).
+The second group yields $y \cdot e_n(x_1, \ldots, x_N)$ (via a bijection with $\binom{[N]}{n}$,
+factoring out the variable $x_{N+1} = y$). The proof establishes
+these bijections explicitly.
+\end{proof}
+
+\subsection{Antisymmetric polynomials}
+
+\begin{definition}
+\label{def.sf.antisymm}
+\lean{AlgebraicCombinatorics.SymmetricPolynomials.IsAntisymm}
+\leanhelper
+\leanok
+A polynomial $f \in \mathcal{P}$ is \emph{antisymmetric} if
+\[
+\sigma \cdot f = \operatorname{sign}(\sigma) \cdot f \quad \text{for all } \sigma \in S_N.
+\]
+\end{definition}
+
+\begin{lemma}
+\label{lem.sf.antisymm-submodule}
+\lean{AlgebraicCombinatorics.SymmetricPolynomials.isAntisymm_zero, AlgebraicCombinatorics.SymmetricPolynomials.isAntisymm_add, AlgebraicCombinatorics.SymmetricPolynomials.isAntisymm_smul, AlgebraicCombinatorics.SymmetricPolynomials.isAntisymm_neg}
+\leanhelper
+\leanok
+The antisymmetric polynomials form a $K$-submodule of $\mathcal{P}$: the zero polynomial
+is antisymmetric, and the sum, scalar multiple, and negation of antisymmetric polynomials
+are antisymmetric.
+\end{lemma}
+
+\begin{proof}
+\leanok
+For each property, apply a permutation $\sigma$ and use the linearity of the action.
+For instance, $\sigma \cdot (f + g) = \sigma \cdot f + \sigma \cdot g
+= \operatorname{sign}(\sigma)(f + g)$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.antisymm-sq-symmetric}
+\lean{AlgebraicCombinatorics.SymmetricPolynomials.isSymm_sq_of_isAntisymm}
+\leanhelper
+\leanok
+The square of an antisymmetric polynomial is symmetric.
+\end{lemma}
+
+\begin{proof}
+\leanok
+If $f$ is antisymmetric, then
+$\sigma \cdot (f^2) = (\sigma \cdot f)^2 = (\operatorname{sign}(\sigma) \cdot f)^2
+= \operatorname{sign}(\sigma)^2 \cdot f^2 = f^2$,
+using $\operatorname{sign}(\sigma)^2 = 1$.
+\end{proof}
+
+\subsection{The sum of variables is symmetric}
+
+\begin{lemma}
+\label{lem.sf.sum-X-symmetric}
+\lean{AlgebraicCombinatorics.SymmetricPolynomials.isSymm_sum_X}
+\leanhelper
+\leanok
+The polynomial $\sum_{i=1}^N x_i$ is symmetric.
+\end{lemma}
+
+\begin{proof}
+\leanok
+This equals $e_1$, which is symmetric by Lemma~\ref{lem.sf.e-isSymm}.
+\end{proof}

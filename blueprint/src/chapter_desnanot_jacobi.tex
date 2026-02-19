@@ -1,0 +1,1187 @@
+\section{Determinants: Factor Hunting, Laplace Expansion, and Desnanot--Jacobi}
+
+\subsection{Factor hunting and the Vandermonde determinant}
+
+\begin{theorem}
+[Vandermonde determinant]
+\label{thm.det.vander}
+\lean{AlgebraicCombinatorics.Determinants.vandermonde_det_a, AlgebraicCombinatorics.Determinants.vandermonde_det_b, AlgebraicCombinatorics.Determinants.vandermonde_det_c, AlgebraicCombinatorics.Determinants.vandermonde_det_d}
+\leantarget
+\leanok
+Let $n \in \mathbb{N}$. Let $a_1, a_2, \ldots, a_n$ be $n$ elements of $K$. Then:
+
+\textbf{(a)} We have
+\[
+  \det\left( \left( a_i^{n-j} \right)_{1 \leq i \leq n,\; 1 \leq j \leq n} \right)
+  = \prod_{1 \leq i < j \leq n} (a_i - a_j).
+\]
+
+\textbf{(b)} We have
+\[
+  \det\left( \left( a_j^{n-i} \right)_{1 \leq i \leq n,\; 1 \leq j \leq n} \right)
+  = \prod_{1 \leq i < j \leq n} (a_i - a_j).
+\]
+
+\textbf{(c)} We have
+\[
+  \det\left( \left( a_i^{j-1} \right)_{1 \leq i \leq n,\; 1 \leq j \leq n} \right)
+  = \prod_{1 \leq j < i \leq n} (a_i - a_j).
+\]
+
+\textbf{(d)} We have
+\[
+  \det\left( \left( a_j^{i-1} \right)_{1 \leq i \leq n,\; 1 \leq j \leq n} \right)
+  = \prod_{1 \leq j < i \leq n} (a_i - a_j).
+\]
+\end{theorem}
+
+\begin{proof}
+\textbf{(a)} Follows from Lemma~\ref{lem.det.vander.a.pol} by substituting
+$a_1, a_2, \ldots, a_n$ for the indeterminates $x_1, x_2, \ldots, x_n$.
+More precisely, the equality
+\[
+  \det\left( \left( a_i^{n-j} \right)_{1 \leq i \leq n,\; 1 \leq j \leq n} \right)
+  = \prod_{1 \leq i < j \leq n} (a_i - a_j)
+\]
+follows from the polynomial identity~\eqref{eq.lem.det.vander.a.pol.1} by
+applying the evaluation homomorphism $x_i \mapsto a_i$.
+
+\textbf{(b)} The matrix $\left( a_j^{n-i} \right)_{1 \leq i \leq n,\; 1 \leq j \leq n}$
+is the transpose of the matrix $\left( a_i^{n-j} \right)_{1 \leq i \leq n,\; 1 \leq j \leq n}$.
+Thus part~(b) follows from part~(a) using $\det(A^T) = \det A$.
+
+\textbf{(c)} The matrix $\left( a_i^{j-1} \right)$ is obtained from
+$\left( a_i^{n-j} \right)$ by reversing the column order.
+Let $\tau \in S_n$ send each $j$ to $n+1-j$. Then
+\[
+  \det\left( \left( a_i^{j-1} \right) \right)
+  = (-1)^\tau \cdot \det\left( \left( a_i^{n-j} \right) \right)
+  = (-1)^\tau \cdot \prod_{1 \leq i < j \leq n} (a_i - a_j).
+\]
+Since each factor $(a_i - a_j)$ gets negated by $(-1)^\tau$, the result
+becomes $\prod_{1 \leq j < i \leq n} (a_i - a_j)$.
+
+\textbf{(d)} Follows from part~(c) using $\det(A^T) = \det A$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.det.vander.a.pol}
+\lean{AlgebraicCombinatorics.Determinants.vandermonde_det_poly'}
+\leantarget
+\leanok
+Let $n \in \mathbb{N}$. Consider the polynomial ring
+$\mathbb{Z}[x_1, x_2, \ldots, x_n]$ in $n$ indeterminates
+$x_1, x_2, \ldots, x_n$ with integer coefficients. In this ring, we have
+\begin{equation}
+  \det\left( \left( x_i^{n-j} \right)_{1 \leq i \leq n,\; 1 \leq j \leq n} \right)
+  = \prod_{1 \leq i < j \leq n} (x_i - x_j).
+  \label{eq.lem.det.vander.a.pol.1}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Set
+\[
+  f := \det\left( \left( x_i^{n-j} \right)_{1 \leq i \leq n,\; 1 \leq j \leq n} \right)
+  \quad \text{and} \quad
+  g := \prod_{1 \leq i < j \leq n} (x_i - x_j).
+\]
+We must prove that $f = g$.
+
+By the definition of the determinant,
+\[
+  f = \sum_{\sigma \in S_n} (-1)^\sigma
+      x_1^{n - \sigma(1)} x_2^{n - \sigma(2)} \cdots x_n^{n - \sigma(n)},
+\]
+which is a homogeneous polynomial of degree $\frac{n(n-1)}{2}$.
+The monomial $x_1^{n-1} x_2^{n-2} \cdots x_n^0$ appears with coefficient~$1$
+(from the identity permutation $\sigma = \mathrm{id}$).
+
+For any $u < v$ in $[n]$, setting $x_u = x_v$ makes two rows of the matrix
+identical, so $f$ vanishes. By the root factoring-off theorem (viewing $f$ as a
+polynomial in $x_u$ over
+$\mathbb{Z}[x_1, \ldots, \widehat{x_u}, \ldots, x_n]$), we conclude that
+$x_u - x_v$ divides $f$. Since the ring
+$\mathbb{Z}[x_1, \ldots, x_n]$ is a UFD and the linear factors $x_u - x_v$
+are irreducible and mutually non-associate, the product
+$g = \prod_{1 \leq i < j \leq n} (x_i - x_j)$ divides $f$. Thus $f = gq$
+for some $q \in \mathbb{Z}[x_1, \ldots, x_n]$.
+
+Since $\deg f \leq \frac{n(n-1)}{2} = \deg g$, we get $\deg q \leq 0$, so
+$q \in \mathbb{Z}$. Comparing the coefficient of $x_1^{n-1} x_2^{n-2} \cdots x_n^0$
+on both sides gives $1 = q \cdot 1$, hence $q = 1$ and $f = g$.
+
+The formalization relates our matrix convention to Mathlib's via column reversal,
+and uses the fact that swapping the order of subtraction in each factor introduces
+a sign that cancels with the sign from the column permutation.
+\end{proof}
+
+\begin{proposition}
+\label{prop.det.(xi+yj)n-1}
+\lean{AlgebraicCombinatorics.Determinants.det_sum_pow}
+\leantarget
+\leanok
+Let $n \in \mathbb{N}$. Let $x_1, x_2, \ldots, x_n \in K$ and
+$y_1, y_2, \ldots, y_n \in K$. Then,
+\begin{align*}
+  & \det\left( \left( (x_i + y_j)^{n-1} \right)_{1 \leq i \leq n,\; 1 \leq j \leq n} \right) \\
+  &= \left( \prod_{k=0}^{n-1} \binom{n-1}{k} \right)
+     \left( \prod_{1 \leq i < j \leq n} (x_i - x_j) \right)
+     \left( \prod_{1 \leq i < j \leq n} (y_j - y_i) \right).
+\end{align*}
+\end{proposition}
+
+\begin{proof}
+Let $C = \left( (x_i + y_j)^{n-1} \right)_{1 \leq i \leq n,\; 1 \leq j \leq n}$.
+By the binomial formula, for any $i, j \in [n]$,
+\[
+  C_{i,j} = (x_i + y_j)^{n-1}
+           = \sum_{k=1}^{n} \binom{n-1}{k-1} x_i^{k-1} y_j^{n-k}.
+\]
+Define two $n \times n$-matrices
+\[
+  P := \left( \binom{n-1}{k-1} x_i^{k-1} \right)_{1 \leq i \leq n,\; 1 \leq k \leq n}
+  \quad \text{and} \quad
+  Q := \left( y_j^{n-k} \right)_{1 \leq k \leq n,\; 1 \leq j \leq n}.
+\]
+Then $C = PQ$, so $\det C = \det P \cdot \det Q$.
+
+From $Q = \left( y_j^{n-i} \right)$, Theorem~\ref{thm.det.vander}~(b) gives
+$\det Q = \prod_{1 \leq i < j \leq n} (y_i - y_j)$.
+
+From $P = \left( \binom{n-1}{j-1} x_i^{j-1} \right)$, factoring out the
+binomial coefficients from each column and applying
+Theorem~\ref{thm.det.vander}~(c) gives
+\[
+  \det P = \left( \prod_{k=0}^{n-1} \binom{n-1}{k} \right)
+           \cdot \prod_{1 \leq j < i \leq n} (x_i - x_j)
+         = \left( \prod_{k=0}^{n-1} \binom{n-1}{k} \right)
+           \cdot \prod_{1 \leq i < j \leq n} (x_j - x_i).
+\]
+
+Hence,
+\begin{align*}
+  \det C &= \det P \cdot \det Q \\
+         &= \left( \prod_{k=0}^{n-1} \binom{n-1}{k} \right)
+            \cdot \prod_{1 \leq i < j \leq n}
+            \underbrace{(x_j - x_i)(y_i - y_j)}_{= (x_i - x_j)(y_j - y_i)} \\
+         &= \left( \prod_{k=0}^{n-1} \binom{n-1}{k} \right)
+            \left( \prod_{1 \leq i < j \leq n} (x_i - x_j) \right)
+            \left( \prod_{1 \leq i < j \leq n} (y_j - y_i) \right).
+\end{align*}
+\end{proof}
+
+\subsection{Laplace expansion}
+
+\begin{convention}
+\label{conv.mat.tilde}
+\lean{AlgebraicCombinatorics.Determinants.submatrixRemove}
+\leanok
+Let $n \in \mathbb{N}$. Let $A$ be an $n \times n$-matrix.
+Let $i, j \in [n]$. Then, we set
+\[
+  A_{\sim i, \sim j} := \operatorname{sub}_{[n] \setminus \{i\}}^{[n] \setminus \{j\}} A.
+\]
+This is the $(n-1) \times (n-1)$-matrix obtained from $A$ by removing its
+$i$-th row and its $j$-th column.
+\end{convention}
+
+\begin{theorem}
+[Laplace expansion]
+\label{thm.det.laplace}
+\lean{AlgebraicCombinatorics.Determinants.det_laplace_row, AlgebraicCombinatorics.Determinants.det_laplace_col}
+\leantarget
+\leanok
+Let $n \in \mathbb{N}$. Let $A \in K^{n \times n}$ be an $n \times n$-matrix.
+
+\textbf{(a)} For every $p \in [n]$, we have
+\[
+  \det A = \sum_{q=1}^{n} (-1)^{p+q} A_{p,q} \det(A_{\sim p, \sim q}).
+\]
+
+\textbf{(b)} For every $q \in [n]$, we have
+\[
+  \det A = \sum_{p=1}^{n} (-1)^{p+q} A_{p,q} \det(A_{\sim p, \sim q}).
+\]
+\end{theorem}
+
+\begin{proof}
+See \cite[Theorem 6.82]{detnotes} or
+\cite[Lemma 4.7.7]{Ford21} or \cite[5.8 and 5.8']{Laue-det} or
+\cite[Proposition B.24 and Proposition B.25]{Strick13} or \cite[Theorem
+9.48]{Loehr-BC}.
+
+Part~(a) is Mathlib's \texttt{Matrix.det\_succ\_row}; part~(b) is
+\texttt{Matrix.det\_succ\_column}.
+\end{proof}
+
+\begin{proposition}
+\label{prop.det.laplace.0}
+\lean{AlgebraicCombinatorics.Determinants.det_laplace_row_zero, AlgebraicCombinatorics.Determinants.det_laplace_col_zero}
+\leantarget
+\leanok
+Let $n \in \mathbb{N}$. Let $A \in K^{n \times n}$ be an $n \times n$-matrix.
+Let $r \in [n]$.
+
+\textbf{(a)} For every $p \in [n]$ satisfying $p \neq r$, we have
+\[
+  0 = \sum_{q=1}^{n} (-1)^{p+q} A_{r,q} \det(A_{\sim p, \sim q}).
+\]
+
+\textbf{(b)} For every $q \in [n]$ satisfying $q \neq r$, we have
+\[
+  0 = \sum_{p=1}^{n} (-1)^{p+q} A_{p,r} \det(A_{\sim p, \sim q}).
+\]
+\end{proposition}
+
+\begin{proof}
+\textbf{(a)} Let $p \in [n]$ satisfy $p \neq r$. Let $C$ be the matrix $A$
+with its $p$-th row replaced by its $r$-th row. Then $C$ has two equal rows,
+so $\det C = 0$. On the other hand, expanding $\det C$ along the $p$-th row
+(using Theorem~\ref{thm.det.laplace}~(a) applied to $C$) yields
+\[
+  \det C = \sum_{q=1}^{n} (-1)^{p+q} \underbrace{C_{p,q}}_{= A_{r,q}}
+           \det\underbrace{(C_{\sim p, \sim q})}_{= A_{\sim p, \sim q}}
+         = \sum_{q=1}^{n} (-1)^{p+q} A_{r,q} \det(A_{\sim p, \sim q}).
+\]
+Comparing gives the claim. Part~(b) follows similarly.
+
+The formalization uses the adjugate: $(-1)^{p+q} \det(A_{\sim p, \sim q})
+= (\operatorname{adj} A)_{q,p}$, so the sum becomes
+$\sum_q A_{r,q} (\operatorname{adj} A)_{q,p} = (A \cdot \operatorname{adj} A)_{r,p}
+= (\det A) \cdot I_{r,p} = 0$ when $r \neq p$.
+\end{proof}
+
+\begin{definition}
+[Adjugate matrix]
+\label{def.det.adj}
+\lean{AlgebraicCombinatorics.Determinants.adjugateMat, AlgebraicCombinatorics.Determinants.adjugateMat_eq_adjugate}
+\leantarget
+\leanok
+Let $n \in \mathbb{N}$. Let $A \in K^{n \times n}$ be an $n \times n$-matrix.
+We define a new $n \times n$-matrix $\operatorname{adj} A \in K^{n \times n}$ by
+\[
+  \operatorname{adj} A
+  = \left( (-1)^{i+j} \det(A_{\sim j, \sim i}) \right)_{1 \leq i \leq n,\; 1 \leq j \leq n}.
+\]
+This matrix $\operatorname{adj} A$ is called the \emph{adjugate} (or
+\emph{classical adjoint}) of the matrix $A$.
+Note the index swap: the $(i,j)$ entry involves removing row $j$ and column $i$.
+
+The formalization shows that this definition equals Mathlib's
+\texttt{Matrix.adjugate}, which is defined via
+$(\operatorname{adj} A)_{i,j} = \det(A')$
+where $A'$ is the matrix $A$ with row $j$ replaced by the $i$-th standard basis vector.
+\end{definition}
+
+\begin{theorem}
+\label{thm.det.adj.inverse}
+\lean{AlgebraicCombinatorics.Determinants.mul_adjugate', AlgebraicCombinatorics.Determinants.adjugate_mul'}
+\leantarget
+\leanok
+Let $n \in \mathbb{N}$. Let $A \in K^{n \times n}$ be an $n \times n$-matrix.
+Let $I_n$ denote the $n \times n$ identity matrix. Then,
+\[
+  A \cdot (\operatorname{adj} A) = (\operatorname{adj} A) \cdot A
+  = (\det A) \cdot I_n.
+\]
+\end{theorem}
+
+\begin{proof}
+See \cite[Theorem 6.100]{detnotes} or \cite[Lemma 4.7.9]{Ford21} or
+\cite[Theorem 9.50]{Loehr-BC} or \cite[Proposition B.28]{Strick13}.
+
+To show $A \cdot (\operatorname{adj} A) = (\det A) \cdot I_n$, it suffices to
+check that the $(i,j)$-th entry of $A \cdot (\operatorname{adj} A)$ equals
+$\det A$ when $i = j$ and equals $0$ otherwise.
+
+Case $i = j$: The $(i,i)$ entry is
+$\sum_k A_{i,k} (\operatorname{adj} A)_{k,i}
+= \sum_k (-1)^{i+k} A_{i,k} \det(A_{\sim i, \sim k}) = \det A$
+by Laplace expansion along row $i$ (Theorem~\ref{thm.det.laplace}~(a)).
+
+Case $i \neq j$: The $(i,j)$ entry is
+$\sum_k A_{i,k} (\operatorname{adj} A)_{k,j}
+= \sum_k (-1)^{j+k} A_{i,k} \det(A_{\sim j, \sim k}) = 0$
+by Proposition~\ref{prop.det.laplace.0}~(a) (using row~$i$ entries with row~$j$ cofactors).
+
+Similarly, $(\operatorname{adj} A) \cdot A = (\det A) \cdot I_n$ follows
+using column versions.
+\end{proof}
+
+\subsection{Laplace expansion along multiple rows}
+
+\begin{convention}
+\label{conv.det.sum-compl}
+For any subset $I$ of $[n]$, we write $\widetilde{I} = [n] \setminus I$ for
+its complement, and $\operatorname{sum} S = \sum_{s \in S} s$ for any finite
+set $S$ of integers.
+\end{convention}
+
+\begin{theorem}
+[Laplace expansion along multiple rows/columns]
+\label{thm.det.laplace-multi}
+\lean{AlgebraicCombinatorics.Determinants.det_laplace_multi_row, AlgebraicCombinatorics.Determinants.det_laplace_multi_col}
+\leantarget
+\leanok
+Let $n \in \mathbb{N}$. Let $A \in K^{n \times n}$ be an $n \times n$-matrix.
+
+\textbf{(a)} For every subset $P$ of $[n]$, we have
+\[
+  \det A = \sum_{\substack{Q \subseteq [n] \\ |Q| = |P|}}
+           (-1)^{\operatorname{sum} P + \operatorname{sum} Q}
+           \det\left( \operatorname{sub}_P^Q A \right)
+           \det\left( \operatorname{sub}_{\widetilde{P}}^{\widetilde{Q}} A \right).
+\]
+
+\textbf{(b)} For every subset $Q$ of $[n]$, we have
+\[
+  \det A = \sum_{\substack{P \subseteq [n] \\ |P| = |Q|}}
+           (-1)^{\operatorname{sum} P + \operatorname{sum} Q}
+           \det\left( \operatorname{sub}_P^Q A \right)
+           \det\left( \operatorname{sub}_{\widetilde{P}}^{\widetilde{Q}} A \right).
+\]
+\end{theorem}
+
+\begin{proof}
+See \cite[Theorem 6.156]{detnotes}.
+
+The proof partitions the symmetric group based on how permutations map $P$
+to subsets $Q$ of the same size. For each such $Q$, the permutations
+$\sigma$ with $\sigma(P) = Q$ decompose as a bijection $\tau : P \to Q$
+(contributing to $\det(\operatorname{sub}_P^Q A)$) and a bijection
+$\rho : \widetilde{P} \to \widetilde{Q}$
+(contributing to $\det(\operatorname{sub}_{\widetilde{P}}^{\widetilde{Q}} A)$).
+The sign decomposes as
+$(-1)^\sigma = (-1)^{\operatorname{sum} P + \operatorname{sum} Q}
+(-1)^\tau (-1)^\rho$.
+
+Part~(b) follows from part~(a) applied to $A^T$ using $\det(A^T) = \det A$.
+\end{proof}
+
+\subsection{Desnanot--Jacobi and Dodgson condensation}
+
+\begin{theorem}
+[Desnanot--Jacobi formula, take 1]
+\label{thm.det.des-jac-1}
+\lean{AlgebraicCombinatorics.Determinants.desnanot_jacobi, AlgebraicCombinatorics.Determinants.desnanot_jacobi_det2}
+\leantarget
+\leanok
+Let $n \in \mathbb{N}$ be such that $n \geq 2$. Let $A \in K^{n \times n}$ be
+an $n \times n$-matrix.
+
+Let $A'$ be the $(n-2) \times (n-2)$-matrix
+\[
+  \operatorname{sub}_{\{2, 3, \ldots, n-1\}}^{\{2, 3, \ldots, n-1\}} A
+  = \left( A_{i+1, j+1} \right)_{1 \leq i \leq n-2,\; 1 \leq j \leq n-2}.
+\]
+(This is what remains of $A$ when we remove the first row, the last row, the
+first column and the last column.) Then,
+\begin{align*}
+  \det A \cdot \det(A')
+  &= \det(A_{\sim 1, \sim 1}) \cdot \det(A_{\sim n, \sim n})
+     - \det(A_{\sim 1, \sim n}) \cdot \det(A_{\sim n, \sim 1}) \\
+  &= \det \begin{pmatrix}
+       \det(A_{\sim 1, \sim 1}) & \det(A_{\sim 1, \sim n}) \\
+       \det(A_{\sim n, \sim 1}) & \det(A_{\sim n, \sim n})
+     \end{pmatrix}.
+\end{align*}
+\end{theorem}
+
+\begin{proof}
+See \cite[Proposition 6.122]{detnotes} or \cite[\S 3.5, proof of Theorem 3.12]{Bresso99} or
+\cite{zeilberger-twotime}.
+
+The proof uses the adjugate matrix.
+
+The right-hand side equals
+$(\operatorname{adj} A)_{0,0} \cdot (\operatorname{adj} A)_{n-1,n-1}
+- (\operatorname{adj} A)_{0,n-1} \cdot (\operatorname{adj} A)_{n-1,0}$,
+which is the $2 \times 2$ determinant of the corner submatrix of
+$\operatorname{adj} A$.
+
+By Jacobi's complementary minor theorem for the $2 \times 2$ case (a special
+case proved independently), this $2 \times 2$ determinant of the adjugate
+equals $\det A \cdot \det(A')$, giving the left-hand side.
+
+The proof of the special case uses the
+polynomial ring approach: reduce to the generic matrix over
+the multivariate polynomial ring, then work in its field of fractions where the matrix
+is invertible.
+\end{proof}
+
+\begin{theorem}
+[Cauchy determinant]
+\label{thm.det.cauchy}
+\lean{AlgebraicCombinatorics.Determinants.cauchy_det}
+\leantarget
+\leanok
+Let $n \in \mathbb{N}$. Let $x_1, x_2, \ldots, x_n$ be $n$ elements of $K$.
+Let $y_1, y_2, \ldots, y_n$ be $n$ elements of $K$.
+Assume that $x_i + y_j$ is invertible in $K$ for each $(i, j) \in [n]^2$. Then,
+\[
+  \det\left( \left( \frac{1}{x_i + y_j} \right)_{1 \leq i \leq n,\; 1 \leq j \leq n}
+  \right)
+  = \frac{\prod_{1 \leq i < j \leq n} \left( (x_i - x_j)(y_i - y_j) \right)}{
+          \prod_{(i,j) \in [n]^2} (x_i + y_j)}.
+\]
+\end{theorem}
+
+\begin{proof}
+The proof uses the polynomial version of the identity (factor hunting).
+
+\textbf{Step 1: Clear denominators.}
+Multiply both sides by $\prod_{i,j}(x_i + y_j)$ to obtain the ``cleared''
+polynomial identity:
+\[
+  \det\!\left(\left(\prod_{k \neq j}(x_i + y_k)\right)_{i,j}\right)
+  = \prod_{1 \leq i < j \leq n}\left((x_i - x_j)(y_i - y_j)\right).
+\]
+
+\textbf{Step 2: Base cases.}
+For $n = 0, 1, 2, 3$: verified by direct computation.
+
+\textbf{Step 3: Factor hunting} ($n \geq 4$):
+The determinant on the left is a polynomial in $x_1, \ldots, x_n, y_1, \ldots, y_n$.
+Setting $x_i = x_j$ (for $i \neq j$) makes two rows identical, so
+$(x_i - x_j)$ divides the determinant.
+Similarly, $(y_i - y_j)$ divides the determinant for $i \neq j$.
+Since these linear factors are pairwise coprime irreducibles in the UFD
+$\mathbb{Z}[x_1, \ldots, x_n, y_1, \ldots, y_n]$, their product divides
+the determinant.
+
+\textbf{Step 4: Degree comparison.}
+Both the determinant and the product have total degree $n(n-1)$, so the
+quotient is a constant. Evaluating at a specific point shows the constant
+is~$1$.
+
+\textbf{Step 5: Recover the Cauchy formula.}
+Dividing the cleared identity by $\prod_{i,j}(x_i + y_j)$ yields the
+Cauchy determinant formula.
+\end{proof}
+
+\begin{lemma}
+\label{lem.det.cauchy-poly}
+\lean{AlgebraicCombinatorics.Determinants.cauchy_det_poly}
+\leanhelper
+\leanok
+Let $n \in \mathbb{N}$. Let $x_1, \ldots, x_n \in R$ and $y_1, \ldots, y_n \in R$
+be elements of a commutative ring $R$. Then
+\[
+  \det\left( \left( \prod_{k \neq j} (x_i + y_k) \right)_{1 \leq i \leq n,\; 1 \leq j \leq n} \right)
+  = \prod_{1 \leq i < j \leq n} (x_i - x_j)(y_i - y_j).
+\]
+This is equivalent to the Cauchy determinant formula after dividing both sides
+by $\prod_{(i,j) \in [n]^2} (x_i + y_j)$.
+\end{lemma}
+
+\begin{proof}
+The proof uses factor hunting in the polynomial ring. Both sides are polynomials
+of degree $n(n-1)$ in the $x_i$'s and $y_j$'s. The left-hand side vanishes
+when $x_u = x_v$ (two rows become identical) and when $y_u = y_v$ (two columns
+become proportional). Thus the product
+$\prod_{i < j} (x_i - x_j)(y_i - y_j)$ divides the left-hand side.
+Degree comparison shows the quotient is a constant, and coefficient
+comparison shows the constant is~$1$.
+\end{proof}
+
+\subsection{Generalized Desnanot--Jacobi}
+
+\begin{theorem}
+\label{thm.det.des-jac-2}
+\lean{AlgebraicCombinatorics.Determinants.desnanot_jacobi_general}
+\leantarget
+\leanok
+Let $n \in \mathbb{N}$ be such that $n \geq 2$. Let $p, q, u, v$ be four
+elements of $[n]$ such that $p < q$ and $u < v$. Let $A$ be an
+$n \times n$-matrix. Then,
+\begin{align*}
+  & \det A \cdot \det\left( \operatorname{sub}_{[n] \setminus \{p, q\}}^{[n] \setminus \{u, v\}} A \right) \\
+  &= \det(A_{\sim p, \sim u}) \cdot \det(A_{\sim q, \sim v})
+     - \det(A_{\sim p, \sim v}) \cdot \det(A_{\sim q, \sim u}).
+\end{align*}
+\end{theorem}
+
+\begin{proof}
+See \cite[Theorem 6.126]{detnotes}.
+
+The proof combines two identities:
+\begin{enumerate}
+\item \textbf{Adjugate identity} (Lemma~\ref{lem.det.adj-corners}, generalized): The $2 \times 2$
+      determinant
+      $(\operatorname{adj} A)_{u,p} (\operatorname{adj} A)_{v,q}
+       - (\operatorname{adj} A)_{u,q} (\operatorname{adj} A)_{v,p}$
+      equals $(-1)^{p+u+q+v}$ times the product-minus-product expression.
+
+\item \textbf{Jacobi $2 \times 2$ identity} (Theorem~\ref{thm.det.jacobi-complement} for $|P|=|Q|=2$): The same
+      $2 \times 2$ determinant of the adjugate equals
+      $(-1)^{p+u+q+v} \det A \cdot \det(\operatorname{sub}_{[n] \setminus \{p,q\}}^{[n] \setminus \{u,v\}} A)$.
+\end{enumerate}
+Equating the two expressions and canceling $(-1)^{p+u+q+v}$ (which squares to~$1$)
+yields the result.
+
+Theorem~\ref{thm.det.des-jac-1} is the particular case $p = 1$, $q = n$,
+$u = 1$, $v = n$.
+\end{proof}
+
+\subsection{Jacobi's complementary minor theorem}
+
+\begin{theorem}
+[Jacobi's complementary minor theorem for adjugates]
+\label{thm.det.jacobi-complement}
+\lean{AlgebraicCombinatorics.Determinants.jacobi_complementary_minor}
+\leantarget
+\leanok
+Let $n \in \mathbb{N}$. For any subset $I$ of $[n]$, let $\widetilde{I}$
+denote the complement $[n] \setminus I$. Set
+$\operatorname{sum} S = \sum_{s \in S} s$ for any finite set $S$ of integers.
+
+Let $A \in K^{n \times n}$ be an $n \times n$-matrix. Let $P$ and $Q$ be two
+subsets of $[n]$ such that $|P| = |Q| \geq 1$. Then,
+\[
+  \det\left( \operatorname{sub}_P^Q (\operatorname{adj} A) \right)
+  = (-1)^{\operatorname{sum} P + \operatorname{sum} Q}
+    (\det A)^{|Q| - 1}
+    \det\left( \operatorname{sub}_{\widetilde{Q}}^{\widetilde{P}} A \right).
+\]
+\end{theorem}
+
+\begin{proof}
+The proof uses the polynomial ring approach (following Prasolov's
+\emph{Problems and Theorems in Linear Algebra}).
+
+\textbf{Step 1: Reduce to generic matrix.}
+Let $A'$ be the generic $n \times n$ matrix with polynomial entries in
+$\mathbb{Z}[(x_{i,j})_{1 \leq i,j \leq n}]$.
+The identity for arbitrary $A$ over any commutative ring $R$ follows by
+applying the evaluation homomorphism $x_{i,j} \mapsto A_{i,j}$.
+
+\textbf{Step 2: Work in the field of fractions.}
+Since $\det(A')$ is a nonzero polynomial, we can embed $A'$ into the field of
+fractions $K$ of the polynomial ring, where $A'$ becomes
+invertible.
+
+\textbf{Step 3: Use $\operatorname{adj}(A) = \det(A) \cdot A^{-1}$.}
+For invertible $A$ with $|P| = |Q| = k$:
+\[
+  \det(\operatorname{sub}_P^Q(\operatorname{adj} A))
+  = (\det A)^k \cdot \det(\operatorname{sub}_P^Q(A^{-1})).
+\]
+
+\textbf{Step 4: Complementary minor theorem for inverse.}
+The classical result for invertible $A$ states:
+\[
+  \det(\operatorname{sub}_P^Q(A^{-1}))
+  = (-1)^{\operatorname{sum} P + \operatorname{sum} Q}
+    \frac{\det(\operatorname{sub}_{\widetilde{Q}}^{\widetilde{P}} A)}{\det A}.
+\]
+This is proved using block matrix decomposition.
+
+\textbf{Step 5: Combine.}
+$\det(\operatorname{sub}_P^Q(\operatorname{adj} A))
+= (\det A)^k \cdot (-1)^{\operatorname{sum} P + \operatorname{sum} Q}
+  \cdot \det(\operatorname{sub}_{\widetilde{Q}}^{\widetilde{P}} A) / \det A
+= (-1)^{\operatorname{sum} P + \operatorname{sum} Q}
+  (\det A)^{k-1} \det(\operatorname{sub}_{\widetilde{Q}}^{\widetilde{P}} A)$.
+
+\textbf{Step 6: Pull back.}
+Since the identity holds in $K$ and the canonical map from the polynomial ring
+to $K$ is injective, the identity holds in the polynomial ring, and hence for
+all matrices $A$ over any commutative ring.
+
+Theorem~\ref{thm.det.des-jac-2} is the particular case of
+Theorem~\ref{thm.det.jacobi-complement} for $P = \{u, v\}$ and $Q = \{p, q\}$.
+Theorem~\ref{thm.det.des-jac-1} is, of course, the particular case of
+Theorem~\ref{thm.det.des-jac-2} for $p = 1$, $q = n$, $u = 1$, $v = n$.
+\end{proof}
+
+\subsection{Helpers for the Vandermonde determinant proof}
+
+\begin{lemma}
+\label{lem.det.vander.prod-Ioi-neg-sub}
+\lean{AlgebraicCombinatorics.Determinants.prod_Ioi_neg_sub'}
+\leanhelper
+\leanok
+Let $v_1, \ldots, v_m$ be elements of a commutative ring $S$. Then
+\[
+  \prod_{1 \leq i < j \leq m} (v_i - v_j)
+  = (-1)^{m(m-1)/2} \prod_{1 \leq i < j \leq m} (v_j - v_i).
+\]
+\end{lemma}
+
+\begin{proof}
+Each factor $(v_i - v_j) = -(v_j - v_i)$, and there are $\binom{m}{2} = m(m-1)/2$
+such factors.
+\end{proof}
+
+\begin{lemma}
+\label{lem.det.vander.sign-Fin-revPerm}
+\lean{AlgebraicCombinatorics.Determinants.sign_Fin_revPerm}
+\leanhelper
+\leanok
+The sign of the column reversal permutation $\tau$ on $\{1, 2, \ldots, m\}$
+(sending $j$ to $m + 1 - j$) satisfies
+\[
+  \operatorname{sign}(\tau) = (-1)^{m(m-1)/2}.
+\]
+\end{lemma}
+
+\begin{proof}
+For $i < j$, we have $\tau(i) > \tau(j)$,
+so every pair is an inversion. The total number of inversions is $\binom{m}{2}$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.det.vander.col-perm}
+\lean{AlgebraicCombinatorics.Determinants.det_submatrix_col_perm'}
+\leanhelper
+\leanok
+Let $A$ be an $m \times m$ matrix and $\sigma$ a permutation of $[m]$.
+Then $\det(A \circ \sigma) = \operatorname{sign}(\sigma) \cdot \det A$,
+where $A \circ \sigma$ denotes the column permutation $A_{i,\sigma(j)}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Transpose to a row permutation, apply the row permutation determinant formula,
+then transpose back.
+\end{proof}
+
+\begin{lemma}
+\label{lem.det.vander.det-vandermondePolyMat}
+\lean{AlgebraicCombinatorics.Determinants.det_vandermondePolyMat}
+\leanhelper
+\leanok
+The determinant of the polynomial Vandermonde matrix (with entries $x_i^{m-1-j}$)
+equals
+\[
+  \det\!\left(\left(x_i^{m-1-j}\right)_{i,j}\right) =
+  \operatorname{sign}(\tau) \cdot
+  \det\!\left(\left(x_i^{j}\right)_{i,j}\right),
+\]
+where $\tau$ is the column reversal permutation (sending $j$ to $m - 1 - j$).
+This relates the textbook matrix convention to Mathlib's via column reversal.
+\end{lemma}
+
+\begin{proof}
+The polynomial Vandermonde matrix is Mathlib's Vandermonde matrix with columns
+permuted by the reversal permutation, so the determinant picks up the sign factor.
+\end{proof}
+
+\subsection{Helpers for the Desnanot--Jacobi proof}
+
+\begin{lemma}
+\label{lem.det.adj-corners}
+\lean{AlgebraicCombinatorics.Determinants.det_adjugate_corners}
+\leanhelper
+\leanok
+Let $A \in K^{n \times n}$ with $n \geq 2$. Then
+\begin{align*}
+  & \det(A_{\sim 1, \sim 1}) \cdot \det(A_{\sim n, \sim n})
+    - \det(A_{\sim 1, \sim n}) \cdot \det(A_{\sim n, \sim 1}) \\
+  &= (\operatorname{adj} A)_{0,0} \cdot (\operatorname{adj} A)_{n-1,n-1}
+     - (\operatorname{adj} A)_{0,n-1} \cdot (\operatorname{adj} A)_{n-1,0}.
+\end{align*}
+\end{lemma}
+
+\begin{proof}
+Direct computation using $(\operatorname{adj} A)_{i,j} = (-1)^{i+j} \det(A_{\sim j, \sim i})$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.det.desnanot-jacobi-base}
+\lean{AlgebraicCombinatorics.Determinants.desnanot_jacobi_base}
+\leanhelper
+\leanok
+The Desnanot--Jacobi identity holds for $2 \times 2$ matrices by direct
+computation.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The identity $\det A \cdot \det(A') = \det(A_{\sim 1,\sim 1}) \cdot \det(A_{\sim 2,\sim 2}) - \det(A_{\sim 1,\sim 2}) \cdot \det(A_{\sim 2,\sim 1})$
+reduces to $\det A \cdot 1 = A_{2,2} \cdot A_{1,1} - A_{1,2} \cdot A_{2,1}$
+for a $2 \times 2$ matrix, which is the definition of $\det A$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.det.jacobi-complement-2x2-base}
+\lean{AlgebraicCombinatorics.Determinants.jacobi_complement_2x2_base}
+\leanhelper
+\leanok
+For a $2 \times 2$ matrix $A$, the $2 \times 2$ determinant of the corner
+entries of $\operatorname{adj} A$ satisfies
+\[
+  (\operatorname{adj} A)_{0,0} \cdot (\operatorname{adj} A)_{1,1}
+  - (\operatorname{adj} A)_{0,1} \cdot (\operatorname{adj} A)_{1,0}
+  = \det A.
+\]
+This is the base case of the Jacobi complementary minor theorem
+(since $\det(A') = 1$ for the $0 \times 0$ inner submatrix).
+\end{lemma}
+
+\begin{proof}
+\leanok
+Direct computation using the explicit $2 \times 2$ adjugate formula.
+\end{proof}
+
+\begin{lemma}
+\label{lem.det.jacobi-complement-2x2-three}
+\lean{AlgebraicCombinatorics.Determinants.jacobi_complement_2x2_three}
+\leanhelper
+\leanok
+For a $3 \times 3$ matrix $A$, the $2 \times 2$ determinant of the corner
+entries of $\operatorname{adj} A$ at positions $\{0, 2\} \times \{0, 2\}$ satisfies
+\[
+  (\operatorname{adj} A)_{0,0} \cdot (\operatorname{adj} A)_{2,2}
+  - (\operatorname{adj} A)_{0,2} \cdot (\operatorname{adj} A)_{2,0}
+  = \det A \cdot A_{1,1}.
+\]
+This verifies the Jacobi complementary minor theorem for $3 \times 3$
+matrices with $P = Q = \{0, 2\}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Direct expansion of the adjugate entries and the $3 \times 3$ determinant,
+followed by algebraic simplification.
+\end{proof}
+
+\subsection{Helpers for the generalized Desnanot--Jacobi proof}
+
+\begin{convention}
+\label{conv.det.submatrixRemove2}
+\lean{AlgebraicCombinatorics.Determinants.submatrixRemove2}
+\leanok
+Let $n \in \mathbb{N}$ with $n \geq 2$. Let $A$ be an $n \times n$-matrix.
+For $p < q$ in $[n]$ and $u < v$ in $[n]$, define
+\[
+  \operatorname{sub}_{[n] \setminus \{p,q\}}^{[n] \setminus \{u,v\}} A
+\]
+as the $(n-2) \times (n-2)$-submatrix of $A$ obtained by removing rows $p, q$
+and columns $u, v$. The row and column indexing uses
+the order-preserving injection $[n-2] \hookrightarrow [n]$
+that skips the two removed indices in order.
+\end{convention}
+
+\begin{lemma}
+\label{lem.det.submatrixRemove2-eq-submatrixDet}
+\lean{AlgebraicCombinatorics.Determinants.submatrixRemove2_det_eq_submatrixDet_compl}
+\leanhelper
+\leanok
+Let $A$ be an $(m+2) \times (m+2)$ matrix, and let $p < q$ and $u < v$ be
+indices. Then
+\[
+  \det\!\left(\operatorname{sub}_{[n]\setminus\{p,q\}}^{[n]\setminus\{u,v\}} A\right)
+  = \det\!\left(\operatorname{sub}_{\{p,q\}^c}^{\{u,v\}^c} A\right),
+\]
+where the right-hand side uses the complement-based submatrix construction.
+This connects the explicit order-preserving injection used in the submatrix
+construction to the general complement-based definition, enabling the
+use of Jacobi's complementary minor theorem.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The proof shows that the order-preserving injection that skips $p$ and $q$,
+being strictly monotone and having range equal to $\{p,q\}^c$, coincides with
+the canonical order-preserving enumeration of the complement set, so the two
+submatrix constructions yield the same matrix.
+\end{proof}
+
+\subsection{Helpers for the adjugate and inverse relationship}
+
+\begin{lemma}
+\label{lem.det.inv-eq-adjugate-div}
+\lean{AlgebraicCombinatorics.Determinants.inv_apply_eq_adjugate_div_det}
+\leanhelper
+\leanok
+Let $K$ be a field and $A \in K^{n \times n}$ with $\det A \neq 0$.
+Then for all $i, j$,
+\[
+  A^{-1}_{i,j} = \frac{(\operatorname{adj} A)_{i,j}}{\det A}.
+\]
+\end{lemma}
+
+\begin{proof}
+Follows from $A^{-1} = (\det A)^{-1} \cdot \operatorname{adj} A$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.det.adjugate-submatrix-eq-smul}
+\lean{AlgebraicCombinatorics.Determinants.adjugate_submatrix_eq_smul}
+\leanhelper
+\leanok
+Let $A$ be an $n \times n$ matrix with $\det A$ a unit. Then for any
+index functions $f$ and $g$,
+\[
+  (\operatorname{adj} A)_{f(i), g(j)}
+  = \det A \cdot (A^{-1})_{f(i), g(j)}.
+\]
+That is, the adjugate submatrix equals $\det A$ times the corresponding
+inverse submatrix.
+\end{lemma}
+
+\begin{proof}
+Entry-wise, $(\operatorname{adj} A)_{i,j} = \det A \cdot A^{-1}_{i,j}$
+for invertible $A$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.det.det-adjugate-submatrix-finset}
+\lean{AlgebraicCombinatorics.Determinants.det_adjugate_submatrix_finset}
+\leanhelper
+\leanok
+Let $A$ be an $m \times m$ matrix with $\det A$ a unit.
+Let $P, Q \subseteq [m]$ with $|P| = |Q| = k$. Then
+\[
+  \det\!\left(\operatorname{sub}_P^Q(\operatorname{adj} A)\right)
+  = (\det A)^k \cdot \det\!\left(\operatorname{sub}_P^Q(A^{-1})\right).
+\]
+This reduces Jacobi's complementary minor theorem to the complementary
+minor theorem for inverse matrices.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem.det.adjugate-submatrix-eq-smul}, the adjugate submatrix
+is $\det A$ times the inverse submatrix. The determinant of a scalar
+multiple is $(\det A)^k$ times the original determinant.
+\end{proof}
+
+\subsection{Helpers for block matrix decomposition}
+
+\begin{lemma}
+\label{lem.det.complementary-minor-block}
+\lean{AlgebraicCombinatorics.Determinants.complementary_minor_block}
+\leanhelper
+\leanok
+For a block matrix $M = \begin{pmatrix} A & B \\ C & D \end{pmatrix}$ with $D$
+invertible and the Schur complement $A - BD^{-1}C$ invertible, we have
+\[
+  \det(M) \cdot \det\!\left((M^{-1})_{\text{top-left}}\right) = \det D.
+\]
+\end{lemma}
+
+\begin{proof}
+By the Schur complement formula, $\det(M) = \det(D) \cdot \det(A - BD^{-1}C)$.
+The top-left block of $M^{-1}$ is $(A - BD^{-1}C)^{-1}$, whose determinant
+is $\det(A - BD^{-1}C)^{-1}$. Multiplying gives $\det(D)$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.det.adjugate-toBlocks11}
+\lean{AlgebraicCombinatorics.Determinants.adjugate_toBlocks₁₁_det_of_invertible}
+\leanhelper
+\leanok
+Let $M = \begin{pmatrix} A & B \\ C & D \end{pmatrix}$ be an invertible
+block matrix with $D$ invertible and Schur complement $A - BD^{-1}C$
+invertible. Let $k = |A|$ (the size of the top-left block) with $k \geq 1$.
+Then
+\[
+  \det\!\left((\operatorname{adj} M)_{\text{top-left}}\right)
+  = (\det M)^{k-1} \cdot \det D.
+\]
+\end{lemma}
+
+\begin{proof}
+Since $\operatorname{adj}(M) = \det(M) \cdot M^{-1}$ for invertible $M$,
+the top-left block of $\operatorname{adj}(M)$ is
+$\det(M) \cdot (M^{-1})_{\text{top-left}}$. Taking the $k \times k$
+determinant yields $(\det M)^k \cdot \det((M^{-1})_{\text{top-left}})$.
+By Lemma~\ref{lem.det.complementary-minor-block},
+$\det(M) \cdot \det((M^{-1})_{\text{top-left}}) = \det D$,
+so $\det((M^{-1})_{\text{top-left}}) = \det D / \det M$, giving the result.
+\end{proof}
+
+\begin{definition}
+\label{def.det.sortEquivPQ}
+\lean{AlgebraicCombinatorics.Determinants.sortEquivPQ}
+\leanhelper
+\leanok
+Given a subset $P$ of $[m]$, the \emph{sorting equivalence} is a bijection
+\[
+  \{1, \ldots, |P|\} \sqcup \{1, \ldots, m - |P|\} \xrightarrow{\sim} [m]
+\]
+that sends the $i$-th element of the left component to the $i$-th smallest element of $P$
+and the $j$-th element of the right component to the $j$-th smallest element of $P^c$.
+This equivalence is used to decompose matrices into block form with respect to the partition
+$[m] = P \sqcup P^c$.
+\end{definition}
+
+\begin{lemma}
+\label{lem.det.inv-submatrix-equiv}
+\lean{AlgebraicCombinatorics.Determinants.inv_submatrix_equiv}
+\leanhelper
+\leanok
+Let $K$ be a field, $A \in K^{m \times m}$ with $\det A \neq 0$, and
+$\sigma, \tau$ bijections from $[n]$ to $[m]$. Then
+\[
+  (A_{\sigma, \tau})^{-1} = (A^{-1})_{\tau, \sigma},
+\]
+where subscripts denote the submatrix obtained by reindexing rows and columns
+via the given bijections.
+\end{lemma}
+
+\begin{proof}
+Verify directly that $A_{\sigma,\tau} \cdot (A^{-1})_{\tau,\sigma} = I$ using
+$(A \cdot A^{-1})_{\sigma(i), \sigma(j)} = \delta_{ij}$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.det.det-submatrix-equiv}
+\lean{AlgebraicCombinatorics.Determinants.det_submatrix_equiv_equiv}
+\leanhelper
+\leanok
+Let $A \in K^{m \times m}$ and $f, g : [n] \xrightarrow{\sim} [m]$
+be bijections. Then
+\[
+  \det(A_{f, g}) = \operatorname{sign}(g^{-1} \circ f) \cdot \det A.
+\]
+\end{lemma}
+
+\begin{proof}
+Rewrite the submatrix as a reindexed matrix and apply the standard
+determinant reindexing formula.
+\end{proof}
+
+\subsection{Helpers for the complementary minor theorem proof}
+
+\begin{lemma}
+\label{lem.det.complementary-minor-inverse}
+\lean{AlgebraicCombinatorics.Determinants.complementary_minor_inverse}
+\leanhelper
+\leanok
+Let $K$ be a field. Let $A \in K^{m \times m}$ be an invertible matrix.
+Let $P, Q \subseteq [m]$ with $|P| = |Q|$. Then
+\[
+  \det A \cdot \det(\operatorname{sub}_P^Q(A^{-1}))
+  = (-1)^{\operatorname{sum} P + \operatorname{sum} Q}
+    \det(\operatorname{sub}_{\widetilde{Q}}^{\widetilde{P}} A).
+\]
+\end{lemma}
+
+\begin{proof}
+The proof uses block matrix decomposition. Define sorting equivalences
+$\sigma$ and $\tau$ for $Q$ and $P$ respectively
+(Definition~\ref{def.det.sortEquivPQ}), which reorder indices so that
+$P$-elements come first. The permuted matrix $M = A_{\sigma, \tau}$
+decomposes into blocks: $M_{\text{top-left}} = \operatorname{sub}_Q^P(A)$
+and $M_{\text{bottom-right}} = \operatorname{sub}_{Q^c}^{P^c}(A)$.
+By Lemma~\ref{lem.det.inv-submatrix-equiv},
+$(M^{-1})_{\text{top-left}} = \operatorname{sub}_P^Q(A^{-1})$.
+By Lemma~\ref{lem.det.complementary-minor-block},
+$\det(M) \cdot \det((M^{-1})_{\text{top-left}}) = \det(M_{\text{bottom-right}})$.
+The sign factor $(-1)^{\operatorname{sum} P + \operatorname{sum} Q}$
+arises from the determinant of the sorting permutation
+(Lemma~\ref{lem.det.det-submatrix-equiv}).
+\end{proof}
+
+\begin{lemma}
+\label{lem.det.jacobi-field}
+\lean{AlgebraicCombinatorics.Determinants.jacobi_complementary_minor_field}
+\leanhelper
+\leanok
+Let $K$ be a field. Let $A \in K^{m \times m}$ with $\det A \neq 0$.
+Let $P, Q \subseteq [m]$ with $|P| = |Q| \geq 1$. Then
+\[
+  \det(\operatorname{sub}_P^Q(\operatorname{adj} A))
+  = (-1)^{\operatorname{sum} P + \operatorname{sum} Q}
+    (\det A)^{|Q|-1}
+    \det(\operatorname{sub}_{\widetilde{Q}}^{\widetilde{P}} A).
+\]
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem.det.det-adjugate-submatrix-finset},
+\[
+  \det(\operatorname{sub}_P^Q(\operatorname{adj} A))
+  = (\det A)^{|P|} \cdot \det(\operatorname{sub}_P^Q(A^{-1})).
+\]
+By Lemma~\ref{lem.det.complementary-minor-inverse},
+\[
+  \det A \cdot \det(\operatorname{sub}_P^Q(A^{-1}))
+  = (-1)^{\operatorname{sum} P + \operatorname{sum} Q}
+    \det(\operatorname{sub}_{\widetilde{Q}}^{\widetilde{P}} A),
+\]
+so $\det(\operatorname{sub}_P^Q(A^{-1})) = (-1)^{\operatorname{sum} P + \operatorname{sum} Q}
+\det(\operatorname{sub}_{\widetilde{Q}}^{\widetilde{P}} A) / \det A$.
+Since $|P| = |Q|$, the exponent becomes $|Q| - 1$.
+\end{proof}
+
+\subsection{Helpers for the Cauchy determinant proof (factor hunting)}
+
+\begin{definition}
+\label{def.det.substXiToXj}
+\lean{AlgebraicCombinatorics.Determinants.substXiToXj}
+\leanhelper
+\leanok
+The \emph{variable substitution} $\varphi_{i \to j}$ is the
+algebra homomorphism
+$R[x_1, \ldots, x_n] \to R[x_1, \ldots, x_n]$ that sends $x_i \mapsto x_j$
+and fixes all other variables.
+\end{definition}
+
+\begin{lemma}
+\label{lem.det.X-sub-X-dvd-sub-subst}
+\lean{AlgebraicCombinatorics.Determinants.X_sub_X_dvd_sub_subst}
+\leanhelper
+\leanok
+Let $p \in R[x_1, \ldots, x_n]$ be a multivariate polynomial and $i \neq j$.
+Then $(x_i - x_j) \mid p - p|_{x_i = x_j}$, where $p|_{x_i = x_j}$
+denotes the substitution of $x_j$ for $x_i$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By induction on the structure of $p$ (using the polynomial recursor on
+constants, sums, and products by a variable).
+The base case (constants) is trivial. The additive case follows from
+divisibility of sums. The multiplicative case $p \cdot x_k$ splits:
+if $k = i$, factor as $(p - p|_{x_i = x_j}) \cdot x_i + p|_{x_i = x_j} \cdot (x_i - x_j)$;
+otherwise, factor as $(p - p|_{x_i = x_j}) \cdot x_k$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.det.X-sub-X-dvd-eval-zero}
+\lean{AlgebraicCombinatorics.Determinants.X_sub_X_dvd_of_eval₂_eq_zero_fin_01}
+\leanhelper
+\leanok
+Let $R$ be an integral domain, and let
+$P \in R[x_0, x_1, \ldots, x_{m+1}]$. If $P$ vanishes when $x_0$ is
+replaced by $x_1$ (i.e., $P|_{x_0 = x_1} = 0$), then
+$(x_0 - x_1) \mid P$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+View $P$ as a univariate polynomial in $x_0$
+over $R[x_1, \ldots, x_{m+1}]$ (using the canonical isomorphism
+between $R[x_0, x_1, \ldots, x_{m+1}]$ and $R[x_1, \ldots, x_{m+1}][x_0]$).
+The hypothesis says that $x_1$ is a root
+of this univariate polynomial, so $(X - x_1)$ divides it by the polynomial
+root theorem. Pulling back through the isomorphism yields
+$(x_0 - x_1) \mid P$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.det.X-sub-X-irreducible}
+\lean{AlgebraicCombinatorics.Determinants.X_sub_X_irreducible}
+\leanhelper
+\leanok
+For distinct variables $x_i, x_j$ in $\mathbb{Z}[x_1, \ldots, x_n]$,
+the polynomial $x_i - x_j$ is irreducible.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Since $x_i - x_j$ has total degree~$1$ and is primitive (its content is~$1$),
+it is irreducible. The degree-$1$ argument: any nontrivial factorization
+would require one factor of degree~$0$ (a constant), but a primitive
+polynomial of positive degree cannot have a non-unit constant factor.
+\end{proof}
+
+\begin{lemma}
+\label{lem.det.X-sub-X-totalDegree}
+\lean{AlgebraicCombinatorics.Determinants.X_sub_X_totalDegree_eq_one}
+\leanhelper
+\leanok
+For distinct $i, j$, the total degree of $x_i - x_j$ in
+$\mathbb{Z}[x_1, \ldots, x_n]$ is~$1$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The upper bound follows from $\deg(f - g) \leq \max(\deg f, \deg g)$
+and $\deg(X_i) = 1$. The lower bound follows from the monomial
+$X_i^1$ having nonzero coefficient in $x_i - x_j$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.det.X-sub-X-isPrimitive}
+\lean{AlgebraicCombinatorics.Determinants.X_sub_X_isPrimitive}
+\leanhelper
+\leanok
+For distinct $i, j$, the polynomial $x_i - x_j \in \mathbb{Z}[x_1, \ldots, x_n]$
+is primitive (its content is~$1$).
+\end{lemma}
+
+\begin{proof}
+\leanok
+The coefficient of the monomial $x_i^1$ is $1$, so the GCD of the
+coefficients is $1$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.det.X-sub-X-isRelPrime}
+\lean{AlgebraicCombinatorics.Determinants.X_sub_X_isRelPrime}
+\leanhelper
+\leanok
+Let $i \neq j$ and $k \neq l$ be pairs of distinct indices such that
+$\{i,j\}$ and $\{k,l\}$ are not equal as unordered pairs. Then
+$(x_i - x_j)$ and $(x_k - x_l)$ are coprime in
+$\mathbb{Z}[x_1, \ldots, x_n]$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Both are irreducible by Lemma~\ref{lem.det.X-sub-X-irreducible}, and they
+are non-associate (not equal up to unit multiple) since they involve
+different variable pairs. Distinct irreducibles in a UFD are coprime.
+\end{proof}
+
+\begin{lemma}
+\label{lem.det.cauchy-poly-dvd-x}
+\lean{AlgebraicCombinatorics.Determinants.polyCauchyMat'_det_dvd_x_sub_x}
+\leanhelper
+\leanok
+Let $C(m)$ be the $m \times m$ matrix with entry
+$(i,j) = \prod_{k \neq j}(X_i + Y_k)$ over
+$\mathbb{Z}[X_1, \ldots, X_m, Y_1, \ldots, Y_m]$.
+For distinct $i, j$, we have $(X_i - X_j) \mid \det(C(m))$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Substituting $X_j$ for $X_i$ makes rows $i$ and $j$ identical, so the
+determinant vanishes. By Lemma~\ref{lem.det.X-sub-X-dvd-eval-zero},
+$(X_i - X_j)$ divides the determinant.
+\end{proof}
+
+\begin{lemma}
+\label{lem.det.cauchy-poly-dvd-y}
+\lean{AlgebraicCombinatorics.Determinants.polyCauchyMat'_det_dvd_y_sub_y}
+\leanhelper
+\leanok
+For distinct $i, j$, we have
+$(Y_i - Y_j) \mid \det(C(m))$,
+where $C(m)$ is the polynomial Cauchy matrix from Lemma~\ref{lem.det.cauchy-poly-dvd-x}.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Substituting $Y_j$ for $Y_i$ makes columns $i$ and $j$ proportional
+(both become $\prod_{k \neq i, k \neq j}(X_r + Y_k) \cdot (X_r + Y_j)$),
+so the determinant vanishes. The divisibility follows by
+Lemma~\ref{lem.det.X-sub-X-dvd-eval-zero}.
+\end{proof}
+
+\begin{lemma}
+\label{lem.det.cauchy-det-of-poly}
+\lean{AlgebraicCombinatorics.Determinants.cauchy_det_of_poly}
+\leanhelper
+\leanok
+Let $K$ be a field. Let $x_1, \ldots, x_m, y_1, \ldots, y_m \in K$ with
+$x_i + y_j \neq 0$ for all $i, j$. Then
+\[
+  \det\!\left(\frac{1}{x_i + y_j}\right)_{i,j}
+  = \frac{\prod_{i < j}(x_i - x_j)(y_i - y_j)}{\prod_{i,j}(x_i + y_j)}.
+\]
+\end{lemma}
+
+\begin{proof}
+The polynomial Cauchy identity (Lemma~\ref{lem.det.cauchy-poly}) gives
+$\det(\prod_{k \neq j}(x_i + y_k)) = \prod_{i < j}(x_i - x_j)(y_i - y_j)$.
+The left-hand side equals $\prod_{i,j}(x_i + y_j) \cdot \det(1/(x_i + y_j))$
+since each row of the Cauchy matrix can be multiplied by
+$\prod_j (x_i + y_j)$ to clear denominators. Dividing gives the result.
+\end{proof}

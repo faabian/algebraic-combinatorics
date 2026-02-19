@@ -1,0 +1,959 @@
+\subsection{\label{sec.sf.sp}Definitions and examples of symmetric
+polynomials}
+
+\begin{convention}
+\label{conv.sf.KN}Fix a commutative ring $K$. Fix an $N\in\mathbb{N}$.
+(Perhaps $n$ would be more conventional, but lowercase letters are chronically
+in short supply in this subject.)
+
+Throughout this chapter, we will keep $K$ and $N$ fixed. We will use
+Definition \ref{def.perm.Sn-iven}.
+\end{convention}
+
+Recall that $S_{N}$ denotes the $N$-th symmetric group, i.e., the group of all
+permutations of the set $\left[  N\right]  :=\left\{  1,2,\ldots,N\right\}  $.
+
+\begin{definition}
+\label{def.sf.PS}\textbf{(a)} Let $\mathcal{P}$ be the polynomial ring
+$K\left[  x_{1},x_{2},\ldots,x_{N}\right]  $ in $N$ variables over $K$. This
+is not just a ring; it is a commutative $K$-algebra. \medskip
+
+\textbf{(b)} The symmetric group $S_{N}$ acts on the set $\mathcal{P}$
+according to the formula%
+\[
+\sigma\cdot f=f\left[  x_{\sigma\left(  1\right)  },x_{\sigma\left(  2\right)
+},\ldots,x_{\sigma\left(  N\right)  }\right]  \ \ \ \ \ \ \ \ \ \ \text{for
+any }\sigma\in S_{N}\text{ and any }f\in\mathcal{P}.
+\]
+Here, $f\left[  a_{1},a_{2},\ldots,a_{N}\right]  $ means the result of
+substituting $a_{1},a_{2},\ldots,a_{N}$ for the indeterminates $x_{1}%
+,x_{2},\ldots,x_{N}$ in a polynomial $f\in\mathcal{P}$.
+
+(For example, if $N=4$ and $\sigma=\operatorname*{cyc}\nolimits_{1,2,3}\in
+S_{4}$, then $\sigma\cdot f=f\left[  x_{\sigma\left(  1\right)  }%
+,x_{\sigma\left(  2\right)  },x_{\sigma\left(  3\right)  },x_{\sigma\left(
+4\right)  }\right]  =f\left[  x_{2},x_{3},x_{1},x_{4}\right]  $ for any
+$f\in\mathcal{P}$, so that, for example,%
+\[
+\sigma\cdot\left(  2x_{1}+3x_{2}^{2}+4x_{3}-x_{4}^{15}\right)  =2x_{2}%
++3x_{3}^{2}+4x_{1}-x_{4}^{15}%
+\]
+and $\sigma\cdot\left(  x_{1}-x_{3}x_{4}\right)  =x_{2}-x_{1}x_{4}$.)
+
+Roughly speaking, the group $S_{N}$ is thus acting on $\mathcal{P}$ by
+permuting variables: A permutation $\sigma\in S_{N}$ transforms a polynomial
+$f$ by substituting $x_{\sigma\left(  i\right)  }$ for each $x_{i}$.
+
+Note that this action of $S_{N}$ on $\mathcal{P}$ is a well-defined group
+action (as we will see in Proposition \ref{prop.sf.SN-acts} below). \medskip
+
+\textbf{(c)} A polynomial $f\in\mathcal{P}$ is said to be \emph{symmetric} if
+it satisfies%
+\[
+\sigma\cdot f=f\ \ \ \ \ \ \ \ \ \ \text{for all }\sigma\in S_{N}.
+\]
+
+
+\textbf{(d)} We let $\mathcal{S}$ be the set of all symmetric polynomials
+$f\in\mathcal{P}$.
+\end{definition}
+
+\begin{example}
+\label{exa.sf.PS1}Let $N=3$ and $K=\mathbb{Q}$, and let us rename the
+indeterminates $x_{1},x_{2},x_{3}$ as $x,y,z$. Then: \medskip
+
+\textbf{(a)} We have $x+y+z\in\mathcal{S}$ (since, for example, the simple
+transposition $s_{1}\in S_{3}$ satisfies $s_{1}\cdot\left(  x+y+z\right)
+=y+x+z=x+y+z$, and similarly any other $\sigma\in S_{3}$ also satisfies
+$\sigma\cdot\left(  x+y+z\right)  =x+y+z$). \medskip
+
+\textbf{(b)} We have $x+y\notin\mathcal{S}$ (since the transposition
+$t_{1,3}\in S_{3}$ satisfies $t_{1,3}\cdot\left(  x+y\right)  =z+y\neq x+y$).
+\medskip
+
+\textbf{(c)} We have $\left(  x-y\right)  \left(  y-z\right)  \left(
+z-x\right)  \notin\mathcal{S}$ (since the simple transposition $s_{1}\in
+S_{3}$ transforms $\left(  x-y\right)  \left(  y-z\right)  \left(  z-x\right)
+$ into
+\begin{align*}
+s_{1}\cdot\left(  \left(  x-y\right)  \left(  y-z\right)  \left(  z-x\right)
+\right)   &  =\left(  y-x\right)  \left(  x-z\right)  \left(  z-y\right) \\
+&  =-\left(  x-y\right)  \left(  y-z\right)  \left(  z-x\right) \\
+&  \neq\left(  x-y\right)  \left(  y-z\right)  \left(  z-x\right)  ,
+\end{align*}
+because $-1\neq1$ in $\mathbb{Q}$). Actually, the polynomial $\left(
+x-y\right)  \left(  y-z\right)  \left(  z-x\right)  $ is an example of an
+\emph{antisymmetric} polynomial -- i.e., a polynomial $f\in\mathcal{P}$ such
+that $\sigma\cdot f=\left(  -1\right)  ^{\sigma}f$ for all $\sigma\in S_{N}$.
+However, if $K=\mathbb{Z}/2$ (or if $K$ is a $\mathbb{Z}/2$-algebra), then
+antisymmetric polynomials and symmetric polynomials are the same thing.
+\medskip
+
+\textbf{(d)} We have $\left(  \left(  x-y\right)  \left(  y-z\right)  \left(
+z-x\right)  \right)  ^{2}\in\mathcal{S}$. More generally, if $f\in\mathcal{P}$
+is antisymmetric, then $f^{2}$ is symmetric, so that $f^{2}\in\mathcal{S}$.
+\medskip
+
+\textbf{(e)} We have $37\in\mathcal{S}$. More generally, any constant
+polynomial $f\in\mathcal{P}$ is symmetric. \medskip
+
+\textbf{(f)} We have $\left(  1-x\right)  \left(  1-y\right)  \left(
+1-z\right)  \in\mathcal{S}$. \medskip
+
+\textbf{(g)} We have $\dfrac{1}{\left(  1-x\right)  \left(  1-y\right)
+\left(  1-z\right)  }\notin\mathcal{S}$, because this is not a polynomial. It
+is an example of a \emph{symmetric power series}.
+\end{example}
+
+Some basic properties of our current setup are worth mentioning:
+
+\begin{proposition}
+\label{prop.sf.SN-acts}The action of $S_{N}$ on $\mathcal{P}$ is a
+well-defined group action. In other words, the following holds: \medskip
+
+\textbf{(a)} We have $\operatorname*{id}\nolimits_{\left[  N\right]  }\cdot
+f=f$ for every $f\in\mathcal{P}$. \medskip
+
+\textbf{(b)} We have $\left(  \sigma\tau\right)  \cdot f=\sigma\cdot\left(
+\tau\cdot f\right)  $ for every $\sigma,\tau\in S_{N}$ and $f\in\mathcal{P}$.
+\end{proposition}
+
+The proof of this proposition is straightforward, but due to its somewhat
+slippery nature (the two substitutions in part \textbf{(b)} are a particularly
+frequent source of confusion), we present it in full:
+
+\begin{fineprint}
+\begin{proof}
+[Proof of Proposition \ref{prop.sf.SN-acts}.]\textbf{(a)} If $f\in\mathcal{P}%
+$, then the definition of $\operatorname*{id}\nolimits_{\left[  N\right]
+}\cdot f$ yields
+\[
+\operatorname*{id}\nolimits_{\left[  N\right]  }\cdot f=f\left[
+x_{\operatorname*{id}\left(  1\right)  },x_{\operatorname*{id}\left(
+2\right)  },\ldots,x_{\operatorname*{id}\left(  N\right)  }\right]  =f\left[
+x_{1},x_{2},\ldots,x_{N}\right]  =f.
+\]
+This proves Proposition \ref{prop.sf.SN-acts} \textbf{(a)}. \medskip
+
+\textbf{(b)} Let $\sigma,\tau\in S_{N}$ and $f\in\mathcal{P}$. The definition
+of $\sigma\cdot\left(  \tau\cdot f\right)  $ yields%
+\begin{equation}
+\sigma\cdot\left(  \tau\cdot f\right)  =\left(  \tau\cdot f\right)  \left[
+x_{\sigma\left(  1\right)  },x_{\sigma\left(  2\right)  },\ldots
+,x_{\sigma\left(  N\right)  }\right]  . \label{pf.prop.sf.SN-acts.b.1}%
+\end{equation}
+
+
+Write the polynomial $f$ in the form
+\begin{equation}
+f=\sum_{\left(  a_{1},a_{2},\ldots,a_{N}\right)  \in\mathbb{N}^{N}}f_{\left(
+a_{1},a_{2},\ldots,a_{N}\right)  }x_{1}^{a_{1}}x_{2}^{a_{2}}\cdots
+x_{N}^{a_{N}}, \label{pf.prop.sf.SN-acts.b.f=}%
+\end{equation}
+where $f_{\left(  a_{1},a_{2},\ldots,a_{N}\right)  }\in K$ are its
+coefficients. The definition of $\tau\cdot f$ yields%
+\[
+\tau\cdot f=f\left[  x_{\tau\left(  1\right)  },x_{\tau\left(  2\right)
+},\ldots,x_{\tau\left(  N\right)  }\right]  =\sum_{\left(  a_{1},a_{2}%
+,\ldots,a_{N}\right)  \in\mathbb{N}^{N}}f_{\left(  a_{1},a_{2},\ldots
+,a_{N}\right)  }x_{\tau\left(  1\right)  }^{a_{1}}x_{\tau\left(  2\right)
+}^{a_{2}}\cdots x_{\tau\left(  N\right)  }^{a_{N}}%
+\]
+(here, we have substituted $x_{\tau\left(  1\right)  },x_{\tau\left(
+2\right)  },\ldots,x_{\tau\left(  N\right)  }$ for $x_{1},x_{2},\ldots,x_{N}$
+on both sides of (\ref{pf.prop.sf.SN-acts.b.f=})). Substituting $x_{\sigma
+\left(  1\right)  },x_{\sigma\left(  2\right)  },\ldots,x_{\sigma\left(
+N\right)  }$ for $x_{1},x_{2},\ldots,x_{N}$ on both sides of this equality, we
+obtain%
+\begin{align*}
+&  \left(  \tau\cdot f\right)  \left[  x_{\sigma\left(  1\right)  }%
+,x_{\sigma\left(  2\right)  },\ldots,x_{\sigma\left(  N\right)  }\right] \\
+&  =\sum_{\left(  a_{1},a_{2},\ldots,a_{N}\right)  \in\mathbb{N}^{N}%
+}f_{\left(  a_{1},a_{2},\ldots,a_{N}\right)  }\underbrace{x_{\sigma\left(
+\tau\left(  1\right)  \right)  }^{a_{1}}x_{\sigma\left(  \tau\left(  2\right)
+\right)  }^{a_{2}}\cdots x_{\sigma\left(  \tau\left(  N\right)  \right)
+}^{a_{N}}}_{\substack{=x_{\left(  \sigma\tau\right)  \left(  1\right)
+}^{a_{1}}x_{\left(  \sigma\tau\right)  \left(  2\right)  }^{a_{2}}\cdots
+x_{\left(  \sigma\tau\right)  \left(  N\right)  }^{a_{N}}\\\text{(since
+}\sigma\left(  \tau\left(  i\right)  \right)  =\left(  \sigma\tau\right)
+\left(  i\right)  \text{ for all }i\in\left[  N\right]  \text{)}}}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{since our
+substitution replaces each }x_{i}\text{ by }x_{\sigma\left(  i\right)
+}\right) \\
+&  =\sum_{\left(  a_{1},a_{2},\ldots,a_{N}\right)  \in\mathbb{N}^{N}%
+}f_{\left(  a_{1},a_{2},\ldots,a_{N}\right)  }x_{\left(  \sigma\tau\right)
+\left(  1\right)  }^{a_{1}}x_{\left(  \sigma\tau\right)  \left(  2\right)
+}^{a_{2}}\cdots x_{\left(  \sigma\tau\right)  \left(  N\right)  }^{a_{N}}.
+\end{align*}
+On the other hand, the definition of the action of $S_{N}$ on $\mathcal{P}$
+yields%
+\begin{align*}
+\left(  \sigma\tau\right)  \cdot f  &  =f\left[  x_{\left(  \sigma\tau\right)
+\left(  1\right)  },x_{\left(  \sigma\tau\right)  \left(  2\right)  }%
+,\ldots,x_{\left(  \sigma\tau\right)  \left(  N\right)  }\right] \\
+&  =\sum_{\left(  a_{1},a_{2},\ldots,a_{N}\right)  \in\mathbb{N}^{N}%
+}f_{\left(  a_{1},a_{2},\ldots,a_{N}\right)  }x_{\left(  \sigma\tau\right)
+\left(  1\right)  }^{a_{1}}x_{\left(  \sigma\tau\right)  \left(  2\right)
+}^{a_{2}}\cdots x_{\left(  \sigma\tau\right)  \left(  N\right)  }^{a_{N}}%
+\end{align*}
+(here, we have substituted $x_{\left(  \sigma\tau\right)  \left(  1\right)
+},x_{\left(  \sigma\tau\right)  \left(  2\right)  },\ldots,x_{\left(
+\sigma\tau\right)  \left(  N\right)  }$ for $x_{1},x_{2},\ldots,x_{N}$ on both
+sides of (\ref{pf.prop.sf.SN-acts.b.f=})). Comparing these two equalities, we
+obtain%
+\[
+\left(  \sigma\tau\right)  \cdot f=\left(  \tau\cdot f\right)  \left[
+x_{\sigma\left(  1\right)  },x_{\sigma\left(  2\right)  },\ldots
+,x_{\sigma\left(  N\right)  }\right]  =\sigma\cdot\left(  \tau\cdot f\right)
+\]
+(by (\ref{pf.prop.sf.SN-acts.b.1})). This proves Proposition
+\ref{prop.sf.SN-acts} \textbf{(b)}.
+\end{proof}
+\end{fineprint}
+
+We recall the following notions from abstract algebra:
+
+\begin{itemize}
+\item A $K$\emph{-algebra isomorphism} from a $K$-algebra $A$ to a $K$-algebra
+$B$ means an invertible $K$-algebra morphism $f:A\rightarrow B$ such that its
+inverse $f^{-1}:B\rightarrow A$ is a $K$-algebra morphism from $B$ to $A$.
+(Actually, any invertible $K$-algebra morphism is an isomorphism.)
+
+\item A $K$\emph{-algebra automorphism} of a $K$-algebra $A$ means a
+$K$-algebra isomorphism from $A$ to $A$.
+\end{itemize}
+
+\begin{proposition}
+\label{prop.sf.SN-acts-by-alg-auts}The group $S_{N}$ acts on $\mathcal{P}$ by
+$K$-algebra automorphisms. In other words, for each $\sigma\in S_{N}$, the map%
+\begin{align*}
+\mathcal{P}  &  \rightarrow\mathcal{P},\\
+f  &  \mapsto\sigma\cdot f
+\end{align*}
+is a $K$-algebra automorphism of $\mathcal{P}$ (that is, a $K$-algebra
+isomorphism from $\mathcal{P}$ to $\mathcal{P}$).
+\end{proposition}
+
+\begin{fineprint}
+\begin{proof}
+[Proof of Proposition \ref{prop.sf.SN-acts-by-alg-auts} (sketched).]Fix
+$\sigma\in S_{N}$. For any $f,g\in\mathcal{P}$, we have%
+\begin{align}
+\sigma\cdot\left(  fg\right)   &  =\left(  fg\right)  \left[  x_{\sigma\left(
+1\right)  },x_{\sigma\left(  2\right)  },\ldots,x_{\sigma\left(  N\right)
+}\right]  \ \ \ \ \ \ \ \ \ \ \left(  \text{by the definition of the action of
+}S_{N}\text{ on }\mathcal{P}\right) \nonumber\\
+&  =\underbrace{f\left[  x_{\sigma\left(  1\right)  },x_{\sigma\left(
+2\right)  },\ldots,x_{\sigma\left(  N\right)  }\right]  }_{\substack{=\sigma
+\cdot f\\\text{(by the definition of the action of }S_{N}\text{ on
+}\mathcal{P}\text{)}}}\cdot\underbrace{g\left[  x_{\sigma\left(  1\right)
+},x_{\sigma\left(  2\right)  },\ldots,x_{\sigma\left(  N\right)  }\right]
+}_{\substack{=\sigma\cdot g\\\text{(by the definition of the action of }%
+S_{N}\text{ on }\mathcal{P}\text{)}}}\nonumber\\
+&  =\left(  \sigma\cdot f\right)  \cdot\left(  \sigma\cdot g\right)  .
+\label{pf.prop.sf.SN-acts-by-alg-auts.1}%
+\end{align}
+Thus, the map%
+\begin{align*}
+\mathcal{P}  &  \rightarrow\mathcal{P},\\
+f  &  \mapsto\sigma\cdot f
+\end{align*}
+respects multiplication. Similarly, this map respects addition, respects
+scaling, respects the zero and respects the unity. Hence, this map is a
+$K$-algebra morphism from $\mathcal{P}$ to $\mathcal{P}$. Furthermore, this
+map is invertible, since its inverse is the map%
+\begin{align*}
+\mathcal{P}  &  \rightarrow\mathcal{P},\\
+f  &  \mapsto\sigma^{-1}\cdot f.
+\end{align*}
+Thus, this map is an invertible $K$-algebra morphism from $\mathcal{P}$ to
+$\mathcal{P}$, and therefore a $K$-algebra isomorphism from $\mathcal{P}$ to
+$\mathcal{P}$. In other words, this map is a $K$-algebra automorphism of
+$\mathcal{P}$. This proves Proposition \ref{prop.sf.SN-acts-by-alg-auts}.
+\end{proof}
+\end{fineprint}
+
+\begin{theorem}
+\label{thm.sf.S-subalg}The subset $\mathcal{S}$ is a $K$-subalgebra of
+$\mathcal{P}$.
+\end{theorem}
+
+\begin{fineprint}
+\begin{proof}
+[Proof of Theorem \ref{thm.sf.S-subalg} (sketched).]We need to show that
+$\mathcal{S}$ is closed under addition, multiplication and scaling, and that
+$\mathcal{S}$ contains the zero and the unity of $\mathcal{P}$. Let me just
+show that $\mathcal{S}$ is closed under multiplication (since all the other
+claims are equally easy): Let $f,g\in\mathcal{S}$. We must show that
+$fg\in\mathcal{S}$.
+
+The polynomial $f$ is symmetric (since $f\in\mathcal{S}$); in other words,
+$\sigma\cdot f=f$ for each $\sigma\in S_{N}$. Similarly, $\sigma\cdot g=g$ for
+each $\sigma\in S_{N}$. Now, from (\ref{pf.prop.sf.SN-acts-by-alg-auts.1}), we
+see that%
+\[
+\text{for each }\sigma\in S_{N}\text{, we have}\ \ \ \ \ \ \ \ \ \ \sigma
+\cdot\left(  fg\right)  =\underbrace{\left(  \sigma\cdot f\right)
+}_{\substack{=f\\\text{(as we have seen)}}}\cdot\underbrace{\left(
+\sigma\cdot g\right)  }_{\substack{=g\\\text{(as we have seen)}}}=fg.
+\]
+This shows that $fg$ is symmetric, i.e., we have $fg\in\mathcal{S}$.
+
+Forget that we fixed $f,g$. We thus have shown that $fg\in\mathcal{S}$ for any
+$f,g\in\mathcal{S}$. This shows that $\mathcal{S}$ is closed under
+multiplication. As explained above, this concludes our proof of Theorem
+\ref{thm.sf.S-subalg}.
+\end{proof}
+\end{fineprint}
+
+\begin{definition}
+\label{def.sf.ring-of-symm}The $K$-subalgebra $\mathcal{S}$ of $\mathcal{P}$
+is called the \emph{ring of symmetric polynomials in }$N$\emph{ variables over
+}$K$.
+\end{definition}
+
+Some more terminology is worth defining:
+
+\begin{definition}
+\label{def.sf.monomial}\textbf{(a)} A \emph{monomial} is an expression of the
+form $x_{1}^{a_{1}}x_{2}^{a_{2}}\cdots x_{N}^{a_{N}}$ with $a_{1},a_{2}%
+,\ldots,a_{N}\in\mathbb{N}$. \medskip
+
+\textbf{(b)} The \emph{degree} $\deg\mathfrak{m}$ of a monomial $\mathfrak{m}%
+=x_{1}^{a_{1}}x_{2}^{a_{2}}\cdots x_{N}^{a_{N}}$ is defined to be $a_{1}%
++a_{2}+\cdots+a_{N}\in\mathbb{N}$. \medskip
+
+\textbf{(c)} A monomial $\mathfrak{m}=x_{1}^{a_{1}}x_{2}^{a_{2}}\cdots
+x_{N}^{a_{N}}$ is said to be \emph{squarefree} if $a_{1},a_{2},\ldots,a_{N}%
+\in\left\{  0,1\right\}  $. (This is saying that no square or higher power of
+an indeterminate appears in $\mathfrak{m}$; thus the name \textquotedblleft
+squarefree\textquotedblright.) \medskip
+
+\textbf{(d)} A monomial $\mathfrak{m}=x_{1}^{a_{1}}x_{2}^{a_{2}}\cdots
+x_{N}^{a_{N}}$ is said to be \emph{primal} if there is at most one
+$i\in\left[  N\right]  $ satisfying $a_{i}>0$. (This is saying that the
+monomial $\mathfrak{m}$ contains no two distinct indeterminates. Thus, a
+primal monomial is just $1$ or a power of an indeterminate.)
+\end{definition}
+
+Now we can define some specific symmetric polynomials:
+
+\begin{definition}
+\label{def.sf.ehp}\textbf{(a)} For each $n\in\mathbb{Z}$, define a symmetric
+polynomial $e_{n}\in\mathcal{S}$ by%
+\[
+e_{n}=\sum_{\substack{\left(  i_{1},i_{2},\ldots,i_{n}\right)  \in\left[
+N\right]  ^{n};\\i_{1}<i_{2}<\cdots<i_{n}}}x_{i_{1}}x_{i_{2}}\cdots x_{i_{n}%
+}=\left(  \text{sum of all squarefree monomials of degree }n\right)  .
+\]
+This $e_{n}$ is called the $n$\emph{-th elementary symmetric polynomial} in
+$x_{1},x_{2},\ldots,x_{N}$. \medskip
+
+\textbf{(b)} For each $n\in\mathbb{Z}$, define a symmetric polynomial
+$h_{n}\in\mathcal{S}$ by%
+\[
+h_{n}=\sum_{\substack{\left(  i_{1},i_{2},\ldots,i_{n}\right)  \in\left[
+N\right]  ^{n};\\i_{1}\leq i_{2}\leq\cdots\leq i_{n}}}x_{i_{1}}x_{i_{2}}\cdots
+x_{i_{n}}=\left(  \text{sum of all monomials of degree }n\right)  .
+\]
+This $h_{n}$ is called the $n$\emph{-th complete homogeneous symmetric
+polynomial} in $x_{1},x_{2},\ldots,x_{N}$. \medskip
+
+\textbf{(c)} For each $n\in\mathbb{Z}$, define a symmetric polynomial
+$p_{n}\in\mathcal{S}$ by%
+\begin{align*}
+p_{n}  &  =%
+\begin{cases}
+x_{1}^{n}+x_{2}^{n}+\cdots+x_{N}^{n}, & \text{if }n>0;\\
+1, & \text{if }n=0;\\
+0, & \text{if }n<0
+\end{cases}
+\\
+&  =\left(  \text{sum of all primal monomials of degree }n\right)  .
+\end{align*}
+This $p_{n}$ is called the $n$\emph{-th power sum} in $x_{1},x_{2}%
+,\ldots,x_{N}$.
+\end{definition}
+
+\begin{example}
+\label{exa.sf.ehp.1}\textbf{(a)} The $2$-nd elementary symmetric polynomial is%
+\begin{align*}
+e_{2}  &  =\sum_{\substack{\left(  i_{1},i_{2}\right)  \in\left[  N\right]
+^{2};\\i_{1}<i_{2}}}x_{i_{1}}x_{i_{2}}=\sum_{\substack{\left(  i,j\right)
+\in\left[  N\right]  ^{2};\\i<j}}x_{i}x_{j}\\
+&
+\begin{array}
+[c]{cccccccc}%
+= & x_{1}x_{2} & + & x_{1}x_{3} & + & \cdots & + & x_{1}x_{N}\\
+&  & + & x_{2}x_{3} & + & \cdots & + & x_{2}x_{N}\\
+&  &  &  & \ddots & \cdots & \cdots & \cdots\\
+&  &  &  &  &  & + & x_{N-1}x_{N}.
+\end{array}
+\end{align*}
+
+
+\textbf{(b)} The $2$-nd complete homogeneous symmetric polynomial is%
+\begin{align*}
+h_{2}  &  =\sum_{\substack{\left(  i_{1},i_{2}\right)  \in\left[  N\right]
+^{2};\\i_{1}\leq i_{2}}}x_{i_{1}}x_{i_{2}}=\sum_{\substack{\left(  i,j\right)
+\in\left[  N\right]  ^{2};\\i\leq j}}x_{i}x_{j}\\
+&
+\begin{array}
+[c]{cccccccccc}%
+= & x_{1}^{2} & + & x_{1}x_{2} & + & x_{1}x_{3} & + & \cdots & + & x_{1}%
+x_{N}\\
+&  & + & x_{2}^{2} & + & x_{2}x_{3} & + & \cdots & + & x_{2}x_{N}\\
+&  &  &  &  &  & \ddots & \cdots & \cdots & \cdots\\
+&  &  &  &  &  & + & x_{N-1}^{2} & + & x_{N-1}x_{N}\\
+&  &  &  &  &  &  &  & + & x_{N}^{2}.
+\end{array}
+\end{align*}
+
+
+\textbf{(c)} The $2$-nd power sum is%
+\[
+p_{2}=x_{1}^{2}+x_{2}^{2}+\cdots+x_{N}^{2}.
+\]
+In light of the above two formulas for $e_{2}$ and $h_{2}$, we thus have
+$h_{2}=p_{2}+e_{2}$. \medskip
+
+\textbf{(d)} We have%
+\[
+e_{1}=h_{1}=p_{1}=x_{1}+x_{2}+\cdots+x_{N}.
+\]
+
+
+\textbf{(e)} We have%
+\[
+e_{0}=h_{0}=p_{0}=1.
+\]
+
+
+\textbf{(f)} If $n<0$, then $e_{n}=h_{n}=p_{n}=0$. \medskip
+
+\textbf{(g)} If $N=0$ (that is, if $\mathcal{P}$ is a polynomial ring in $0$
+variables), then $e_{n}=h_{n}=p_{n}=0$ for all $n>0$ (because there are no
+monomials of positive degree in this case), but $e_{0}=h_{0}=p_{0}=1$ still
+holds. This is a boring border case which, however, is important to get right.
+\end{example}
+
+\begin{proposition}
+\label{prop.sf.en=0}For each integer $n>N$, we have $e_{n}=0$.
+\end{proposition}
+
+\begin{proof}
+Let $n>N$ be an integer. Then, the set $\left[  N\right]  $ has no $n$
+distinct elements. Thus, there exists no $n$-tuple $\left(  i_{1},i_{2}%
+,\ldots,i_{n}\right)  \in\left[  N\right]  ^{n}$ satisfying $i_{1}%
+<i_{2}<\cdots<i_{n}$ (because if $\left(  i_{1},i_{2},\ldots,i_{n}\right)  $
+was such an $n$-tuple, then its $n$ entries $i_{1},i_{2},\ldots,i_{n}$ would
+be $n$ distinct elements of $\left[  N\right]  $).
+
+Now, the definition of $e_{n}$ yields%
+\begin{align*}
+e_{n}  &  =\sum_{\substack{\left(  i_{1},i_{2},\ldots,i_{n}\right)  \in\left[
+N\right]  ^{n};\\i_{1}<i_{2}<\cdots<i_{n}}}x_{i_{1}}x_{i_{2}}\cdots x_{i_{n}%
+}=\left(  \text{empty sum}\right) \\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{since there exists no }n\text{-tuple }\left(  i_{1},i_{2},\ldots
+,i_{n}\right)  \in\left[  N\right]  ^{n}\\
+\text{satisfying }i_{1}<i_{2}<\cdots<i_{n}%
+\end{array}
+\right) \\
+&  =0.
+\end{align*}
+This proves Proposition \ref{prop.sf.en=0}.
+\end{proof}
+
+Thus, there are only $N$ \textquotedblleft interesting\textquotedblright%
+\ elementary symmetric polynomials: namely, $e_{1},e_{2},\ldots,e_{N}$. All
+other $e_{n}$'s are either $1$ or $0$.
+
+In contrast, there are infinitely many \textquotedblleft
+interesting\textquotedblright\ complete homogeneous symmetric polynomials and
+power sums (provided that $N>0$). For example, for $N=2$, we have $h_{5}%
+=x_{1}^{5}+x_{1}^{4}x_{2}+x_{1}^{3}x_{2}^{2}+x_{1}^{2}x_{2}^{3}+x_{1}x_{2}%
+^{4}+x_{2}^{5}$ and $p_{5}=x_{1}^{5}+x_{2}^{5}$.
+
+We have so far defined three sequences $\left(  e_{0},e_{1},e_{2}%
+,\ldots\right)  $, $\left(  h_{0},h_{1},h_{2},\ldots\right)  $ and $\left(
+p_{0},p_{1},p_{2},\ldots\right)  $ of symmetric polynomials. The following
+theorem (known as the \emph{Newton--Girard formulas} or the
+\emph{Newton--Girard identities}) relates these three sequences:
+
+\begin{theorem}
+[Newton--Girard formulas]\label{thm.sf.NG}For any positive integer $n$, we
+have%
+\begin{align}
+\sum_{j=0}^{n}\left(  -1\right)  ^{j}e_{j}h_{n-j}  &
+=0;\label{eq.thm.sf.NG.eh}\\
+\sum_{j=1}^{n}\left(  -1\right)  ^{j-1}e_{n-j}p_{j}  &  =ne_{n}%
+;\label{eq.thm.sf.NG.ep}\\
+\sum_{j=1}^{n}h_{n-j}p_{j}  &  =nh_{n}. \label{eq.thm.sf.NG.hp}%
+\end{align}
+
+\end{theorem}
+
+\begin{example}
+The formula (\ref{eq.thm.sf.NG.ep}), applied to $n=2$, says that $e_{1}%
+p_{1}-p_{2}=2e_{2}$. Therefore,%
+\[
+p_{2}=e_{1}p_{1}-2e_{2}=\left(  x_{1}+x_{2}+\cdots+x_{N}\right)  \left(
+x_{1}+x_{2}+\cdots+x_{N}\right)  -2\sum_{i<j}x_{i}x_{j}.
+\]
+
+\end{example}
+
+Before we prove (part of) Theorem \ref{thm.sf.NG}, we establish some
+equalities in the polynomial rings $\mathcal{P}\left[  t\right]  $ and
+$\mathcal{P}\left[  u,v\right]  $ (here, $t,u,v$ are three new indeterminates)
+and in the FPS ring $\mathcal{P}\left[  \left[  t\right]  \right]  $:
+
+\begin{proposition}
+\label{prop.sf.e-h-FPS}\textbf{(a)} In the polynomial ring $\mathcal{P}\left[
+t\right]  $, we have%
+\[
+\prod_{i=1}^{N}\left(  1-tx_{i}\right)  =\sum_{n\in\mathbb{N}}\left(
+-1\right)  ^{n}t^{n}e_{n}.
+\]
+
+
+\textbf{(b)} In the polynomial ring $\mathcal{P}\left[  u,v\right]  $, we have%
+\[
+\prod_{i=1}^{N}\left(  u-vx_{i}\right)  =\sum_{n=0}^{N}\left(  -1\right)
+^{n}u^{N-n}v^{n}e_{n}.
+\]
+
+
+\textbf{(c)} In the FPS ring $\mathcal{P}\left[  \left[  t\right]  \right]  $,
+we have%
+\[
+\prod_{i=1}^{N}\dfrac{1}{1-tx_{i}}=\sum_{n\in\mathbb{N}}t^{n}h_{n}.
+\]
+
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.sf.e-h-FPS} (sketched).]\textbf{(a)} For each
+$i\in\left\{  1,2,\ldots,N\right\}  $, we have%
+\[
+1+tx_{i}=\sum_{a\in\left\{  0,1\right\}  }\left(  tx_{i}\right)  ^{a}.
+\]
+Multiplying these equalities over all $i\in\left\{  1,2,\ldots,N\right\}  $,
+we obtain%
+\begin{align*}
+\prod_{i=1}^{N}\left(  1+tx_{i}\right)   &  =\prod_{i=1}^{N}\ \ \sum
+_{a\in\left\{  0,1\right\}  }\left(  tx_{i}\right)  ^{a}=\sum_{\left(
+a_{1},a_{2},\ldots,a_{N}\right)  \in\left\{  0,1\right\}  ^{N}}%
+\underbrace{\left(  tx_{1}\right)  ^{a_{1}}\left(  tx_{2}\right)  ^{a_{2}%
+}\cdots\left(  tx_{N}\right)  ^{a_{N}}}_{=t^{a_{1}+a_{2}+\cdots+a_{N}}%
+x_{1}^{a_{1}}x_{2}^{a_{2}}\cdots x_{N}^{a_{N}}}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{by Proposition
+\ref{prop.fps.prodrule-fin-fin}}\right) \\
+&  =\sum_{\left(  a_{1},a_{2},\ldots,a_{N}\right)  \in\left\{  0,1\right\}
+^{N}}t^{a_{1}+a_{2}+\cdots+a_{N}}x_{1}^{a_{1}}x_{2}^{a_{2}}\cdots x_{N}%
+^{a_{N}}=\sum_{\substack{\mathfrak{m}\text{ is a squarefree}\\\text{monomial}%
+}}t^{\deg\mathfrak{m}}\mathfrak{m}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{since the squarefree monomials are precisely}\\
+\text{the }x_{1}^{a_{1}}x_{2}^{a_{2}}\cdots x_{N}^{a_{N}}\text{ with }\left(
+a_{1},a_{2},\ldots,a_{N}\right)  \in\left\{  0,1\right\}  ^{N}\text{,}\\
+\text{and since the degree of such a monomial}\\
+\text{is precisely }a_{1}+a_{2}+\cdots+a_{N}%
+\end{array}
+\right) \\
+&  =\sum_{n\in\mathbb{N}}\ \ \sum_{\substack{\mathfrak{m}\text{ is a
+squarefree}\\\text{monomial of degree }n}}t^{n}\mathfrak{m}%
+\ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have split the sum}\\
+\text{according to the value of }\deg\mathfrak{m}%
+\end{array}
+\right) \\
+&  =\sum_{n\in\mathbb{N}}t^{n}\underbrace{\sum_{\substack{\mathfrak{m}\text{
+is a squarefree}\\\text{monomial of degree }n}}\mathfrak{m}}%
+_{\substack{=\left(  \text{sum of all squarefree monomials of degree
+}n\right)  \\=e_{n}\\\text{(by the definition of }e_{n}\text{)}}}\\
+&  =\sum_{n\in\mathbb{N}}t^{n}e_{n}.
+\end{align*}
+Substituting $-t$ for $t$ on both sides of this equality, we obtain%
+\[
+\prod_{i=1}^{N}\left(  1-tx_{i}\right)  =\sum_{n\in\mathbb{N}}%
+\underbrace{\left(  -t\right)  ^{n}}_{=\left(  -1\right)  ^{n}t^{n}}e_{n}%
+=\sum_{n\in\mathbb{N}}\left(  -1\right)  ^{n}t^{n}e_{n}.
+\]
+This proves Proposition \ref{prop.sf.e-h-FPS} \textbf{(a)}. \medskip
+
+\textbf{(b)} This is similar to part \textbf{(a)}. (See Exercise
+\ref{exe.sf.e-h-FPS.b} for details.) \medskip
+
+\textbf{(c)} For each $i\in\left\{  1,2,\ldots,N\right\}  $, we have%
+\begin{align*}
+\dfrac{1}{1-tx_{i}}  &  =1+tx_{i}+\left(  tx_{i}\right)  ^{2}+\left(
+tx_{i}\right)  ^{3}+\cdots\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{by substituting }tx_{i}\text{ for }x\text{ in the}\\
+\text{geometric series formula (\ref{eq.sec.gf.exas.1.1/1-x})}%
+\end{array}
+\right) \\
+&  =\sum_{a\in\mathbb{N}}\left(  tx_{i}\right)  ^{a}.
+\end{align*}
+Multiplying these equalities over all $i\in\left\{  1,2,\ldots,N\right\}  $,
+we obtain%
+\begin{align*}
+\prod_{i=1}^{N}\dfrac{1}{1-tx_{i}}  &  =\prod_{i=1}^{N}\ \ \sum_{a\in
+\mathbb{N}}\left(  tx_{i}\right)  ^{a}\\
+&  =\sum_{\left(  a_{1},a_{2},\ldots,a_{N}\right)  \in\mathbb{N}^{N}%
+}\underbrace{\left(  tx_{1}\right)  ^{a_{1}}\left(  tx_{2}\right)  ^{a_{2}%
+}\cdots\left(  tx_{N}\right)  ^{a_{N}}}_{=t^{a_{1}+a_{2}+\cdots+a_{N}}%
+x_{1}^{a_{1}}x_{2}^{a_{2}}\cdots x_{N}^{a_{N}}}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{by Proposition
+\ref{prop.fps.prodrule-fin-inf}}\right) \\
+&  =\sum_{\left(  a_{1},a_{2},\ldots,a_{N}\right)  \in\mathbb{N}^{N}}%
+t^{a_{1}+a_{2}+\cdots+a_{N}}x_{1}^{a_{1}}x_{2}^{a_{2}}\cdots x_{N}^{a_{N}%
+}=\sum_{\mathfrak{m}\text{ is a monomial}}t^{\deg\mathfrak{m}}\mathfrak{m}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{since the monomials are precisely}\\
+\text{the }x_{1}^{a_{1}}x_{2}^{a_{2}}\cdots x_{N}^{a_{N}}\text{ with }\left(
+a_{1},a_{2},\ldots,a_{N}\right)  \in\mathbb{N}^{N}\text{,}\\
+\text{and since the degree of such a monomial}\\
+\text{is precisely }a_{1}+a_{2}+\cdots+a_{N}%
+\end{array}
+\right) \\
+&  =\sum_{n\in\mathbb{N}}\ \ \sum_{\substack{\mathfrak{m}\text{ is a
+monomial}\\\text{of degree }n}}t^{n}\mathfrak{m}\ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have split the sum}\\
+\text{according to the value of }\deg\mathfrak{m}%
+\end{array}
+\right) \\
+&  =\sum_{n\in\mathbb{N}}t^{n}\underbrace{\sum_{\substack{\mathfrak{m}\text{
+is a monomial}\\\text{of degree }n}}\mathfrak{m}}_{\substack{=\left(
+\text{sum of all monomials of degree }n\right)  =h_{n}\\\text{(by the
+definition of }h_{n}\text{)}}}=\sum_{n\in\mathbb{N}}t^{n}h_{n}.
+\end{align*}
+This proves Proposition \ref{prop.sf.e-h-FPS} \textbf{(c)}.
+\end{proof}
+
+Let us now prove the first Newton--Girard formula (\ref{eq.thm.sf.NG.eh}):
+
+\begin{proof}
+[Proof of the 1st Newton--Girard formula (\ref{eq.thm.sf.NG.eh}).]In the FPS
+ring $\mathcal{P}\left[  \left[  t\right]  \right]  $, we have%
+\[
+\prod_{i=1}^{N}\left(  1-tx_{i}\right)  =\sum_{n\in\mathbb{N}}\left(
+-1\right)  ^{n}t^{n}e_{n}\ \ \ \ \ \ \ \ \ \ \left(  \text{by Proposition
+\ref{prop.sf.e-h-FPS} \textbf{(a)}}\right)
+\]
+and%
+\[
+\prod_{i=1}^{N}\dfrac{1}{1-tx_{i}}=\sum_{n\in\mathbb{N}}t^{n}h_{n}%
+\ \ \ \ \ \ \ \ \ \ \left(  \text{by Proposition \ref{prop.sf.e-h-FPS}
+\textbf{(c)}}\right)  .
+\]
+Multiplying these two equalities, we obtain%
+\begin{align*}
+&  \left(  \prod_{i=1}^{N}\left(  1-tx_{i}\right)  \right)  \left(
+\prod_{i=1}^{N}\dfrac{1}{1-tx_{i}}\right) \\
+&  =\left(  \sum_{n\in\mathbb{N}}\left(  -1\right)  ^{n}t^{n}e_{n}\right)
+\left(  \sum_{n\in\mathbb{N}}t^{n}h_{n}\right)  =\left(  \sum_{j\in\mathbb{N}%
+}\left(  -1\right)  ^{j}t^{j}e_{j}\right)  \left(  \sum_{k\in\mathbb{N}}%
+t^{k}h_{k}\right) \\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have renamed the summation}\\
+\text{indices }n\text{ and }n\text{ (in the two sums) as }j\text{ and }k
+\end{array}
+\right) \\
+&  =\underbrace{\sum_{j\in\mathbb{N}}\ \ \sum_{k\in\mathbb{N}}}_{=\sum
+_{\left(  j,k\right)  \in\mathbb{N}^{2}}}\left(  -1\right)  ^{j}%
+\underbrace{t^{j}e_{j}t^{k}h_{k}}_{=e_{j}h_{k}t^{j+k}}=\sum_{\left(
+j,k\right)  \in\mathbb{N}^{2}}\left(  -1\right)  ^{j}e_{j}h_{k}t^{j+k}\\
+&  =\sum_{n\in\mathbb{N}}\left(  \sum_{\substack{\left(  j,k\right)
+\in\mathbb{N}^{2};\\j+k=n}}\left(  -1\right)  ^{j}e_{j}h_{k}\right)  t^{n}%
+\end{align*}
+(here, we have split the sum according to the value of $j+k$). Comparing this
+with%
+\[
+\left(  \prod_{i=1}^{N}\left(  1-tx_{i}\right)  \right)  \left(  \prod
+_{i=1}^{N}\dfrac{1}{1-tx_{i}}\right)  =\prod_{i=1}^{N}\underbrace{\left(
+\left(  1-tx_{i}\right)  \cdot\dfrac{1}{1-tx_{i}}\right)  }_{=1}=\prod
+_{i=1}^{N}1=1,
+\]
+we obtain%
+\[
+1=\sum_{n\in\mathbb{N}}\left(  \sum_{\substack{\left(  j,k\right)
+\in\mathbb{N}^{2};\\j+k=n}}\left(  -1\right)  ^{j}e_{j}h_{k}\right)  t^{n}.
+\]
+This is an equality between two FPSs in $\mathcal{P}\left[  \left[  t\right]
+\right]  $. Comparing coefficients in front of $t^{n}$, we conclude that each
+positive integer $n$ satisfies%
+\[
+0=\sum_{\substack{\left(  j,k\right)  \in\mathbb{N}^{2};\\j+k=n}}\left(
+-1\right)  ^{j}e_{j}h_{k}=\sum_{j=0}^{n}\left(  -1\right)  ^{j}e_{j}h_{n-j}%
+\]
+(here, we have substituted $\left(  j,n-j\right)  $ for $\left(  j,k\right)  $
+in the sum, since the map $\left\{  0,1,\ldots,n\right\}  \rightarrow\left\{
+\left(  j,k\right)  \in\mathbb{N}^{2}\ \mid\ j+k=n\right\}  $ that sends each
+$j\in\left\{  0,1,\ldots,n\right\}  $ to the pair $\left(  j,n-j\right)  $ is
+a bijection). This proves the 1st Newton--Girard formula
+(\ref{eq.thm.sf.NG.eh}).
+\end{proof}
+
+Proving the other two formulas in Theorem \ref{thm.sf.NG} is a homework
+problem (Exercise \ref{exe.sf.NG.p}). Note that there exist proofs of
+different kinds: FPS manipulations; induction; sign-reversing involutions.
+
+Note that our above proof of Theorem \ref{thm.sf.NG} attests to the usefulness
+of generating functions: Even though the polynomials $f\in\mathcal{P}$ already
+involve $N$ variables $x_{1},x_{2},\ldots,x_{N}$, the proof proceeds by
+adjoining yet another variable $t$ (to form the ring $\mathcal{P}\left[
+\left[  t\right]  \right]  $).
+
+The Newton--Girard formulas can be used to express the $e_{i}$'s and the
+$h_{i}$'s in terms of each other, and the $p_{i}$'s in terms of the $e_{i}$'s
+and the $h_{i}$'s, and finally the $e_{i}$'s and the $h_{i}$'s in terms of the
+$p_{i}$'s when $K$ is a commutative $\mathbb{Q}$-algebra (i.e., when the
+numbers $1,2,3,\ldots$ have inverses in $K$). More generally, it turns out
+that we can express any symmetric polynomial in terms of $e_{i}$'s or of
+$h_{i}$'s or (if $K$ is a commutative $\mathbb{Q}$-algebra) of $p_{i}$'s:
+
+\begin{theorem}
+[Fundamental Theorem of Symmetric Polynomials, due to Gauss et al.]%
+\label{thm.sf.ftsf}\textbf{(a)} The elementary symmetric polynomials
+$e_{1},e_{2},\ldots,e_{N}$ are algebraically independent (over $K$) and
+generate the $K$-algebra $\mathcal{S}$.
+
+In other words, each $f\in\mathcal{S}$ can be uniquely written as a polynomial
+in $e_{1},e_{2},\ldots,e_{N}$.
+
+In yet other words, the map%
+\begin{align*}
+\underbrace{K\left[  y_{1},y_{2},\ldots,y_{N}\right]  }_{\substack{\text{a
+polynomial ring}\\\text{in }N\text{ variables}}}  &  \rightarrow\mathcal{S},\\
+g  &  \mapsto g\left[  e_{1},e_{2},\ldots,e_{N}\right]
+\end{align*}
+is a $K$-algebra isomorphism. \medskip
+
+\textbf{(b)} The complete homogeneous symmetric polynomials $h_{1}%
+,h_{2},\ldots,h_{N}$ are algebraically independent (over $K$) and generate the
+$K$-algebra $\mathcal{S}$.
+
+In other words, each $f\in\mathcal{S}$ can be uniquely written as a polynomial
+in $h_{1},h_{2},\ldots,h_{N}$.
+
+In yet other words, the map%
+\begin{align*}
+\underbrace{K\left[  y_{1},y_{2},\ldots,y_{N}\right]  }_{\substack{\text{a
+polynomial ring}\\\text{in }N\text{ variables}}}  &  \rightarrow\mathcal{S},\\
+g  &  \mapsto g\left[  h_{1},h_{2},\ldots,h_{N}\right]
+\end{align*}
+is a $K$-algebra isomorphism. \medskip
+
+\textbf{(c)} Now assume that $K$ is a commutative $\mathbb{Q}$-algebra (e.g.,
+a field of characteristic $0$). Then, the power sums $p_{1},p_{2},\ldots
+,p_{N}$ are algebraically independent (over $K$) and generate the $K$-algebra
+$\mathcal{S}$.
+
+In other words, each $f\in\mathcal{S}$ can be uniquely written as a polynomial
+in $p_{1},p_{2},\ldots,p_{N}$.
+
+In yet other words, the map%
+\begin{align*}
+\underbrace{K\left[  y_{1},y_{2},\ldots,y_{N}\right]  }_{\substack{\text{a
+polynomial ring}\\\text{in }N\text{ variables}}}  &  \rightarrow\mathcal{S},\\
+g  &  \mapsto g\left[  p_{1},p_{2},\ldots,p_{N}\right]
+\end{align*}
+is a $K$-algebra isomorphism.
+\end{theorem}
+
+\begin{example}
+\textbf{(a)} Theorem \ref{thm.sf.ftsf} \textbf{(a)} yields that $p_{3}$ can be
+uniquely written as a polynomial in $e_{1},e_{2},\ldots,e_{N}$. How to write
+it this way?
+
+Here is a method that (more generally) can be used to express $p_{n}$ (for any
+given $n>0$) as a polynomial in $e_{1},e_{2},\ldots,e_{n}$. This method is
+recursive, so we assume that all the \textquotedblleft
+smaller\textquotedblright\ power sums $p_{1},p_{2},\ldots,p_{n-1}$ have
+already been expressed in this way. Now, the 2nd Newton--Girard formula
+(\ref{eq.thm.sf.NG.ep}) yields
+\begin{align*}
+ne_{n}  &  =\sum\limits_{j=1}^{n}\left(  -1\right)  ^{j-1}e_{n-j}p_{j}%
+=\sum\limits_{j=1}^{n-1}\left(  -1\right)  ^{j-1}e_{n-j}p_{j}+\left(
+-1\right)  ^{n-1}\underbrace{e_{n-n}}_{=e_{0}=1}p_{n}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have split off the addend}\\
+\text{for }j=n\text{ from the sum}%
+\end{array}
+\right) \\
+&  =\sum\limits_{j=1}^{n-1}\left(  -1\right)  ^{j-1}e_{n-j}p_{j}+\left(
+-1\right)  ^{n-1}p_{n}.
+\end{align*}
+Solving this equality for $p_{n}$, we obtain
+\[
+p_{n}=\left(  -1\right)  ^{n-1}\left(  ne_{n}-\sum\limits_{j=1}^{n-1}\left(
+-1\right)  ^{j-1}e_{n-j}p_{j}\right)  .
+\]
+The right hand side can now be expressed in terms of $e_{1},e_{2},\ldots
+,e_{n}$ (since the only power sums appearing in it are $p_{1},p_{2}%
+,\ldots,p_{n-1}$, which we already know how to express in these terms);
+therefore, we obtain an expression of $p_{n}$ as a polynomial in $e_{1}%
+,e_{2},\ldots,e_{n}$.
+
+For example, here is what we obtain for $n\in\left[  4\right]  $ by following
+this method:
+\begin{align*}
+p_{1}  &  =e_{1};\\
+p_{2}  &  =e_{1}^{2}-2e_{2};\\
+p_{3}  &  =e_{1}^{3}-3e_{2}e_{1}+3e_{3};\\
+p_{4}  &  =e_{1}^{4}-4e_{2}e_{1}^{2}+2e_{2}^{2}+4e_{3}e_{1}-4e_{4}.
+\end{align*}
+If $N<n$, then this expression of $p_{n}$ as a polynomial in $e_{1}%
+,e_{2},\ldots,e_{n}$ becomes an expression as a polynomial in $e_{1}%
+,e_{2},\ldots,e_{N}$ if we throw away all addends that contain one of
+$e_{N+1},e_{N+2},\ldots,e_{n}$ as factor (we are allowed to do this, because
+Proposition \ref{prop.sf.en=0} shows that all these addends are $0$). For
+example, if $N=2$, then the expression $p_{4}=e_{1}^{4}-4e_{2}e_{1}^{2}%
++2e_{2}^{2}+4e_{3}e_{1}-4e_{4}$ becomes $p_{4}=e_{1}^{4}-4e_{2}e_{1}%
+^{2}+2e_{2}^{2}$ this way. \medskip
+
+\textbf{(b)} Theorem \ref{thm.sf.ftsf} \textbf{(b)} yields that $p_{3}$ can be
+uniquely written as a polynomial in $h_{1},h_{2},\ldots,h_{N}$. How to write
+it this way?
+
+In part \textbf{(a)}, we have given a method to express $p_{n}$ (for any given
+$n>0$) as a polynomial in $e_{1},e_{2},\ldots,e_{n}$. A similar method (but
+using (\ref{eq.thm.sf.NG.hp}) instead of (\ref{eq.thm.sf.NG.ep})) can be used
+to express $p_{n}$ (for any given $n>0$) as a polynomial in $h_{1}%
+,h_{2},\ldots,h_{n}$. For example, for $n\in\left[  4\right]  $, this method
+produces%
+\begin{align*}
+p_{1}  &  =h_{1};\\
+p_{2}  &  =-h_{1}^{2}+2h_{2};\\
+p_{3}  &  =h_{1}^{3}-3h_{2}h_{1}+3h_{3};\\
+p_{4}  &  =-h_{1}^{4}+4h_{2}h_{1}^{2}-2h_{2}^{2}-4h_{3}h_{1}+4h_{4}.
+\end{align*}
+(The similarity with the analogous formulas expressing $p_{n}$ in terms of
+$e_{1},e_{2},\ldots,e_{n}$ is not accidental -- the formulas are indeed
+identical when $n$ is odd and differ in all signs when $n$ is even. Proving
+this is Exercise \ref{exe.sf.eh-pol-same} \textbf{(b)}.)
+
+So we can express $p_{n}$ as a polynomial in $h_{1},h_{2},\ldots,h_{n}$.
+However, expressing $p_{n}$ as a polynomial in $h_{1},h_{2},\ldots,h_{N}$ is
+harder when $N<n$. For example, if $N=2$, then the former expression is
+$p_{4}=-h_{1}^{4}+4h_{2}h_{1}^{2}-2h_{2}^{2}-4h_{3}h_{1}+4h_{4}$, while the
+latter is $p_{4}=-h_{1}^{4}+2h_{2}^{2}$; there is no easy way to get the
+latter from the former. \medskip
+
+\textbf{(c)} Assume that $K$ is a $\mathbb{Q}$-algebra. Theorem
+\ref{thm.sf.ftsf} \textbf{(c)} yields that $e_{3}$ can be uniquely written as
+a polynomial in $p_{1},p_{2},\ldots,p_{N}$. How to write it this way?
+
+In part \textbf{(a)}, we have given a method to express $p_{n}$ (for any given
+$n>0$) as a polynomial in $e_{1},e_{2},\ldots,e_{n}$. The crux of this method
+was to solve the equation (\ref{eq.thm.sf.NG.ep}) for $p_{n}$. If we instead
+solve it for $e_{n}$ (which is almost immediate: it gives $e_{n}=\dfrac{1}%
+{n}\sum_{j=1}^{n}\left(  -1\right)  ^{j-1}e_{n-j}p_{j}$), then we obtain a
+method for expressing $e_{n}$ (for any given $n>0$) as a polynomial in
+$p_{1},p_{2},\ldots,p_{n}$. Applied to all $n\in\left[  4\right]  $, this
+method produces%
+\begin{align*}
+e_{1}  &  =p_{1};\\
+e_{2}  &  =\dfrac{1}{2}p_{1}^{2}-\dfrac{1}{2}p_{2};\\
+e_{3}  &  =\dfrac{1}{6}p_{1}^{3}-\dfrac{1}{2}p_{2}p_{1}+\dfrac{1}{3}p_{3};\\
+e_{4}  &  =\dfrac{1}{24}p_{1}^{4}-\dfrac{1}{4}p_{2}p_{1}^{2}+\dfrac{1}{8}%
+p_{2}^{2}+\dfrac{1}{3}p_{3}p_{1}-\dfrac{1}{4}p_{4}.
+\end{align*}
+Note the fractions on the right hand sides! This is why we required $K$ to be
+a $\mathbb{Q}$-algebra in Theorem \ref{thm.sf.ftsf} \textbf{(c)}. In general,
+we cannot express $e_{n}$ in terms of $p_{1},p_{2},\ldots,p_{n}$ if the
+integer $n$ is not invertible in $K$.
+
+The question of expressing $e_{n}$ as a polynomial in $p_{1},p_{2}%
+,\ldots,p_{N}$ (as opposed to $p_{1},p_{2},\ldots,p_{n}$) is easily reduced to
+what we just have done: If $n\leq N$, then we have answered it already; if
+$n>N$, then the answer is $e_{n}=0$ (by Proposition \ref{prop.sf.en=0}).
+\medskip
+
+\textbf{(d)} Not even algebraic independence of $p_{1},p_{2},\ldots,p_{N}$ is
+true in general (if we don't assume that $K$ is a $\mathbb{Q}$-algebra)!
+Indeed, if $K=\mathbb{Z}/2$, then%
+\[
+p_{1}^{2}=\left(  x_{1}+x_{2}+\cdots+x_{N}\right)  ^{2}=\underbrace{x_{1}%
+^{2}+x_{2}^{2}+\cdots+x_{N}^{2}}_{=p_{2}}+\underbrace{2\sum_{i<j}x_{i}x_{j}%
+}_{\substack{=0\\\text{if }K=\mathbb{Z}/2}}=p_{2}.
+\]
+More generally, if $K=\mathbb{Z}/p$ for some prime $p$, then the Idiot's
+Binomial Formula (i.e., the formula $\left(  x+y\right)  ^{p}=x^{p}+y^{p}$
+that holds in any commutative $\mathbb{Z}/p$-algebra) yields $p_{1}^{p}=p_{p}%
+$. (Did I mention that lowercase letters are in short supply in the theory of
+symmetric polynomials?) \medskip
+
+\textbf{(e)} If $N=3$, then Theorem \ref{thm.sf.ftsf} \textbf{(b)} yields that
+$h_{4}$ can be written as a polynomial in $h_{1},h_{2},h_{3}$. Here is how
+this looks like:%
+\[
+h_{4}=h_{1}^{4}-3h_{2}h_{1}^{2}+h_{2}^{2}+2h_{3}h_{1}.
+\]
+
+
+\textbf{(f)} If $N=3$, then
+\[
+\left(  \left(  x-y\right)  \left(  y-z\right)  \left(  z-x\right)  \right)
+^{2}=e_{2}^{2}e_{1}^{2}-4e_{2}^{3}-4e_{3}e_{1}^{3}+18e_{3}e_{2}e_{1}%
+-27e_{3}^{2}%
+\]
+(where we are again denoting $x_{1},x_{2},x_{3}$ by $x,y,z$).
+\end{example}
+
+We omit the proof of Theorem \ref{thm.sf.ftsf} for now; various proofs can be
+found in \cite[Theorem 171]{Benede25}, \cite[proof of Theorem 1]{BluCos16},
+\cite[Theorem 1.2.1]{Dumas08}, \cite[Theorem 9.6.6]{Goodman}, \cite[\S 1.1]%
+{Smith95} and many other places.\footnote{Some of these sources only state the
+theorem in the case when $\mathbf{k}$ is a field, or even only when
+$\mathbf{k}=\mathbb{C}$; but the proofs they give can easily be generalized to
+any commutative ring $\mathbf{k}$.}
+
+Let us record a useful criterion for showing that a polynomial is symmetric:
+
+\begin{lemma}
+\label{lem.sf.simples-enough}For each $i\in\left[  N-1\right]  $, we consider
+the simple transposition $s_{i}\in S_{N}$ defined in Definition
+\ref{def.perm.si} (applied to $n=N$).
+
+Let $f\in\mathcal{P}$. Assume that
+\begin{equation}
+s_{k}\cdot f=f\ \ \ \ \ \ \ \ \ \ \text{for each }k\in\left[  N-1\right]  .
+\label{eq.lem.sf.simples-enough.ass}%
+\end{equation}
+Then, the polynomial $f$ is symmetric.
+\end{lemma}
+
+In plainer terms, Lemma \ref{lem.sf.simples-enough} says that if a polynomial
+$f\in\mathcal{P}$ remains unchanged whenever we swap two adjacent
+indeterminates (i.e., it remains unchanged if we swap $x_{1}$ with $x_{2}$; it
+remains unchanged if we swap $x_{2}$ with $x_{3}$; it remains unchanged if we
+swap $x_{3}$ with $x_{4}$; etc.), then this polynomial $f$ is symmetric. For
+example, for $N=3$, it says that if a polynomial $f\in K\left[  x_{1}%
+,x_{2},x_{3}\right]  $ satisfies $f\left[  x_{2},x_{1},x_{3}\right]  =f$ and
+$f\left[  x_{1},x_{3},x_{2}\right]  =f$, then $f$ is symmetric.
+
+\begin{proof}
+[Proof of Lemma \ref{lem.sf.simples-enough}.]This follows from Corollary
+\ref{cor.perm.generated} or from Theorem \ref{thm.perm.len.redword1}
+\textbf{(a)}. See Section \ref{sec.details.sf.sp} for the details of this proof.
+\end{proof}

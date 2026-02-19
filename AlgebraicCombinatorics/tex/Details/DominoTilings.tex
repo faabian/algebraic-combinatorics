@@ -1,0 +1,296 @@
+\subsection{\label{sec.details.domino}Domino tilings}
+
+\begin{fineprint}
+In Subsection \ref{subsec.gf.weighted-set.domino}, we have given a
+classification of faultfree domino tilings of the rectangle $R_{n,3}$. Let us
+now outline how this classification can be proved. First, we introduce names
+for the faultfree domino tilings that appear in our classification:
+
+\begin{definition}
+\label{def.gf.weighted-set.domino.Rn3.ABC}\textbf{(a)} For each even positive
+integer $n$, we let $A_{n}$ be the domino tiling%
+\[%
+%TCIMACRO{\TeXButton{tikz tilings An}{\qquad% [tikz figure removed]}}%
+%BeginExpansion
+\qquad% [tikz figure removed]%
+%EndExpansion
+\ \ \ \ \ \ \ \ \ \ \text{of }R_{n,3}.
+\]
+Formally speaking, this domino tiling is the set partition of $R_{n,3}$
+consisting of the following the dominos:
+
+\begin{itemize}
+\item the horizontal dominos $\left\{  \left(  2i-1,\ 1\right)  ,\ \left(
+2i,\ 1\right)  \right\}  $ for all $i\in\left[  n/2\right]  $, which fill the
+bottom row of $R_{n,3}$, and which we call the \textbf{basement dominos};
+
+\item the vertical domino $\left\{  \left(  1,2\right)  ,\ \left(  1,3\right)
+\right\}  $ in the first column, which we call the \textbf{left wall};
+
+\item the vertical domino $\left\{  \left(  n,2\right)  ,\ \left(  n,3\right)
+\right\}  $ in the last column, which we call the \textbf{right wall};
+
+\item the horizontal dominos $\left\{  \left(  2i,\ 2\right)  ,\ \left(
+2i+1,\ 2\right)  \right\}  $ for all $i\in\left[  n/2-1\right]  $, which fill
+the middle row of $R_{n,3}$ (except for the first and last columns), and which
+we call the \textbf{middle dominos};
+
+\item the horizontal dominos $\left\{  \left(  2i,\ 3\right)  ,\ \left(
+2i+1,\ 3\right)  \right\}  $ for all $i\in\left[  n/2-1\right]  $, which fill
+the top row of $R_{n,3}$ (except for the first and last columns), and which we
+call the \textbf{top dominos}.
+\end{itemize}
+
+\textbf{(b)} For each even positive integer $n$, we let $B_{n}$ be the domino
+tiling%
+\[%
+%TCIMACRO{\TeXButton{tikz tilings Bn}{\qquad% [tikz figure removed]}}%
+%BeginExpansion
+\qquad% [tikz figure removed]%
+%EndExpansion
+\ \ \ \ \ \ \ \ \ \ \text{of }R_{n,3}.
+\]
+This is the reflection of the tiling $A_{n}$ across the horizontal axis of
+symmetry of $R_{n,3}$. \medskip
+
+\textbf{(c)} We let $C$ denote the domino tiling
+\[%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\ \ \ \ \ \ \ \ \ \ \text{of }R_{2,3}.
+\]
+
+\end{definition}
+
+Our classification now can be stated as follows:
+
+\begin{proposition}
+\label{prop.gf.weighted-set.domino.Rn3.ABC}The faultfree domino tilings of
+height-$3$ rectangles are precisely the tilings%
+\[
+A_{2},A_{4},A_{6},A_{8},\ldots,\ \ \ \ \ \ \ \ \ \ B_{2},B_{4},B_{6}%
+,B_{8},\ldots,\ \ \ \ \ \ \ \ \ \ C
+\]
+we have just defined. More concretely: \medskip
+
+\textbf{(a)} The faultfree domino tilings of a height-$3$ rectangle that
+contain a vertical domino in the \textbf{top} two squares of the first column
+are $A_{2},A_{4},A_{6},A_{8},\ldots$. \medskip
+
+\textbf{(b)} The faultfree domino tilings of a height-$3$ rectangle that
+contain a vertical domino in the \textbf{bottom} two squares of the first
+column are $B_{2},B_{4},B_{6},B_{8},\ldots$. \medskip
+
+\textbf{(c)} The only faultfree domino tiling of a height-$3$ rectangle that
+contains \textbf{no} vertical domino in the first column is $C$.
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.gf.weighted-set.domino.Rn3.ABC} (sketched).]It
+clearly suffices to prove parts \textbf{(a)}, \textbf{(b)} and \textbf{(c)}.
+We begin with the easiest part, which is \textbf{(c)}: \medskip
+
+\textbf{(c)} Clearly, $C$ is a faultfree domino tiling of $R_{2,3}$ that
+contains no vertical domino in the first column. It remains to show that $C$
+is the only such tiling.
+
+Indeed, let $T$ be any faultfree domino tiling of $R_{2,3}$ that contains no
+vertical domino in the first column. Thus, its first column must be filled
+with three horizontal dominos, which all must protrude into the second column
+and thus cover that second column as well. If $T$ had any further column, then
+$T$ would have a fault between its $2$-nd and its $3$-rd column, which is
+impossible for a faultfree tiling. Thus, $T$ must consist only of the three
+horizontal dominos already mentioned. In other words, $T=C$. This completes
+the proof of Proposition \ref{prop.gf.weighted-set.domino.Rn3.ABC}
+\textbf{(c)}. \medskip
+
+\textbf{(a)} It is straightforward to check that the tilings $A_{2}%
+,A_{4},A_{6},A_{8},\ldots$ are faultfree (indeed, the basement dominos prevent
+faults between the $\left(  2i-1\right)  $-st and $\left(  2i\right)  $-th
+columns, whereas the top dominos prevent faults between the $\left(
+2i\right)  $-th and $\left(  2i+1\right)  $-st columns). Thus, they are
+faultfree domino tilings of a height-$3$ rectangle that contain a vertical
+domino in the \textbf{top} two squares of the first column. It remains to show
+that they are the only such tilings.
+
+Indeed, let $T$ be any faultfree domino tiling of a height-$3$ rectangle that
+contains a vertical domino in the \textbf{top} two squares of the first
+column. Let $n$ be the width of this rectangle (so that the rectangle is
+$R_{n,3}$). We shall show that $n$ is even, and that $T=A_{n}$.
+
+We know that $T$ contains a vertical domino in the \textbf{top} two squares of
+the first column. In other words, $T$ contains the left wall (where we are
+using the terminology from Definition \ref{def.gf.weighted-set.domino.Rn3.ABC}
+\textbf{(a)}). The remaining square in the first column is the square $\left(
+1,1\right)  $, and it must thus be covered by the basement domino $\left\{
+\left(  1,1\right)  ,\ \left(  2,1\right)  \right\}  $ (since no other domino
+would fit). Hence, $T$ contains the basement domino $\left\{  \left(
+1,1\right)  ,\ \left(  2,1\right)  \right\}  $.
+
+We shall now prove the following claims:
+
+\begin{statement}
+\textit{Claim 1:} For each positive integer $i<n/2$, the tiling $T$ contains
+the basement domino $\left\{  \left(  2i-1,\ 1\right)  ,\ \left(
+2i,\ 1\right)  \right\}  $, the middle domino $\left\{  \left(  2i,\ 2\right)
+,\ \left(  2i+1,\ 2\right)  \right\}  $ and the top domino $\left\{  \left(
+2i,\ 3\right)  ,\ \left(  2i+1,\ 3\right)  \right\}  $.
+\end{statement}
+
+\begin{proof}
+[Proof of Claim 1.]We induct on $i$:
+
+\textit{Base case:} We must prove that Claim 1 holds for $i=1$, provided that
+$1<n/2$. So let us assume that $1<n/2$. Thus, $2<n$, so that $n\geq3$. We must
+prove that Claim 1 holds for $i=1$; in other words, we must prove that $T$
+contains the basement domino $\left\{  \left(  1,1\right)  ,\ \left(
+2,1\right)  \right\}  $, the middle domino $\left\{  \left(  2,2\right)
+,\ \left(  3,2\right)  \right\}  $ and the top domino $\left\{  \left(
+2,3\right)  ,\ \left(  3,3\right)  \right\}  $. For the basement domino, we
+have already proved this. For the middle and the top domino, we argue as
+follows: If $T$ had a vertical domino in the $2$-nd column, then this domino
+would cover the top two squares of that column (since the bottom square is
+already covered by the basement domino $\left\{  \left(  1,1\right)
+,\ \left(  2,1\right)  \right\}  $), and thus $T$ would have a fault between
+the $2$-nd and $3$-rd columns (since the basement domino $\left\{  \left(
+1,1\right)  ,\ \left(  2,1\right)  \right\}  $ also ends at the $2$-nd
+column), which would contradict the faultfreeness of $T$. Hence, $T$ has no
+vertical domino in the $2$-nd column. Thus, the top two squares of the $2$-nd
+column of $T$ must be covered by horizontal dominos. These horizontal dominos
+must both protrude into the $3$-rd column (since the corresponding squares in
+the $1$-st column are already covered by the left wall), and thus must be the
+middle domino $\left\{  \left(  2,2\right)  ,\ \left(  3,2\right)  \right\}  $
+and the top domino $\left\{  \left(  2,3\right)  ,\ \left(  3,3\right)
+\right\}  $. Hence, we have shown that $T$ contains the middle domino
+$\left\{  \left(  2,2\right)  ,\ \left(  3,2\right)  \right\}  $ and the top
+domino $\left\{  \left(  2,3\right)  ,\ \left(  3,3\right)  \right\}  $. This
+completes the base case.
+
+\textit{Induction step:} Let $j$ be a positive integer such that $j+1<n/2$.
+Assume (as the induction hypothesis) that Claim 1 holds for $i=j$. In other
+words, $T$ contains the basement domino $\left\{  \left(  2j-1,\ 1\right)
+,\ \left(  2j,\ 1\right)  \right\}  $, the middle domino $\left\{  \left(
+2j,\ 2\right)  ,\ \left(  2j+1,\ 2\right)  \right\}  $ and the top domino
+$\left\{  \left(  2j,\ 3\right)  ,\ \left(  2j+1,\ 3\right)  \right\}  $. We
+must now show that Claim 1 holds for $i=j+1$ as well, i.e., that $T$ also
+contains the basement domino $\left\{  \left(  2j+1,\ 1\right)  ,\ \left(
+2j+2,\ 1\right)  \right\}  $, the middle domino $\left\{  \left(
+2j+2,\ 2\right)  ,\ \left(  2j+3,\ 2\right)  \right\}  $ and the top domino
+$\left\{  \left(  2j+2,\ 3\right)  ,\ \left(  2j+3,\ 3\right)  \right\}  $.
+
+Indeed, we first recall that $j+1<n/2$, so that $2\left(  j+1\right)  <n$ and
+therefore $n>2\left(  j+1\right)  =2j+2$, so that $n\geq2j+3$. This shows that
+the rectangle $R_{n,3}$ has a $\left(  2j+3\right)  $-th column (along with
+all columns to its left).
+
+Now, the square $\left(  2j+1,\ 1\right)  $ cannot be covered by a vertical
+domino in $T$, since this vertical domino would collide with the middle domino
+$\left\{  \left(  2j,\ 2\right)  ,\ \left(  2j+1,\ 2\right)  \right\}  $
+(which we already know to belong to $T$). Thus, this square must be covered by
+a horizontal domino. This horizontal domino cannot protrude into the $\left(
+2j\right)  $-th column (since it would then collide with the basement domino
+$\left\{  \left(  2j-1,\ 1\right)  ,\ \left(  2j,\ 1\right)  \right\}  $,
+which we already know to belong to $T$), and thus must be the basement domino
+$\left\{  \left(  2j+1,\ 1\right)  ,\ \left(  2j+2,\ 1\right)  \right\}  $. So
+we have shown that $T$ contains the basement domino $\left\{  \left(
+2j+1,\ 1\right)  ,\ \left(  2j+2,\ 1\right)  \right\}  $. It remains to show
+that $T$ also contains the middle domino $\left\{  \left(  2j+2,\ 2\right)
+,\ \left(  2j+3,\ 2\right)  \right\}  $ and the top domino $\left\{  \left(
+2j+2,\ 3\right)  ,\ \left(  2j+3,\ 3\right)  \right\}  $.
+
+If $T$ had a vertical domino in the $\left(  2j+2\right)  $-nd column, then
+this domino would cover the top two squares of that column (since the bottom
+square is already covered by the basement domino $\left\{  \left(
+2j+1,\ 1\right)  ,\ \left(  2j+2,\ 1\right)  \right\}  $), and thus $T$ would
+have a fault between the $\left(  2j+2\right)  $-nd and $\left(  2j+3\right)
+$-rd columns (since the basement domino $\left\{  \left(  2j+1,\ 1\right)
+,\ \left(  2j+2,\ 1\right)  \right\}  $ also ends at the $\left(  2j+2\right)
+$-nd column), which would contradict the faultfreeness of $T$. Hence, $T$ has
+no vertical domino in the $\left(  2j+2\right)  $-nd column. Thus, the top two
+squares of the $\left(  2j+2\right)  $-nd column of $T$ must be covered by
+horizontal dominos. These horizontal dominos must both protrude into the
+$\left(  2j+3\right)  $-rd column (since the corresponding squares in the
+$\left(  2j+1\right)  $-st column are already covered by the middle domino
+$\left\{  \left(  2j,\ 2\right)  ,\ \left(  2j+1,\ 2\right)  \right\}  $ and
+the top domino $\left\{  \left(  2j,\ 3\right)  ,\ \left(  2j+1,\ 3\right)
+\right\}  $), and thus must be the middle domino $\left\{  \left(
+2j+2,\ 2\right)  ,\ \left(  2j+3,\ 2\right)  \right\}  $ and the top domino
+$\left\{  \left(  2j+2,\ 3\right)  ,\ \left(  2j+3,\ 3\right)  \right\}  $.
+Hence, we have shown that $T$ contains the middle domino $\left\{  \left(
+2j+2,\ 2\right)  ,\ \left(  2j+3,\ 2\right)  \right\}  $ and the top domino
+$\left\{  \left(  2j+2,\ 3\right)  ,\ \left(  2j+3,\ 3\right)  \right\}  $.
+This completes the induction step.
+
+Thus, Claim 1 is proved by induction.
+\end{proof}
+
+\begin{statement}
+\textit{Claim 2:} The number $n$ is even.
+\end{statement}
+
+\begin{proof}
+[Proof of Claim 2.]Assume the contrary. Thus, $n$ is odd. But $n>1$ (since
+$R_{1,3}$ cannot be tiled by dominos), so that $n-1>0$. Hence, $\left(
+n-1\right)  /2$ is a positive integer (since $n$ is odd). Therefore, Claim 1
+(applied to $i=\left(  n-1\right)  /2$) shows that the tiling $T$ contains the
+basement domino $\left\{  \left(  n-2,\ 1\right)  ,\ \left(  n-1,\ 1\right)
+\right\}  $, the middle domino $\left\{  \left(  n-1,\ 2\right)  ,\ \left(
+n,\ 2\right)  \right\}  $ and the top domino $\left\{  \left(  n-1,\ 3\right)
+,\ \left(  n,\ 3\right)  \right\}  $. But $T$ must also include a domino that
+contains the square $\left(  n,\ 1\right)  $ (since $\left(  n,\ 1\right)  \in
+R_{n,3}$). This domino cannot be vertical (since it would then collide with
+the basement domino $\left\{  \left(  n-2,\ 1\right)  ,\ \left(
+n-1,\ 1\right)  \right\}  $, which we know to belong to $T$), and cannot be
+horizontal either (since it would then collide with the middle domino
+$\left\{  \left(  n-1,\ 2\right)  ,\ \left(  n,\ 2\right)  \right\}  $). This
+is clearly absurd. This contradiction shows that our assumption was wrong, so
+that Claim 2 is proved.
+
+(Alternatively, Claim 2 can be obtained from a parity argument: Since $T$ is a
+tiling of $R_{n,3}$ by dominos, the total \# of squares of $R_{n,3}$ must be
+even (since each domino covers exactly $2$ squares). But this total \# is
+$3n$. Thus, $3n$ must be even, so that $n$ must be even.)
+\end{proof}
+
+Now, Claim 2 shows that $n$ is even, so that $n/2$ is a positive integer.
+Furthermore, we know that the tiling $T$ contains the left wall, the first
+$n-1$ basement dominos
+\[
+\left\{  \left(  1,1\right)  ,\ \left(  2,1\right)  \right\}
+,\ \ \ \ \ \left\{  \left(  3,1\right)  ,\ \left(  4,1\right)  \right\}
+,\ \ \ \ \ \ldots,\ \ \ \ \ \left\{  \left(  n-3,\ 1\right)  ,\ \left(
+n-2,\ 1\right)  \right\}
+\]
+(by Claim 1), all the middle dominos
+\[
+\left\{  \left(  2,2\right)  ,\ \left(  3,2\right)  \right\}
+,\ \ \ \ \ \left\{  \left(  4,2\right)  ,\ \left(  5,2\right)  \right\}
+,\ \ \ \ \ \ldots,\ \ \ \ \ \left\{  \left(  n-2,\ 2\right)  ,\ \left(
+n-1,\ 2\right)  \right\}
+\]
+(also by Claim 1) and all the top dominos%
+\[
+\left\{  \left(  2,3\right)  ,\ \left(  3,3\right)  \right\}
+,\ \ \ \ \ \left\{  \left(  4,3\right)  ,\ \left(  5,3\right)  \right\}
+,\ \ \ \ \ \ldots,\ \ \ \ \ \left\{  \left(  n-2,\ 3\right)  ,\ \left(
+n-1,\ 3\right)  \right\}
+\]
+(also by Claim 1). This leaves only the four squares $\left(  n-1,\ 1\right)
+$, $\left(  n,\ 1\right)  $, $\left(  n,\ 2\right)  $ and $\left(
+n,\ 3\right)  $ unaccounted for, but there is only one way to tile them:
+namely, with the last basement domino $\left\{  \left(  n-1,\ 1\right)
+,\ \left(  n,\ 1\right)  \right\}  $ and the right wall $\left\{  \left(
+n,2\right)  ,\ \left(  n,3\right)  \right\}  $. Thus, $T$ must contain all the
+basement dominos, all the middle dominos, all the top dominos and both walls
+(left and right). Since these dominos cover all the squares of $R_{n,3}$, this
+entails that $T$ consists precisely of these dominos. In other words,
+$T=A_{n}$. The proof of Proposition \ref{prop.gf.weighted-set.domino.Rn3.ABC}
+\textbf{(a)} is thus complete. \medskip
+
+\textbf{(b)} Proposition \ref{prop.gf.weighted-set.domino.Rn3.ABC}
+\textbf{(b)} is just Proposition \ref{prop.gf.weighted-set.domino.Rn3.ABC}
+\textbf{(a)} reflected across the horizontal axis of symmetry of $R_{n,3}$.
+\end{proof}
+\end{fineprint}

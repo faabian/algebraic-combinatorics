@@ -1,0 +1,973 @@
+\subsection{\label{sec.gf.weighted-set}The generating function of a weighted
+set}
+
+So far, we have built a theory of FPSs, and we have occasionally applied them
+to counting problems. However, so far, the latter applications were either
+limited to counting tuples of integers (because such tuples naturally appear
+as indexes when we multiply several sums) or somewhat indirect, mediated by
+integer sequences (i.e., we could not immediately transform our counting
+problem into an FPS but rather had to first define an integer sequence and
+then take its generating function). For instance, our above proof of Theorem
+\ref{thm.gf.prod.euler-comb} was an application of the former type, while
+Example 2 in Section \ref{sec.gf.exas} was one of the latter type.
+
+I shall now explain a more direct approach to transforming counting problems
+into FPSs. This approach is the theory of so-called \textquotedblleft%
+\emph{combinatorial classes}\textquotedblright\ or \textquotedblleft%
+\emph{finite-type weighted sets}\textquotedblright, and can be used
+(particularly in some of its more advanced variants) to prove deep results.
+However, I will not use it much in these notes, so I will only give a brief
+introduction. Much more can be learned from \cite[Part A]{FlaSed09};
+introductions can also be found in \cite[\S 3.3--\S 3.4]{Fink17}, \cite[Parts
+1 and 2]{Melcze24} and \cite[Chapter 6]{Loehr-BC}. The theory is not magic,
+and in principle can always be eschewed (any proof using it can be rewritten
+without its use), but it offers the major advantages of systematizing the
+combinatorial objects being counted and making the proofs more insightful. In
+a sense, it allows us to perform certain computations not just with the
+generating functions of the objects, but with the objects themselves -- a
+middle ground between algebra and combinatorics.
+
+I will now outline the beginnings of this theory, following Fink's
+introduction \cite[\S 3.3--\S 3.4]{Fink17} (but speaking of \emph{finite-type
+weighted sets} where \cite{Fink17}, \cite{Melcze24} and \cite{FlaSed09} speak
+of \textquotedblleft combinatorial classes\textquotedblright).
+
+\subsubsection{The theory}
+
+\begin{definition}
+\label{def.gf-ws.weighted-sets}\textbf{(a)} A \emph{weighted set} is a set $A$
+equipped with a function $w:A\rightarrow\mathbb{N}$, which is called the
+\emph{weight function} of this weighted set. For each $a\in A$, the value
+$w\left(  a\right)  $ is denoted $\left\vert a\right\vert $ and is called the
+\emph{weight} of $a$ (in our weighted set). \medskip
+
+Usually, instead of explicitly specifying the weight function $w$ as a
+function, we will simply specify the weight $\left\vert a\right\vert $ for
+each $a\in A$. The weighted set consisting of the set $A$ and the weight
+function $w$ will be called $\left(  A,w\right)  $ or simply $A$ when the
+weight function $w$ is clear from the context. \medskip
+
+\textbf{(b)} A weighted set $A$ is said to be \emph{finite-type} if for each
+$n\in\mathbb{N}$, there are only finitely many $a\in A$ having weight
+$\left\vert a\right\vert =n$. \medskip
+
+\textbf{(c)} If $A$ is a finite-type weighted set, then the \emph{weight
+generating function} of $A$ is defined to be the FPS%
+\[
+\sum_{a\in A}x^{\left\vert a\right\vert }=\sum_{n\in\mathbb{N}}\left(
+\text{\# of }a\in A\text{ having weight }n\right)  \cdot x^{n}\in
+\mathbb{Z}\left[  \left[  x\right]  \right]  .
+\]
+This FPS is denoted by $\overline{A}$. \medskip
+
+\textbf{(d)} An \emph{isomorphism} between two weighted sets $A$ and $B$ means
+a bijection $\rho:A\rightarrow B$ that preserves the weight (i.e., each $a\in
+A$ satisfies $\left\vert \rho\left(  a\right)  \right\vert =\left\vert
+a\right\vert $). \medskip
+
+\textbf{(e)} We say that two weighted sets $A$ and $B$ are \emph{isomorphic}
+(this is written $A\cong B$) if there exists an isomorphism between $A$ and
+$B$.
+\end{definition}
+
+\begin{example}
+\label{exa.ws.bin-string1}Let $B$ be the weighted set of all \emph{binary
+strings}, i.e., finite tuples consisting of $0$s and $1$s. Thus,%
+\[
+B=\left\{  \left(  {}\right)  ,\ \left(  0\right)  ,\ \left(  1\right)
+,\ \left(  0,0\right)  ,\ \left(  0,1\right)  ,\ \left(  1,0\right)
+,\ \left(  1,1\right)  ,\ \left(  0,0,0\right)  ,\ \left(  0,0,1\right)
+,\ \ldots\right\}  .
+\]
+The weight of an $n$-tuple is defined to be $n$. In other words, the weight of
+a binary string is the length of this string. This weighted set $B$ is
+finite-type, since for each $n\in\mathbb{N}$, there are only finitely many
+binary strings of length $n$ (namely, there are $2^{n}$ such strings). The
+weight generating function of $B$ is%
+\[
+\overline{B}=\sum_{n\in\mathbb{N}}\underbrace{\left(  \text{\# of }a\in
+B\text{ having weight }n\right)  }_{\substack{=\left(  \text{\# of binary
+strings of length }n\right)  \\=2^{n}}}\cdot\,x^{n}=\sum_{n\in\mathbb{N}}%
+2^{n}x^{n}=\dfrac{1}{1-2x}.
+\]
+
+\end{example}
+
+\begin{example}
+Let $B^{\prime}$ be the weighted set of all binary strings, i.e., finite
+tuples consisting of $0$s and $1$s. The weight of an $n$-tuple $\left(
+a_{1},a_{2},\ldots,a_{n}\right)  \in B^{\prime}$ is defined to be $a_{1}%
++a_{2}+\cdots+a_{n}$. (Thus, $B^{\prime}$ is the same set as the $B$ in
+Example \ref{exa.ws.bin-string1}, but equipped with a different weight
+function.) This weighted set $B^{\prime}$ is \textbf{not} finite-type, since
+there are infinitely many $a\in B^{\prime}$ having weight $0$ (namely, all
+tuples of the form $\left(  0,0,\ldots,0\right)  $, with any number of zeroes.)
+\end{example}
+
+Those familiar with graded vector spaces (or graded modules) will recognize
+weighted sets as their combinatorial analogues: Weighted sets are to sets what
+graded vector spaces are to vector spaces. (In particular, the weight
+generating function $\overline{A}$ of a finite-type weighted set $A$ is an
+analogue of the Hilbert series of a finite-type graded vector space.) \medskip
+
+Let us now prove a few basic properties of weighted sets and their weight
+generating functions.
+
+\begin{proposition}
+\label{prop.gf-ws.iso}Let $A$ and $B$ be two isomorphic finite-type weighted
+sets. Then, $\overline{A}=\overline{B}$.
+\end{proposition}
+
+\begin{proof}
+This is almost trivial: The weighted sets $A$ and $B$ are isomorphic; thus,
+there exists an isomorphism $\rho:A\rightarrow B$. Consider this $\rho$. Then,
+$\rho$ is a bijection and preserves the weight (since $\rho$ is an isomorphism
+of weighted sets). The latter property says that we have
+\begin{equation}
+\left\vert \rho\left(  a\right)  \right\vert =\left\vert a\right\vert
+\ \ \ \ \ \ \ \ \ \ \text{for each }a\in A. \label{pf.prop.gf-ws.iso.wtpres}%
+\end{equation}
+Now, the definition of $\overline{B}$ yields%
+\begin{align*}
+\overline{B}  &  =\sum_{b\in B}x^{\left\vert b\right\vert }=\sum_{a\in
+A}\underbrace{x^{\left\vert \rho\left(  a\right)  \right\vert }}%
+_{\substack{=x^{\left\vert a\right\vert }\\\text{(by
+(\ref{pf.prop.gf-ws.iso.wtpres}))}}}\ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have substituted }\rho\left(  a\right)  \text{ for }b\\
+\text{in the sum, since }\rho\text{ is a bijection}%
+\end{array}
+\right) \\
+&  =\sum_{a\in A}x^{\left\vert a\right\vert }.
+\end{align*}
+Comparing this with%
+\[
+\overline{A}=\sum_{a\in A}x^{\left\vert a\right\vert }%
+\ \ \ \ \ \ \ \ \ \ \left(  \text{by the definition of }\overline{A}\right)
+,
+\]
+we obtain $\overline{A}=\overline{B}$. This proves Proposition
+\ref{prop.gf-ws.iso}.
+\end{proof}
+
+Note that Proposition \ref{prop.gf-ws.iso} has a converse: If $\overline
+{A}=\overline{B}$, then $A\cong B$. \medskip
+
+Recall that the \emph{disjoint union} of two sets $A$ and $B$ is informally
+understood to be \textquotedblleft the union of $A$ and $B$ where we pretend
+that the sets $A$ and $B$ are disjoint (even if they aren't)\textquotedblright%
+. Formally, it is defined as the set $\left(  \left\{  0\right\}  \times
+A\right)  \cup\left(  \left\{  1\right\}  \times B\right)  $, but we think of
+the elements $\left(  0,a\right)  $ of this set as copies of the respective
+elements $a\in A$, and we think of the elements $\left(  1,b\right)  $ of this
+set as copies of the respective elements $b\in B$. (Thus, even if the original
+sets $A$ and $B$ have some elements in common, say $c\in A\cap B$, the two
+copies $\left(  0,c\right)  $ and $\left(  1,c\right)  $ of such common
+elements will not coincide.)
+
+If $A$ and $B$ are two finite sets, then their disjoint union always has size
+$\left\vert A\right\vert +\left\vert B\right\vert $.
+
+Let us now extend the concept of a disjoint union to weighted sets:
+
+\begin{definition}
+\label{def.gf-ws.djun}Let $A$ and $B$ be two weighted sets. Then, the weighted
+set $A+B$ is defined to be the disjoint union of $A$ and $B$, with the weight
+function inherited from $A$ and $B$ (meaning that each element of $A$ has the
+same weight that it had in $A$, and each element of $B$ has the same weight
+that it had in $B$). Formally speaking, this means that $A+B$ is the set
+$\left(  \left\{  0\right\}  \times A\right)  \cup\left(  \left\{  1\right\}
+\times B\right)  $, with the weight function given by
+\begin{equation}
+\left\vert \left(  0,a\right)  \right\vert =\left\vert a\right\vert
+\ \ \ \ \ \ \ \ \ \ \text{for each }a\in A \label{eq.def.gf-ws.djun.wt0}%
+\end{equation}
+and%
+\begin{equation}
+\left\vert \left(  1,b\right)  \right\vert =\left\vert b\right\vert
+\ \ \ \ \ \ \ \ \ \ \text{for each }b\in B. \label{eq.def.gf-ws.djun.wt1}%
+\end{equation}
+
+\end{definition}
+
+\begin{proposition}
+\label{prop.gf-ws.djun}Let $A$ and $B$ be two finite-type weighted sets. Then,
+$A+B$ is finite-type, too, and satisfies $\overline{A+B}=\overline
+{A}+\overline{B}$.
+\end{proposition}
+
+\begin{proof}
+The formal definition of $A+B$ says that $A+B=\left(  \left\{  0\right\}
+\times A\right)  \cup\left(  \left\{  1\right\}  \times B\right)  $. Thus, the
+set $A+B$ is the union of the two disjoint sets $\left\{  0\right\}  \times A$
+and $\left\{  1\right\}  \times B$ (indeed, these two sets are clearly
+disjoint, since $0\neq1$).
+
+Let us first check that $A+B$ is finite-type.
+
+For each $n\in\mathbb{N}$, there are only finitely many $a\in A$ having weight
+$\left\vert a\right\vert =n$ (since $A$ is finite-type), and there are only
+finitely many $b\in B$ having weight $\left\vert b\right\vert =n$ (since $B$
+is finite-type). Hence, there are only finitely many $c\in A+B$ having weight
+$\left\vert c\right\vert =n$ (because any such $c$ either has the form
+$\left(  0,a\right)  $ for some $a\in A$ having weight $\left\vert
+a\right\vert =n$, or has the form $\left(  1,b\right)  $ for some $b\in B$
+having weight $\left\vert b\right\vert =n$). In other words, the weighted set
+$A+B$ is finite-type.
+
+Let us now check that $\overline{A+B}=\overline{A}+\overline{B}$. Indeed, the
+definition of $\overline{A+B}$ yields%
+\begin{align*}
+\overline{A+B}  &  =\sum_{c\in A+B}x^{\left\vert c\right\vert }\\
+&  =\underbrace{\sum_{c\in\left\{  0\right\}  \times A}x^{\left\vert
+c\right\vert }}_{\substack{=\sum_{a\in A}x^{\left\vert \left(  0,a\right)
+\right\vert }\\\text{(here, we have substituted }\left(  0,a\right)
+\\\text{for }c\text{ in the sum, since the}\\\text{map }A\rightarrow\left\{
+0\right\}  \times A,\ a\mapsto\left(  0,a\right)  \text{ is a bijection)}%
+}}+\underbrace{\sum_{c\in\left\{  1\right\}  \times B}x^{\left\vert
+c\right\vert }}_{\substack{=\sum_{b\in B}x^{\left\vert \left(  1,b\right)
+\right\vert }\\\text{(here, we have substituted }\left(  1,b\right)
+\\\text{for }c\text{ in the sum, since the}\\\text{map }B\rightarrow\left\{
+1\right\}  \times B,\ b\mapsto\left(  1,b\right)  \text{ is a bijection)}}}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have split the sum, since the}\\
+\text{set }A+B\text{ is the union of the two disjoint}\\
+\text{sets }\left\{  0\right\}  \times A\text{ and }\left\{  1\right\}  \times
+B
+\end{array}
+\right) \\
+&  =\sum_{a\in A}\underbrace{x^{\left\vert \left(  0,a\right)  \right\vert }%
+}_{\substack{=x^{\left\vert a\right\vert }\\\text{(by
+(\ref{eq.def.gf-ws.djun.wt0}))}}}+\sum_{b\in B}\underbrace{x^{\left\vert
+\left(  1,b\right)  \right\vert }}_{\substack{=x^{\left\vert b\right\vert
+}\\\text{(by (\ref{eq.def.gf-ws.djun.wt1}))}}}=\underbrace{\sum_{a\in
+A}x^{\left\vert a\right\vert }}_{=\overline{A}}+\underbrace{\sum_{b\in
+B}x^{\left\vert b\right\vert }}_{=\overline{B}}=\overline{A}+\overline{B}.
+\end{align*}
+Thus, the proof of Proposition \ref{prop.gf-ws.djun} is complete.
+\end{proof}
+
+We can easily extend Definition \ref{def.gf-ws.djun} and Proposition
+\ref{prop.gf-ws.djun} to disjoint unions of any number (even infinite) of
+weighted sets. (However, in the case of infinite disjoint unions, we need to
+require the disjoint union to be finite-type in order for Proposition
+\ref{prop.gf-ws.djun} to make sense.)
+
+We note that disjoint unions of weighted sets do not satisfy associativity
+\textquotedblleft on the nose\textquotedblright: If $A$, $B$ and $C$ are three
+weighted sets, then the weighted sets $A+B+C$ and $\left(  A+B\right)  +C$ and
+$A+\left(  B+C\right)  $ are not literally equal but rather are isomorphic via
+canonical isomorphisms. But Proposition \ref{prop.gf-ws.iso} shows that their
+weight generating functions are the same, so that we need not distinguish
+between them if we are only interested in these functions. \medskip
+
+Another operation on weighted sets is the Cartesian product:
+
+\begin{definition}
+\label{def.gf-ws.prod}Let $A$ and $B$ be two weighted sets. Then, the weighted
+set $A\times B$ is defined to be the Cartesian product of the sets $A$ and $B$
+(that is, the set $\left\{  \left(  a,b\right)  \ \mid\ a\in A\text{ and }b\in
+B\right\}  $), with the weight function defined as follows: For any $\left(
+a,b\right)  \in A\times B$, we set%
+\begin{equation}
+\left\vert \left(  a,b\right)  \right\vert =\left\vert a\right\vert
++\left\vert b\right\vert . \label{eq.def.gf-ws.prod.wt}%
+\end{equation}
+
+\end{definition}
+
+\begin{proposition}
+\label{prop.gf-ws.prod}Let $A$ and $B$ be two finite-type weighted sets. Then,
+$A\times B$ is finite-type, too, and satisfies $\overline{A\times B}%
+=\overline{A}\cdot\overline{B}$.
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.gf-ws.prod} (sketched).]The proof that
+$A\times B$ is finite-type is easy\footnote{Here is the idea: Let
+$n\in\mathbb{N}$. We must prove that there are only finitely many pairs
+$\left(  a,b\right)  \in A\times B$ having weight $\left\vert \left(
+a,b\right)  \right\vert =n$. Since $\left\vert \left(  a,b\right)  \right\vert
+=\left\vert a\right\vert +\left\vert b\right\vert $, these pairs have the
+property that $a\in A$ has weight $k$ for some $k\in\left\{  0,1,\ldots
+,n\right\}  $, and that $b\in B$ has weight $n-k$ for the same $k$. This
+leaves only finitely many options for $k$, only finitely many options for $a$
+(since $A$ is finite-type and thus has only finitely many elements of weight
+$k$), and only finitely many options for $b$ (since $B$ is finite-type and
+thus has only finitely many elements of $n-k$). Altogether, we thus obtain
+only finitely many options for $\left(  a,b\right)  $.}.
+
+Now, the definition of $\overline{A\times B}$ yields%
+\begin{align*}
+\overline{A\times B}  &  =\sum_{\left(  a,b\right)  \in A\times B}%
+\underbrace{x^{\left\vert \left(  a,b\right)  \right\vert }}%
+_{\substack{=x^{\left\vert a\right\vert +\left\vert b\right\vert }\\\text{(by
+(\ref{eq.def.gf-ws.prod.wt}))}}}\ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{since all elements of }A\times B\text{ have}\\
+\text{the form }\left(  a,b\right)  \text{ for some }a\text{ and }b
+\end{array}
+\right) \\
+&  =\sum_{\left(  a,b\right)  \in A\times B}\underbrace{x^{\left\vert
+a\right\vert +\left\vert b\right\vert }}_{=x^{\left\vert a\right\vert }\cdot
+x^{\left\vert b\right\vert }}\\
+&  =\sum_{\left(  a,b\right)  \in A\times B}x^{\left\vert a\right\vert }\cdot
+x^{\left\vert b\right\vert }=\underbrace{\left(  \sum_{a\in A}x^{\left\vert
+a\right\vert }\right)  }_{=\overline{A}}\underbrace{\left(  \sum_{b\in
+B}x^{\left\vert b\right\vert }\right)  }_{=\overline{B}}=\overline{A}%
+\cdot\overline{B}.
+\end{align*}
+The proof of Proposition \ref{prop.gf-ws.prod} is thus complete.
+\end{proof}
+
+We can easily extend Definition \ref{def.gf-ws.prod} and Proposition
+\ref{prop.gf-ws.prod} to Cartesian products of $k$ weighted sets. The weight
+function on such a Cartesian product $A_{1}\times A_{2}\times\cdots\times
+A_{k}$ is defined by%
+\begin{equation}
+\left\vert \left(  a_{1},a_{2},\ldots,a_{k}\right)  \right\vert =\left\vert
+a_{1}\right\vert +\left\vert a_{2}\right\vert +\cdots+\left\vert
+a_{k}\right\vert . \label{eq.gf-ws.prodk.weight}%
+\end{equation}
+As a particular case of such Cartesian products, we obtain Cartesian powers
+when we multiply $k$ copies of the same weighted set:
+
+\begin{definition}
+Let $A$ be a weighted set. Then, $A^{k}$ (for $k\in\mathbb{N}$) means the
+weighted set $\underbrace{A\times A\times\cdots\times A}_{k\text{ times}}$.
+\end{definition}
+
+The analogue of Proposition \ref{prop.gf-ws.prod} for Cartesian products of
+$k$ weighted sets then yields the following:
+
+\begin{proposition}
+\label{prop.gf-ws.pow}Let $A$ be a finite-type weighted set. Let
+$k\in\mathbb{N}$. Then, $A^{k}$ is finite-type, too, and satisfies
+$\overline{A^{k}}=\overline{A}^{k}$.
+\end{proposition}
+
+Note that the $0$-th Cartesian power $A^{0}$ of a weighted set $A$ always
+consists of a single element -- namely, the empty $0$-tuple $\left(
+{}\right)  $, which has weight $0$.
+
+If $A$ is a weighted set, then the infinite disjoint union $A^{0}+A^{1}%
++A^{2}+\cdots$ consists of all (finite) tuples of elements of $A$ (including
+the $0$-tuple, the $1$-tuples, and so on). The weight of a tuple is the sum of
+the weights of its entries (indeed, this is just what
+(\ref{eq.gf-ws.prodk.weight}) says).
+
+\subsubsection{Examples}
+
+Now, let us use this theory to revisit some of the things we have already counted:
+
+\begin{itemize}
+\item Fix $k\in\mathbb{N}$, and let
+\begin{align*}
+C_{k}:=  &  \ \left\{  \text{compositions of length }k\right\} \\
+=  &  \ \left\{  \left(  a_{1},a_{2},\ldots,a_{k}\right)  \ \mid\ a_{1}%
+,a_{2},\ldots,a_{k}\text{ are positive integers}\right\} \\
+=  &  \ \mathbb{P}^{k},\ \ \ \ \ \ \ \ \ \ \text{where }\mathbb{P}=\left\{
+1,2,3,\ldots\right\}  .
+\end{align*}
+This set $C_{k}$ becomes a finite-type weighted set if we set $\left\vert
+\left(  a_{1},a_{2},\ldots,a_{k}\right)  \right\vert =a_{1}+a_{2}+\cdots
++a_{k}$ for every $\left(  a_{1},a_{2},\ldots,a_{k}\right)  \in C_{k}$. What
+is its weight generating function $\overline{C_{k}}$ ? We can turn
+$\mathbb{P}$ itself into a weighted set, by defining the weight of a positive
+integer $n$ by $\left\vert n\right\vert =n$. Then, $C_{k}=\mathbb{P}^{k}$ not
+just as sets, but as weighted sets\footnote{\textit{Proof.} The weight of a
+composition $\left(  a_{1},a_{2},\ldots,a_{k}\right)  \in C_{k}$ in $C_{k}$ is%
+\[
+\left\vert \left(  a_{1},a_{2},\ldots,a_{k}\right)  \right\vert =a_{1}%
++a_{2}+\cdots+a_{k}\ \ \ \ \ \ \ \ \ \ \left(  \text{by definition}\right)  .
+\]
+The weight of a composition $\left(  a_{1},a_{2},\ldots,a_{k}\right)
+\in\mathbb{P}^{k}$ in $\mathbb{P}^{k}$ is%
+\begin{align*}
+\left\vert \left(  a_{1},a_{2},\ldots,a_{k}\right)  \right\vert  &
+=\left\vert a_{1}\right\vert +\left\vert a_{2}\right\vert +\cdots+\left\vert
+a_{k}\right\vert \ \ \ \ \ \ \ \ \ \ \left(  \text{by
+(\ref{eq.gf-ws.prodk.weight})}\right) \\
+&  =a_{1}+a_{2}+\cdots+a_{k}\ \ \ \ \ \ \ \ \ \ \left(  \text{since
+}\left\vert n\right\vert =n\text{ for each }n\in\mathbb{P}\right)  .
+\end{align*}
+These two weights are clearly equal. Thus, the weight functions of $C_{k}$ and
+$\mathbb{P}^{k}$ agree. Hence, $C_{k}=\mathbb{P}^{k}$ as weighted sets.}.
+Hence,%
+\begin{align*}
+\overline{C_{k}}  &  =\overline{\mathbb{P}^{k}}=\overline{\mathbb{P}}%
+^{k}\ \ \ \ \ \ \ \ \ \ \left(  \text{by Proposition \ref{prop.gf-ws.pow}%
+}\right) \\
+&  =\left(  x^{1}+x^{2}+x^{3}+\cdots\right)  ^{k}\ \ \ \ \ \ \ \ \ \ \left(
+\text{since }\overline{\mathbb{P}}=x^{1}+x^{2}+x^{3}+\cdots\right) \\
+&  =\left(  \dfrac{x}{1-x}\right)  ^{k}\ \ \ \ \ \ \ \ \ \ \left(  \text{since
+}x^{1}+x^{2}+x^{3}+\cdots=\dfrac{x}{1-x}\right)  .
+\end{align*}
+This recovers the equality (\ref{pf.thm.fps.comps.num-comps-n-k.Ak=}).
+
+\item Recall the notion of Dyck paths (as defined in Example 2 in Section
+\ref{sec.gf.exas}), as well as the Catalan numbers $c_{0},c_{1},c_{2},\ldots$
+(defined in the same place). Let
+\[
+D:=\left\{  \text{Dyck paths from }\left(  0,0\right)  \text{ to }\left(
+2n,0\right)  \text{ for some }n\in\mathbb{N}\right\}  .
+\]
+This set $D$ becomes a finite-type weighted set if we set
+\[
+\left\vert p\right\vert =n\ \ \ \ \ \ \ \ \ \ \text{whenever }p\text{ is a
+Dyck path from }\left(  0,0\right)  \text{ to }\left(  2n,0\right)  .
+\]
+The weight generating function $\overline{D}$ of this weighted set $D$ is%
+\[
+\overline{D}=\sum_{n\in\mathbb{N}}\underbrace{\left(  \text{\# of Dyck paths
+from }\left(  0,0\right)  \text{ to }\left(  2n,0\right)  \right)
+}_{\substack{=c_{n}\\\text{(by the definition of }c_{n}\text{)}}}x^{n}%
+=\sum_{n\in\mathbb{N}}c_{n}x^{n}.
+\]
+This is the generating function we called $C\left(  x\right)  $ in Example 2
+of Section \ref{sec.gf.exas}.
+
+Recall that there is only one Dyck path from $\left(  0,0\right)  $ to
+$\left(  0,0\right)  $, namely the trivial path. All the other Dyck paths in
+$D$ are nontrivial. We let%
+\begin{align*}
+D_{\operatorname*{triv}}  &  :=\left\{  \text{trivial Dyck paths in
+}D\right\}  \ \ \ \ \ \ \ \ \ \ \text{and}\\
+D_{\operatorname*{non}}  &  :=\left\{  \text{nontrivial Dyck paths in
+}D\right\}  .
+\end{align*}
+These two sets $D_{\operatorname*{triv}}$ and $D_{\operatorname*{non}}$ are
+subsets of $D$, and thus are weighted sets themselves (we define their weight
+functions by restricting the one of $D$). The set $D_{\operatorname*{triv}}$
+consists of a single Dyck path, which has weight $0$; thus, its weight
+generating function is%
+\[
+\overline{D_{\operatorname*{triv}}}=x^{0}=1.
+\]
+
+
+In Example 2 of Section \ref{sec.gf.exas}, we have seen that any nontrivial
+Dyck path $\pi$ has the following structure:\footnote{The colors are referring
+to the following picture:%
+\[%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\]
+}
+
+\begin{itemize}
+\item a NE-step,
+
+\item followed by a (diagonally shifted) Dyck path (drawn in green),
+
+\item followed by a SE-step,
+
+\item followed by another (horizontally shifted) Dyck path (drawn in purple).
+\end{itemize}
+
+If we denote the green Dyck path by $\alpha$ and the purple Dyck path by
+$\beta$, then we obtain a pair $\left(  \alpha,\beta\right)  \in D\times D$ of
+two Dyck paths. Thus, each nontrivial Dyck path $\pi\in D_{\operatorname*{non}%
+}$ gives rise to a pair $\left(  \alpha,\beta\right)  \in D\times D$ of two
+Dyck paths. This yields a map%
+\begin{align*}
+D_{\operatorname*{non}} &  \rightarrow D\times D,\\
+\pi &  \mapsto\left(  \alpha,\beta\right)  ,
+\end{align*}
+which is easily seen to be a bijection (since any pair $\left(  \alpha
+,\beta\right)  \in D\times D$ can be assembled into a single nontrivial Dyck
+path $\pi$ that starts with an NE-step, is followed by a shifted copy of
+$\alpha$, then by a SE-step, then by a shifted copy of $\beta$).
+
+Alas, this bijection is not an isomorphism of weighted sets, since it fails to
+preserve the weight. Indeed, $\left\vert \left(  \alpha,\beta\right)
+\right\vert =\left\vert \alpha\right\vert +\left\vert \beta\right\vert
+=\left\vert \pi\right\vert -1\neq\left\vert \pi\right\vert $.
+
+Fortunately, we can fix this rather easily. Define a weighted set%
+\[
+X:=\left\{  1\right\}  \ \ \ \ \ \ \ \ \ \ \text{with }\left\vert 1\right\vert
+=1.
+\]
+This is a one-element set, so the only real difference between the weighted
+sets $X\times D\times D$ and $D\times D$ is in the weights. Indeed, the sets
+$D\times D$ and $X\times D\times D$ are in bijection (any pair $\left(
+\alpha,\beta\right)  \in D\times D$ corresponds to the triple $\left(
+1,\alpha,\beta\right)  \in X\times D\times D$), but the weights of
+corresponding elements differ by $1$ (namely, $\left\vert \left(
+1,\alpha,\beta\right)  \right\vert =\underbrace{\left\vert 1\right\vert }%
+_{=1}+\underbrace{\left\vert \alpha\right\vert +\left\vert \beta\right\vert
+}_{=\left\vert \left(  \alpha,\beta\right)  \right\vert }=1+\left\vert \left(
+\alpha,\beta\right)  \right\vert $).
+
+Thus, by replacing $D\times D$ by $X\times D\times D$, we can fix the degrees
+in our above bijection. We thus obtain a bijection%
+\begin{align*}
+D_{\operatorname*{non}} &  \rightarrow X\times D\times D,\\
+\pi &  \mapsto\left(  1,\alpha,\beta\right)  ,
+\end{align*}
+which does preserve the weight. This bijection is thus an isomorphism of
+weighted sets. Hence, $D_{\operatorname*{non}}\cong X\times D\times D$.
+
+Each Dyck path is either trivial or nontrivial. Hence,%
+\[
+D\cong D_{\operatorname*{triv}}+\underbrace{D_{\operatorname*{non}}}_{\cong
+X\times D\times D}\cong D_{\operatorname*{triv}}+X\times D\times D,
+\]
+so that%
+\begin{align*}
+\overline{D} &  =\overline{D_{\operatorname*{triv}}+X\times D\times
+D}\ \ \ \ \ \ \ \ \ \ \left(  \text{by Proposition \ref{prop.gf-ws.iso}%
+}\right)  \\
+&  =\underbrace{\overline{D_{\operatorname*{triv}}}}_{=1}%
++\underbrace{\overline{X}}_{=x}\cdot\underbrace{\overline{D}\cdot\overline{D}%
+}_{=\overline{D}^{2}}\ \ \ \ \ \ \ \ \ \ \left(  \text{by Proposition
+\ref{prop.gf-ws.djun} and Proposition \ref{prop.gf-ws.prod}}\right)  \\
+&  =1+x\cdot\overline{D}^{2}.
+\end{align*}
+This is precisely the quadratic equation $C\left(  x\right)  =1+x\left(
+C\left(  x\right)  \right)  ^{2}$ that we obtained in Section
+\ref{sec.gf.exas}. But this time, we obtained it in a more conceptual way,
+through a combinatorially defined isomorphism $D\cong D_{\operatorname*{triv}%
+}+X\times D\times D$ rather than by ad-hoc manipulation of FPSs.
+\end{itemize}
+
+\subsubsection{\label{subsec.gf.weighted-set.domino}Domino tilings}
+
+Let us now apply the theory of weight generating functions to something we
+haven't already counted. Namely, we shall count the domino tilings of a
+rectangle. Informally, these are defined as follows:
+
+\begin{itemize}
+\item For any $n,m\in\mathbb{N}$, we let $R_{n,m}$ be a rectangle with width
+$n$ and height $m$.
+
+\item A \emph{domino} means a rectangle that is an $R_{1,2}$ or an $R_{2,1}$.
+
+\item A \emph{domino tiling} of a shape $S$ means a tiling of $S$ by dominos
+(i.e., a set of dominos that cover $S$ and whose interiors don't intersect).
+\end{itemize}
+
+For example, here is a domino tiling of $R_{8,8}$:%
+\[%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\]
+(note that the colors are purely ornamental here: we are coloring a domino
+pink if it lies horizontally and green if it stands vertically, for the sake
+of convenience).
+
+This sounds geometric, but actually is a combinatorial object hiding behind
+geometric language. Our rectangles and dominos all align to a square grid.
+Thus, rectangles can be modeled simply as finite sets of grid squares, and
+dominos are unordered pairs of adjacent grid squares. Grid squares, in turn,
+can be modeled as pairs $\left(  i,j\right)  $ of integers (corresponding to
+the Cartesian coordinates of their centers). Thus, we redefine domino tilings
+combinatorially as follows:
+
+\begin{definition}
+\label{def.domino.shapes-and-tilings}\textbf{(a)} A \emph{shape} means a
+subset of $\mathbb{Z}^{2}$.
+
+We draw each $\left(  i,j\right)  \in\mathbb{Z}^{2}$ as a unit square with
+center at the point $\left(  i,j\right)  $ (in Cartesian coordinates); thus, a
+shape can be drawn as a cluster of squares. \medskip
+
+\textbf{(b)} For any $n,m\in\mathbb{N}$, the shape $R_{n,m}$ (called the
+$n\times m$\emph{-rectangle}) is defined to be%
+\[
+\left\{  1,2,\ldots,n\right\}  \times\left\{  1,2,\ldots,m\right\}  =\left\{
+\left(  i,j\right)  \in\mathbb{Z}^{2}\ \mid\ 1\leq i\leq n\text{ and }1\leq
+j\leq m\right\}  .
+\]
+
+
+\textbf{(c)} A \emph{domino} means a size-$2$ shape of the form%
+\begin{align*}
+&  \left\{  \left(  i,j\right)  ,\ \left(  i+1,j\right)  \right\}  \text{ (a
+\textquotedblleft\emph{horizontal domino}\textquotedblright)}%
+\ \ \ \ \ \ \ \ \ \ \text{or}\\
+&  \left\{  \left(  i,j\right)  ,\ \left(  i,j+1\right)  \right\}  \text{ (a
+\textquotedblleft\emph{vertical domino}\textquotedblright)}%
+\end{align*}
+for some $\left(  i,j\right)  \in\mathbb{Z}^{2}$. \medskip
+
+\textbf{(d)} A \emph{domino tiling} of a shape $S$ is a set partition of $S$
+into dominos (i.e., a set of disjoint dominos whose union is $S$). \medskip
+
+\textbf{(e)} For any $n,m\in\mathbb{N}$, let $d_{n,m}$ be the \# of domino
+tilings of $R_{n,m}$.
+\end{definition}
+
+For example, the domino tiling $\raisebox{-3.5ex}{
+% [tikz figure removed]
+}$ of the rectangle $R_{3,2}$ is the set partition%
+\[
+\left\{  \left\{  \left(  1,1\right)  ,\ \left(  1,2\right)  \right\}
+,\ \left\{  \left(  2,1\right)  ,\ \left(  3,1\right)  \right\}  ,\ \left\{
+\left(  2,2\right)  ,\ \left(  3,2\right)  \right\}  \right\}
+\]
+of $R_{3,2}$ (here, $\left\{  \left(  1,1\right)  ,\ \left(  1,2\right)
+\right\}  $ is the vertical domino, whereas $\left\{  \left(  2,1\right)
+,\ \left(  3,1\right)  \right\}  $ is the bottom horizontal domino, and
+$\left\{  \left(  2,2\right)  ,\ \left(  3,2\right)  \right\}  $ is the top
+horizontal domino). \medskip
+
+Can we compute $d_{n,m}$ ?
+
+The case $m=1$ is a bit too simple (do it!), so let us start with the case
+$m=2$. Here are the $d_{n,2}$ for $n\in\left\{  0,1,\ldots,4\right\}  $:%
+\[%
+\begin{tabular}
+[c]{|c|c|l|}\hline
+$n$ & $d_{n,2}$ & domino tilings of $R_{n,2}$\\\hline\hline
+$0$ & $d_{0,2}=1$ &
+$\vphantom{\dfrac{\int}{\int}}% [tikz figure removed]$%
+\\\hline
+$1$ & $d_{1,2}=1$ &
+$\vphantom{\dfrac{\int}{\int}}% [tikz figure removed]$%
+\\\hline
+$2$ & $d_{2,2}=2$ &
+$\vphantom{\dfrac{\int}{\int}}% [tikz figure removed]\ \ \ ,\ \ \ % [tikz figure removed]$%
+\\\hline
+$3$ & $d_{3,2}=3$ &
+$\vphantom{\dfrac{\int}{\int}}% [tikz figure removed]\ \ \ ,\ \ \ % [tikz figure removed]\ \ \ ,\ \ \ % [tikz figure removed]$%
+\\\hline
+$4$ & $d_{4,2}=5$ &
+$\vphantom{\dfrac{\int}{\int}}% [tikz figure removed]\ \ \ ,\ \ \ % [tikz figure removed]\ \ \ ,\ \ \ % [tikz figure removed]\ \ \ ,$%
+\\
+&  &
+$\vphantom{\dfrac{\int}{\int}}% [tikz figure removed]\ \ \ ,\ \ \ % [tikz figure removed]$%
+\\\hline
+\end{tabular}
+\ \ \ \ \ \ \ \ \ .
+\]
+
+
+Let us try to compute $d_{n,2}$ in general.
+
+A \emph{height-}$2$ \emph{rectangle} shall mean a rectangle of the form
+$R_{n,2}$ with $n\in\mathbb{N}$. Let us define the weighted set%
+\begin{align*}
+D:=  &  \left\{  \text{domino tilings of height-}2\text{ rectangles}\right\}
+\\
+=  &  \left\{  \text{domino tilings of }R_{n,2}\text{ with }n\in
+\mathbb{N}\right\}  .
+\end{align*}
+We define the weight of a tiling $T$ of $R_{n,2}$ to be $\left\vert
+T\right\vert :=n$ (that is, the width of the rectangle tiled by this tiling).
+
+Thus, $D$ is a finite-type weighted set, with weight generating function%
+\[
+\overline{D}=\sum_{n\in\mathbb{N}}d_{n,2}x^{n}.
+\]
+
+
+So we want to compute $\overline{D}$. Let us define a new weighted set that
+will help us at that.
+
+Namely, we say that a \emph{fault} of a domino tiling $T$ is a vertical line
+$\ell$ such that
+
+\begin{itemize}
+\item each domino of $T$ lies either left of $\ell$ or right of $\ell$ (but
+does not straddle $\ell$), and
+
+\item there is at least one domino of $T$ that lies left of $\ell$, and at
+least one domino of $T$ that lies right of $\ell$.
+\end{itemize}
+
+For example, here are two domino tilings:%
+\[%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\ \ \ \ \ \ \ \ \ \ \
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\ \ \ \ \ \ .
+\]
+The tiling on the left has a fault (namely, the vertical line separating the
+$2$nd from the $3$rd column), but the tiling on the right has none (a fault
+must be a vertical line by definition; a horizontal line doesn't count).
+
+A domino tiling will be called \emph{faultfree} if it is nonempty and has no
+fault. Thus, the tiling on the right (in the above example) is faultfree.
+
+We now observe a crucial (but trivial) lemma:
+
+\begin{lemma}
+\label{lem.gf.weighted-set.domino.fd}Any domino tiling of a height-$2$
+rectangle can be decomposed uniquely into a tuple of faultfree tilings of
+(usually smaller) height-$2$ rectangles, by cutting it along its faults. For
+example:%
+\begin{align*}
+&  \raisebox{-3.5ex}{
+% [tikz figure removed]
+}\ \text{ decomposes as}\\
+&  \left(  \ \ \raisebox{-3.5ex}{
+% [tikz figure removed]
+}\ \ \ \ \ ,\ \ \raisebox{-3.5ex}{
+% [tikz figure removed]
+}\ \ \ \ \ ,\ \ \raisebox{-3.5ex}{
+% [tikz figure removed]
+}\ \ \ \ \ ,\ \ \raisebox{-3.5ex}{
+% [tikz figure removed]
+}\ \ \right)  .
+\end{align*}
+(Note that if the original tiling was faultfree, then it will decompose into a
+$1$-tuple. If the original tiling was empty, then it will decompose into a $0$-tuple.)
+
+Moreover, the sum of the weights of the faultfree tilings in the tuple is the
+weight of the original tiling. (In other words, if a tiling $T$ decomposes
+into the tuple $\left(  T_{1},T_{2},\ldots,T_{k}\right)  $, then $\left\vert
+T\right\vert =\left\vert T_{1}\right\vert +\left\vert T_{2}\right\vert
++\cdots+\left\vert T_{k}\right\vert $.)
+\end{lemma}
+
+Thus, if we define a new weighted set%
+\[
+F:=\left\{  \text{\textbf{faultfree} domino tilings of }R_{n,2}\text{ with
+}n\in\mathbb{N}\right\}
+\]
+(with the same weights as in $D$), then we obtain an isomorphism (i.e.,
+weight-preserving bijection)%
+\[
+D\rightarrow\underbrace{F^{0}+F^{1}+F^{2}+F^{3}+\cdots}_{\substack{\text{an
+infinite disjoint union}\\\text{of weighted sets}}}
+\]
+that sends each tiling to the tuple it decomposes into. Hence,%
+\[
+D\cong F^{0}+F^{1}+F^{2}+F^{3}+\cdots,
+\]
+and therefore%
+\begin{align*}
+\overline{D}  &  =\overline{F^{0}+F^{1}+F^{2}+F^{3}+\cdots}=\overline{F^{0}%
+}+\overline{F^{1}}+\overline{F^{2}}+\overline{F^{3}}+\cdots\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{by the infinite
+analogue of Proposition \ref{prop.gf-ws.djun}}\right) \\
+&  =\overline{F}^{0}+\overline{F}^{1}+\overline{F}^{2}+\overline{F}^{3}%
++\cdots\ \ \ \ \ \ \ \ \ \ \left(  \text{by Proposition \ref{prop.gf-ws.pow}%
+}\right) \\
+&  =\dfrac{1}{1-\overline{F}}\ \ \ \ \ \ \ \ \ \ \left(  \text{by
+(\ref{eq.sec.gf.exas.1.1/1-x}), with }\overline{F}\text{ substituted for
+}x\right)  .
+\end{align*}
+Thus, if we can compute $\overline{F}$, then we can compute $\overline{D}$.
+
+In order to compute $\overline{F}$, let us see how a faultfree domino tiling
+of a height-$2$ rectangle looks like. Here are two such tilings:%
+\[
+\raisebox{-3.5ex}{
+% [tikz figure removed]
+}\ \ \ \ \ \ \ \ \ \ \text{and}\ \ \ \ \ \ \ \ \ \ \raisebox{-3.5ex}{
+% [tikz figure removed]
+}\ \ \ \ \ .
+\]
+
+
+I claim that these two tilings are the \textbf{only} faultfree tilings of
+height-$2$ rectangles. Indeed, consider any faultfree tiling of a height-$2$
+rectangle. In this tiling, look at the domino that covers the box $\left(
+1,1\right)  $. If it is a vertical domino, then this vertical domino must
+constitute the entire tiling, since otherwise there would be a fault to its
+right. If it is a horizontal domino, then there must be a second horizontal
+domino stacked atop it, and these two dominos must then constitute the entire
+tiling, since otherwise there would be a fault to their right. This leads to
+the two options we just named.
+
+Thus, the weighted set $F$ consists of just the two tilings shown above: one
+tiling of weight $1$ and one tiling of weight $2$. Hence, its weight
+generating function is $\overline{F}=x+x^{2}$. So%
+\[
+\overline{D}=\dfrac{1}{1-\overline{F}}=\dfrac{1}{1-\left(  x+x^{2}\right)
+}=\dfrac{1}{1-x-x^{2}}=f_{1}+f_{2}x+f_{3}x^{2}+f_{4}x^{3}+\cdots,
+\]
+where $\left(  f_{0},f_{1},f_{2},\ldots\right)  $ is the Fibonacci sequence.
+Thus, comparing coefficients, we find%
+\[
+d_{n,2}=f_{n+1}\ \ \ \ \ \ \ \ \ \ \text{for each }n\in\mathbb{N}.
+\]
+
+
+There are, of course, more elementary proofs of this (see \cite[Proposition
+1.1.11]{19fco}).
+
+\begin{remark}
+Here is an outline of an alternative proof of $\overline{D}=\dfrac
+{1}{1-\overline{F}}$:
+
+Any tiling in $D$ is either empty, or can be uniquely split into a pair of a
+faultfree tiling and an arbitrary tiling (just split it along its leftmost
+fault, or along the right end if there is no fault). Thus,%
+\[
+D\cong\left\{  0\right\}  +F\times D,
+\]
+where the set $\left\{  0\right\}  $ here is viewed as a weighted set with
+$\left\vert 0\right\vert =0$. Hence,%
+\[
+\overline{D}=\overline{\left\{  0\right\}  +F\times D}=\overline{\left\{
+0\right\}  }+\overline{F}\cdot\overline{D}=1+\overline{F}\cdot\overline{D}.
+\]
+Solving this for $\overline{D}$, we find $\overline{D}=\dfrac{1}%
+{1-\overline{F}}.$
+\end{remark}
+
+Now, let us try to solve the analogous problem for height-$3$ rectangles.
+Forget about the $D$ and $F$ we defined above. Instead, define a new weighted
+set%
+\begin{align*}
+D:=  &  \left\{  \text{domino tilings of height-}3\text{ rectangles}\right\}
+\\
+=  &  \left\{  \text{domino tilings of }R_{n,3}\text{ with }n\in
+\mathbb{N}\right\}  .
+\end{align*}
+The weight of a tiling $T$ of $R_{n,3}$ is defined as before (i.e., it is
+$\left\vert T\right\vert =n$). Thus, $D$ is a finite-type weighted set, with
+generating function%
+\[
+\overline{D}=\sum_{n\in\mathbb{N}}d_{n,3}x^{n}.
+\]
+We want to compute this $\overline{D}$.
+
+Set%
+\[
+F:=\left\{  \text{\textbf{faultfree} domino tilings of }R_{n,3}\text{ with
+}n\in\mathbb{N}\right\}  .
+\]
+Again, we can show $\overline{D}=\dfrac{1}{1-\overline{F}}$ (as we did above
+in the case of $R_{n,2}$). We thus need to compute $\overline{F}$.
+
+How does a faultfree domino tiling of a height-$3$ rectangle look like? Let us
+classify such tilings according to the kind of dominos that occupy the first
+column of the tiling. The proof of the following classification can be found
+in the Appendix (Proposition \ref{prop.gf.weighted-set.domino.Rn3.ABC} in
+Section \ref{sec.details.domino}):
+
+\begin{itemize}
+\item The faultfree domino tilings of a height-$3$ rectangle that contain a
+vertical domino in the \textbf{top} two squares of the first column are%
+\[%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]
+\qquad% [tikz figure removed]
+\qquad% [tikz figure removed]%
+%EndExpansion
+\]
+(this is an infinite sequence of tilings, each obtained from the previous by
+inserting two columns in the middle by a fairly self-explanatory procedure).
+The weights of these tilings are $2,4,6,\ldots$, so their total contribution
+to the weight generating function $\overline{F}$ of $F$ is $x^{2}+x^{4}%
++x^{6}+\cdots$.
+
+\item The faultfree domino tilings of a height-$3$ rectangle that contain a
+vertical domino in the \textbf{bottom} two squares of the first column are%
+\[%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]
+\qquad% [tikz figure removed]
+\qquad% [tikz figure removed]%
+%EndExpansion
+\]
+(these are the top-down mirror images of the tilings from the previous bullet
+point). The weights of these tilings are $2,4,6,\ldots$, so their total
+contribution to the weight generating function $\overline{F}$ of $F$ is
+$x^{2}+x^{4}+x^{6}+\cdots$.
+
+\item The faultfree domino tilings of a height-$3$ rectangle that contain
+\textbf{no} vertical domino in the first column are%
+\[%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\]
+(yes, there is only one such tiling). The weight of this tiling is $2$, so its
+total contribution to the weight generating function $\overline{F}$ of $F$ is
+$x^{2}$.
+\end{itemize}
+
+This classification of faultfree domino tilings entails%
+\begin{align*}
+\overline{F}  &  =\left(  x^{2}+x^{4}+x^{6}+\cdots\right)  +\left(
+x^{2}+x^{4}+x^{6}+\cdots\right)  +x^{2}\\
+&  =x^{2}\cdot\dfrac{1}{1-x^{2}}+x^{2}\cdot\dfrac{1}{1-x^{2}}+x^{2}%
+\ \ \ \ \ \ \ \ \ \ \left(  \text{since }x^{2}+x^{4}+x^{6}+\cdots=x^{2}%
+\cdot\dfrac{1}{1-x^{2}}\right) \\
+&  =\dfrac{3x^{2}-x^{4}}{1-x^{2}}.
+\end{align*}
+Thus,%
+\begin{align*}
+\overline{D}  &  =\dfrac{1}{1-\overline{F}}=\dfrac{1}{1-\dfrac{3x^{2}-x^{4}%
+}{1-x^{2}}}=\dfrac{1-x^{2}}{1-4x^{2}+x^{4}}\\
+&  =1+3x^{2}+11x^{4}+41x^{6}+153x^{8}+\cdots.
+\end{align*}
+
+
+You will notice that only even powers of $x$ appear in this FPS. In other
+words,%
+\[
+d_{n,3}=0\text{ when }n\text{ is odd.}%
+\]
+This is not surprising, because if $n$ is odd, then the rectangle $R_{n,3}$
+has an odd \# of squares, and thus cannot be tiled by dominos.
+
+But we can also compute $d_{n,3}$ for even $n$. Indeed, using the same method
+(partial fractions) that we used for the Fibonacci sequence in Section
+\ref{sec.gf.exas}, we can expand $\dfrac{1-x^{2}}{1-4x^{2}+x^{4}}$ as a sum of
+geometric series:%
+\[
+\dfrac{1-x^{2}}{1-4x^{2}+x^{4}}=\dfrac{3+\sqrt{3}}{6}\cdot\dfrac{1}{1-\left(
+2+\sqrt{3}\right)  x^{2}}+\dfrac{3-\sqrt{3}}{6}\cdot\dfrac{1}{1-\left(
+2-\sqrt{3}\right)  x^{2}}.
+\]
+Thus, we find%
+\[
+d_{n,3}=\dfrac{3+\sqrt{3}}{6}\left(  2+\sqrt{3}\right)  ^{n/2}+\dfrac
+{3-\sqrt{3}}{6}\left(  2-\sqrt{3}\right)  ^{n/2}\ \ \ \ \ \ \ \ \ \ \text{for
+any even }n.
+\]
+
+
+Now, what about computing $d_{n,m}$ in general? The above reasoning leading up
+to $\overline{D}=\dfrac{1}{1-\overline{F}}$ can be applied for any
+$m\in\mathbb{N}$, but describing $F$ becomes harder and harder as $m$ grows
+larger. The generating function $\overline{D}$ is still a quotient of two
+polynomials for any $m$ (see, e.g., \cite{KlaPol79}), but this requires more
+insight to prove. For $m\geq6$, it appears that there is no formula for
+$d_{n,m}$ that requires only quadratic irrationalities.
+
+It is worth mentioning a different formula for $d_{n,m}$, found by Kasteleyn
+in 1961 (motivated by a theoretical physics model):
+
+\begin{theorem}
+[Kasteleyn's formula]Let $n,m\in\mathbb{N}$ be such that $m$ is even and
+$n\geq1$. Then,%
+\[
+d_{n,m}=2^{mn/2}\ \prod_{j=1}^{m/2}\ \ \prod_{k=1}^{n}\sqrt{\left(  \cos
+\dfrac{j\pi}{m+1}\right)  ^{2}+\left(  \cos\dfrac{k\pi}{n+1}\right)  ^{2}}.
+\]
+
+\end{theorem}
+
+See \cite[Theorem 12.85]{Loehr-BC} or \cite{Stucky15} for proofs of this
+rather surprising formula (which, alas, require some more advanced methods
+than those introduced in this text). Note that it can indeed be used for exact
+computation of $d_{n,m}$ (as there are algorithms for exact manipulation of
+\textquotedblleft trigonometric irrationals\textquotedblright\footnote{The
+technical term is \textquotedblleft elements of cyclotomic
+fields\textquotedblright.}\ such as $\cos\dfrac{j\pi}{m+1}$); for example, it
+yields $d_{8,8}=12\ 988\ 816$.

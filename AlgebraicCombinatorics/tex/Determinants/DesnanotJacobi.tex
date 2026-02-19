@@ -1,0 +1,1279 @@
+\subsubsection{Factor hunting}
+
+The next trick -- known as \emph{factor hunting} -- works not only for
+determinants; however, determinants provide some of the simplest examples.
+
+\begin{theorem}
+[Vandermonde determinant]\label{thm.det.vander}Let $n\in\mathbb{N}$. Let
+$a_{1},a_{2},\ldots,a_{n}$ be $n$ elements of $K$. Then: \medskip
+
+\textbf{(a)} We have%
+\[
+\det\left(  \left(  a_{i}^{n-j}\right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}\right)  =\prod_{1\leq i<j\leq n}\left(  a_{i}-a_{j}\right)  .
+\]
+
+
+\textbf{(b)} We have%
+\[
+\det\left(  \left(  a_{j}^{n-i}\right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}\right)  =\prod_{1\leq i<j\leq n}\left(  a_{i}-a_{j}\right)  .
+\]
+
+
+\textbf{(c)} We have%
+\[
+\det\left(  \left(  a_{i}^{j-1}\right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}\right)  =\prod_{1\leq j<i\leq n}\left(  a_{i}-a_{j}\right)  .
+\]
+
+
+\textbf{(d)} We have%
+\[
+\det\left(  \left(  a_{j}^{i-1}\right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}\right)  =\prod_{1\leq j<i\leq n}\left(  a_{i}-a_{j}\right)  .
+\]
+
+\end{theorem}
+
+\begin{example}
+Here is what the four parts of Theorem \ref{thm.det.vander} say for $n=3$:
+\medskip
+
+\textbf{(a)} We have $\det\left(
+\begin{array}
+[c]{ccc}%
+a_{1}^{2} & a_{1} & 1\\
+a_{2}^{2} & a_{2} & 1\\
+a_{3}^{2} & a_{3} & 1
+\end{array}
+\right)  =\left(  a_{1}-a_{2}\right)  \left(  a_{1}-a_{3}\right)  \left(
+a_{2}-a_{3}\right)  $. \medskip
+
+\textbf{(b)} We have $\det\left(
+\begin{array}
+[c]{ccc}%
+a_{1}^{2} & a_{2}^{2} & a_{3}^{2}\\
+a_{1} & a_{2} & a_{3}\\
+1 & 1 & 1
+\end{array}
+\right)  =\left(  a_{1}-a_{2}\right)  \left(  a_{1}-a_{3}\right)  \left(
+a_{2}-a_{3}\right)  $. \medskip
+
+\textbf{(c)} We have $\det\left(
+\begin{array}
+[c]{ccc}%
+1 & a_{1} & a_{1}^{2}\\
+1 & a_{2} & a_{2}^{2}\\
+1 & a_{3} & a_{3}^{2}%
+\end{array}
+\right)  =\left(  a_{2}-a_{1}\right)  \left(  a_{3}-a_{1}\right)  \left(
+a_{3}-a_{2}\right)  $. \medskip
+
+\textbf{(d)} We have $\det\left(
+\begin{array}
+[c]{ccc}%
+1 & 1 & 1\\
+a_{1} & a_{2} & a_{3}\\
+a_{1}^{2} & a_{2}^{2} & a_{3}^{2}%
+\end{array}
+\right)  =\left(  a_{2}-a_{1}\right)  \left(  a_{3}-a_{1}\right)  \left(
+a_{3}-a_{2}\right)  $.
+\end{example}
+
+Theorem \ref{thm.det.vander} is a classical and important result, known as the
+\emph{Vandermonde determinant}. Many different proofs are known (see, e.g.,
+\cite[Theorem 6.46]{detnotes} or \cite[\S 5.3]{Aigner07} or \cite[Section
+III.8.6, Example (1)]{Bourba74} or \cite[Theorem 1]{GriHyp}; a combinatorial
+proof can also be found in Exercise \ref{exe.det.vander-tour}; two more proofs
+are obtained in Exercise \ref{exe.det.vander.kratt-lem6} and Exercise
+\ref{exe.det.binom-by-vander}). We will now sketch a proof using factor
+hunting and polynomials. We will first focus on proving part \textbf{(a)} of
+Theorem \ref{thm.det.vander}, and afterwards derive the other parts from it.
+
+The first step of our proof is reducing Theorem \ref{thm.det.vander}
+\textbf{(a)} to the \textquotedblleft particular case\textquotedblright\ in
+which $K$ is the polynomial ring $\mathbb{Z}\left[  x_{1},x_{2},\ldots
+,x_{n}\right]  $ and the elements $a_{1},a_{2},\ldots,a_{n}$ are the
+indeterminates $x_{1},x_{2},\ldots,x_{n}$. This is merely a particular case
+(one possible choice of $K$ and $a_{1},a_{2},\ldots,a_{n}$ among many);
+however, as we will soon see, proving Theorem \ref{thm.det.vander}
+\textbf{(a)} in this particular case will quickly entail that Theorem
+\ref{thm.det.vander} \textbf{(a)} holds in the general case. Let us elaborate
+on this argument. First, let us state Theorem \ref{thm.det.vander}
+\textbf{(a)} in this particular case as a lemma:
+
+\begin{lemma}
+\label{lem.det.vander.a.pol}Let $n\in\mathbb{N}$. Consider the polynomial ring
+$\mathbb{Z}\left[  x_{1},x_{2},\ldots,x_{n}\right]  $ in $n$ indeterminates
+$x_{1},x_{2},\ldots,x_{n}$ with integer coefficients. In this ring, we have%
+\begin{equation}
+\det\left(  \left(  x_{i}^{n-j}\right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}\right)  =\prod_{1\leq i<j\leq n}\left(  x_{i}-x_{j}\right)  .
+\label{eq.lem.det.vander.a.pol.1}%
+\end{equation}
+
+\end{lemma}
+
+We can derive Theorem \ref{thm.det.vander} \textbf{(a)} from Lemma
+\ref{lem.det.vander.a.pol} as follows:
+
+\begin{proof}
+[Proof of Theorem \ref{thm.det.vander} \textbf{(a)} using Lemma
+\ref{lem.det.vander.a.pol}.]The equality%
+\begin{equation}
+\det\left(  \left(  a_{i}^{n-j}\right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}\right)  =\prod_{1\leq i<j\leq n}\left(  a_{i}-a_{j}\right)
+\label{pf.thm.det.vander.a.1}%
+\end{equation}
+follows from the equality (\ref{eq.lem.det.vander.a.pol.1}) by substituting
+$a_{1},a_{2},\ldots,a_{n}$ for $x_{1},x_{2},\ldots,x_{n}$. \medskip
+
+\begin{fineprint}
+This is sufficiently clear to be considered a complete proof, but just in
+case, here are a few details.
+
+We can substitute $a_{1},a_{2},\ldots,a_{n}$ for $x_{1},x_{2},\ldots,x_{n}$ in
+any polynomial $f\in\mathbb{Z}\left[  x_{1},x_{2},\ldots,x_{n}\right]  $,
+since $a_{1},a_{2},\ldots,a_{n}$ are $n$ elements of a commutative ring
+(namely, of $K$). It is obvious that $\prod_{1\leq i<j\leq n}\left(
+x_{i}-x_{j}\right)  $ becomes $\prod_{1\leq i<j\leq n}\left(  a_{i}%
+-a_{j}\right)  $ when we substitute $a_{1},a_{2},\ldots,a_{n}$ for
+$x_{1},x_{2},\ldots,x_{n}$. It is perhaps a bit less obvious that $\det\left(
+\left(  x_{i}^{n-j}\right)  _{1\leq i\leq n,\ 1\leq j\leq n}\right)  $ becomes
+$\det\left(  \left(  a_{i}^{n-j}\right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}\right)  $ when we substitute $a_{1},a_{2},\ldots,a_{n}$ for $x_{1}%
+,x_{2},\ldots,x_{n}$. To convince our skeptical selves of this, we expand both
+determinants: The definition of the determinant yields%
+\begin{align*}
+\det\left(  \left(  x_{i}^{n-j}\right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}\right)   &  =\sum_{\sigma\in S_{n}}\left(  -1\right)  ^{\sigma}%
+x_{1}^{n-\sigma\left(  1\right)  }x_{2}^{n-\sigma\left(  2\right)  }\cdots
+x_{n}^{n-\sigma\left(  n\right)  }\ \ \ \ \ \ \ \ \ \ \text{and}\\
+\det\left(  \left(  a_{i}^{n-j}\right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}\right)   &  =\sum_{\sigma\in S_{n}}\left(  -1\right)  ^{\sigma}%
+a_{1}^{n-\sigma\left(  1\right)  }a_{2}^{n-\sigma\left(  2\right)  }\cdots
+a_{n}^{n-\sigma\left(  n\right)  },
+\end{align*}
+and it is clear that substituting $a_{1},a_{2},\ldots,a_{n}$ for $x_{1}%
+,x_{2},\ldots,x_{n}$ transforms \newline$\sum_{\sigma\in S_{n}}\left(
+-1\right)  ^{\sigma}x_{1}^{n-\sigma\left(  1\right)  }x_{2}^{n-\sigma\left(
+2\right)  }\cdots x_{n}^{n-\sigma\left(  n\right)  }$ into $\sum_{\sigma\in
+S_{n}}\left(  -1\right)  ^{\sigma}a_{1}^{n-\sigma\left(  1\right)  }%
+a_{2}^{n-\sigma\left(  2\right)  }\cdots a_{n}^{n-\sigma\left(  n\right)  }$.
+\end{fineprint}
+
+Thus, (\ref{pf.thm.det.vander.a.1}) follows from
+(\ref{eq.lem.det.vander.a.pol.1}). In other words, Theorem
+\ref{thm.det.vander} \textbf{(a)} follows from Lemma
+\ref{lem.det.vander.a.pol}.
+\end{proof}
+
+Arguments like the one we just used are frequently applied in algebra; see
+\cite{Conrad-ui} for some more examples.
+
+It now remains to prove Lemma \ref{lem.det.vander.a.pol}.
+
+\begin{proof}
+[Proof of Lemma \ref{lem.det.vander.a.pol} (sketched).]We set%
+\[
+f:=\det\left(  \left(  x_{i}^{n-j}\right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}\right)  \ \ \ \ \ \ \ \ \ \ \text{and}\ \ \ \ \ \ \ \ \ \ g:=\prod_{1\leq
+i<j\leq n}\left(  x_{i}-x_{j}\right)  .
+\]
+Thus, we must prove that $f=g$.
+
+We have%
+\begin{align}
+f  &  =\det\left(  \left(  x_{i}^{n-j}\right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}\right) \nonumber\\
+&  =\sum_{\sigma\in S_{n}}\left(  -1\right)  ^{\sigma}x_{1}^{n-\sigma\left(
+1\right)  }x_{2}^{n-\sigma\left(  2\right)  }\cdots x_{n}^{n-\sigma\left(
+n\right)  } \label{pf.lem.det.vander.a.pol.f=1}%
+\end{align}
+(by the definition of a determinant). The right hand side of this equality is
+a homogeneous polynomial in $x_{1},x_{2},\ldots,x_{n}$ of degree
+$\dfrac{n\left(  n-1\right)  }{2}$\ \ \ \ \footnote{because it is a
+$\mathbb{Z}$-linear combination of the monomials $x_{1}^{n-\sigma\left(
+1\right)  }x_{2}^{n-\sigma\left(  2\right)  }\cdots x_{n}^{n-\sigma\left(
+n\right)  }$, each of which has degree%
+\begin{align*}
+\left(  n-\sigma\left(  1\right)  \right)  +\left(  n-\sigma\left(  2\right)
+\right)  +\cdots+\left(  n-\sigma\left(  n\right)  \right)   &  =n\cdot
+n-\underbrace{\left(  \sigma\left(  1\right)  +\sigma\left(  2\right)
++\cdots+\sigma\left(  n\right)  \right)  }_{\substack{=1+2+\cdots
++n\\\text{(since }\sigma\text{ is a permutation of }\left[  n\right]
+\text{)}}}\\
+&  =n\cdot n-\underbrace{\left(  1+2+\cdots+n\right)  }_{=\dfrac{n\left(
+n+1\right)  }{2}}=n\cdot n-\dfrac{n\left(  n+1\right)  }{2}\\
+&  =\dfrac{n\left(  n-1\right)  }{2}%
+\end{align*}
+}. Thus, $f$ is a homogeneous polynomial in $x_{1},x_{2},\ldots,x_{n}$ of
+degree $\dfrac{n\left(  n-1\right)  }{2}$. Furthermore, the monomial
+$x_{1}^{n-1}x_{2}^{n-2}\cdots x_{n}^{n-n}$ appears with coefficient $1$ on the
+right hand side of (\ref{pf.lem.det.vander.a.pol.f=1}) (indeed, all the $n!$
+addends in the sum on this right hand side contain distinct monomials, and
+thus only the addend for $\sigma=\operatorname*{id}$ makes any contribution to
+the coefficient of the monomial $x_{1}^{n-1}x_{2}^{n-2}\cdots x_{n}^{n-n}$).
+Hence,%
+\begin{equation}
+\left[  x_{1}^{n-1}x_{2}^{n-2}\cdots x_{n}^{n-n}\right]  f=1.
+\label{pf.lem.det.vander.a.pol.f-LC}%
+\end{equation}
+Therefore, $f\neq0$.
+
+Now, let $u$ and $v$ be two elements of $\left[  n\right]  $ satisfying $u<v$.
+Then, the polynomial $f$ becomes $0$ when we set $x_{u}$ equal to $x_{v}$
+(that is, when we substitute $x_{v}$ for $x_{u}$). Indeed, when we set $x_{u}$
+equal to $x_{v}$, the matrix $\left(  x_{i}^{n-j}\right)  _{1\leq i\leq
+n,\ 1\leq j\leq n}$ becomes a matrix that has two equal rows (namely, its
+$u$-th and its $v$-th row both become equal to $\left(  x_{v}^{n-1}%
+,x_{v}^{n-2},\ldots,x_{v}^{n-n}\right)  $), and thus its determinant becomes
+$0$ (by Theorem \ref{thm.det.rowop} \textbf{(c)}); but this means precisely
+that $f=0$ (since $f$ is the determinant of this matrix).
+
+Now, we recall the following well-known property of univariate polynomials:
+
+\begin{statement}
+\textit{Root factoring-off theorem:} Let $R$ be a commutative ring. Let $p\in
+R\left[  t\right]  $ be a univariate polynomial that has a root $r\in R$.
+Then, this polynomial $p$ is divisible by $t-r$ (in the ring $R\left[
+t\right]  $).
+\end{statement}
+
+Using this property, we can easily see that if a polynomial $p\in
+\mathbb{Z}\left[  x_{1},x_{2},\ldots,x_{n}\right]  $ becomes $0$ when we set
+$x_{u}$ equal to $x_{v}$, then this polynomial $p$ is a multiple of
+$x_{u}-x_{v}$ (in the ring $\mathbb{Z}\left[  x_{1},x_{2},\ldots,x_{n}\right]
+$). (Indeed, viewing $p$ as a polynomial in the single indeterminate $x_{u}$
+over the ring $\mathbb{Z}\left[  x_{1},x_{2},\ldots,\widehat{x_{u}}%
+,\ldots,x_{n}\right]  $\ \ \ \ \footnote{The meaning of the hat over the
+\textquotedblleft$x_{u}$\textquotedblright\ is as in Proposition
+\ref{prop.det.x+ai}: It signifies that the entry $x_{u}$ is omitted from the
+list (that is, \textquotedblleft$x_{1},x_{2},\ldots,\widehat{x_{u}}%
+,\ldots,x_{n}$\textquotedblright\ means \textquotedblleft$x_{1},x_{2}%
+,\ldots,x_{u-1},x_{u+1},x_{u+2},\ldots,x_{n}$\textquotedblright).}, we see
+that $x_{v}$ is a root of $p$, and therefore the root factoring-off theorem
+yields that $p$ is divisible by $x_{u}-x_{v}$.\ \ \ \ \footnote{Here, we are
+tacitly using the canonical isomorphism between the polynomial rings
+\[
+\mathbb{Z}\left[  x_{1},x_{2},\ldots,x_{n}\right]
+\ \ \ \ \ \ \ \ \ \ \text{and}\ \ \ \ \ \ \ \ \ \ \left(  \mathbb{Z}\left[
+x_{1},x_{2},\ldots,\widehat{x_{u}},\ldots,x_{n}\right]  \right)  \left[
+x_{u}\right]  .
+\]
+This isomorphism allows us to treat multivariate polynomials in $\mathbb{Z}%
+\left[  x_{1},x_{2},\ldots,x_{n}\right]  $ as univariate polynomials in the
+indeterminate $x_{u}$ over the ring $\mathbb{Z}\left[  x_{1},x_{2}%
+,\ldots,\widehat{x_{u}},\ldots,x_{n}\right]  $, and vice versa (and ensures
+that the notion of divisibility does not change between the former and the
+latter).})
+
+Applying this observation to $p=f$, we conclude that $f$ is a multiple of
+$x_{u}-x_{v}$ (in the ring $\mathbb{Z}\left[  x_{1},x_{2},\ldots,x_{n}\right]
+$), since we know that $f$ becomes $0$ when we set $x_{u}$ equal to $x_{v}$.
+
+Forget that we fixed $u$ and $v$. We thus have shown that $f$ is a multiple of
+$x_{u}-x_{v}$ (in the ring $\mathbb{Z}\left[  x_{1},x_{2},\ldots,x_{n}\right]
+$) whenever $u$ and $v$ are two elements of $\left[  n\right]  $ satisfying
+$u<v$. In other words, $f$ is a multiple of each of the linear polynomials%
+\[%
+\begin{array}
+[c]{cccc}%
+x_{1}-x_{2}, & x_{1}-x_{3}, & \ldots, & x_{1}-x_{n},\\
+& x_{2}-x_{3}, & \ldots, & x_{2}-x_{n},\\
+&  & \ddots & \vdots\\
+&  &  & x_{n-1}-x_{n}%
+\end{array}
+\]
+(in the ring $\mathbb{Z}\left[  x_{1},x_{2},\ldots,x_{n}\right]  $). However,
+these linear polynomials are irreducible\footnote{Check this! (Actually, any
+linear polynomial over $\mathbb{Z}$ is irreducible if the gcd of its
+coefficients is $1$.)} and mutually non-associate (i.e., no two of them are
+associate\footnote{Recall that two elements $a$ and $b$ of a commutative ring
+$R$ are said to be \emph{associate} if there exists some unit $u$ of $R$ such
+that $a=ub$. Being associate is known (and easily verified) to be an
+equivalence relation.})\footnote{Check this! (Recall that the only units of
+the polynomial ring $\mathbb{Z}\left[  x_{1},x_{2},\ldots,x_{n}\right]  $ are
+$1$ and $-1$.)}. Since the ring $\mathbb{Z}\left[  x_{1},x_{2},\ldots
+,x_{n}\right]  $ is a unique factorization domain\footnote{This is a
+nontrivial, but rather well-known result in abstract algebra. Proofs can be
+found in \cite[Theorem 3.7.4]{Ford21}, \cite[Remark after Corollary
+8.21]{Knapp16}, \cite[Chapter IV, Theorems 4.8 and 4.9]{MiRiRu87} and
+\cite[Essay 1.4, Corollary of Theorem 1 and Corollary 1 of Theorem
+2]{Edward22}.}, we thus conclude that any polynomial $p\in\mathbb{Z}\left[
+x_{1},x_{2},\ldots,x_{n}\right]  $ that is a multiple of each of these linear
+polynomials must necessarily be a multiple of their product $\prod_{1\leq
+i<j\leq n}\left(  x_{i}-x_{j}\right)  $. Hence, the polynomial $f$ must be a
+multiple of this product $\prod_{1\leq i<j\leq n}\left(  x_{i}-x_{j}\right)  $
+(since $f$ is a multiple of each of the linear polynomials above). In other
+words, the polynomial $f$ must be a multiple of $g$ (since $g=\prod_{1\leq
+i<j\leq n}\left(  x_{i}-x_{j}\right)  $). In other words, $f=gq$ for some
+$q\in\mathbb{Z}\left[  x_{1},x_{2},\ldots,x_{n}\right]  $. Consider this $q$.
+Clearly, $gq=f\neq0$ and thus $q\neq0$ and $g\neq0$.
+
+The ring $\mathbb{Z}$ is an integral domain. Thus, any two nonzero polynomials
+$a$ and $b$ over $\mathbb{Z}$ satisfy $\deg\left(  ab\right)  =\deg a+\deg b$.
+Applying this to $a=g$ and $b=q$, we find $\deg\left(  gq\right)  =\deg g+\deg
+q$. In other words, $\deg f=\deg g+\deg q$ (since $gq=f$).
+
+Now, $g=\prod_{1\leq i<j\leq n}\left(  x_{i}-x_{j}\right)  $ and thus%
+\begin{align*}
+\deg g  &  =\deg\left(  \prod_{1\leq i<j\leq n}\left(  x_{i}-x_{j}\right)
+\right)  =\sum_{1\leq i<j\leq n}\underbrace{\deg\left(  x_{i}-x_{j}\right)
+}_{=1}=\sum_{1\leq i<j\leq n}1\\
+&  =\left(  \text{\# of pairs }\left(  i,j\right)  \in\left[  n\right]
+^{2}\text{ satisfying }i<j\right)  =\dbinom{n}{2}=\dfrac{n\left(  n-1\right)
+}{2}.
+\end{align*}
+However, we have $\deg f\leq\dfrac{n\left(  n-1\right)  }{2}$ (since $f$ is a
+homogeneous polynomial of degree $\dfrac{n\left(  n-1\right)  }{2}$). In view
+of $\deg g=\dfrac{n\left(  n-1\right)  }{2}$, this rewrites as $\deg f\leq\deg
+g$. Hence,%
+\[
+\deg g\geq\deg f=\deg g+\deg q.
+\]
+Therefore, $0\geq\deg q$. This shows that the polynomial $q$ is constant. In
+other words, $q\in\mathbb{Z}$.
+
+It remains to show that this constant $q$ is $1$. However, this can be done by
+comparing some coefficients of $f$ and $g$. Indeed, let us look at the
+coefficient of $x_{1}^{n-1}x_{2}^{n-2}\cdots x_{n}^{n-n}$ (as we already know
+this coefficient for $f$ to be $1$).
+
+Expanding the product $\prod_{1\leq i<j\leq n}\left(  x_{i}-x_{j}\right)  $,
+we obtain a sum of several (in fact, $2^{n\left(  n-1\right)  /2}$ many)
+monomials with $+$ and $-$ signs. I claim that among these monomials, the
+monomial $x_{1}^{n-1}x_{2}^{n-2}\cdots x_{n}^{n-n}$ will appear exactly once,
+and with a $+$ sign. Indeed, in order to obtain $x_{1}^{n-1}x_{2}^{n-2}\cdots
+x_{n}^{n-n}$ when expanding the product
+\[%
+\begin{array}
+[c]{ccccc}%
+\prod_{1\leq i<j\leq n}\left(  x_{i}-x_{j}\right)  = & \left(  x_{1}%
+-x_{2}\right)  & \left(  x_{1}-x_{3}\right)  & \cdots & \left(  x_{1}%
+-x_{n}\right) \\
+&  & \left(  x_{2}-x_{3}\right)  & \cdots & \left(  x_{2}-x_{n}\right) \\
+&  &  & \ddots & \vdots\\
+&  &  &  & \left(  x_{n-1}-x_{n}\right)  ,
+\end{array}
+\]
+it is necessary to pick the $x_{1}$ minuends from all $n-1$ factors in the
+first row (since none of the other factors contain any $x_{1}$), then to pick
+the $x_{2}$ minuends from all $n-2$ factors in the second row (since none of
+the remaining factors contain any $x_{2}$), and so on -- i.e., to take the
+minuend (rather than the subtrahend) from each factor. Thus, only one of the
+monomials obtained by the expansion will be $x_{1}^{n-1}x_{2}^{n-2}\cdots
+x_{n}^{n-n}$, and it will appear with a $+$ sign. Hence, the coefficient of
+$x_{1}^{n-1}x_{2}^{n-2}\cdots x_{n}^{n-n}$ in the product $\prod_{1\leq
+i<j\leq n}\left(  x_{i}-x_{j}\right)  $ is $1$. In other words, the
+coefficient of $x_{1}^{n-1}x_{2}^{n-2}\cdots x_{n}^{n-n}$ in $g$ is $1$ (since
+$g=\prod_{1\leq i<j\leq n}\left(  x_{i}-x_{j}\right)  $). In other words,%
+\[
+\left[  x_{1}^{n-1}x_{2}^{n-2}\cdots x_{n}^{n-n}\right]  g=1.
+\]
+
+
+Now, recall that $f=gq$. Hence,%
+\begin{align*}
+\left[  x_{1}^{n-1}x_{2}^{n-2}\cdots x_{n}^{n-n}\right]  f  &  =\left[
+x_{1}^{n-1}x_{2}^{n-2}\cdots x_{n}^{n-n}\right]  \left(  gq\right) \\
+&  =q\cdot\underbrace{\left[  x_{1}^{n-1}x_{2}^{n-2}\cdots x_{n}^{n-n}\right]
+g}_{=1}\ \ \ \ \ \ \ \ \ \ \left(  \text{since }q\in\mathbb{Z}\right) \\
+&  =q,
+\end{align*}
+so that $q=\left[  x_{1}^{n-1}x_{2}^{n-2}\cdots x_{n}^{n-n}\right]  f=1$ (by
+(\ref{pf.lem.det.vander.a.pol.f-LC})). Hence, $f=g\underbrace{q}_{=1}=g$. As
+we said, this completes the proof of Lemma \ref{lem.det.vander.a.pol}.
+\end{proof}
+
+The technique used in the above proof of Lemma \ref{lem.det.vander.a.pol} may
+appear somewhat underhanded: Instead of computing our polynomial $f$ upfront,
+we have kept lopping off linear factors from it until a constant polynomial
+remained (for degree reasons). This technique is called \emph{identification
+of factors} or \emph{factor hunting}, and is used in various different places,
+but particularly often in the computation of determinants (multiple examples
+are given in \cite[\S 2.4 and further below]{Krattenthaler}). While I consider
+it to be aesthetically inferior to sufficiently direct approaches, it has
+shown to be useful in situations in which no direct approaches are known to work.
+
+\begin{proof}
+[Proof of Theorem \ref{thm.det.vander} (sketched).]\textbf{(a)} We have
+already given a proof of Theorem \ref{thm.det.vander} \textbf{(a)} (and with
+Lemma \ref{lem.det.vander.a.pol} established, this proof is now complete).
+\medskip
+
+\textbf{(b)} The matrix $\left(  a_{j}^{n-i}\right)  _{1\leq i\leq n,\ 1\leq
+j\leq n}$ is the transpose of the matrix $\left(  a_{i}^{n-j}\right)  _{1\leq
+i\leq n,\ 1\leq j\leq n}$. Thus, Theorem \ref{thm.det.vander} \textbf{(b)}
+follows from Theorem \ref{thm.det.vander} \textbf{(a)} using Theorem
+\ref{thm.det.transp}. \medskip
+
+\textbf{(c)} Let $A$ be the $n\times n$-matrix $\left(  a_{i}^{n-j}\right)
+_{1\leq i\leq n,\ 1\leq j\leq n}$. Then, Theorem \ref{thm.det.vander}
+\textbf{(a)} says that $\det A=\prod_{1\leq i<j\leq n}\left(  a_{i}%
+-a_{j}\right)  $.
+
+Let $\tau\in S_{n}$ be the permutation of $\left[  n\right]  $ that sends each
+$j\in\left[  n\right]  $ to $n+1-j$. Then, each $i,j\in\left[  n\right]  $
+satisfy $j-1=n-\tau\left(  j\right)  $ and therefore
+\[
+a_{i}^{j-1}=a_{i}^{n-\tau\left(  j\right)  }=A_{i,\tau\left(  j\right)
+}\ \ \ \ \ \ \ \ \ \ \left(  \text{by the definition of }A\right)  .
+\]
+Hence, $\left(  a_{i}^{j-1}\right)  _{1\leq i\leq n,\ 1\leq j\leq n}=\left(
+A_{i,\tau\left(  j\right)  }\right)  _{1\leq i\leq n,\ 1\leq j\leq n}$ and
+thus%
+\[
+\det\left(  \left(  a_{i}^{j-1}\right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}\right)  =\det\left(  \left(  A_{i,\tau\left(  j\right)  }\right)  _{1\leq
+i\leq n,\ 1\leq j\leq n}\right)  =\left(  -1\right)  ^{\tau}\cdot\det A
+\]
+(by (\ref{eq.cor.det.sig-row-col.col})).
+
+However, the permutation $\tau$ has OLN $\left(  n,n-1,n-2,\ldots,1\right)  $.
+Thus, each pair $\left(  i,j\right)  \in\left[  n\right]  ^{2}$ satisfying
+$i<j$ is an inversion of $\tau$. Therefore, the Coxeter length $\ell\left(
+\tau\right)  $ of $\tau$ is the \# of all pairs $\left(  i,j\right)
+\in\left[  n\right]  ^{2}$ satisfying $i<j$. Thus, the sign of $\tau$ is%
+\begin{align*}
+\left(  -1\right)  ^{\tau}  &  =\left(  -1\right)  ^{\ell\left(  \tau\right)
+}\ \ \ \ \ \ \ \ \ \ \left(  \text{by the definition of the sign of a
+permutation}\right) \\
+&  =\left(  -1\right)  ^{\left(  \text{\# of all pairs }\left(  i,j\right)
+\in\left[  n\right]  ^{2}\text{ satisfying }i<j\right)  }\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{since }\ell\left(
+\tau\right)  \text{ is the \# of all pairs }\left(  i,j\right)  \in\left[
+n\right]  ^{2}\text{ satisfying }i<j\right) \\
+&  =\prod_{1\leq i<j\leq n}\left(  -1\right)  .
+\end{align*}
+
+
+Now,
+\begin{align*}
+&  \det\left(  \left(  a_{i}^{j-1}\right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}\right) \\
+&  =\underbrace{\left(  -1\right)  ^{\tau}}_{=\prod_{1\leq i<j\leq n}\left(
+-1\right)  }\cdot\underbrace{\det A}_{=\prod_{1\leq i<j\leq n}\left(
+a_{i}-a_{j}\right)  }=\left(  \prod_{1\leq i<j\leq n}\left(  -1\right)
+\right)  \cdot\left(  \prod_{1\leq i<j\leq n}\left(  a_{i}-a_{j}\right)
+\right) \\
+&  =\prod_{1\leq i<j\leq n}\underbrace{\left(  \left(  -1\right)  \left(
+a_{i}-a_{j}\right)  \right)  }_{=a_{j}-a_{i}}=\prod_{1\leq i<j\leq n}\left(
+a_{j}-a_{i}\right)  =\prod_{1\leq j<i\leq n}\left(  a_{i}-a_{j}\right)
+\end{align*}
+(here, we have renamed the index $\left(  i,j\right)  $ as $\left(
+j,i\right)  $ in the product). This proves Theorem \ref{thm.det.vander}
+\textbf{(c)}. \medskip
+
+\textbf{(d)} The matrix $\left(  a_{j}^{i-1}\right)  _{1\leq i\leq n,\ 1\leq
+j\leq n}$ is the transpose of the matrix $\left(  a_{i}^{j-1}\right)  _{1\leq
+i\leq n,\ 1\leq j\leq n}$. Thus, Theorem \ref{thm.det.vander} \textbf{(d)}
+follows from Theorem \ref{thm.det.vander} \textbf{(c)} using Theorem
+\ref{thm.det.transp}.
+\end{proof}
+
+The Vandermonde determinant is itself a useful tool in the computation of
+various other determinants. Here is an example:
+
+\begin{proposition}
+\label{prop.det.(xi+yj)n-1}Let $n\in\mathbb{N}$. Let $x_{1},x_{2},\ldots
+,x_{n}\in K$ and $y_{1},y_{2},\ldots,y_{n}\in K$. Then,%
+\begin{align*}
+&  \det\left(  \left(  \left(  x_{i}+y_{j}\right)  ^{n-1}\right)  _{1\leq
+i\leq n,\ 1\leq j\leq n}\right) \\
+&  =\det\left(
+\begin{array}
+[c]{cccc}%
+\left(  x_{1}+y_{1}\right)  ^{n-1} & \left(  x_{1}+y_{2}\right)  ^{n-1} &
+\cdots & \left(  x_{1}+y_{n}\right)  ^{n-1}\\
+\left(  x_{2}+y_{1}\right)  ^{n-1} & \left(  x_{2}+y_{2}\right)  ^{n-1} &
+\cdots & \left(  x_{2}+y_{n}\right)  ^{n-1}\\
+\vdots & \vdots & \ddots & \vdots\\
+\left(  x_{n}+y_{1}\right)  ^{n-1} & \left(  x_{n}+y_{2}\right)  ^{n-1} &
+\cdots & \left(  x_{n}+y_{n}\right)  ^{n-1}%
+\end{array}
+\right) \\
+&  =\left(  \prod_{k=0}^{n-1}\dbinom{n-1}{k}\right)  \left(  \prod_{1\leq
+i<j\leq n}\left(  x_{i}-x_{j}\right)  \right)  \left(  \prod_{1\leq i<j\leq
+n}\left(  y_{j}-y_{i}\right)  \right)  .
+\end{align*}
+
+\end{proposition}
+
+\begin{proof}
+[First proof of Proposition \ref{prop.det.(xi+yj)n-1} (sketched).]Here is a
+rough outline of a proof that uses factor hunting (in the same way as in our
+above proofs of Theorem \ref{thm.det.vander} \textbf{(a)} and Lemma
+\ref{lem.det.vander.a.pol}). We WLOG assume that $x_{1},x_{2},\ldots,x_{n}$
+and $y_{1},y_{2},\ldots,y_{n}$ are distinct indeterminates in a polynomial
+ring over $\mathbb{Z}$. (This is again an assumption that we can make, because
+the argument that we used to derive Theorem \ref{thm.det.vander} \textbf{(a)}
+from Lemma \ref{lem.det.vander.a.pol} can be applied here as well.) Then, we
+can easily see that%
+\[
+\det\left(  \left(  \left(  x_{i}+y_{j}\right)  ^{n-1}\right)  _{1\leq i\leq
+n,\ 1\leq j\leq n}\right)
+\]
+is a homogeneous polynomial of degree $n\left(  n-1\right)  $. This polynomial
+vanishes if we set any $x_{u}$ equal to any $x_{v}$ (for $u<v$), and also
+vanishes if we set any $y_{u}$ equal to any $y_{v}$ (for $u<v$). Thus we have
+identified $n\left(  n-1\right)  $ linear factors of this polynomial (namely,
+the differences $x_{u}-x_{v}$ and $y_{v}-y_{u}$ for $u<v$), and we can again
+conclude (since any polynomial ring over $\mathbb{Z}$ is a unique
+factorization domain) that
+\[
+\det\left(  \left(  \left(  x_{i}+y_{j}\right)  ^{n-1}\right)  _{1\leq i\leq
+n,\ 1\leq j\leq n}\right)  =\left(  \prod_{1\leq i<j\leq n}\left(  x_{i}%
+-x_{j}\right)  \right)  \left(  \prod_{1\leq i<j\leq n}\left(  y_{j}%
+-y_{i}\right)  \right)  \cdot q
+\]
+for a constant $q\in\mathbb{Z}$. It remains to prove that this constant $q$
+equals $\prod_{k=0}^{n-1}\dbinom{n-1}{k}$. This can be done by studying the
+coefficients of the monomial%
+\[
+x_{1}^{n-1}x_{2}^{n-2}\cdots x_{n}^{n-n}y_{1}^{0}y_{2}^{1}\cdots y_{n}^{n-1}%
+\]
+in $\det\left(  \left(  \left(  x_{i}+y_{j}\right)  ^{n-1}\right)  _{1\leq
+i\leq n,\ 1\leq j\leq n}\right)  $ and in $\left(  \prod_{1\leq i<j\leq
+n}\left(  x_{i}-x_{j}\right)  \right)  \left(  \prod_{1\leq i<j\leq n}\left(
+y_{j}-y_{i}\right)  \right)  $. We leave the details to the reader.
+\end{proof}
+
+\begin{proof}
+[Second proof of Proposition \ref{prop.det.(xi+yj)n-1}.](See \cite[Exercise
+6.17 \textbf{(b)}]{detnotes} for details.) Let
+\[
+C:=\left(  \left(  x_{i}+y_{j}\right)  ^{n-1}\right)  _{1\leq i\leq n,\ 1\leq
+j\leq n}\in K^{n\times n}.
+\]
+For any $i,j\in\left[  n\right]  $, we have%
+\begin{align*}
+C_{i,j}  &  =\left(  x_{i}+y_{j}\right)  ^{n-1}=\sum_{k=0}^{n-1}\dbinom
+{n-1}{k}x_{i}^{k}y_{j}^{n-1-k}\ \ \ \ \ \ \ \ \ \ \left(  \text{by the
+binomial formula}\right) \\
+&  =\sum_{k=1}^{n}\dbinom{n-1}{k-1}x_{i}^{k-1}y_{j}^{n-k}%
+\end{align*}
+(here, we have substituted $k-1$ for $k$ in the sum). If we define two
+$n\times n$-matrices $P$ and $Q$ by
+\[
+P:=\left(  \dbinom{n-1}{k-1}x_{i}^{k-1}\right)  _{1\leq i\leq n,\ 1\leq k\leq
+n}\ \ \ \ \ \ \ \ \ \ \text{and}\ \ \ \ \ \ \ \ \ \ Q:=\left(  y_{j}%
+^{n-k}\right)  _{1\leq k\leq n,\ 1\leq j\leq n},
+\]
+then we can rewrite this as%
+\[
+C_{i,j}=\sum_{k=1}^{n}P_{i,k}Q_{k,j}=\left(  PQ\right)  _{i,j}%
+\]
+(by the definition of the matrix product). Since this holds for all
+$i,j\in\left[  n\right]  $, we thus obtain $C=PQ$. Hence,
+\begin{equation}
+\det C=\det\left(  PQ\right)  =\det P\cdot\det Q
+\label{pf.prop.det.(xi+yj)n-1.2nd.detA=1}%
+\end{equation}
+(by Theorem \ref{thm.det.detAB}). It now remains to compute $\det P$ and $\det
+Q$.
+
+From $Q=\left(  y_{j}^{n-k}\right)  _{1\leq k\leq n,\ 1\leq j\leq n}=\left(
+y_{j}^{n-i}\right)  _{1\leq i\leq n,\ 1\leq j\leq n}$, we obtain%
+\begin{equation}
+\det Q=\det\left(  \left(  y_{j}^{n-i}\right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}\right)  =\prod_{1\leq i<j\leq n}\left(  y_{i}-y_{j}\right)
+\label{pf.prop.det.(xi+yj)n-1.2nd.detQ=}%
+\end{equation}
+(by Theorem \ref{thm.det.vander} \textbf{(b)}, applied to $a_{i}=y_{i}$).
+
+From $P=\left(  \dbinom{n-1}{k-1}x_{i}^{k-1}\right)  _{1\leq i\leq n,\ 1\leq
+k\leq n}=\left(  \dbinom{n-1}{j-1}x_{i}^{j-1}\right)  _{1\leq i\leq n,\ 1\leq
+j\leq n}$, we obtain%
+\begin{align}
+\det P  &  =\det\left(  \left(  \dbinom{n-1}{j-1}x_{i}^{j-1}\right)  _{1\leq
+i\leq n,\ 1\leq j\leq n}\right) \nonumber\\
+&  =\underbrace{\dbinom{n-1}{1-1}\dbinom{n-1}{2-1}\cdots\dbinom{n-1}{n-1}%
+}_{=\prod_{k=0}^{n-1}\dbinom{n-1}{k}}\cdot\underbrace{\det\left(  \left(
+x_{i}^{j-1}\right)  _{1\leq i\leq n,\ 1\leq j\leq n}\right)  }%
+_{\substack{=\prod_{1\leq j<i\leq n}\left(  x_{i}-x_{j}\right)  \\\text{(by
+Theorem \ref{thm.det.vander} \textbf{(c)},}\\\text{applied to }a_{i}%
+=x_{i}\text{)}}}\nonumber\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{by (\ref{eq.cor.det.scale-row-col.col}), applied to }A=\left(
+x_{i}^{j-1}\right)  _{1\leq i\leq n,\ 1\leq j\leq n}\\
+\text{and }d_{i}=\dbinom{n-1}{i-1}%
+\end{array}
+\right) \nonumber\\
+&  =\left(  \prod_{k=0}^{n-1}\dbinom{n-1}{k}\right)  \cdot\prod_{1\leq j<i\leq
+n}\left(  x_{i}-x_{j}\right) \nonumber\\
+&  =\left(  \prod_{k=0}^{n-1}\dbinom{n-1}{k}\right)  \cdot\prod_{1\leq i<j\leq
+n}\left(  x_{j}-x_{i}\right)  \label{pf.prop.det.(xi+yj)n-1.2nd.detP=}%
+\end{align}
+(here, we have renamed the index $\left(  j,i\right)  $ as $\left(
+i,j\right)  $ in the second product).
+
+Now, (\ref{pf.prop.det.(xi+yj)n-1.2nd.detA=1}) becomes%
+\begin{align*}
+\det C  &  =\det P\cdot\det Q\\
+&  =\left(  \prod_{k=0}^{n-1}\dbinom{n-1}{k}\right)  \cdot\left(  \prod_{1\leq
+i<j\leq n}\left(  x_{j}-x_{i}\right)  \right)  \cdot\prod_{1\leq i<j\leq
+n}\left(  y_{i}-y_{j}\right) \\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{by
+(\ref{pf.prop.det.(xi+yj)n-1.2nd.detP=}) and
+(\ref{pf.prop.det.(xi+yj)n-1.2nd.detQ=})}\right) \\
+&  =\left(  \prod_{k=0}^{n-1}\dbinom{n-1}{k}\right)  \cdot\prod_{1\leq i<j\leq
+n}\underbrace{\left(  \left(  x_{j}-x_{i}\right)  \left(  y_{i}-y_{j}\right)
+\right)  }_{=\left(  x_{i}-x_{j}\right)  \left(  y_{j}-y_{i}\right)  }\\
+&  =\left(  \prod_{k=0}^{n-1}\dbinom{n-1}{k}\right)  \cdot\prod_{1\leq i<j\leq
+n}\left(  \left(  x_{i}-x_{j}\right)  \left(  y_{j}-y_{i}\right)  \right) \\
+&  =\left(  \prod_{k=0}^{n-1}\dbinom{n-1}{k}\right)  \left(  \prod_{1\leq
+i<j\leq n}\left(  x_{i}-x_{j}\right)  \right)  \left(  \prod_{1\leq i<j\leq
+n}\left(  y_{j}-y_{i}\right)  \right)  .
+\end{align*}
+This proves Proposition \ref{prop.det.(xi+yj)n-1} (since $C=\left(  \left(
+x_{i}+y_{j}\right)  ^{n-1}\right)  _{1\leq i\leq n,\ 1\leq j\leq n}$).
+\end{proof}
+
+\subsubsection{Laplace expansion}
+
+Let us next recall another fundamental property of determinants: \emph{Laplace
+expansion}. We will use the following notation:
+
+\begin{convention}
+\label{conv.mat.tilde}Let $n\in\mathbb{N}$. Let $A$ be an $n\times n$-matrix.
+Let $i,j\in\left[  n\right]  $. Then, we set%
+\[
+A_{\sim i,\sim j}:=\operatorname*{sub}\nolimits_{\left[  n\right]
+\setminus\left\{  i\right\}  }^{\left[  n\right]  \setminus\left\{  j\right\}
+}A\ \ \ \ \ \ \ \ \ \ \left(  \text{using the notation from Definition
+\ref{def.det.sub}}\right)  .
+\]
+This is the $\left(  n-1\right)  \times\left(  n-1\right)  $-matrix obtained
+from $A$ by removing its $i$-th row and its $j$-th column.
+\end{convention}
+
+\begin{example}
+If $A=\left(
+\begin{array}
+[c]{ccc}%
+a & b & c\\
+a^{\prime} & b^{\prime} & c^{\prime}\\
+a^{\prime\prime} & b^{\prime\prime} & c^{\prime\prime}%
+\end{array}
+\right)  $, then $A_{\sim1,\sim2}=\left(
+\begin{array}
+[c]{cc}%
+a^{\prime} & c^{\prime}\\
+a^{\prime\prime} & c^{\prime\prime}%
+\end{array}
+\right)  $.
+\end{example}
+
+Now, we can state the theorem underlying Laplace expansion:
+
+\begin{theorem}
+\label{thm.det.laplace}Let $n\in\mathbb{N}$. Let $A\in K^{n\times n}$ be an
+$n\times n$-matrix. \medskip
+
+\textbf{(a)} For every $p\in\left[  n\right]  $, we have%
+\[
+\det A=\sum_{q=1}^{n}\left(  -1\right)  ^{p+q}A_{p,q}\det\left(  A_{\sim
+p,\sim q}\right)  .
+\]
+
+
+\textbf{(b)} For every $q\in\left[  n\right]  $, we have%
+\[
+\det A=\sum_{p=1}^{n}\left(  -1\right)  ^{p+q}A_{p,q}\det\left(  A_{\sim
+p,\sim q}\right)  .
+\]
+
+\end{theorem}
+
+Note that some authors denote the minors $\det\left(  A_{\sim p,\sim
+q}\right)  $ in Theorem \ref{thm.det.laplace} by $A_{p,q}$. This is, of
+course, totally incompatible with our notations.
+
+\begin{proof}
+[Proof of Theorem \ref{thm.det.laplace}.]See \cite[Theorem 6.82]{detnotes} or
+\cite[Lemma 4.7.7]{Ford21} or \cite[5.8 and 5.8']{Laue-det} or
+\cite[Proposition B.24 and Proposition B.25]{Strick13} or \cite[Theorem
+9.48]{Loehr-BC}.
+\end{proof}
+
+Theorem \ref{thm.det.laplace} yields several ways to compute the determinant
+of a matrix\footnote{In fact, some authors use Theorem \ref{thm.det.laplace}
+as a \textbf{definition} of the determinant. (However, this is somewhat
+tricky, as it requires proving that all the values obtained for $\det A$ by
+applying Theorem \ref{thm.det.laplace} are actually equal.)}. When we compute
+a determinant $\det A$ using Theorem \ref{thm.det.laplace} \textbf{(a)}, we
+say that we \emph{expand this determinant along the }$p$\emph{-th row}. When
+we compute a determinant $\det A$ using Theorem \ref{thm.det.laplace}
+\textbf{(b)}, we say that we \emph{expand this determinant along the }%
+$q$\emph{-th column}.
+
+Theorem \ref{thm.det.laplace} has many applications, some of which you have
+probably seen in your course on linear algebra. (A few might appear on the
+homework.) The main theoretical application of Theorem \ref{thm.det.laplace}
+is the concept of the \emph{adjugate} (or \emph{classical adjoint}) of a
+matrix, which we shall introduce in a few moments.
+
+First, let us see what happens if we replace the $A_{p,q}$ in Theorem
+\ref{thm.det.laplace} by entries from another row or another column. In fact,
+the respective sums become $0$ (instead of $\det A$), as the following
+proposition shows:
+
+\begin{proposition}
+\label{prop.det.laplace.0}Let $n\in\mathbb{N}$. Let $A\in K^{n\times n}$ be an
+$n\times n$-matrix. Let $r\in\left[  n\right]  $. \medskip
+
+\textbf{(a)} For every $p\in\left[  n\right]  $ satisfying $p\neq r$, we have%
+\[
+0=\sum_{q=1}^{n}\left(  -1\right)  ^{p+q}A_{r,q}\det\left(  A_{\sim p,\sim
+q}\right)  .
+\]
+
+
+\textbf{(b)} For every $q\in\left[  n\right]  $ satisfying $q\neq r$, we have%
+\[
+0=\sum_{p=1}^{n}\left(  -1\right)  ^{p+q}A_{p,r}\det\left(  A_{\sim p,\sim
+q}\right)  .
+\]
+
+\end{proposition}
+
+\begin{proof}
+See \cite[Proposition 6.96]{detnotes}. This is also implicit in \cite[proof of
+Proposition B.28]{Strick13} and \cite[proof of Theorem 9.50]{Loehr-BC}.
+\medskip
+
+\begin{fineprint}
+Here is a sketch of the proof:
+
+\textbf{(a)} Let $p\in\left[  n\right]  $ satisfy $p\neq r$. Let $C$ be the
+matrix $A$ with its $p$-th row replaced by its $r$-th row. Then, the matrix
+$C$ has two equal rows, so that $\det C=0$ (by Theorem \ref{thm.det.rowop}
+\textbf{(c)}). On the other hand, expanding $\det C$ along the $p$-th row
+(i.e., applying Theorem \ref{thm.det.laplace} \textbf{(a)} to $C$ instead of
+$A$) yields%
+\[
+\det C=\sum_{q=1}^{n}\left(  -1\right)  ^{p+q}\underbrace{C_{p,q}}_{=A_{r,q}%
+}\det\underbrace{\left(  C_{\sim p,\sim q}\right)  }_{=A_{\sim p,\sim q}}%
+=\sum_{q=1}^{n}\left(  -1\right)  ^{p+q}A_{r,q}\det\left(  A_{\sim p,\sim
+q}\right)  .
+\]
+Comparing these two equalities, we obtain the claim of Proposition
+\ref{prop.det.laplace.0} \textbf{(a)}. A similar argument proves Proposition
+\ref{prop.det.laplace.0} \textbf{(b)}.
+\end{fineprint}
+\end{proof}
+
+We can now define the adjugate of a matrix:
+
+\begin{definition}
+\label{def.det.adj}Let $n\in\mathbb{N}$. Let $A\in K^{n\times n}$ be an
+$n\times n$-matrix. We define a new $n\times n$-matrix $\operatorname*{adj}%
+A\in K^{n\times n}$ by%
+\[
+\operatorname*{adj}A=\left(  \left(  -1\right)  ^{i+j}\det\left(  A_{\sim
+j,\sim i}\right)  \right)  _{1\leq i\leq n,\ 1\leq j\leq n}.
+\]
+This matrix $\operatorname*{adj}A$ is called the \emph{adjugate} of the matrix
+$A$. (Some older texts call it the \emph{adjoint}, but this name has since
+been conquered by a different notion. As a compromise, some still call
+$\operatorname*{adj}A$ the \emph{classical adjoint} of $A$.)
+\end{definition}
+
+\begin{example}
+The adjugate of the $0\times0$-matrix is the $0\times0$-matrix.
+
+The adjugate of a $1\times1$-matrix $\left(
+\begin{array}
+[c]{c}%
+a
+\end{array}
+\right)  $ is $\operatorname*{adj}\left(
+\begin{array}
+[c]{c}%
+a
+\end{array}
+\right)  =\left(
+\begin{array}
+[c]{c}%
+1
+\end{array}
+\right)  $.
+
+The adjugate of a $2\times2$-matrix $\left(
+\begin{array}
+[c]{cc}%
+a & b\\
+c & d
+\end{array}
+\right)  $ is
+\[
+\operatorname*{adj}\left(
+\begin{array}
+[c]{cc}%
+a & b\\
+c & d
+\end{array}
+\right)  =\left(
+\begin{array}
+[c]{cc}%
+d & -b\\
+-c & a
+\end{array}
+\right)  .
+\]
+
+
+The adjugate of a $3\times3$-matrix $\left(
+\begin{array}
+[c]{ccc}%
+a & b & c\\
+d & e & f\\
+g & h & i
+\end{array}
+\right)  $ is
+\[
+\operatorname*{adj}\left(
+\begin{array}
+[c]{ccc}%
+a & b & c\\
+d & e & f\\
+g & h & i
+\end{array}
+\right)  =\left(
+\begin{array}
+[c]{ccc}%
+ei-fh & ch-bi & bf-ce\\
+fg-di & ai-cg & cd-af\\
+dh-ge & bg-ah & ae-bd
+\end{array}
+\right)  .
+\]
+
+\end{example}
+
+The main property of the adjugate $\operatorname*{adj}A$ is its connection to
+the inverse $A^{-1}$ of a matrix $A$. Indeed, if an $n\times n$-matrix $A$ is
+invertible, then its inverse $A^{-1}$ is $\dfrac{1}{\det A}\cdot
+\operatorname*{adj}A$. More generally, even if $A$ is not invertible, the
+product of $\operatorname*{adj}A$ with $A$ (in either order) equals $\left(
+\det A\right)  \cdot I_{n}$ (where $I_{n}$ is the $n\times n$ identity
+matrix). Let us state this as a theorem:
+
+\begin{theorem}
+\label{thm.det.adj.inverse}Let $n\in\mathbb{N}$. Let $A\in K^{n\times n}$ be
+an $n\times n$-matrix. Let $I_{n}$ denote the $n\times n$ identity matrix.
+Then,%
+\[
+A\cdot\left(  \operatorname*{adj}A\right)  =\left(  \operatorname*{adj}%
+A\right)  \cdot A=\left(  \det A\right)  \cdot I_{n}.
+\]
+
+\end{theorem}
+
+\begin{proof}
+See \cite[Theorem 6.100]{detnotes} or \cite[Lemma 4.7.9]{Ford21} or
+\cite[Theorem 9.50]{Loehr-BC} or \cite[Proposition B.28]{Strick13}. \medskip
+
+\begin{fineprint}
+Here is a sketch of the argument: In order to show that $A\cdot\left(
+\operatorname*{adj}A\right)  =\left(  \det A\right)  \cdot I_{n}$, it suffices
+to check that the $\left(  i,j\right)  $-th entry of $A\cdot\left(
+\operatorname*{adj}A\right)  $ equals $\det A$ whenever $i=j$ and equals $0$
+otherwise. However, this follows from Theorem \ref{thm.det.laplace}
+\textbf{(a)} (in the case $i=j$) and Proposition \ref{prop.det.laplace.0}
+\textbf{(a)} (in the case $i\neq j$). Thus, $A\cdot\left(  \operatorname*{adj}%
+A\right)  =\left(  \det A\right)  \cdot I_{n}$ is proved. Similarly, $\left(
+\operatorname*{adj}A\right)  \cdot A=\left(  \det A\right)  \cdot I_{n}$ can
+be shown.
+\end{fineprint}
+\end{proof}
+
+More about the adjugate matrix can be found in \cite[\S 6.15]{detnotes} and
+\cite[\S 5.4--\S 5.6]{trach}; see also \cite{Robins05} for some applications.
+
+There is also a generalization of Theorem \ref{thm.det.laplace}, called
+\emph{Laplace expansion along multiple rows (or columns)}:
+
+\begin{theorem}
+\label{thm.det.laplace-multi}Let $n\in\mathbb{N}$. Let $A\in K^{n\times n}$ be
+an $n\times n$-matrix. We shall use the notations $\widetilde{I}$ and
+$\operatorname*{sum}S$ as defined in Theorem \ref{thm.det.det(A+B)}. \medskip
+
+\textbf{(a)} For every subset $P$ of $\left[  n\right]  $, we have%
+\[
+\det A=\sum_{\substack{Q\subseteq\left[  n\right]  ;\\\left\vert Q\right\vert
+=\left\vert P\right\vert }}\left(  -1\right)  ^{\operatorname*{sum}%
+P+\operatorname*{sum}Q}\det\left(  \operatorname*{sub}\nolimits_{P}%
+^{Q}A\right)  \det\left(  \operatorname*{sub}\nolimits_{\widetilde{P}%
+}^{\widetilde{Q}}A\right)  .
+\]
+
+
+\textbf{(b)} For every subset $Q$ of $\left[  n\right]  $, we have%
+\[
+\det A=\sum_{\substack{P\subseteq\left[  n\right]  ;\\\left\vert P\right\vert
+=\left\vert Q\right\vert }}\left(  -1\right)  ^{\operatorname*{sum}%
+P+\operatorname*{sum}Q}\det\left(  \operatorname*{sub}\nolimits_{P}%
+^{Q}A\right)  \det\left(  \operatorname*{sub}\nolimits_{\widetilde{P}%
+}^{\widetilde{Q}}A\right)  .
+\]
+
+\end{theorem}
+
+\begin{example}
+Let $n=4$ and $A=\left(
+\begin{array}
+[c]{cccc}%
+a & b & c & d\\
+a^{\prime} & b^{\prime} & c^{\prime} & d^{\prime}\\
+a^{\prime\prime} & b^{\prime\prime} & c^{\prime\prime} & d^{\prime\prime}\\
+a^{\prime\prime\prime} & b^{\prime\prime\prime} & c^{\prime\prime\prime} &
+d^{\prime\prime\prime}%
+\end{array}
+\right)  $ and $P=\left\{  3,4\right\}  $. Then, Theorem
+\ref{thm.det.laplace-multi} \textbf{(a)} says that%
+\begin{align*}
+&  \det A\\
+&  =\sum_{\substack{Q\subseteq\left[  n\right]  ;\\\left\vert Q\right\vert
+=\left\vert P\right\vert }}\left(  -1\right)  ^{\operatorname*{sum}%
+P+\operatorname*{sum}Q}\det\left(  \operatorname*{sub}\nolimits_{P}%
+^{Q}A\right)  \det\left(  \operatorname*{sub}\nolimits_{\widetilde{P}%
+}^{\widetilde{Q}}A\right) \\
+&  =\left(  -1\right)  ^{\operatorname*{sum}\left\{  3,4\right\}
++\operatorname*{sum}\left\{  1,2\right\}  }\det\left(  \operatorname*{sub}%
+\nolimits_{\left\{  3,4\right\}  }^{\left\{  1,2\right\}  }A\right)
+\det\left(  \operatorname*{sub}\nolimits_{\widetilde{\left\{  3,4\right\}  }%
+}^{\widetilde{\left\{  1,2\right\}  }}A\right) \\
+&  \ \ \ \ \ \ \ \ \ \ +\left(  -1\right)  ^{\operatorname*{sum}\left\{
+3,4\right\}  +\operatorname*{sum}\left\{  1,3\right\}  }\det\left(
+\operatorname*{sub}\nolimits_{\left\{  3,4\right\}  }^{\left\{  1,3\right\}
+}A\right)  \det\left(  \operatorname*{sub}\nolimits_{\widetilde{\left\{
+3,4\right\}  }}^{\widetilde{\left\{  1,3\right\}  }}A\right) \\
+&  \ \ \ \ \ \ \ \ \ \ +\left(  -1\right)  ^{\operatorname*{sum}\left\{
+3,4\right\}  +\operatorname*{sum}\left\{  1,4\right\}  }\det\left(
+\operatorname*{sub}\nolimits_{\left\{  3,4\right\}  }^{\left\{  1,4\right\}
+}A\right)  \det\left(  \operatorname*{sub}\nolimits_{\widetilde{\left\{
+3,4\right\}  }}^{\widetilde{\left\{  1,4\right\}  }}A\right) \\
+&  \ \ \ \ \ \ \ \ \ \ +\left(  -1\right)  ^{\operatorname*{sum}\left\{
+3,4\right\}  +\operatorname*{sum}\left\{  2,3\right\}  }\det\left(
+\operatorname*{sub}\nolimits_{\left\{  3,4\right\}  }^{\left\{  2,3\right\}
+}A\right)  \det\left(  \operatorname*{sub}\nolimits_{\widetilde{\left\{
+3,4\right\}  }}^{\widetilde{\left\{  2,3\right\}  }}A\right) \\
+&  \ \ \ \ \ \ \ \ \ \ +\left(  -1\right)  ^{\operatorname*{sum}\left\{
+3,4\right\}  +\operatorname*{sum}\left\{  2,4\right\}  }\det\left(
+\operatorname*{sub}\nolimits_{\left\{  3,4\right\}  }^{\left\{  2,4\right\}
+}A\right)  \det\left(  \operatorname*{sub}\nolimits_{\widetilde{\left\{
+3,4\right\}  }}^{\widetilde{\left\{  2,4\right\}  }}A\right) \\
+&  \ \ \ \ \ \ \ \ \ \ +\left(  -1\right)  ^{\operatorname*{sum}\left\{
+3,4\right\}  +\operatorname*{sum}\left\{  3,4\right\}  }\det\left(
+\operatorname*{sub}\nolimits_{\left\{  3,4\right\}  }^{\left\{  3,4\right\}
+}A\right)  \det\left(  \operatorname*{sub}\nolimits_{\widetilde{\left\{
+3,4\right\}  }}^{\widetilde{\left\{  3,4\right\}  }}A\right) \\
+&  =\det\left(
+\begin{array}
+[c]{cc}%
+a^{\prime\prime} & b^{\prime\prime}\\
+a^{\prime\prime\prime} & b^{\prime\prime\prime}%
+\end{array}
+\right)  \det\left(
+\begin{array}
+[c]{cc}%
+c & d\\
+c^{\prime} & d^{\prime}%
+\end{array}
+\right)  -\det\left(
+\begin{array}
+[c]{cc}%
+a^{\prime\prime} & c^{\prime\prime}\\
+a^{\prime\prime\prime} & c^{\prime\prime\prime}%
+\end{array}
+\right)  \det\left(
+\begin{array}
+[c]{cc}%
+b & d\\
+b^{\prime} & d^{\prime}%
+\end{array}
+\right) \\
+&  \ \ \ \ \ \ \ \ \ \ +\det\left(
+\begin{array}
+[c]{cc}%
+a^{\prime\prime} & d^{\prime\prime}\\
+a^{\prime\prime\prime} & d^{\prime\prime\prime}%
+\end{array}
+\right)  \det\left(
+\begin{array}
+[c]{cc}%
+b & c\\
+b^{\prime} & c^{\prime}%
+\end{array}
+\right)  +\det\left(
+\begin{array}
+[c]{cc}%
+b^{\prime\prime} & c^{\prime\prime}\\
+b^{\prime\prime\prime} & c^{\prime\prime\prime}%
+\end{array}
+\right)  \det\left(
+\begin{array}
+[c]{cc}%
+a & d\\
+a^{\prime} & d^{\prime}%
+\end{array}
+\right) \\
+&  \ \ \ \ \ \ \ \ \ \ -\det\left(
+\begin{array}
+[c]{cc}%
+b^{\prime\prime} & d^{\prime\prime}\\
+b^{\prime\prime\prime} & d^{\prime\prime\prime}%
+\end{array}
+\right)  \det\left(
+\begin{array}
+[c]{cc}%
+a & c\\
+a^{\prime} & c^{\prime}%
+\end{array}
+\right)  +\det\left(
+\begin{array}
+[c]{cc}%
+c^{\prime\prime} & d^{\prime\prime}\\
+c^{\prime\prime\prime} & d^{\prime\prime\prime}%
+\end{array}
+\right)  \det\left(
+\begin{array}
+[c]{cc}%
+a & b\\
+a^{\prime} & b^{\prime}%
+\end{array}
+\right)  .
+\end{align*}
+
+\end{example}
+
+\begin{proof}
+[Proof of Theorem \ref{thm.det.laplace-multi}.]See \cite[Theorem
+6.156]{detnotes}.
+\end{proof}
+
+\subsubsection{Desnanot--Jacobi and Dodgson condensation}
+
+We come to more exotic results. The following theorem is one of several
+versions of the \emph{Desnanot--Jacobi formula}:
+
+\begin{theorem}
+[Desnanot--Jacobi formula, take 1]\label{thm.det.des-jac-1}Let $n\in
+\mathbb{N}$ be such that $n\geq2$. Let $A\in K^{n\times n}$ be an $n\times n$-matrix.
+
+Let $A^{\prime}$ be the $\left(  n-2\right)  \times\left(  n-2\right)
+$-matrix%
+\[
+\operatorname*{sub}\nolimits_{\left\{  2,3,\ldots,n-1\right\}  }^{\left\{
+2,3,\ldots,n-1\right\}  }A=\left(  A_{i+1,j+1}\right)  _{1\leq i\leq
+n-2,\ 1\leq j\leq n-2}.
+\]
+(This is precisely what remains of the matrix $A$ when we remove the first
+row, the last row, the first column and the last column.) Then,%
+\begin{align*}
+\det A\cdot\det\left(  A^{\prime}\right)   &  =\det\left(  A_{\sim1,\sim
+1}\right)  \cdot\det\left(  A_{\sim n,\sim n}\right)  -\det\left(
+A_{\sim1,\sim n}\right)  \cdot\det\left(  A_{\sim n,\sim1}\right) \\
+&  =\det\left(
+\begin{array}
+[c]{cc}%
+\det\left(  A_{\sim1,\sim1}\right)  & \det\left(  A_{\sim1,\sim n}\right) \\
+\det\left(  A_{\sim n,\sim1}\right)  & \det\left(  A_{\sim n,\sim n}\right)
+\end{array}
+\right)  .
+\end{align*}
+
+\end{theorem}
+
+\begin{example}
+For $n=3$, this is saying that%
+\begin{align*}
+&  \det\left(
+\begin{array}
+[c]{ccc}%
+a & b & c\\
+a^{\prime} & b^{\prime} & c^{\prime}\\
+a^{\prime\prime} & b^{\prime\prime} & c^{\prime\prime}%
+\end{array}
+\right)  \cdot\det\left(
+\begin{array}
+[c]{c}%
+b^{\prime}%
+\end{array}
+\right) \\
+&  =\det\left(
+\begin{array}
+[c]{cc}%
+b^{\prime} & c^{\prime}\\
+b^{\prime\prime} & c^{\prime\prime}%
+\end{array}
+\right)  \cdot\det\left(
+\begin{array}
+[c]{cc}%
+a & b\\
+a^{\prime} & b^{\prime}%
+\end{array}
+\right)  -\det\left(
+\begin{array}
+[c]{cc}%
+a^{\prime} & b^{\prime}\\
+a^{\prime\prime} & b^{\prime\prime}%
+\end{array}
+\right)  \cdot\det\left(
+\begin{array}
+[c]{cc}%
+b & c\\
+b^{\prime} & c^{\prime}%
+\end{array}
+\right)  .
+\end{align*}
+
+\end{example}
+
+\begin{proof}
+[Proof of Theorem \ref{thm.det.des-jac-1}.]See \cite[Proposition
+6.122]{detnotes} or \cite[\S 3.5, proof of Theorem 3.12]{Bresso99} or
+\cite{zeilberger-twotime}.
+\end{proof}
+
+Theorem \ref{thm.det.des-jac-1} provides a recursive way of computing
+determinants: Indeed, in the setting of Theorem \ref{thm.det.des-jac-1}, if
+$\det\left(  A^{\prime}\right)  $ is invertible (which, when $K$ is a field,
+simply means that $\det\left(  A^{\prime}\right)  \neq0$), then Theorem
+\ref{thm.det.des-jac-1}) yields%
+\begin{equation}
+\det A=\dfrac{\det\left(  A_{\sim1,\sim1}\right)  \cdot\det\left(  A_{\sim
+n,\sim n}\right)  -\det\left(  A_{\sim1,\sim n}\right)  \cdot\det\left(
+A_{\sim n,\sim1}\right)  }{\det\left(  A^{\prime}\right)  }.
+\label{eq.thm.det.des-jac-1.frac}%
+\end{equation}
+The five matrices appearing on the right hand side of this are smaller than
+$A$, so their determinants are often easier to compute than $\det A$. In
+particular, if you are proving something by strong induction on $n$, you will
+occasionally be able to use the induction hypothesis to compute these
+determinants. This method of recursively simplifying determinants is often
+known as \emph{Dodgson condensation}, as it was popularized (perhaps even
+discovered) by Charles Lutwidge Dodgson (aka Lewis Carroll) in \cite[Appendix
+II]{Dodgso67}. We outline a sample application:
+
+\begin{theorem}
+[Cauchy determinant]\label{thm.det.cauchy}Let $n\in\mathbb{N}$. Let
+$x_{1},x_{2},\ldots,x_{n}$ be $n$ elements of $K$. Let $y_{1},y_{2}%
+,\ldots,y_{n}$ be $n$ elements of $K$. Assume that $x_{i}+y_{j}$ is invertible
+in $K$ for each $\left(  i,j\right)  \in\left[  n\right]  ^{2}$. Then,%
+\[
+\det\left(  \left(  \dfrac{1}{x_{i}+y_{j}}\right)  _{1\leq i\leq n,\ 1\leq
+j\leq n}\right)  =\dfrac{\prod\limits_{1\leq i<j\leq n}\left(  \left(
+x_{i}-x_{j}\right)  \left(  y_{i}-y_{j}\right)  \right)  }{\prod
+\limits_{\left(  i,j\right)  \in\left[  n\right]  ^{2}}\left(  x_{i}%
++y_{j}\right)  }.
+\]
+
+\end{theorem}
+
+Once again, there are many ways to prove this (see, e.g., \cite[Exercise
+6.18]{detnotes}, \cite[\S 1.3]{Prasolov}, \cite[Theorem 2]{Gri-19.9}, or
+\url{https://proofwiki.org/wiki/Value_of_Cauchy_Determinant} ). But using the
+Desnanot--Jacobi identity, there is a rather straightforward proof of Theorem
+\ref{thm.det.cauchy}. Indeed, if $A$ is a \emph{Cauchy matrix} (i.e., a matrix
+of the form $\left(  \dfrac{1}{x_{i}+y_{j}}\right)  _{1\leq i\leq n,\ 1\leq
+j\leq n}$), then so is each submatrix of $A$. Thus, if we proceed by strong
+induction on $n$, we can use the induction hypothesis to compute all five
+determinants on the right hand side of (\ref{eq.thm.det.des-jac-1.frac}). The
+only difficulty is making sure that $\det\left(  A^{\prime}\right)  $ is
+invertible. To achieve this, we again have to WLOG assume that our $x$'s and
+$y$'s are indeterminates in a polynomial ring, and we have to rewrite the
+claim of Theorem \ref{thm.det.cauchy} in the form%
+\[
+\det\left(  \left(  \prod_{k\neq j}\left(  x_{i}+y_{k}\right)  \right)
+_{1\leq i\leq n,\ 1\leq j\leq n}\right)  =\prod\limits_{1\leq i<j\leq
+n}\left(  \left(  x_{i}-x_{j}\right)  \left(  y_{i}-y_{j}\right)  \right)
+\]
+in order for both sides to actually be polynomials in $\mathbb{Z}\left[
+x_{1},x_{2},\ldots,x_{n},y_{1},y_{2},\ldots,y_{n}\right]  $. The details are
+left to the reader.
+
+Theorem \ref{thm.det.des-jac-1} can be generalized significantly. Here is the
+simplest generalization, in which the special role played by the first and
+last rows and the first and last columns is instead given to any two rows and
+any two columns:
+
+\begin{theorem}
+\label{thm.det.des-jac-2}Let $n\in\mathbb{N}$ be such that $n\geq2$. Let $p$,
+$q$, $u$ and $v$ be four elements of $\left[  n\right]  $ such that $p<q$ and
+$u<v$. Let $A$ be an $n\times n$-matrix. Then,%
+\begin{align*}
+&  \det A\cdot\det\left(  \operatorname*{sub}\nolimits_{\left[  n\right]
+\setminus\left\{  p,q\right\}  }^{\left[  n\right]  \setminus\left\{
+u,v\right\}  }A\right) \\
+&  =\det\left(  A_{\sim p,\sim u}\right)  \cdot\det\left(  A_{\sim q,\sim
+v}\right)  -\det\left(  A_{\sim p,\sim v}\right)  \cdot\det\left(  A_{\sim
+q,\sim u}\right)  .
+\end{align*}
+
+\end{theorem}
+
+\begin{proof}
+See \cite[Theorem 6.126]{detnotes}.
+\end{proof}
+
+Even more generally, \emph{Jacobi's complementary minor theorem for adjugates}
+(appearing, e.g., in \cite[Theorem 5.22]{trach}, or in equivalent forms in
+\cite[Theorem 2.5.2]{Prasolov} and \cite[(13)]{BruSch83}) says the following:
+
+\begin{theorem}
+[Jacobi's complementary minor theorem for adjugates]%
+\label{thm.det.jacobi-complement}Let $n\in\mathbb{N}$. For any subset $I$ of
+$\left[  n\right]  $, we let $\widetilde{I}$ denote the complement $\left[
+n\right]  \setminus I$ of $I$. Set $\operatorname*{sum}S=\sum_{s\in S}s$ for
+any finite set $S$ of integers. (For example, $\operatorname*{sum}\left\{
+2,4,5\right\}  =2+4+5=11$.)
+
+Let $A\in K^{n\times n}$ be an $n\times n$-matrix. Let $P$ and $Q$ be two
+subsets of $\left[  n\right]  $ such that $\left\vert P\right\vert =\left\vert
+Q\right\vert \geq1$. Then,%
+\[
+\det\left(  \operatorname*{sub}\nolimits_{P}^{Q}\left(  \operatorname*{adj}%
+A\right)  \right)  =\left(  -1\right)  ^{\operatorname*{sum}%
+P+\operatorname*{sum}Q}\left(  \det A\right)  ^{\left\vert Q\right\vert
+-1}\det\left(  \operatorname*{sub}\nolimits_{\widetilde{Q}}^{\widetilde{P}%
+}A\right)  .
+\]
+
+\end{theorem}
+
+Theorem \ref{thm.det.des-jac-2} is the particular case of Theorem
+\ref{thm.det.jacobi-complement} for $P=\left\{  u,v\right\}  $ and $Q=\left\{
+p,q\right\}  $.\ \ \ \ \footnote{Indeed, if we set $P=\left\{  u,v\right\}  $
+and $Q=\left\{  p,q\right\}  $ in the situation of Theorem
+\ref{thm.det.des-jac-2}, then%
+\begin{align*}
+\operatorname*{sub}\nolimits_{P}^{Q}\left(  \operatorname*{adj}A\right)   &
+=\left(
+\begin{array}
+[c]{cc}%
+\left(  -1\right)  ^{u+p}\det\left(  A_{\sim p,\sim u}\right)  & \left(
+-1\right)  ^{u+q}\det\left(  A_{\sim q,\sim u}\right) \\
+\left(  -1\right)  ^{v+p}\det\left(  A_{\sim p,\sim v}\right)  & \left(
+-1\right)  ^{v+q}\det\left(  A_{\sim q,\sim v}\right)
+\end{array}
+\right)  \ \ \ \ \ \ \ \ \ \ \text{and}\\
+\operatorname*{sub}\nolimits_{\widetilde{Q}}^{\widetilde{P}}A  &
+=\operatorname*{sub}\nolimits_{\left[  n\right]  \setminus\left\{
+p,q\right\}  }^{\left[  n\right]  \setminus\left\{  u,v\right\}  }A;
+\end{align*}
+thus, Theorem \ref{thm.det.jacobi-complement} is easily seen to boil down to
+Theorem \ref{thm.det.des-jac-2} in this case (the powers of $-1$ all cancel).}
+Theorem \ref{thm.det.des-jac-1} is, of course, the particular case of Theorem
+\ref{thm.det.des-jac-2} for $p=1$ and $q=n$ and $u=1$ and $v=n$.
+
+\begin{noncompile}
+TODO: Here I should eventually add a proof of Theorem
+\ref{thm.det.jacobi-complement} a la Prasolov. However, it needs the
+determinant of a block-triangular matrix.
+\end{noncompile}

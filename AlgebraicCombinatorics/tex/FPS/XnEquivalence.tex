@@ -1,0 +1,287 @@
+\subsection{\label{sec.gf.xneq}$x^{n}$-equivalence}
+
+We now return to general properties of FPSs.
+
+\begin{definition}
+\label{def.fps.xneq}Let $n\in\mathbb{N}$. Let $f,g\in K\left[  \left[
+x\right]  \right]  $ be two FPSs. We write $f\overset{x^{n}}{\equiv}g$ if and
+only if%
+\[
+\text{each }m\in\left\{  0,1,\ldots,n\right\}  \text{ satisfies }\left[
+x^{m}\right]  f=\left[  x^{m}\right]  g.
+\]
+
+
+Thus, we have defined a binary relation $\overset{x^{n}}{\equiv}$ on the set
+$K\left[  \left[  x\right]  \right]  $. We say that an FPS $f$ is $x^{n}%
+$\emph{-equivalent} to an FPS $g$ if and only if $f\overset{x^{n}}{\equiv}g$.
+\end{definition}
+
+Thus, an FPS $f$ is $x^{n}$-equivalent to an FPS $g$ if and only if the first
+$n+1$ coefficients of $f$ agree with the first $n+1$ coefficients of $g$. Here
+are some examples:
+
+\begin{example}
+\textbf{(a)} Consider the two FPSs
+\[
+\left(  1+x\right)  ^{3}=1+3x+3x^{2}+x^{3}=x^{0}+3x^{1}+3x^{2}+1x^{3}%
++0x^{4}+0x^{5}+\cdots
+\]
+and%
+\[
+\dfrac{1}{1-3x}=1+3x+\left(  3x\right)  ^{2}+\left(  3x\right)  ^{3}%
++\cdots=x^{0}+3x^{1}+9x^{2}+27x^{3}+\cdots.
+\]
+Thus, $\left(  1+x\right)  ^{3}\overset{x^{1}}{\equiv}\dfrac{1}{1-3x}$, since
+each $m\in\left\{  0,1\right\}  $ satisfies $\left[  x^{m}\right]  \left(
+\left(  1+x\right)  ^{3}\right)  =\left[  x^{m}\right]  \dfrac{1}{1-3x}$
+(indeed, we have $\left[  x^{0}\right]  \left(  \left(  1+x\right)
+^{3}\right)  =1=\left[  x^{0}\right]  \dfrac{1}{1-3x}$ and $\left[
+x^{1}\right]  \left(  \left(  1+x\right)  ^{3}\right)  =3=\left[
+x^{1}\right]  \dfrac{1}{1-3x}$). Of course, this also shows that $\left(
+1+x\right)  ^{3}\overset{x^{0}}{\equiv}\dfrac{1}{1-3x}$. However, we don't
+have $\left(  1+x\right)  ^{3}\overset{x^{2}}{\equiv}\dfrac{1}{1-3x}$ (at
+least not for $K=\mathbb{Z}$), since $\left[  x^{2}\right]  \left(  \left(
+1+x\right)  ^{3}\right)  =3$ does not equal $\left[  x^{2}\right]  \dfrac
+{1}{1-3x}=9$. \medskip
+
+\textbf{(b)} More generally, $\left(  1+x\right)  ^{n}\overset{x^{1}}{\equiv
+}\dfrac{1}{1-nx}$ and $\left(  1+x\right)  ^{n}\overset{x^{1}}{\equiv}1+nx$
+for each $n\in\mathbb{Z}$. \medskip
+
+\textbf{(c)} The generating function $F=F\left(  x\right)  =0+1x+1x^{2}%
++2x^{3}+3x^{4}+5x^{5}+\cdots$ from Section \ref{sec.gf.exas} satisfies
+$F\overset{x^{2}}{\equiv}x+x^{2}$ and $F\overset{x^{3}}{\equiv}x+x^{2}+2x^{3}%
+$. \medskip
+
+\textbf{(d)} If $f\in K\left[  \left[  x\right]  \right]  $ is any FPS, and if
+$n\in\mathbb{N}$, then there exists a polynomial $p\in K\left[  x\right]  $
+such that $f\overset{x^{n}}{\equiv}p$. Indeed, we can take $p=\sum_{k=0}%
+^{n}\left(  \left[  x^{k}\right]  f\right)  \cdot x^{k}$.
+\end{example}
+
+One way to get an intuition for the relation $\overset{x^{n}}{\equiv}$ is to
+think of it as a kind of \textquotedblleft approximate
+equality\textquotedblright\ up to degree $n$. (This makes the most sense if
+one thinks of $x$ as an infinitesimal quantity, in which case a term $\lambda
+x^{k}$ (with $\lambda\in K$) is the more \textquotedblleft
+important\textquotedblright\ the lower $k$ is. From this viewpoint,
+$f\overset{x^{n}}{\equiv}g$ means that the FPSs $f$ and $g$ agree in their
+$n+1$ most \textquotedblleft important\textquotedblright\ terms and differ at
+most in their \textquotedblleft error terms\textquotedblright.) For this
+reason, the statement \textquotedblleft$f\overset{x^{n}}{\equiv}%
+g$\textquotedblright\ is sometimes written as \textquotedblleft$f=g+o\left(
+x^{n}\right)  $\textquotedblright\ (an algebraic imitation of Landau's
+little-o notation from asymptotic analysis). Another intuition comes from
+elementary number theory: The relation $\overset{x^{n}}{\equiv}$ is similar to
+congruence of integers modulo a given integer. This is more than a similarity;
+the relation $\overset{x^{n}}{\equiv}$ can in fact be restated as a
+divisibility in the same fashion as for congruences of integers (see
+Proposition \ref{prop.fps.xneq-multiple} below). For this reason, the
+statement \textquotedblleft$f\overset{x^{n}}{\equiv}g$\textquotedblright\ is
+sometimes written as \textquotedblleft$f\equiv g\operatorname{mod}x^{n+1}%
+$\textquotedblright. We shall, however, eschew both of these alternative
+notations, and use the original notation \textquotedblleft$f\overset{x^{n}%
+}{\equiv}g$\textquotedblright\ from Definition \ref{def.fps.xneq}, as both
+intuitions (while useful) would distract from the simplicity of Definition
+\ref{def.fps.xneq}\footnote{Case in point: Definition \ref{def.fps.xneq} can
+be generalized to multivariate FPSs, but the two intuitions are no longer
+available (or, worse, give the \textquotedblleft wrong\textquotedblright%
+\ concepts) when extended to this generality.}.
+
+Here are some basic properties of the relation $\overset{x^{n}}{\equiv}$ (some
+of which will be used without explicit reference):
+
+\begin{theorem}
+\label{thm.fps.xneq.props}Let $n\in\mathbb{N}$. \medskip
+
+\textbf{(a)} The relation $\overset{x^{n}}{\equiv}$ on $K\left[  \left[
+x\right]  \right]  $ is an equivalence relation. In other words:
+
+\begin{itemize}
+\item This relation is reflexive (i.e., we have $f\overset{x^{n}}{\equiv}f$
+for each $f\in K\left[  \left[  x\right]  \right]  $).
+
+\item This relation is transitive (i.e., if three FPSs $f,g,h\in K\left[
+\left[  x\right]  \right]  $ satisfy $f\overset{x^{n}}{\equiv}g$ and
+$g\overset{x^{n}}{\equiv}h$, then $f\overset{x^{n}}{\equiv}h$).
+
+\item This relation is symmetric (i.e., if two FPSs $f,g\in K\left[  \left[
+x\right]  \right]  $ satisfy $f\overset{x^{n}}{\equiv}g$, then
+$g\overset{x^{n}}{\equiv}f$).
+\end{itemize}
+
+\textbf{(b)} If $a,b,c,d\in K\left[  \left[  x\right]  \right]  $ are four
+FPSs satisfying $a\overset{x^{n}}{\equiv}b$ and $c\overset{x^{n}}{\equiv}d$,
+then we also have%
+\begin{align}
+&  a+c\overset{x^{n}}{\equiv}b+d;\label{eq.thm.fps.xneq.props.b.+}\\
+&  a-c\overset{x^{n}}{\equiv}b-d;\label{eq.thm.fps.xneq.props.b.-}\\
+&  ac\overset{x^{n}}{\equiv}bd. \label{eq.thm.fps.xneq.props.b.*}%
+\end{align}
+
+
+\textbf{(c)} If $a,b\in K\left[  \left[  x\right]  \right]  $ are two FPSs
+satisfying $a\overset{x^{n}}{\equiv}b$, then $\lambda a\overset{x^{n}}{\equiv
+}\lambda b$ for each $\lambda\in K$. \medskip
+
+\textbf{(d)} If $a,b\in K\left[  \left[  x\right]  \right]  $ are two
+invertible FPSs satisfying $a\overset{x^{n}}{\equiv}b$, then $a^{-1}%
+\overset{x^{n}}{\equiv}b^{-1}$. \medskip
+
+\textbf{(e)} If $a,b,c,d\in K\left[  \left[  x\right]  \right]  $ are four
+FPSs satisfying $a\overset{x^{n}}{\equiv}b$ and $c\overset{x^{n}}{\equiv}d$,
+and if the FPSs $c$ and $d$ are invertible, then we also have%
+\begin{equation}
+\dfrac{a}{c}\overset{x^{n}}{\equiv}\dfrac{b}{d}.
+\label{eq.thm.fps.xneq.props.e./}%
+\end{equation}
+
+
+\textbf{(f)} Let $S$ be a finite set. Let $\left(  a_{s}\right)  _{s\in S}\in
+K\left[  \left[  x\right]  \right]  ^{S}$ and $\left(  b_{s}\right)  _{s\in
+S}\in K\left[  \left[  x\right]  \right]  ^{S}$ be two families of FPSs such
+that
+\begin{equation}
+\text{each }s\in S\text{ satisfies }a_{s}\overset{x^{n}}{\equiv}b_{s}.
+\label{eq.thm.fps.xneq.props.e.ass}%
+\end{equation}
+Then, we have%
+\begin{align}
+&  \sum_{s\in S}a_{s}\overset{x^{n}}{\equiv}\sum_{s\in S}b_{s}%
+;\label{eq.thm.fps.xneq.props.e.+}\\
+&  \prod_{s\in S}a_{s}\overset{x^{n}}{\equiv}\prod_{s\in S}b_{s}.
+\label{eq.thm.fps.xneq.props.e.*}%
+\end{align}
+
+\end{theorem}
+
+\begin{proof}
+[Proof of Theorem \ref{thm.fps.xneq.props} (sketched).]All of these properties
+are analogous to familiar properties of integer congruences, except for
+Theorem \ref{thm.fps.xneq.props} \textbf{(d)}, which is moot for integers
+(since there are not many integers that are invertible in $\mathbb{Z}$). The
+proofs are similarly simple (using (\ref{pf.thm.fps.ring.xn(a+b)=}),
+(\ref{pf.thm.fps.ring.xn(a-b)=}), (\ref{pf.thm.fps.ring.xn(ab)=2}) and
+(\ref{pf.thm.fps.ring.xn(la)=})). Thus, we shall only give some hints for the
+proof of Theorem \ref{thm.fps.xneq.props} \textbf{(d)} here; detailed proofs
+of all parts of Theorem \ref{thm.fps.xneq.props} can be found in Section
+\ref{sec.details.gf.xneq}.
+
+\textbf{(d)} Let $a,b\in K\left[  \left[  x\right]  \right]  $ be two
+invertible FPSs satisfying $a\overset{x^{n}}{\equiv}b$. We want to show that
+$a^{-1}\overset{x^{n}}{\equiv}b^{-1}$.
+
+The FPS $a$ is invertible; thus, its constant term $\left[  x^{0}\right]  a$
+is invertible in $K$ (by Proposition \ref{prop.fps.invertible}).
+
+Recall that $a\overset{x^{n}}{\equiv}b$. In other words,
+\begin{equation}
+\text{each }m\in\left\{  0,1,\ldots,n\right\}  \text{ satisfies }\left[
+x^{m}\right]  a=\left[  x^{m}\right]  b. \label{pf.thm.fps.xneq.props.d.ass}%
+\end{equation}
+
+
+Now, we want to prove that $a^{-1}\overset{x^{n}}{\equiv}b^{-1}$. In other
+words, we want to prove that each $m\in\left\{  0,1,\ldots,n\right\}  $
+satisfies $\left[  x^{m}\right]  \left(  a^{-1}\right)  =\left[  x^{m}\right]
+\left(  b^{-1}\right)  $. We shall prove this by strong induction on $m$: We
+fix some $k\in\left\{  0,1,\ldots,n\right\}  $, and we assume (as an induction
+hypothesis) that
+\begin{equation}
+\left[  x^{m}\right]  \left(  a^{-1}\right)  =\left[  x^{m}\right]  \left(
+b^{-1}\right)  \ \ \ \ \ \ \ \ \ \ \text{for each }m\in\left\{  0,1,\ldots
+,k-1\right\}  . \label{pf.thm.fps.xneq.props.d.IH}%
+\end{equation}
+We must now prove that $\left[  x^{k}\right]  \left(  a^{-1}\right)  =\left[
+x^{k}\right]  \left(  b^{-1}\right)  $. We know that%
+\begin{align*}
+\left[  x^{k}\right]  \left(  aa^{-1}\right)   &  =\sum_{i=0}^{k}\left[
+x^{i}\right]  a\cdot\left[  x^{k-i}\right]  \left(  a^{-1}\right)
+\ \ \ \ \ \ \ \ \ \ \left(  \text{by (\ref{pf.thm.fps.ring.xn(ab)=2})}\right)
+\\
+&  =\left[  x^{0}\right]  a\cdot\left[  x^{k}\right]  \left(  a^{-1}\right)
++\sum_{i=1}^{k}\left[  x^{i}\right]  a\cdot\left[  x^{k-i}\right]  \left(
+a^{-1}\right)
+\end{align*}
+(here, we have split off the addend for $i=0$ from the sum). Thus,%
+\[
+\left[  x^{0}\right]  a\cdot\left[  x^{k}\right]  \left(  a^{-1}\right)
++\sum_{i=1}^{k}\left[  x^{i}\right]  a\cdot\left[  x^{k-i}\right]  \left(
+a^{-1}\right)  =\left[  x^{k}\right]  \underbrace{\left(  aa^{-1}\right)
+}_{=1}=\left[  x^{k}\right]  1.
+\]
+We can solve this equation for $\left[  x^{k}\right]  \left(  a^{-1}\right)  $
+(since $\left[  x^{0}\right]  a$ is invertible), and thus obtain%
+\[
+\left[  x^{k}\right]  \left(  a^{-1}\right)  =\dfrac{1}{\left[  x^{0}\right]
+a}\cdot\left(  \left[  x^{k}\right]  1-\sum_{i=1}^{k}\left[  x^{i}\right]
+a\cdot\left[  x^{k-i}\right]  \left(  a^{-1}\right)  \right)  .
+\]
+The same argument (applied to $b$ instead of $a$) yields%
+\[
+\left[  x^{k}\right]  \left(  b^{-1}\right)  =\dfrac{1}{\left[  x^{0}\right]
+b}\cdot\left(  \left[  x^{k}\right]  1-\sum_{i=1}^{k}\left[  x^{i}\right]
+b\cdot\left[  x^{k-i}\right]  \left(  b^{-1}\right)  \right)  .
+\]
+The right hand sides of the latter two equalities are equal (since each
+$i\in\left\{  1,2,\ldots,k\right\}  $ satisfies $\left[  x^{i}\right]
+a=\left[  x^{i}\right]  b$ as a consequence of
+(\ref{pf.thm.fps.xneq.props.d.ass}), and satisfies $\left[  x^{k-i}\right]
+\left(  a^{-1}\right)  =\left[  x^{k-i}\right]  \left(  b^{-1}\right)  $ as a
+consequence of (\ref{pf.thm.fps.xneq.props.d.IH}), and since we have $\left[
+x^{0}\right]  a=\left[  x^{0}\right]  b$ as a consequence of
+(\ref{pf.thm.fps.xneq.props.d.ass})). Hence, the left hand sides must also be
+equal. In other words, $\left[  x^{k}\right]  \left(  a^{-1}\right)  =\left[
+x^{k}\right]  \left(  b^{-1}\right)  $, which is precisely what we wanted to
+prove. Thus, the induction step is complete, so that $a^{-1}\overset{x^{n}%
+}{\equiv}b^{-1}$ is proved. Thus, Theorem \ref{thm.fps.xneq.props}
+\textbf{(d)} is proved. (See Section \ref{sec.details.gf.xneq} for more details.)
+\end{proof}
+
+Let us next characterize $x^{n}$-equivalence of FPSs in terms of divisibility:
+
+\begin{proposition}
+\label{prop.fps.xneq-multiple}Let $n\in\mathbb{N}$. Let $f,g\in K\left[
+\left[  x\right]  \right]  $ be two FPSs. Then, we have $f\overset{x^{n}%
+}{\equiv}g$ if and only if the FPS $f-g$ is a multiple of $x^{n+1}$.
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.fps.xneq-multiple}.]See Section
+\ref{sec.details.gf.xneq} for this proof (a simple consequence of Lemma
+\ref{lem.fps.muls-of-xn}).
+\end{proof}
+
+Finally, here is a subtler property of $x^{n}$-equivalence similar to the ones
+in Theorem \ref{thm.fps.xneq.props} \textbf{(b)}:
+
+\begin{proposition}
+\label{prop.fps.xneq.comp}Let $n\in\mathbb{N}$. Let $a,b,c,d\in K\left[
+\left[  x\right]  \right]  $ be four FPSs satisfying $a\overset{x^{n}}{\equiv
+}b$ and $c\overset{x^{n}}{\equiv}d$ and $\left[  x^{0}\right]  c=0$ and
+$\left[  x^{0}\right]  d=0$. Then,%
+\[
+a\circ c\overset{x^{n}}{\equiv}b\circ d.
+\]
+
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.fps.xneq.comp} (sketched).]Write $a$ and $b$
+as $a=\sum_{i\in\mathbb{N}}a_{i}x^{i}$ and $b=\sum_{i\in\mathbb{N}}b_{i}x^{i}$
+(with $a_{i},b_{i}\in K$). Then, $a\overset{x^{n}}{\equiv}b$ means that
+$a_{i}=b_{i}$ for all $i\leq n$. Combine this with $c^{i}\overset{x^{n}%
+}{\equiv}d^{i}$ (which holds for all $i\in\mathbb{N}$ as a consequence of
+$c\overset{x^{n}}{\equiv}d$ and of (\ref{eq.thm.fps.xneq.props.e.*})) to
+obtain the relation $a_{i}c^{i}\overset{x^{n}}{\equiv}b_{i}d^{i}$ for all
+$i\leq n$. But this relation also holds for all $i>n$, since all such $i$
+satisfy $\left[  x^{m}\right]  \left(  c^{i}\right)  =\left[  x^{m}\right]
+\left(  d^{i}\right)  =0$ for all $m\in\left\{  0,1,\ldots,n\right\}  $ (a
+consequence of Lemma \ref{lem.fps.muls-of-xn} using $\left[  x^{0}\right]
+c=0$ and $\left[  x^{0}\right]  d=0$). Thus, the relation $a_{i}%
+c^{i}\overset{x^{n}}{\equiv}b_{i}d^{i}$ holds for all $i\in\mathbb{N}$.
+Summing over all $i$, we find $a\circ c\overset{x^{n}}{\equiv}b\circ d$.
+
+See Section \ref{sec.details.gf.xneq} for the details of this argument.
+\end{proof}

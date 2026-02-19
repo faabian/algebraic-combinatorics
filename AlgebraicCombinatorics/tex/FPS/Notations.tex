@@ -1,0 +1,1027 @@
+\subsection{Notations and elementary facts}
+
+We will use the following notations and conventions:
+
+\begin{itemize}
+\item The symbol $\mathbb{N}$ will denote the set $\left\{  0,1,2,3,\ldots
+\right\}  $ of nonnegative integers.
+
+\item The size (i.e., cardinality) of a set $A$ will be denoted by $\left\vert
+A\right\vert $.
+
+\item The symbol \textquotedblleft\#\textquotedblright\ means
+\textquotedblleft number\textquotedblright. For example, the size $\left\vert
+A\right\vert $ of a set $A$ is the \# of elements of $A$.
+\end{itemize}
+
+We will need some basics from enumerative combinatorics (see, e.g.,
+\cite[\S 8.1]{Newste19} for details, and \cite[Chapters 1 and 2]{19fco} for
+more details):
+
+\begin{itemize}
+\item \textbf{addition principle = sum rule:} If $A$ and $B$ are two disjoint
+sets, then $\left\vert A\cup B\right\vert =\left\vert A\right\vert +\left\vert
+B\right\vert $.
+
+\item \textbf{multiplication principle = product rule:} If $A$ and $B$ are any
+two sets, then $\left\vert A\times B\right\vert =\left\vert A\right\vert
+\cdot\left\vert B\right\vert $.
+
+\item \textbf{bijection principle:} There is a bijection (= bijective map =
+invertible map = one-to-one correspondence) between two sets $X$ and $Y$ if
+and only if $\left\vert X\right\vert =\left\vert Y\right\vert $.
+
+\item A set with $n$ elements has $2^{n}$ subsets, and has $\dbinom{n}{k}$
+size-$k$ subsets for any $k\in\mathbb{R}$.
+
+\item A set with $n$ elements has $n!$ permutations (= bijective maps from
+this set to itself).
+
+\item \textbf{dependent product rule:} Consider a situation in which you have
+to make $n$ choices (sequentially). Assume that you have $a_{1}$ options
+available in choice $1$, and then (after making choice $1$) you have $a_{2}$
+options available in choice $2$ (no matter which option you chose in choice
+$1$), and then (after both choices $1$ and $2$) you have $a_{3}$ options
+available in choice $3$ (no matter which options you chose in choices $1$ and
+$2$), and so on. Then, the total \# of ways to make all $n$ choices is
+$a_{1}a_{2}\cdots a_{n}$. (This is formalized in \cite[Theorem 8.1.19]%
+{Newste19}.)
+\end{itemize}
+
+A few words about binomial coefficients are in order:
+
+\begin{definition}
+\label{def.binom.binom}For any numbers $n$ and $k$, we set%
+\begin{equation}
+\dbinom{n}{k}=%
+\begin{cases}
+\dfrac{n\left(  n-1\right)  \left(  n-2\right)  \cdots\left(  n-k+1\right)
+}{k!}, & \text{if }k\in\mathbb{N};\\
+0, & \text{else.}%
+\end{cases}
+\label{eq.def.binom.binom.eq}%
+\end{equation}
+Note that \textquotedblleft numbers\textquotedblright\ is to be understood
+fairly liberally here. In particular, $n$ can be any integer, rational, real
+or complex number (or, more generally, any element in a $\mathbb{Q}$-algebra),
+whereas $k$ can be anything (although the only nonzero values of $\dbinom
+{n}{k}$ will be achieved for $k\in\mathbb{N}$, by the above definition).
+\end{definition}
+
+\begin{example}
+\label{exa.binom.-1choosek}For any $k\in\mathbb{N}$, we have
+\begin{align*}
+\dbinom{-1}{k}  &  =\dfrac{\left(  -1\right)  \left(  -1-1\right)  \left(
+-1-2\right)  \cdots\left(  -1-k+1\right)  }{k!}\\
+&  =\dfrac{\left(  -1\right)  \left(  -2\right)  \left(  -3\right)
+\cdots\left(  -k\right)  }{k!}=\dfrac{\left(  -1\right)  ^{k}k!}{k!}=\left(
+-1\right)  ^{k}.
+\end{align*}
+
+\end{example}
+
+If $n,k\in\mathbb{N}$ and $n\geq k$, then
+\begin{equation}
+\dbinom{n}{k}=\dfrac{n!}{k!\left(  n-k\right)  !}. \label{eq.binom.fac-form}%
+\end{equation}
+But this formula only applies to the case when $n,k\in\mathbb{N}$ and $n\geq
+k$. Our above definition is more general than it. The combinatorial meaning of
+the binomial coefficient $\dbinom{n}{k}$ (as the \# of $k$-element subsets of
+a given $n$-element set) also cannot be used for negative or non-integer
+values of $n$.
+
+\begin{example}
+\label{exa.binom.2n-choose-n}Let $n\in\mathbb{N}$. Then, $\dbinom{2n}%
+{n}=\dfrac{1\cdot3\cdot5\cdot\cdots\cdot\left(  2n-1\right)  }{n!}\cdot2^{n}$.
+\end{example}
+
+\begin{proof}
+[Proof of Example \ref{exa.binom.2n-choose-n}.]We have%
+\begin{align*}
+\left(  2n\right)  !  &  =1\cdot2\cdot\cdots\cdot\left(  2n\right) \\
+&  =\left(  1\cdot3\cdot5\cdot\cdots\cdot\left(  2n-1\right)  \right)
+\cdot\underbrace{\left(  2\cdot4\cdot6\cdot\cdots\cdot\left(  2n\right)
+\right)  }_{\substack{=\left(  2\cdot1\right)  \cdot\left(  2\cdot2\right)
+\cdot\cdots\cdot\left(  2\cdot n\right)  \\=2^{n}\left(  1\cdot2\cdot
+\cdots\cdot n\right)  }}\\
+&  =\left(  1\cdot3\cdot5\cdot\cdots\cdot\left(  2n-1\right)  \right)
+\cdot2^{n}\underbrace{\left(  1\cdot2\cdot\cdots\cdot n\right)  }_{=n!}\\
+&  =\left(  1\cdot3\cdot5\cdot\cdots\cdot\left(  2n-1\right)  \right)
+\cdot2^{n}n!.
+\end{align*}
+Now, (\ref{eq.binom.fac-form}) yields%
+\begin{align*}
+\dbinom{2n}{n}  &  =\dfrac{\left(  2n\right)  !}{n!\left(  2n-n\right)
+!}=\dfrac{\left(  2n\right)  !}{n!n!}=\dfrac{\left(  1\cdot3\cdot5\cdot
+\cdots\cdot\left(  2n-1\right)  \right)  \cdot2^{n}n!}{n!\cdot n!}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{since }\left(
+2n\right)  !=\left(  1\cdot3\cdot5\cdot\cdots\cdot\left(  2n-1\right)
+\right)  \cdot2^{n}n!\right) \\
+&  =\dfrac{\left(  1\cdot3\cdot5\cdot\cdots\cdot\left(  2n-1\right)  \right)
+\cdot2^{n}}{n!}=\dfrac{1\cdot3\cdot5\cdot\cdots\cdot\left(  2n-1\right)  }%
+{n!}\cdot2^{n}.
+\end{align*}
+This proves Example \ref{exa.binom.2n-choose-n}.
+\end{proof}
+
+Entire books have been written about binomial coefficients and their
+properties. See \cite{Spivey19} for a recent text (and \cite[Chapter 5]{GKP}
+and \cite[Chapter 3]{detnotes} and \cite[\S 1.2.6]{Knuth-TAoCP1} and
+\cite[Chapter 2]{Wildon19} for elementary introductions). Here are two more
+basic facts that we will need (\cite[Theorem 1.3.8]{19fco} and
+\cite[Proposition 1.3.6]{19fco}, respectively):
+
+\begin{proposition}
+[\emph{Pascal's identity}, aka \emph{recurrence of the binomial coefficients}%
+]\label{prop.binom.rec}We have%
+\begin{equation}
+\dbinom{m}{n}=\dbinom{m-1}{n-1}+\dbinom{m-1}{n} \label{eq.binom.rec.m}%
+\end{equation}
+for any numbers $m$ and $n$.
+\end{proposition}
+
+\begin{proposition}
+\label{prop.binom.0}Let $m,n\in\mathbb{N}$ satisfy $m<n$. Then, $\dbinom{m}%
+{n}=0$.
+\end{proposition}
+
+Note that Proposition \ref{prop.binom.0} really requires $m\in\mathbb{N}$. For
+example, $1.5<2$ but $\dbinom{1.5}{2}=0.375\neq0$.
+
+Yet another useful property of the binomial coefficients is the following
+(\cite[Theorem 1.3.11]{19fco}):
+
+\begin{theorem}
+[\emph{Symmetry of the binomial coefficients}]\label{thm.binom.sym}Let
+$n\in\mathbb{N}$ and $k\in\mathbb{R}$. Then,%
+\[
+\dbinom{n}{k}=\dbinom{n}{n-k}.
+\]
+
+\end{theorem}
+
+Note the $n\in\mathbb{N}$ requirement. Convince yourself that Theorem
+\ref{thm.binom.sym} would fail for $n=-1$ and $k=0$.
+
+\section{\label{chap.gf}Generating functions}
+
+In this first chapter, we will discuss generating functions: first informally,
+then on a rigorous footing. You may have seen generating functions already, as
+their usefulness extends far beyond combinatorics; but they are so important
+to this course that they are worth covering twice in case of doubt.
+
+Rigorous introductions to generating functions (and formal power series in
+general) can also be found in \cite[Chapter 7 (in the 1st edition)]{Loehr-BC},
+in \cite[Chapter 1]{Henric74}, in \cite{Sambal22}, and (to some extent) in
+\cite[Chapter 7]{19s}.\footnote{Bourbaki's \cite[\S IV.4]{Bourba03} contains
+what might be the most rigorous and honest treatment of formal power series
+available in the literature; however, it is not the most readable source, as
+the notation is dense and heavily relies on other volumes by the same author.}
+A quick overview is given in \cite{Niven69}, and many applications are found
+in \cite{Wilf09}. There are furthermore numerous books that explore
+enumerative combinatorics through the lens of generating functions
+(\cite{GouJac83}, \cite{Wagner08}, \cite{Lando03} and others).
+
+
+\subsection{\label{sec.gf.exas}Examples}
+
+Let me first show what generating functions are good for. Then, starting in
+the next section, I will explain how to rigorously define them. For now, I
+will work informally; please suspend your disbelief until the next section.
+
+The \textbf{idea} behind generating functions is easy: Any sequence $\left(
+a_{0},a_{1},a_{2},\ldots\right)  $ of numbers gives rise to a
+\textquotedblleft power series\textquotedblright\ $a_{0}+a_{1}x+a_{2}%
+x^{2}+\cdots$, which is called the \emph{generating function} of this
+sequence. This \textquotedblleft power series\textquotedblright\ is an
+infinite sum (an \textquotedblleft infinite polynomial\textquotedblright\ in
+an indeterminate $x$), so it is not immediately clear what it means and what
+we are allowed to do with it; but before we answer such questions, let us
+first play around with these power series and hope for the best. The following
+four examples show how they can be useful.
+
+\subsubsection{Example 1: The Fibonacci sequence}
+
+\textbf{Example 1.} The \emph{Fibonacci sequence} is the sequence $\left(
+f_{0},f_{1},f_{2},\ldots\right)  $ of integers defined recursively by%
+\[
+f_{0}=0,\ \ \ \ \ \ \ \ \ \ f_{1}=1,\ \ \ \ \ \ \ \ \ \ f_{n}=f_{n-1}%
++f_{n-2}\text{ for each }n\geq2.
+\]
+Its entries are known as the \emph{Fibonacci numbers}. Here are the first few
+of them:%
+\[%
+\begin{tabular}
+[c]{|c||c|c|c|c|c|c|c|c|c|c|c|c|}\hline
+$n$ & $0$ & $1$ & $2$ & $3$ & $4$ & $5$ & $6$ & $7$ & $8$ & $9$ & $10$ &
+$11$\\\hline
+$f_{n}$ & $0$ & $1$ & $1$ & $2$ & $3$ & $5$ & $8$ & $13$ & $21$ & $34$ & $55$
+& $89$\\\hline
+\end{tabular}
+\ \ \
+\]
+
+
+Let us see what we can learn about this sequence by considering its generating
+function%
+\begin{align*}
+F\left(  x\right)   &  :=f_{0}+f_{1}x+f_{2}x^{2}+f_{3}x^{3}+\cdots\\
+&  =0+1x+1x^{2}+2x^{3}+3x^{4}+5x^{5}+\cdots.
+\end{align*}
+
+
+We have%
+\begin{align*}
+F\left(  x\right)   &  =f_{0}+f_{1}x+f_{2}x^{2}+f_{3}x^{3}+f_{4}x^{4}+\cdots\\
+&  =\underbrace{0+1x}_{=x}+\left(  f_{1}+f_{0}\right)  x^{2}+\left(
+f_{2}+f_{1}\right)  x^{3}+\left(  f_{3}+f_{2}\right)  x^{4}+\cdots\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{since }f_{0}=0\text{
+and }f_{1}=1\text{ and }f_{n}=f_{n-1}+f_{n-2}\text{ for each }n\geq2\right) \\
+&  =x+\underbrace{\left(  f_{1}+f_{0}\right)  x^{2}+\left(  f_{2}%
++f_{1}\right)  x^{3}+\left(  f_{3}+f_{2}\right)  x^{4}+\cdots}%
+_{\substack{=\left(  f_{1}x^{2}+f_{2}x^{3}+f_{3}x^{4}+\cdots\right)  +\left(
+f_{0}x^{2}+f_{1}x^{3}+f_{2}x^{4}+\cdots\right)  \\\text{(here we are hoping
+that this manipulation of}\\\text{infinite sums is indeed legitimate)}}}\\
+&  =x+\underbrace{\left(  f_{1}x^{2}+f_{2}x^{3}+f_{3}x^{4}+\cdots\right)
+}_{\substack{=x\left(  f_{1}x+f_{2}x^{2}+f_{3}x^{3}+\cdots\right)  \\=x\left(
+F\left(  x\right)  -f_{0}\right)  =xF\left(  x\right)  \\\text{(since }%
+f_{0}=0\text{)}}}+\underbrace{\left(  f_{0}x^{2}+f_{1}x^{3}+f_{2}x^{4}%
++\cdots\right)  }_{\substack{=x^{2}\left(  f_{0}+f_{1}x+f_{2}x^{2}+f_{3}%
+x^{3}+\cdots\right)  \\=x^{2}F\left(  x\right)  }}\\
+&  =x+xF\left(  x\right)  +x^{2}F\left(  x\right)  =x+\left(  x+x^{2}\right)
+F\left(  x\right)  .
+\end{align*}
+Solving this equation for $F\left(  x\right)  $ (assuming that we are allowed
+to divide by $1-x-x^{2}$), we get%
+\begin{align}
+F\left(  x\right)   &  =\dfrac{x}{1-x-x^{2}}\label{eq.sec.gf.exas.1.Fx=1}\\
+&  =\dfrac{x}{\left(  1-\phi_{+}x\right)  \left(  1-\phi_{-}x\right)
+},\nonumber
+\end{align}
+where $\phi_{+}=\dfrac{1+\sqrt{5}}{2}$ and $\phi_{-}=\dfrac{1-\sqrt{5}}{2}$
+are the two roots of the quadratic polynomial $1-x-x^{2}$ (note that $\phi
+_{+}$ and $\phi_{-}$ are sometimes known as the \textquotedblleft golden
+ratios\textquotedblright; we have $\phi_{+}\approx1.618$ and $\phi_{-}%
+\approx-0.618$). Hence,%
+\begin{align}
+F\left(  x\right)   &  =\dfrac{x}{\left(  1-\phi_{+}x\right)  \left(
+1-\phi_{-}x\right)  }\nonumber\\
+&  =\dfrac{1}{\sqrt{5}}\cdot\dfrac{1}{1-\phi_{+}x}-\dfrac{1}{\sqrt{5}}%
+\cdot\dfrac{1}{1-\phi_{-}x} \label{eq.sec.gf.exas.1.Fx=2}%
+\end{align}
+(by partial fraction decomposition).
+
+Now, what are the coefficients of the power series $\dfrac{1}{1-\alpha x}$ for
+an $\alpha\in\mathbb{C}$ ? Let me first answer this question for $\alpha=1$.
+Namely, I claim that%
+\begin{equation}
+\dfrac{1}{1-x}=1+x+x^{2}+x^{3}+\cdots. \label{eq.sec.gf.exas.1.1/1-x}%
+\end{equation}
+Indeed, this follows by observing that
+\begin{align*}
+&  \left(  1-x\right)  \left(  1+x+x^{2}+x^{3}+\cdots\right) \\
+&  =\left(  1+x+x^{2}+x^{3}+\cdots\right)  -x\left(  1+x+x^{2}+x^{3}%
++\cdots\right) \\
+&  =\left(  1+x+x^{2}+x^{3}+\cdots\right)  -\left(  x+x^{2}+x^{3}+x^{4}%
++\cdots\right) \\
+&  =1
+\end{align*}
+(again, we are hoping that these manipulations of infinite sums are allowed).
+Note that the equality (\ref{eq.sec.gf.exas.1.1/1-x}) is a version of the
+\emph{geometric series formula} familiar from real analysis. Now, for any
+$\alpha\in\mathbb{C}$, we can substitute $\alpha x$ for $x$ in the equality
+(\ref{eq.sec.gf.exas.1.1/1-x}), and thus obtain%
+\begin{align}
+\dfrac{1}{1-\alpha x}  &  =1+\alpha x+\left(  \alpha x\right)  ^{2}+\left(
+\alpha x\right)  ^{3}+\cdots\nonumber\\
+&  =1+\alpha x+\alpha^{2}x^{2}+\alpha^{3}x^{3}+\cdots.
+\label{eq.sec.gf.exas.1.1/1-ax}%
+\end{align}
+Hence, our above formula (\ref{eq.sec.gf.exas.1.Fx=2}) becomes%
+\begin{align*}
+F\left(  x\right)   &  =\dfrac{1}{\sqrt{5}}\cdot\dfrac{1}{1-\phi_{+}x}%
+-\dfrac{1}{\sqrt{5}}\cdot\dfrac{1}{1-\phi_{-}x}\\
+&  =\dfrac{1}{\sqrt{5}}\cdot\left(  1+\phi_{+}x+\phi_{+}^{2}x^{2}+\phi_{+}%
+^{3}x^{3}+\cdots\right)  -\dfrac{1}{\sqrt{5}}\cdot\left(  1+\phi_{-}x+\phi
+_{-}^{2}x^{2}+\phi_{-}^{3}x^{3}+\cdots\right) \\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{by
+(\ref{eq.sec.gf.exas.1.1/1-ax}), applied to }\alpha=\phi_{+}\text{ and again
+to }\alpha=\phi_{-}\right) \\
+&  =\dfrac{1}{\sqrt{5}}\sum_{k\geq0}\phi_{+}^{k}x^{k}-\dfrac{1}{\sqrt{5}}%
+\sum_{k\geq0}\phi_{-}^{k}x^{k}\\
+&  =\sum_{k\geq0}\left(  \dfrac{1}{\sqrt{5}}\cdot\phi_{+}^{k}-\dfrac{1}%
+{\sqrt{5}}\cdot\phi_{-}^{k}\right)  x^{k}.
+\end{align*}
+Now, for any given $n\in\mathbb{N}$, the coefficient of $x^{n}$ in the power
+series on the left hand side of this equality is $f_{n}$ (since $F\left(
+x\right)  =f_{0}+f_{1}x+f_{2}x^{2}+f_{3}x^{3}+\cdots$), whereas the
+coefficient of $x^{n}$ on the right hand side is clearly $\dfrac{1}{\sqrt{5}%
+}\cdot\phi_{+}^{n}-\dfrac{1}{\sqrt{5}}\cdot\phi_{-}^{n}$. Thus, comparing
+coefficients before $x^{n}$, we obtain%
+\begin{align*}
+f_{n}  &  =\dfrac{1}{\sqrt{5}}\cdot\phi_{+}^{n}-\dfrac{1}{\sqrt{5}}\cdot
+\phi_{-}^{n}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{assuming that \textquotedblleft comparing coefficients\textquotedblright%
+\ is allowed, i.e.,}\\
+\text{that equal power series really have equal coefficients}%
+\end{array}
+\right) \\
+&  =\dfrac{1}{\sqrt{5}}\cdot\left(  \dfrac{1+\sqrt{5}}{2}\right)  ^{n}%
+-\dfrac{1}{\sqrt{5}}\cdot\left(  \dfrac{1-\sqrt{5}}{2}\right)  ^{n}%
+\end{align*}
+for any $n\in\mathbb{N}$. This formula is known as \emph{Binet's formula}. It
+has many consequences; for example, it implies easily that $\lim
+\limits_{n\rightarrow\infty}\dfrac{f_{n+1}}{f_{n}}=\phi_{+}=\dfrac{1+\sqrt{5}%
+}{2}\approx1.618\ldots$. Thus, $f_{n}\sim\phi_{+}^{n}$ in the asymptotical sense.
+
+\subsubsection{Example 2: Dyck words and Catalan numbers}
+
+Before the next example, let us address a warmup question: What is the number
+of $2n$-tuples that contain $n$ entries equal to $0$ and $n$ entries equal to
+$1$ (where $n$ is a given nonnegative integer)?
+
+(For example, for $n=2$, these $2n$-tuples are $\left(  1,1,0,0\right)  $,
+$\left(  1,0,1,0\right)  $, $\left(  1,0,0,1\right)  $, $\left(
+0,1,1,0\right)  $, $\left(  0,1,0,1\right)  $, $\left(  0,0,1,1\right)  $, so
+there are $6$ of them.)
+
+\textbf{Answer:} The number is $\dbinom{2n}{n}$, since choosing a $2n$-tuple
+that contains $n$ entries equal to $0$ and $n$ entries equal to $1$ is
+tantamount to choosing an $n$-element subset of $\left\{  1,2,\ldots
+,2n\right\}  $ (and we know that there are $\dbinom{2n}{n}$ ways to choose the latter).
+
+\bigskip
+
+\textbf{Example 2.} A \emph{Dyck word} of length $2n$ (where $n\in\mathbb{N}$)
+is a $2n$-tuple that contains $n$ entries equal to $0$ and $n$ entries equal
+to $1$, and has the additional property that for each $k$, we have
+\begin{align}
+&  \left(  \text{\# of }0\text{'s among its first }k\text{ entries}\right)
+\nonumber\\
+&  \leq\left(  \text{\# of }1\text{'s among its first }k\text{ entries}%
+\right)  . \label{eq.sec.gf.exas.2.dyckword.leq}%
+\end{align}
+(The symbol \textquotedblleft\#\textquotedblright\ means \textquotedblleft
+number\textquotedblright.)
+
+Some examples: The tuples
+\[
+\left(  1,0,1,0\right)  ,\ \ \left(  1,1,0,0\right)  ,\ \ \left(
+1,1,0,1,0,0\right)  ,\ \ \left(  {}\right)  ,\ \ \left(  1,0\right)
+\]
+are Dyck words. The tuples
+\[
+\left(  0,1,1,0\right)  ,\ \ \left(  1,0,0,1\right)  ,\ \ \left(
+1,1,0\right)  ,\ \ \left(  1\right)  ,\ \ \left(  1,1,1,0\right)
+\]
+are not Dyck words.
+
+A \emph{Dyck path} of length $2n$ is a path from the point $\left(
+0,0\right)  $ to the point $\left(  2n,0\right)  $ in the Cartesian plane that
+moves only using \textquotedblleft NE-steps\textquotedblright\ (i.e., steps of
+the form $\left(  x,y\right)  \rightarrow\left(  x+1,y+1\right)  $) and
+\textquotedblleft SE-steps\textquotedblright\ (i.e., steps of the form
+$\left(  x,y\right)  \rightarrow\left(  x+1,y-1\right)  $) and never falls
+below the x-axis (i.e., does not contain any point $\left(  x,y\right)  $ with
+$y<0$).
+
+Examples: For $n=2$, the Dyck paths from $\left(  0,0\right)  $ to $\left(
+2n,0\right)  $ are%
+\[%
+\begin{tabular}
+[c]{ccc}%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+& $\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ $ &
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\end{tabular}
+\]
+
+
+A Dyck path can be viewed as the \textquotedblleft skyline\textquotedblright%
+\ of a \textquotedblleft mountain range\textquotedblright. For example:%
+\[%
+\begin{tabular}
+[c]{|c|c|}\hline
+Dyck path & \textquotedblleft mountain range\textquotedblright\\\hline
+\ \
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\ \  & \ \
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\ \ \\\hline
+\end{tabular}
+\]
+
+
+The names \textquotedblleft NE-steps\textquotedblright\ and \textquotedblleft
+SE-steps\textquotedblright\ in the definition of a Dyck path refer to compass
+directions: If we treat the Cartesian plane as a map with the x-axis directed
+eastwards and the y-axis directed northwards, then an NE-step moves to the
+northeast, and an SE-step moves to the southeast.
+
+Note that any NE-step and any SE-step increases the x-coordinate by $1$ (that
+is, the step goes from a point with x-coordinate $k$ to a point with
+x-coordinate $k+1$). Thus, any Dyck path from $\left(  0,0\right)  $ to
+$\left(  2n,0\right)  $ has precisely $2n$ steps. Of these $2n$ steps, exactly
+$n$ are NE-steps while the remaining $n$ are SE-steps (because any NE-step
+increases the y-coordinate by $1$, while any SE-step decreases the
+y-coordinate by $1$). Since a Dyck path must never fall below the x-axis, we
+see that the number of SE-steps up to any given point can never be larger than
+the number of NE-steps up to this point. But this is exactly the condition
+(\ref{eq.sec.gf.exas.2.dyckword.leq}) from the definition of a Dyck word,
+except that we are talking about NE-steps and SE-steps instead of $1$'s and
+$0$'s. Thus, there is a simple bijection between Dyck words of length $2n$ and
+Dyck paths from $\left(  0,0\right)  $ to $\left(  2n,0\right)  $:
+
+\begin{itemize}
+\item send each $1$ in the Dyck word to a NE-step in the Dyck path;
+
+\item send each $0$ in the Dyck word to a SE-step in the Dyck path.
+\end{itemize}
+
+So the \# of Dyck words (of length $2n$) equals the \# of Dyck paths (from
+$\left(  0,0\right)  $ to $\left(  2n,0\right)  $). But what is this number?
+
+Example: For $n=3$, this number is $5$. Indeed, here are all Dyck paths from
+$\left(  0,0\right)  $ to $\left(  6,0\right)  $, and their corresponding Dyck
+words:%
+\[%
+\begin{tabular}
+[c]{|c|c|}\hline
+Dyck path & Dyck word\\\hline
+\ \
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\ \  & $\left(  1,1,0,0,1,0\right)  $\\\hline
+\ \
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\ \  & $\left(  1,1,1,0,0,0\right)  $\\\hline
+\ \
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\ \  & $\left(  1,0,1,0,1,0\right)  $\\\hline
+\ \
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\ \  & $\left(  1,0,1,1,0,0\right)  $\\\hline
+\ \
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\ \  & $\left(  1,1,0,1,0,0\right)  $\\\hline
+\end{tabular}
+\]
+(We will soon stop writing the commas and parentheses when writing down words.
+For example, the word $\left(  1,1,0,0,1,0\right)  $ will just become $110010$.)
+
+Back to the general question.
+
+For each $n\in\mathbb{N}$, we define
+\begin{align*}
+c_{n}:=  &  \ \left(  \text{\# of Dyck paths from }\left(  0,0\right)  \text{
+to }\left(  2n,0\right)  \right) \\
+=  &  \ \left(  \text{\# of Dyck words of length }2n\right)
+\ \ \ \ \ \ \ \ \ \ \left(  \text{as we have seen above}\right)  .
+\end{align*}
+Then, $c_{0}=1$ (since the only Dyck path from $\left(  0,0\right)  $ to
+$\left(  0,0\right)  $ is the trivial path) and $c_{1}=1$ and $c_{2}=2$ and
+$c_{3}=5$ and $c_{4}=14$ and so on. These numbers $c_{n}$ are known as the
+\emph{Catalan numbers}. Entire books have been written about them, such as
+\cite{Stanle15}.
+
+Let us first find a recurrence relation for $c_{n}$. The argument below is
+best understood by following an example; namely, consider the following Dyck
+path from $\left(  0,0\right)  $ to $\left(  16,0\right)  $ (so the
+corresponding $n$ is $8$):%
+\[%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\]
+
+
+Fix a positive integer $n$. If $d$ is a Dyck path from $\left(  0,0\right)  $
+to $\left(  2n,0\right)  $, then the \emph{first return} of $d$ (this is short
+for \textquotedblleft first return of $d$ to the x-axis\textquotedblright)
+shall mean the first point on $d$ that lies on the x-axis but is not the
+origin (i.e., that has the form $\left(  i,0\right)  $ for some integer
+$i>0$). For instance, in the example that we just gave, the first return is
+the point $\left(  6,0\right)  $. If $d$ is a Dyck path from $\left(
+0,0\right)  $ to $\left(  2n,0\right)  $, and if $\left(  i,0\right)  $ is its
+first return, then $i$ is even\footnote{\textit{Proof.} The number of NE-steps
+before the first return must equal the number of SE-steps before the first
+return (because these steps have altogether taken us from the origin to a
+point on the x-axis, and thus must have increased and decreased the
+y-coordinate an equal number of times). This shows that the total number of
+steps before the first return is even. In other words, $i$ is even (because
+the total number of steps before the first return is $i$).}, and therefore we
+have $i=2k$ for some $k\in\left\{  1,2,\ldots,n\right\}  $. Hence, for any
+Dyck path from $\left(  0,0\right)  $ to $\left(  2n,0\right)  $, the first
+return is a point of the form $\left(  2k,0\right)  $ for some $k\in\left\{
+1,2,\ldots,n\right\}  $. Thus,%
+\begin{align*}
+&  \left(  \text{\# of Dyck paths from }\left(  0,0\right)  \text{ to }\left(
+2n,0\right)  \right)  \\
+&  =\sum_{k=1}^{n}\left(  \text{\# of Dyck paths from }\left(  0,0\right)
+\text{ to }\left(  2n,0\right)  \text{ whose first return is }\left(
+2k,0\right)  \right)  .
+\end{align*}
+
+
+Now, let us fix some $k\in\left\{  1,2,\ldots,n\right\}  $. We shall compute
+the \# of Dyck paths from $\left(  0,0\right)  $ to $\left(  2n,0\right)  $
+whose first return is $\left(  2k,0\right)  $. Any such Dyck path has a
+natural \textquotedblleft two-part\textquotedblright\ structure: Its first
+$2k$ steps form a path from $\left(  0,0\right)  $ to $\left(  2k,0\right)  $,
+while its last (i.e., remaining) $2\left(  n-k\right)  $ steps form a path
+from $\left(  2k,0\right)  $ to $\left(  2n,0\right)  $. Thus, in order to
+construct such a path, we
+
+\begin{itemize}
+\item first choose its first $2k$ steps: They have to form a Dyck path from
+$\left(  0,0\right)  $ to $\left(  2k,0\right)  $ that never returns to the
+x-axis until $\left(  2k,0\right)  $. Hence, they begin with a NE-step and end
+with a SE-step (since any other steps here would cause the path to fall below
+the x-axis). Between these two steps, the remaining $2k-2=2\left(  k-1\right)
+$ steps form a path that not only never falls below the x-axis, but also never
+touches it (since $\left(  2k,0\right)  $ is the first return of our Dyck
+path, so that our Dyck path does not touch the x-axis between $\left(
+0,0\right)  $ and $\left(  2k,0\right)  $). In other words, these $2\left(
+k-1\right)  $ steps form a path from $\left(  1,1\right)  $ to $\left(
+2k-1,1\right)  $ that never falls below the $y=1$ line (i.e., below the x-axis
+shifted by $1$ upwards). This means that it is a Dyck path from $\left(
+0,0\right)  $ to $\left(  2\left(  k-1\right)  ,0\right)  $ (shifted by
+$\left(  1,1\right)  $). Thus, there are $c_{k-1}$ possibilities for this
+path. Hence, there are $c_{k-1}$ choices for the first $2k$ steps of our Dyck path.
+
+\item then choose its last $2\left(  n-k\right)  $ steps: They have to form a
+path from $\left(  2k,0\right)  $ to $\left(  2\left(  n-k\right)  ,0\right)
+$ that never falls below the x-axis (but is allowed to touch it any number of
+times). Thus, they form a Dyck path from $\left(  0,0\right)  $ to $\left(
+2\left(  n-k\right)  ,0\right)  $ (shifted by $\left(  2k,0\right)  $). So
+there are $c_{n-k}$ choices for these last $2\left(  n-k\right)  $ steps.
+\end{itemize}
+
+Thus, there are $c_{k-1}c_{n-k}$ many options for such a Dyck path from
+$\left(  0,0\right)  $ to $\left(  2n,0\right)  $ (since choosing the first
+$2k$ steps and choosing the last $2\left(  n-k\right)  $ steps are independent).
+
+Let me illustrate this reasoning on the Dyck path from $\left(  0,0\right)  $
+to $\left(  16,0\right)  $ shown above. This Dyck path has first return
+$\left(  6,0\right)  $; thus, the corresponding $k$ is $3$. Since this Dyck
+path does not return to the x-axis before $\left(  2k,0\right)  =\left(
+6,0\right)  $, its first $2k$ steps stay above (or on) the yellow trapezoid
+shown here:%
+\[%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\]
+In particular, the first and the last of these $2k$ steps are uniquely
+determined, while the steps between them form a diagonally shifted Dyck path
+that is filled in green here:%
+\[%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\]
+Finally, the last $2\left(  n-k\right)  $ steps form a horizontally shifted
+Dyck path that is filled in purple here:%
+\[%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\]
+Our above argument shows that there are $c_{k-1}$ choices for the green Dyck
+path and $c_{n-k}$ choices for the purple Dyck path, therefore $c_{k-1}%
+c_{n-k}$ options in total.
+
+Forget that we fixed $k$. Our counting argument above shows that%
+\begin{align}
+&  \left(  \text{\# of Dyck paths from }\left(  0,0\right)  \text{ to }\left(
+2n,0\right)  \text{ whose first return is }\left(  2k,0\right)  \right)
+\nonumber\\
+&  =c_{k-1}c_{n-k} \label{eq.sec.gf.exas.2.dyckword.knum}%
+\end{align}
+for each $k\in\left\{  1,2,\ldots,n\right\}  $. Now,
+\begin{align*}
+c_{n}  &  =\left(  \text{\# of Dyck paths from }\left(  0,0\right)  \text{ to
+}\left(  2n,0\right)  \right) \\
+&  =\sum_{k=1}^{n}\underbrace{\left(  \text{\# of Dyck paths from }\left(
+0,0\right)  \text{ to }\left(  2n,0\right)  \text{ whose first return is
+}\left(  2k,0\right)  \right)  }_{\substack{=c_{k-1}c_{n-k}\\\text{(by
+(\ref{eq.sec.gf.exas.2.dyckword.knum}))}}}\\
+&  =\sum_{k=1}^{n}c_{k-1}c_{n-k}=c_{0}c_{n-1}+c_{1}c_{n-2}+c_{2}c_{n-3}%
++\cdots+c_{n-1}c_{0}.
+\end{align*}
+This is a recurrence equation for $c_{n}$. Combining it with $c_{0}=1$, we can
+use it to compute any value of $c_{n}$ recursively. Let us, however, try to
+digest it using generating functions!
+
+Let%
+\[
+C\left(  x\right)  :=\sum_{n\geq0}c_{n}x^{n}=c_{0}+c_{1}x+c_{2}x^{2}%
++c_{3}x^{3}+\cdots.
+\]
+Thus,%
+\begin{align*}
+C\left(  x\right)   &  =c_{0}+c_{1}x+c_{2}x^{2}+c_{3}x^{3}+\cdots\\
+&  =1+\left(  c_{0}c_{0}\right)  x+\left(  c_{0}c_{1}+c_{1}c_{0}\right)
+x^{2}+\left(  c_{0}c_{2}+c_{1}c_{1}+c_{2}c_{0}\right)  x^{3}+\cdots\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{since }c_{0}=1\\
+\text{and }c_{n}=c_{0}c_{n-1}+c_{1}c_{n-2}+c_{2}c_{n-3}+\cdots+c_{n-1}c_{0}\\
+\text{for each }n>0
+\end{array}
+\right) \\
+&  =1+x\underbrace{\left(  \left(  c_{0}c_{0}\right)  +\left(  c_{0}%
+c_{1}+c_{1}c_{0}\right)  x+\left(  c_{0}c_{2}+c_{1}c_{1}+c_{2}c_{0}\right)
+x^{2}+\cdots\right)  }_{\substack{=\left(  c_{0}+c_{1}x+c_{2}x^{2}%
++\cdots\right)  ^{2}\\\text{(because if we multiply out }\left(  c_{0}%
++c_{1}x+c_{2}x^{2}+\cdots\right)  ^{2}\\\text{and collect like powers of
+}x\text{, we obtain}\\\text{exactly }\left(  c_{0}c_{0}\right)  +\left(
+c_{0}c_{1}+c_{1}c_{0}\right)  x+\left(  c_{0}c_{2}+c_{1}c_{1}+c_{2}%
+c_{0}\right)  x^{2}+\cdots\text{)}}}\\
+&  =1+x\left(  \underbrace{c_{0}+c_{1}x+c_{2}x^{2}+\cdots}_{=C\left(
+x\right)  }\right)  ^{2}=1+x\left(  C\left(  x\right)  \right)  ^{2}.
+\end{align*}
+This is a quadratic equation in $C\left(  x\right)  $. Let us solve it by the
+quadratic formula (assuming for now that this is allowed -- i.e., that the
+quadratic formula really does apply to our \textquotedblleft power
+series\textquotedblright, whatever they are). Thus, we get%
+\begin{equation}
+C\left(  x\right)  =\dfrac{1\pm\sqrt{1-4x}}{2x}. \label{eq.sec.gf.exas.2.-+}%
+\end{equation}
+The $\pm$ sign here cannot be a $+$ sign, because if it was a $+$, then the
+power series on top of the fraction would not be divisible by $2x$ (as its
+constant term would be $2$ and thus nonzero\footnote{If you find this
+unconvincing, here is a cleaner way to argue this: Multiplying the equality
+(\ref{eq.sec.gf.exas.2.-+}) by $2x$, we obtain $2xC\left(  x\right)
+=1\pm\sqrt{1-4x}$. The left hand side of this equality has constant term $0$,
+but the right hand side has constant term $1\pm1$ (here, we are making the
+assumption that $\sqrt{1-4x}$ is a power series with constant term $1$; this
+is plausible because $\sqrt{1-4\cdot0}=1$ and will also be justified further
+below). Thus, $0=1\pm1$; this shows that the $\pm$ sign is a $-$ sign.}).
+Thus, (\ref{eq.sec.gf.exas.2.-+}) becomes%
+\begin{equation}
+C\left(  x\right)  =\dfrac{1-\sqrt{1-4x}}{2x}=\dfrac{1}{2x}\left(  1-\left(
+1-4x\right)  ^{1/2}\right)  . \label{eq.sec.gf.exas.2.-}%
+\end{equation}
+
+
+How do we find the coefficients of the power series $\left(  1-4x\right)
+^{1/2}$ ?
+
+For each $n\in\mathbb{N}$, the binomial formula yields%
+\begin{equation}
+\left(  1+x\right)  ^{n}=\sum_{k=0}^{n}\dbinom{n}{k}x^{k}=\sum_{k\geq0}%
+\dbinom{n}{k}x^{k}. \label{eq.sec.gf.exas.2.(1+x)n}%
+\end{equation}
+(Here, we have replaced the $\sum_{k=0}^{n}$ sign by a $\sum_{k\geq0}$ sign,
+thus extending the summation from all $k\in\left\{  0,1,\ldots,n\right\}  $ to
+all $k\in\mathbb{N}$. This does not change the value of the sum, since all the
+newly appearing addends are $0$, as you can easily check.)
+
+Let us pretend that the formula (\ref{eq.sec.gf.exas.2.(1+x)n}) holds not only
+for $n\in\mathbb{N}$, but also for $n=1/2$. That is, we have%
+\begin{equation}
+\left(  1+x\right)  ^{1/2}=\sum_{k\geq0}\dbinom{1/2}{k}x^{k}.
+\label{eq.sec.gf.exas.2.(1+x)1/2}%
+\end{equation}
+Now, substitute $-4x$ for $x$ in this equality (here we are making the rather
+plausible assumption that we can substitute $-4x$ for $x$ in a power series);
+then, we get%
+\begin{align*}
+\left(  1-4x\right)  ^{1/2}  &  =\sum_{k\geq0}\dbinom{1/2}{k}\left(
+-4x\right)  ^{k}=\sum_{k\geq0}\dbinom{1/2}{k}\left(  -4\right)  ^{k}x^{k}\\
+&  =\underbrace{\dbinom{1/2}{0}}_{=1}\underbrace{\left(  -4\right)  ^{0}}%
+_{=1}\underbrace{x^{0}}_{=1}+\sum\limits_{k\geq1}\dbinom{1/2}{k}\left(
+-4\right)  ^{k}x^{k}\\
+&  =1+\sum\limits_{k\geq1}\dbinom{1/2}{k}\left(  -4\right)  ^{k}x^{k}.
+\end{align*}
+Hence,%
+\[
+1-\left(  1-4x\right)  ^{1/2}=1-\left(  1+\sum\limits_{k\geq1}\dbinom{1/2}%
+{k}\left(  -4\right)  ^{k}x^{k}\right)  =-\sum\limits_{k\geq1}\dbinom{1/2}%
+{k}\left(  -4\right)  ^{k}x^{k}.
+\]
+Thus, (\ref{eq.sec.gf.exas.2.-}) becomes%
+\begin{align*}
+C\left(  x\right)   &  =\dfrac{1}{2x}\underbrace{\left(  1-\left(
+1-4x\right)  ^{1/2}\right)  }_{=-\sum\limits_{k\geq1}\dbinom{1/2}{k}\left(
+-4\right)  ^{k}x^{k}}=\dfrac{1}{2x}\left(  -\sum\limits_{k\geq1}\dbinom
+{1/2}{k}\left(  -4\right)  ^{k}x^{k}\right) \\
+&  =\sum\limits_{k\geq1}\dbinom{1/2}{k}\underbrace{\dfrac{-\left(  -4\right)
+^{k}x^{k}}{2x}}_{=2\left(  -4\right)  ^{k-1}x^{k-1}}=\sum\limits_{k\geq
+1}\dbinom{1/2}{k}2\left(  -4\right)  ^{k-1}x^{k-1}\\
+&  =\sum\limits_{k\geq0}\dbinom{1/2}{k+1}2\left(  -4\right)  ^{k}x^{k}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{here, we have
+substituted }k+1\text{ for }k\text{ in the sum}\right)  .
+\end{align*}
+Comparing coefficients before $x^{n}$ in this equality gives%
+\begin{equation}
+c_{n}=\dbinom{1/2}{n+1}2\left(  -4\right)  ^{n}.
+\label{eq.sec.gf.exas.cn=frac}%
+\end{equation}
+
+
+This is an explicit formula for $c_{n}$ (and makes computation of $c_{n}$
+pretty easy!), but it turns out that it can be simplified further. Indeed, the
+definition of $\dbinom{1/2}{n+1}$ yields%
+\begin{align*}
+\dbinom{1/2}{n+1}  &  =\dfrac{\left(  1/2\right)  \left(  1/2-1\right)
+\left(  1/2-2\right)  \cdots\left(  1/2-n\right)  }{\left(  n+1\right)  !}\\
+&  =\dfrac{\vphantom{\dfrac{f}{f}}\dfrac{1}{2}\cdot\dfrac{-1}{2}\cdot
+\dfrac{-3}{2}\cdot\dfrac{-5}{2}\cdot\cdots\cdot\dfrac{-\left(  2n-1\right)
+}{2}}{\left(  n+1\right)  !}\\
+&  =\dfrac{\left(  1\cdot\left(  -1\right)  \cdot\left(  -3\right)
+\cdot\left(  -5\right)  \cdot\cdots\cdot\left(  -\left(  2n-1\right)  \right)
+\right)  /2^{n+1}}{\left(  n+1\right)  !}\\
+&  =\dfrac{\left(  \left(  -1\right)  \cdot\left(  -3\right)  \cdot\left(
+-5\right)  \cdot\cdots\cdot\left(  -\left(  2n-1\right)  \right)  \right)
+/2^{n+1}}{\left(  n+1\right)  !}\\
+&  =\dfrac{\left(  -1\right)  ^{n}\left(  1\cdot3\cdot5\cdot\cdots\cdot\left(
+2n-1\right)  \right)  /2^{n+1}}{\left(  n+1\right)  !}.
+\end{align*}
+Thus, (\ref{eq.sec.gf.exas.cn=frac}) rewrites as
+\begin{align*}
+c_{n}  &  =\dfrac{\left(  -1\right)  ^{n}\left(  1\cdot3\cdot5\cdot\cdots
+\cdot\left(  2n-1\right)  \right)  /2^{n+1}}{\left(  n+1\right)  !}%
+\cdot2\left(  -4\right)  ^{n}\\
+&  =\underbrace{\dfrac{1\cdot3\cdot5\cdot\cdots\cdot\left(  2n-1\right)
+}{\left(  n+1\right)  !}}_{\substack{=\dfrac{1}{n+1}\cdot\dfrac{1\cdot
+3\cdot5\cdot\cdots\cdot\left(  2n-1\right)  }{n!}\\\text{(since }\left(
+n+1\right)  !=\left(  n+1\right)  \cdot n!\text{)}}}\cdot\,\underbrace{\dfrac
+{\left(  -1\right)  ^{n}\cdot2\left(  -4\right)  ^{n}}{2^{n+1}}}_{=2^{n}}\\
+&  =\dfrac{1}{n+1}\cdot\underbrace{\dfrac{1\cdot3\cdot5\cdot\cdots\cdot\left(
+2n-1\right)  }{n!}\cdot2^{n}}_{\substack{=\dbinom{2n}{n}\\\text{(by Example
+\ref{exa.binom.2n-choose-n})}}}=\dfrac{1}{n+1}\dbinom{2n}{n}.
+\end{align*}
+Hence, we have shown that
+\begin{equation}
+c_{n}=\dfrac{1}{n+1}\dbinom{2n}{n}. \label{eq.sec.gf.exas.cn=1/(n+1)}%
+\end{equation}
+Moreover, we can rewrite this further as%
+\begin{equation}
+c_{n}=\dbinom{2n}{n}-\dbinom{2n}{n-1} \label{eq.sec.gf.exas.cn=diff}%
+\end{equation}
+(since another binomial coefficient manipulation\footnote{See Exercise
+\ref{exe.gf.cn-easy-manip} \textbf{(a)} for this.} yields $\dfrac{1}%
+{n+1}\dbinom{2n}{n}=\dbinom{2n}{n}-\dbinom{2n}{n-1}$).
+
+Here is the upshot: The \# of Dyck words of length $2n$ is $c_{n}=\dfrac
+{1}{n+1}\dbinom{2n}{n}$. In other words, a $2n$-tuple that consists of $n$
+entries equal to $0$ and $n$ entries equal to $1$ (chosen uniformly at random)
+is a Dyck word with probability $\dfrac{1}{n+1}$.
+
+(There are also combinatorial ways to prove this; see, e.g., \cite[\S 7.5,
+discussion at the end of Example 4]{GKP} or \cite[\S 1.6]{Stanle15} or
+\cite{Martin-Dyck} or \cite[Lecture 29, Theorem 5.6.7]{22fco} or \cite[Theorem
+1.56]{Loehr-BC}\footnote{Note that the \textquotedblleft Dyck
+paths\textquotedblright\ in \cite{Loehr-BC} differ from ours in that they use
+N-steps (i.e., steps $\left(  i,j\right)  \mapsto\left(  i,j+1\right)  $) and
+E-steps (i.e., steps $\left(  i,j\right)  \mapsto\left(  i+1,j\right)  $)
+instead of NE-steps and SE-steps, and stay above the $x=y$ line instead of
+above the x-axis. But this notion of Dyck paths is equivalent to ours, since a
+clockwise rotation by $45^{\circ}$ followed by a $\sqrt{2}$-homothety
+transforms it into ours.} or \cite[\S 8.5, proofs of Identity 244]%
+{Spivey19}\footnote{Again, \cite{Spivey19} works not directly with Dyck paths,
+but rather with paths that use E-steps (i.e., steps $\left(  i,j\right)
+\mapsto\left(  i+1,j\right)  $) and N-steps (i.e., steps $\left(  i,j\right)
+\mapsto\left(  i,j+1\right)  $) instead of NE-steps and SE-steps, and stay
+below the $x=y$ line instead of above the x-axis. But this kind of Dyck paths
+is equivalent to our Dyck paths, since a reflection across the $x=y$ line,
+followed by a clockwise rotation by $45^{\circ}$ followed by a $\sqrt{2}%
+$-homothety transforms it into ours.}.)
+
+Here is a table of the first $12$ Catalan numbers $c_{n}$:%
+\[%
+\begin{tabular}
+[c]{|c||c|c|c|c|c|c|c|c|c|c|c|c|}\hline
+$n$ & $0$ & $1$ & $2$ & $3$ & $4$ & $5$ & $6$ & $7$ & $8$ & $9$ & $10$ &
+$11$\\\hline
+$c_{n}$ & $1$ & $1$ & $2$ & $5$ & $14$ & $42$ & $132$ & $429$ & $1430$ &
+$4862$ & $16\,796$ & $58\,786$\\\hline
+\end{tabular}
+\ \ \ \ \ .
+\]
+
+
+\subsubsection{Example 3: The Vandermonde convolution}
+
+\textbf{Example 3:} The \emph{Vandermonde convolution identity} (also known as
+the \emph{Chu--Vandermonde identity}) says that%
+\[
+\dbinom{a+b}{n}=\sum_{k=0}^{n}\dbinom{a}{k}\dbinom{b}{n-k}%
+\ \ \ \ \ \ \ \ \ \ \text{for any numbers }a,b\text{ and any }n\in\mathbb{N}%
+\]
+(where \textquotedblleft numbers\textquotedblright\ can mean, e.g.,
+\textquotedblleft complex numbers\textquotedblright).
+
+Let us prove this using generating functions. For now, we shall only prove
+this for $a,b\in\mathbb{N}$; later I will explain why it also holds for
+arbitrary (rational, real or complex) numbers $a,b$ as well.
+
+Indeed, fix $a,b\in\mathbb{N}$. Recall (from (\ref{eq.sec.gf.exas.2.(1+x)n}))
+that
+\[
+\left(  1+x\right)  ^{n}=\sum_{k\geq0}\dbinom{n}{k}x^{k}%
+\]
+for each $n\in\mathbb{N}$. Hence,%
+\begin{align*}
+\left(  1+x\right)  ^{a}  &  =\sum_{k\geq0}\dbinom{a}{k}x^{k}%
+\ \ \ \ \ \ \ \ \ \ \text{and}\\
+\left(  1+x\right)  ^{b}  &  =\sum_{k\geq0}\dbinom{b}{k}x^{k}%
+\ \ \ \ \ \ \ \ \ \ \text{and}\\
+\left(  1+x\right)  ^{a+b}  &  =\sum_{k\geq0}\dbinom{a+b}{k}x^{k}.
+\end{align*}
+Thus,
+\begin{align*}
+\underbrace{\left(  1+x\right)  ^{a}}_{=\sum_{k\geq0}\dbinom{a}{k}x^{k}%
+}\ \ \underbrace{\left(  1+x\right)  ^{b}}_{=\sum_{k\geq0}\dbinom{b}{k}x^{k}}
+&  =\left(  \sum_{k\geq0}\dbinom{a}{k}x^{k}\right)  \left(  \sum_{k\geq
+0}\dbinom{b}{k}x^{k}\right) \\
+&  =\left(  \sum_{k\geq0}\dbinom{a}{k}x^{k}\right)  \left(  \sum_{\ell\geq
+0}\dbinom{b}{\ell}x^{\ell}\right) \\
+&  =\sum_{k\geq0}\ \ \sum_{\ell\geq0}\dbinom{a}{k}x^{k}\dbinom{b}{\ell}%
+x^{\ell}\\
+&  =\sum_{k\geq0}\ \ \sum_{\ell\geq0}\dbinom{a}{k}\dbinom{b}{\ell}x^{k+\ell}\\
+&  =\sum_{n\geq0}\left(  \sum_{k=0}^{n}\dbinom{a}{k}\dbinom{b}{n-k}\right)
+x^{n}%
+\end{align*}
+(here, we have merged addends in which $x$ appears in the same power). Hence,%
+\begin{align*}
+\sum_{n\geq0}\left(  \sum_{k=0}^{n}\dbinom{a}{k}\dbinom{b}{n-k}\right)  x^{n}
+&  =\left(  1+x\right)  ^{a}\left(  1+x\right)  ^{b}=\left(  1+x\right)
+^{a+b}=\sum_{k\geq0}\dbinom{a+b}{k}x^{k}\\
+&  =\sum_{n\geq0}\dbinom{a+b}{n}x^{n}.
+\end{align*}
+Comparing coefficients in this equality, we obtain%
+\[
+\sum_{k=0}^{n}\dbinom{a}{k}\dbinom{b}{n-k}=\dbinom{a+b}{n}%
+\ \ \ \ \ \ \ \ \ \ \text{for each }n\in\mathbb{N}.
+\]
+This completes the proof of the Vandermonde convolution identity for
+$a,b\in\mathbb{N}$.
+
+\subsubsection{Example 4: Solving a recurrence}
+
+\textbf{Example 4.} The following example is from \cite[\S 1.2]{Wilf04}.
+Define a sequence $\left(  a_{0},a_{1},a_{2},\ldots\right)  $ of numbers
+recursively by%
+\[
+a_{0}=1,\ \ \ \ \ \ \ \ \ \ a_{n+1}=2a_{n}+n\text{ for all }n\geq0.
+\]
+Thus, the first entries of this sequence are $1,2,5,12,27,58,121,\ldots$. This
+sequence appears in \href{https://oeis.org/}{the OEIS (= Online Encyclopedia
+of Integer Sequences)} as \href{https://oeis.org/A000325}{A000325}, with index shifted.
+
+Can we find an explicit formula for $a_{n}$ (without looking it up in the OEIS)?
+
+Again, generating functions are helpful. Set%
+\[
+A\left(  x\right)  =a_{0}+a_{1}x+a_{2}x^{2}+a_{3}x^{3}+\cdots.
+\]
+Then,%
+\begin{align}
+A\left(  x\right)   &  =a_{0}+a_{1}x+a_{2}x^{2}+a_{3}x^{3}+\cdots\nonumber\\
+&  =1+\left(  2a_{0}+0\right)  x+\left(  2a_{1}+1\right)  x^{2}+\left(
+2a_{2}+2\right)  x^{3}+\cdots\nonumber\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{since }a_{0}=1\text{
+and }a_{n+1}=2a_{n}+n\text{ for all }n\geq0\right) \nonumber\\
+&  =1+2\underbrace{\left(  a_{0}x+a_{1}x^{2}+a_{2}x^{3}+\cdots\right)
+}_{=xA\left(  x\right)  }+\underbrace{\left(  0x+1x^{2}+2x^{3}+\cdots\right)
+}_{=x\left(  0+1x+2x^{2}+3x^{3}+\cdots\right)  }\nonumber\\
+&  =1+2xA\left(  x\right)  +x\left(  0+1x+2x^{2}+3x^{3}+\cdots\right)  .
+\label{eq.sec.gf.exas.4.Ax=1}%
+\end{align}
+
+
+Thus, it would clearly be helpful to find a simple expression for
+$0+1x+2x^{2}+3x^{3}+\cdots$. Here are two ways to do so: \medskip
+
+\textit{First way:} We assume that our power series (whatever they actually
+are) can be differentiated (as if they were functions). We furthermore assume
+that these derivatives satisfy the same basic rules (sum rule, product rule,
+quotient rule, chain rule) as the derivatives in real analysis. (Again, these
+assumptions shall be justified later on.)
+
+Denoting the derivative of a power series $f$ by $f^{\prime}$, we then have%
+\[
+\left(  1+x+x^{2}+x^{3}+\cdots\right)  ^{\prime}=1+2x+3x^{2}+4x^{3}+\cdots.
+\]
+Hence,%
+\[
+1+2x+3x^{2}+4x^{3}+\cdots=\left(  1+x+x^{2}+x^{3}+\cdots\right)  ^{\prime
+}=\left(  \dfrac{1}{1-x}\right)  ^{\prime}%
+\]
+(since (\ref{eq.sec.gf.exas.1.1/1-x}) yields $1+x+x^{2}+x^{3}+\cdots=\dfrac
+{1}{1-x}$). Using the quotient rule, we can easily find that $\left(
+\dfrac{1}{1-x}\right)  ^{\prime}=\dfrac{1}{\left(  1-x\right)  ^{2}}$, so that%
+\begin{equation}
+1+2x+3x^{2}+4x^{3}+\cdots=\left(  \dfrac{1}{1-x}\right)  ^{\prime}=\dfrac
+{1}{\left(  1-x\right)  ^{2}}. \label{eq.sec.gf.exas.4.1/(1-x)2}%
+\end{equation}
+
+
+The left hand side of this looks very similar to the power series
+$0+1x+2x^{2}+3x^{3}+\cdots$ that we want to simplify. And indeed, we have the
+following:%
+\begin{align}
+0+1x+2x^{2}+3x^{3}+\cdots &  =x\underbrace{\left(  1+2x+3x^{2}+4x^{3}%
++\cdots\right)  }_{=\dfrac{1}{\left(  1-x\right)  ^{2}}}=x\cdot\dfrac
+{1}{\left(  1-x\right)  ^{2}}\nonumber\\
+&  =\dfrac{x}{\left(  1-x\right)  ^{2}}. \label{eq.sec.gf.exas.4.x/(1-x)2}%
+\end{align}
+\medskip
+
+\textit{Second way:} We rewrite $0+1x+2x^{2}+3x^{3}+\cdots$ as an infinite sum
+of infinite sums:%
+\begin{align}
+&  \ 0+1x+2x^{2}+3x^{3}+\cdots\nonumber\\
+&
+\begin{array}
+[c]{cccccccccc}%
+= & x^{1} & + & x^{2} & + & x^{3} & + & x^{4} & + & \cdots\\
+&  & + & x^{2} & + & x^{3} & + & x^{4} & + & \cdots\\
+&  &  &  & + & x^{3} & + & x^{4} & + & \cdots\\
+&  &  &  &  &  & + & x^{4} & + & \cdots\\
+&  &  &  &  &  &  &  & \ddots & \ddots
+\end{array}
+\nonumber\\
+&  =\sum_{k\geq1}\underbrace{\left(  x^{k}+x^{k+1}+x^{k+2}+\cdots\right)
+}_{\substack{=x^{k}\cdot\left(  1+x+x^{2}+x^{3}+\cdots\right)  \\=x^{k}%
+\cdot\dfrac{1}{1-x}\\\text{(by (\ref{eq.sec.gf.exas.1.1/1-x}))}}}=\sum
+_{k\geq1}x^{k}\cdot\dfrac{1}{1-x}=\dfrac{1}{1-x}\cdot\underbrace{\sum_{k\geq
+1}x^{k}}_{\substack{=x^{1}+x^{2}+x^{3}+\cdots\\=x\cdot\left(  1+x+x^{2}%
++x^{3}+\cdots\right)  \\=x\cdot\dfrac{1}{1-x}\\\text{(by
+(\ref{eq.sec.gf.exas.1.1/1-x}))}}}\nonumber\\
+&  =\dfrac{1}{1-x}\cdot x\cdot\dfrac{1}{1-x}=\dfrac{x}{\left(  1-x\right)
+^{2}}. \label{eq.sec.gf.exas.4.x/(1-x)2alt}%
+\end{align}
+(We used some unstated assumptions here about infinite sums -- specifically,
+we assumed that we can rearrange them without worrying about absolute
+convergence or similar issues -- but we will later see that these assumptions
+are well justified. Besides, we obtained the same result as by our first way,
+which is reassuring.) \medskip
+
+Having computed $0+1x+2x^{2}+3x^{3}+\cdots$, we can now simplify
+(\ref{eq.sec.gf.exas.4.Ax=1}), obtaining%
+\begin{align*}
+A\left(  x\right)   &  =1+2xA\left(  x\right)  +x\underbrace{\left(
+0+1x+2x^{2}+3x^{3}+\cdots\right)  }_{=\dfrac{x}{\left(  1-x\right)  ^{2}}}\\
+&  =1+2xA\left(  x\right)  +x\cdot\dfrac{x}{\left(  1-x\right)  ^{2}}.
+\end{align*}
+This is a linear equation in $A\left(  x\right)  $. Solving it yields%
+\begin{align*}
+A\left(  x\right)   &  =\dfrac{1-2x+2x^{2}}{\left(  1-x\right)  ^{2}\left(
+1-2x\right)  }\\
+&  =\underbrace{\dfrac{2}{1-2x}}_{\substack{=2\sum_{k\geq0}2^{k}%
+x^{k}\\\text{(by (\ref{eq.sec.gf.exas.1.1/1-ax}))}}}-\underbrace{\dfrac
+{1}{\left(  1-x\right)  ^{2}}}_{\substack{=1+2x+3x^{2}+4x^{3}+\cdots
+\\\text{(by (\ref{eq.sec.gf.exas.4.1/(1-x)2}), or alternatively}\\\text{by
+dividing the}\\\text{equality (\ref{eq.sec.gf.exas.4.x/(1-x)2alt}) by
+}x\text{)}}}\ \ \ \ \ \ \ \ \ \ \left(  \text{by partial fraction
+decomposition}\right) \\
+&  =\underbrace{2\sum_{k\geq0}2^{k}x^{k}}_{=\sum_{k\geq0}2^{k+1}x^{k}%
+}-\underbrace{\left(  1+2x+3x^{2}+4x^{3}+\cdots\right)  }_{=\sum_{k\geq
+0}\left(  k+1\right)  x^{k}}\\
+&  =\sum_{k\geq0}2^{k+1}x^{k}-\sum_{k\geq0}\left(  k+1\right)  x^{k}%
+=\sum_{k\geq0}\left(  2^{k+1}-\left(  k+1\right)  \right)  x^{k}.
+\end{align*}
+Comparing coefficients, we obtain%
+\[
+a_{n}=2^{n+1}-\left(  n+1\right)  \ \ \ \ \ \ \ \ \ \ \text{for each }%
+n\in\mathbb{N}.
+\]
+This is also easy to prove directly (by induction on $n$).

@@ -1,0 +1,341 @@
+\subsection{Polynomials}
+
+\subsubsection{Definition}
+
+Let us take a little side trip to relate FPSs to polynomials. As should be
+clear enough from the definitions, we can think of an FPS as a
+\textquotedblleft polynomial with (potentially) infinitely many nonzero
+coefficients\textquotedblright. This can be easily made precise. Indeed, we
+can \textbf{define} polynomials as FPSs that have only finitely many nonzero coefficients:
+
+\begin{definition}
+\label{def.fps.pol}\textbf{(a)} An FPS $a\in K\left[  \left[  x\right]
+\right]  $ is said to be a \emph{polynomial} if all but finitely many
+$n\in\mathbb{N}$ satisfy $\left[  x^{n}\right]  a=0$ (that is, if all but
+finitely many coefficients of $a$ are $0$). \medskip
+
+\textbf{(b)} We let $K\left[  x\right]  $ be the set of all polynomials $a\in
+K\left[  \left[  x\right]  \right]  $. This set $K\left[  x\right]  $ is a
+subring of $K\left[  \left[  x\right]  \right]  $ (according to Theorem
+\ref{thm.fps.pol.ring} below), and is called the \emph{univariate polynomial
+ring} over $K$.
+\end{definition}
+
+For example, $2+3x+7x^{5}$ is a polynomial, whereas $1+x+x^{2}+x^{3}+\cdots$
+is not (unless $K$ is a trivial ring).
+
+The definition of a \textquotedblleft polynomial\textquotedblright\ that you
+have seen in your abstract algebra course might be superficially different
+from that in Definition \ref{def.fps.pol}; but it necessarily is equivalent.
+(In fact, Definition \ref{def.fps.pol} \textbf{(a)} can be restated as
+\textquotedblleft a polynomial means a $K$-linear combination of the monomials
+$x^{0},x^{1},x^{2},\ldots$\textquotedblright, and it is clear that the
+monomials $x^{0},x^{1},x^{2},\ldots$ in $K\left[  \left[  x\right]  \right]  $
+are $K$-linearly independent; thus, the polynomial ring $K\left[  x\right]  $
+as we have defined it in Definition \ref{def.fps.pol} \textbf{(b)} is a free
+$K$-module with basis $\left(  x^{0},x^{1},x^{2},\ldots\right)  $. The same is
+true for the polynomial ring $K\left[  x\right]  $ that you know from abstract
+algebra. Moreover, the rules for adding, subtracting and multiplying
+polynomials known from abstract algebra agree with the formulas for
+$\mathbf{a}+\mathbf{b}$, $\mathbf{a}-\mathbf{b}$ and $\mathbf{a}%
+\cdot\mathbf{b}$ that we gave in Definition \ref{def.fps.ops}.)
+
+We owe a theorem:
+
+\begin{theorem}
+\label{thm.fps.pol.ring}The set $K\left[  x\right]  $ is a subring of
+$K\left[  \left[  x\right]  \right]  $ (that is, it is closed under addition,
+subtraction and multiplication, and contains the zero $\underline{0}$ and the
+unity $\underline{1}$) and is a $K$-submodule of $K\left[  \left[  x\right]
+\right]  $ (that is, it is closed under addition and scaling by elements of
+$K$).
+\end{theorem}
+
+\begin{proof}
+[Proof of Theorem \ref{thm.fps.pol.ring} (sketched).]This is a rather easy
+exercise. The hardest part is to show that $K\left[  x\right]  $ is closed
+under multiplication. But this, too, is easy: Let $a,b\in K\left[  x\right]
+$. Then, all but finitely many $n\in\mathbb{N}$ satisfy $\left[  x^{n}\right]
+a=0$ (since $a\in K\left[  x\right]  $). In other words, there exists a finite
+subset $I$ of $\mathbb{N}$ such that%
+\begin{equation}
+\left[  x^{i}\right]  a=0\text{ for all }i\in\mathbb{N}\setminus I.
+\label{pf.thm.fps.pol.ring.xia=0}%
+\end{equation}
+Similarly, there exists a finite subset $J$ of $\mathbb{N}$ such that
+\begin{equation}
+\left[  x^{j}\right]  b=0\text{ for all }j\in\mathbb{N}\setminus J.
+\label{pf.thm.fps.pol.ring.xjb=0}%
+\end{equation}
+Consider these $I$ and $J$. Now, let $S$ be the subset $\left\{
+i+j\ \mid\ i\in I\text{ and }j\in J\right\}  $ of $\mathbb{N}$. This set $S$
+is again finite (since $I$ and $J$ are finite), and we can easily see (using
+(\ref{pf.thm.fps.ring.xn(ab)=2})) that%
+\[
+\left[  x^{n}\right]  \left(  ab\right)  =0\text{ for all }n\in\mathbb{N}%
+\setminus S
+\]
+\footnote{\textit{Proof.} Let $n\in\mathbb{N}\setminus S$. Thus,
+$n\in\mathbb{N}$ and $n\notin S$. Now, (\ref{pf.thm.fps.ring.xn(ab)=2}) yields
+$\left[  x^{n}\right]  \left(  ab\right)  =\sum_{i=0}^{n}\left[  x^{i}\right]
+a\cdot\left[  x^{n-i}\right]  b$. We shall next show that each addend in this
+sum is $0$.
+\par
+Indeed, let $i\in\left\{  0,1,\ldots,n\right\}  $ be arbitrary. Let $j=n-i$.
+Thus, $n=i+j$. Hence, we cannot have $i\in I$ and $j\in J$ simultaneously
+(because if we did, then we would have $n=\underbrace{i}_{\in I}%
++\underbrace{j}_{\in J}\in S$ (by the definition of $S$), which would
+contradict $n\notin S$). Hence, we must have $i\notin I$ or $j\notin J$ (or
+both). In the former case, we have $\left[  x^{i}\right]  a=0$ (by
+(\ref{pf.thm.fps.pol.ring.xia=0}), since $i\notin I$ entails $i\in
+\mathbb{N}\setminus I$). In the latter case, we have $\left[  x^{j}\right]
+b=0$ (by (\ref{pf.thm.fps.pol.ring.xjb=0}), since $j\notin J$ entails
+$j\in\mathbb{N}\setminus J$). Thus, in either case, at least one of the two
+coefficients $\left[  x^{i}\right]  a$ and $\left[  x^{j}\right]  b$ is $0$,
+so that their product $\left[  x^{i}\right]  a\cdot\left[  x^{j}\right]  b$ is
+$0$. In other words, $\left[  x^{i}\right]  a\cdot\left[  x^{n-i}\right]  b$
+is $0$ (since $j=n-i$).
+\par
+Forget that we fixed $i$. We thus have shown that $\left[  x^{i}\right]
+a\cdot\left[  x^{n-i}\right]  b$ is $0$ for each $i\in\left\{  0,1,\ldots
+,n\right\}  $. In other words, all addends of the sum $\sum_{i=0}^{n}\left[
+x^{i}\right]  a\cdot\left[  x^{n-i}\right]  b$ are $0$. Hence, the whole sum
+is $0$. In other words, $\left[  x^{n}\right]  \left(  ab\right)  =0$ (since
+$\left[  x^{n}\right]  \left(  ab\right)  =\sum_{i=0}^{n}\left[  x^{i}\right]
+a\cdot\left[  x^{n-i}\right]  b$), qed.}. Thus, all but finitely many
+$n\in\mathbb{N}$ satisfy $\left[  x^{n}\right]  \left(  ab\right)  =0$ (since
+$S$ is finite). This shows that $ab\in K\left[  x\right]  $. Hence, we have
+shown that $K\left[  x\right]  $ is closed under multiplication. The remaining
+claims of Theorem \ref{thm.fps.pol.ring} are similar but easier.
+\end{proof}
+
+\subsubsection{Reminders on rings and $K$-algebras}
+
+As we now know, polynomials are just a special case of FPSs. However, they
+have some features that FPSs don't have in general. The most important of
+these features is \emph{substitution}. To wit, we can substitute an element of
+$K$, or more generally an element of any $K$-algebra, into a polynomial (but
+generally not into an FPS). Before we explain how, let us recall the notions
+of rings and $K$-algebras (see \cite[Chapter 2 and \S 3.11]{23wa} for details
+and more about them):
+
+\begin{definition}
+\label{def.alg.ring}The notion of a \emph{ring} (also known as a
+\emph{noncommutative ring}) is defined in the exact same way as we defined the
+notion of a commutative ring in Definition \ref{def.alg.commring}, except that
+the \textquotedblleft Commutativity of multiplication\textquotedblright\ axiom
+is removed.
+\end{definition}
+
+Examples of noncommutative rings\footnote{Note that the word \textquotedblleft
+noncommutative ring\textquotedblright\ does not imply that the ring is not
+commutative; it merely means that commutativity is not required. Thus, any
+commutative ring is a noncommutative ring.} abound in linear algebra:
+
+\begin{itemize}
+\item For any $n\in\mathbb{N}$, the matrix ring $\mathbb{R}^{n\times n}$ (that
+is, the ring of all $n\times n$-matrices with real entries) is a ring. This
+ring is commutative if $n\leq1$, but not if $n>1$.
+
+More generally, if $K$ is any ring (commutative or not), then the matrix ring
+$K^{n\times n}$ is a ring for every $n\in\mathbb{N}$.
+
+\item The ring $\mathbb{H}$ of
+\href{https://en.wikipedia.org/wiki/Quaternion}{quaternions} is a ring that is
+not commutative.
+
+\item If $M$ is an abelian group, then the ring of all endomorphisms of $M$
+(that is, the ring of all $\mathbb{Z}$-linear maps from $M$ to $M$) is a
+noncommutative ring. (Its multiplication is composition of endomorphisms.)
+\end{itemize}
+
+Next, let us recall the notion of a $K$-algebra (\cite[\S 3.11]{23wa}). Recall
+that $K$ is a fixed commutative ring.
+
+\begin{definition}
+\label{def.alg.Kalg}A $K$\emph{-algebra} is a set $A$ equipped with four maps%
+\begin{align*}
+\oplus &  :A\times A\rightarrow A,\\
+\ominus &  :A\times A\rightarrow A,\\
+\odot &  :A\times A\rightarrow A,\\
+\rightharpoonup &  :K\times A\rightarrow A
+\end{align*}
+and two elements $\overrightarrow{0}\in A$ and $\overrightarrow{1}\in A$
+satisfying the following properties:
+
+\begin{enumerate}
+\item The set $A$, equipped with the maps $\oplus$, $\ominus$ and $\odot$ and
+the two elements $\overrightarrow{0}$ and $\overrightarrow{1}$, is a
+(noncommutative) ring.
+
+\item The set $A$, equipped with the maps $\oplus$, $\ominus$ and
+$\rightharpoonup$ and the element $\overrightarrow{0}$, is a $K$-module.
+
+\item We have%
+\begin{equation}
+\lambda\rightharpoonup\left(  a\odot b\right)  =\left(  \lambda\rightharpoonup
+a\right)  \odot b=a\odot\left(  \lambda\rightharpoonup b\right)
+\label{eq.def.alg.Kalg.scaleinv}%
+\end{equation}
+for all $\lambda\in K$ and $a,b\in A$.
+\end{enumerate}
+
+(Thus, in a nutshell, a $K$-algebra is a set $A$ that is simultaneously a ring
+and a $K$-module, with the property that the ring $A$ and the $K$-module $A$
+have the same addition, the same subtraction and the same zero, and satisfy
+the additional compatibility property (\ref{eq.def.alg.Kalg.scaleinv}).)
+
+Consequently, a $K$-algebra is automatically a ring and a $K$-module. Thus,
+all the notations and shorthands that we have introduced for rings and for
+$K$-modules will also be used for $K$-algebras. For example, if $A$ is a
+$K$-algebra, then both maps $\odot:A\times A\rightarrow A$ and $\left.
+\rightharpoonup\right.  :K\times A\rightarrow A$ will be denoted by $\cdot$
+unless there is a risk of confusion. (There is rarely a risk of confusion,
+since the two maps act on different inputs: $a\cdot b$ means $a\odot b$ if $a$
+belongs to $A$, and means $a\rightharpoonup b$ if $a$ belongs to $K$. Often,
+even when an element $a$ belongs to both $A$ and $K$, the elements $a\odot b$
+and $a\rightharpoonup b$ are equal, so confusion cannot arise.)
+\end{definition}
+
+Examples of $K$-algebras include:
+
+\begin{itemize}
+\item the ring $K$ itself;
+
+\item the ring $K\left[  \left[  x\right]  \right]  $ of FPSs (we have defined
+the relevant maps in Definition \ref{def.fps.ops}, and claimed the relevant
+properties in Theorem \ref{thm.fps.ring});
+
+\item its subring $K\left[  x\right]  $ (all its maps are inherited from
+$K\left[  \left[  x\right]  \right]  $);
+
+\item the matrix ring $K^{n\times n}$ for each $n\in\mathbb{N}$;
+
+\item any quotient ring of $K$ (that is, any ring of the form $K/I$ where $I$
+is an ideal of $K$);
+
+\item any commutative ring that contains $K$ as a subring.
+\end{itemize}
+
+Note that the axiom (\ref{eq.def.alg.Kalg.scaleinv}) in the definition of
+$K$-algebra can be rewritten as%
+\[
+\lambda\left(  ab\right)  =\left(  \lambda a\right)  b=a\left(  \lambda
+b\right)  \ \ \ \ \ \ \ \ \ \ \text{for all }\lambda\in K\text{ and }a,b\in A
+\]
+using our conventions (to write $ab$ for $a\odot b$ and to write $\lambda c$
+for $\lambda\rightharpoonup c$). It says that scaling a product in $A$ by a
+scalar in $\lambda\in K$ is equivalent to scaling either of its two factors by
+$\lambda$.
+
+\subsubsection{Evaluation aka substitution into polynomials}
+
+We can now define what it means to substitute an element of a $K$-algebra into
+a polynomial:
+
+\begin{definition}
+\label{def.pol.subs}Let $f\in K\left[  x\right]  $ be a polynomial. Let $A$ be
+any $K$-algebra. Let $a\in A$ be any element. We then define an element
+$f\left[  a\right]  \in A$ as follows:
+
+Write $f$ in the form $f=\sum_{n\in\mathbb{N}}f_{n}x^{n}$ with $f_{0}%
+,f_{1},f_{2},\ldots\in K$. (That is, $f_{n}=\left[  x^{n}\right]  f$ for each
+$n\in\mathbb{N}$.) Then, set%
+\[
+f\left[  a\right]  :=\sum_{n\in\mathbb{N}}f_{n}a^{n}.
+\]
+(This sum is essentially finite, since $f$ is a polynomial.)
+
+The element $f\left[  a\right]  $ is also denoted by $f\circ a$ or by
+$f\left(  a\right)  $, and is called the \emph{value} of $f$ at $a$ (or the
+\emph{evaluation} of $f$ at $a$, or the \emph{result of substituting }$a$ for
+$x$ in $f$).
+\end{definition}
+
+The most popular notation for the value $f\left[  a\right]  $ that we have
+just defined is $f\left(  a\right)  $. Unfortunately, this notation can lead
+to ambiguities (for example, $f\left(  x+1\right)  $ could mean either the
+value of $f$ at $x+1$, or the product of $f$ with $x+1$). By writing $f\left[
+a\right]  $ or $f\circ a$ instead, I will avoid these ambiguities, although I
+will not be fully consisting and will occasionally revert to writing $f\left(
+a\right)  $ when confusion is unlikely.
+
+For example, if $f=4x^{3}+2x+7$, then $f\left[  a\right]  =4a^{3}+2a+7$. For
+another example, if $f=\left(  x+5\right)  ^{3}$, then $f\left[  a\right]
+=\left(  a+5\right)  ^{3}$ (although this is not obvious; it follows from
+Theorem \ref{thm.pol.eval.a+b} below). \medskip
+
+If $f$ and $g$ are two polynomials in $K\left[  x\right]  $, then the value
+$f\left[  g\right]  =f\circ g$ (this is the value of $f$ at $g$; it is
+well-defined because $K\left[  x\right]  $ is a $K$-algebra) is also known as
+the \emph{composition} of $f$ with $g$. We note that any polynomial $f\in
+K\left[  x\right]  $ satisfies
+\begin{align*}
+f\left[  x\right]   &  =f\ \ \ \ \ \ \ \ \ \ \text{and}\\
+f\left[  0\right]   &  =\left[  x^{0}\right]  f=\left(  \text{the constant
+term of }f\right)  \ \ \ \ \ \ \ \ \ \ \text{and}\\
+f\left[  1\right]   &  =\left[  x^{0}\right]  f+\left[  x^{1}\right]
+f+\left[  x^{2}\right]  f+\cdots=\left(  \text{the sum of all coefficients of
+}f\right)  .
+\end{align*}
+It is fairly common to write $f\left[  x\right]  $ instead of $f$ for a
+polynomial, just to stress the fact that it is a polynomial in an
+indeterminate called $x$. The equality $f\left[  x\right]  =f$ justifies this.
+\medskip
+
+Definition \ref{def.pol.subs} is rather versatile. For example, if
+$f\in\mathbb{Z}\left[  x\right]  $ is a polynomial with integer coefficients,
+then it allows evaluating $f$ at integers, at complex numbers, at residue
+classes in $\mathbb{Z}/n$, at square matrices, at other polynomials and at
+FPSs. More generally, a polynomial $f\in\mathbb{Z}\left[  x\right]  $ can be
+evaluated at any element of any ring, since any ring is automatically a
+$\mathbb{Z}$-algebra. Evaluating polynomials at square matrices is an
+important idea in linear algebra (e.g.,
+\href{https://en.wikipedia.org/wiki/Cayley-Hamilton_theorem}{the
+Cayley--Hamilton theorem} is concerned with the characteristic polynomial of a
+square matrix, evaluated at this matrix itself).
+
+The following theorem surveys the most basic properties of values of polynomials:
+
+\begin{theorem}
+\label{thm.pol.eval.a+b}Let $A$ be a $K$-algebra. Let $a\in A$. Then: \medskip
+
+\textbf{(a)} Any $f,g\in K\left[  x\right]  $ satisfy%
+\[
+\left(  f+g\right)  \left[  a\right]  =f\left[  a\right]  +g\left[  a\right]
+\ \ \ \ \ \ \ \ \ \ \text{and}\ \ \ \ \ \ \ \ \ \ \left(  fg\right)  \left[
+a\right]  =f\left[  a\right]  \cdot g\left[  a\right]  .
+\]
+
+
+\textbf{(b)} Any $\lambda\in K$ and $f\in K\left[  x\right]  $ satisfy%
+\[
+\left(  \lambda f\right)  \left[  a\right]  =\lambda\cdot f\left[  a\right]
+.
+\]
+
+
+\textbf{(c)} Any $\lambda\in K$ satisfies $\underline{\lambda}\left[
+a\right]  =\lambda\cdot1_{A}$, where $1_{A}$ is the unity of the ring $A$.
+(This is often written as \textquotedblleft$\underline{\lambda}\left[
+a\right]  =\lambda$\textquotedblright, but keep in mind that the
+\textquotedblleft$\lambda$\textquotedblright\ on the right hand side of this
+equality is understood to be \textquotedblleft coerced into $A$%
+\textquotedblright, so it actually means \textquotedblleft the element of $A$
+corresponding to $\lambda$\textquotedblright, which is $\lambda\cdot1_{A}$.)
+\medskip
+
+\textbf{(d)} We have $x\left[  a\right]  =a$. \medskip
+
+\textbf{(e)} We have $x^{i}\left[  a\right]  =a^{i}$ for each $i\in\mathbb{N}%
+$. \medskip
+
+\textbf{(f)} Any $f,g\in K\left[  x\right]  $ satisfy $f\left[  g\left[
+a\right]  \right]  =\left(  f\left[  g\right]  \right)  \left[  a\right]  $.
+\end{theorem}
+
+\begin{proof}
+See \cite[Theorem 7.6.3]{19s} for parts \textbf{(a)}, \textbf{(b)},
+\textbf{(c)}, \textbf{(d)} and \textbf{(e)}. Part \textbf{(f)} is
+\cite[Proposition 7.6.14]{19s}.
+\end{proof}

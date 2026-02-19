@@ -1,0 +1,1067 @@
+\subsection{$q$-binomial coefficients}
+
+Next, we shall study $q$\emph{-binomial coefficients} (also known as
+\emph{Gaussian binomial coefficients}, due to their origins in Gauss's
+number-theoretical research \cite[\S 5]{Gauss08}). While we will define them
+as generating functions for certain kinds of partitions, they are sufficiently
+elementary to have relevance to various other subjects. We will scratch the
+surface; more can be found in \cite[Chapters 5--7]{KacChe02}, \cite[Chapter
+2]{KliSch97}, \cite[Chapter 5]{Wagner08}, \cite[\S 11.3--11.11]{Wagner20},
+\cite[spread across the text]{Stanley-EC1}, \cite[\S 2.6]{GouJac83},
+\cite{Johnso20} and other sources. (The book \cite{Johnso20} is particularly
+recommended as a leisurely introduction to $q$-binomial coefficients and
+related power series.)
+
+\subsubsection{\label{subsec.qbin.motiv}Motivation}
+
+For any $n\in\mathbb{N}$, we have%
+\[
+p\left(  n\right)  =\left(  \text{\# of partitions of }n\right)  .
+\]
+For any $n,k\in\mathbb{N}$, we have%
+\begin{align*}
+p_{k}\left(  n\right)   &  =\left(  \text{\# of partitions of }n\text{ into
+}k\text{ parts}\right) \\
+&  =\left(  \text{\# of partitions of }n\text{ with largest part }k\right)
+\ \ \ \ \ \ \ \ \ \ \left(  \text{by Theorem \ref{prop.pars.pkn=dual}}\right)
+.
+\end{align*}
+Thus, for any $n,k\in\mathbb{N}$, we have%
+\begin{align*}
+p_{0}\left(  n\right)  +p_{1}\left(  n\right)  +\cdots+p_{k}\left(  n\right)
+&  =\left(  \text{\# of partitions of }n\text{ into \textbf{at most} }k\text{
+parts}\right) \\
+&  =\left(  \text{\# of partitions of }n\text{ with largest part }\leq
+k\right)
+\end{align*}
+(by Corollary \ref{cor.pars.p0kn=dual}).
+
+So far, so good. But how to count partitions of $n$ that both have a fixed \#
+of parts (say, $k$ parts) and a fixed largest part (say, largest part $\ell$) ?
+
+Let us first drop the size requirement -- i.e., we replace \textquotedblleft
+partitions of $n$\textquotedblright\ by just \textquotedblleft
+partitions\textquotedblright.
+
+For example, how many partitions have $4$ parts and largest part $6$ ?
+
+As in the proof of Theorem \ref{prop.pars.pkn=dual}, let us draw the Young
+diagram of such a partition: For example, the partition $\left(
+6,3,3,2\right)  $ has Young diagram%
+\[
+\ydiagram{6,3,3,2}\ \ .
+\]
+
+
+Consider the lower boundary of this Young diagram -- i.e., the
+\textquotedblleft irregular\textquotedblright\ southeastern border between
+what is in the diagram and what is outside of it. Let me mark it in thick red:%
+\[%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\ \ .
+\]
+This lower boundary can be viewed as a lattice path from the point $\left(
+0,0\right)  $ to the point $\left(  6,4\right)  $ (where we are using
+Cartesian coordinates to label the intersections of grid lines, so that the
+southwesternmost point in our diagram is $\left(  0,0\right)  $; note that
+this is completely unrelated to our labeling of cells used in defining the
+Young diagram!\footnote{For additional clarity, here are the Cartesian
+coordinates of all grid points on our lattice path:%
+\[%
+%TCIMACRO{\TeXButton{tikz diagram with border and coordinates}%
+%{% [tikz figure removed]}}%
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\ \ .
+\]
+}). This lattice path consists of east-steps (i.e., steps $\left(  i,j\right)
+\rightarrow\left(  i+1,j\right)  $) and north-steps (i.e., steps $\left(
+i,j\right)  \rightarrow\left(  i,j+1\right)  $); moreover, it begins with an
+east-step (since otherwise, our partition would have fewer than $4$ parts) and
+ends with a north-step (since otherwise, our partition would have largest part
+$<6$). Moreover, the Young diagram (and thus the partition) is uniquely
+determined by this lattice path, since its cells are precisely the cells
+\textquotedblleft northwest\textquotedblright\ of this lattice path.
+Conversely, any lattice path from $\left(  0,0\right)  $ to $\left(
+6,4\right)  $ that consists of east-steps and north-steps and begins with an
+east step and ends with a north-step uniquely determines a Young diagram and
+therefore a partition. Therefore, in order to count the partitions that have
+$4$ parts and largest part $6$, we only need to count such lattice paths.
+
+To count them, we notice that any such lattice path has precisely $10$ steps
+(since any step increases the sum of the coordinates by $1$; but this sum must
+increase from $0+0=0$ to $6+4=10$). The first and the last steps are
+predetermined; it remains to decide which of the remaining $8$ steps are
+north-steps. The \# of ways to do this is $\dbinom{8}{3}$, because we want
+precisely $3$ of our $8$ non-predetermined steps to be north-steps (in order
+to end up at $\left(  6,4\right)  $ rather than some other point).
+
+As a consequence of this all, we find%
+\[
+\left(  \text{\# of partitions with }4\text{ parts and largest part }6\right)
+=\dbinom{8}{3}.
+\]
+More generally, by the same argument, we obtain the following:
+
+\begin{proposition}
+\label{prop.pars.qbinom.intro-count-binom}For any positive integers $k$ and
+$\ell$, we have%
+\[
+\left(  \text{\# of partitions with }k\text{ parts and largest part }%
+\ell\right)  =\dbinom{k+\ell-2}{k-1}.
+\]
+
+\end{proposition}
+
+Note two things:
+
+\begin{itemize}
+\item This is a finite number, even without fixing the size of the partition.
+This is not surprising, since you have only finitely many parts and only
+finitely many options for each part.
+
+\item The number is symmetric in $k$ and $\ell$. This, too, is not surprising,
+because conjugation (as defined in the proof of Theorem
+\ref{prop.pars.pkn=dual}) gives a bijection%
+\begin{align*}
+&  \text{from }\left\{  \text{partitions with }k\text{ parts and largest part
+}\ell\right\} \\
+&  \text{to }\left\{  \text{partitions with }\ell\text{ parts and largest part
+}k\right\}  .
+\end{align*}
+
+\end{itemize}
+
+Now, let us integrate the size of the partition back into our count -- i.e.,
+let us try to count the partitions of a given $n\in\mathbb{N}$ with $k$ parts
+and largest part $\ell$. No simple formula (like Proposition
+\ref{prop.pars.qbinom.intro-count-binom}) exists for this number any more, so
+we switch our focus to the generating function of such numbers (for fixed $k$
+and $\ell$). In other words, we try to compute the FPS%
+\begin{align*}
+&  \sum_{n\in\mathbb{N}}\left(  \text{\# of partitions of }n\text{ with
+}k\text{ parts and largest part }\ell\right)  x^{n}\\
+&  =\sum_{\substack{\lambda\text{ is a partition}\\\text{with largest part
+}\ell\\\text{and length }k}}x^{\left\vert \lambda\right\vert }.
+\end{align*}
+
+
+For reasons of convenience, history and simplicity, we modify this problem
+slightly (without changing its essence). To wit,
+
+\begin{itemize}
+\item we rename $\ell$ as $n-k$ (note that $n$ will no longer stand for the
+size of the partition);
+
+\item we replace \textquotedblleft largest part $n-k$ and length
+$k$\textquotedblright\ by \textquotedblleft largest part $\leq n-k$ and length
+$\leq k$\textquotedblright\ (this changes the results of our counts, but we
+can easily recover the answer to the original question from an answer to the
+new question; e.g., in order to count the length-$k$ partitions, it suffices
+to subtract the \# of length-$\left(  \leq k-1\right)  $-partitions from the
+\# of length-$\left(  \leq k\right)  $ partitions);
+
+\item we rename the indeterminate $x$ as $q$.
+\end{itemize}
+
+\subsubsection{Definition}
+
+\begin{convention}
+\label{conv.pars.qbinom.q}In this section, we will mostly be using FPSs in the
+indeterminate $q$. That is, we call the indeterminate $q$ rather than $x$.
+Thus, e.g., our formula%
+\[
+\prod_{n>0}\left(  1-x^{n}\right)  ^{-1}=\prod_{n>0}\dfrac{1}{1-x^{n}}%
+=\sum_{n\in\mathbb{N}}p\left(  n\right)  x^{n}=\sum_{\substack{\lambda\text{
+is a}\\\text{partition}}}x^{\left\vert \lambda\right\vert }%
+\]
+becomes%
+\[
+\prod_{n>0}\left(  1-q^{n}\right)  ^{-1}=\prod_{n>0}\dfrac{1}{1-q^{n}}%
+=\sum_{n\in\mathbb{N}}p\left(  n\right)  q^{n}=\sum_{\substack{\lambda\text{
+is a}\\\text{partition}}}q^{\left\vert \lambda\right\vert }.
+\]
+The ring of FPSs in the indeterminate $q$ over a commutative ring $K$ will be
+denoted by $K\left[  \left[  q\right]  \right]  $. The ring of polynomials in
+the indeterminate $q$ over $K$ will be denoted by $K\left[  q\right]  $.
+\end{convention}
+
+\begin{definition}
+\label{def.pars.qbinom.qbinom}Let $n\in\mathbb{N}$ and $k\in\mathbb{Z}$.
+\medskip
+
+\textbf{(a)} The $q$\emph{-binomial coefficient} (or \emph{Gaussian binomial
+coefficient}) $\dbinom{n}{k}_{q}$ is defined to be the polynomial%
+\[
+\sum_{\substack{\lambda\text{ is a partition}\\\text{with largest part }\leq
+n-k\\\text{and length }\leq k}}q^{\left\vert \lambda\right\vert }\in
+\mathbb{Z}\left[  q\right]  .
+\]
+
+
+This is also denoted by $%
+%TCIMACRO{\QDATOPD{[}{]}{n}{k}}%
+%BeginExpansion
+\genfrac{[}{]}{0pt}{0}{n}{k}%
+%EndExpansion
+$ (but this notation has other meanings, too, and suppresses $q$). \medskip
+
+\textbf{(b)} If $a$ is any element of a ring $A$, then we set%
+\begin{align*}
+\dbinom{n}{k}_{a}:=  &  \ \dbinom{n}{k}_{q}\left[  a\right] \\
+&  \ \ \ \ \ \ \ \ \ \ \left(  \text{this means the result of substituting
+}a\text{ for }q\text{ in }\dbinom{n}{k}_{q}\right) \\
+=  &  \ \sum_{\substack{\lambda\text{ is a partition}\\\text{with largest part
+}\leq n-k\\\text{and length }\leq k}}a^{\left\vert \lambda\right\vert }\in A.
+\end{align*}
+
+\end{definition}
+
+\begin{remark}
+\label{rmk.pars.qbinom.poly}The $\dbinom{n}{k}_{q}$ we defined in Definition
+\ref{def.pars.qbinom.qbinom} \textbf{(a)} is really a polynomial, not merely a
+FPS, because (for any given $n$ and $k$) there are only finitely many
+partitions with largest part $\leq n-k$ and length $\leq k$.
+\end{remark}
+
+\begin{remark}
+\label{rmk.pars.qbinom.neg}The notation $\dbinom{n}{k}_{q}$ (and the name
+\textquotedblleft$q$-binomial coefficient\textquotedblright) suggests a
+similarity to the usual binomial coefficient $\dbinom{n}{k}$. And indeed, we
+will soon see that $\dbinom{n}{k}_{1}=\dbinom{n}{k}$.
+
+Note, however, that $\dbinom{n}{k}_{q}$ is only defined for $n\in\mathbb{N}$
+and $k\in\mathbb{Z}$ (unlike $\dbinom{n}{k}$, which we defined for arbitrary
+$n,k\in\mathbb{C}$). It is possible to extend it to negative integers $n$, but
+this will result in a Laurent polynomial. (See Exercise
+\ref{exe.pars.qbinom.upneg} for this extension.)
+\end{remark}
+
+\begin{example}
+We have%
+\begin{align*}
+\dbinom{3}{2}_{q}  &  =\sum_{\substack{\lambda\text{ is a partition}%
+\\\text{with largest part }\leq1\\\text{and length }\leq2}}q^{\left\vert
+\lambda\right\vert }=q^{\left\vert \left(  1,1\right)  \right\vert
+}+q^{\left\vert \left(  1\right)  \right\vert }+q^{\left\vert \left(
+{}\right)  \right\vert }\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{since the partitions with largest part }\leq1\\
+\text{and length }\leq2\text{ are }\left(  1,1\right)  \text{, }\left(
+1\right)  \text{ and }\left(  {}\right)
+\end{array}
+\right) \\
+&  =q^{2}+q^{1}+q^{0}=q^{2}+q+1
+\end{align*}
+and%
+\begin{align*}
+\dbinom{4}{2}_{q}  &  =\sum_{\substack{\lambda\text{ is a partition}%
+\\\text{with largest part }\leq2\\\text{and length }\leq2}}q^{\left\vert
+\lambda\right\vert }\\
+&  =q^{\left\vert \left(  2,2\right)  \right\vert }+q^{\left\vert \left(
+2,1\right)  \right\vert }+q^{\left\vert \left(  2\right)  \right\vert
+}+q^{\left\vert \left(  1,1\right)  \right\vert }+q^{\left\vert \left(
+1\right)  \right\vert }+q^{\left\vert \left(  {}\right)  \right\vert }\\
+&  =q^{4}+q^{3}+q^{2}+q^{2}+q^{1}+q^{0}=q^{4}+q^{3}+2q^{2}+q+1.
+\end{align*}
+
+\end{example}
+
+\subsubsection{Basic properties}
+
+Let us show two slightly different (but equivalent) ways to express
+$q$-binomial coefficients:
+
+\begin{proposition}
+\label{prop.pars.qbinom.alt-defs}Let $n\in\mathbb{N}$ and $k\in\mathbb{Z}$.
+\medskip
+
+\textbf{(a)} We have%
+\[
+\dbinom{n}{k}_{q}=\sum_{0\leq i_{1}\leq i_{2}\leq\cdots\leq i_{k}\leq
+n-k}q^{i_{1}+i_{2}+\cdots+i_{k}}.
+\]
+Here, the sum ranges over all weakly increasing $k$-tuples $\left(
+i_{1},i_{2},\ldots,i_{k}\right)  \in\left\{  0,1,\ldots,n-k\right\}  ^{k}$. If
+$k>n$, then this is an empty sum (since the set $\left\{  0,1,\ldots
+,n-k\right\}  $ is empty in this case, and thus its $k$-th power $\left\{
+0,1,\ldots,n-k\right\}  ^{k}$ is also empty because $k>n\geq0$). If $k<0$,
+then this is also an empty sum (since there are no $k$-tuples when $k<0$).
+\medskip
+
+\textbf{(b)} Set $\operatorname*{sum}S=\sum_{s\in S}s$ for any finite set $S$
+of integers. (For example, $\operatorname*{sum}\left\{  2,4,5\right\}
+=2+4+5=11$.) Then, we have%
+\[
+\dbinom{n}{k}_{q}=\sum_{\substack{S\subseteq\left\{  1,2,\ldots,n\right\}
+;\\\left\vert S\right\vert =k}}q^{\operatorname*{sum}S-\left(  1+2+\cdots
++k\right)  }.
+\]
+
+
+\textbf{(c)} We have%
+\[
+\dbinom{n}{k}_{1}=\dbinom{n}{k}.
+\]
+
+\end{proposition}
+
+\begin{example}
+For example, let us compute $\dbinom{5}{2}_{q}$ using Proposition
+\ref{prop.pars.qbinom.alt-defs} \textbf{(b)}. Namely, applying Proposition
+\ref{prop.pars.qbinom.alt-defs} \textbf{(b)} to $n=5$ and $k=2$, we obtain%
+\begin{align*}
+\dbinom{5}{2}_{q}  &  =\sum_{\substack{S\subseteq\left\{  1,2,\ldots
+,5\right\}  ;\\\left\vert S\right\vert =2}}q^{\operatorname*{sum}S-\left(
+1+2\right)  }\\
+&  =q^{\left(  1+2\right)  -\left(  1+2\right)  }+q^{\left(  1+3\right)
+-\left(  1+2\right)  }+q^{\left(  1+4\right)  -\left(  1+2\right)
+}+q^{\left(  1+5\right)  -\left(  1+2\right)  }\\
+&  \ \ \ \ \ \ \ \ \ \ +q^{\left(  2+3\right)  -\left(  1+2\right)
+}+q^{\left(  2+4\right)  -\left(  1+2\right)  }+q^{\left(  2+5\right)
+-\left(  1+2\right)  }\\
+&  \ \ \ \ \ \ \ \ \ \ +q^{\left(  3+4\right)  -\left(  1+2\right)
+}+q^{\left(  3+5\right)  -\left(  1+2\right)  }+q^{\left(  4+5\right)
+-\left(  1+2\right)  }\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{since the }2\text{-element subsets of }\left\{  1,2,\ldots,5\right\}
+\text{ are}\\
+\left\{  1,2\right\}  ,\ \left\{  1,3\right\}  ,\ \left\{  1,4\right\}
+,\ \left\{  1,5\right\}  ,\ \left\{  2,3\right\}  ,\ \left\{  2,4\right\}  ,\\
+\left\{  2,5\right\}  ,\ \left\{  3,4\right\}  ,\ \left\{  3,5\right\}
+,\ \left\{  4,5\right\}
+\end{array}
+\right) \\
+&  =q^{0}+q^{1}+q^{2}+q^{3}+q^{2}+q^{3}+q^{4}+q^{4}+q^{5}+q^{6}\\
+&  =1+q+2q^{2}+2q^{3}+2q^{4}+q^{5}+q^{6}.
+\end{align*}
+
+\end{example}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.pars.qbinom.alt-defs}.]\textbf{(a)} The
+definition of $\dbinom{n}{k}_{q}$ yields%
+\begin{align}
+\dbinom{n}{k}_{q}  &  =\sum_{\substack{\lambda\text{ is a partition}%
+\\\text{with largest part }\leq n-k\\\text{and length }\leq k}}q^{\left\vert
+\lambda\right\vert }\nonumber\\
+&  =\sum_{\ell=0}^{k}\ \ \sum_{\substack{\lambda\text{ is a partition}%
+\\\text{with largest part }\leq n-k\\\text{and length }\ell}}q^{\left\vert
+\lambda\right\vert }. \label{pf.prop.pars.qbinom.alt-defs.a.1}%
+\end{align}
+Now, let us simplify the inner sum on the right hand side.
+
+Fix $\ell\in\left\{  0,1,\ldots,k\right\}  $. Then, any partition $\lambda$
+with length $\ell$ has the form $\left(  \lambda_{1},\lambda_{2}%
+,\ldots,\lambda_{\ell}\right)  $ for some nonnegative integers $\lambda
+_{1},\lambda_{2},\ldots,\lambda_{\ell}$ satisfying $\lambda_{1}\geq\lambda
+_{2}\geq\cdots\geq\lambda_{\ell}>0$ (by the definitions of \textquotedblleft
+partition\textquotedblright\ and \textquotedblleft length\textquotedblright).
+Moreover, this partition $\lambda$ has largest part $\leq n-k$ if and only if
+its entries satisfy $n-k\geq\lambda_{1}\geq\lambda_{2}\geq\cdots\geq
+\lambda_{\ell}>0$. Finally, the size $\left\vert \lambda\right\vert $ of this
+partition equals $\lambda_{1}+\lambda_{2}+\cdots+\lambda_{\ell}$. Hence, we
+can rewrite the sum%
+\[
+\sum_{\substack{\lambda\text{ is a partition}\\\text{with largest part }\leq
+n-k\\\text{and length }\ell}}q^{\left\vert \lambda\right\vert }%
+\ \ \ \ \ \ \ \ \ \ \text{as}\ \ \ \ \ \ \ \ \ \ \sum_{\substack{\left(
+\lambda_{1},\lambda_{2},\ldots,\lambda_{\ell}\right)  \in\mathbb{N}^{\ell
+};\\n-k\geq\lambda_{1}\geq\lambda_{2}\geq\cdots\geq\lambda_{\ell}%
+>0}}q^{\lambda_{1}+\lambda_{2}+\cdots+\lambda_{\ell}}.
+\]
+In other words, we have%
+\begin{equation}
+\sum_{\substack{\lambda\text{ is a partition}\\\text{with largest part }\leq
+n-k\\\text{and length }\ell}}q^{\left\vert \lambda\right\vert }=\sum
+_{\substack{\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{\ell}\right)
+\in\mathbb{N}^{\ell};\\n-k\geq\lambda_{1}\geq\lambda_{2}\geq\cdots\geq
+\lambda_{\ell}>0}}q^{\lambda_{1}+\lambda_{2}+\cdots+\lambda_{\ell}}.
+\label{pf.prop.pars.qbinom.alt-defs.a.2}%
+\end{equation}
+
+
+Next, for any $k$-tuple $\left(  \lambda_{1},\lambda_{2},\ldots,\lambda
+_{k}\right)  \in\mathbb{N}^{k}$, let us define $\operatorname*{numpos}\left(
+\lambda_{1},\lambda_{2},\ldots,\lambda_{k}\right)  $ to be the number of
+positive entries of this $k$-tuple (i.e., the number of $i\in\left\{
+1,2,\ldots,k\right\}  $ satisfying $\lambda_{i}>0$). For example,
+$\operatorname*{numpos}\left(  4,2,2,0\right)  =3$ and \newline%
+$\operatorname*{numpos}\left(  4,2,2,1\right)  =4$ and $\operatorname*{numpos}%
+\left(  0,0,0,0\right)  =0$. The following is easy but important:
+
+\begin{statement}
+\textit{Observation 1:} Let $\left(  \lambda_{1},\lambda_{2},\ldots
+,\lambda_{k}\right)  \in\mathbb{N}^{k}$ be any $k$-tuple satisfying
+$\lambda_{1}\geq\lambda_{2}\geq\cdots\geq\lambda_{k}\geq0$ and
+$\operatorname*{numpos}\left(  \lambda_{1},\lambda_{2},\ldots,\lambda
+_{k}\right)  =\ell$. Then:
+
+\textbf{(a)} The first $\ell$ entries of $\left(  \lambda_{1},\lambda
+_{2},\ldots,\lambda_{k}\right)  $ are positive (i.e., we have $\lambda_{i}>0$
+for all $i\in\left\{  1,2,\ldots,\ell\right\}  $).
+
+\textbf{(b)} The last $k-\ell$ entries of $\left(  \lambda_{1},\lambda
+_{2},\ldots,\lambda_{k}\right)  $ are $0$ (i.e., we have $\lambda_{i}=0$ for
+all $i\in\left\{  \ell+1,\ell+2,\ldots,k\right\}  $).
+
+\textbf{(c)} We have $\lambda_{1}+\lambda_{2}+\cdots+\lambda_{\ell}%
+=\lambda_{1}+\lambda_{2}+\cdots+\lambda_{k}$.
+
+\textbf{(d)} The $\ell$-tuple $\left(  \lambda_{1},\lambda_{2},\ldots
+,\lambda_{\ell}\right)  $ is a partition.
+\end{statement}
+
+\begin{fineprint}
+[\textit{Proof of Observation 1:} We have $\operatorname*{numpos}\left(
+\lambda_{1},\lambda_{2},\ldots,\lambda_{k}\right)  =\ell$. In other words, the
+$k$-tuple $\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{k}\right)  $ has
+exactly $\ell$ positive entries. Since this $k$-tuple is weakly decreasing
+(because $\lambda_{1}\geq\lambda_{2}\geq\cdots\geq\lambda_{k}$), these $\ell$
+positive entries must be concentrated at the beginning of the $k$-tuple; i.e.,
+they must be the first $\ell$ entries of the $k$-tuple. Hence, the first
+$\ell$ entries of $\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{k}\right)
+$ are positive. This proves Observation 1 \textbf{(a)}.
+
+We have shown that the $k$-tuple $\left(  \lambda_{1},\lambda_{2}%
+,\ldots,\lambda_{k}\right)  $ has exactly $\ell$ positive entries, and they
+are the first $\ell$ entries of this $k$-tuple. Hence, the remaining $k-\ell$
+entries of this $k$-tuple are nonpositive. Since these entries are nonnegative
+as well (because $\lambda_{1}\geq\lambda_{2}\geq\cdots\geq\lambda_{k}\geq0$),
+we thus conclude that they are $0$. In other words, the last $k-\ell$ entries
+of $\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{k}\right)  $ are $0$. This
+proves Observation 1 \textbf{(b)}.
+
+Furthermore,%
+\begin{align*}
+\lambda_{1}+\lambda_{2}+\cdots+\lambda_{k}  &  =\left(  \lambda_{1}%
++\lambda_{2}+\cdots+\lambda_{\ell}\right)  +\underbrace{\left(  \lambda
+_{\ell+1}+\lambda_{\ell+2}+\cdots+\lambda_{k}\right)  }_{\substack{=0+0+\cdots
++0\\\text{(by Observation 1 \textbf{(b)})}}}\\
+&  =\left(  \lambda_{1}+\lambda_{2}+\cdots+\lambda_{\ell}\right)  +\left(
+0+0+\cdots+0\right)  =\lambda_{1}+\lambda_{2}+\cdots+\lambda_{\ell}.
+\end{align*}
+This proves Observation 1 \textbf{(c)}.
+
+\textbf{(d)} The $\ell$-tuple $\left(  \lambda_{1},\lambda_{2},\ldots
+,\lambda_{\ell}\right)  $ is weakly decreasing (since $\lambda_{1}\geq
+\lambda_{2}\geq\cdots\geq\lambda_{k}$ entails $\lambda_{1}\geq\lambda_{2}%
+\geq\cdots\geq\lambda_{\ell}$) and consists of positive integers (since
+Observation 1 \textbf{(a)} says that we have $\lambda_{i}>0$ for all
+$i\in\left\{  1,2,\ldots,\ell\right\}  $). Thus, it is a weakly decreasing
+tuple of positive integers, i.e., a partition. This proves Observation 1
+\textbf{(d)}.] \medskip
+\end{fineprint}
+
+Let us recall that $\ell\in\left\{  0,1,\ldots,k\right\}  $, so that $\ell\leq
+k$. Hence, any $\ell$-tuple $\left(  \lambda_{1},\lambda_{2},\ldots
+,\lambda_{\ell}\right)  \in\mathbb{N}^{\ell}$ can be extended to a $k$-tuple
+$\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{k}\right)  \in\mathbb{N}^{k}$
+by inserting $k-\ell$ zeroes at the end (i.e., by setting $\lambda_{\ell
++1}=\lambda_{\ell+2}=\cdots=\lambda_{k}=0$).\ \ \ \ \footnote{For example, if
+$\ell=3$ and $k=5$, then the $\ell$-tuple $\left(  4,2,2\right)  $ gets
+extended to the $k$-tuple $\left(  4,2,2,0,0\right)  $.} If the original
+$\ell$-tuple $\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{\ell}\right)
+\in\mathbb{N}^{\ell}$ was a partition with largest part $\leq n-k$, then the
+extended $k$-tuple $\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{k}\right)
+=\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{\ell},\underbrace{0,0,\ldots
+,0}_{k-\ell\text{ zeroes}}\right)  $ will satisfy $n-k\geq\lambda_{1}%
+\geq\lambda_{2}\geq\cdots\geq\lambda_{k}\geq0$ (since $n-k\geq\lambda_{1}%
+\geq\lambda_{2}\geq\cdots\geq\lambda_{\ell}$ and $\lambda_{\ell}\geq
+0=\lambda_{\ell+1}=\lambda_{\ell+2}=\cdots=\lambda_{k}\geq0$) and
+$\operatorname*{numpos}\left(  \lambda_{1},\lambda_{2},\ldots,\lambda
+_{k}\right)  =\ell$ (since its first $\ell$ entries are positive whereas its
+remaining $k-\ell$ entries are $0$).
+
+Conversely, if $\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{k}\right)
+\in\mathbb{N}^{k}$ is a $k$-tuple satisfying $n-k\geq\lambda_{1}\geq
+\lambda_{2}\geq\cdots\geq\lambda_{k}\geq0$ and $\operatorname*{numpos}\left(
+\lambda_{1},\lambda_{2},\ldots,\lambda_{k}\right)  =\ell$, then $\left(
+\lambda_{1},\lambda_{2},\ldots,\lambda_{\ell}\right)  $ is a
+partition\footnote{because of Observation 1 \textbf{(d)}} with largest part
+$\leq n-k$\ \ \ \ \footnote{since all parts $\lambda_{1},\lambda_{2}%
+,\ldots,\lambda_{\ell}$ of this partition are $\leq n-k$ (because
+$n-k\geq\lambda_{1}\geq\lambda_{2}\geq\cdots\geq\lambda_{k}$)} and length
+$\ell$. Thus, we obtain a map%
+\begin{align*}
+&  \text{from }\left\{  k\text{-tuples }\left(  \lambda_{1},\lambda_{2}%
+,\ldots,\lambda_{k}\right)  \in\mathbb{N}^{k}\text{ satisfying }n-k\geq
+\lambda_{1}\geq\lambda_{2}\geq\cdots\geq\lambda_{k}\geq0\right. \\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left.  \text{ and }%
+\operatorname*{numpos}\left(  \lambda_{1},\lambda_{2},\ldots,\lambda
+_{k}\right)  =\ell\right\} \\
+&  \text{to }\left\{  \text{partitions with largest part }\leq n-k\text{ and
+length }\ell\right\}
+\end{align*}
+which sends any $k$-tuple $\left(  \lambda_{1},\lambda_{2},\ldots,\lambda
+_{k}\right)  $ to the partition $\left(  \lambda_{1},\lambda_{2}%
+,\ldots,\lambda_{\ell}\right)  $. On the other hand, we have a map%
+\begin{align*}
+&  \text{from }\left\{  \text{partitions with largest part }\leq n-k\text{ and
+length }\ell\right\} \\
+&  \text{to }\left\{  k\text{-tuples }\left(  \lambda_{1},\lambda_{2}%
+,\ldots,\lambda_{k}\right)  \in\mathbb{N}^{k}\text{ satisfying }n-k\geq
+\lambda_{1}\geq\lambda_{2}\geq\cdots\geq\lambda_{k}\geq0\right. \\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left.  \text{ and }%
+\operatorname*{numpos}\left(  \lambda_{1},\lambda_{2},\ldots,\lambda
+_{k}\right)  =\ell\right\}
+\end{align*}
+which sends any partition $\left(  \lambda_{1},\lambda_{2},\ldots
+,\lambda_{\ell}\right)  $ to the $k$-tuple $\left(  \lambda_{1},\lambda
+_{2},\ldots,\lambda_{\ell},\underbrace{0,0,\ldots,0}_{k-\ell\text{ zeroes}%
+}\right)  $\ \ \ \ \footnote{because we have shown in the previous paragraph
+that if $\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{\ell}\right)  $ is a
+partition with largest part $\leq n-k$, then we can extend it to a $k$-tuple
+$\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{k}\right)  =\left(
+\lambda_{1},\lambda_{2},\ldots,\lambda_{\ell},\underbrace{0,0,\ldots
+,0}_{k-\ell\text{ zeroes}}\right)  $ by inserting $k-\ell$ zeroes at the end,
+and this extended $k$-tuple will satisfy $n-k\geq\lambda_{1}\geq\lambda
+_{2}\geq\cdots\geq\lambda_{k}\geq0$ and $\operatorname*{numpos}\left(
+\lambda_{1},\lambda_{2},\ldots,\lambda_{k}\right)  =\ell$}. These two maps are
+mutually inverse\footnote{Indeed, the first map removes the last $k-\ell$
+entries from a $k$-tuple, whereas the second map inserts $k-\ell$ zeroes at
+the end of the partition. Thus, if we apply the first map after the second
+map, we clearly recover the partition that we started with. If we apply the
+second map after the first map, then we end up replacing the last $k-\ell$
+entries of our $k$-tuple by zeroes. However, if $\left(  \lambda_{1}%
+,\lambda_{2},\ldots,\lambda_{k}\right)  \in\mathbb{N}^{k}$ is any $k$-tuple
+satisfying $n-k\geq\lambda_{1}\geq\lambda_{2}\geq\cdots\geq\lambda_{k}\geq0$
+and $\operatorname*{numpos}\left(  \lambda_{1},\lambda_{2},\ldots,\lambda
+_{k}\right)  =\ell$, then the last $k-\ell$ entries of this $k$-tuple are $0$
+(by Observation 1 \textbf{(b)}), and therefore the $k$-tuple does not change
+if we replace these $k-\ell$ entries by zeroes.}, and therefore are
+bijections. In particular, this shows that the first map is a bijection. This
+bijection allows us to replace our partitions $\left(  \lambda_{1},\lambda
+_{2},\ldots,\lambda_{\ell}\right)  \in\mathbb{N}^{\ell}$ by $k$-tuples
+$\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{k}\right)  \in\mathbb{N}^{k}$
+in the sum $\sum_{\substack{\left(  \lambda_{1},\lambda_{2},\ldots
+,\lambda_{\ell}\right)  \in\mathbb{N}^{\ell};\\n-k\geq\lambda_{1}\geq
+\lambda_{2}\geq\cdots\geq\lambda_{\ell}>0}}q^{\lambda_{1}+\lambda_{2}%
++\cdots+\lambda_{\ell}}$; we thus find%
+\begin{align*}
+\sum_{\substack{\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{\ell}\right)
+\in\mathbb{N}^{\ell};\\n-k\geq\lambda_{1}\geq\lambda_{2}\geq\cdots\geq
+\lambda_{\ell}>0}}q^{\lambda_{1}+\lambda_{2}+\cdots+\lambda_{\ell}}  &
+=\sum_{\substack{\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{k}\right)
+\in\mathbb{N}^{k};\\n-k\geq\lambda_{1}\geq\lambda_{2}\geq\cdots\geq\lambda
+_{k}\geq0;\\\operatorname*{numpos}\left(  \lambda_{1},\lambda_{2}%
+,\ldots,\lambda_{k}\right)  =\ell}}\ \ \underbrace{q^{\lambda_{1}+\lambda
+_{2}+\cdots+\lambda_{\ell}}}_{\substack{=q^{\lambda_{1}+\lambda_{2}%
++\cdots+\lambda_{k}}\\\text{(by Observation 1 \textbf{(c)})}}}\\
+&  =\sum_{\substack{\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{k}\right)
+\in\mathbb{N}^{k};\\n-k\geq\lambda_{1}\geq\lambda_{2}\geq\cdots\geq\lambda
+_{k}\geq0;\\\operatorname*{numpos}\left(  \lambda_{1},\lambda_{2}%
+,\ldots,\lambda_{k}\right)  =\ell}}q^{\lambda_{1}+\lambda_{2}+\cdots
++\lambda_{k}}.
+\end{align*}
+
+
+Now, (\ref{pf.prop.pars.qbinom.alt-defs.a.2}) becomes%
+\begin{align}
+\sum_{\substack{\lambda\text{ is a partition}\\\text{with largest part }\leq
+n-k\\\text{and length }\ell}}q^{\left\vert \lambda\right\vert }  &
+=\sum_{\substack{\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{\ell}\right)
+\in\mathbb{N}^{\ell};\\n-k\geq\lambda_{1}\geq\lambda_{2}\geq\cdots\geq
+\lambda_{\ell}>0}}q^{\lambda_{1}+\lambda_{2}+\cdots+\lambda_{\ell}}\nonumber\\
+&  =\sum_{\substack{\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{k}\right)
+\in\mathbb{N}^{k};\\n-k\geq\lambda_{1}\geq\lambda_{2}\geq\cdots\geq\lambda
+_{k}\geq0;\\\operatorname*{numpos}\left(  \lambda_{1},\lambda_{2}%
+,\ldots,\lambda_{k}\right)  =\ell}}q^{\lambda_{1}+\lambda_{2}+\cdots
++\lambda_{k}}. \label{pf.prop.pars.qbinom.alt-defs.a.5}%
+\end{align}
+
+
+Now, forget that we fixed $\ell$. We thus have proved
+(\ref{pf.prop.pars.qbinom.alt-defs.a.5}) for each $\ell\in\left\{
+0,1,\ldots,k\right\}  $. Now, (\ref{pf.prop.pars.qbinom.alt-defs.a.1}) becomes%
+\begin{align*}
+\dbinom{n}{k}_{q}  &  =\sum_{\ell=0}^{k}\ \ \underbrace{\sum
+_{\substack{\lambda\text{ is a partition}\\\text{with largest part }\leq
+n-k\\\text{and length }\ell}}q^{\left\vert \lambda\right\vert }}%
+_{\substack{=\sum_{\substack{\left(  \lambda_{1},\lambda_{2},\ldots
+,\lambda_{k}\right)  \in\mathbb{N}^{k};\\n-k\geq\lambda_{1}\geq\lambda_{2}%
+\geq\cdots\geq\lambda_{k}\geq0;\\\operatorname*{numpos}\left(  \lambda
+_{1},\lambda_{2},\ldots,\lambda_{k}\right)  =\ell}}q^{\lambda_{1}+\lambda
+_{2}+\cdots+\lambda_{k}}\\\text{(by (\ref{pf.prop.pars.qbinom.alt-defs.a.5}%
+))}}}\\
+&  =\underbrace{\sum_{\ell=0}^{k}\ \ \sum_{\substack{\left(  \lambda
+_{1},\lambda_{2},\ldots,\lambda_{k}\right)  \in\mathbb{N}^{k};\\n-k\geq
+\lambda_{1}\geq\lambda_{2}\geq\cdots\geq\lambda_{k}\geq
+0;\\\operatorname*{numpos}\left(  \lambda_{1},\lambda_{2},\ldots,\lambda
+_{k}\right)  =\ell}}}_{=\sum_{\substack{\left(  \lambda_{1},\lambda_{2}%
+,\ldots,\lambda_{k}\right)  \in\mathbb{N}^{k};\\n-k\geq\lambda_{1}\geq
+\lambda_{2}\geq\cdots\geq\lambda_{k}\geq0}}}q^{\lambda_{1}+\lambda_{2}%
++\cdots+\lambda_{k}}\\
+&  =\sum_{\substack{\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{k}\right)
+\in\mathbb{N}^{k};\\n-k\geq\lambda_{1}\geq\lambda_{2}\geq\cdots\geq\lambda
+_{k}\geq0}}q^{\lambda_{1}+\lambda_{2}+\cdots+\lambda_{k}}=\sum
+_{\substack{\left(  i_{1},i_{2},\ldots,i_{k}\right)  \in\mathbb{N}^{k};\\0\leq
+i_{1}\leq i_{2}\leq\cdots\leq i_{k}\leq n-k}}\underbrace{q^{i_{k}%
++i_{k-1}+\cdots+i_{1}}}_{=q^{i_{1}+i_{2}+\cdots+i_{k}}}\\
+&  \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have reversed the }k\text{-tuple }\left(  \lambda_{1}%
+,\lambda_{2},\ldots,\lambda_{k}\right)  \text{,}\\
+\text{i.e., we have substituted }\left(  i_{k},i_{k-1},\ldots,i_{1}\right)
+\text{ for }\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{k}\right) \\
+\text{in our sum}%
+\end{array}
+\right) \\
+&  =\sum_{\substack{\left(  i_{1},i_{2},\ldots,i_{k}\right)  \in\mathbb{N}%
+^{k};\\0\leq i_{1}\leq i_{2}\leq\cdots\leq i_{k}\leq n-k}}q^{i_{1}%
++i_{2}+\cdots+i_{k}}=\sum_{0\leq i_{1}\leq i_{2}\leq\cdots\leq i_{k}\leq
+n-k}q^{i_{1}+i_{2}+\cdots+i_{k}}.
+\end{align*}
+This proves Proposition \ref{prop.pars.qbinom.alt-defs} \textbf{(a)}. \medskip
+
+\textbf{(b)} There is a bijection%
+\begin{align*}
+&  \text{from }\left\{  \text{weakly increasing }k\text{-tuples }\left(
+i_{1},i_{2},\ldots,i_{k}\right)  \in\left\{  0,1,\ldots,n-k\right\}
+^{k}\right\} \\
+&  \text{to }\left\{  \text{strictly increasing }k\text{-tuples }\left(
+s_{1},s_{2},\ldots,s_{k}\right)  \in\left\{  1,2,\ldots,n\right\}
+^{k}\right\}
+\end{align*}
+that sends each weakly increasing $k$-tuple $\left(  i_{1},i_{2},\ldots
+,i_{k}\right)  $ to $\left(  i_{1}+1,\ i_{2}+2,\ \ldots,\ i_{k}+k\right)  $
+(you can think of it as \textquotedblleft spacing the $i_{j}$s
+apart\textquotedblright, i.e., increasing the distance between any two
+consecutive $i_{j}$'s by $1$ and also increasing $i_{1}$ by $1$). The inverse
+of this bijection sends each strictly increasing $k$-tuple $\left(
+s_{1},s_{2},\ldots,s_{k}\right)  $ to $\left(  s_{1}-1,\ s_{2}-2,\ \ldots
+,\ s_{k}-k\right)  $. Thus, we can substitute $\left(  s_{1}-1,\ s_{2}%
+-2,\ \ldots,\ s_{k}-k\right)  $ for $\left(  i_{1},i_{2},\ldots,i_{k}\right)
+$ in the sum%
+\[
+\sum_{0\leq i_{1}\leq i_{2}\leq\cdots\leq i_{k}\leq n-k}q^{i_{1}+i_{2}%
++\cdots+i_{k}}.
+\]
+Hence we obtain%
+\begin{align*}
+\sum_{0\leq i_{1}\leq i_{2}\leq\cdots\leq i_{k}\leq n-k}q^{i_{1}+i_{2}%
++\cdots+i_{k}}  &  =\sum_{1\leq s_{1}<s_{2}<\cdots<s_{k}\leq n}%
+\underbrace{q^{\left(  s_{1}-1\right)  +\left(  s_{2}-2\right)  +\cdots
++\left(  s_{k}-k\right)  }}_{=q^{\left(  s_{1}+s_{2}+\cdots+s_{k}\right)
+-\left(  1+2+\cdots+k\right)  }}\\
+&  =\sum_{1\leq s_{1}<s_{2}<\cdots<s_{k}\leq n}q^{\left(  s_{1}+s_{2}%
++\cdots+s_{k}\right)  -\left(  1+2+\cdots+k\right)  }.
+\end{align*}
+
+
+On the other hand, there is a bijection%
+\begin{align*}
+&  \text{from }\left\{  \text{strictly increasing }k\text{-tuples }\left(
+s_{1},s_{2},\ldots,s_{k}\right)  \in\left\{  1,2,\ldots,n\right\}
+^{k}\right\} \\
+&  \text{to }\left\{  k\text{-element subsets of }\left\{  1,2,\ldots
+,n\right\}  \right\}
+\end{align*}
+that sends each $k$-tuple $\left(  s_{1},s_{2},\ldots,s_{k}\right)  $ to the
+subset $\left\{  s_{1},s_{2},\ldots,s_{k}\right\}  $. (This map is indeed a
+bijection, because any $k$-element subset of $\left\{  1,2,\ldots,n\right\}  $
+can be written as $\left\{  s_{1},s_{2},\ldots,s_{k}\right\}  $ for a unique
+strictly increasing $k$-tuple $\left(  s_{1},s_{2},\ldots,s_{k}\right)
+\in\left\{  1,2,\ldots,n\right\}  ^{k}$; in fact, this is simply saying that
+there is a unique way of listing the elements of this subset in increasing order.)
+
+Because of this bijection, we have%
+\[
+\sum_{1\leq s_{1}<s_{2}<\cdots<s_{k}\leq n}q^{\left(  s_{1}+s_{2}+\cdots
++s_{k}\right)  -\left(  1+2+\cdots+k\right)  }=\sum_{\substack{S\subseteq
+\left\{  1,2,\ldots,n\right\}  ;\\\left\vert S\right\vert =k}%
+}q^{\operatorname*{sum}S-\left(  1+2+\cdots+k\right)  }%
+\]
+(because $s_{1}+s_{2}+\cdots+s_{k}=\operatorname*{sum}\left\{  s_{1}%
+,s_{2},\ldots,s_{k}\right\}  $ for any strictly increasing $k$-tuple $\left(
+s_{1},s_{2},\ldots,s_{k}\right)  \in\left\{  1,2,\ldots,n\right\}  ^{k}$).
+
+Now, Proposition \ref{prop.pars.qbinom.alt-defs} \textbf{(a)} yields%
+\begin{align*}
+\dbinom{n}{k}_{q}  &  =\sum_{0\leq i_{1}\leq i_{2}\leq\cdots\leq i_{k}\leq
+n-k}q^{i_{1}+i_{2}+\cdots+i_{k}}=\sum_{1\leq s_{1}<s_{2}<\cdots<s_{k}\leq
+n}q^{\left(  s_{1}+s_{2}+\cdots+s_{k}\right)  -\left(  1+2+\cdots+k\right)
+}\\
+&  =\sum_{\substack{S\subseteq\left\{  1,2,\ldots,n\right\}  ;\\\left\vert
+S\right\vert =k}}q^{\operatorname*{sum}S-\left(  1+2+\cdots+k\right)  }.
+\end{align*}
+This proves Proposition \ref{prop.pars.qbinom.alt-defs} \textbf{(b)}. \medskip
+
+\textbf{(c)} Proposition \ref{prop.pars.qbinom.alt-defs} \textbf{(b)} yields
+\[
+\dbinom{n}{k}_{q}=\sum_{\substack{S\subseteq\left\{  1,2,\ldots,n\right\}
+;\\\left\vert S\right\vert =k}}q^{\operatorname*{sum}S-\left(  1+2+\cdots
++k\right)  }.
+\]
+Substituting $1$ for $q$ in this equality, we find%
+\begin{align*}
+\dbinom{n}{k}_{1}  &  =\sum_{\substack{S\subseteq\left\{  1,2,\ldots
+,n\right\}  ;\\\left\vert S\right\vert =k}}\underbrace{1^{\operatorname*{sum}%
+S-\left(  1+2+\cdots+k\right)  }}_{=1}=\sum_{\substack{S\subseteq\left\{
+1,2,\ldots,n\right\}  ;\\\left\vert S\right\vert =k}}1\\
+&  =\left(  \text{\# of subsets }S\subseteq\left\{  1,2,\ldots,n\right\}
+\text{ satisfying }\left\vert S\right\vert =k\right) \\
+&  =\left(  \text{\# of }k\text{-element subsets of }\left\{  1,2,\ldots
+,n\right\}  \right)  =\dbinom{n}{k}.
+\end{align*}
+This proves Proposition \ref{prop.pars.qbinom.alt-defs} \textbf{(c)}.
+\end{proof}
+
+The following property of $q$-binomial coefficients generalizes Proposition
+\ref{prop.binom.0}:
+
+\begin{proposition}
+\label{prop.pars.qbinom.0}Let $n,k\in\mathbb{N}$ satisfy $k>n$. Then,
+$\dbinom{n}{k}_{q}=0$.
+\end{proposition}
+
+\begin{proof}
+From $k>n$, we obtain $n-k<0$. The definition of $\dbinom{n}{k}_{q}$ yields%
+\begin{equation}
+\dbinom{n}{k}_{q}=\sum_{\substack{\lambda\text{ is a partition}\\\text{with
+largest part }\leq n-k\\\text{and length }\leq k}}q^{\left\vert \lambda
+\right\vert }. \label{pf.prop.pars.qbinom.0.1}%
+\end{equation}
+The sum on the right hand side is an empty sum, since there exists no
+partition with largest part $\leq n-k$ (because $n-k<0$). Thus,
+(\ref{pf.prop.pars.qbinom.0.1}) rewrites as $\dbinom{n}{k}_{q}=\left(
+\text{empty sum}\right)  =0$, and this proves Proposition
+\ref{prop.pars.qbinom.0}.
+\end{proof}
+
+\begin{proposition}
+\label{prop.pars.qbinom.n0}We have $\dbinom{n}{0}_{q}=\dbinom{n}{n}_{q}=1$ for
+each $n\in\mathbb{N}$.
+\end{proposition}
+
+\begin{proof}
+This is easy and left as a homework exercise (Exercise
+\ref{exe.pars.qbinom.basics} \textbf{(a)}).
+\end{proof}
+
+The next convention mirrors a convention we made for the (usual) binomial coefficients:
+
+\begin{convention}
+\label{conv.pars.qbinom.neg-k}Let $n\in\mathbb{N}$. For any $k\notin%
+\mathbb{Z}$, we set $\dbinom{n}{k}_{q}:=0$.
+\end{convention}
+
+The following theorem gives not one, but two analogues (\textquotedblleft%
+$q$-analogues\textquotedblright) of the recurrence relation $\dbinom{n}%
+{k}=\dbinom{n-1}{k-1}+\dbinom{n-1}{k}$ (from Proposition \ref{prop.binom.rec}):
+
+\begin{theorem}
+\label{thm.pars.qbinom.rec}Let $n$ be a positive integer. Let $k\in\mathbb{N}%
+$. Then: \medskip
+
+\textbf{(a)} We have%
+\[
+\dbinom{n}{k}_{q}=q^{n-k}\dbinom{n-1}{k-1}_{q}+\dbinom{n-1}{k}_{q}.
+\]
+
+
+\textbf{(b)} We have%
+\[
+\dbinom{n}{k}_{q}=\dbinom{n-1}{k-1}_{q}+q^{k}\dbinom{n-1}{k}_{q}.
+\]
+
+\end{theorem}
+
+\begin{proof}
+\textbf{(a)} This is similar to the combinatorial proof of the recurrence
+relation for binomial coefficients.
+
+If $k=0$, then the claim we are proving boils down to $1=q^{n-k}0+1$ (because
+Proposition \ref{prop.pars.qbinom.n0} yields $\dbinom{n}{0}_{q}=1$ and
+$\dbinom{n-1}{0}_{q}=1$, and because Convention \ref{conv.pars.qbinom.neg-k}
+yields $\dbinom{n-1}{-1}_{q}=0$). Hence, we WLOG assume that $k>0$. Thus,
+$k-1\in\mathbb{N}$.
+
+Proposition \ref{prop.pars.qbinom.alt-defs} \textbf{(b)} says that%
+\begin{equation}
+\dbinom{n}{k}_{q}=\sum_{\substack{S\subseteq\left\{  1,2,\ldots,n\right\}
+;\\\left\vert S\right\vert =k}}q^{\operatorname*{sum}S-\left(  1+2+\cdots
++k\right)  }. \label{pf.thm.pars.qbinom.rec.nk}%
+\end{equation}
+Proposition \ref{prop.pars.qbinom.alt-defs} \textbf{(b)} (applied to $n-1$ and
+$k-1$ instead of $n$ and $k$) yields%
+\begin{equation}
+\dbinom{n-1}{k-1}_{q}=\sum_{\substack{S\subseteq\left\{  1,2,\ldots
+,n-1\right\}  ;\\\left\vert S\right\vert =k-1}}q^{\operatorname*{sum}S-\left(
+1+2+\cdots+\left(  k-1\right)  \right)  }.
+\label{pf.thm.pars.qbinom.rec.n-1k-1}%
+\end{equation}
+Proposition \ref{prop.pars.qbinom.alt-defs} \textbf{(b)} (applied to $n-1$
+instead of $n$) yields%
+\begin{equation}
+\dbinom{n-1}{k}_{q}=\sum_{\substack{S\subseteq\left\{  1,2,\ldots,n-1\right\}
+;\\\left\vert S\right\vert =k}}q^{\operatorname*{sum}S-\left(  1+2+\cdots
++k\right)  }. \label{pf.thm.pars.qbinom.rec.n-1k}%
+\end{equation}
+
+
+Let us now make two definitions:
+
+\begin{itemize}
+\item A \emph{type-1 subset} will mean a $k$-element subset of $\left\{
+1,2,\ldots,n\right\}  $ that contains $n$;
+
+\item A \emph{type-2 subset} will mean a $k$-element subset of $\left\{
+1,2,\ldots,n\right\}  $ that does not contain $n$.
+\end{itemize}
+
+Each $k$-element subset of $\left\{  1,2,\ldots,n\right\}  $ is either type-1
+or type-2 (but not both at the same time). Thus,%
+\begin{align*}
+&  \sum_{\substack{S\subseteq\left\{  1,2,\ldots,n\right\}  ;\\\left\vert
+S\right\vert =k}}q^{\operatorname*{sum}S-\left(  1+2+\cdots+k\right)  }\\
+&  =\sum_{\substack{S\subseteq\left\{  1,2,\ldots,n\right\}  ;\\\left\vert
+S\right\vert =k;\\S\text{ is type-1}}}q^{\operatorname*{sum}S-\left(
+1+2+\cdots+k\right)  }+\sum_{\substack{S\subseteq\left\{  1,2,\ldots
+,n\right\}  ;\\\left\vert S\right\vert =k;\\S\text{ is type-2}}%
+}q^{\operatorname*{sum}S-\left(  1+2+\cdots+k\right)  }.
+\end{align*}
+
+
+The type-2 subsets are precisely the $k$-element subsets of $\left\{
+1,2,\ldots,n-1\right\}  $. Hence,%
+\[
+\sum_{\substack{S\subseteq\left\{  1,2,\ldots,n\right\}  ;\\\left\vert
+S\right\vert =k;\\S\text{ is type-2}}}q^{\operatorname*{sum}S-\left(
+1+2+\cdots+k\right)  }=\sum_{\substack{S\subseteq\left\{  1,2,\ldots
+,n-1\right\}  ;\\\left\vert S\right\vert =k}}q^{\operatorname*{sum}S-\left(
+1+2+\cdots+k\right)  }=\dbinom{n-1}{k}_{q}%
+\]
+(by (\ref{pf.thm.pars.qbinom.rec.n-1k})).
+
+The type-1 subsets are just the $\left(  k-1\right)  $-element subsets of
+$\left\{  1,2,\ldots,n-1\right\}  $ with an $n$ inserted into them; i.e., the
+map%
+\begin{align*}
+\left\{  \left(  k-1\right)  \text{-element subsets of }\left\{
+1,2,\ldots,n-1\right\}  \right\}   &  \rightarrow\left\{  \text{type-1
+subsets}\right\}  ,\\
+S  &  \mapsto S\cup\left\{  n\right\}
+\end{align*}
+is a bijection. Hence, substituting $S\cup\left\{  n\right\}  $ for $S$ in the
+sum, we find%
+\begin{align*}
+\sum_{\substack{S\subseteq\left\{  1,2,\ldots,n\right\}  ;\\\left\vert
+S\right\vert =k;\\S\text{ is type-1}}}q^{\operatorname*{sum}S-\left(
+1+2+\cdots+k\right)  }  &  =\sum_{\substack{S\subseteq\left\{  1,2,\ldots
+,n-1\right\}  ;\\\left\vert S\right\vert =k-1}%
+}\underbrace{q^{\operatorname*{sum}\left(  S\cup\left\{  n\right\}  \right)
+-\left(  1+2+\cdots+k\right)  }}_{\substack{=q^{\operatorname*{sum}S+n-\left(
+1+2+\cdots+k\right)  }\\\text{(since }S\subseteq\left\{  1,2,\ldots
+,n-1\right\}  \text{ entails }n\notin S\\\text{and thus }\operatorname*{sum}%
+\left(  S\cup\left\{  n\right\}  \right)  =\operatorname*{sum}S+n\text{)}}}\\
+&  =\sum_{\substack{S\subseteq\left\{  1,2,\ldots,n-1\right\}  ;\\\left\vert
+S\right\vert =k-1}}\underbrace{q^{\operatorname*{sum}S+n-\left(
+1+2+\cdots+k\right)  }}_{\substack{=q^{\operatorname*{sum}S+n-\left(
+1+2+\cdots+\left(  k-1\right)  \right)  -k}\\=q^{n-k}q^{\operatorname*{sum}%
+S-\left(  1+2+\cdots+\left(  k-1\right)  \right)  }}}\\
+&  =\sum_{\substack{S\subseteq\left\{  1,2,\ldots,n-1\right\}  ;\\\left\vert
+S\right\vert =k-1}}q^{n-k}q^{\operatorname*{sum}S-\left(  1+2+\cdots+\left(
+k-1\right)  \right)  }\\
+&  =q^{n-k}\underbrace{\sum_{\substack{S\subseteq\left\{  1,2,\ldots
+,n-1\right\}  ;\\\left\vert S\right\vert =k-1}}q^{\operatorname*{sum}S-\left(
+1+2+\cdots+\left(  k-1\right)  \right)  }}_{\substack{=\dbinom{n-1}{k-1}%
+_{q}\\\text{(by (\ref{pf.thm.pars.qbinom.rec.n-1k-1}))}}}\\
+&  =q^{n-k}\dbinom{n-1}{k-1}_{q}.
+\end{align*}
+
+
+All that's left to do is combining what we have found:%
+\begin{align*}
+\dbinom{n}{k}_{q}  &  =\sum_{\substack{S\subseteq\left\{  1,2,\ldots
+,n\right\}  ;\\\left\vert S\right\vert =k}}q^{\operatorname*{sum}S-\left(
+1+2+\cdots+k\right)  }\ \ \ \ \ \ \ \ \ \ \left(  \text{by
+(\ref{pf.thm.pars.qbinom.rec.nk})}\right) \\
+&  =\underbrace{\sum_{\substack{S\subseteq\left\{  1,2,\ldots,n\right\}
+;\\\left\vert S\right\vert =k;\\S\text{ is type-1}}}q^{\operatorname*{sum}%
+S-\left(  1+2+\cdots+k\right)  }}_{=q^{n-k}\dbinom{n-1}{k-1}_{q}%
+}+\underbrace{\sum_{\substack{S\subseteq\left\{  1,2,\ldots,n\right\}
+;\\\left\vert S\right\vert =k;\\S\text{ is type-2}}}q^{\operatorname*{sum}%
+S-\left(  1+2+\cdots+k\right)  }}_{=\dbinom{n-1}{k}_{q}}\\
+&  =q^{n-k}\dbinom{n-1}{k-1}_{q}+\dbinom{n-1}{k}_{q}.
+\end{align*}
+This proves Theorem \ref{thm.pars.qbinom.rec} \textbf{(a)}. \medskip
+
+\textbf{(b)} This is somewhat similar to Theorem \ref{thm.pars.qbinom.rec}
+\textbf{(a)} (but a little bit more complicated). It is left as a homework
+exercise (Exercise \ref{exe.pars.qbinom.basics} \textbf{(b)}).
+\end{proof}
+
+Next, we shall derive a $q$-analogue of the formula $\dbinom{n}{k}%
+=\dfrac{n\left(  n-1\right)  \cdots\left(  n-k+1\right)  }{k!}=\dfrac{n\left(
+n-1\right)  \cdots\left(  n-k+1\right)  }{k\left(  k-1\right)  \cdots1}$:
+
+\begin{theorem}
+\label{thm.pars.qbinom.quot1}Let $n,k\in\mathbb{N}$ satisfy $n\geq k$. Then:
+\medskip
+
+\textbf{(a)} We have%
+\begin{align*}
+&  \left(  1-q^{k}\right)  \left(  1-q^{k-1}\right)  \cdots\left(
+1-q^{1}\right)  \cdot\dbinom{n}{k}_{q}\\
+&  =\left(  1-q^{n}\right)  \left(  1-q^{n-1}\right)  \cdots\left(
+1-q^{n-k+1}\right)  .
+\end{align*}
+
+
+\textbf{(b)} We have%
+\[
+\dbinom{n}{k}_{q}=\dfrac{\left(  1-q^{n}\right)  \left(  1-q^{n-1}\right)
+\cdots\left(  1-q^{n-k+1}\right)  }{\left(  1-q^{k}\right)  \left(
+1-q^{k-1}\right)  \cdots\left(  1-q^{1}\right)  }%
+\]
+(in the ring $\mathbb{Z}\left[  \left[  q\right]  \right]  $ or in the field
+of rational functions over $\mathbb{Q}$).
+\end{theorem}
+
+Note that part \textbf{(b)} of Theorem \ref{thm.pars.qbinom.quot1} is the more
+intuitive statement, but part \textbf{(a)} is easier to substitute things in
+(because substituting something for $q$ in part \textbf{(b)} requires showing
+that the denominator remains invertible, whereas part \textbf{(a)} has no
+denominators and thus requires no such diligence).
+
+\begin{proof}
+[Proof of Theorem \ref{thm.pars.qbinom.quot1}.]This is left as a homework
+exercise (Exercise \ref{exe.pars.qbinom.basics} \textbf{(c)}). (Use induction
+on $n$ and Theorem \ref{thm.pars.qbinom.rec}.)
+\end{proof}
+
+\begin{remark}
+If I just gave you the fraction $\dfrac{\left(  1-q^{n}\right)  \left(
+1-q^{n-1}\right)  \cdots\left(  1-q^{n-k+1}\right)  }{\left(  1-q^{k}\right)
+\left(  1-q^{k-1}\right)  \cdots\left(  1-q^{1}\right)  }$, you would be
+surprised to hear that it is a polynomial (i.e., that the denominator divides
+the numerator) and has nonnegative coefficients. But given the way we defined
+$\dbinom{n}{k}_{q}$, you are now getting this for free from Theorem
+\ref{thm.pars.qbinom.quot1}.
+\end{remark}
+
+Theorem \ref{thm.pars.qbinom.quot1} \textbf{(b)} can be rewritten in a
+somewhat simpler way using the following notations:
+
+\begin{definition}
+\label{def.pars.qbinom.qint}\textbf{(a)} For any $n\in\mathbb{N}$, define the
+$q$\emph{-integer }$\left[  n\right]  _{q}$ to be
+\[
+\left[  n\right]  _{q}:=q^{0}+q^{1}+\cdots+q^{n-1}\in\mathbb{Z}\left[
+q\right]  .
+\]
+
+
+\textbf{(b)} For any $n\in\mathbb{N}$, define the $q$\emph{-factorial
+}$\left[  n\right]  _{q}!$ to be%
+\[
+\left[  n\right]  _{q}!\ :=\left[  1\right]  _{q}\left[  2\right]  _{q}%
+\cdots\left[  n\right]  _{q}\in\mathbb{Z}\left[  q\right]  .
+\]
+
+
+\textbf{(c)} As usual, if $a$ is an element of a ring $A$, then $\left[
+n\right]  _{a}$ and $\left[  n\right]  _{a}!$ will mean the results of
+substituting $a$ for $q$ in $\left[  n\right]  _{q}$ and $\left[  n\right]
+_{q}!$, respectively. Thus, explicitly, $\left[  n\right]  _{a}=a^{0}%
++a^{1}+\cdots+a^{n-1}$ and $\left[  n\right]  _{a}!=\left[  1\right]
+_{a}\left[  2\right]  _{a}\cdots\left[  n\right]  _{a}$.
+\end{definition}
+
+Alternative notations for $\left[  n\right]  _{q}!$ are $\left[  n\right]
+!_{q}$ (used in \cite{Loehr-BC}) and the boldface $\mathbf{(}\boldsymbol{n}%
+\mathbf{)!}$ (used in \cite{Stanley-EC1}).
+
+\begin{remark}
+\label{rmk.pars.qbinom.qint.frac}For any $n\in\mathbb{N}$, we have%
+\[
+\left[  n\right]  _{q}=\dfrac{1-q^{n}}{1-q}\ \ \ \ \ \ \ \ \ \ \left(
+\text{in }\mathbb{Z}\left[  \left[  q\right]  \right]  \text{ or in the ring
+of rational functions over }\mathbb{Q}\right)
+\]
+and%
+\[
+\left[  n\right]  _{1}=n\ \ \ \ \ \ \ \ \ \ \text{and}%
+\ \ \ \ \ \ \ \ \ \ \left[  n\right]  _{1}!=n!.
+\]
+
+\end{remark}
+
+\begin{proof}
+[Proof of Remark \ref{rmk.pars.qbinom.qint.frac}.]Let $n\in\mathbb{N}$. We
+have%
+\[
+\left[  n\right]  _{q}:=q^{0}+q^{1}+\cdots+q^{n-1}=\dfrac{1-q^{n}}{1-q},
+\]
+since%
+\begin{align*}
+\left(  1-q\right)  \left(  q^{0}+q^{1}+\cdots+q^{n-1}\right)   &  =\left(
+q^{0}+q^{1}+\cdots+q^{n-1}\right)  -q\left(  q^{0}+q^{1}+\cdots+q^{n-1}\right)
+\\
+&  =\left(  q^{0}+q^{1}+\cdots+q^{n-1}\right)  -\left(  q^{1}+q^{2}%
++\cdots+q^{n}\right) \\
+&  =\underbrace{q^{0}}_{=1}-\,q^{n}=1-q^{n}.
+\end{align*}
+
+
+Furthermore, substituting $1$ for $q$ in the equality $\left[  n\right]
+_{q}=q^{0}+q^{1}+\cdots+q^{n-1}$, we obtain%
+\begin{equation}
+\left[  n\right]  _{1}=1^{0}+1^{1}+\cdots+1^{n-1}=\underbrace{1+1+\cdots
++1}_{n\text{ times}}=n. \label{pf.rmk.pars.qbinom.qint.frac.4}%
+\end{equation}
+Substituting $1$ for $q$ in the equality $\left[  n\right]  _{q}!=\left[
+1\right]  _{q}\left[  2\right]  _{q}\cdots\left[  n\right]  _{q}$, we obtain%
+\[
+\left[  n\right]  _{1}!=\underbrace{\left[  1\right]  _{1}}%
+_{\substack{=1\\\text{(by (\ref{pf.rmk.pars.qbinom.qint.frac.4}))}%
+}}\underbrace{\left[  2\right]  _{1}}_{\substack{=2\\\text{(by
+(\ref{pf.rmk.pars.qbinom.qint.frac.4}))}}}\cdots\underbrace{\left[  n\right]
+_{1}}_{\substack{=n\\\text{(by (\ref{pf.rmk.pars.qbinom.qint.frac.4}))}%
+}}=1\cdot2\cdot\cdots\cdot n=n!.
+\]
+
+\end{proof}
+
+\begin{theorem}
+\label{thm.pars.qbinom.quot2}Let $n,k\in\mathbb{N}$ with $n\geq k$. Then,%
+\[
+\dbinom{n}{k}_{q}=\dfrac{\left[  n\right]  _{q}\left[  n-1\right]  _{q}%
+\cdots\left[  n-k+1\right]  _{q}}{\left[  k\right]  _{q}!}=\dfrac{\left[
+n\right]  _{q}!}{\left[  k\right]  _{q}!\cdot\left[  n-k\right]  _{q}!}%
+\]
+(in the ring $\mathbb{Z}\left[  \left[  q\right]  \right]  $ or in the ring of
+rational functions over $\mathbb{Q}$).
+\end{theorem}
+
+\begin{proof}
+This is left as a homework exercise (Exercise \ref{exe.pars.qbinom.basics}
+\textbf{(d)}).
+\end{proof}
+
+A consequence of this theorem is the following symmetry property of
+$q$-binomial coefficients:
+
+\begin{proposition}
+\label{prop.pars.qbinom.symm}Let $n,k\in\mathbb{N}$. Then,%
+\[
+\dbinom{n}{k}_{q}=\dbinom{n}{n-k}_{q}.
+\]
+
+\end{proposition}
+
+\begin{proof}
+This is left as a homework exercise (Exercise \ref{exe.pars.qbinom.basics}
+\textbf{(e)}).
+\end{proof}
+

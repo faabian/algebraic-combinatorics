@@ -1,0 +1,483 @@
+\section{Details on Laurent power series}
+
+Fix a commutative ring $K$.
+
+\subsection{Proof of Theorem~\ref{thm.fps.laure.laupol-ring} (sketched)}
+
+The set $K\left[\xpm\right]$ is closed under addition, scaling, and
+the convolution product from Definition~\ref{def.fps.laure.laupol}
+(analogous to Theorem~\ref{thm.fps.pol.ring}, replacing
+$\sum_{i=0}^{n}$ sums by $\sum_{i \in \mathbb{Z}}$ sums).
+The multiplication is associative, commutative, distributive, and
+$K$-bilinear (analogous to the corresponding parts of
+Theorem~\ref{thm.fps.ring}). The element
+$\left(\delta_{i,0}\right)_{i \in \mathbb{Z}}$ is a neutral element
+for multiplication.
+
+It remains to show that $x$ is invertible. Set
+$\overline{x} := \left(\delta_{i,-1}\right)_{i \in \mathbb{Z}}$.
+Then $x \overline{x} = 1$ and $\overline{x} x = 1$ by direct
+calculation. For example, from
+$x = \left(\delta_{i,1}\right)_{i \in \mathbb{Z}}$ and
+$\overline{x} = \left(\delta_{i,-1}\right)_{i \in \mathbb{Z}}$, we
+get
+\[
+  x \overline{x}
+  = \left(c_n\right)_{n \in \mathbb{Z}},
+  \quad \text{where} \quad
+  c_n = \sum_{i \in \mathbb{Z}} \delta_{i,1}\,\delta_{n-i,-1}
+\]
+(by Definition~\ref{def.fps.laure.laupol}).
+For each $n \in \mathbb{Z}$,
+\begin{align*}
+  c_n
+  &= \sum_{i \in \mathbb{Z}} \delta_{i,1}\,\delta_{n-i,-1}
+   = \underbrace{\delta_{1,1}}_{= 1} \delta_{n-1,-1}
+     + \sum_{\substack{i \in \mathbb{Z} \\ i \neq 1}}
+       \underbrace{\delta_{i,1}}_{= 0\text{ (since } i \neq 1\text{)}}
+       \delta_{n-i,-1} \\
+  &= \delta_{n-1,-1} = \delta_{n,0},
+\end{align*}
+since $n - 1 = -1$ if and only if $n = 0$. Hence
+$x \overline{x} = \left(\delta_{n,0}\right)_{n \in \mathbb{Z}} = 1$.
+The proof of $\overline{x} x = 1$ is analogous, or follows by commutativity.
+
+\subsection{Helpers for Theorem~\ref{thm.fps.laure.laupol-ring}}
+
+\begin{lemma}[$T(1) \cdot T(-1) = 1$]
+\label{lem.fps.laure.T-inv}
+\lean{AlgebraicCombinatorics.FPS.Laurent.T_inv}
+\leanhelper
+\leanok
+In the Laurent polynomial ring, $T(1) \cdot T(-1) = 1$.
+This witnesses the right inverse of $x$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Follows from $T(a) \cdot T(b) = T(a+b)$ with $a = 1$, $b = -1$.
+\end{proof}
+
+\begin{lemma}[$T(-1) \cdot T(1) = 1$]
+\label{lem.fps.laure.T-neg-one-mul-T}
+\lean{AlgebraicCombinatorics.FPS.Laurent.T_neg_one_mul_T}
+\leanhelper
+\leanok
+In the Laurent polynomial ring, $T(-1) \cdot T(1) = 1$.
+This witnesses the left inverse of $x$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Follows from $T(a) \cdot T(b) = T(a+b)$ with $a = -1$, $b = 1$.
+\end{proof}
+
+\subsection{Multiplication by $x$ shifts coefficients}
+
+\begin{lemma}[Multiplication by $x$ and $x^{-1}$ shifts coefficients]
+\label{lem.fps.laure.xa}
+\lean{AlgebraicCombinatorics.FPS.Laurent.T_mul_coeff, AlgebraicCombinatorics.FPS.Laurent.T_neg_one_mul_coeff}
+\leantarget
+\leanok
+Let $\mathbf{a} = \left(a_n\right)_{n \in \mathbb{Z}}$ be a Laurent
+polynomial in $K\left[\xpm\right]$. Then,
+\[
+  x \cdot \mathbf{a} = \left(a_{n-1}\right)_{n \in \mathbb{Z}}
+  \qquad \text{and} \qquad
+  x^{-1} \cdot \mathbf{a} = \left(a_{n+1}\right)_{n \in \mathbb{Z}}.
+\]
+\end{lemma}
+
+\begin{proof}
+From $x = \left(\delta_{i,1}\right)_{i \in \mathbb{Z}}$ and
+$\mathbf{a} = \left(a_i\right)_{i \in \mathbb{Z}}$, we obtain
+\[
+  x \cdot \mathbf{a}
+  = \left(\delta_{i,1}\right)_{i \in \mathbb{Z}}
+    \cdot \left(a_i\right)_{i \in \mathbb{Z}}
+  = \left(c_n\right)_{n \in \mathbb{Z}},
+  \quad \text{where} \quad
+  c_n = \sum_{i \in \mathbb{Z}} \delta_{i,1}\,a_{n-i}
+\]
+(by Definition~\ref{def.fps.laure.laupol}). For each
+$n \in \mathbb{Z}$,
+\begin{align*}
+  c_n
+  &= \sum_{i \in \mathbb{Z}} \delta_{i,1}\,a_{n-i}
+   = \underbrace{\delta_{1,1}}_{= 1} a_{n-1}
+     + \sum_{\substack{i \in \mathbb{Z} \\ i \neq 1}}
+       \underbrace{\delta_{i,1}}_{= 0\text{ (since } i \neq 1\text{)}}
+       a_{n-i} \\
+  &= a_{n-1}.
+\end{align*}
+Thus, $x \cdot \mathbf{a} = \left(a_{n-1}\right)_{n \in \mathbb{Z}}$.
+
+It remains to prove that
+$x^{-1} \cdot \mathbf{a} = \left(a_{n+1}\right)_{n \in \mathbb{Z}}$.
+Let $\mathbf{b} = \left(a_{n+1}\right)_{n \in \mathbb{Z}}$; this is
+again a Laurent polynomial in $K\left[\xpm\right]$.
+Applying the result just proved to
+$\mathbf{b}$ (with $a_{n+1}$ in place of $a_n$) yields
+\[
+  x \cdot \mathbf{b}
+  = \left(a_{(n-1)+1}\right)_{n \in \mathbb{Z}}
+  = \left(a_n\right)_{n \in \mathbb{Z}}
+  = \mathbf{a}.
+\]
+Dividing by the invertible element $x$, we get
+$\mathbf{b} = x^{-1} \cdot \mathbf{a}$, i.e.\
+$x^{-1} \cdot \mathbf{a} = \left(a_{n+1}\right)_{n \in \mathbb{Z}}$.
+\end{proof}
+
+\begin{lemma}[Multiplication on the right by $T$ shifts coefficients]
+\label{lem.fps.laure.xa.right}
+\lean{AlgebraicCombinatorics.FPS.Laurent.mul_T_coeff, AlgebraicCombinatorics.FPS.Laurent.mul_T_neg_one_coeff}
+\leanhelper
+\leanok
+For any Laurent polynomial $\mathbf{a}$,
+\[
+  \mathbf{a} \cdot x = \left(a_{n-1}\right)_{n \in \mathbb{Z}}
+  \qquad \text{and} \qquad
+  \mathbf{a} \cdot x^{-1} = \left(a_{n+1}\right)_{n \in \mathbb{Z}}.
+\]
+\end{lemma}
+
+\begin{proof}
+Follows from Lemma~\ref{lem.fps.laure.xa} by commutativity of
+multiplication.
+\end{proof}
+
+\subsection{Powers of $x$}
+
+\begin{lemma}[$T(m) \cdot T(n) = T(m + n)$]
+\label{lem.fps.laure.T-mul-T}
+\lean{AlgebraicCombinatorics.FPS.Laurent.T_mul_T}
+\leanhelper
+\leanok
+For all $m, n \in \mathbb{Z}$, we have $T(m) \cdot T(n) = T(m + n)$
+in the Laurent polynomial ring. This is the fundamental multiplicative
+law for Laurent monomials.
+\end{lemma}
+
+\begin{proof}
+\leanok
+This is the group homomorphism property of $T$: $T(a) \cdot T(b) = T(a+b)$.
+\end{proof}
+
+\begin{lemma}[$T(1)^n = T(n)$ for natural numbers]
+\label{lem.fps.laure.T-one-pow}
+\lean{AlgebraicCombinatorics.FPS.Laurent.T_one_pow}
+\leanhelper
+\leanok
+For any natural number $n$, we have $T(1)^n = T(n)$ in the Laurent
+polynomial ring.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Follows from $T(1)^n = T(1 \cdot n) = T(n)$ by the group homomorphism property.
+\end{proof}
+
+\begin{proposition}[$x^k = (\delta_{i,k})_{i \in \mathbb{Z}}$ for all $k \in \mathbb{Z}$]
+\label{prop.fps.laure.xk}
+\lean{AlgebraicCombinatorics.FPS.Laurent.T_coeff_eq, AlgebraicCombinatorics.FPS.Laurent.T_one_zpow}
+\leantarget
+\leanok
+We have
+\[
+  x^k = \left(\delta_{i,k}\right)_{i \in \mathbb{Z}}
+  \qquad \text{for each } k \in \mathbb{Z}.
+\]
+\end{proposition}
+
+\begin{proof}
+This is proved by two-sided induction on $k$ (see \cite{detnotes},
+\S 2.15 for a detailed explanation of two-sided induction).
+
+\textbf{Base case ($k = 0$):}
+$x^0 = 1 = \left(\delta_{i,0}\right)_{i \in \mathbb{Z}}$, which is the
+definition of the unity element.
+
+\textbf{Induction step from $k$ to $k+1$:}
+Assume $x^k = \left(\delta_{i,k}\right)_{i \in \mathbb{Z}}$.
+By Lemma~\ref{lem.fps.laure.xa} (the
+$x \cdot \mathbf{a} = \left(a_{n-1}\right)_{n \in \mathbb{Z}}$ part),
+\[
+  x^{k+1} = x \cdot x^k
+  = x \cdot \left(\delta_{i,k}\right)_{i \in \mathbb{Z}}
+  = \left(\delta_{n-1,k}\right)_{n \in \mathbb{Z}}
+  = \left(\delta_{n,k+1}\right)_{n \in \mathbb{Z}},
+\]
+since $n - 1 = k$ if and only if $n = k + 1$.
+
+\textbf{Induction step from $k$ to $k-1$:}
+Assume $x^k = \left(\delta_{i,k}\right)_{i \in \mathbb{Z}}$.
+By Lemma~\ref{lem.fps.laure.xa} (the
+$x^{-1} \cdot \mathbf{a} = \left(a_{n+1}\right)_{n \in \mathbb{Z}}$ part),
+\[
+  x^{k-1} = x^{-1} \cdot x^k
+  = x^{-1} \cdot \left(\delta_{i,k}\right)_{i \in \mathbb{Z}}
+  = \left(\delta_{n+1,k}\right)_{n \in \mathbb{Z}}
+  = \left(\delta_{n,k-1}\right)_{n \in \mathbb{Z}},
+\]
+since $n + 1 = k$ if and only if $n = k - 1$.
+\end{proof}
+
+\begin{lemma}[Coefficient of $x^k$]
+\label{lem.fps.laure.xk.coeff}
+\lean{AlgebraicCombinatorics.FPS.Laurent.T_one_zpow_coeff}
+\leanhelper
+\leanok
+For all $k, i \in \mathbb{Z}$, the coefficient of $x^k$ at position
+$i$ is $\delta_{i,k}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Immediate from Proposition~\ref{prop.fps.laure.xk}.
+\end{proof}
+
+\subsection{Proof of Proposition~\ref{prop.fps.laure.a=sumaixi} (sketched)}
+
+\begin{definition}[Summable family of monomials]
+\label{def.fps.laure.singleFamily}
+\lean{AlgebraicCombinatorics.FPS.Laurent.singleFamily}
+\leanhelper
+\leanok
+Given a Laurent series $\mathbf{a} = (a_n)_{n \in \mathbb{Z}}$, the family
+of monomials $\bigl(a_g \cdot x^g\bigr)_{g \in \operatorname{supp}(\mathbf{a})}$
+forms a summable family. This
+construction is the key ingredient for expressing a Laurent series
+as a formal infinite sum of monomials.
+\end{definition}
+
+\begin{lemma}[Coefficient of a Laurent series as a finitary sum]
+\label{lem.fps.laure.coeff-finsum-single}
+\lean{AlgebraicCombinatorics.FPS.Laurent.laurentSeries_coeff_eq_finsum_single}
+\leanhelper
+\leanok
+For any Laurent series $\mathbf{a} = (a_n)_{n \in \mathbb{Z}}$ and any
+$n \in \mathbb{Z}$, the $n$-th coefficient satisfies
+\[
+  a_n = \sum_{i \in \operatorname{supp}(\mathbf{a})}^{\mathrm{fin}}
+        [x^n](a_i \cdot x^i).
+\]
+\end{lemma}
+
+\begin{proof}
+Follows by rewriting the left-hand side as the sum of its
+monomial components and extracting the coefficient.
+\end{proof}
+
+Proposition~\ref{prop.fps.laure.a=sumaixi} follows: any Laurent
+polynomial $\mathbf{a} = (a_i)_{i \in \mathbb{Z}}$ satisfies
+$\mathbf{a} = \sum_{i \in \mathbb{Z}} a_i x^i$, analogously to
+Corollary~\ref{cor.fps.sumakxk} but using
+Proposition~\ref{prop.fps.laure.xk} instead of
+Proposition~\ref{prop.fps.xk}.
+
+\subsection{Proof of Theorem~\ref{thm.fps.laure.lauser-ring} (sketched)}
+
+The proof is analogous to Theorem~\ref{thm.fps.laure.laupol-ring}.
+The only different piece is the proof that $K\left(\left(x\right)\right)$
+is closed under multiplication.
+
+Let $\left(a_n\right)_{n \in \mathbb{Z}}$ and
+$\left(b_n\right)_{n \in \mathbb{Z}}$ be two elements of
+$K\left(\left(x\right)\right)$. Their product is
+\[
+  \left(a_n\right)_{n \in \mathbb{Z}} \cdot \left(b_n\right)_{n \in \mathbb{Z}}
+  = \left(c_n\right)_{n \in \mathbb{Z}},
+  \quad \text{where} \quad
+  c_n = \sum_{i \in \mathbb{Z}} a_i\,b_{n-i}.
+\]
+We must show that $\left(c_{-1}, c_{-2}, c_{-3}, \ldots\right)$ is
+essentially finite.
+
+Since $\left(a_n\right) \in K\left(\left(x\right)\right)$, there exists
+a negative integer $p$ such that $a_i = 0$ for all $i \le p$.
+Similarly, there exists a negative integer $q$ such that $b_j = 0$
+for all $j \le q$. Set $r := p + q$. For any integer $n \le r$:
+
+\begin{itemize}
+\item Each $i \ge p$ satisfies $n - i \le r - p = q$, hence
+  $b_{n-i} = 0$.
+\item Each $i < p$ satisfies $a_i = 0$.
+\end{itemize}
+
+Therefore
+\[
+  c_n
+  = \sum_{i \in \mathbb{Z}} a_i\,b_{n-i}
+  = \sum_{\substack{i \in \mathbb{Z} \\ i < p}}
+    \underbrace{a_i}_{= 0} b_{n-i}
+  + \sum_{\substack{i \in \mathbb{Z} \\ i \ge p}}
+    a_i \underbrace{b_{n-i}}_{= 0}
+  = 0.
+\]
+Hence all $n \le r$ satisfy $c_n = 0$, so the sequence
+$\left(c_{-1}, c_{-2}, \ldots\right)$ is essentially finite.
+
+\subsection{Helpers for the embeddings}
+
+\begin{lemma}[Power series coefficient preservation]
+\label{lem.fps.laure.ps-embed-coeff}
+\lean{AlgebraicCombinatorics.FPS.Laurent.coeff_powerSeriesToLaurent}
+\leanhelper
+\leanok
+The embedding $K[\![x]\!] \hookrightarrow K(\!(x)\!)$ preserves
+coefficients: for any power series $f$ and any $n \in \mathbb{N}$,
+the $n$-th coefficient of the image equals the $n$-th coefficient of $f$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+This is a standard result relating power series
+to Laurent series: the embedding preserves coefficients.
+\end{proof}
+
+\begin{lemma}[Laurent polynomial embedding is additive]
+\label{lem.fps.laure.laupol-embed-add}
+\lean{AlgebraicCombinatorics.FPS.Laurent.laurentPolynomialToSeries_add}
+\leanhelper
+\leanok
+The embedding $K[\xpm] \hookrightarrow K(\!(x)\!)$ preserves
+addition: for Laurent polynomials $p$ and $q$, the image of $p + q$
+equals the sum of the images.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By extensionality on coefficients: both sides have the same coefficient
+at each $n \in \mathbb{Z}$.
+\end{proof}
+
+\begin{lemma}[Laurent polynomial embedding preserves 1]
+\label{lem.fps.laure.laupol-embed-one}
+\lean{AlgebraicCombinatorics.FPS.Laurent.laurentPolynomialToSeries_one}
+\leanhelper
+\leanok
+The embedding $K[\xpm] \hookrightarrow K(\!(x)\!)$ sends $1$ to $1$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By extensionality on coefficients.
+\end{proof}
+
+\begin{lemma}[Laurent polynomial embedding preserves coefficients]
+\label{lem.fps.laure.laupol-embed-coeff}
+\lean{AlgebraicCombinatorics.FPS.Laurent.laurentPolynomialToSeries_coeff}
+\leanhelper
+\leanok
+For any Laurent polynomial $p$ and any $n \in \mathbb{Z}$,
+the $n$-th coefficient of the image equals $p(n)$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By definition of the embedding.
+\end{proof}
+
+\subsection{Helpers for Theorem~\ref{thm.fps.laure.balanced-tern-rep-uniq}}
+
+\begin{lemma}[Existence of balanced ternary representation]
+\label{lem.fps.laure.bt-exists}
+\lean{AlgebraicCombinatorics.FPS.Laurent.balancedTernary_exists}
+\leanhelper
+\leanok
+For any integer $n$, there exists a balanced ternary representation
+of $n$. The proof finds $k$ large enough that $|n| \le M_k$, then
+uses the $k$-bounded existence result
+(Lemma~\ref{lem.fps.laure.kbounded-unique}).
+\end{lemma}
+
+\begin{proof}
+\leanok
+Find $k$ with $|n| \le M_k$ (using $|n| \le M_{|n|}$).
+Then $n \in [-M_k, M_k]$, so by Lemma~\ref{lem.fps.laure.kbounded-unique}
+there exists a $k$-bounded representation, which is converted to a
+finitely supported function.
+\end{proof}
+
+\begin{lemma}[Uniqueness of balanced ternary representation]
+\label{lem.fps.laure.bt-unique}
+\lean{AlgebraicCombinatorics.FPS.Laurent.balancedTernary_unique}
+\leanhelper
+\leanok
+If two balanced ternary representations have the same value $n$,
+then their digit functions are equal. This follows from
+Lemma~\ref{lem.fps.laure.sum-powers-three-zero} applied to the
+difference of the two digit sequences.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Apply the uniqueness result for balanced ternary digits to the two digit functions,
+using that both have values in $\{-1, 0, 1\}$ and the same weighted sum.
+\end{proof}
+
+\begin{lemma}[$k$-bounded values lie in the target interval]
+\label{lem.fps.laure.bt-value-mem-Icc}
+\lean{AlgebraicCombinatorics.FPS.Laurent.kBoundedBTValue_mem_Icc}
+\leanhelper
+\leanok
+For any $k$-bounded balanced ternary representation
+$f \in \{-1, 0, 1\}^{k+1}$, the value
+$\sum_{i=0}^{k} f(i) \cdot 3^i$ lies in the interval
+$[-M_k, M_k]$ where $M_k = \sum_{i=0}^{k} 3^i$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Each digit $f(i) \in \{-1, 0, 1\}$ contributes at most $\pm 3^i$
+to the sum. Summing gives the bounds
+$-\sum 3^i \le \text{value} \le \sum 3^i$.
+\end{proof}
+
+\begin{lemma}[Balanced ternary injectivity]
+\label{lem.fps.laure.bt-injective}
+\lean{AlgebraicCombinatorics.FPS.Laurent.kBoundedBTValue_injective_on}
+\leanhelper
+\leanok
+The evaluation map $f \mapsto \sum_{i=0}^{k} f(i) \cdot 3^i$ is
+injective on the set of $k$-bounded balanced ternary representations.
+\end{lemma}
+
+\begin{proof}
+By strong induction on $k$: the lowest digit is determined by the value
+modulo $3$, and the remaining digits are determined by induction on
+the quotient.
+\end{proof}
+
+\begin{lemma}[Digit differences are bounded]
+\label{lem.fps.laure.bt-diff-abs}
+\lean{AlgebraicCombinatorics.FPS.Laurent.btDigits_diff_abs_ge_one, AlgebraicCombinatorics.FPS.Laurent.btDigits_diff_abs_le_two}
+\leanhelper
+\leanok
+If $a, b \in \{-1, 0, 1\}$, then $|a - b| \le 2$.
+If additionally $a \ne b$, then $|a - b| \ge 1$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By case analysis on $a$ and $b$.
+\end{proof}
+
+\begin{lemma}[Equivalence of balanced ternary representation types]
+\label{lem.fps.laure.bt-equiv}
+\lean{AlgebraicCombinatorics.FPS.Laurent.balancedTernary_equiv}
+\leanhelper
+\leanok
+There is a type equivalence between the finitely-supported
+balanced ternary representation (using $\mathbb{N} \to \mathbb{Z}$
+with digits in $\{-1,0,1\}$ and finite support) and the inductive-style
+balanced ternary representation. The conversions are inverse
+to each other.
+\end{lemma}
+
+\begin{proof}
+The forward direction maps each digit $d$ to its balanced ternary digit,
+the inverse maps each balanced ternary digit to its integer value.
+Round-trip identities follow by checking both compositions are the identity.
+\end{proof}

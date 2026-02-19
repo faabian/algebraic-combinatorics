@@ -1,0 +1,710 @@
+\subsubsection{Product rules (generalized distributive laws)}
+
+The equality (\ref{eq.fps.prod.binary.prod-inf}) is an instance of a
+\emph{product rule} -- a statement of the form \textquotedblleft a product of
+sums can be expanded into one big sum\textquotedblright. The simplest product
+rules are the distributive laws $a\left(  b+c\right)  =ab+ac$ and $\left(
+a+b\right)  c=ac+bc$ (here, one of the sums being multiplied is a one-addend
+sum); one of the next-simplest is $\left(  a+b\right)  \left(  c+d\right)
+=ac+ad+bc+bd$. As far as finite sums and finite products are concerned, the
+following product rule is one of the most general:\footnote{Keep in mind that
+an empty Cartesian product (i.e., a Cartesian product of $0$ sets) is always a
+$1$-element set; its only element is the $0$-tuple $\left(  {}\right)  $.
+Thus, a sum ranging over an empty Cartesian product has exactly $1$ addend.}
+
+\begin{proposition}
+\label{prop.fps.prodrule-fin-fin}Let $L$ be a commutative ring. For every
+$n\in\mathbb{N}$, let $\left[  n\right]  $ denote the set $\left\{
+1,2,\ldots,n\right\}  $.
+
+Let $n\in\mathbb{N}$. For every $i\in\left[  n\right]  $, let $p_{i,1}%
+,p_{i,2},\ldots,p_{i,m_{i}}$ be finitely many elements of $L$. Then,%
+\begin{equation}
+\prod_{i=1}^{n}\ \ \sum_{k=1}^{m_{i}}p_{i,k}=\sum_{\left(  k_{1},k_{2}%
+,\ldots,k_{n}\right)  \in\left[  m_{1}\right]  \times\left[  m_{2}\right]
+\times\cdots\times\left[  m_{n}\right]  }\ \ \prod_{i=1}^{n}p_{i,k_{i}}.
+\label{eq.lem.fps.prodrule-fin-fin.eq}%
+\end{equation}
+
+\end{proposition}
+
+We can rewrite (\ref{eq.lem.fps.prodrule-fin-fin.eq}) in a less abstract way
+as follows:%
+\begin{align*}
+&  \left(  p_{1,1}+p_{1,2}+\cdots+p_{1,m_{1}}\right)  \left(  p_{2,1}%
++p_{2,2}+\cdots+p_{2,m_{2}}\right)  \cdots\left(  p_{n,1}+p_{n,2}%
++\cdots+p_{n,m_{n}}\right) \\
+&  =p_{1,1}p_{2,1}\cdots p_{n,1}+p_{1,1}p_{2,1}\cdots p_{n-1,1}p_{n,2}%
++\cdots+p_{1,m_{1}}p_{2,m_{2}}\cdots p_{n,m_{n}},
+\end{align*}
+where the right hand side is the sum of all $m_{1}m_{2}\cdots m_{n}$ many ways
+to multiply one addend from each of the factors on the left hand side.
+
+See \cite[solution to Exercise 6.9]{detnotes} for a formal proof of
+Proposition \ref{prop.fps.prodrule-fin-fin}. (The idea is to reduce it to the
+case $n=2$ by induction, then to use the discrete Fubini rule.)
+
+Let us now move on to product rules for infinite sums and products. First, let
+us extend Proposition \ref{prop.fps.prodrule-fin-fin} to a finite product of
+infinite sums (which are now required to be in $K\left[  \left[  x\right]
+\right]  $ in order to have a notion of summability):
+
+\begin{proposition}
+\label{prop.fps.prodrule-fin-inf}For every $n\in\mathbb{N}$, let $\left[
+n\right]  $ denote the set $\left\{  1,2,\ldots,n\right\}  $.
+
+Let $n\in\mathbb{N}$. For every $i\in\left[  n\right]  $, let $\left(
+p_{i,k}\right)  _{k\in S_{i}}$ be a summable family of elements of $K\left[
+\left[  x\right]  \right]  $. Then,%
+\begin{equation}
+\prod_{i=1}^{n}\ \ \sum_{k\in S_{i}}p_{i,k}=\sum_{\left(  k_{1},k_{2}%
+,\ldots,k_{n}\right)  \in S_{1}\times S_{2}\times\cdots\times S_{n}}%
+\ \ \prod_{i=1}^{n}p_{i,k_{i}}. \label{eq.lem.fps.prodrule-fin-inf.eq}%
+\end{equation}
+In particular, the family $\left(  \prod_{i=1}^{n}p_{i,k_{i}}\right)
+_{\left(  k_{1},k_{2},\ldots,k_{n}\right)  \in S_{1}\times S_{2}\times
+\cdots\times S_{n}}$ is summable.
+\end{proposition}
+
+\begin{proof}
+Same method as for Proposition \ref{prop.fps.prodrule-fin-fin}, but now using
+the discrete Fubini rule for infinite sums.
+\end{proof}
+
+Proposition \ref{prop.fps.prodrule-fin-inf} is rather general, but is only
+concerned with \textbf{finite} products. Thus, it cannot be directly used to
+justify (\ref{eq.fps.prod.binary.prod-inf}), since the product in
+(\ref{eq.fps.prod.binary.prod-inf}) is infinite. Thus, we need a product rule
+for infinite products of sums. Such rules are subtle and require particular
+care: Not only do our sums have to be summable and our product multipliable,
+but we also must avoid cases like $\left(  1-1\right)  \left(  1-1\right)
+\left(  1-1\right)  \cdots$, which would produce non-summable infinite sums
+when expanded (despite being multipliable). We also need on come clear about
+what addends we get when we expand our products: For example, when expanding
+the product
+\[
+\left(  1+a_{0}\right)  \left(  1+a_{1}\right)  \left(  1+a_{2}\right)
+\left(  1+a_{3}\right)  \left(  1+a_{4}\right)  \cdots,
+\]
+we should get addends like $a_{0}\cdot1\cdot a_{2}\cdot\underbrace{1\cdot
+1\cdot1\cdot\cdots}_{\text{infinitely many }1\text{s}}$ or $1\cdot a_{1}\cdot
+a_{2}\cdot1\cdot a_{4}\cdot\underbrace{1\cdot1\cdot1\cdot\cdots}%
+_{\text{infinitely many }1\text{s}}$, but not addends like $a_{0}\cdot
+a_{1}\cdot a_{2}\cdot a_{3}\cdot\cdots$; otherwise, the right hand side of
+(\ref{eq.fps.prod.binary.prod-inf}) would have to include infinite products of
+$a_{i}$'s. To filter out the latter kind of addends, let us define the notion
+of \textquotedblleft essentially finite\textquotedblright\ sequences or families:
+
+\begin{definition}
+\label{def.fps.prodrule.ess-fin}\textbf{(a)} A sequence $\left(  k_{1}%
+,k_{2},k_{3},\ldots\right)  $ is said to be \emph{essentially finite} if all
+but finitely many $i\in\left\{  1,2,3,\ldots\right\}  $ satisfy $k_{i}=0$.
+\medskip
+
+\textbf{(b)} A family $\left(  k_{i}\right)  _{i\in I}$ is said to be
+\emph{essentially finite} if all but finitely many $i\in I$ satisfy $k_{i}=0$.
+\end{definition}
+
+For example, the sequence $\left(  2,4,1,0,0,0,0,\ldots\right)  $ is
+essentially finite, whereas the sequence $\left(  0,1,0,1,0,1,\ldots\right)  $
+(which alternates between $0$s and $1$s) is not.
+
+Of course, Definition \ref{def.fps.prodrule.ess-fin} \textbf{(a)} is a
+particular case of Definition \ref{def.fps.prodrule.ess-fin} \textbf{(b)},
+since a sequence $\left(  k_{1},k_{2},k_{3},\ldots\right)  $ is the same as a
+family $\left(  k_{i}\right)  _{i\in\left\{  1,2,3,\ldots\right\}  }$ indexed
+by the positive integers. We also remark that Definition
+\ref{def.infsum.essfin} \textbf{(a)} is a particular case of Definition
+\ref{def.fps.prodrule.ess-fin} \textbf{(b)}, since a family of elements of $K$
+is one particular type of family.
+
+Now, we can finally state a version of the product rule for infinite products
+of potentially infinite sums. This will help us derive
+(\ref{eq.fps.prod.binary.prod-inf}) (even though the sums being multiplied in
+(\ref{eq.fps.prod.binary.prod-inf}) are finite).
+
+\begin{proposition}
+\label{prop.fps.prodrule-inf-infN}Let $S_{1},S_{2},S_{3},\ldots$ be infinitely
+many sets that all contain the number $0$. Set%
+\[
+\overline{S}=\left\{  \left(  i,k\right)  \ \mid\ i\in\left\{  1,2,3,\ldots
+\right\}  \text{ and }k\in S_{i}\text{ and }k\neq0\right\}  .
+\]
+
+
+For any $i\in\left\{  1,2,3,\ldots\right\}  $ and any $k\in S_{i}$, let
+$p_{i,k}$ be an element of $K\left[  \left[  x\right]  \right]  $. Assume
+that
+\begin{equation}
+p_{i,0}=1\ \ \ \ \ \ \ \ \ \ \text{for any }i\in\left\{  1,2,3,\ldots\right\}
+. \label{eq.prop.fps.prodrule-inf-infN.pi0=1}%
+\end{equation}
+Assume further that the family $\left(  p_{i,k}\right)  _{\left(  i,k\right)
+\in\overline{S}}$ is summable. Then, the product $\prod_{i=1}^{\infty}%
+\ \ \sum_{k\in S_{i}}p_{i,k}$ is well-defined (i.e., the family $\left(
+p_{i,k}\right)  _{k\in S_{i}}$ is summable for each $i\in\left\{
+1,2,3,\ldots\right\}  $, and the family $\left(  \sum_{k\in S_{i}}%
+p_{i,k}\right)  _{i\in\left\{  1,2,3,\ldots\right\}  }$ is multipliable), and
+we have%
+\begin{equation}
+\prod_{i=1}^{\infty}\ \ \sum_{k\in S_{i}}p_{i,k}=\sum_{\substack{\left(
+k_{1},k_{2},k_{3},\ldots\right)  \in S_{1}\times S_{2}\times S_{3}\times
+\cdots\\\text{is essentially finite}}}\ \ \prod_{i=1}^{\infty}p_{i,k_{i}}.
+\label{eq.prop.fps.prodrule-inf-infN.eq}%
+\end{equation}
+In particular, the family $\left(  \prod_{i=1}^{\infty}p_{i,k_{i}}\right)
+_{\left(  k_{1},k_{2},k_{3},\ldots\right)  \in S_{1}\times S_{2}\times
+S_{3}\times\cdots\text{ is essentially finite}}$ is summable.
+\end{proposition}
+
+Note that the assumption (\ref{eq.prop.fps.prodrule-inf-infN.pi0=1}) in
+Proposition \ref{prop.fps.prodrule-inf-infN} ensures that each of the sums
+being multiplied contains an addend that equals $1$ (and that this addend is
+named $p_{i,0}$; but this clearly does not restrict the generality of the
+proposition). The equality (\ref{eq.prop.fps.prodrule-inf-infN.eq}) shows how
+we can expand an infinite product of such sums. The result is a huge sum of
+products (the right hand side of (\ref{eq.prop.fps.prodrule-inf-infN.eq}));
+each of these products is formed by picking an addend from each sum
+$\sum_{k\in S_{i}}p_{i,k}$ (just as in the finite case). The picking has to be
+done in such a way that the addend $1$ gets picked from all but finitely many
+of our sums (for instance, when expanding $\left(  1+x^{1}\right)  \left(
+1+x^{2}\right)  \left(  1+x^{3}\right)  \cdots$, we don't want to pick the
+$x^{i}$'s from all sums, as this would lead to $x^{1}x^{2}x^{3}\cdots
+=$\textquotedblleft$x^{\infty}$\textquotedblright); this is why the sum on the
+right hand side of (\ref{eq.prop.fps.prodrule-inf-infN.eq}) is ranging only
+over the \textbf{essentially finite} sequences $\left(  k_{1},k_{2}%
+,k_{3},\ldots\right)  \in S_{1}\times S_{2}\times S_{3}\times\cdots$. Finally,
+the condition that the family $\left(  p_{i,k}\right)  _{\left(  i,k\right)
+\in\overline{S}}$ be summable is our way of ruling out cases like $\left(
+1-1\right)  \left(  1-1\right)  \left(  1-1\right)  \cdots$, which cannot be
+expanded. Proposition \ref{prop.fps.prodrule-inf-infN} is not the most general
+version of the product rule, but it is sufficient for many of our needs (and
+we will see some more general versions below).
+
+The rest of this subsection should probably be skipped at first reading -- it
+is largely a succession of technical arguments about finite and infinite sets
+in service of making rigorous what is already intuitively clear.
+
+Before we sketch a proof of Proposition \ref{prop.fps.prodrule-inf-infN}, let
+us show how (\ref{eq.fps.prod.binary.prod-inf}) can be derived from it:
+
+\begin{proof}
+[Proof of (\ref{eq.fps.prod.binary.prod-inf}) using Proposition
+\ref{prop.fps.prodrule-inf-infN}.]Let $\left(  a_{0},a_{1},a_{2}%
+,\ldots\right)  =\left(  a_{n}\right)  _{n\in\mathbb{N}}$ be a summable
+sequence of FPSs in $K\left[  \left[  x\right]  \right]  $. We must prove the
+equality (\ref{eq.fps.prod.binary.prod-inf}).
+
+Set $S_{i}=\left\{  0,1\right\}  $ for each $i\in\left\{  1,2,3,\ldots
+\right\}  $. Thus,%
+\[
+S_{1}\times S_{2}\times S_{3}\times\cdots=\left\{  0,1\right\}  \times\left\{
+0,1\right\}  \times\left\{  0,1\right\}  \times\cdots=\left\{  0,1\right\}
+^{\infty}.
+\]
+
+
+Define the set $\overline{S}$ as in Proposition
+\ref{prop.fps.prodrule-inf-infN}. Then, $\overline{S}=\left\{  \left(
+1,1\right)  ,\ \left(  2,1\right)  ,\ \left(  3,1\right)  ,\ \ldots\right\}
+$. Now, set $p_{i,k}=a_{i-1}^{k}$ for each $i\in\left\{  1,2,3,\ldots\right\}
+$ and each $k\in\left\{  0,1\right\}  $. Thus, the family $\left(
+p_{i,k}\right)  _{\left(  i,k\right)  \in\overline{S}}$ is
+summable\footnote{Indeed, this family can be rewritten as $\left(
+p_{1,1},p_{2,1},p_{3,1},\ldots\right)  =\left(  a_{0}^{1},a_{1}^{1},a_{2}%
+^{1},\ldots\right)  =\left(  a_{0},a_{1},a_{2},\ldots\right)  $, but we have
+assumed that the latter family is summable.}, and the statement
+(\ref{eq.prop.fps.prodrule-inf-infN.pi0=1}) holds as well (indeed, we have
+$p_{i,0}=a_{i-1}^{0}=1$ for any $i\in\left\{  1,2,3,\ldots\right\}  $). Hence,
+Proposition \ref{prop.fps.prodrule-inf-infN} can be applied.
+
+Moreover, for each $i\in\left\{  1,2,3,\ldots\right\}  $, we have
+$S_{i}=\left\{  0,1\right\}  $. Thus, for each $i\in\left\{  1,2,3,\ldots
+\right\}  $, we have%
+\[
+\sum_{k\in S_{i}}p_{i,k}=\sum_{k\in\left\{  0,1\right\}  }p_{i,k}%
+=\underbrace{p_{i,0}}_{=a_{i-1}^{0}=1}+\underbrace{p_{i,1}}_{=a_{i-1}%
+^{1}=a_{i-1}}=1+a_{i-1}.
+\]
+Hence,%
+\[
+\prod_{i=1}^{\infty}\ \ \underbrace{\sum_{k\in S_{i}}p_{i,k}}_{=1+a_{i-1}%
+}=\prod_{i=1}^{\infty}\left(  1+a_{i-1}\right)  =\prod_{i\in\mathbb{N}}\left(
+1+a_{i}\right)
+\]
+(here, we have substituted $i$ for $i-1$ in the product). Thus,%
+\begin{align}
+\prod_{i\in\mathbb{N}}\left(  1+a_{i}\right)   &  =\prod_{i=1}^{\infty
+}\ \ \sum_{k\in S_{i}}p_{i,k}\nonumber\\
+&  =\underbrace{\sum_{\substack{\left(  k_{1},k_{2},k_{3},\ldots\right)  \in
+S_{1}\times S_{2}\times S_{3}\times\cdots\\\text{is essentially finite}}%
+}}_{\substack{=\sum_{\substack{\left(  k_{1},k_{2},k_{3},\ldots\right)
+\in\left\{  0,1\right\}  ^{\infty}\\\text{is essentially finite}%
+}}\\\text{(since }S_{1}\times S_{2}\times S_{3}\times\cdots=\left\{
+0,1\right\}  ^{\infty}\text{)}}}\ \ \prod_{i=1}^{\infty}\underbrace{p_{i,k_{i}%
+}}_{=a_{i-1}^{k_{i}}}\ \ \ \ \ \ \ \ \ \ \left(  \text{by
+(\ref{eq.prop.fps.prodrule-inf-infN.eq})}\right) \nonumber\\
+&  =\sum_{\substack{\left(  k_{1},k_{2},k_{3},\ldots\right)  \in\left\{
+0,1\right\}  ^{\infty}\\\text{is essentially finite}}}\ \ \prod_{i=1}^{\infty
+}a_{i-1}^{k_{i}}=\sum_{\substack{\left(  k_{0},k_{1},k_{2},\ldots\right)
+\in\left\{  0,1\right\}  ^{\infty}\\\text{is essentially finite}%
+}}\ \ \underbrace{\prod_{i=1}^{\infty}a_{i-1}^{k_{i-1}}}_{=\prod
+_{i\in\mathbb{N}}a_{i}^{k_{i}}}\nonumber\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have renamed the summation}\\
+\text{index }\left(  k_{1},k_{2},k_{3},\ldots\right)  \text{ as }\left(
+k_{0},k_{1},k_{2},\ldots\right)
+\end{array}
+\right) \nonumber\\
+&  =\sum_{\substack{\left(  k_{0},k_{1},k_{2},\ldots\right)  \in\left\{
+0,1\right\}  ^{\infty}\\\text{is essentially finite}}}\ \ \prod_{i\in
+\mathbb{N}}a_{i}^{k_{i}}. \label{pf.eq.fps.prod.binary.prod-inf.5}%
+\end{align}
+
+
+Now, an essentially finite sequence $\left(  k_{0},k_{1},k_{2},\ldots\right)
+\in\left\{  0,1\right\}  ^{\infty}$ is just an infinite sequence of $0$s and
+$1$s that contains only finitely many $1$s. Thus, such a sequence is uniquely
+determined by the positions of the $1$s in it, and these positions form a
+finite set, so they can be uniquely labeled as $i_{1},i_{2},\ldots,i_{k}$ with
+$i_{1}<i_{2}<\cdots<i_{k}$. To put this more formally: There is a bijection%
+\begin{align*}
+&  \text{from }\left\{  \text{essentially finite sequences }\left(
+k_{0},k_{1},k_{2},\ldots\right)  \in\left\{  0,1\right\}  ^{\infty}\right\} \\
+&  \text{to }\left\{  \text{finite lists }\left(  i_{1},i_{2},\ldots
+,i_{k}\right)  \text{ of nonnegative integers such that }i_{1}<i_{2}%
+<\cdots<i_{k}\right\}
+\end{align*}
+that sends each sequence $\left(  k_{0},k_{1},k_{2},\ldots\right)  \in\left\{
+0,1\right\}  ^{\infty}$ to the list of all $i\in\mathbb{N}$ satisfying
+$k_{i}=1$ (written in increasing order). Furthermore, if this bijection sends
+an essentially finite sequence $\left(  k_{0},k_{1},k_{2},\ldots\right)
+\in\left\{  0,1\right\}  ^{\infty}$ to a finite list $\left(  i_{1}%
+,i_{2},\ldots,i_{k}\right)  $, then
+\begin{align*}
+\prod_{i\in\mathbb{N}}a_{i}^{k_{i}}  &  =\left(  \prod_{\substack{i\in
+\mathbb{N};\\k_{i}=0}}\ \ \underbrace{a_{i}^{k_{i}}}_{=a_{i}^{0}=1}\right)
+\left(  \prod_{\substack{i\in\mathbb{N};\\k_{i}=1}}\ \ \underbrace{a_{i}%
+^{k_{i}}}_{=a_{i}^{1}=a_{i}}\right)  \ \ \ \ \ \ \ \ \ \ \left(  \text{since
+each }k_{i}\text{ is either }0\text{ or }1\right) \\
+&  =\underbrace{\left(  \prod_{\substack{i\in\mathbb{N};\\k_{i}=0}}1\right)
+}_{=1}\left(  \prod_{\substack{i\in\mathbb{N};\\k_{i}=1}}a_{i}\right)
+=\prod_{\substack{i\in\mathbb{N};\\k_{i}=1}}a_{i}=a_{i_{1}}a_{i_{2}}\cdots
+a_{i_{k}}%
+\end{align*}
+(since $\left(  i_{1},i_{2},\ldots,i_{k}\right)  $ is the list of all
+$i\in\mathbb{N}$ satisfying $k_{i}=1$). Thus, we can use this bijection to
+re-index the sum on the right hand side of
+(\ref{pf.eq.fps.prod.binary.prod-inf.5}); we obtain%
+\[
+\sum_{\substack{\left(  k_{0},k_{1},k_{2},\ldots\right)  \in\left\{
+0,1\right\}  ^{\infty}\\\text{is essentially finite}}}\ \ \prod_{i\in
+\mathbb{N}}a_{i}^{k_{i}}=\sum_{i_{1}<i_{2}<\cdots<i_{k}}a_{i_{1}}a_{i_{2}%
+}\cdots a_{i_{k}}.
+\]
+Thus, (\ref{pf.eq.fps.prod.binary.prod-inf.5}) rewrites as%
+\[
+\prod_{i\in\mathbb{N}}\left(  1+a_{i}\right)  =\sum_{i_{1}<i_{2}<\cdots<i_{k}%
+}a_{i_{1}}a_{i_{2}}\cdots a_{i_{k}}.
+\]
+This proves (\ref{eq.fps.prod.binary.prod-inf}).
+\end{proof}
+
+We note that (\ref{eq.fps.prod.binary.prod-inf}) can be rewritten as%
+\begin{equation}
+\prod_{i\in\mathbb{N}}\left(  1+a_{i}\right)  =\sum_{\substack{J\text{ is a
+finite}\\\text{subset of }\mathbb{N}}}\ \ \prod_{i\in J}a_{i}.
+\label{eq.fps.prod.binary.prod-inf2}%
+\end{equation}
+Indeed, the right hand side of this equality is precisely the right hand side
+of (\ref{eq.fps.prod.binary.prod-inf}).
+
+We will prove Proposition \ref{prop.fps.prodrule-inf-infN} soon. First,
+however, let us generalize Proposition \ref{prop.fps.prodrule-inf-infN} to
+products indexed by arbitrary sets instead of $\left\{  1,2,3,\ldots\right\}
+$:
+
+\begin{proposition}
+\label{prop.fps.prodrule-inf-inf}Let $I$ be a set. For any $i\in I$, let
+$S_{i}$ be a set that contains the number $0$. Set%
+\[
+\overline{S}=\left\{  \left(  i,k\right)  \ \mid\ i\in I\text{ and }k\in
+S_{i}\text{ and }k\neq0\right\}  .
+\]
+
+
+For any $i\in I$ and any $k\in S_{i}$, let $p_{i,k}$ be an element of
+$K\left[  \left[  x\right]  \right]  $. Assume that
+\begin{equation}
+p_{i,0}=1\ \ \ \ \ \ \ \ \ \ \text{for any }i\in I.
+\label{eq.prop.fps.prodrule-inf-inf.pi0=1}%
+\end{equation}
+Assume further that the family $\left(  p_{i,k}\right)  _{\left(  i,k\right)
+\in\overline{S}}$ is summable. Then, the product $\prod_{i\in I}\ \ \sum_{k\in
+S_{i}}p_{i,k}$ is well-defined (i.e., the family $\left(  p_{i,k}\right)
+_{k\in S_{i}}$ is summable for each $i\in I$, and the family $\left(
+\sum_{k\in S_{i}}p_{i,k}\right)  _{i\in I}$ is multipliable), and we have%
+\begin{equation}
+\prod_{i\in I}\ \ \sum_{k\in S_{i}}p_{i,k}=\sum_{\substack{\left(
+k_{i}\right)  _{i\in I}\in\prod_{i\in I}S_{i}\\\text{is essentially finite}%
+}}\ \ \prod_{i\in I}p_{i,k_{i}}. \label{eq.prop.fps.prodrule-inf-inf.eq}%
+\end{equation}
+In particular, the family $\left(  \prod_{i\in I}p_{i,k_{i}}\right)  _{\left(
+k_{i}\right)  _{i\in I}\in\prod_{i\in I}S_{i}\text{ is essentially finite}}$
+is summable.
+\end{proposition}
+
+Clearly, Proposition \ref{prop.fps.prodrule-inf-infN} is the particular case
+of Proposition \ref{prop.fps.prodrule-inf-inf} for $I=\left\{  1,2,3,\ldots
+\right\}  $. The proof of Proposition \ref{prop.fps.prodrule-inf-inf} is a
+long-winded reduction to the finite case; nothing substantial is going on in
+it. Thus, I recommend skipping it unless specifically interested. For the sake
+of convenience, before proving Proposition \ref{prop.fps.prodrule-inf-inf},
+let me restate Proposition \ref{prop.fps.prodrule-fin-inf} in a form that
+makes it particularly easy to use:
+
+\begin{proposition}
+\label{prop.fps.prodrule-fin-infJ}Let $N$ be a finite set. For any $i\in N$,
+let $\left(  p_{i,k}\right)  _{k\in S_{i}}$ be a summable family of elements
+of $K\left[  \left[  x\right]  \right]  $. Then,%
+\begin{equation}
+\prod_{i\in N}\ \ \sum_{k\in S_{i}}p_{i,k}=\sum_{\left(  k_{i}\right)  _{i\in
+N}\in\prod_{i\in N}S_{i}}\ \ \prod_{i\in N}p_{i,k_{i}}.
+\label{eq.lem.fps.prodrule-fin-infJ.eq}%
+\end{equation}
+In particular, the family $\left(  \prod_{i\in N}p_{i,k_{i}}\right)  _{\left(
+k_{i}\right)  _{i\in N}\in\prod_{i\in N}S_{i}}$ is summable.
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.fps.prodrule-fin-infJ}.]This is just
+Proposition \ref{prop.fps.prodrule-fin-inf}, with the indexing set $\left\{
+1,2,\ldots,n\right\}  $ replaced by $N$. It can be proved by reindexing the
+products (or directly by induction on $\left\vert N\right\vert $).
+\end{proof}
+
+Let me furthermore state an infinite version of Lemma
+\ref{lem.fps.prod.irlv.fin}, which will be used in the proof of Proposition
+\ref{prop.fps.prodrule-inf-inf} given below:
+
+\begin{lemma}
+\label{lem.fps.prod.irlv.inf}Let $a\in K\left[  \left[  x\right]  \right]  $
+be an FPS. Let $\left(  f_{i}\right)  _{i\in J}\in K\left[  \left[  x\right]
+\right]  ^{J}$ be a summable family of FPSs. Let $n\in\mathbb{N}$. Assume that
+each $i\in J$ satisfies
+\begin{equation}
+\left[  x^{m}\right]  \left(  f_{i}\right)  =0\ \ \ \ \ \ \ \ \ \ \text{for
+each }m\in\left\{  0,1,\ldots,n\right\}  .
+\label{eq.lem.fps.prod.irlv.inf.ass}%
+\end{equation}
+Then,
+\[
+\left[  x^{m}\right]  \left(  a\prod_{i\in J}\left(  1+f_{i}\right)  \right)
+=\left[  x^{m}\right]  a\ \ \ \ \ \ \ \ \ \ \text{for each }m\in\left\{
+0,1,\ldots,n\right\}  .
+\]
+
+\end{lemma}
+
+\begin{proof}
+[Proof of Lemma \ref{lem.fps.prod.irlv.inf} (sketched).]The idea here is to
+argue that the first $n+1$ coefficients of $a\prod_{i\in J}\left(
+1+f_{i}\right)  $ agree with those of $a\prod_{i\in M}\left(  1+f_{i}\right)
+$ for some finite subset $M$ of $J$. Then, apply Lemma
+\ref{lem.fps.prod.irlv.fin} to this subset $M$. The details of this argument
+can be found in Section \ref{sec.details.gf.prod}.
+\end{proof}
+
+With this lemma proved, we have all necessary prerequisites for the proof of
+Proposition \ref{prop.fps.prodrule-inf-inf}. The proof, however, is rather
+long due to the bookkeeping required, and therefore has been banished to the
+appendix (Section \ref{sec.details.gf.prod}, to be specific).
+
+We notice that Proposition \ref{prop.fps.prodrule-inf-inf} (and thus also
+Proposition \ref{prop.fps.prodrule-inf-infN}) can be generalized slightly by
+lifting the requirement that all sets $S_{i}$ contain $0$ (this means that the
+sums being multiplied no longer need to contain $1$ as an addend). See
+Exercise \ref{exe.fps.prodrule-inf-inf-0} for this generalization. This lets
+us expand products such as $x\left(  1+x^{1}\right)  \left(  1+x^{2}\right)
+\left(  1+x^{3}\right)  \cdots$ (but of course, we could just as well expand
+this particular product by splitting off the $x$ factor and applying
+Proposition \ref{prop.fps.prodrule-inf-infN}).
+
+\subsubsection{Another example}
+
+As another bit of practice with infinite products of FPSs, let us prove the
+following identity by Euler (\cite[\S 326]{Euler48}):
+
+\begin{proposition}
+[Euler]\label{prop.gf.prod.euler-odd}We have%
+\[
+\prod_{i>0}\left(  1-x^{2i-1}\right)  ^{-1}=\prod_{k>0}\left(  1+x^{k}\right)
+.
+\]
+
+\end{proposition}
+
+\begin{proof}
+First, it is easy to see that the families $\left(  1+x^{k}\right)  _{k>0}$
+and $\left(  1-x^{k}\right)  _{k>0}$ and $\left(  1-x^{2k}\right)  _{k>0}$ and
+$\left(  1-x^{2i-1}\right)  _{i>0}$ are multipliable\footnote{Indeed, this
+follows from Theorem \ref{thm.fps.1+f-mulable}, since the families $\left(
+x^{k}\right)  _{k>0}$ and $\left(  -x^{k}\right)  _{k>0}$ and $\left(
+-x^{2k}\right)  _{k>0}$ and $\left(  -x^{2i-1}\right)  _{i>0}$ are summable.}.
+This shows that the product on the right hand side of Proposition
+\ref{prop.gf.prod.euler-odd} is well-defined.
+
+Proposition \ref{prop.fps.div-mulable} \textbf{(a)} shows that the family
+$\left(  \dfrac{1}{1-x^{2i-1}}\right)  _{i>0}$ is multipliable (since the
+families $\left(  1\right)  _{i>0}$ and $\left(  1-x^{2i-1}\right)  _{i>0}$
+are multipliable, and since the FPS $1-x^{2i-1}$ is invertible for each
+$i>0$). In other words, the family $\left(  \left(  1-x^{2i-1}\right)
+^{-1}\right)  _{i>0}$ is multipliable. Thus, the product on the left hand side
+of Proposition \ref{prop.gf.prod.euler-odd} is well-defined.
+
+For each $k>0$, we have $1+x^{k}=\dfrac{1-x^{2k}}{1-x^{k}}$ (since
+$1-x^{2k}=1-\left(  x^{k}\right)  ^{2}=\left(  1-x^{k}\right)  \left(
+1+x^{k}\right)  $). Thus,%
+\begin{align*}
+\prod_{k>0}\underbrace{\left(  1+x^{k}\right)  }_{=\dfrac{1-x^{2k}}{1-x^{k}}}
+&  =\prod_{k>0}\dfrac{1-x^{2k}}{1-x^{k}}\\
+&  =\dfrac{\prod_{k>0}\left(  1-x^{2k}\right)  }{\prod_{k>0}\left(
+1-x^{k}\right)  }\ \ \ \ \ \ \ \ \ \ \left(  \text{by Proposition
+\ref{prop.fps.div-mulable} \textbf{(b)}}\right) \\
+&  =\dfrac{\left(  1-x^{2}\right)  \left(  1-x^{4}\right)  \left(
+1-x^{6}\right)  \left(  1-x^{8}\right)  \cdots}{\left(  1-x^{1}\right)
+\left(  1-x^{2}\right)  \left(  1-x^{3}\right)  \left(  1-x^{4}\right)
+\cdots}\\
+&  =\dfrac{1}{\left(  1-x^{1}\right)  \left(  1-x^{3}\right)  \left(
+1-x^{5}\right)  \left(  1-x^{7}\right)  \cdots}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{since all }1-x^{i}\text{ factors with }i\text{ even}\\
+\text{cancel out (see below for details)}%
+\end{array}
+\right) \\
+&  =\dfrac{1}{1-x^{1}}\cdot\dfrac{1}{1-x^{3}}\cdot\dfrac{1}{1-x^{5}}%
+\cdot\dfrac{1}{1-x^{7}}\cdot\cdots\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{by Proposition
+\ref{prop.fps.div-mulable} \textbf{(b)}}\right) \\
+&  =\prod_{i>0}\dfrac{1}{1-x^{2i-1}}=\prod_{i>0}\left(  1-x^{2i-1}\right)
+^{-1},
+\end{align*}
+which is precisely the claim of Proposition \ref{prop.gf.prod.euler-odd}.
+
+The step where we cancelled out the $1-x^{i}$ factors with $i$ even can be
+justified as follows: We know that the family $\left(  1-x^{k}\right)  _{k>0}$
+as well as its subfamilies $\left(  1-x^{k}\right)  _{k>0\text{ is even}}$ and
+$\left(  1-x^{k}\right)  _{k>0\text{ are odd}}$ are multipliable. Thus,
+Theorem \ref{prop.fps.union-mulable} \textbf{(b)} yields%
+\[
+\prod_{k>0}\left(  1-x^{k}\right)  =\left(  \prod_{\substack{k>0\\\text{is
+even}}}\left(  1-x^{k}\right)  \right)  \cdot\left(  \prod
+_{\substack{k>0\\\text{is odd}}}\left(  1-x^{k}\right)  \right)  .
+\]
+In other words,%
+\begin{align*}
+&  \left(  1-x^{1}\right)  \left(  1-x^{2}\right)  \left(  1-x^{3}\right)
+\left(  1-x^{4}\right)  \cdots\\
+&  =\left(  \left(  1-x^{2}\right)  \left(  1-x^{4}\right)  \left(
+1-x^{6}\right)  \left(  1-x^{8}\right)  \cdots\right) \\
+&  \ \ \ \ \ \ \ \ \ \ \cdot\left(  \left(  1-x^{1}\right)  \left(
+1-x^{3}\right)  \left(  1-x^{5}\right)  \left(  1-x^{7}\right)  \cdots\right)
+.
+\end{align*}
+Hence,%
+\[
+\dfrac{\left(  1-x^{1}\right)  \left(  1-x^{2}\right)  \left(  1-x^{3}\right)
+\left(  1-x^{4}\right)  \cdots}{\left(  1-x^{2}\right)  \left(  1-x^{4}%
+\right)  \left(  1-x^{6}\right)  \left(  1-x^{8}\right)  \cdots}=\left(
+1-x^{1}\right)  \left(  1-x^{3}\right)  \left(  1-x^{5}\right)  \left(
+1-x^{7}\right)  \cdots.
+\]
+Taking reciprocals, we thus obtain%
+\[
+\dfrac{\left(  1-x^{2}\right)  \left(  1-x^{4}\right)  \left(  1-x^{6}\right)
+\left(  1-x^{8}\right)  \cdots}{\left(  1-x^{1}\right)  \left(  1-x^{2}%
+\right)  \left(  1-x^{3}\right)  \left(  1-x^{4}\right)  \cdots}=\dfrac
+{1}{\left(  1-x^{1}\right)  \left(  1-x^{3}\right)  \left(  1-x^{5}\right)
+\left(  1-x^{7}\right)  \cdots},
+\]
+just as we claimed. Thus, the proof of Proposition
+\ref{prop.gf.prod.euler-odd} is complete.
+\end{proof}
+
+Let us try to interpret Proposition \ref{prop.gf.prod.euler-odd}
+combinatorially, by expanding both sides.
+
+First, we use (\ref{eq.fps.prod.binary.prod-inf}) to expand the right hand
+side:%
+\begin{align}
+\prod_{k>0}\left(  1+x^{k}\right)   &  =\left(  1+x^{1}\right)  \left(
+1+x^{2}\right)  \left(  1+x^{3}\right)  \left(  1+x^{4}\right)  \cdots
+\nonumber\\
+&  =\sum_{\substack{i_{1},i_{2},\ldots,i_{k}\in\left\{  1,2,3,\ldots\right\}
+;\\i_{1}<i_{2}<\cdots<i_{k}}}\underbrace{x^{i_{1}}x^{i_{2}}\cdots x^{i_{k}}%
+}_{=x^{i_{1}+i_{2}+\cdots+i_{k}}}\ \ \ \ \ \ \ \ \ \ \left(  \text{by
+(\ref{eq.fps.prod.binary.prod-inf})}\right) \nonumber\\
+&  =\sum_{\substack{i_{1},i_{2},\ldots,i_{k}\in\left\{  1,2,3,\ldots\right\}
+;\\i_{1}<i_{2}<\cdots<i_{k}}}x^{i_{1}+i_{2}+\cdots+i_{k}}\nonumber\\
+&  =\sum_{n\in\mathbb{N}}d_{n}x^{n}, \label{eq.prop.gf.prod.euler-odd.d}%
+\end{align}
+where $d_{n}$ is the \# of all strictly increasing tuples $\left(  i_{1}%
+<i_{2}<\cdots<i_{k}\right)  $ of positive integers such that $n=i_{1}%
++i_{2}+\cdots+i_{k}$. We can rewrite this definition as follows: $d_{n}$ is
+the \# of ways to write $n$ as a sum of distinct positive integers, with no
+regard for the order\footnote{\textquotedblleft No regard for the
+order\textquotedblright\ means that, for example, $3+4+1$ and $1+3+4$ count as
+the same way of writing $8$ as a sum of distinct integers.}.
+
+Next, let us expand the left hand side: For each positive integer $i$, we have%
+\begin{align*}
+\left(  1-x^{2i-1}\right)  ^{-1}  &  =1+x^{2i-1}+\left(  x^{2i-1}\right)
+^{2}+\left(  x^{2i-1}\right)  ^{3}+\cdots\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{by substituting }x^{2i-1}\text{ for }x\text{ in the}\\
+\text{equality }\left(  1-x\right)  ^{-1}=1+x+x^{2}+x^{3}+\cdots
+\end{array}
+\right) \\
+&  =1+x^{2i-1}+x^{2\left(  2i-1\right)  }+x^{3\left(  2i-1\right)  }%
++\cdots=\sum_{k\in\mathbb{N}}x^{k\left(  2i-1\right)  }.
+\end{align*}
+Multiplying these equalities over all $i>0$, we find%
+\begin{align}
+&  \prod_{i>0}\left(  1-x^{2i-1}\right)  ^{-1}\nonumber\\
+&  =\prod_{i>0}\ \ \sum_{k\in\mathbb{N}}x^{k\left(  2i-1\right)  }\nonumber\\
+&  =\sum_{\substack{\left(  k_{1},k_{2},k_{3},\ldots\right)  \in
+\mathbb{N}^{\infty}\\\text{is essentially finite}}}\underbrace{\prod
+_{i>0}x^{k_{i}\left(  2i-1\right)  }}_{\substack{=x^{k_{1}\cdot1}x^{k_{2}%
+\cdot3}x^{k_{3}\cdot5}\cdots\\=x^{k_{1}\cdot1+k_{2}\cdot3+k_{3}\cdot5+\cdots}%
+}}\ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{by Proposition \ref{prop.fps.prodrule-inf-infN},}\\
+\text{applied to }S_{i}=\mathbb{N}\text{ and }p_{i,k}=x^{k\left(  2i-1\right)
+}%
+\end{array}
+\right) \nonumber\\
+&  =\sum_{\substack{\left(  k_{1},k_{2},k_{3},\ldots\right)  \in
+\mathbb{N}^{\infty}\\\text{is essentially finite}}}x^{k_{1}\cdot1+k_{2}%
+\cdot3+k_{3}\cdot5+\cdots}\nonumber\\
+&  =\sum_{n\in\mathbb{N}}o_{n}x^{n}, \label{eq.prop.gf.prod.euler-odd.o}%
+\end{align}
+where $o_{n}$ is the \# of all essentially finite sequences $\left(
+k_{1},k_{2},k_{3},\ldots\right)  \in\mathbb{N}^{\infty}$ such that $k_{1}%
+\cdot1+k_{2}\cdot3+k_{3}\cdot5+\cdots=n$. I claim that $o_{n}$ is the \# of
+ways to write $n$ as a sum of (not necessarily distinct) odd positive
+integers, without regard to the order. (Why? Because if we can write $n$ as a
+sum of $k_{1}$ many $1$s, $k_{2}$ many $3$s, $k_{3}$ many $5$s and so on, then
+$\left(  k_{1},k_{2},k_{3},\ldots\right)  \in\mathbb{N}^{\infty}$ is an
+essentially finite sequence such that $k_{1}\cdot1+k_{2}\cdot3+k_{3}%
+\cdot5+\cdots=n$; and conversely, if $\left(  k_{1},k_{2},k_{3},\ldots\right)
+\in\mathbb{N}^{\infty}$ is such a sequence, then $n$ can be written as a sum
+of $k_{1}$ many $1$s, $k_{2}$ many $3$s, $k_{3}$ many $5$s and so on.)
+
+Proposition \ref{prop.gf.prod.euler-odd} tells us that $\prod_{k>0}\left(
+1+x^{k}\right)  =\prod_{i>0}\left(  1-x^{2i-1}\right)  ^{-1}$. In view of
+(\ref{eq.prop.gf.prod.euler-odd.d}) and (\ref{eq.prop.gf.prod.euler-odd.o}),
+we can rewrite this as
+\[
+\sum_{n\in\mathbb{N}}d_{n}x^{n}=\sum_{n\in\mathbb{N}}o_{n}x^{n}.
+\]
+Therefore, $d_{n}=o_{n}$ for each $n\in\mathbb{N}$. Thus, we have proven the
+following purely combinatorial statement:
+
+\begin{theorem}
+[Euler]\label{thm.gf.prod.euler-comb}Let $n\in\mathbb{N}$. Then, $d_{n}=o_{n}%
+$, where
+
+\begin{itemize}
+\item $d_{n}$ is the \# of ways to write $n$ as a sum of distinct positive
+integers, without regard to the order;
+
+\item $o_{n}$ is the \# of ways to write $n$ as a sum of (not necessarily
+distinct) odd positive integers, without regard to the order.
+\end{itemize}
+\end{theorem}
+
+\begin{example}
+Let $n=6$. Then, $d_{n}=4$, because the ways to write $n=6$ as a sum of
+distinct positive integers are%
+\[
+6,\ \ \ \ \ \ \ \ \ \ 1+5,\ \ \ \ \ \ \ \ \ \ 2+4,\ \ \ \ \ \ \ \ \ \ 1+2+3
+\]
+(don't forget the first of these ways, trivial as it looks!). On the other
+hand, $o_{n}=4$, because the ways to write $n=6$ as a sum of odd positive
+integers are%
+\[
+1+5,\ \ \ \ \ \ \ \ \ \ 3+3,\ \ \ \ \ \ \ \ \ \ 3+1+1+1,\ \ \ \ \ \ \ \ \ \ 1+1+1+1+1+1.
+\]
+
+\end{example}
+
+We will soon learn a bijective proof of Theorem \ref{thm.gf.prod.euler-comb}
+as well (see the Second proof of Theorem \ref{thm.pars.odd-dist-equal} below).
+
+\subsubsection{Infinite products and substitution}
+
+Proposition \ref{prop.fps.subs.rules} \textbf{(h)} has an analogue for
+products instead of sums:
+
+\begin{proposition}
+\label{prop.fps.subs.rule-infprod}If $\left(  f_{i}\right)  _{i\in I}\in
+K\left[  \left[  x\right]  \right]  ^{I}$ is a multipliable family of FPSs,
+and if $g\in K\left[  \left[  x\right]  \right]  $ is an FPS satisfying
+$\left[  x^{0}\right]  g=0$, then the family $\left(  f_{i}\circ g\right)
+_{i\in I}\in K\left[  \left[  x\right]  \right]  ^{I}$ is multipliable as well
+and we have $\left(  \prod_{i\in I}f_{i}\right)  \circ g=\prod_{i\in I}\left(
+f_{i}\circ g\right)  $.
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.fps.subs.rule-infprod} (sketched).]See Section
+\ref{sec.details.gf.prod}.
+\end{proof}
+
+\subsubsection{Exponentials, logarithms and infinite products}
+
+Recall Definition \ref{def.fps.Exp-Log-maps}. As we saw in Lemma
+\ref{lem.fps.Exp-Log-additive}, the exponential map $\operatorname*{Exp}$ and
+the logarithm map $\operatorname*{Log}$ can be used to convert sums into
+products and vice versa (under certain conditions). This also extends to
+infinite sums and infinite products:
+
+\begin{proposition}
+\label{prop.fps.Exp-Log-infsum}Assume that $K$ is a commutative $\mathbb{Q}%
+$-algebra. Let $\left(  f_{i}\right)  _{i\in I}\in K\left[  \left[  x\right]
+\right]  ^{I}$ be a summable family of FPSs in $K\left[  \left[  x\right]
+\right]  _{0}$. Then, $\left(  \operatorname*{Exp}f_{i}\right)  _{i\in I}$ is
+a multipliable family of FPS in $K\left[  \left[  x\right]  \right]  _{1}$,
+and we have $\sum_{i\in I}f_{i}\in K\left[  \left[  x\right]  \right]  _{0}$
+and%
+\[
+\operatorname*{Exp}\left(  \sum_{i\in I}f_{i}\right)  =\prod_{i\in I}\left(
+\operatorname*{Exp}f_{i}\right)  .
+\]
+
+\end{proposition}
+
+\begin{proposition}
+\label{prop.fps.Exp-Log-infprod}Assume that $K$ is a commutative $\mathbb{Q}%
+$-algebra. Let $\left(  f_{i}\right)  _{i\in I}\in K\left[  \left[  x\right]
+\right]  ^{I}$ be a multipliable family of FPSs in $K\left[  \left[  x\right]
+\right]  _{1}$. Then, $\left(  \operatorname*{Log}f_{i}\right)  _{i\in I}$ is
+a summable family of FPS in $K\left[  \left[  x\right]  \right]  _{0}$, and we
+have $\prod\limits_{i\in I}f_{i}\in K\left[  \left[  x\right]  \right]  _{1}$
+and%
+\[
+\operatorname*{Log}\left(  \prod\limits_{i\in I}f_{i}\right)  =\sum_{i\in
+I}\left(  \operatorname*{Log}f_{i}\right)  .
+\]
+
+\end{proposition}
+
+We leave the proofs of these two propositions as an exercise (Exercise
+\ref{exe.fps.Exp-Log-infsum}).

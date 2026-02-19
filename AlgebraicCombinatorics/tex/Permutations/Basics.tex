@@ -1,0 +1,488 @@
+\subsection{Basic definitions}
+
+\begin{definition}
+\label{def.perm.perm}Let $X$ be a set. \medskip
+
+\textbf{(a)} A \emph{permutation} of $X$ means a bijection from $X$ to $X$.
+\medskip
+
+\textbf{(b)} It is known that the set of all permutations of $X$ is a group
+under composition. This group is called the \emph{symmetric group} of $X$, and
+is denoted by $S_{X}$. Its neutral element is the identity map
+$\operatorname*{id}\nolimits_{X}:X\rightarrow X$. Its size is $\left\vert
+X\right\vert !$ when $X$ is finite.
+
+(Alternative notations for $S_{X}$ include $\operatorname*{Sym}\left(
+X\right)  $ and $\Sigma_{X}$ and $\mathfrak{S}_{X}$ and $\mathcal{S}_{X}$.)
+\medskip
+
+\textbf{(c)} As usual in group theory, we will write $\alpha\beta$ for the
+composition $\alpha\circ\beta$ when $\alpha,\beta\in S_{X}$. This is the map
+that sends each $x\in X$ to $\alpha\left(  \beta\left(  x\right)  \right)  $.
+\medskip
+
+\textbf{(d)} If $\alpha\in S_{X}$ and $i\in\mathbb{Z}$, then $\alpha^{i}$
+shall denote the $i$-th power of $\alpha$ in the group $S_{X}$. Note that
+$\alpha^{i}=\underbrace{\alpha\circ\alpha\circ\cdots\circ\alpha}_{i\text{
+times}}$ if $i\geq0$. Also, $\alpha^{0}=\operatorname*{id}\nolimits_{X}$.
+Also, $\alpha^{-1}$ is the inverse of $\alpha$ in the group $S_{X}$, that is,
+the inverse of the map $\alpha$.
+\end{definition}
+
+\begin{definition}
+\label{def.perm.Sn-iven}Let $n\in\mathbb{Z}$. Then, $\left[  n\right]  $ shall
+mean the set $\left\{  1,2,\ldots,n\right\}  $. This is an $n$-element set if
+$n\geq0$, and is an empty set if $n\leq0$.
+
+The symmetric group $S_{\left[  n\right]  }$ (consisting of all permutations
+of $\left[  n\right]  $) will be denoted $S_{n}$ and called the $n$\emph{-th
+symmetric group}. Its size is $n!$ (when $n\geq0$).
+\end{definition}
+
+For instance, $S_{3}$ is the group of all $6$ permutations of the set $\left[
+3\right]  =\left\{  1,2,3\right\}  $.
+
+If two sets $X$ and $Y$ are in bijection, then their symmetric groups $S_{X}$
+and $S_{Y}$ are isomorphic. Intuitively, this is clear (just think of $Y$ as a
+\textquotedblleft copy\textquotedblright\ of $X$ with all elements relabelled,
+and use this to reinterpret each permutation of $X$ as a permutation of $Y$).
+We can formalize this as the following proposition:
+
+\begin{proposition}
+\label{prop.perm.Sf}Let $X$ and $Y$ be two sets, and let $f:X\rightarrow Y$ be
+a bijection. Then, for each permutation $\sigma$ of $X$, the map $f\circ
+\sigma\circ f^{-1}:Y\rightarrow Y$ is a permutation of $Y$. Furthermore, the
+map%
+\begin{align*}
+S_{f}:S_{X}  &  \rightarrow S_{Y},\\
+\sigma &  \mapsto f\circ\sigma\circ f^{-1}%
+\end{align*}
+is a group isomorphism; thus, we obtain $S_{X}\cong S_{Y}$.
+\end{proposition}
+
+\begin{proof}
+Easy and LTTR.
+\end{proof}
+
+Because of Proposition \ref{prop.perm.Sf}, if you want to understand the
+symmetric groups of finite sets, you only need to understand $S_{n}$ for all
+$n\in\mathbb{N}$ (because if $X$ is a finite set of size $n$, then there is a
+bijection $f:X\rightarrow\left[  n\right]  $ and therefore a group isomorphism
+$S_{f}:S_{X}\rightarrow S_{\left[  n\right]  }$). Thus, we will focus mostly
+on $S_{n}$ in this chapter.
+
+\begin{remark}
+If $Y=X$ in Proposition \ref{prop.perm.Sf}, then the group isomorphism $S_{f}$
+is conjugation by $f$ in the group $S_{X}$.
+\end{remark}
+
+Next, let us define three ways to represent a permutation:
+
+\begin{definition}
+\label{def.perm.notations}Let $n\in\mathbb{N}$ and $\sigma\in S_{n}$. We
+introduce three notations for $\sigma$: \medskip
+
+\textbf{(a)} A \emph{two-line notation} of $\sigma$ means a $2\times n$-array
+\[
+\left(
+\begin{array}
+[c]{cccc}%
+p_{1} & p_{2} & \cdots & p_{n}\\
+\sigma\left(  p_{1}\right)  & \sigma\left(  p_{2}\right)  & \cdots &
+\sigma\left(  p_{n}\right)
+\end{array}
+\right)  ,
+\]
+where the entries $p_{1},p_{2},\ldots,p_{n}$ of the top row are the $n$
+elements of $\left[  n\right]  $ in some order. Note that this is a standard
+notation for any kind of map from a finite set. Commonly, we pick $p_{i}=i$,
+so we get the array
+\[
+\left(
+\begin{array}
+[c]{cccc}%
+1 & 2 & \cdots & n\\
+\sigma\left(  1\right)  & \sigma\left(  2\right)  & \cdots & \sigma\left(
+n\right)
+\end{array}
+\right)  .
+\]
+
+
+\textbf{(b)} The \emph{one-line notation} (short, \emph{OLN}) of $\sigma$
+means the $n$-tuple $\left(  \sigma\left(  1\right)  ,\sigma\left(  2\right)
+,\ldots,\sigma\left(  n\right)  \right)  $.
+
+It is common to omit the commas and the parentheses when writing down the OLN
+of $\sigma$. Thus, one simply writes $\sigma\left(  1\right)  \ \sigma\left(
+2\right)  \ \cdots\ \sigma\left(  n\right)  $ instead of $\left(
+\sigma\left(  1\right)  ,\sigma\left(  2\right)  ,\ldots,\sigma\left(
+n\right)  \right)  $. Note that this omission can make the notation ambiguous
+if some of the $\sigma\left(  i\right)  $ have more than one digit (for
+example, the OLN $1112345678910$ can mean two different permutations of
+$\left[  11\right]  $, depending on whether you read the \textquotedblleft%
+$111$\textquotedblright\ part as \textquotedblleft$1,11$\textquotedblright\ or
+as \textquotedblleft$11,1$\textquotedblright). However, if $n\leq10$, then
+this ambiguity does not occur, and the notation is unproblematic (even without
+commas and parentheses). \medskip
+
+\textbf{(c)} The \emph{cycle digraph} of $\sigma$ is defined (informally) as follows:
+
+\begin{itemize}
+\item For each $i\in\left[  n\right]  $, draw a point (\textquotedblleft
+node\textquotedblright) labelled $i$.
+
+\item For each $i\in\left[  n\right]  $, draw an arrow (\textquotedblleft
+arc\textquotedblright) from the node labelled $i$ to the node labelled
+$\sigma\left(  i\right)  $.
+\end{itemize}
+
+The resulting picture is called the cycle digraph of $\sigma$.
+
+Using the concept of \emph{digraphs} (= directed graphs), this definition can
+be restated formally as follows: The \emph{cycle digraph} of $\sigma$ is the
+directed graph with vertices $1,2,\ldots,n$ and arcs $i\rightarrow
+\sigma\left(  i\right)  $ for all $i\in\left[  n\right]  $.
+\end{definition}
+
+\begin{example}
+Let $\sigma:\left[  4\right]  \rightarrow\left[  4\right]  $ be the map that
+sends the elements $1,2,3,4$ to $2,4,3,1$, respectively. Then, $\sigma$ is a
+bijection, thus a permutation of $\left[  4\right]  $. \medskip
+
+\textbf{(a)} A two-line notation of $\sigma$ is $\left(
+\begin{array}
+[c]{cccc}%
+1 & 2 & 3 & 4\\
+2 & 4 & 3 & 1
+\end{array}
+\right)  $. Another is $\left(
+\begin{array}
+[c]{cccc}%
+3 & 1 & 4 & 2\\
+3 & 2 & 1 & 4
+\end{array}
+\right)  $. Another is $\left(
+\begin{array}
+[c]{cccc}%
+4 & 1 & 3 & 2\\
+1 & 2 & 3 & 4
+\end{array}
+\right)  $. There are $24$ two-line notations of $\sigma$ in total, since we
+can freely choose the order in which the elements of $\left[  4\right]  $
+appear in the top row. \medskip
+
+\textbf{(b)} The one-line notation of $\sigma$ is $\left(  2,4,3,1\right)  $.
+Omitting the commas and the parentheses, we can rewrite this as $2431$.
+\medskip
+
+\textbf{(c)} One way to draw the cycle digraph of $\sigma$ is
+\[%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\ \ .
+\]
+Another is
+\[%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\ \ .
+\]
+(When drawing cycle digraphs, one commonly tries to place the nodes in such a
+way as to make the arcs as short as possible. Thus, it is natural to keep the
+cycles separate in the picture. But formally speaking, any picture is fine, as
+long as the nodes and arcs don't overlap.)
+\end{example}
+
+\begin{example}
+Let $\sigma:\left[  10\right]  \rightarrow\left[  10\right]  $ be the map that
+sends the elements $1,2,3,4,5,6,7,8,9,10$ to $5,4,3,2,6,10,1,9,8,7$,
+respectively. Then, $\sigma$ is a bijection, hence a permutation of $\left[
+10\right]  $. The one-line notation of $\sigma$ is $\left(
+5,4,3,2,6,10,1,9,8,7\right)  $. If we omit the commas and the parentheses,
+then this becomes%
+\[
+5\ 4\ 3\ 2\ 6\ \left(  10\right)  \ 1\ 9\ 8\ 7.
+\]
+(We have put the $10$ in parentheses to make its place clearer.) The cycle
+digraph of $\sigma$ is%
+\[%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\ \ .
+\]
+
+\end{example}
+
+Note that two-line notations and cycle digraphs can be defined (just as we did
+in Definition \ref{def.perm.notations}) not just for permutations $\sigma\in
+S_{n}$, but more generally for permutations $\sigma\in S_{X}$ of any finite
+set $X$. But the one-line notation makes sense for $\sigma\in S_{n}$ only.
+
+
+\subsection{Transpositions, cycles and involutions}
+
+We shall now define some important families of permutations.
+
+\subsubsection{Transpositions}
+
+\begin{definition}
+\label{def.perm.tij}Let $i$ and $j$ be two distinct elements of a set $X$.
+
+Then, the \emph{transposition} $t_{i,j}$ is the permutation of $X$ that sends
+$i$ to $j$, sends $j$ to $i$, and leaves all other elements of $X$ unchanged.
+\end{definition}
+
+Strictly speaking, the notation $t_{i,j}$ is somewhat ambiguous, since it
+suppresses $X$. However, most of the times we will use it, the set $X$ will be
+either clear from the context or irrelevant.
+
+\begin{example}
+The permutation $t_{2,4}$ of the set $\left[  7\right]  $ sends the elements
+$1,2,3,4,5,6,7$ to $1,4,3,2,5,6,7$, respectively. Its one-line notation (with
+commas and parentheses omitted) is therefore $1432567$.
+\end{example}
+
+Note that $t_{i,j}=t_{j,i}$ for any two distinct elements $i$ and $j$ of a set
+$X$.
+
+\begin{definition}
+\label{def.perm.si}Let $n\in\mathbb{N}$ and $i\in\left[  n-1\right]  $. Then,
+the \emph{simple transposition} $s_{i}$ is defined by%
+\[
+s_{i}:=t_{i,i+1}\in S_{n}.
+\]
+
+\end{definition}
+
+Thus, a simple transposition is a transposition that swaps two consecutive
+integers. Again, the notation $s_{i}$ suppresses $n$, but this won't usually
+be a problem.
+
+\begin{example}
+The permutation $s_{2}$ of the set $\left[  7\right]  $ sends the elements
+$1,2,3,4,5,6,7$ to $1,3,2,4,5,6,7$, respectively. Its one-line notation is
+therefore $1324567$.
+\end{example}
+
+Here are some very basic properties of simple transpositions:\footnote{Recall
+Definition \ref{def.perm.perm}. Thus, for example, $s_{i}^{2}$ means
+$s_{i}s_{i}=s_{i}\circ s_{i}$, whereas $s_{i}s_{j}$ means $s_{i}\circ s_{j}$.}
+
+\begin{proposition}
+\label{prop.perm.si.rules}Let $n\in\mathbb{N}$. \medskip
+
+\textbf{(a)} We have $s_{i}^{2}=\operatorname*{id}$ for all $i\in\left[
+n-1\right]  $. In other words, we have $s_{i}=s_{i}^{-1}$ for all $i\in\left[
+n-1\right]  $. \medskip
+
+\textbf{(b)} We have $s_{i}s_{j}=s_{j}s_{i}$ for any $i,j\in\left[
+n-1\right]  $ with $\left\vert i-j\right\vert >1$. \medskip
+
+\textbf{(c)} We have $s_{i}s_{i+1}s_{i}=s_{i+1}s_{i}s_{i+1}$ for any
+$i\in\left[  n-2\right]  $.
+\end{proposition}
+
+\begin{proof}
+To prove that two permutations $\alpha$ and $\beta$ of $\left[  n\right]  $
+are identical, it suffices to show that $\alpha\left(  k\right)  =\beta\left(
+k\right)  $ for each $k\in\left[  n\right]  $. Using this strategy, we can
+prove all three parts of Proposition \ref{prop.perm.si.rules}
+straightforwardly (distinguishing cases corresponding to the relative
+positions of $k$, $i$, $i+1$, $j$ and $j+1$). This is done in detail for
+Proposition \ref{prop.perm.si.rules} \textbf{(c)} in \cite[solution to
+Exercise 5.1 \textbf{(a)}]{detnotes}; the proofs of parts \textbf{(a)} and
+\textbf{(b)} are easier and LTTR.
+\end{proof}
+
+\subsubsection{Cycles}
+
+The following definition can be viewed as a generalization of Definition
+\ref{def.perm.tij}:
+
+\begin{definition}
+\label{def.perm.cycs}Let $X$ be a set. Let $i_{1},i_{2},\ldots,i_{k}$ be $k$
+distinct elements of $X$. Then,%
+\[
+\operatorname*{cyc}\nolimits_{i_{1},i_{2},\ldots,i_{k}}%
+\]
+means the permutation of $X$ that sends%
+\begin{align*}
+&  i_{1}\text{ to }i_{2},\\
+&  i_{2}\text{ to }i_{3},\\
+&  i_{3}\text{ to }i_{4},\\
+&  \ldots,\\
+&  i_{k-1}\text{ to }i_{k},\\
+&  i_{k}\text{ to }i_{1}%
+\end{align*}
+and leaves all other elements of $X$ unchanged. In other words,
+$\operatorname*{cyc}\nolimits_{i_{1},i_{2},\ldots,i_{k}}$ means the
+permutation of $X$ that satisfies%
+\begin{align*}
+\operatorname*{cyc}\nolimits_{i_{1},i_{2},\ldots,i_{k}}\left(  p\right)   &  =%
+\begin{cases}
+i_{j+1}, & \text{if }p=i_{j}\text{ for some }j\in\left\{  1,2,\ldots
+,k\right\}  ;\\
+p, & \text{otherwise}%
+\end{cases}
+\\
+&
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \text{for
+every }p\in X,
+\end{align*}
+where $i_{k+1}$ means $i_{1}$.
+
+This permutation is called a $k$\emph{-cycle}.
+\end{definition}
+
+The name \textquotedblleft$k$-cycle\textquotedblright\ harkens back to the
+cycle digraph of $\operatorname*{cyc}\nolimits_{i_{1},i_{2},\ldots,i_{k}}$,
+which consists of a cycle of length $k$ (containing the nodes $i_{1}%
+,i_{2},\ldots,i_{k}$ in this order) along with $\left\vert X\right\vert -k$
+isolated nodes (more precisely, each of the elements of $X\setminus\left\{
+i_{1},i_{2},\ldots,i_{k}\right\}  $ has an arrow from itself to itself in the
+cycle digraph of $\sigma$). Here is an example:
+
+\begin{example}
+Let $X=\left[  8\right]  $. Then, the permutation $\operatorname*{cyc}%
+\nolimits_{2,6,5}$ of $X$ sends
+\begin{align*}
+&  2\text{ to }6,\\
+&  6\text{ to }5,\\
+&  5\text{ to }2
+\end{align*}
+and leaves all other elements of $X$ unchanged. Thus, this permutation has OLN
+$16342578$ and cycle digraph
+\[%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\]
+
+\end{example}
+
+\begin{example}
+Let $X$ be a set. If $i$ and $j$ are two distinct elements of $X$, then
+$\operatorname*{cyc}\nolimits_{i,j}=t_{i,j}$. Thus, the $2$-cycles in $S_{X}$
+are precisely the transpositions in $S_{X}$, so there are $\dbinom{\left\vert
+X\right\vert }{2}$ many of them (since any $2$-element subset $\left\{
+i,j\right\}  $ of $X$ gives rise to a transposition $t_{i,j}$, and this
+assignment of transpositions to $2$-element subsets is bijective).
+\end{example}
+
+Note that the $k$-cycle $\operatorname*{cyc}\nolimits_{i_{1},i_{2}%
+,\ldots,i_{k}}$ is often denoted by $\left(  i_{1},i_{2},\ldots,i_{k}\right)
+$, but I will not use this notation here, since it clashes with the standard
+notation for $k$-tuples.
+
+\begin{exercise}
+\label{exe.perm.cyc.how-many-kcyc}Let $n\in\mathbb{N}$ and let $k\in\left[
+n\right]  $. Let $X$ be an $n$-element set. How many $k$-cycles exist in
+$S_{X}$ ?
+\end{exercise}
+
+\begin{proof}
+[Solution to Exercise \ref{exe.perm.cyc.how-many-kcyc} (sketched).]First, we
+note that there is exactly one $1$-cycle in $S_{X}$ (for $n>0$), since a
+$1$-cycle is just the identity map. This should be viewed as a degenerate
+case; thus, we WLOG assume that $k>1$.
+
+For any $k$ distinct elements $i_{1},i_{2},\ldots,i_{k}$ of $X$, we have%
+\[
+\operatorname*{cyc}\nolimits_{i_{1},i_{2},\ldots,i_{k}}=\operatorname*{cyc}%
+\nolimits_{i_{2},i_{3},\ldots,i_{k},i_{1}}=\operatorname*{cyc}\nolimits_{i_{3}%
+,i_{4},\ldots,i_{k},i_{1},i_{2}}=\cdots=\operatorname*{cyc}\nolimits_{i_{k}%
+,i_{1},i_{2},\ldots,i_{k-1}}.
+\]
+That is, $\operatorname*{cyc}\nolimits_{i_{1},i_{2},\ldots,i_{k}}$ does not
+change if we cyclically rotate the list $\left(  i_{1},i_{2},\ldots
+,i_{k}\right)  $.
+
+Any $k$-cycle $\operatorname*{cyc}\nolimits_{i_{1},i_{2},\ldots,i_{k}}$
+uniquely determines the elements $i_{1},i_{2},\ldots,i_{k}$ up to cyclic
+rotation (since $k>1$). Indeed, if $\sigma=\operatorname*{cyc}\nolimits_{i_{1}%
+,i_{2},\ldots,i_{k}}$ is a $k$-cycle, then the elements $i_{1},i_{2}%
+,\ldots,i_{k}$ are precisely the elements of $X$ that are not fixed by
+$\sigma$ (it is here that we use our assumption $k>1$), and furthermore, if we
+know which of these elements is $i_{1}$, then we can reconstruct the remaining
+elements $i_{2},i_{3},\ldots,i_{k}$ recursively by%
+\[
+i_{2}=\sigma\left(  i_{1}\right)  ,\ \ \ \ \ \ \ \ \ \ i_{3}=\sigma\left(
+i_{2}\right)  ,\ \ \ \ \ \ \ \ \ \ i_{4}=\sigma\left(  i_{3}\right)
+,\ \ \ \ \ \ \ \ \ \ \ldots,\ \ \ \ \ \ \ \ \ \ i_{k}=\sigma\left(
+i_{k-1}\right)
+\]
+(that is, $i_{2},i_{3},\ldots,i_{k}$ are obtained by iteratively applying
+$\sigma$ to $i_{1}$). Therefore, if $\sigma\in S_{X}$ is a $k$-cycle, then
+there are precisely $k$ lists $\left(  i_{1},i_{2},\ldots,i_{k}\right)  $ for
+which $\sigma=\operatorname*{cyc}\nolimits_{i_{1},i_{2},\ldots,i_{k}}$ (coming
+from the $k$ possibilities for which of the $k$ non-fixed points of $\sigma$
+should be $i_{1}$).
+
+Hence, the map%
+\begin{align*}
+f:\left\{  k\text{-tuples of distinct elements of }X\right\}   &
+\rightarrow\left\{  k\text{-cycles in }S_{X}\right\}  ,\\
+\left(  i_{1},i_{2},\ldots,i_{k}\right)   &  \mapsto\operatorname*{cyc}%
+\nolimits_{i_{1},i_{2},\ldots,i_{k}}%
+\end{align*}
+is a $k$-to-$1$ map (i.e., each $k$-cycle in $S_{X}$ has precisely $k$
+preimages under this map). Therefore, Lemma \ref{lem.count.multijection}
+(applied to $m=k$ and \newline$A=\left\{  k\text{-tuples of distinct elements
+of }X\right\}  $ and $B=\left\{  k\text{-cycles in }S_{X}\right\}  $) yields%
+\[
+\left(  \text{\# of }k\text{-tuples of distinct elements of }X\right)
+=k\cdot\left(  \text{\# of }k\text{-cycles in }S_{X}\right)  .
+\]
+Therefore,
+\begin{align*}
+\left(  \text{\# of }k\text{-cycles in }S_{X}\right)   &  =\dfrac{1}{k}%
+\cdot\underbrace{\left(  \text{\# of }k\text{-tuples of distinct elements of
+}X\right)  }_{\substack{=n\left(  n-1\right)  \left(  n-2\right)
+\cdots\left(  n-k+1\right)  \\\text{(by (\ref{eq.count.k-tups-dist-elts}),
+since }X\text{ is an }n\text{-element set)}}}\\
+&  =\dfrac{1}{k}\cdot n\left(  n-1\right)  \left(  n-2\right)  \cdots\left(
+n-k+1\right) \\
+&  =\dbinom{n}{k}\cdot\left(  k-1\right)  !\ \ \ \ \ \ \ \ \ \ \left(
+\text{by a bit of simple algebra}\right)  .
+\end{align*}
+This is the answer to Exercise \ref{exe.perm.cyc.how-many-kcyc} in the case
+$k>1$. Hence, Exercise \ref{exe.perm.cyc.how-many-kcyc} is solved.
+\end{proof}
+
+\subsubsection{Involutions}
+
+\emph{Involutions} are maps that are inverse to themselves:
+
+\begin{definition}
+\label{def.perm.invol}Let $X$ be a set. An \emph{involution} of $X$ means a
+map $f:X\rightarrow X$ that satisfies $f\circ f=\operatorname*{id}$. Clearly,
+an involution is always a permutation, and equals its own inverse.
+\end{definition}
+
+For example, the identity map $\operatorname*{id}\nolimits_{X}$ is an
+involution, and any transposition $t_{i,j}\in S_{X}$ is an involution, whereas
+a $k$-cycle $\operatorname*{cyc}\nolimits_{i_{1},i_{2},\ldots,i_{k}}$ with
+$k>2$ is never an involution. Further examples of involutions are products of
+disjoint transpositions -- i.e., permutations of the form $t_{i_{1},j_{1}%
+}t_{i_{2},j_{2}}\cdots t_{i_{k},j_{k}}$, where all $2k$ elements $i_{1}%
+,j_{1},i_{2},j_{2},\ldots,i_{k},j_{k}$ are distinct. In fact, any involution
+of a finite set can be expressed in this form.
+
+An involution $\sigma\in S_{n}$ has a cycle digraph consisting of $1$-cycles
+and $2$-cycles. For example, here is the cycle digraph of the involution
+$t_{1,5}t_{2,3}\in S_{7}$:%
+\[%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\]
+

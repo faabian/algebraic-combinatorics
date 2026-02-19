@@ -1,0 +1,839 @@
+\subsection{\label{sec.details.gf.lim}Limits of FPSs}
+
+\begin{fineprint}
+Let us now prove a few facts stated in Section \ref{sec.gf.lim}.
+
+\begin{proof}
+[Detailed proof of Lemma \ref{lem.fps.lim.xn-equiv}.]We have $\lim
+\limits_{i\rightarrow\infty}f_{i}=f$. In other words, the sequence $\left(
+f_{i}\right)  _{i\in\mathbb{N}}$ coefficientwise stabilizes to $f$. In other
+words, for each $n\in\mathbb{N}$,%
+\begin{equation}
+\text{the sequence }\left(  \left[  x^{n}\right]  f_{i}\right)  _{i\in
+\mathbb{N}}\text{ stabilizes to }\left[  x^{n}\right]  f
+\label{pf.lem.fps.lim.xn-equiv.stab}%
+\end{equation}
+(by the definition of \textquotedblleft coefficientwise
+stabilizing\textquotedblright).
+
+Now, let $n\in\mathbb{N}$. Furthermore, let $k\in\left\{  0,1,\ldots
+,n\right\}  $. Then, the sequence $\left(  \left[  x^{k}\right]  f_{i}\right)
+_{i\in\mathbb{N}}$ stabilizes to $\left[  x^{k}\right]  f$ (by
+(\ref{pf.lem.fps.lim.xn-equiv.stab}), applied to $k$ instead of $n$). In other
+words, there exists some $N\in\mathbb{N}$ such that%
+\[
+\text{all integers }i\geq N\text{ satisfy }\left[  x^{k}\right]  f_{i}=\left[
+x^{k}\right]  f
+\]
+(by the definition of \textquotedblleft stabilizing\textquotedblright). Let us
+denote this $N$ by $N_{k}$. Thus,
+\begin{equation}
+\text{all integers }i\geq N_{k}\text{ satisfy }\left[  x^{k}\right]
+f_{i}=\left[  x^{k}\right]  f. \label{pf.lem.fps.lim.xn-equiv.Nk}%
+\end{equation}
+
+
+Forget that we fixed $k$. Thus, for each $k\in\left\{  0,1,\ldots,n\right\}
+$, we have defined an integer $N_{k}\in\mathbb{N}$ for which
+(\ref{pf.lem.fps.lim.xn-equiv.Nk}) holds. Altogether, we have thus defined
+$n+1$ integers $N_{0},N_{1},\ldots,N_{n}\in\mathbb{N}$.
+
+Let us set $P:=\max\left\{  N_{0},N_{1},\ldots,N_{n}\right\}  $. Then, of
+course, $P\in\mathbb{N}$.
+
+Now, let $i\geq P$ be an integer. Then, for each $k\in\left\{  0,1,\ldots
+,n\right\}  $, we have $i\geq P=\max\left\{  N_{0},N_{1},\ldots,N_{n}\right\}
+\geq N_{k}$ (since $k\in\left\{  0,1,\ldots,n\right\}  $) and therefore
+$\left[  x^{k}\right]  f_{i}=\left[  x^{k}\right]  f$ (by
+(\ref{pf.lem.fps.lim.xn-equiv.Nk})). In other words, each $k\in\left\{
+0,1,\ldots,n\right\}  $ satisfies $\left[  x^{k}\right]  f_{i}=\left[
+x^{k}\right]  f$. Renaming the variable $k$ as $m$ in this result, we obtain
+the following:%
+\[
+\text{Each }m\in\left\{  0,1,\ldots,n\right\}  \text{ satisfies }\left[
+x^{m}\right]  f_{i}=\left[  x^{m}\right]  f\text{.}%
+\]
+In other words, $f_{i}\overset{x^{n}}{\equiv}f$ (by the definition of $x^{n}%
+$-equivalence\footnote{i.e., Definition \ref{def.fps.xneq}}).
+
+Forget that we fixed $i$. We thus have shown that all integers $i\geq P$
+satisfy $f_{i}\overset{x^{n}}{\equiv}f$. Hence, there exists some integer
+$N\in\mathbb{N}$ such that
+\[
+\text{all integers }i\geq N\text{ satisfy }f_{i}\overset{x^{n}}{\equiv}f
+\]
+(namely, $N=P$). This proves Lemma \ref{lem.fps.lim.xn-equiv}.
+\end{proof}
+
+\begin{proof}
+[Detailed proof of Proposition \ref{prop.fps.lim.sum-prod}.]Recall that
+$\lim\limits_{i\rightarrow\infty}f_{i}=f$. Hence, Lemma
+\ref{lem.fps.lim.xn-equiv} shows that there exists some integer $N\in
+\mathbb{N}$ such that
+\[
+\text{all integers }i\geq N\text{ satisfy }f_{i}\overset{x^{n}}{\equiv}f.
+\]
+Let us denote this $N$ by $K$. Hence, all integers $i\geq K$ satisfy
+$f_{i}\overset{x^{n}}{\equiv}f$.
+
+Thus, we have found an integer $K\in\mathbb{N}$ such that%
+\begin{equation}
+\text{all integers }i\geq K\text{ satisfy }f_{i}\overset{x^{n}}{\equiv}f.
+\label{prop.fps.lim.sum-prod.K}%
+\end{equation}
+Similarly, using $\lim\limits_{i\rightarrow\infty}g_{i}=g$, we can find an
+integer $L\in\mathbb{N}$ such that
+\begin{equation}
+\text{all integers }i\geq L\text{ satisfy }g_{i}\overset{x^{n}}{\equiv}g.
+\label{prop.fps.lim.sum-prod.L}%
+\end{equation}
+Consider these $K$ and $L$. Let us furthermore set $P:=\max\left\{
+K,L\right\}  $. Thus, $P\in\mathbb{N}$.
+
+We shall now show that each integer $i\geq P$ satisfies $\left[  x^{n}\right]
+\left(  f_{i}g_{i}\right)  =\left[  x^{n}\right]  \left(  fg\right)  $.
+
+Indeed, let $i\geq P$ be an integer. Then, (\ref{prop.fps.lim.sum-prod.K})
+yields $f_{i}\overset{x^{n}}{\equiv}f$ (since $i\geq P=\max\left\{
+K,L\right\}  \geq K$), whereas (\ref{prop.fps.lim.sum-prod.L}) yields
+$g_{i}\overset{x^{n}}{\equiv}g$ (since $i\geq P=\max\left\{  K,L\right\}  \geq
+L$). Hence, we obtain%
+\[
+f_{i}g_{i}\overset{x^{n}}{\equiv}fg
+\]
+(by (\ref{eq.thm.fps.xneq.props.b.*}), applied to $a=f_{i}$, $b=f$, $c=g_{i}$
+and $d=g$). In other words,
+\[
+\text{each }m\in\left\{  0,1,\ldots,n\right\}  \text{ satisfies }\left[
+x^{m}\right]  \left(  f_{i}g_{i}\right)  =\left[  x^{m}\right]  \left(
+fg\right)
+\]
+(by the definition of $x^{n}$-equivalence). Applying this to $m=n$, we find%
+\[
+\left[  x^{n}\right]  \left(  f_{i}g_{i}\right)  =\left[  x^{n}\right]
+\left(  fg\right)  .
+\]
+
+
+Forget that we fixed $i$. We thus have shown that all integers $i\geq P$
+satisfy $\left[  x^{n}\right]  \left(  f_{i}g_{i}\right)  =\left[
+x^{n}\right]  \left(  fg\right)  $. Hence, there exists some $N\in\mathbb{N}$
+such that%
+\[
+\text{all integers }i\geq N\text{ satisfy }\left[  x^{n}\right]  \left(
+f_{i}g_{i}\right)  =\left[  x^{n}\right]  \left(  fg\right)
+\]
+(namely, $N=P$). In other words,%
+\[
+\text{the sequence }\left(  \left[  x^{n}\right]  \left(  f_{i}g_{i}\right)
+\right)  _{i\in\mathbb{N}}\text{ stabilizes to }\left[  x^{n}\right]  \left(
+fg\right)
+\]
+(by the definition of \textquotedblleft stabilizes\textquotedblright).
+
+Forget that we fixed $n$. We thus have shown that for each $n\in\mathbb{N}$,
+the sequence $\left(  \left[  x^{n}\right]  \left(  f_{i}g_{i}\right)
+\right)  _{i\in\mathbb{N}}$ stabilizes to $\left[  x^{n}\right]  \left(
+fg\right)  $. In other words, the sequence $\left(  f_{i}g_{i}\right)
+_{i\in\mathbb{N}}$ coefficientwise stabilizes to $fg$ (by the definition of
+\textquotedblleft coefficientwise stabilizing\textquotedblright). In other
+words, $\lim\limits_{i\rightarrow\infty}\left(  f_{i}g_{i}\right)  =fg$.
+
+The same argument -- but using (\ref{eq.thm.fps.xneq.props.b.+}) instead of
+(\ref{eq.thm.fps.xneq.props.b.*}) -- shows that $\lim\limits_{i\rightarrow
+\infty}\left(  f_{i}+g_{i}\right)  =f+g$. Thus, the proof of Proposition
+\ref{prop.fps.lim.sum-prod} is complete.
+\end{proof}
+
+\begin{proof}
+[Detailed proof of Proposition \ref{prop.fps.lim.sum-quot}.]First, let us show
+that $g$ is invertible:
+
+\begin{statement}
+\textit{Claim 1:} The FPS $g\in K\left[  \left[  x\right]  \right]  $ is invertible.
+\end{statement}
+
+\begin{proof}
+[Proof of Claim 1.]We have assumed that $\lim\limits_{i\rightarrow\infty}%
+g_{i}=g$. In other words, the sequence $\left(  g_{i}\right)  _{i\in
+\mathbb{N}}$ coefficientwise stabilizes to $g$. In other words, for each
+$n\in\mathbb{N}$, the sequence $\left(  \left[  x^{n}\right]  g_{i}\right)
+_{i\in\mathbb{N}}$ stabilizes to $\left[  x^{n}\right]  g$ (by the definition
+of \textquotedblleft coefficientwise stabilizing\textquotedblright). Applying
+this to $n=0$, we see that the sequence $\left(  \left[  x^{0}\right]
+g_{i}\right)  _{i\in\mathbb{N}}$ stabilizes to $\left[  x^{0}\right]  g$. In
+other words, there exists some $N\in\mathbb{N}$ such that%
+\[
+\text{all integers }i\geq N\text{ satisfy }\left[  x^{0}\right]  g_{i}=\left[
+x^{0}\right]  g
+\]
+(by the definition of \textquotedblleft stabilizes\textquotedblright).
+Consider this $N$. Thus, all integers $i\geq N$ satisfy $\left[  x^{0}\right]
+g_{i}=\left[  x^{0}\right]  g$. Applying this to $i=N$, we obtain $\left[
+x^{0}\right]  g_{N}=\left[  x^{0}\right]  g$.
+
+However, each FPS $g_{i}$ is invertible (by assumption). Hence, in particular,
+the FPS $g_{N}$ is invertible. By Proposition \ref{prop.fps.invertible}
+(applied to $a=g_{N}$), this entails that its constant term $\left[
+x^{0}\right]  g_{N}$ is invertible in $K$. In other words, $\left[
+x^{0}\right]  g$ is invertible in $K$ (since $\left[  x^{0}\right]
+g_{N}=\left[  x^{0}\right]  g$).
+
+But the FPS $g$ is invertible if and only if its constant term $\left[
+x^{0}\right]  g$ is invertible in $K$ (by Proposition
+\ref{prop.fps.invertible}, applied to $a=g$). Hence, $g$ is invertible (since
+its constant term $\left[  x^{0}\right]  g$ is invertible in $K$). This proves
+Claim 1.
+\end{proof}
+
+It remains to prove that $\lim\limits_{i\rightarrow\infty}\dfrac{f_{i}}{g_{i}%
+}=\dfrac{f}{g}$.
+
+Recall that $\lim\limits_{i\rightarrow\infty}f_{i}=f$. Hence, Lemma
+\ref{lem.fps.lim.xn-equiv} shows that there exists some integer $N\in
+\mathbb{N}$ such that
+\[
+\text{all integers }i\geq N\text{ satisfy }f_{i}\overset{x^{n}}{\equiv}f.
+\]
+Let us denote this $N$ by $K$. Hence, all integers $i\geq K$ satisfy
+$f_{i}\overset{x^{n}}{\equiv}f$.
+
+Thus, we have found an integer $K\in\mathbb{N}$ such that%
+\begin{equation}
+\text{all integers }i\geq K\text{ satisfy }f_{i}\overset{x^{n}}{\equiv}f.
+\label{pf.prop.fps.lim.sum-quot.K}%
+\end{equation}
+Similarly, using $\lim\limits_{i\rightarrow\infty}g_{i}=g$, we can find an
+integer $L\in\mathbb{N}$ such that
+\begin{equation}
+\text{all integers }i\geq L\text{ satisfy }g_{i}\overset{x^{n}}{\equiv}g.
+\label{pf.prop.fps.lim.sum-quot.L}%
+\end{equation}
+Consider these $K$ and $L$. Let us furthermore set $P:=\max\left\{
+K,L\right\}  $. Thus, $P\in\mathbb{N}$.
+
+We shall now show that each integer $i\geq P$ satisfies $\left[  x^{n}\right]
+\dfrac{f_{i}}{g_{i}}=\left[  x^{n}\right]  \dfrac{f}{g}$.
+
+Indeed, let $i\geq P$ be an integer. Then, (\ref{pf.prop.fps.lim.sum-quot.K})
+yields $f_{i}\overset{x^{n}}{\equiv}f$ (since $i\geq P=\max\left\{
+K,L\right\}  \geq K$), whereas (\ref{pf.prop.fps.lim.sum-quot.L}) yields
+$g_{i}\overset{x^{n}}{\equiv}g$ (since $i\geq P=\max\left\{  K,L\right\}  \geq
+L$). Since both FPSs $g_{i}$ and $g$ are invertible (by Claim 1), we thus
+obtain
+\[
+\dfrac{f_{i}}{g_{i}}\overset{x^{n}}{\equiv}\dfrac{f}{g}%
+\]
+(by Theorem \ref{thm.fps.xneq.props} \textbf{(e)}, applied to $a=f_{i}$,
+$b=f$, $c=g_{i}$ and $d=g$). In other words,
+\[
+\text{each }m\in\left\{  0,1,\ldots,n\right\}  \text{ satisfies }\left[
+x^{m}\right]  \dfrac{f_{i}}{g_{i}}=\left[  x^{m}\right]  \dfrac{f}{g}%
+\]
+(by the definition of $x^{n}$-equivalence). Applying this to $m=n$, we find%
+\[
+\left[  x^{n}\right]  \dfrac{f_{i}}{g_{i}}=\left[  x^{n}\right]  \dfrac{f}%
+{g}.
+\]
+
+
+Forget that we fixed $i$. We thus have shown that all integers $i\geq P$
+satisfy $\left[  x^{n}\right]  \dfrac{f_{i}}{g_{i}}=\left[  x^{n}\right]
+\dfrac{f}{g}$. Hence, there exists some $N\in\mathbb{N}$ such that%
+\[
+\text{all integers }i\geq N\text{ satisfy }\left[  x^{n}\right]  \dfrac{f_{i}%
+}{g_{i}}=\left[  x^{n}\right]  \dfrac{f}{g}%
+\]
+(namely, $N=P$). In other words,%
+\[
+\text{the sequence }\left(  \left[  x^{n}\right]  \dfrac{f_{i}}{g_{i}}\right)
+_{i\in\mathbb{N}}\text{ stabilizes to }\left[  x^{n}\right]  \dfrac{f}{g}%
+\]
+(by the definition of \textquotedblleft stabilizes\textquotedblright).
+
+Forget that we fixed $n$. We thus have shown that for each $n\in\mathbb{N}$,
+the sequence $\left(  \left[  x^{n}\right]  \dfrac{f_{i}}{g_{i}}\right)
+_{i\in\mathbb{N}}$ stabilizes to $\left[  x^{n}\right]  \dfrac{f}{g}$. In
+other words, the sequence $\left(  \dfrac{f_{i}}{g_{i}}\right)  _{i\in
+\mathbb{N}}$ coefficientwise stabilizes to $\dfrac{f}{g}$ (by the definition
+of \textquotedblleft coefficientwise stabilizing\textquotedblright). In other
+words, $\lim\limits_{i\rightarrow\infty}\dfrac{f_{i}}{g_{i}}=\dfrac{f}{g}$.
+This proves Proposition \ref{prop.fps.lim.sum-quot} (since we already have
+shown that $g$ is invertible).
+\end{proof}
+\end{fineprint}
+
+\begin{fineprint}
+\begin{proof}
+[Proof of Theorem \ref{thm.fps.lim.sum-lim}.]The family $\left(  f_{n}\right)
+_{n\in\mathbb{N}}$ is summable. In other words, the family $\left(
+f_{k}\right)  _{k\in\mathbb{N}}$ is summable (since this is the same family as
+$\left(  f_{n}\right)  _{n\in\mathbb{N}}$). In other words, for each
+$n\in\mathbb{N}$,
+\begin{equation}
+\text{all but finitely many }k\in\mathbb{N}\text{ satisfy }\left[
+x^{n}\right]  f_{k}=0 \label{pf.thm.fps.lim.sum-lim.1}%
+\end{equation}
+(by the definition of \textquotedblleft summable\textquotedblright).
+
+Let us define%
+\begin{equation}
+g_{i}:=\sum_{k=0}^{i}f_{k}\ \ \ \ \ \ \ \ \ \ \text{for each }i\in\mathbb{N}.
+\label{pf.thm.fps.lim.sum-lim.gi=}%
+\end{equation}
+Let us furthermore set%
+\begin{equation}
+g:=\sum_{k\in\mathbb{N}}f_{k}. \label{pf.thm.fps.lim.sum-lim.g=}%
+\end{equation}
+
+
+Now, fix $n\in\mathbb{N}$. Then, all but finitely many $k\in\mathbb{N}$
+satisfy $\left[  x^{n}\right]  f_{k}=0$ (by (\ref{pf.thm.fps.lim.sum-lim.1})).
+In other words, there exists a finite subset $J$ of $\mathbb{N}$ such that
+\begin{equation}
+\text{all }k\in\mathbb{N}\setminus J\text{ satisfy }\left[  x^{n}\right]
+f_{k}=0. \label{pf.thm.fps.lim.sum-lim.2}%
+\end{equation}
+Consider this subset $J$. The set $J$ is a finite set of nonnegative integers,
+and thus has an upper bound (since any finite set of nonnegative integers has
+an upper bound). In other words, there exists some $m\in\mathbb{N}$ such that%
+\begin{equation}
+\text{all }k\in J\text{ satisfy }k\leq m. \label{pf.thm.fps.lim.sum-lim.3}%
+\end{equation}
+Consider this $m$.
+
+Let $k\in\mathbb{N}$ be such that $k\geq m+1$. If we had $k\in J$, then we
+would have $k\leq m$ (by (\ref{pf.thm.fps.lim.sum-lim.3})), which would
+contradict $k\geq m+1>m$. Thus, we cannot have $k\in J$. Hence, $k\in
+\mathbb{N}\setminus J$ (since $k\in\mathbb{N}$ but not $k\in J$). Therefore,
+(\ref{pf.thm.fps.lim.sum-lim.2}) yields $\left[  x^{n}\right]  f_{k}=0$.
+
+Forget that we fixed $k$. We thus have shown that%
+\begin{equation}
+\left[  x^{n}\right]  f_{k}=0\ \ \ \ \ \ \ \ \ \ \text{for each }%
+k\in\mathbb{N}\text{ satisfying }k\geq m+1. \label{pf.thm.fps.lim.sum-lim.4}%
+\end{equation}
+
+
+Now, let $i$ be an integer such that $i\geq m$. Then, $i\in\mathbb{N}$ (since
+$i\geq m\geq0$) and $i+1\geq m+1$ (since $i\geq m$). From $g=\sum
+_{k\in\mathbb{N}}f_{k}$, we obtain%
+\begin{align}
+\left[  x^{n}\right]  g  &  =\left[  x^{n}\right]  \left(  \sum_{k\in
+\mathbb{N}}f_{k}\right)  =\sum_{k\in\mathbb{N}}\left[  x^{n}\right]
+f_{k}\ \ \ \ \ \ \ \ \ \ \left(  \text{by (\ref{eq.def.fps.summable.sum}%
+)}\right) \nonumber\\
+&  =\sum_{k=0}^{i}\left[  x^{n}\right]  f_{k}+\sum_{k=i+1}^{\infty
+}\underbrace{\left[  x^{n}\right]  f_{k}}_{\substack{=0\\\text{(by
+(\ref{pf.thm.fps.lim.sum-lim.4})}\\\text{(since }k\geq i+1\geq m+1\text{))}%
+}}=\sum_{k=0}^{i}\left[  x^{n}\right]  f_{k}+\underbrace{\sum_{k=i+1}^{\infty
+}0}_{=0}\nonumber\\
+&  =\sum_{k=0}^{i}\left[  x^{n}\right]  f_{k}.
+\label{pf.thm.fps.lim.sum-lim.5}%
+\end{align}
+On the other hand, from $g_{i}=\sum_{k=0}^{i}f_{k}$, we obtain%
+\[
+\left[  x^{n}\right]  g_{i}=\left[  x^{n}\right]  \left(  \sum_{k=0}^{i}%
+f_{k}\right)  =\sum_{k=0}^{i}\left[  x^{n}\right]  f_{k}.
+\]
+Comparing this with (\ref{pf.thm.fps.lim.sum-lim.5}), we obtain $\left[
+x^{n}\right]  g_{i}=\left[  x^{n}\right]  g$.
+
+Forget that we fixed $i$. We thus have shown that
+\[
+\text{all integers }i\geq m\text{ satisfy }\left[  x^{n}\right]  g_{i}=\left[
+x^{n}\right]  g.
+\]
+Hence, there exists some $N\in\mathbb{N}$ such that
+\[
+\text{all integers }i\geq N\text{ satisfy }\left[  x^{n}\right]  g_{i}=\left[
+x^{n}\right]  g
+\]
+(namely, $N=m$). In other words, the sequence $\left(  \left[  x^{n}\right]
+g_{i}\right)  _{i\in\mathbb{N}}$ stabilizes to $\left[  x^{n}\right]  g$ (by
+the definition of \textquotedblleft stabilizes\textquotedblright).
+
+Forget that we fixed $n$. We thus have shown that for each $n\in\mathbb{N}$,%
+\[
+\text{the sequence }\left(  \left[  x^{n}\right]  g_{i}\right)  _{i\in
+\mathbb{N}}\text{ stabilizes to }\left[  x^{n}\right]  g.
+\]
+In other words, the sequence $\left(  g_{i}\right)  _{i\in\mathbb{N}}$
+coefficientwise stabilizes to $g$. In other words, $\lim\limits_{i\rightarrow
+\infty}g_{i}=g$. In view of (\ref{pf.thm.fps.lim.sum-lim.gi=}) and
+(\ref{pf.thm.fps.lim.sum-lim.g=}), we can rewrite this as%
+\[
+\lim\limits_{i\rightarrow\infty}\sum_{k=0}^{i}f_{k}=\sum_{k\in\mathbb{N}}%
+f_{k}.
+\]
+Renaming the summation index $k$ as $n$ everywhere in this equality, we can
+rewrite it as%
+\[
+\lim\limits_{i\rightarrow\infty}\sum_{n=0}^{i}f_{n}=\sum_{n\in\mathbb{N}}%
+f_{n}.
+\]
+This proves Theorem \ref{thm.fps.lim.sum-lim}.
+\end{proof}
+
+\begin{proof}
+[Proof of Theorem \ref{thm.fps.lim.prod-lim}.]The family $\left(
+f_{n}\right)  _{n\in\mathbb{N}}$ is multipliable. In other words, the family
+$\left(  f_{k}\right)  _{k\in\mathbb{N}}$ is multipliable (since this is the
+same family as $\left(  f_{n}\right)  _{n\in\mathbb{N}}$). In other words,
+each coefficient in the product of this family is finitely determined (by the
+definition of \textquotedblleft multipliable\textquotedblright).
+
+Let us define%
+\begin{equation}
+g_{i}:=\prod_{k=0}^{i}f_{k}\ \ \ \ \ \ \ \ \ \ \text{for each }i\in\mathbb{N}.
+\label{pf.thm.fps.lim.prod-lim.gi=}%
+\end{equation}
+Let us furthermore set%
+\begin{equation}
+g:=\prod_{k\in\mathbb{N}}f_{k}. \label{pf.thm.fps.lim.prod-lim.g=}%
+\end{equation}
+
+
+Now, fix $n\in\mathbb{N}$. Then, the $x^{n}$-coefficient in the product of the
+family $\left(  f_{k}\right)  _{k\in\mathbb{N}}$ is finitely determined (since
+each coefficient in the product of this family is finitely determined). In
+other words, there is a finite subset $M$ of $\mathbb{N}$ that determines the
+$x^{n}$-coefficient in the product of $\left(  f_{k}\right)  _{k\in\mathbb{N}%
+}$ (by the definition of \textquotedblleft finitely
+determined\textquotedblright). Consider this subset $M$.
+
+The set $M$ is a finite set of nonnegative integers, and thus has an upper
+bound (since any finite set of nonnegative integers has an upper bound). In
+other words, there exists some $m\in\mathbb{N}$ such that%
+\begin{equation}
+\text{all }k\in M\text{ satisfy }k\leq m. \label{pf.thm.fps.lim.prod-lim.3}%
+\end{equation}
+Consider this $m$.
+
+Now, let $i$ be an integer be such that $i\geq m$. Then, $i\in\mathbb{N}$
+(since $i\geq m\geq0$) and $m\leq i$. From (\ref{pf.thm.fps.lim.prod-lim.3}),
+we see that all $k\in M$ satisfy $k\leq m\leq i$ and therefore $k\in\left\{
+0,1,\ldots,i\right\}  $. In other words, $M\subseteq\left\{  0,1,\ldots
+,i\right\}  $.
+
+However, the set $M$ determines the $x^{n}$-coefficient in the product of
+$\left(  f_{k}\right)  _{k\in\mathbb{N}}$. In other words, every finite subset
+$J$ of $\mathbb{N}$ satisfying $M\subseteq J\subseteq\mathbb{N}$ satisfies%
+\[
+\left[  x^{n}\right]  \left(  \prod_{k\in J}f_{k}\right)  =\left[
+x^{n}\right]  \left(  \prod_{k\in M}f_{k}\right)
+\]
+(by the definition of \textquotedblleft determines the $x^{n}$-coefficient in
+the product of $\left(  f_{k}\right)  _{k\in\mathbb{N}}$\textquotedblright).
+Applying this to $J=\left\{  0,1,\ldots,i\right\}  $, we obtain%
+\begin{equation}
+\left[  x^{n}\right]  \left(  \prod_{k\in\left\{  0,1,\ldots,i\right\}  }%
+f_{k}\right)  =\left[  x^{n}\right]  \left(  \prod_{k\in M}f_{k}\right)
+\label{pf.thm.fps.lim.prod-lim.4}%
+\end{equation}
+(since $\left\{  0,1,\ldots,i\right\}  $ is a finite subset of $\mathbb{N}$
+satisfying $M\subseteq\left\{  0,1,\ldots,i\right\}  \subseteq\mathbb{N}$).
+
+Moreover, the definition of the product of the multipliable family $\left(
+f_{k}\right)  _{k\in\mathbb{N}}$ (Definition \ref{def.fps.multipliable}
+\textbf{(b)}) shows that%
+\[
+\left[  x^{n}\right]  \left(  \prod_{k\in\mathbb{N}}f_{k}\right)  =\left[
+x^{n}\right]  \left(  \prod_{k\in M}f_{k}\right)
+\]
+(since $M$ is a finite subset of $\mathbb{N}$ that determines the $x^{n}%
+$-coefficient in the product of $\left(  f_{k}\right)  _{k\in\mathbb{N}}$).
+Comparing this with (\ref{pf.thm.fps.lim.prod-lim.4}), we find%
+\[
+\left[  x^{n}\right]  \left(  \prod_{k\in\left\{  0,1,\ldots,i\right\}  }%
+f_{k}\right)  =\left[  x^{n}\right]  \left(  \prod_{k\in\mathbb{N}}%
+f_{k}\right)  .
+\]
+
+
+In view of $\prod_{k\in\left\{  0,1,\ldots,i\right\}  }f_{k}=\prod_{k=0}%
+^{i}f_{k}=g_{i}$ (by (\ref{pf.thm.fps.lim.prod-lim.gi=})) and $\prod
+_{k\in\mathbb{N}}f_{k}=g$ (by (\ref{pf.thm.fps.lim.prod-lim.g=})), we can
+rewrite this as%
+\[
+\left[  x^{n}\right]  g_{i}=\left[  x^{n}\right]  g.
+\]
+
+
+Forget that we fixed $i$. We thus have shown that
+\[
+\text{all integers }i\geq m\text{ satisfy }\left[  x^{n}\right]  g_{i}=\left[
+x^{n}\right]  g.
+\]
+Hence, there exists some $N\in\mathbb{N}$ such that
+\[
+\text{all integers }i\geq N\text{ satisfy }\left[  x^{n}\right]  g_{i}=\left[
+x^{n}\right]  g
+\]
+(namely, $N=m$). In other words, the sequence $\left(  \left[  x^{n}\right]
+g_{i}\right)  _{i\in\mathbb{N}}$ stabilizes to $\left[  x^{n}\right]  g$ (by
+the definition of \textquotedblleft stabilizes\textquotedblright).
+
+Forget that we fixed $n$. We thus have shown that for each $n\in\mathbb{N}$,%
+\[
+\text{the sequence }\left(  \left[  x^{n}\right]  g_{i}\right)  _{i\in
+\mathbb{N}}\text{ stabilizes to }\left[  x^{n}\right]  g.
+\]
+In other words, the sequence $\left(  g_{i}\right)  _{i\in\mathbb{N}}$
+coefficientwise stabilizes to $g$. In other words, $\lim\limits_{i\rightarrow
+\infty}g_{i}=g$. In view of (\ref{pf.thm.fps.lim.prod-lim.g=}) and
+(\ref{pf.thm.fps.lim.prod-lim.g=}), we can rewrite this as%
+\[
+\lim\limits_{i\rightarrow\infty}\prod_{k=0}^{i}f_{k}=\prod_{k\in\mathbb{N}%
+}f_{k}.
+\]
+Renaming the product index $k$ as $n$ everywhere in this equality, we can
+rewrite it as%
+\[
+\lim\limits_{i\rightarrow\infty}\prod_{n=0}^{i}f_{n}=\prod_{n\in\mathbb{N}%
+}f_{n}.
+\]
+This proves Theorem \ref{thm.fps.lim.prod-lim}.
+\end{proof}
+
+\begin{proof}
+[Proof of Corollary \ref{cor.fps.lim.fps-as-pol}.]Let a FPS $a\in K\left[
+\left[  x\right]  \right]  $ be written in the form $a=\sum_{n\in\mathbb{N}%
+}a_{n}x^{n}$ with $a_{n}\in K$. Then, Corollary \ref{cor.fps.sumakxk} shows
+that the family $\left(  a_{n}x^{n}\right)  _{n\in\mathbb{N}}$ is summable.
+Hence, Theorem \ref{thm.fps.lim.sum-lim} (applied to $f_{n}=a_{n}x^{n}$)
+yields
+\[
+\lim\limits_{i\rightarrow\infty}\sum_{n=0}^{i}a_{n}x^{n}=\sum_{n\in\mathbb{N}%
+}a_{n}x^{n}=a.
+\]
+In other words, $a=\lim\limits_{i\rightarrow\infty}\sum_{n=0}^{i}a_{n}x^{n}$.
+This proves Corollary \ref{cor.fps.lim.fps-as-pol}.
+\end{proof}
+\end{fineprint}
+
+\begin{fineprint}
+\begin{proof}
+[Proof of Theorem \ref{thm.fps.lim.sum-lim-conv}.]Let us define%
+\begin{equation}
+g_{i}:=\sum_{k=0}^{i}f_{k}\ \ \ \ \ \ \ \ \ \ \text{for each }i\in\mathbb{N}.
+\label{pf.thm.fps.lim.sum-lim-conv.gi=}%
+\end{equation}
+We have assumed that the limit $\lim\limits_{i\rightarrow\infty}\sum_{n=0}%
+^{i}f_{n}$ exists. Let us denote this limit by $g$. Thus,%
+\begin{align}
+g  &  =\lim\limits_{i\rightarrow\infty}\sum_{n=0}^{i}f_{n}=\lim
+\limits_{i\rightarrow\infty}\underbrace{\sum_{k=0}^{i}f_{k}}_{\substack{=g_{i}%
+\\\text{(by (\ref{pf.thm.fps.lim.sum-lim-conv.gi=}))}}%
+}\ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have renamed the}\\
+\text{summation index }n\text{ as }k
+\end{array}
+\right) \nonumber\\
+&  =\lim\limits_{i\rightarrow\infty}g_{i}.
+\label{pf.thm.fps.lim.sum-lim-conv.g=lim}%
+\end{align}
+In other words, the sequence $\left(  g_{i}\right)  _{i\in\mathbb{N}}$
+coefficientwise stabilizes to $g$. In other words, for each $n\in\mathbb{N}$,%
+\begin{equation}
+\text{the sequence }\left(  \left[  x^{n}\right]  g_{i}\right)  _{i\in
+\mathbb{N}}\text{ stabilizes to }\left[  x^{n}\right]  g.
+\label{pf.thm.fps.lim.sum-lim-conv.gstab}%
+\end{equation}
+
+
+Let $n\in\mathbb{N}$. Then, the sequence $\left(  \left[  x^{n}\right]
+g_{i}\right)  _{i\in\mathbb{N}}$ stabilizes to $\left[  x^{n}\right]  g$ (by
+(\ref{pf.thm.fps.lim.sum-lim-conv.gstab})). In other words, there exists some
+$N\in\mathbb{N}$ such that
+\begin{equation}
+\text{all integers }i\geq N\text{ satisfy }\left[  x^{n}\right]  g_{i}=\left[
+x^{n}\right]  g. \label{pf.thm.fps.lim.sum-lim-conv.1}%
+\end{equation}
+Consider this $N$. Let $M$ be the set $\left\{  0,1,\ldots,N\right\}  $; this
+is a finite subset of $\mathbb{N}$.
+
+Let $i\in\mathbb{N}\setminus M$. Thus,
+\begin{align*}
+i  &  \in\mathbb{N}\setminus M=\mathbb{N}\setminus\left\{  0,1,\ldots
+,N\right\}  \ \ \ \ \ \ \ \ \ \ \left(  \text{since }M=\left\{  0,1,\ldots
+,N\right\}  \right) \\
+&  =\left\{  N+1,\ N+2,\ N+3,\ \ldots\right\}  .
+\end{align*}
+In other words, $i$ is a nonnegative integer with $i\geq N+1$. Hence, $i-1\geq
+N$. Therefore, (\ref{pf.thm.fps.lim.sum-lim-conv.1}) (applied to $i-1$ instead
+of $i$) yields $\left[  x^{n}\right]  g_{i-1}=\left[  x^{n}\right]  g$. But
+(\ref{pf.thm.fps.lim.sum-lim-conv.1}) also yields $\left[  x^{n}\right]
+g_{i}=\left[  x^{n}\right]  g$ (since $i\geq N+1\geq N$). Comparing these two
+equalities, we find
+\begin{equation}
+\left[  x^{n}\right]  g_{i-1}=\left[  x^{n}\right]  g_{i}.
+\label{pf.thm.fps.lim.sum-lim-conv.2}%
+\end{equation}
+
+
+However, (\ref{pf.thm.fps.lim.sum-lim-conv.gi=}) yields
+\begin{equation}
+g_{i}=\sum_{k=0}^{i}f_{k}=f_{i}+\sum_{k=0}^{i-1}f_{k}.
+\label{pf.thm.fps.lim.sum-lim-conv.3}%
+\end{equation}
+Moreover, (\ref{pf.thm.fps.lim.sum-lim-conv.gi=}) (applied to $i-1$ instead of
+$i$) yields $g_{i-1}=\sum_{k=0}^{i-1}f_{k}$. In view of this, we can rewrite
+(\ref{pf.thm.fps.lim.sum-lim-conv.3}) as%
+\[
+g_{i}=f_{i}+g_{i-1}.
+\]
+Hence, $\left[  x^{n}\right]  g_{i}=\left[  x^{n}\right]  \left(
+f_{i}+g_{i-1}\right)  =\left[  x^{n}\right]  f_{i}+\underbrace{\left[
+x^{n}\right]  g_{i-1}}_{\substack{=\left[  x^{n}\right]  g_{i}\\\text{(by
+(\ref{pf.thm.fps.lim.sum-lim-conv.2}))}}}=\left[  x^{n}\right]  f_{i}+\left[
+x^{n}\right]  g_{i}$. Subtracting $\left[  x^{n}\right]  g_{i}$ from both
+sides of this equality, we find $0=\left[  x^{n}\right]  f_{i}$. In other
+words, $\left[  x^{n}\right]  f_{i}=0$.
+
+Forget that we fixed $i$. We thus have shown that all $i\in\mathbb{N}\setminus
+M$ satisfy $\left[  x^{n}\right]  f_{i}=0$. Hence, all but finitely many
+$i\in\mathbb{N}$ satisfy $\left[  x^{n}\right]  f_{i}=0$ (since all but
+finitely many $i\in\mathbb{N}$ belong to $\mathbb{N}\setminus M$ (because the
+set $M$ is finite)). Renaming the index $i$ as $k$ in this statement, we
+obtain the following: All but finitely many $k\in\mathbb{N}$ satisfy $\left[
+x^{n}\right]  f_{k}=0$.
+
+Forget that we fixed $n$. We thus have shown that for each $n\in\mathbb{N}$,
+\[
+\text{all but finitely many }k\in\mathbb{N}\text{ satisfy }\left[
+x^{n}\right]  f_{k}=0.
+\]
+In other words, the family $\left(  f_{n}\right)  _{n\in\mathbb{N}}$ is
+summable (by the definition of \textquotedblleft summable\textquotedblright).
+
+Hence, Theorem \ref{thm.fps.lim.sum-lim} yields $\lim\limits_{i\rightarrow
+\infty}\sum_{n=0}^{i}f_{n}=\sum_{n\in\mathbb{N}}f_{n}$. In other words,
+$\sum_{n\in\mathbb{N}}f_{n}=\lim\limits_{i\rightarrow\infty}\sum_{n=0}%
+^{i}f_{n}$. This completes the proof of Theorem \ref{thm.fps.lim.sum-lim-conv}.
+\end{proof}
+
+\begin{proof}
+[Proof of Theorem \ref{thm.fps.lim.prod-lim-conv}.]Let us define%
+\begin{equation}
+g_{i}:=\prod_{k=0}^{i}f_{k}\ \ \ \ \ \ \ \ \ \ \text{for each }i\in\mathbb{N}.
+\label{pf.thm.fps.lim.prod-lim-conv.gi=}%
+\end{equation}
+
+
+We have assumed that the limit $\lim\limits_{i\rightarrow\infty}\prod
+_{n=0}^{i}f_{n}$ exists. Let us denote this limit by $g$. Thus,%
+\begin{align}
+g  &  =\lim\limits_{i\rightarrow\infty}\prod_{n=0}^{i}f_{n}=\lim
+\limits_{i\rightarrow\infty}\underbrace{\prod_{k=0}^{i}f_{k}}%
+_{\substack{=g_{i}\\\text{(by (\ref{pf.thm.fps.lim.prod-lim-conv.gi=}))}%
+}}\ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have renamed the}\\
+\text{product index }n\text{ as }k
+\end{array}
+\right) \nonumber\\
+&  =\lim\limits_{i\rightarrow\infty}g_{i}.
+\label{pf.thm.fps.lim.prod-lim-conv.g=lim}%
+\end{align}
+
+
+Let $n\in\mathbb{N}$ be arbitrary. Lemma \ref{lem.fps.lim.xn-equiv} (applied
+to $g_{i}$ and $g$ instead of $f_{i}$ and $f$) shows that there exists some
+integer $N\in\mathbb{N}$ such that
+\begin{equation}
+\text{all integers }i\geq N\text{ satisfy }g_{i}\overset{x^{n}}{\equiv}g
+\label{pf.thm.fps.lim.prod-lim-conv.gi-equiv-g}%
+\end{equation}
+(since $g=\lim\limits_{i\rightarrow\infty}g_{i}$). Consider this $N$.
+
+Let $M=\left\{  0,1,\ldots,N\right\}  $. Thus, $M$ is a finite subset of
+$\mathbb{N}$. We shall show that this subset $M$ determines the $x^{n}%
+$-coefficient in the product of $\left(  f_{k}\right)  _{k\in\mathbb{N}}$.
+
+For this purpose, we first observe that $M=\left\{  0,1,\ldots,N\right\}  $,
+so that%
+\begin{equation}
+\prod_{k\in M}f_{k}=\prod_{k\in\left\{  0,1,\ldots,N\right\}  }f_{k}%
+=\prod_{k=0}^{N}f_{k}=g_{N} \label{pf.thm.fps.lim.prod-lim-conv.=gN}%
+\end{equation}
+(since $g_{N}$ was defined to be $\prod_{k=0}^{N}f_{k}$). Applying
+(\ref{pf.thm.fps.lim.prod-lim-conv.gi-equiv-g}) to $i=N$, we obtain
+$g_{N}\overset{x^{n}}{\equiv}g$ (since $N\geq N$). Therefore, $g\overset{x^{n}%
+}{\equiv}g_{N}$ (since $\overset{x^{n}}{\equiv}$ is an equivalence relation
+and thus symmetric).
+
+Next, we shall show two claims:
+
+\begin{statement}
+\textit{Claim 1:} For each integer $j>N$, we have $g\overset{x^{n}}{\equiv
+}gf_{j}$.
+\end{statement}
+
+\begin{proof}
+[Proof of Claim 1.]Let $j>N$ be an integer. Thus, $j\geq N+1$, so that
+$j-1\geq N$. Hence, (\ref{pf.thm.fps.lim.prod-lim-conv.gi-equiv-g}) (applied
+to $i=j-1$) yields $g_{j-1}\overset{x^{n}}{\equiv}g$. However,
+(\ref{pf.thm.fps.lim.prod-lim-conv.gi-equiv-g}) (applied to $i=j$) yields
+$g_{j}\overset{x^{n}}{\equiv}g$ (since $j\geq N+1\geq N$). Thus,
+$g\overset{x^{n}}{\equiv}g_{j}$ (since $\overset{x^{n}}{\equiv}$ is an
+equivalence relation and thus symmetric).
+
+Also, we obviously have $f_{j}\overset{x^{n}}{\equiv}f_{j}$ (since
+$\overset{x^{n}}{\equiv}$ is an equivalence relation and thus reflexive).
+
+However, the definition of $g_{j-1}$ yields $g_{j-1}=\prod_{k=0}^{j-1}f_{k}$.
+Furthermore, the definition of $g_{j}$ yields%
+\[
+g_{j}=\prod_{k=0}^{j}f_{k}=\underbrace{\left(  \prod_{k=0}^{j-1}f_{k}\right)
+}_{=g_{j-1}}f_{j}=g_{j-1}f_{j}.
+\]
+But recall that $g_{j-1}\overset{x^{n}}{\equiv}g$ and $f_{j}\overset{x^{n}%
+}{\equiv}f_{j}$. Hence, $g_{j-1}f_{j}\overset{x^{n}}{\equiv}gf_{j}$ (by
+(\ref{eq.thm.fps.xneq.props.b.*}), applied to $a=g_{j-1}$, $b=g$, $c=f_{j}$
+and $d=f_{j}$). In view of $g_{j}=g_{j-1}f_{j}$, we can rewrite this as
+$g_{j}\overset{x^{n}}{\equiv}gf_{j}$.
+
+Now, recall that $g\overset{x^{n}}{\equiv}g_{j}$. Thus, $g\overset{x^{n}%
+}{\equiv}g_{j}\overset{x^{n}}{\equiv}gf_{j}$, so that $g\overset{x^{n}%
+}{\equiv}gf_{j}$ (since $\overset{x^{n}}{\equiv}$ is an equivalence relation
+and thus transitive). This proves Claim 1.
+\end{proof}
+
+\begin{statement}
+\textit{Claim 2:} If $U$ is any finite subset of $\mathbb{N}$ satisfying
+$M\subseteq U$, then $g\overset{x^{n}}{\equiv}\prod_{k\in U}f_{k}$.
+\end{statement}
+
+\begin{proof}
+[Proof of Claim 2.]We induct on the nonnegative integer $\left\vert U\setminus
+M\right\vert $:
+
+\textit{Base case:} Let us check that Claim 2 holds when $\left\vert
+U\setminus M\right\vert =0$.
+
+Indeed, let $U$ be any finite subset of $\mathbb{N}$ satisfying $M\subseteq U$
+and $\left\vert U\setminus M\right\vert =0$. Then, $U\setminus M=\varnothing$
+(since $\left\vert U\setminus M\right\vert =0$), so that $U\subseteq M$.
+Combined with $M\subseteq U$, this yields $U=M$. Thus, $\prod_{k\in U}%
+f_{k}=\prod_{k\in M}f_{k}=g_{N}$ (by (\ref{pf.thm.fps.lim.prod-lim-conv.=gN}%
+)). But we have already proved that $g\overset{x^{n}}{\equiv}g_{N}$. In other
+words, $g\overset{x^{n}}{\equiv}\prod_{k\in U}f_{k}$ (since $\prod_{k\in
+U}f_{k}=g_{N}$). Thus, Claim 2 is proved under the assumption that $\left\vert
+U\setminus M\right\vert =0$. This completes the base case.
+
+\textit{Induction step:} Let $s\in\mathbb{N}$. Assume (as the induction
+hypothesis) that Claim 2 holds when $\left\vert U\setminus M\right\vert =s$.
+We must now prove that Claim 2 holds when $\left\vert U\setminus M\right\vert
+=s+1$.
+
+Indeed, let $U$ be any finite subset of $\mathbb{N}$ satisfying $M\subseteq U$
+and $\left\vert U\setminus M\right\vert =s+1$. Then, the set $U\setminus M$ is
+nonempty (since $\left\vert U\setminus M\right\vert =s+1>s\geq0$). Hence,
+there exists some $u\in U\setminus M$. Consider this $u$. From $u\in
+U\setminus M$, we obtain $\left\vert \left(  U\setminus M\right)
+\setminus\left\{  u\right\}  \right\vert =\left\vert U\setminus M\right\vert
+-1=s$ (since $\left\vert U\setminus M\right\vert =s+1$). In view of $\left(
+U\setminus M\right)  \setminus\left\{  u\right\}  =\left(  U\setminus\left\{
+u\right\}  \right)  \setminus M$, we can rewrite this as $\left\vert \left(
+U\setminus\left\{  u\right\}  \right)  \setminus M\right\vert =s$. Moreover,
+$U\setminus\left\{  u\right\}  $ is a finite subset of $\mathbb{N}$ (since $U$
+is a finite subset of $\mathbb{N}$), and satisfies $M\subseteq U\setminus
+\left\{  u\right\}  $ (since $u\in U\setminus M$ and thus $u\notin M$ and
+therefore $M\setminus\left\{  u\right\}  =M$, so that $M=\underbrace{M}%
+_{\subseteq U}\setminus\left\{  u\right\}  \subseteq U\setminus\left\{
+u\right\}  $). Hence, by the induction hypothesis, we can apply Claim 2 to
+$U\setminus\left\{  u\right\}  $ instead of $U$ (since $\left\vert \left(
+U\setminus\left\{  u\right\}  \right)  \setminus M\right\vert =s$). As a
+result, we obtain $g\overset{x^{n}}{\equiv}\prod_{k\in U\setminus\left\{
+u\right\}  }f_{k}$.
+
+However, $u\in U\setminus M\subseteq U$, so that $\prod_{k\in U}f_{k}=\left(
+\prod_{k\in U\setminus\left\{  u\right\}  }f_{k}\right)  f_{u}$ (here, we have
+split off the factor for $k=u$ from the product).
+
+We have $g\overset{x^{n}}{\equiv}\prod_{k\in U\setminus\left\{  u\right\}
+}f_{k}$ (as we have proved above) and $f_{u}\overset{x^{n}}{\equiv}f_{u}$
+(since $\overset{x^{n}}{\equiv}$ is an equivalence relation and thus
+reflexive). Hence, $gf_{u}\overset{x^{n}}{\equiv}\left(  \prod_{k\in
+U\setminus\left\{  u\right\}  }f_{k}\right)  f_{u}$ (by
+(\ref{eq.thm.fps.xneq.props.b.*}), applied to $a=g$, $b=\prod_{k\in
+U\setminus\left\{  u\right\}  }f_{k}$, $c=f_{u}$ and $d=f_{u}$). In view of
+$\prod_{k\in U}f_{k}=\left(  \prod_{k\in U\setminus\left\{  u\right\}  }%
+f_{k}\right)  f_{u}$, we can rewrite this as $gf_{u}\overset{x^{n}}{\equiv
+}\prod_{k\in U}f_{k}$.
+
+But $u\in\underbrace{U}_{\subseteq\mathbb{N}}\setminus\underbrace{M}%
+_{=\left\{  0,1,\ldots,N\right\}  }\subseteq\mathbb{N}\setminus\left\{
+0,1,\ldots,N\right\}  =\left\{  N+1,\ N+2,\ N+3,\ \ldots\right\}  $, so that
+$u\geq N+1>N$. Hence, Claim 1 (applied to $j=u$) yields $g\overset{x^{n}%
+}{\equiv}gf_{u}$. Therefore, $g\overset{x^{n}}{\equiv}gf_{u}\overset{x^{n}%
+}{\equiv}\prod_{k\in U}f_{k}$. Therefore, $g\overset{x^{n}}{\equiv}\prod_{k\in
+U}f_{k}$ (since $\overset{x^{n}}{\equiv}$ is an equivalence relation and thus transitive).
+
+Forget that we fixed $U$. We thus have shown that if $U$ is any finite subset
+of $\mathbb{N}$ satisfying $M\subseteq U$ and $\left\vert U\setminus
+M\right\vert =s+1$, then $g\overset{x^{n}}{\equiv}\prod_{k\in U}f_{k}$. In
+other words, Claim 2 holds when $\left\vert U\setminus M\right\vert =s+1$.
+This completes the induction step. Thus, Claim 2 is proved by induction.
+\end{proof}
+
+Now, let $J$ be a finite subset of $\mathbb{N}$ satisfying $M\subseteq
+J\subseteq\mathbb{N}$. Then, $g\overset{x^{n}}{\equiv}\prod_{k\in J}f_{k}$ (by
+Claim 2, applied to $U=J$). In other words,%
+\[
+\text{each }m\in\left\{  0,1,\ldots,n\right\}  \text{ satisfies }\left[
+x^{m}\right]  g=\left[  x^{m}\right]  \left(  \prod_{k\in J}f_{k}\right)
+\]
+(by the definition of $x^{n}$-equivalence). Applying this to $m=n$, we find%
+\[
+\left[  x^{n}\right]  g=\left[  x^{n}\right]  \left(  \prod_{k\in J}%
+f_{k}\right)  .
+\]
+The same argument can be applied to $M$ instead of $J$ (since $M\subseteq
+M\subseteq\mathbb{N}$), and thus yields%
+\[
+\left[  x^{n}\right]  g=\left[  x^{n}\right]  \left(  \prod_{k\in M}%
+f_{k}\right)  .
+\]
+Comparing these two equalities, we find
+\[
+\left[  x^{n}\right]  \left(  \prod_{k\in J}f_{k}\right)  =\left[
+x^{n}\right]  \left(  \prod_{k\in M}f_{k}\right)  .
+\]
+
+
+Forget that we fixed $J$. We have now shown that every finite subset $J$ of
+$\mathbb{N}$ satisfying $M\subseteq J\subseteq\mathbb{N}$ satisfies%
+\[
+\left[  x^{n}\right]  \left(  \prod_{k\in J}f_{k}\right)  =\left[
+x^{n}\right]  \left(  \prod_{k\in M}f_{k}\right)  .
+\]
+In other words, the set $M$ determines the $x^{n}$-coefficient in the product
+of $\left(  f_{k}\right)  _{k\in\mathbb{N}}$ (by the definition of
+\textquotedblleft determines the $x^{n}$-coefficient in the product of
+$\left(  f_{k}\right)  _{k\in\mathbb{N}}$\textquotedblright). Hence, the
+$x^{n}$-coefficient in the product of $\left(  f_{k}\right)  _{k\in\mathbb{N}%
+}$ is finitely determined (by the definition of \textquotedblleft finitely
+determined\textquotedblright, since $M$ is a finite subset of $\mathbb{N}$).
+
+Forget that we fixed $n$. We thus have shown that for each $n\in\mathbb{N}$,
+the $x^{n}$-coefficient in the product of $\left(  f_{k}\right)
+_{k\in\mathbb{N}}$ is finitely determined. In other words, each coefficient in
+the product of $\left(  f_{k}\right)  _{k\in\mathbb{N}}$ is finitely
+determined. In other words, the family $\left(  f_{k}\right)  _{k\in
+\mathbb{N}}$ is multipliable (by the definition of \textquotedblleft
+multipliable\textquotedblright). In other words, the family $\left(
+f_{n}\right)  _{n\in\mathbb{N}}$ is multipliable (since this is the same
+family as $\left(  f_{k}\right)  _{k\in\mathbb{N}}$).
+
+Hence, Theorem \ref{thm.fps.lim.prod-lim} yields $\lim\limits_{i\rightarrow
+\infty}\prod_{n=0}^{i}f_{n}=\prod_{n\in\mathbb{N}}f_{n}$. In other words,
+$\prod_{n\in\mathbb{N}}f_{n}=\lim\limits_{i\rightarrow\infty}\prod_{n=0}%
+^{i}f_{n}$. This completes the proof of Theorem
+\ref{thm.fps.lim.prod-lim-conv}.
+\end{proof}
+\end{fineprint}

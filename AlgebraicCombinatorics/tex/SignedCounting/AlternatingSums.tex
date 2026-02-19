@@ -1,0 +1,945 @@
+\subsection{\label{sec.sign.intro}Cancellations in alternating sums}
+
+We begin with a simple binomial identity:
+
+\begin{proposition}
+[Negative hockey-stick identity]\label{prop.binom.nhs}Let $n\in\mathbb{C}$ and
+$m\in\mathbb{N}$. Then,%
+\begin{equation}
+\sum_{k=0}^{m}\left(  -1\right)  ^{k}\dbinom{n}{k}=\left(  -1\right)
+^{m}\dbinom{n-1}{m}. \label{eq.prop.binom.nhs.eq}%
+\end{equation}
+
+\end{proposition}
+
+There are easy proofs of this proposition by induction on $m$ or by the
+telescope principle (see, e.g., \cite[Exercise 4]{18f-hw2s} and \cite[Exercise
+2.1.1 \textbf{(a)} and \S 7.27]{19fco}). However, let us try to prove the
+proposition combinatorially. For a bijective proof, the $\left(  -1\right)
+^{k}$ and $\left(  -1\right)  ^{m}$ factors would be gamestoppers, as there is
+no way to get a negative number (let alone a number of variable sign) by
+counting something. However, if we think of the $\left(  -1\right)  ^{k}$ as
+an opportunity for cancelling addends, then we can use combinatorics pretty well:
+
+\begin{proof}
+[Combinatorial proof of Proposition \ref{prop.binom.nhs} (sketched).]We need
+to prove the equality (\ref{eq.prop.binom.nhs.eq}). Both sides of this
+equality are polynomial functions in $n$. Thus, we can WLOG assume that $n$ is
+a positive integer (because of the polynomial identity trick that we saw in
+Subsection \ref{subsec.gf.defs.cvi}). Assume this.
+
+Set $\left[  n\right]  :=\left\{  1,2,\ldots,n\right\}  $. We shall now
+introduce some notations tailored for this particular proof.
+
+Define an \emph{acceptable set} to be a subset of $\left[  n\right]  $ that
+has size $\leq m$. Clearly,%
+\begin{equation}
+\left(  \text{\# of acceptable sets}\right)  =\sum_{k=0}^{m}\dbinom{n}{k}
+\label{pf.prop.binom.nhs.1}%
+\end{equation}
+(since the \# of $k$-element subsets of $\left[  n\right]  $ equals
+$\dbinom{n}{k}$ for each $k\in\mathbb{Z}$). Incidentally, we note that there
+is no closed form for this sum -- another instance of the phenomenon in which
+alternating sums are simpler than non-alternating ones.
+
+Define the \emph{sign} of a finite set $I$ to be $\left(  -1\right)
+^{\left\vert I\right\vert }$. Then,%
+\begin{align}
+&  \left(  \text{the sum of the signs of all acceptable sets}\right)
+\nonumber\\
+&  =\sum_{k=0}^{m}\left(  -1\right)  ^{k}\dbinom{n}{k}.
+\label{pf.prop.binom.nhs.2}%
+\end{align}
+(This can be shown just like (\ref{pf.prop.binom.nhs.1}).)
+
+However, the sum of the signs of all acceptable sets is a sum of $1$s and
+$-1$s. Let us try to cancel as many of these $1$s and $-1$s against each other
+as we can, hoping that what remains will be precisely $\left(  -1\right)
+^{m}\dbinom{n-1}{m}$.
+
+In order to cancel two addends, we need to pair up two finite sets $I$ that
+have opposite signs. How do we find such pairs? One way to do so is to pick
+some set $I$ that does not contain the element $1$, and pair it up with
+$I\cup\left\{  1\right\}  $. Alternatively, we can pick some set $I$ that
+contains the element $1$, and pair it up with $I\setminus\left\{  1\right\}
+$. In other words, we pair up a finite set $I$ with either $I\setminus\left\{
+1\right\}  $ or $I\cup\left\{  1\right\}  $, depending on whether $1\in I$ or
+$1\notin I$.
+
+Let us do this systematically for all finite sets: For each finite set $I$, we
+define the \emph{partner} of $I$ to be the set%
+\[
+I^{\prime}:=%
+\begin{cases}
+I\setminus\left\{  1\right\}  , & \text{if }1\in I;\\
+I\cup\left\{  1\right\}  , & \text{if }1\notin I
+\end{cases}
+\ \ \ \ =I\bigtriangleup\left\{  1\right\}  ,
+\]
+where the notation $X\bigtriangleup Y$ means the symmetric difference $\left(
+X\cup Y\right)  \setminus\left(  X\cap Y\right)  $ of two sets $X$ and $Y$ (as
+in Subsection \ref{subsec.gf.defs.commrings}). It is easy to see that each
+finite set $I$ satisfies $I^{\prime\prime}=I$ and $\left\vert I^{\prime
+}\right\vert =\left\vert I\right\vert \pm1$, so that $\left(  -1\right)
+^{\left\vert I^{\prime}\right\vert }=-\left(  -1\right)  ^{\left\vert
+I\right\vert }$. Thus, if both $I$ and $I^{\prime}$ are acceptable sets, then
+their contributions to the sum of the signs of all acceptable sets cancel each
+other out.
+
+This does not mean that all addends in this sum cancel. Indeed, while each
+finite set has a partner, it may happen that an acceptable set has a
+non-acceptable partner, and then the contribution of the former to the sum
+does not get cancelled (since the partner does not contribute to the sum).
+Thus, in order to see what remains of the sum after the cancellations, we need
+to study the acceptable sets that have non-acceptable partners.
+
+Fortunately, this is easy: In order for an acceptable set $I$ to have a
+non-acceptable partner, it needs to satisfy $1\notin I$ and $\left\vert
+I\right\vert =m$. Better yet, this is an \textquotedblleft if and only
+if\textquotedblright\ statement:
+
+\begin{statement}
+\textit{Claim 1:} Let $I$ be an acceptable set. Then, the partner $I^{\prime}$
+of $I$ is non-acceptable if and only if $\left(  1\notin I\text{ and
+}\left\vert I\right\vert =m\right)  $.
+\end{statement}
+
+[\textit{Proof of Claim 1:} The \textquotedblleft if\textquotedblright%
+\ direction is easy: If $1\notin I$ and $\left\vert I\right\vert =m$, then the
+partner $I^{\prime}$ of $I$ is defined by $I^{\prime}=I\cup\left\{  1\right\}
+$ and thus has size $\left\vert I^{\prime}\right\vert =\left\vert I\right\vert
++1>\left\vert I\right\vert =m$, which shows that it is non-acceptable.
+
+It remains to prove the converse, i.e., the \textquotedblleft only
+if\textquotedblright\ direction. Thus, we assume that the partner $I^{\prime}$
+of $I$ is non-acceptable. We must show that $1\notin I$ and $\left\vert
+I\right\vert =m$.
+
+Since $I$ is acceptable, we have $I\subseteq\left[  n\right]  $ and
+$\left\vert I\right\vert \leq m$. If we had $1\in I$, then we would have
+$I^{\prime}=I\setminus\left\{  1\right\}  \subseteq I\subseteq\left[
+n\right]  $ and furthermore $\left\vert I^{\prime}\right\vert \leq\left\vert
+I\right\vert $ (since $I^{\prime}\subseteq I$), so that $\left\vert I^{\prime
+}\right\vert \leq\left\vert I\right\vert \leq m$. This would entail that
+$I^{\prime}$ is acceptable (since $I^{\prime}\subseteq\left[  n\right]  $ and
+$\left\vert I^{\prime}\right\vert \leq m$), which would contradict our
+assumption that $I^{\prime}$ be non-acceptable. Hence, we cannot have $1\in
+I$. Thus, $1\notin I$ is proved. Hence, $I^{\prime}=I\cup\left\{  1\right\}
+$. However, $1\in\left[  n\right]  $ (since $n\geq1$), and $I^{\prime}%
+=I\cup\left\{  1\right\}  \subseteq\left[  n\right]  $ (since $I\subseteq
+\left[  n\right]  $ and $1\in\left[  n\right]  $). Moreover, from $I^{\prime
+}=I\cup\left\{  1\right\}  $, we obtain $\left\vert I^{\prime}\right\vert
+=\left\vert I\cup\left\{  1\right\}  \right\vert =\left\vert I\right\vert +1$.
+Now, if we had $\left\vert I\right\vert \leq m-1$, then we would obtain
+$\left\vert I^{\prime}\right\vert =\left\vert I\right\vert +1\leq m$ (since
+$\left\vert I\right\vert \leq m-1$), which would entail that $I^{\prime}$ is
+acceptable (since $I^{\prime}\subseteq\left[  n\right]  $), which again would
+contradict our assumption. Thus, we cannot have $\left\vert I\right\vert \leq
+m-1$. Hence, $\left\vert I\right\vert >m-1$, so that $\left\vert I\right\vert
+\geq m$ and therefore $\left\vert I\right\vert =m$ (since $\left\vert
+I\right\vert \leq m$). Thus, we have shown that $1\notin I$ and $\left\vert
+I\right\vert =m$. This proves the \textquotedblleft only if\textquotedblright%
+\ direction and thus completes the proof of Claim 1.]
+
+Now, recall our line of reasoning: We start with the sum of the signs of all
+acceptable sets, and we cancel any two addends that correspond to an
+acceptable set and its acceptable partner. What remains are the addends
+corresponding to the acceptable sets that have non-acceptable partners.
+According to Claim 1, these are precisely the acceptable sets $I$ that satisfy
+$\left(  1\notin I\text{ and }\left\vert I\right\vert =m\right)  $. In other
+words, these are precisely the $m$-element subsets of $\left[  n\right]  $
+that do not contain $1$. In other words, these are precisely the $m$-element
+subsets of $\left[  n\right]  \setminus\left\{  1\right\}  $ (since a subset
+of $\left[  n\right]  $ that does not contain $1$ is the same as a subset of
+$\left[  n\right]  \setminus\left\{  1\right\}  $). Thus, there are precisely
+$\dbinom{n-1}{m}$ of these subsets (since $\left[  n\right]  \setminus\left\{
+1\right\}  $ is an $\left(  n-1\right)  $-element set), and each of them has
+sign $\left(  -1\right)  ^{m}$. Hence, there are precisely $\dbinom{n-1}{m}$
+addends left in the sum after our cancellations, and each of these addends is
+$\left(  -1\right)  ^{m}$. Hence,
+\[
+\left(  \text{the sum of the signs of all acceptable sets}\right)  =\left(
+-1\right)  ^{m}\dbinom{n-1}{m}.
+\]
+Comparing this with (\ref{pf.prop.binom.nhs.2}), we obtain
+\[
+\sum_{k=0}^{m}\left(  -1\right)  ^{k}\dbinom{n}{k}=\left(  -1\right)
+^{m}\dbinom{n-1}{m}.
+\]
+This proves Proposition \ref{prop.binom.nhs}.
+\end{proof}
+
+Let me outline how to formalize this argument without using vague notions like
+\textquotedblleft cancelling\textquotedblright\ and \textquotedblleft pairing
+up\textquotedblright. We let%
+\[
+\mathcal{A}:=\left\{  \text{acceptable sets}\right\}
+\]
+and%
+\begin{align*}
+\mathcal{X}:=  &  \left\{  \text{acceptable sets whose partner is
+acceptable}\right\} \\
+=  &  \left\{  I\subseteq\left[  n\right]  \ \mid\ \left\vert I\right\vert
+\leq m\text{ but not }\left(  \left\vert I\right\vert =m\text{ and }1\notin
+I\right)  \right\}
+\end{align*}
+(by Claim 1 in the above proof). Now, we define a map%
+\begin{align*}
+f:\mathcal{X}  &  \rightarrow\mathcal{X},\\
+I  &  \mapsto I^{\prime}.
+\end{align*}
+This map $f$ is a bijection, since each $I\in\mathcal{X}$ satisfies
+$I^{\prime\prime}=I$ and thus $I^{\prime}\in\mathcal{X}$. This bijection $f$
+is furthermore \emph{sign-reversing}, meaning that $\left(  -1\right)
+^{\left\vert f\left(  I\right)  \right\vert }=-\left(  -1\right)  ^{\left\vert
+I\right\vert }$ for all $I\in\mathcal{X}$. We claim that this automatically
+guarantees%
+\begin{align*}
+&  \left(  \text{the sum of the signs of all acceptable sets}\right) \\
+&  =\left(  \text{the sum of the signs of all acceptable sets \textbf{not}
+belonging to }\mathcal{X}\right)  .
+\end{align*}
+The reason for this equality is that in the sum of the signs of all acceptable
+sets, the contributions of the sets that belong to $\mathcal{X}$ (that is, of
+the acceptable sets that have acceptable partners) cancel each other out. This
+principle is worth generalizing and stating as a lemma:
+
+\begin{lemma}
+[Cancellation principle, take 1]\label{lem.sign.cancel1}Let $\mathcal{A}$ be a
+finite set. Let $\mathcal{X}$ be a subset of $\mathcal{A}$.
+
+For each $I\in\mathcal{A}$, let $\operatorname*{sign}I$ be a real number (not
+necessarily $1$ or $-1$). Let $f:\mathcal{X}\rightarrow\mathcal{X}$ be a
+bijection with the property that%
+\begin{equation}
+\operatorname*{sign}\left(  f\left(  I\right)  \right)  =-\operatorname*{sign}%
+I\ \ \ \ \ \ \ \ \ \ \text{for all }I\in\mathcal{X}.
+\label{eq.lem.sign.cancel1.sr}%
+\end{equation}
+(Such a bijection $f$ is called \emph{sign-reversing}.) Then,%
+\[
+\sum_{I\in\mathcal{A}}\operatorname*{sign}I=\sum_{I\in\mathcal{A}%
+\setminus\mathcal{X}}\operatorname*{sign}I.
+\]
+
+\end{lemma}
+
+Note that we did \textbf{not} require that $f\circ f=\operatorname*{id}$ in
+Lemma \ref{lem.sign.cancel1}; we only required that $f$ is a bijection. That
+said, most examples that I know do have $f\circ f=\operatorname*{id}$.
+
+\begin{proof}
+[Proof of Lemma \ref{lem.sign.cancel1}.]Intuitively, this is clear: The
+contributions of all $I\in\mathcal{X}$ to the sum $\sum_{I\in\mathcal{A}%
+}\operatorname*{sign}I$ cancel out, to the extent they are not already zero.
+However, rather than formalize this cancellation, let us give an even slicker argument:
+
+We have%
+\begin{align*}
+\sum_{I\in\mathcal{X}}\operatorname*{sign}I  &  =\sum_{I\in\mathcal{X}%
+}\underbrace{\operatorname*{sign}\left(  f\left(  I\right)  \right)
+}_{\substack{=-\operatorname*{sign}I\\\text{(by (\ref{eq.lem.sign.cancel1.sr}%
+))}}}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have substituted }f\left(  I\right)  \text{ for }I\\
+\text{in the sum, since }f:\mathcal{X}\rightarrow\mathcal{X}\text{ is a
+bijection}%
+\end{array}
+\right) \\
+&  =\sum_{I\in\mathcal{X}}\left(  -\operatorname*{sign}I\right)  =-\sum
+_{I\in\mathcal{X}}\operatorname*{sign}I.
+\end{align*}
+Adding $\sum_{I\in\mathcal{X}}\operatorname*{sign}I$ to both sides of this
+equality, we obtain $2\cdot\sum_{I\in\mathcal{X}}\operatorname*{sign}I=0$.
+Hence, $\sum_{I\in\mathcal{X}}\operatorname*{sign}I=0$ (since any real number
+$a$ satisfying $2a=0$ must satisfy $a=0$).
+
+Now, $\mathcal{X}\subseteq\mathcal{A}$; hence, we can split the sum
+$\sum_{I\in\mathcal{A}}\operatorname*{sign}I$ as follows:%
+\[
+\sum_{I\in\mathcal{A}}\operatorname*{sign}I=\underbrace{\sum_{I\in\mathcal{X}%
+}\operatorname*{sign}I}_{=0}+\sum_{I\in\mathcal{A}\setminus\mathcal{X}%
+}\operatorname*{sign}I=\sum_{I\in\mathcal{A}\setminus\mathcal{X}%
+}\operatorname*{sign}I.
+\]
+This proves Lemma \ref{lem.sign.cancel1}.
+\end{proof}
+
+In the proof of Proposition \ref{prop.binom.nhs}, we applied Lemma
+\ref{lem.sign.cancel1} to%
+\begin{align*}
+\mathcal{A}  &  =\left\{  \text{acceptable sets}\right\}
+\ \ \ \ \ \ \ \ \ \ \text{and}\\
+\mathcal{X}  &  =\left\{  \text{acceptable sets whose partner is
+acceptable}\right\}  \ \ \ \ \ \ \ \ \ \ \text{and}\\
+\operatorname*{sign}I  &  =\left(  -1\right)  ^{\left\vert I\right\vert }.
+\end{align*}
+But there are many other situations in which Lemma \ref{lem.sign.cancel1} can
+be applied. For example, $\mathcal{A}$ can be some set of permutations, and
+$\operatorname*{sign}\sigma$ can be the sign of $\sigma$ (as in Definition
+\ref{def.perm.sign}).
+
+Let us observe that Lemma \ref{lem.sign.cancel1} can be generalized. Indeed,
+in Lemma \ref{lem.sign.cancel1}, we can replace \textquotedblleft real
+number\textquotedblright\ by \textquotedblleft element of any $\mathbb{Q}%
+$-vector space\textquotedblright\ or even by \textquotedblleft element of any
+additive abelian group with the property that $2a=0$ implies $a=0$%
+\textquotedblright. We cannot, however, remove this requirement entirely.
+Indeed, if all the signs $\operatorname*{sign}I$ were the element
+$\overline{1}$ of $\mathbb{Z}/2$, then the sign-reversing condition
+(\ref{eq.lem.sign.cancel1.sr}) would hold automatically (since $\overline
+{1}=-\overline{1}$ in $\mathbb{Z}/2$), but the claim of Lemma
+\ref{lem.sign.cancel1} would not necessarily be true.
+
+However, if we replace the word \textquotedblleft bijection\textquotedblright%
+\ by \textquotedblleft involution with no fixed points\textquotedblright, then
+Lemma \ref{lem.sign.cancel1} holds even without any requirements on the group:
+
+\begin{lemma}
+[Cancellation principle, take 2]\label{lem.sign.cancel2}Let $\mathcal{A}$ be a
+finite set. Let $\mathcal{X}$ be a subset of $\mathcal{A}$.
+
+For each $I\in\mathcal{A}$, let $\operatorname*{sign}I$ be an element of some
+additive abelian group. Let $f:\mathcal{X}\rightarrow\mathcal{X}$ be an
+involution (i.e., a map satisfying $f\circ f=\operatorname*{id}$) that has no
+fixed points. Assume that%
+\[
+\operatorname*{sign}\left(  f\left(  I\right)  \right)  =-\operatorname*{sign}%
+I\ \ \ \ \ \ \ \ \ \ \text{for all }I\in\mathcal{X}.
+\]
+Then,%
+\[
+\sum_{I\in\mathcal{A}}\operatorname*{sign}I=\sum_{I\in\mathcal{A}%
+\setminus\mathcal{X}}\operatorname*{sign}I.
+\]
+
+\end{lemma}
+
+\begin{proof}
+The idea is that all addends corresponding to the $I\in\mathcal{X}$ cancel out
+from the sum $\sum_{I\in\mathcal{A}}\operatorname*{sign}I$ (because they come
+in pairs of addends with opposite signs). See Section
+\ref{sec.details.sign.intro} for a detailed proof.
+\end{proof}
+
+A more general version of Lemma \ref{lem.sign.cancel2} allows for $f$ to have
+fixed points, as long as these fixed points have sign $0$:
+
+\begin{lemma}
+[Cancellation principle, take 3]\label{lem.sign.cancel3}Let $\mathcal{A}$ be a
+finite set. Let $\mathcal{X}$ be a subset of $\mathcal{A}$.
+
+For each $I\in\mathcal{A}$, let $\operatorname*{sign}I$ be an element of some
+additive abelian group. Let $f:\mathcal{X}\rightarrow\mathcal{X}$ be an
+involution (i.e., a map satisfying $f\circ f=\operatorname*{id}$). Assume that%
+\[
+\operatorname*{sign}\left(  f\left(  I\right)  \right)  =-\operatorname*{sign}%
+I\ \ \ \ \ \ \ \ \ \ \text{for all }I\in\mathcal{X}.
+\]
+Assume furthermore that%
+\[
+\operatorname*{sign}I=0\ \ \ \ \ \ \ \ \ \ \text{for all }I\in\mathcal{X}%
+\text{ satisfying }f\left(  I\right)  =I.
+\]
+Then,%
+\[
+\sum_{I\in\mathcal{A}}\operatorname*{sign}I=\sum_{I\in\mathcal{A}%
+\setminus\mathcal{X}}\operatorname*{sign}I.
+\]
+
+\end{lemma}
+
+\begin{proof}
+This is similar to Lemma \ref{lem.sign.cancel2}, except that the addends
+corresponding to the $I\in\mathcal{X}$ satisfying $f\left(  I\right)  =I$
+don't cancel (but are already zero and thus can be removed right away). See
+Section \ref{sec.details.sign.intro} for a detailed proof.
+\end{proof}
+
+Let us try to use this idea in another setting. Recall the notion of
+$q$-binomial coefficients, and specifically their values (Definition
+\ref{def.pars.qbinom.qbinom} \textbf{(b)}).
+
+\begin{exercise}
+\label{exe.sign.-1inom}Let $n,k\in\mathbb{N}$. Simplify $\dbinom{n}{k}_{-1}$.
+\end{exercise}
+
+\begin{example}
+Let us compute $\dbinom{4}{2}_{-1}$. Theorem \ref{thm.pars.qbinom.quot1}
+\textbf{(b)} yields%
+\[
+\dbinom{4}{2}_{q}=\dfrac{\left(  1-q^{4}\right)  \left(  1-q^{3}\right)
+}{\left(  1-q^{2}\right)  \left(  1-q^{1}\right)  }.
+\]
+We cannot substitute $-1$ for $q$ in this formula directly, since both
+numerator and denominator would become $0$ if we did. However, we can first
+simplify the fraction and then substitute $-1$ for $q$: We have%
+\[
+\dbinom{4}{2}_{q}=\dfrac{\left(  1-q^{4}\right)  \left(  1-q^{3}\right)
+}{\left(  1-q^{2}\right)  \left(  1-q^{1}\right)  }=q^{4}+q^{3}+2q^{2}+q+1,
+\]
+so that (by substituting $-1$ for $q$) we obtain%
+\[
+\dbinom{4}{2}_{-1}=\left(  -1\right)  ^{4}+\left(  -1\right)  ^{3}+2\left(
+-1\right)  ^{2}+\left(  -1\right)  +1=2.
+\]
+
+\end{example}
+
+\begin{proof}
+[Solution of Exercise \ref{exe.sign.-1inom} (sketched).]Proposition
+\ref{prop.pars.qbinom.alt-defs} \textbf{(b)} yields%
+\[
+\dbinom{n}{k}_{q}=\sum_{\substack{S\subseteq\left\{  1,2,\ldots,n\right\}
+;\\\left\vert S\right\vert =k}}q^{\operatorname*{sum}S-\left(  1+2+\cdots
++k\right)  },
+\]
+where $\operatorname*{sum}S$ denotes the sum of the elements of a finite set
+$S$ of integers. Substituting $-1$ for $q$ in this equality, we find%
+\[
+\dbinom{n}{k}_{-1}=\sum_{\substack{S\subseteq\left\{  1,2,\ldots,n\right\}
+;\\\left\vert S\right\vert =k}}\left(  -1\right)  ^{\operatorname*{sum}%
+S-\left(  1+2+\cdots+k\right)  }.
+\]
+Using the shorthand $\left[  n\right]  $ for the set $\left\{  1,2,\ldots
+,n\right\}  $, we can rewrite this as%
+\begin{equation}
+\dbinom{n}{k}_{-1}=\sum_{\substack{S\subseteq\left[  n\right]  ;\\\left\vert
+S\right\vert =k}}\left(  -1\right)  ^{\operatorname*{sum}S-\left(
+1+2+\cdots+k\right)  }. \label{sol.sign.-1inom.1}%
+\end{equation}
+Let us analyze the sum on the right hand side using sign-reversing
+involutions. Thus, we set%
+\[
+\mathcal{A}:=\left\{  S\subseteq\left[  n\right]  \ \mid\ \left\vert
+S\right\vert =k\right\}  =\left\{  k\text{-element subsets of }\left[
+n\right]  \right\}
+\]
+and%
+\[
+\operatorname*{sign}S:=\left(  -1\right)  ^{\operatorname*{sum}S-\left(
+1+2+\cdots+k\right)  }\ \ \ \ \ \ \ \ \ \ \text{for every }S\in\mathcal{A}.
+\]
+Hence, (\ref{sol.sign.-1inom.1}) rewrites as%
+\begin{equation}
+\dbinom{n}{k}_{-1}=\sum_{S\in\mathcal{A}}\operatorname*{sign}S.
+\label{sol.sign.-1inom.2}%
+\end{equation}
+Now, we seek a reasonable subset $\mathcal{X}\subseteq\mathcal{A}$ and a
+sign-reversing bijection $f:\mathcal{X}\rightarrow\mathcal{X}$ in order to
+cancel addends in the sum $\sum_{S\in\mathcal{A}}\operatorname*{sign}S$.
+
+To wit, let us try to construct $f$ as a partial map first, and then (as an
+afterthought) define $\mathcal{X}$ to be the set of all $S\in\mathcal{A}$ for
+which $f\left(  S\right)  $ is defined.
+
+Consider a $k$-element subset $S$ of $\left[  n\right]  $. What is a way to
+transform $S$ that leaves its size $\left\vert S\right\vert =k$ unchanged, but
+flips its sign (i.e., flips the parity of $\operatorname*{sum}S$) ? One thing
+we can do is \emph{switching }$1$\emph{ with }$2$. By this I mean the
+following operation:
+
+\begin{itemize}
+\item If $1\in S$ and $2\notin S$, then we replace $1$ by $2$ in $S$.
+
+\item Otherwise, if $2\in S$ and $1\notin S$, then we replace $2$ by $1$ in
+$S$.
+
+\item If none of $1$ and $2$ is in $S$, or if both are in $S$, then we leave
+$S$ unchanged for now.
+\end{itemize}
+
+\noindent Thus, switching $1$ with $2$ means replacing $S$ by%
+\[
+\operatorname*{switch}\nolimits_{1,2}\left(  S\right)  :=%
+\begin{cases}
+\left(  S\setminus\left\{  1\right\}  \right)  \cup\left\{  2\right\}  , &
+\text{if }1\in S\text{ and }2\notin S;\\
+\left(  S\setminus\left\{  2\right\}  \right)  \cup\left\{  1\right\}  , &
+\text{if }1\notin S\text{ and }2\in S;\\
+S, & \text{otherwise.}%
+\end{cases}
+\]
+For example,%
+\begin{align*}
+\operatorname*{switch}\nolimits_{1,2}\left(  \left\{  1,3,5\right\}  \right)
+&  =\left\{  2,3,5\right\}  ;\\
+\operatorname*{switch}\nolimits_{1,2}\left(  \left\{  2,3,5\right\}  \right)
+&  =\left\{  1,3,5\right\}  ;\\
+\operatorname*{switch}\nolimits_{1,2}\left(  \left\{  1,2,5\right\}  \right)
+&  =\left\{  1,2,5\right\}  ;\\
+\operatorname*{switch}\nolimits_{1,2}\left(  \left\{  3,4,5\right\}  \right)
+&  =\left\{  3,4,5\right\}  .
+\end{align*}
+
+
+Notice that the definition of switching $1$ with $2$ can be restated in a
+somewhat slicker way using symmetric differences (see Subsection
+\ref{subsec.gf.defs.commrings} for the definition of symmetric differences):%
+\[
+\operatorname*{switch}\nolimits_{1,2}\left(  S\right)  :=%
+\begin{cases}
+S\bigtriangleup\left\{  1,2\right\}  , & \text{if }\left\vert S\cap\left\{
+1,2\right\}  \right\vert =1;\\
+S, & \text{otherwise.}%
+\end{cases}
+\]
+Indeed, the condition \textquotedblleft$\left\vert S\cap\left\{  1,2\right\}
+\right\vert =1$\textquotedblright\ is equivalent to having either $\left(
+1\in S\text{ and }2\notin S\right)  $ or $\left(  1\notin S\text{ and }2\in
+S\right)  $; and in this case, the symmetric difference $S\bigtriangleup
+\left\{  1,2\right\}  $ is precisely the set we need (i.e., the set $\left(
+S\setminus\left\{  1\right\}  \right)  \cup\left\{  2\right\}  $ if we have
+$\left(  1\in S\text{ and }2\notin S\right)  $, and the set $\left(
+S\setminus\left\{  2\right\}  \right)  \cup\left\{  1\right\}  $ if we have
+$\left(  1\notin S\text{ and }2\in S\right)  $).
+
+This map $\operatorname*{switch}\nolimits_{1,2}:\mathcal{A}\rightarrow
+\mathcal{A}$ is certainly a bijection (and, in fact, an involution). It is not
+sign-reversing on the entire set $\mathcal{A}$; however, it has the property
+that the sign of $\operatorname*{switch}\nolimits_{1,2}\left(  S\right)  $ is
+opposite to the sign of $S$ whenever we have $\left(  1\in S\text{ and
+}2\notin S\right)  $ or $\left(  1\notin S\text{ and }2\in S\right)  $
+(because in these two cases, $\operatorname*{sum}S$ either increases by $1$ or
+decreases by $1$, respectively). We can restate this property as follows: The
+sign of $\operatorname*{switch}\nolimits_{1,2}\left(  S\right)  $ is opposite
+to the sign of $S$ whenever we have $\left\vert S\cap\left\{  1,2\right\}
+\right\vert =1$. Thus, we can use $\operatorname*{switch}\nolimits_{1,2}$ to
+cancel many addends from our sum $\sum_{S\in\mathcal{A}}\operatorname*{sign}%
+S$. Still, many other addends (of different signs) remain, and the result is
+far from simple.
+
+Thus, we need a \textquotedblleft Plan B\textquotedblright\ if the map
+$\operatorname*{switch}\nolimits_{1,2}$ does not succeed. Assuming that
+$\left\vert S\cap\left\{  1,2\right\}  \right\vert \neq1$ (that is, the set
+$S\in\mathcal{A}$ contains none or both of $1$ and $2$), we gain nothing by
+switching $1$ with $2$ in $S$, but maybe we get lucky switching $2$ with $3$
+in $S$ (which is defined in the same way as switching $1$ with $2$, but with
+the obvious changes)? If that, too, fails, we can try to switch $3$ with $4$.
+If that fails as well, we can try to switch $4$ with $5$, and so on, until we
+get to the end of the set $\left[  n\right]  $.
+
+In other words, we try to define a bijection $f:\mathcal{A}\rightarrow
+\mathcal{A}$ as follows: For any $S\in\mathcal{A}$, we pick the
+\textbf{smallest} $i\in\left[  n-1\right]  $ such that $\left\vert
+S\cap\left\{  i,i+1\right\}  \right\vert =1$ (in other words, the
+\textbf{smallest} $i\in\left[  n-1\right]  $ such that exactly one of the two
+elements $i$ and $i+1$ belongs to $S$); and we switch $i$ with $i+1$ in $S$
+(that is, we replace $S$ by $S\bigtriangleup\left\{  i,i+1\right\}  $). This
+produces a new subset $S^{\prime}$ of $\left[  n\right]  $ that has the same
+size as $S$ but has the opposite sign (actually, we have $\operatorname*{sum}%
+S^{\prime}=\operatorname*{sum}S\pm1$), except for the two cases when
+$S=\varnothing$ and when $S=\left[  n\right]  $ (these are the cases where we
+cannot find any $i\in\left[  n-1\right]  $ such that $\left\vert S\cap\left\{
+i,i+1\right\}  \right\vert =1$). We set $f\left(  S\right)  :=S\bigtriangleup
+\left\{  i,i+1\right\}  $.
+
+Here are some examples (for $n=4$ and $k=2$):%
+\begin{align*}
+f\left(  \left\{  1,3\right\}  \right)   &  =\left\{  2,3\right\}
+\ \ \ \ \ \ \ \ \ \ \left(  \text{here, the smallest }i\text{ is }1\right)
+;\\
+f\left(  \left\{  1,4\right\}  \right)   &  =\left\{  2,4\right\}
+\ \ \ \ \ \ \ \ \ \ \left(  \text{here, the smallest }i\text{ is }1\right)
+;\\
+f\left(  \left\{  3,4\right\}  \right)   &  =\left\{  2,4\right\}
+\ \ \ \ \ \ \ \ \ \ \left(  \text{here, the smallest }i\text{ is }2\right)  .
+\end{align*}
+Alas, the last two of these examples show that $f$ is not injective (as
+$f\left(  \left\{  1,4\right\}  \right)  =\left\{  2,4\right\}  =f\left(
+\left\{  3,4\right\}  \right)  $). Thus, $f$ is not a bijection. The
+underlying problem is that the $i$ that was picked in the construction of
+$f\left(  S\right)  $ is not uniquely recoverable from $f\left(  S\right)  $.
+Hence, our map $f$ does not work for us -- we cannot use it to cancel addends,
+since we cannot cancel (e.g.) a single $1$ against multiple $-1$s.
+
+How can we salvage this argument? We change our map $f$ to \textquotedblleft
+space\textquotedblright\ our switches apart. That is, we again start by trying
+to switch $1$ with $2$; if this fails, we jump straight to trying to switch
+$3$ with $4$; if this fails too, we jump further to trying to switch $5$ with
+$6$; and so on, until we either succeed at some switch or run out of pairs to
+switch. For the explicit description of $f$, this means that instead of
+picking the \textbf{smallest} $i\in\left[  n-1\right]  $ such that $\left\vert
+S\cap\left\{  i,i+1\right\}  \right\vert =1$, we pick the \textbf{smallest
+odd} $i\in\left[  n-1\right]  $ such that $\left\vert S\cap\left\{
+i,i+1\right\}  \right\vert =1$; and then we set $f\left(  S\right)
+:=S\bigtriangleup\left\{  i,i+1\right\}  $ as before.
+
+In other words, we define our new map $f:\mathcal{A}\rightarrow\mathcal{A}$ as
+follows: For any $S\in\mathcal{A}$, we set%
+\[
+f\left(  S\right)  :=S\bigtriangleup\left\{  i,i+1\right\}  ,
+\]
+where $i$ is the \textbf{smallest odd} element of $\left[  n-1\right]  $ such
+that $\left\vert S\cap\left\{  i,i+1\right\}  \right\vert =1$. If no such $i$
+exists, we just set $f\left(  S\right)  :=S$. (We will soon see when this happens.)
+
+Here are some examples (for $n=8$ and $k=3$):%
+\begin{align*}
+f\left(  \left\{  1,3,4\right\}  \right)   &  =\left\{  2,3,4\right\}
+\ \ \ \ \ \ \ \ \ \ \left(  \text{here, the smallest odd }i\text{ is
+}1\right)  ;\\
+f\left(  \left\{  2,4,5\right\}  \right)   &  =\left\{  1,4,5\right\}
+\ \ \ \ \ \ \ \ \ \ \left(  \text{here, the smallest odd }i\text{ is
+}1\right)  ;\\
+f\left(  \left\{  1,2,3\right\}  \right)   &  =\left\{  1,2,4\right\}
+\ \ \ \ \ \ \ \ \ \ \left(  \text{here, the smallest odd }i\text{ is
+}3\right)  ;\\
+f\left(  \left\{  3,5,7\right\}  \right)   &  =\left\{  4,5,7\right\}
+\ \ \ \ \ \ \ \ \ \ \left(  \text{here, the smallest odd }i\text{ is
+}3\right)  ;\\
+f\left(  \left\{  3,4,5\right\}  \right)   &  =\left\{  3,4,6\right\}
+\ \ \ \ \ \ \ \ \ \ \left(  \text{here, the smallest odd }i\text{ is
+}5\right)  ;\\
+f\left(  \left\{  5,6,7\right\}  \right)   &  =\left\{  5,6,8\right\}
+\ \ \ \ \ \ \ \ \ \ \left(  \text{here, the smallest odd }i\text{ is
+}7\right)  .
+\end{align*}
+And here are two more examples (for $n=8$ and $k=4$):%
+\begin{align*}
+f\left(  \left\{  1,2,5,7\right\}  \right)   &  =\left\{  1,2,6,7\right\}
+\ \ \ \ \ \ \ \ \ \ \left(  \text{here, the smallest odd }i\text{ is
+}5\right)  ;\\
+f\left(  \left\{  1,2,5,6\right\}  \right)   &  =\left\{  1,2,5,6\right\}
+\ \ \ \ \ \ \ \ \ \ \left(  \text{here, there is no appropriate odd }i\right)
+.
+\end{align*}
+
+
+Once again, it is clear that the set $f\left(  S\right)  $ has size $k$
+whenever $S$ does. Hence, $f:\mathcal{A}\rightarrow\mathcal{A}$ is at least a
+well-defined map. This time, the map $f$ is furthermore an involution (that
+is, $f\circ f=\operatorname*{id}$). Here is a quick argument for this (details
+are left to the reader): Since we have \textquotedblleft
+spaced\textquotedblright\ the switches apart, they don't interfere with each
+other. Thus, the $i$ that gets chosen in the construction of $f\left(
+S\right)  $ will again get chosen in the construction of $f\left(  f\left(
+S\right)  \right)  $ (since the elements of $f\left(  S\right)  $ that are
+smaller than this $i$ will not have changed from $S$). Thus, the switch that
+happens in the construction of $f\left(  f\left(  S\right)  \right)  $ undoes
+the switch made in the construction of $f\left(  S\right)  $, and as a result,
+the set $f\left(  f\left(  S\right)  \right)  $ will be $S$ again. This shows
+that $f\circ f=\operatorname*{id}$.
+
+Thus, $f$ is an involution, hence a bijection. Moreover, $\operatorname*{sign}%
+\left(  f\left(  S\right)  \right)  =-\operatorname*{sign}S$ holds whenever
+$f\left(  S\right)  \neq S$ (because $f\left(  S\right)  \neq S$ implies that
+$f\left(  S\right)  =S\bigtriangleup\left\{  i,i+1\right\}  $ for some $i$
+satisfying $\left\vert S\cap\left\{  i,i+1\right\}  \right\vert =1$, and
+therefore $\operatorname*{sum}\left(  f\left(  S\right)  \right)
+=\operatorname*{sum}S\pm1$). Thus, we set%
+\[
+\mathcal{X}:=\left\{  S\in\mathcal{A}\ \mid\ f\left(  S\right)  \neq
+S\right\}  ,
+\]
+and we restrict $f$ to a map $\mathcal{X}\rightarrow\mathcal{X}$ (this is
+well-defined, since it is easy to see from $f\circ f=\operatorname*{id}$ that
+$f\left(  S\right)  \in\mathcal{X}$ for each $S\in\mathcal{X}$). Then, the map
+$f$ becomes a sign-reversing bijection from $\mathcal{X}$ to $\mathcal{X}$.
+Hence, Lemma \ref{lem.sign.cancel1} yields%
+\[
+\sum_{I\in\mathcal{A}}\operatorname*{sign}I=\sum_{I\in\mathcal{A}%
+\setminus\mathcal{X}}\operatorname*{sign}I.
+\]
+Renaming the index $I$ as $S$, we can rewrite this equality as%
+\[
+\sum_{S\in\mathcal{A}}\operatorname*{sign}S=\sum_{S\in\mathcal{A}%
+\setminus\mathcal{X}}\operatorname*{sign}S.
+\]
+Hence, (\ref{sol.sign.-1inom.2}) becomes%
+\begin{equation}
+\dbinom{n}{k}_{-1}=\sum_{S\in\mathcal{A}}\operatorname*{sign}S=\sum
+_{S\in\mathcal{A}\setminus\mathcal{X}}\operatorname*{sign}S.
+\label{sol.sign.-1inom.3}%
+\end{equation}
+
+
+Now, what is $\mathcal{A}\setminus\mathcal{X}$ ? In other words, what addends
+are left behind uncancelled?
+
+In order to answer this question, we need to consider the case when $n$ is
+even and the case when $n$ is odd separately. We begin with the case when $n$
+is even.
+
+A $k$-element subset $S$ of $\left[  n\right]  $ belongs to $\mathcal{A}%
+\setminus\mathcal{X}$ if and only if it satisfies $f\left(  S\right)  =S$. In
+other words, $S$ belongs to $\mathcal{A}\setminus\mathcal{X}$ if and only if
+there exists no odd $i\in\left[  n-1\right]  $ such that $\left\vert
+S\cap\left\{  i,i+1\right\}  \right\vert =1$ (because $f$ has been defined in
+such a way that $f\left(  S\right)  =S$ in this case, while $f\left(
+S\right)  =S\bigtriangleup\left\{  i,i+1\right\}  \neq S$ in the other case).
+In other words, $S$ belongs to $\mathcal{A}\setminus\mathcal{X}$ if and only
+if for each odd $i\in\left[  n-1\right]  $, the size $\left\vert S\cap\left\{
+i,i+1\right\}  \right\vert $ is either $0$ or $2$. This is equivalent to
+saying that if we break up the $n$ elements $1,2,\ldots,n$ into $n/2$
+\textquotedblleft blocks\textquotedblright\
+\[
+\left\{  1,2\right\}  ,\ \ \left\{  3,4\right\}  ,\ \ \left\{  5,6\right\}
+,\ \ \ldots,\ \ \left\{  n-1,n\right\}
+\]
+(this can be done, since $n$ is even), then the intersection of $S$ with each
+block has size $0$ or $2$. In other words, this is saying that the set $S$
+consists of entire blocks (i.e., each block is either fully included in $S$ or
+is disjoint from $S$). In other words, this is saying that the set $S$ is a
+union (possibly empty) of blocks. We call a subset $S$ of $\left[  n\right]  $
+\emph{blocky} if it satisfies this condition.\footnote{For example, $\left\{
+3,4,5,6,9,10\right\}  $ is a blocky subset of $\left[  10\right]  $, whereas
+$\left\{  2,3,5,6\right\}  $ is not (since it neither fully includes nor is
+disjoint from the block $\left\{  1,2\right\}  $).} Thus, a $k$-element subset
+$S$ of $\left[  n\right]  $ belongs to $\mathcal{A}\setminus\mathcal{X}$ if
+and only if it is blocky. In other words, $\mathcal{A}\setminus\mathcal{X}$ is
+the set of all blocky $k$-element subsets of $\left[  n\right]  $.
+
+How many blocky $k$-element subsets does $\left[  n\right]  $ have, and what
+are their signs? Any blocky subset of $\left[  n\right]  $ has the
+form\footnote{The symbol \textquotedblleft$\sqcup$\textquotedblright\ means
+\textquotedblleft disjoint union\textquotedblright\ (in our case, a union of
+disjoint sets).}%
+\[
+\left\{  i_{1},i_{1}+1\right\}  \sqcup\left\{  i_{2},i_{2}+1\right\}
+\sqcup\cdots\sqcup\left\{  i_{p},i_{p}+1\right\}
+\]
+for some odd elements $i_{1}<i_{2}<\cdots<i_{p}$ of $\left[  n-1\right]  $.
+Thus, this subset has size $2p$, which entails that its size is even. Hence,
+if $k$ is odd, there are no blocky $k$-element subsets of $\left[  n\right]  $
+at all. In other words, if $k$ is odd, then there are no $S\in\mathcal{A}%
+\setminus\mathcal{X}$ (since $\mathcal{A}\setminus\mathcal{X}$ is the set of
+all blocky $k$-element subsets of $\left[  n\right]  $). Therefore, if $k$ is
+odd, then the sum $\sum_{S\in\mathcal{A}\setminus\mathcal{X}}%
+\operatorname*{sign}S$ is empty, and thus (\ref{sol.sign.-1inom.3}) simplifies
+to%
+\begin{equation}
+\dbinom{n}{k}_{-1}=\sum_{S\in\mathcal{A}\setminus\mathcal{X}}%
+\operatorname*{sign}S=\left(  \text{empty sum}\right)  =0.
+\label{sol.sign.-1inom.ev/od}%
+\end{equation}
+
+
+Let us now consider the case when $k$ is even. In this case, again, any blocky
+subset $S$ of $\left[  n\right]  $ has the form%
+\[
+\left\{  i_{1},i_{1}+1\right\}  \sqcup\left\{  i_{2},i_{2}+1\right\}
+\sqcup\cdots\sqcup\left\{  i_{p},i_{p}+1\right\}
+\]
+for some odd elements $i_{1}<i_{2}<\cdots<i_{p}$ of $\left[  n-1\right]  $.
+Moreover, again, this subset has size $2p$. Thus, if $S$ has size $k$, then we
+must have $2p=k$, so that $p=k/2$. Thus, any blocky $k$-element subset $S$ of
+$\left[  n\right]  $ has the form
+\[
+\left\{  i_{1},i_{1}+1\right\}  \sqcup\left\{  i_{2},i_{2}+1\right\}
+\sqcup\cdots\sqcup\left\{  i_{k/2},i_{k/2}+1\right\}
+\]
+for some odd elements $i_{1}<i_{2}<\cdots<i_{k/2}$ of $\left[  n-1\right]  $.
+Hence, there are $\dbinom{n/2}{k/2}$ such subsets $S$ (since there are
+precisely $\dbinom{n/2}{k/2}$ choices for these odd elements $i_{1}%
+<i_{2}<\cdots<i_{k/2}$\ \ \ \ \footnote{because the set $\left[  n-1\right]  $
+has $n/2$ odd elements}). Moreover, any such subset $S$ satisfies%
+\begin{align*}
+\operatorname*{sum}S  &  =\underbrace{i_{1}+\left(  i_{1}+1\right)  }%
+_{\equiv1\operatorname{mod}2}+\underbrace{i_{2}+\left(  i_{2}+1\right)
+}_{\equiv1\operatorname{mod}2}+\cdots+\underbrace{i_{k/2}+\left(
+i_{k/2}+1\right)  }_{\equiv1\operatorname{mod}2}\\
+&  \equiv\underbrace{1+1+\cdots+1}_{k/2\text{ times}}=k/2\operatorname{mod}2
+\end{align*}
+and therefore%
+\[
+\underbrace{\operatorname*{sum}S}_{\equiv k/2\operatorname{mod}2}%
+-\underbrace{\left(  1+2+\cdots+k\right)  }_{=\dfrac{k\left(  k+1\right)  }%
+{2}}\equiv k/2-\dfrac{k\left(  k+1\right)  }{2}=-k^{2}/2\equiv
+0\operatorname{mod}2
+\]
+(since $k$ is even, so that $-k^{2}/2$ is even), and%
+\begin{equation}
+\operatorname*{sign}S=\left(  -1\right)  ^{\operatorname*{sum}S-\left(
+1+2+\cdots+k\right)  }=1 \label{sol.sign.-1inom.od/ev.sign}%
+\end{equation}
+(since $\operatorname*{sum}S-\left(  1+2+\cdots+k\right)  \equiv
+0\operatorname{mod}2$). Hence, the sum $\sum_{S\in\mathcal{A}\setminus
+\mathcal{X}}\operatorname*{sign}S$ has $\dbinom{n/2}{k/2}$ addends (because
+$\mathcal{A}\setminus\mathcal{X}$ is the set of all blocky $k$-element subsets
+of $\left[  n\right]  $, and we have just shown that there are $\dbinom
+{n/2}{k/2}$ such subsets), and each of these addends is $1$ (by
+(\ref{sol.sign.-1inom.od/ev.sign})). Thus, this sum simplifies to%
+\[
+\sum_{S\in\mathcal{A}\setminus\mathcal{X}}\operatorname*{sign}S=\dbinom
+{n/2}{k/2}\cdot1=\dbinom{n/2}{k/2}.
+\]
+Hence, (\ref{sol.sign.-1inom.3}) becomes%
+\begin{equation}
+\dbinom{n}{k}_{-1}=\sum_{S\in\mathcal{A}\setminus\mathcal{X}}%
+\operatorname*{sign}S=\dbinom{n/2}{k/2}. \label{sol.sign.-1inom.ev/ev}%
+\end{equation}
+
+
+Thus, we have computed $\dbinom{n}{k}_{-1}$
+
+\begin{itemize}
+\item in the case when $n$ is even and $k$ is odd (obtaining
+(\ref{sol.sign.-1inom.ev/od})), and
+
+\item in the case when $n$ is even and $k$ is even (obtaining
+(\ref{sol.sign.-1inom.ev/ev})).
+\end{itemize}
+
+It remains to handle the case when $n$ is odd. This case is different in that
+the $n$ elements $1,2,\ldots,n$ are now subdivided into $\left(  n+1\right)
+/2$ \textquotedblleft blocks\textquotedblright%
+\[
+\left\{  1,2\right\}  ,\ \ \left\{  3,4\right\}  ,\ \ \left\{  5,6\right\}
+,\ \ \ldots,\ \ \left\{  n-2,n-1\right\}  ,\ \ \left\{  n\right\}  ,
+\]
+with the last of these blocks having size $1$. As a consequence, this time, a
+blocky subset of $\left[  n\right]  $ can have odd size. Moreover, the parity
+of $k$ determines whether a blocky $k$-element subset of $\left[  n\right]  $
+will contain $n$:
+
+\begin{itemize}
+\item If $k$ is even, then no blocky $k$-element subset of $\left[  n\right]
+$ can contain $n$ (because if it did, then it would have odd size, since all
+non-$\left\{  n\right\}  $ blocks have even size).
+
+\item If $k$ is odd, then every blocky $k$-element subset of $\left[
+n\right]  $ must contain $n$ (because if it didn't, then it would have even
+size, since all non-$\left\{  n\right\}  $ blocks have even size).
+\end{itemize}
+
+Thus, when classifying the blocky $k$-element subsets of $\left[  n\right]  $,
+we can either dismiss $n$ immediately (if $k$ is even) or take $n$ for granted
+(if $k$ is odd); in either case, the problem gets reduced to classifying the
+blocky $k$-element or $\left(  k-1\right)  $-element subsets of $\left[
+n-1\right]  $, which we already know how to do (since $n-1$ is even). The
+result is that the \# of blocky $k$-element subsets of $\left[  n\right]  $
+(in the case when $n$ is odd) is%
+\[%
+\begin{cases}
+\dbinom{\left(  n-1\right)  /2}{k/2}, & \text{if }k\text{ is even;}\\
+\dbinom{\left(  n-1\right)  /2}{\left(  k-1\right)  /2}, & \text{if }k\text{
+is odd}%
+\end{cases}
+\ \ \ \ \ =\dbinom{\left(  n-1\right)  /2}{\left\lfloor k/2\right\rfloor },
+\]
+and their signs are always $1$. Hence, we obtain%
+\[
+\sum_{S\in\mathcal{A}\setminus\mathcal{X}}\operatorname*{sign}S=\dbinom
+{\left(  n-1\right)  /2}{\left\lfloor k/2\right\rfloor }\cdot1=\dbinom{\left(
+n-1\right)  /2}{\left\lfloor k/2\right\rfloor }.
+\]
+Thus, (\ref{sol.sign.-1inom.3}) becomes%
+\begin{equation}
+\dbinom{n}{k}_{-1}=\sum_{S\in\mathcal{A}\setminus\mathcal{X}}%
+\operatorname*{sign}S=\dbinom{\left(  n-1\right)  /2}{\left\lfloor
+k/2\right\rfloor }. \label{sol.sign.-1inom.od/*}%
+\end{equation}
+This is the answer to our exercise in the case when $n$ is odd.
+
+Returning to the general case, we can now combine the formulas
+(\ref{sol.sign.-1inom.ev/ev}), (\ref{sol.sign.-1inom.ev/od}) and
+(\ref{sol.sign.-1inom.od/*}) into a single equality that holds in all cases:%
+\begin{equation}
+\dbinom{n}{k}_{-1}=%
+\begin{cases}
+0, & \text{if }n\text{ is even and }k\text{ is odd;}\\
+\dbinom{\left\lfloor n/2\right\rfloor }{\left\lfloor k/2\right\rfloor }, &
+\text{otherwise.}%
+\end{cases}
+\label{sol.sign.-1inom.res}%
+\end{equation}
+
+\end{proof}
+
+This formula (\ref{sol.sign.-1inom.res}) can be generalized. Indeed, here is a
+generalization of the number $-1$:
+
+\begin{definition}
+\label{def.root-of-unity.prim}Let $K$ be a field. Let $d$ be a positive
+integer. \medskip
+
+\textbf{(a)} A\emph{ }$d$\emph{-th root of unity} in $K$ means an element
+$\omega$ of $K$ satisfying $\omega^{d}=1$. In other words, a $d$-th root of
+unity in $K$ means an element of $K$ whose $d$-th power is $1$. \medskip
+
+\textbf{(b)} A \emph{primitive }$d$\emph{-th root of unity} in $K$ means an
+element $\omega$ of $K$ satisfying
+\[
+\omega^{d}=1
+\]
+but
+\[
+\omega^{i}\neq1\ \ \ \ \ \ \ \ \ \ \text{for each }i\in\left\{  1,2,\ldots
+,d-1\right\}  .
+\]
+
+
+In other words, a primitive $d$-th root of unity in $K$ means an element of
+the multiplicative group $K^{\times}$ whose order is $d$.
+\end{definition}
+
+For $K=\mathbb{C}$, the $d$-th roots of unity are the $d$ complex numbers
+\newline$e^{2\pi i0/d},e^{2\pi i1/d},e^{2\pi i2/d},\ldots,e^{2\pi i\left(
+d-1\right)  /d}$ (which are the vertices of a regular $d$-gon inscribed in the
+unit circle, with one vertex at $1$), whereas the primitive $d$-th roots of
+unity are the numbers $e^{2\pi ig/d}$ for all $g\in\left[  d\right]  $
+satisfying $\gcd\left(  g,d\right)  =1$. In particular, the $2$-nd roots of
+unity in $\mathbb{C}$ are $1$ and $-1$, and the only primitive $2$-nd root of
+unity is $-1$. The following picture shows the six $6$-th roots of unity in
+$\mathbb{C}$ (with the two primitive $6$-th roots colored blue, and the
+remaining four roots colored red):%
+\[%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\ \ \ .
+\]
+
+
+We can now generalize (\ref{sol.sign.-1inom.res}) by replacing $-1$ by
+primitive roots of unity:
+
+\begin{theorem}
+[$q$-Lucas theorem]\label{thm.sign.q-lucas}Let $K$ be a field. Let $d$ be a
+positive integer. Let $\omega$ be a primitive $d$-th root of unity in $K$. Let
+$n,k\in\mathbb{N}$. Let $q$ and $u$ be the quotients obtained when dividing
+$n$ and $k$ by $d$ with remainder, and let $r$ and $v$ be the respective
+remainders. Then,%
+\begin{equation}
+\dbinom{n}{k}_{\omega}=\dbinom{q}{u}\cdot\dbinom{r}{v}_{\omega}.
+\label{eq.thm.sign.q-lucas.eq}%
+\end{equation}
+
+\end{theorem}
+
+Note that the equality (\ref{eq.thm.sign.q-lucas.eq}) contains two $\omega
+$-binomial coefficients and one regular binomial coefficient.
+
+It is not hard to check that (\ref{sol.sign.-1inom.res}) is the particular
+case of Theorem \ref{thm.sign.q-lucas} for $d=2$ and $\omega=-1$. Indeed, the
+only possible remainders of an integer upon division by $2$ are $0$ and $1$,
+and the $\omega$-binomial coefficients $\dbinom{r}{v}_{\omega}$ for
+$r,v\in\left\{  0,1\right\}  $ are%
+\[
+\dbinom{0}{0}_{\omega}=1,\ \ \ \ \ \ \ \ \ \ \dbinom{0}{1}_{\omega
+}=0,\ \ \ \ \ \ \ \ \ \ \dbinom{1}{0}_{\omega}=1,\ \ \ \ \ \ \ \ \ \ \dbinom
+{1}{1}_{\omega}=1.
+\]
+
+
+Theorem \ref{thm.sign.q-lucas} can be proved using a generalization of
+sign-reversing involutions to $d$-cycles instead of pairs\footnote{In our
+proofs so far, we have been using the equality $1+\left(  -1\right)  =0$ to
+cancel addends in alternating sums. This equality can be generalized as
+follows: If $\omega$ is a primitive $d$-th root of unity for $d>1$, then
+$1+\omega+\omega^{2}+\cdots+\omega^{d-1}=0$. This equality can be used to
+cancel addends in sums that involve powers of $\omega$. The \emph{discrete
+Fourier transform} (see, e.g., \cite[\S 5.6]{OlvSha}) and the
+\emph{roots-of-unity filter} (see, e.g., \cite[\S 1.2.9.D]{Knuth-TAoCP1}) are
+applications of this idea.}. A more algebraic proof -- using \textquotedblleft
+noncommutative generating functions\textquotedblright\ -- is given in Exercise
+\ref{exe.sign.qbinom.qlucas}.
+
+\begin{noncompile}
+TODO: Do the combinatorial proof of Theorem \ref{thm.sign.q-lucas} using a
+Fourier generalization of sign-reversing involutions.
+\end{noncompile}

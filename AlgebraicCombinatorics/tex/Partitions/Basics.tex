@@ -1,0 +1,1224 @@
+\subsection{Partition basics}
+
+\subsubsection{Definitions}
+
+The following definition is built in analogy to Definition \ref{def.fps.comps}:
+
+\begin{definition}
+\label{def.pars.parts}\textbf{(a)} An \emph{(integer) partition} means a
+(finite) weakly decreasing tuple of positive integers -- i.e., a finite tuple
+$\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{m}\right)  $ of positive
+integers such that $\lambda_{1}\geq\lambda_{2}\geq\cdots\geq\lambda_{m}$.
+
+Thus, partitions are the same as weakly decreasing compositions. Hence, the
+notions of \emph{size} and \emph{length} of a partition are automatically
+defined, since we have defined them for compositions (in Definition
+\ref{def.fps.comps}). \medskip
+
+\textbf{(b)} The \emph{parts} of a partition $\left(  \lambda_{1},\lambda
+_{2},\ldots,\lambda_{m}\right)  $ are simply its entries $\lambda_{1}%
+,\lambda_{2},\ldots,\lambda_{m}$. \medskip
+
+\textbf{(c)} Let $n\in\mathbb{Z}$. A \emph{partition of }$n$ means a partition
+whose size is $n$. \medskip
+
+\textbf{(d)} Let $n\in\mathbb{Z}$ and $k\in\mathbb{N}$. A \emph{partition of
+}$n$\emph{ into }$k$\emph{ parts} is a partition whose size is $n$ and whose
+length is $k$.
+\end{definition}
+
+\begin{example}
+\label{exa.pars.pars5}The partitions of $5$ are%
+\[
+\left(  5\right)  ,\ \ \left(  4,1\right)  ,\ \ \left(  3,2\right)
+,\ \ \left(  3,1,1\right)  ,\ \ \left(  2,2,1\right)  ,\ \ \left(
+2,1,1,1\right)  ,\ \ \left(  1,1,1,1,1\right)  .
+\]
+
+\end{example}
+
+\begin{definition}
+\label{def.pars.pn-pkn}\textbf{(a)} Let $n\in\mathbb{Z}$ and $k\in\mathbb{N}$.
+Then, we set%
+\[
+p_{k}\left(  n\right)  :=\left(  \text{\# of partitions of }n\text{ into
+}k\text{ parts}\right)  .
+\]
+
+
+\textbf{(b)} Let $n\in\mathbb{Z}$. Then, we set%
+\[
+p\left(  n\right)  :=\left(  \text{\# of partitions of }n\right)  .
+\]
+This is called the $n$\emph{-th partition number}.
+\end{definition}
+
+\begin{example}
+Our above list of partitions of $5$ reveals that%
+\begin{align*}
+p_{0}\left(  5\right)   &  =0;\\
+p_{1}\left(  5\right)   &  =1;\\
+p_{2}\left(  5\right)   &  =2;\\
+p_{3}\left(  5\right)   &  =2;\\
+p_{4}\left(  5\right)   &  =1;\\
+p_{5}\left(  5\right)   &  =1;\\
+p_{k}\left(  5\right)   &  =0\ \ \ \ \ \ \ \ \ \ \text{for any }k>5;
+\end{align*}
+and finally $p\left(  5\right)  =7$.
+\end{example}
+
+Here are the values of $p\left(  n\right)  $ for the first $15$ nonnegative
+integers $n$:%
+\[%
+\begin{tabular}
+[c]{|c||c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}\hline
+$n$ & $0$ & $1$ & $2$ & $3$ & $4$ & $5$ & $6$ & $7$ & $8$ & $9$ & $10$ & $11$
+& $12$ & $13$ & $14$\\\hline
+$p\left(  n\right)  $ & $1$ & $1$ & $2$ & $3$ & $5$ & $7$ & $11$ & $15$ & $22$
+& $30$ & $42$ & $56$ & $77$ & $101$ & $135$\\\hline
+\end{tabular}
+\ \ \ \ .
+\]
+The sequence $\left(  p\left(  0\right)  ,p\left(  1\right)  ,p\left(
+2\right)  ,\ldots\right)  $ is remarkable for being an integer sequence that
+grows faster than polynomially, but still considerably slower than
+exponentially. (See (\ref{eq.pars.asymptotic-pn}) for an asymptotic
+expansion.) This not-too-fast growth (for instance, $p\left(  100\right)
+=190\ 569\ 292$ is far smaller than $2^{100}$) makes integer partitions rather
+convenient for computer experiments.
+
+\subsubsection{Simple properties of partition numbers}
+
+We will next state some elementary properties of $p_{k}\left(  n\right)  $ and
+$p\left(  n\right)  $, but first we introduce a few very basic notations:
+
+\begin{definition}
+\label{def.pars.iverson}We will use the \emph{Iverson bracket notation}: If
+$\mathcal{A}$ is a logical statement, then $\left[  \mathcal{A}\right]  $
+means the \emph{truth value} of $\mathcal{A}$; this is the integer $%
+\begin{cases}
+1, & \text{if }\mathcal{A}\text{ is true};\\
+0, & \text{if }\mathcal{A}\text{ is false}.
+\end{cases}
+$
+\end{definition}
+
+For example, $\left[  2+2=4\right]  =1$ and $\left[  2+2=5\right]  =0$.
+
+Note that the Kronecker delta notation is a particular case of the Iverson
+bracket: We have
+\[
+\delta_{i,j}=\left[  i=j\right]  \ \ \ \ \ \ \ \ \ \ \text{for any objects
+}i\text{ and }j.
+\]
+
+
+\begin{definition}
+\label{def.pars.floor-ceil}Let $a$ be a real number.
+
+Then, $\left\lfloor a\right\rfloor $ (called the \emph{floor} of $a$) means
+the largest integer that is $\leq a$.
+
+Likewise, $\left\lceil a\right\rceil $ (called the \emph{ceiling} of $a$)
+means the smallest integer that is $\geq a$.
+\end{definition}
+
+For example, the number $\pi\approx3.14$ satisfies $\left\lfloor
+\pi\right\rfloor =3$ and $\left\lceil \pi\right\rceil =4$ and $\left\lfloor
+-\pi\right\rfloor =-4$ and $\left\lceil -\pi\right\rceil =-3$. For another
+example, $\left\lfloor n\right\rfloor =\left\lceil n\right\rceil =n$ for each
+$n\in\mathbb{Z}$.
+
+The following proposition collects various basic properties of the numbers
+introduced in Definition \ref{def.pars.pn-pkn}:
+
+\begin{proposition}
+\label{prop.pars.basics}Let $n\in\mathbb{Z}$ and $k\in\mathbb{N}$. \medskip
+
+\textbf{(a)} We have $p_{k}\left(  n\right)  =0$ whenever $n<0$ and
+$k\in\mathbb{N}$. \medskip
+
+\textbf{(b)} We have $p_{k}\left(  n\right)  =0$ whenever $k>n$. \medskip
+
+\textbf{(c)} We have $p_{0}\left(  n\right)  =\left[  n=0\right]  $. \medskip
+
+\textbf{(d)} We have $p_{1}\left(  n\right)  =\left[  n>0\right]  $. \medskip
+
+\textbf{(e)} We have $p_{k}\left(  n\right)  =p_{k}\left(  n-k\right)
++p_{k-1}\left(  n-1\right)  $ whenever $k>0$. \medskip
+
+\textbf{(f)} We have $p_{2}\left(  n\right)  =\left\lfloor n/2\right\rfloor $
+whenever $n\in\mathbb{N}$. \medskip
+
+\textbf{(g)} We have $p\left(  n\right)  =p_{0}\left(  n\right)  +p_{1}\left(
+n\right)  +\cdots+p_{n}\left(  n\right)  $ whenever $n\in\mathbb{N}$. \medskip
+
+\textbf{(h)} We have $p\left(  n\right)  =0$ whenever $n<0$.
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.pars.basics} (sketched).]\textbf{(a)} The size
+of a partition is always nonnegative (being a sum of positive integers). Thus,
+a negative number $n$ has no partitions whatsoever. Thus, $p_{k}\left(
+n\right)  =0$ whenever $n<0$ and $k\in\mathbb{N}$. \medskip
+
+\textbf{(b)} If $\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{k}\right)  $
+is a partition, then $\lambda_{i}\geq1$ for each $i\in\left\{  1,2,\ldots
+,k\right\}  $ (because a partition is a tuple of positive integers, i.e., of
+integers $\geq1$). Hence, if $\left(  \lambda_{1},\lambda_{2},\ldots
+,\lambda_{k}\right)  $ is a partition of $n$ into $k$ parts, then%
+\begin{align*}
+n  &  =\lambda_{1}+\lambda_{2}+\cdots+\lambda_{k}\ \ \ \ \ \ \ \ \ \ \left(
+\text{since }\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{k}\right)  \text{
+is a partition of }n\right) \\
+&  \geq\underbrace{1+1+\cdots+1}_{k\text{ times}}\ \ \ \ \ \ \ \ \ \ \left(
+\text{since }\lambda_{i}\geq1\text{ for each }i\in\left\{  1,2,\ldots
+,k\right\}  \right) \\
+&  =k.
+\end{align*}
+Thus, a partition of $n$ into $k$ parts cannot satisfy $k>n$. Thus, no such
+partitions exist if $k>n$. In other words, $p_{k}\left(  n\right)  =0$ if
+$k>n$. \medskip
+
+\textbf{(c)} The integer $0$ has a unique partition into $0$ parts, namely the
+empty tuple $\left(  {}\right)  $. A nonzero integer $n$ cannot have any
+partitions into $0$ parts, since the empty tuple has size $0\neq n$. Thus,
+$p_{0}\left(  n\right)  $ equals $1$ for $n=0$ and equals $0$ for $n\neq0$. In
+other words, $p_{0}\left(  n\right)  =\left[  n=0\right]  $. \medskip
+
+\textbf{(d)} Any positive integer $n$ has a unique partition into $1$ part --
+namely, the $1$-tuple $\left(  n\right)  $. On the other hand, if $n$ is not
+positive, then this $1$-tuple is not a partition, so in this case $n$ has no
+partition into $1$ part. Thus, $p_{1}\left(  n\right)  $ equals $1$ if $n$ is
+positive and equals $0$ otherwise. In other words, $p_{1}\left(  n\right)
+=\left[  n>0\right]  $. \medskip
+
+\textbf{(e)} Assume that $k>0$. We must prove that $p_{k}\left(  n\right)
+=p_{k}\left(  n-k\right)  +p_{k-1}\left(  n-1\right)  $.
+
+We consider all partitions of $n$ into $k$ parts. We classify these partitions
+into two types:
+
+\begin{itemize}
+\item \emph{Type 1} consists of all partitions that have $1$ as a part.
+
+\item \emph{Type 2} consists of all partitions that don't.
+\end{itemize}
+
+For example, here are the partitions of $5$ along with their types:%
+\[
+\underbrace{\left(  4,1\right)  ,\ \ \left(  3,1,1\right)  ,\ \ \left(
+2,2,1\right)  ,\ \ \left(  2,1,1,1\right)  ,\ \ \left(  1,1,1,1,1\right)
+}_{\text{Type 1}},\ \ \underbrace{\left(  5\right)  ,\ \ \left(  3,2\right)
+}_{\text{Type 2}}.
+\]
+
+
+Let us count the type-1 partitions and the type-2 partitions separately.
+
+Any type-1 partition has $1$ as a part, therefore as its last part (because it
+is weakly decreasing). Hence, any type-1 partition has the form $\left(
+\lambda_{1},\lambda_{2},\ldots,\lambda_{k-1},1\right)  $. If $\left(
+\lambda_{1},\lambda_{2},\ldots,\lambda_{k-1},1\right)  $ is a type-1 partition
+(of $n$ into $k$ parts), then $\left(  \lambda_{1},\lambda_{2},\ldots
+,\lambda_{k-1}\right)  $ is a partition of $n-1$ into $k-1$ parts. Thus, we
+have a map%
+\begin{align*}
+\left\{  \text{type-1 partitions of }n\text{ into }k\text{ parts}\right\}   &
+\rightarrow\left\{  \text{partitions of }n-1\text{ into }k-1\text{
+parts}\right\}  ,\\
+\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{k-1},1\right)   &
+\mapsto\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{k-1}\right)  .
+\end{align*}
+This map is a bijection (since it has an inverse map, which simply inserts a
+$1$ at the end of a partition). Thus, the bijection principle shows that%
+\begin{align*}
+&  \left(  \text{\# of type-1 partitions of }n\text{ into }k\text{
+parts}\right) \\
+&  =\left(  \text{\# of partitions of }n-1\text{ into }k-1\text{
+parts}\right)  =p_{k-1}\left(  n-1\right)
+\end{align*}
+(by the definition of $p_{k-1}\left(  n-1\right)  $).
+
+Now let us count type-2 partitions. A type-2 partition does not have $1$ as a
+part; hence, all its parts are larger than $1$ (because all its parts are
+positive integers), and therefore we can subtract $1$ from each part and still
+have a partition in front of us. To be more specific: If $\left(  \lambda
+_{1},\lambda_{2},\ldots,\lambda_{k}\right)  $ is a type-2 partition of $n$
+into $k$ parts, then subtracting $1$ from each of its parts produces the
+$k$-tuple $\left(  \lambda_{1}-1,\lambda_{2}-1,\ldots,\lambda_{k}-1\right)  $,
+which is a partition of $n-k$ into $k$ parts. Hence, we have a map%
+\begin{align*}
+\left\{  \text{type-2 partitions of }n\text{ into }k\text{ parts}\right\}   &
+\rightarrow\left\{  \text{partitions of }n-k\text{ into }k\text{
+parts}\right\}  ,\\
+\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{k}\right)   &  \mapsto\left(
+\lambda_{1}-1,\lambda_{2}-1,\ldots,\lambda_{k}-1\right)  .
+\end{align*}
+This map is a bijection (since it has an inverse map, which simply adds $1$ to
+each entry of a partition). Thus, the bijection principle shows that%
+\begin{align*}
+&  \left(  \text{\# of type-2 partitions of }n\text{ into }k\text{
+parts}\right) \\
+&  =\left(  \text{\# of partitions of }n-k\text{ into }k\text{ parts}\right)
+=p_{k}\left(  n-k\right)
+\end{align*}
+(by the definition of $p_{k}\left(  n-k\right)  $).
+
+Since any partition of $n$ into $k$ parts is either type-1 or type-2 (but not
+both at the same time), we now have%
+\begin{align*}
+&  \left(  \text{\# of partitions of }n\text{ into }k\text{ parts}\right) \\
+&  =\underbrace{\left(  \text{\# of type-1 partitions of }n\text{ into
+}k\text{ parts}\right)  }_{=p_{k-1}\left(  n-1\right)  }+\underbrace{\left(
+\text{\# of type-2 partitions of }n\text{ into }k\text{ parts}\right)
+}_{=p_{k}\left(  n-k\right)  }\\
+&  =p_{k-1}\left(  n-1\right)  +p_{k}\left(  n-k\right)  =p_{k}\left(
+n-k\right)  +p_{k-1}\left(  n-1\right)  .
+\end{align*}
+Since the left hand side of this equality is $p_{k}\left(  n\right)  $, we
+thus have proved that $p_{k}\left(  n\right)  =p_{k}\left(  n-k\right)
++p_{k-1}\left(  n-1\right)  $. \medskip
+
+\textbf{(f)} Let $n\in\mathbb{N}$. The partitions of $n$ into $2$ parts are%
+\[
+\left(  n-1,1\right)  ,\ \ \left(  n-2,2\right)  ,\ \ \left(  n-3,3\right)
+,\ \ \ldots,\ \ \left(  \underbrace{n-\left\lfloor n/2\right\rfloor
+}_{=\left\lceil n/2\right\rceil },\left\lfloor n/2\right\rfloor \right)  .
+\]
+Thus there are $\left\lfloor n/2\right\rfloor $ of them. In other words,
+$p_{2}\left(  n\right)  =\left\lfloor n/2\right\rfloor $. \medskip
+
+\textbf{(g)} Let $n\in\mathbb{N}$. Any partition of $n$ must have $k$ parts
+for some $k\in\mathbb{N}$. Thus,%
+\begin{align*}
+p\left(  n\right)   &  =\sum_{k\in\mathbb{N}}p_{k}\left(  n\right)
+=\sum_{k=0}^{n}p_{k}\left(  n\right)  +\sum_{k=n+1}^{\infty}\underbrace{p_{k}%
+\left(  n\right)  }_{\substack{=0\\\text{(by Proposition
+\ref{prop.pars.basics} \textbf{(b)})}}}\\
+&  =\sum_{k=0}^{n}p_{k}\left(  n\right)  =p_{0}\left(  n\right)  +p_{1}\left(
+n\right)  +\cdots+p_{n}\left(  n\right)  .
+\end{align*}
+
+
+\textbf{(h)} Same argument as for \textbf{(a)}.
+\end{proof}
+
+\subsubsection{The generating function}
+
+Proposition \ref{prop.pars.basics} \textbf{(e)} is a recursive formula that
+makes it not too hard to compute $p_{k}\left(  n\right)  $ for reasonably
+small values of $n$ and $k$. Then, using Proposition \ref{prop.pars.basics}
+\textbf{(g)}, we can compute $p\left(  n\right)  $ from these $p_{k}\left(
+n\right)  $'s. However, one might want a better, faster method.
+
+To get there, let me first express the generating function of the numbers
+$p\left(  n\right)  $:
+
+\begin{theorem}
+\label{thm.pars.main-gf}In the FPS ring $\mathbb{Z}\left[  \left[  x\right]
+\right]  $, we have%
+\[
+\sum_{n\in\mathbb{N}}p\left(  n\right)  x^{n}=\prod_{k=1}^{\infty}\dfrac
+{1}{1-x^{k}}.
+\]
+
+
+(The product on the right hand side is well-defined, since multiplying a FPS
+by $\dfrac{1}{1-x^{k}}$ does not affect its first $k$ coefficients.)
+\end{theorem}
+
+\begin{example}
+Let us check the above equality \textquotedblleft up to $x^{5}$%
+\textquotedblright, i.e., let us compare the coefficients of $x^{i}$ for
+$i<5$. (In doing so, we can ignore all powers of $x$ higher than $x^{4}$.) We
+have%
+\begin{align*}
+\prod_{k=1}^{\infty}\dfrac{1}{1-x^{k}}  &  =\dfrac{1}{1-x^{1}}\cdot\dfrac
+{1}{1-x^{2}}\cdot\dfrac{1}{1-x^{3}}\cdot\dfrac{1}{1-x^{4}}\cdot\cdots\\
+&  =\ \ \ \left(  1+x+x^{2}+x^{3}+x^{4}+\cdots\right) \\
+&  \ \ \ \ \ \cdot\left(  1+x^{2}+x^{4}+\cdots\right) \\
+&  \ \ \ \ \ \cdot\left(  1+x^{3}+\cdots\right) \\
+&  \ \ \ \ \ \cdot\left(  1+x^{4}+\cdots\right) \\
+&  \ \ \ \ \ \cdot\left(  1+\cdots\right) \\
+&  \ \ \ \ \ \cdot\left(  1+\cdots\right) \\
+&  \ \ \ \ \ \cdot\cdots\\
+&  =1+x+2x^{2}+3x^{3}+5x^{4}+\cdots\\
+&  =p\left(  0\right)  +p\left(  1\right)  x+p\left(  2\right)  x^{2}+p\left(
+3\right)  x^{3}+p\left(  4\right)  x^{4}+\cdots.
+\end{align*}
+
+\end{example}
+
+\begin{proof}
+[Proof of Theorem \ref{thm.pars.main-gf}.]We have%
+\begin{align*}
+&  \prod_{k=1}^{\infty}\underbrace{\dfrac{1}{1-x^{k}}}_{=1+x^{k}+x^{2k}%
++x^{3k}+\cdots}\\
+&  =\prod_{k=1}^{\infty}\underbrace{\left(  1+x^{k}+x^{2k}+x^{3k}%
++\cdots\right)  }_{=\sum\limits_{u\in\mathbb{N}}x^{ku}}=\prod_{k=1}^{\infty
+}\ \ \sum_{u\in\mathbb{N}}x^{ku}\\
+&  =\sum_{\substack{\left(  u_{1},u_{2},u_{3},\ldots\right)  \in
+\mathbb{N}^{\infty}\text{ is}\\\text{essentially finite}}}x^{1u_{1}}x^{2u_{2}%
+}x^{3u_{3}}\cdots\ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we expanded the product}\\
+\text{using Proposition \ref{prop.fps.prodrule-inf-infN}}%
+\end{array}
+\right) \\
+&  =\sum_{\substack{\left(  u_{1},u_{2},u_{3},\ldots\right)  \in
+\mathbb{N}^{\infty}\text{ is}\\\text{essentially finite}}}x^{1u_{1}%
++2u_{2}+3u_{3}+\cdots}\\
+&  =\sum_{n\in\mathbb{N}}\left\vert Q_{n}\right\vert x^{n},
+\end{align*}
+where
+\[
+Q_{n}=\left\{  \left(  u_{1},u_{2},u_{3},\ldots\right)  \in\mathbb{N}^{\infty
+}\text{ essentially finite }\mid\ 1u_{1}+2u_{2}+3u_{3}+\cdots=n\right\}  .
+\]
+
+
+Thus, it will suffice to show that%
+\[
+\left\vert Q_{n}\right\vert =p\left(  n\right)  \ \ \ \ \ \ \ \ \ \ \text{for
+each }n\in\mathbb{N}.
+\]
+
+
+Let us fix $n\in\mathbb{N}$. We want to construct a bijection from $Q_{n}$ to
+$\left\{  \text{partitions of }n\right\}  $.
+
+Here is how to do this: For any $\left(  u_{1},u_{2},u_{3},\ldots\right)  \in
+Q_{n}$, define a partition%
+\begin{align*}
+\pi\left(  u_{1},u_{2},u_{3},\ldots\right)  :=  &  \left(  \text{the partition
+that contains each }i\text{ exactly }u_{i}\text{ times}\right) \\
+=  &  \left(  \ldots,\underbrace{3,3,\ldots,3}_{u_{3}\text{ times}%
+},\underbrace{2,2,\ldots,2}_{u_{2}\text{ times}},\underbrace{1,1,\ldots
+,1}_{u_{1}\text{ times}}\right)  .
+\end{align*}
+This is a partition of $n$, since its size is $1u_{1}+2u_{2}+3u_{3}+\cdots=n$
+(because $\left(  u_{1},u_{2},u_{3},\ldots\right)  \in Q_{n}$). Thus, we have
+defined a partition $\pi\left(  u_{1},u_{2},u_{3},\ldots\right)  $ of $n$ for
+each $\left(  u_{1},u_{2},u_{3},\ldots\right)  \in Q_{n}$. In other words, we
+have defined a map
+\[
+\pi:Q_{n}\rightarrow\left\{  \text{partitions of }n\right\}  .
+\]
+It remains to show that this map $\pi$ is a bijection. We define a map%
+\[
+\rho:\left\{  \text{partitions of }n\right\}  \rightarrow Q_{n}%
+\]
+that sends each partition $\lambda$ of $n$ to the sequence%
+\[
+\left(  \text{\# of }1\text{'s in }\lambda\text{,\ \ \# of }2\text{'s in
+}\lambda\text{,\ \ \# of }3\text{'s in }\lambda\text{, \ }\ldots\right)  \in
+Q_{n}%
+\]
+(this is indeed a sequence in $Q_{n}$, since
+\[
+\sum_{i=1}^{\infty}i\left(  \text{\# of }i\text{'s in }\lambda\right)
+=\left(  \text{the sum of all entries of }\lambda\right)  =\left\vert
+\lambda\right\vert =n
+\]
+because $\lambda$ is a partition of $n$). It is now easy to check that the
+maps $\pi$ and $\rho$ are mutually inverse, so that $\pi$ is a bijection. The
+bijection principle therefore yields $\left\vert Q_{n}\right\vert =\left(
+\text{\# of partitions of }n\right)  =p\left(  n\right)  $; but this is
+precisely what we wanted to show. The proof of Theorem \ref{thm.pars.main-gf}
+is thus complete.
+\end{proof}
+
+Theorem \ref{thm.pars.main-gf} has a \textquotedblleft
+finite\textquotedblright\ analogue (finite in the sense that the product
+$\prod_{k=1}^{\infty}\dfrac{1}{1-x^{k}}$ is replaced by a finite product; the
+FPSs are still infinite):
+
+\begin{theorem}
+\label{thm.pars.main-gf-parts-n}Let $m\in\mathbb{N}$. For each $n\in
+\mathbb{N}$, let $p_{\operatorname*{parts}\leq m}\left(  n\right)  $ be the \#
+of partitions $\lambda$ of $n$ such that all parts of $\lambda$ are $\leq m$.
+Then,
+\[
+\sum_{n\in\mathbb{N}}p_{\operatorname*{parts}\leq m}\left(  n\right)
+x^{n}=\prod_{k=1}^{m}\dfrac{1}{1-x^{k}}.
+\]
+
+\end{theorem}
+
+\begin{proof}
+[Proof of Theorem \ref{thm.pars.main-gf-parts-n}.]This proof is mostly
+analogous to the above proof of Theorem \ref{thm.pars.main-gf}, and to some
+extent even simpler because it uses $m$-tuples instead of infinite sequences.
+
+We have%
+\begin{align*}
+&  \prod_{k=1}^{m}\underbrace{\dfrac{1}{1-x^{k}}}_{=1+x^{k}+x^{2k}%
++x^{3k}+\cdots}\\
+&  =\prod_{k=1}^{m}\underbrace{\left(  1+x^{k}+x^{2k}+x^{3k}+\cdots\right)
+}_{=\sum\limits_{u\in\mathbb{N}}x^{ku}}=\prod_{k=1}^{m}\ \ \sum_{u\in
+\mathbb{N}}x^{ku}\\
+&  =\sum_{\left(  u_{1},u_{2},\ldots,u_{m}\right)  \in\mathbb{N}^{m}}%
+x^{1u_{1}}x^{2u_{2}}\cdots x^{mu_{m}}\ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we expanded the product}\\
+\text{using Proposition \ref{prop.fps.prodrule-fin-inf}}%
+\end{array}
+\right) \\
+&  =\sum_{\left(  u_{1},u_{2},\ldots,u_{m}\right)  \in\mathbb{N}^{m}}%
+x^{1u_{1}+2u_{2}+\cdots+mu_{m}}=\sum_{n\in\mathbb{N}}\left\vert Q_{n}%
+\right\vert x^{n},
+\end{align*}
+where
+\[
+Q_{n}=\left\{  \left(  u_{1},u_{2},\ldots,u_{m}\right)  \in\mathbb{N}%
+^{m}\text{ }\mid\ 1u_{1}+2u_{2}+\cdots+mu_{m}=n\right\}  .
+\]
+
+
+Thus, it will suffice to show that%
+\[
+\left\vert Q_{n}\right\vert =p_{\operatorname*{parts}\leq m}\left(  n\right)
+\ \ \ \ \ \ \ \ \ \ \text{for each }n\in\mathbb{N}.
+\]
+
+
+Let us fix $n\in\mathbb{N}$. We want to construct a bijection from $Q_{n}$ to
+the set $\left\{  \text{partitions }\lambda\text{ of }n\text{ such that all
+parts of }\lambda\text{ are }\leq m\right\}  $.
+
+Here is how to do this: For any $\left(  u_{1},u_{2},\ldots,u_{m}\right)  \in
+Q_{n}$, define a partition%
+\begin{align*}
+\pi\left(  u_{1},u_{2},\ldots,u_{m}\right)  :=  &  \left(  \text{the partition
+that contains each }i\text{ exactly }u_{i}\text{ times}\right) \\
+=  &  \left(  \underbrace{m,m,\ldots,m}_{u_{m}\text{ times}},\ldots
+,\underbrace{2,2,\ldots,2}_{u_{2}\text{ times}},\underbrace{1,1,\ldots
+,1}_{u_{1}\text{ times}}\right)  .
+\end{align*}
+Thus, we have defined a map
+\[
+\pi:Q_{n}\rightarrow\left\{  \text{partitions }\lambda\text{ of }n\text{ such
+that all parts of }\lambda\text{ are }\leq m\right\}  .
+\]
+It is easy to see that this map $\pi$ is a bijection\footnote{The argument is
+analogous to the one used in the proof of Theorem \ref{thm.pars.main-gf}.}.
+The bijection principle therefore yields
+\[
+\left\vert Q_{n}\right\vert =\left(  \text{\# of partitions }\lambda\text{ of
+}n\text{ such that all parts of }\lambda\text{ are }\leq m\right)
+=p_{\operatorname*{parts}\leq m}\left(  n\right)  ;
+\]
+but this is precisely what we wanted to show. The proof of Theorem
+\ref{thm.pars.main-gf-parts-n} is thus complete.
+\end{proof}
+
+Theorem \ref{thm.pars.main-gf-parts-n} can be generalized further: Instead of
+counting the partitions of $n$ whose all parts are $\leq m$, we can count the
+partitions of $n$ whose parts all belong to a given set $I$ of positive
+integers. This leads to the following formula (which specializes back to
+Theorem \ref{thm.pars.main-gf-parts-n} when we take $I=\left\{  1,2,\ldots
+,m\right\}  $):
+
+\begin{theorem}
+\label{thm.pars.main-gf-parts-I}Let $I$ be a subset of $\left\{
+1,2,3,\ldots\right\}  $. For each $n\in\mathbb{N}$, let $p_{I}\left(
+n\right)  $ be the \# of partitions $\lambda$ of $n$ such that all parts of
+$\lambda$ belong to $I$. Then,
+\[
+\sum_{n\in\mathbb{N}}p_{I}\left(  n\right)  x^{n}=\prod_{k\in I}\dfrac
+{1}{1-x^{k}}.
+\]
+
+\end{theorem}
+
+\begin{proof}
+[Proof of Theorem \ref{thm.pars.main-gf-parts-I} (sketched).]This is analogous
+to the proof of Theorem \ref{thm.pars.main-gf-parts-n}, with some minor
+changes: The $\prod_{k=1}^{m}$ sign has to be replaced by $\prod_{k\in I}$;
+the $m$-tuples $\left(  u_{1},u_{2},\ldots,u_{m}\right)  \in\mathbb{N}^{m}$
+must be replaced by the essentially finite families $\left(  u_{i}\right)
+_{i\in I}\in\mathbb{N}^{I}$; the bijection $\pi$ has to be replaced by the new
+bijection
+\[
+\pi:Q_{n}\rightarrow\left\{  \text{partitions }\lambda\text{ of }n\text{ such
+that all parts of }\lambda\text{ are }\in I\right\}
+\]
+(where $Q_{n}$ is now the set of all essentially finite families $\left(
+u_{i}\right)  _{i\in I}\in\mathbb{N}^{I}$) defined by%
+\begin{align*}
+\pi\left(  \left(  u_{i}\right)  _{i\in I}\right)  :=  &  \left(  \text{the
+partition that contains each }i\in I\text{ exactly }u_{i}\text{ times}\right)
+\\
+=  &  \left(  \ldots,\underbrace{i_{3},i_{3},\ldots,i_{3}}_{u_{i_{3}}\text{
+times}},\underbrace{i_{2},i_{2},\ldots,i_{2}}_{u_{i_{2}}\text{ times}%
+},\underbrace{i_{1},i_{1},\ldots,i_{1}}_{u_{i_{1}}\text{ times}}\right)  ,
+\end{align*}
+where $i_{1},i_{2},i_{3},\ldots$ are the elements of $I$ listed in increasing
+order. The details are left to the reader.
+\end{proof}
+
+\subsubsection{Odd parts and distinct parts}
+
+Next, we shall state a result of Euler that we have already discovered in a
+different language.
+
+\begin{definition}
+\label{def.pars.odd-dist-parts}Let $n\in\mathbb{Z}$. \medskip
+
+\textbf{(a)} A \emph{partition of }$n$\emph{ into odd parts} means a partition
+of $n$ whose all parts are odd. \medskip
+
+\textbf{(b)} A \emph{partition of }$n$\emph{ into distinct parts} means a
+partition of $n$ whose parts are distinct. \medskip
+
+\textbf{(c)} Let%
+\begin{align*}
+p_{\operatorname*{odd}}\left(  n\right)   &  :=\left(  \text{\# of partitions
+of }n\text{ into odd parts}\right)  \ \ \ \ \ \ \ \ \ \ \text{and}\\
+p_{\operatorname*{dist}}\left(  n\right)   &  :=\left(  \text{\# of partitions
+of }n\text{ into distinct parts}\right)  .
+\end{align*}
+
+\end{definition}
+
+\begin{example}
+We have%
+\begin{align*}
+p_{\operatorname*{odd}}\left(  7\right)   &  =\left\vert \left\{  \left(
+7\right)  ,\ \ \left(  5,1,1\right)  ,\ \ \left(  3,3,1\right)  ,\ \ \left(
+3,1,1,1,1\right)  ,\ \ \left(  1,1,1,1,1,1,1\right)  \right\}  \right\vert
+=5;\\
+p_{\operatorname*{dist}}\left(  7\right)   &  =\left\vert \left\{  \left(
+7\right)  ,\ \ \left(  6,1\right)  ,\ \ \left(  5,2\right)  ,\ \ \left(
+4,3\right)  ,\ \ \left(  4,2,1\right)  \right\}  \right\vert =5.
+\end{align*}
+
+\end{example}
+
+\begin{theorem}
+[Euler's odd-distinct identity]\label{thm.pars.odd-dist-equal}We have
+$p_{\operatorname*{odd}}\left(  n\right)  =p_{\operatorname*{dist}}\left(
+n\right)  $ for each $n\in\mathbb{N}$.
+\end{theorem}
+
+We have already encountered this theorem before (as Theorem
+\ref{thm.gf.prod.euler-comb}, albeit in less precise language), and we have
+proved it using the generating function identity%
+\[
+\prod_{i>0}\left(  1-x^{2i-1}\right)  ^{-1}=\prod_{k>0}\left(  1+x^{k}\right)
+.
+\]
+
+
+Let me outline a different, bijective proof.
+
+\begin{proof}
+[Second proof of Theorem \ref{thm.pars.odd-dist-equal} (sketched).]Let
+$n\in\mathbb{N}$. We want to construct a bijection%
+\[
+A:\left\{  \text{partitions of }n\text{ into odd parts}\right\}
+\rightarrow\left\{  \text{partitions of }n\text{ into distinct parts}\right\}
+.
+\]
+We shall do this as follows: Given a partition $\lambda$ of $n$ into odd
+parts, we repeatedly merge pairs of equal parts in $\lambda$ until no more
+equal parts appear. The final result will be $A\left(  \lambda\right)  $. Here
+are two examples:
+
+\begin{itemize}
+\item To compute $A\left(  5,5,3,1,1,1\right)  $, we compute\footnote{The two
+entries underlined are the two equal entries that are going to get merged in
+the next step. Note that there are usually several candidates, and we just
+pick one pair at will.}%
+\[
+\left(  \underline{5,5},3,1,1,1\right)  \rightarrow\left(
+10,3,1,\underline{1,1}\right)  \rightarrow\left(  10,3,2,1\right)  .
+\]
+Thus, $A\left(  5,5,3,1,1,1\right)  =\left(  10,3,2,1\right)  $.
+
+\item To compute $A\left(  5,3,1,1,1,1\right)  $, we compute%
+\[
+\left(  5,3,1,1,\underline{1,1}\right)  \rightarrow\left(
+5,3,2,\underline{1,1}\right)  \rightarrow\left(  5,3,\underline{2,2}\right)
+\rightarrow\left(  5,4,3\right)  .
+\]
+Thus, $A\left(  5,3,1,1,1,1\right)  =\left(  5,4,3\right)  $.
+\end{itemize}
+
+Why is this map $A$ well-defined? We only specified the sort of steps we are
+allowed to take when computing $A\left(  \lambda\right)  $; however, there is
+often a choice involved in taking these steps (since there are often several
+pairs of equal parts).\footnote{For example, we could have also computed
+$A\left(  5,5,3,1,1,1\right)  $ as follows:%
+\[
+\left(  5,5,3,\underline{1},1,\underline{1}\right)  \rightarrow\left(
+\underline{5,5},3,2,1\right)  \rightarrow\left(  10,3,2,1\right)  .
+\]
+} So we have specified a non-deterministic algorithm. Why is the resulting
+partition independent of the choices we make?
+
+One way to prove this is using the \emph{diamond lemma}, which is a general
+tool for proving that certain non-deterministic algorithms have unique final
+outcomes (independent of the choices taken). See, e.g.,
+\url{https://mathoverflow.net/questions/289300/} for a list of references on
+this lemma.
+
+For the map $A$, we can also proceed differently, by analyzing the algorithm
+that we used to define $A$. Namely, we observe what is really going on when we
+are merging equal parts. Let us say our original partition $\lambda$ has $p$
+many $1$s. Let us first merge them in pairs, so that we get $\left\lfloor
+p/2\right\rfloor $ many $2$s and maybe one single $1$. Then, let us merge the
+$2$s in pairs, so that we get $\left\lfloor \left\lfloor p/2\right\rfloor
+/2\right\rfloor $ many $4$s, maybe a single $2$, and maybe a single $1$.
+Proceed until no more than one $1$, no more than one $2$, no more than one
+$4$, no more than one $8$, and so on remain. This clears out any duplicate
+parts of the form $2^{k}$. Next do the same with parts of the form
+$3\cdot2^{k}$ (that is, with parts equal to $3$, $6$, $12$, $24$, and so on),
+then with parts of the form $5\cdot2^{k}$, and so on.
+
+The nice thing about this way of proceeding is that we can explicitly describe
+the final outcome. Indeed, if the original partition $\lambda$ (a partition of
+$n$ into odd parts) contains an odd part $k$ precisely $m$ many times, and if
+the binary representation of $m$ is $m=\left(  m_{i}m_{i-1}\cdots m_{1}%
+m_{0}\right)  _{2}$ (that is, if $m_{0},m_{1},\ldots,m_{i}\in\left\{
+0,1\right\}  $ satisfy $m=\sum_{j=0}^{i}m_{j}2^{j}$), then the partition
+$A\left(  \lambda\right)  $ will contain the number $2^{0}k$ exactly $m_{0}$
+times, the number $2^{1}k$ exactly $m_{1}$ times, the number $2^{2}k$ exactly
+$m_{2}$ times, and so on. Since the binary digits $m_{0},m_{1},\ldots,m_{i}$
+are all $\leq1$, this partition $A\left(  \lambda\right)  $ will therefore not
+contain any number more than once, i.e., it will be a partition into distinct parts.
+
+It is not hard to check that this map $A$ is indeed a bijection. Indeed, in
+order to see this, we construct a map $B$ that will turn out to be its
+inverse. Here, we start with a partition $\lambda$ of $n$ into distinct parts.
+Let us represent each part of this partition in the form $k\cdot2^{i}$ for
+some odd $k\geq1$ and some integer $i\geq0$. (Recall that any positive integer
+can be represented uniquely in this form.) Now, replace this part $k\cdot
+2^{i}$ by $2^{i}$ many $k$'s. The resulting partition (once all parts have
+been replaced) will usually have many equal parts, but all its parts are odd.
+We define $B\left(  \lambda\right)  $ to be this resulting partition.
+Alternatively, $B\left(  \lambda\right)  $ can also be constructed
+step-by-step by a non-deterministic algorithm: Starting with $\lambda$, keep
+\textquotedblleft breaking even parts into halves\textquotedblright\ (i.e.,
+whenever you see an even part $m$, replace it by two parts $\dfrac{m}{2}$ and
+$\dfrac{m}{2}$), until no even parts remain any more. The result is $B\left(
+\lambda\right)  $. It is not hard to see that both descriptions of $B\left(
+\lambda\right)  $ describe the same partition. It is furthermore easy to see
+that this map $B$ is indeed an inverse of $A$, so that $A$ is indeed a
+bijection. Thus, the bijection principle yields%
+\[
+\left\vert \left\{  \text{partitions of }n\text{ into odd parts}\right\}
+\right\vert =\left\vert \left\{  \text{partitions of }n\text{ into distinct
+parts}\right\}  \right\vert .
+\]
+In other words, $p_{\operatorname*{odd}}\left(  n\right)
+=p_{\operatorname*{dist}}\left(  n\right)  $. This proves Theorem
+\ref{thm.pars.odd-dist-equal}.
+\end{proof}
+
+Yet another proof of Theorem \ref{thm.pars.odd-dist-equal} will be given in
+Subsection \ref{subsec.sign.pie.exas}.
+
+\subsubsection{Partitions with a given largest part}
+
+Here is another situation in which two kinds of partitions are equinumerous:
+
+\begin{proposition}
+\label{prop.pars.pkn=dual}Let $n\in\mathbb{N}$ and $k\in\mathbb{N}$. Then,%
+\[
+p_{k}\left(  n\right)  =\left(  \text{\# of partitions of }n\text{ whose
+largest part is }k\right)  .
+\]
+
+\end{proposition}
+
+Here and in the following, we use the following convention:
+
+\begin{convention}
+\label{conv.pars.largest-part-0}We agree to say that the largest part of the
+empty partition $\left(  {}\right)  $ is $0$ (even though this partition has
+no parts).
+\end{convention}
+
+\begin{example}
+For $n=4$ and $k=3$, we have%
+\[
+p_{k}\left(  n\right)  =p_{3}\left(  4\right)  =1\ \ \ \ \ \ \ \ \ \ \left(
+\text{due to the partition }\left(  2,1,1\right)  \right)
+\]
+and%
+\begin{align*}
+&  \left(  \text{\# of partitions of }n\text{ whose largest part is }k\right)
+\\
+&  =\left(  \text{\# of partitions of }4\text{ whose largest part is }3\right)
+\\
+&  =1\ \ \ \ \ \ \ \ \ \ \left(  \text{due to the partition }\left(
+3,1\right)  \right)  .
+\end{align*}
+Thus, Proposition \ref{prop.pars.pkn=dual} holds for $n=4$ and $k=3$.
+\end{example}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.pars.pkn=dual} (sketched).]We do a
+\textquotedblleft proof by picture\textquotedblright\ (it can be made rigorous
+-- see Exercise \ref{exe.pars.transpose} for this). We pick $n=14$ and $k=4$
+for example, and we start with the partition $\lambda=\left(  5,4,4,1\right)
+$ of $n$ into $k$ parts.
+
+We draw a table of $k$ left-aligned rows, where the length of each row equals
+the corresponding part of $\lambda$ (that is, the $i$-th row from the top has
+$\lambda_{i}$ boxes, where $\lambda=\left(  \lambda_{1},\lambda_{2}%
+,\ldots,\lambda_{k}\right)  $):%
+\[%
+% [tableau figure removed]
+%BeginExpansion
+\begin{ytableau}
+\none[5 \to] & \none& & & & & \\
+\none[4 \to] & \none& & & & \\
+\none[4 \to] & \none& & & & \\
+\none[1 \to] & \none&
+\end{ytableau}%
+%EndExpansion
+\]
+
+
+Now, let us flip this table across the \textquotedblleft main
+diagonal\textquotedblright\ (i.e., the diagonal that goes from the top-left
+corner to the bottom-right corner)\footnote{This kind of flip is precisely how
+you would transpose a matrix.}:%
+\[%
+% [tableau figure removed]
+%BeginExpansion
+\begin{ytableau}
+\none[5] & \none[4] & \none[4] & \none[1] \\
+\none[\downarrow] & \none[\downarrow] & \none[\downarrow] & \none
+[\downarrow] \\
+& & & \\
+& & \\
+& & \\
+& & \\
+\;
+\end{ytableau}%
+%EndExpansion
+\]
+
+
+The lengths of the rows of the resulting table again form a partition of $n$.
+(In our case, this new partition is $\left(  4,3,3,3,1\right)  $.) Moreover,
+the largest part of this new partition is $k$ (because the original table had
+$k$ rows, so the flipped table has $k$ columns, and this means that its top
+row has $k$ boxes). This procedure (i.e., turning a partition into a table,
+then flipping the table across the \textquotedblleft main
+diagonal\textquotedblright, and then reading the lengths of the rows of the
+resulting table again as a partition) therefore gives a map from%
+\[
+\left\{  \text{partitions of }n\text{ into }k\text{ parts}\right\}
+\]
+to%
+\[
+\left\{  \text{partitions of }n\text{ whose largest part is }k\right\}  .
+\]
+Moreover, this map is a bijection (indeed, its inverse can be effected in the
+exact same way, by flipping the table). This bijection is called
+\emph{conjugation} of partitions, and will be studied in more detail later.
+
+Here are some pointers to how this proof can be formalized (see Exercise
+\ref{exe.pars.transpose} for much more): For any partition $\lambda=\left(
+\lambda_{1},\lambda_{2},\ldots,\lambda_{k}\right)  $, we define the
+\emph{Young diagram} of $\lambda$ to be the set%
+\[
+Y\left(  \lambda\right)  :=\left\{  \left(  i,j\right)  \in\mathbb{Z}%
+^{2}\ \mid\ 1\leq i\leq k\text{ and }1\leq j\leq\lambda_{i}\right\}  .
+\]
+This Young diagram is precisely the table that we drew above, as long as we
+agree to identify each pair $\left(  i,j\right)  \in Y\left(  \lambda\right)
+$ with the box in row $i$ and column $j$. Now, the \emph{conjugate} of the
+partition $\lambda$ is the partition $\lambda^{t}$ uniquely determined by%
+\[
+Y\left(  \lambda^{t}\right)  =\operatorname*{flip}\left(  Y\left(
+\lambda\right)  \right)  =\left\{  \left(  j,i\right)  \ \mid\ \left(
+i,j\right)  \in Y\left(  \lambda\right)  \right\}  .
+\]
+Explicitly, $\lambda^{t}$ can be defined by $\lambda^{t}=\left(  \mu_{1}%
+,\mu_{2},\ldots,\mu_{p}\right)  $, where $p$ is the largest part of $\lambda$
+and where%
+\[
+\mu_{i}=\left(  \text{\# of parts of }\lambda\text{ that are }\geq i\right)
+\ \ \ \ \ \ \ \ \ \ \text{for each }i\in\left\{  1,2,\ldots,p\right\}  .
+\]
+(This conjugate $\lambda^{t}$ is also often called $\lambda^{\prime}$, and is
+also known as the \emph{transpose} of $\lambda$.) Now, it is not hard to show
+that $\left\vert \lambda^{t}\right\vert =\left\vert \lambda\right\vert $ and
+$\left(  \lambda^{t}\right)  ^{t}=\lambda$ for each partition $\lambda$, and
+that the largest part of $\lambda^{t}$ equals the length of $\lambda$. Using
+these observations (which are proved in Exercise \ref{exe.pars.transpose}), we
+see that the map%
+\begin{align*}
+\left\{  \text{partitions of }n\text{ into }k\text{ parts}\right\}   &
+\rightarrow\left\{  \text{partitions of }n\text{ whose largest part is
+}k\right\}  ,\\
+\lambda &  \mapsto\lambda^{t}%
+\end{align*}
+is well-defined and is a bijection; thus, the above proof of Proposition
+\ref{prop.pars.pkn=dual} becomes fully rigorous.
+\end{proof}
+
+The word \textquotedblleft Young\textquotedblright\ in \textquotedblleft Young
+diagram\textquotedblright\ (and, later, \textquotedblleft Young
+tableau\textquotedblright) does not imply any novelty (Young diagrams have
+been around in some form or another since the 19th century -- if often in the
+superficially different guise of \textquotedblleft Ferrers
+diagrams\textquotedblright), but rather honors
+\href{https://en.wikipedia.org/wiki/Alfred_Young}{Alfred Young}, who built up
+the representation theory of symmetric groups (and significantly forwarded
+invariant theory) using these objects.
+
+\begin{corollary}
+\label{cor.pars.p0kn=dual}Let $n\in\mathbb{N}$ and $k\in\mathbb{N}$. Then,%
+\begin{align*}
+&  p_{0}\left(  n\right)  +p_{1}\left(  n\right)  +\cdots+p_{k}\left(
+n\right) \\
+&  =\left(  \text{\# of partitions of }n\text{ whose largest part is }\leq
+k\right)  .
+\end{align*}
+
+\end{corollary}
+
+\begin{proof}
+[Proof of Corollary \ref{cor.pars.p0kn=dual}.]We have%
+\begin{align*}
+&  p_{0}\left(  n\right)  +p_{1}\left(  n\right)  +\cdots+p_{k}\left(
+n\right) \\
+&  =\sum_{i=0}^{k}\underbrace{p_{i}\left(  n\right)  }_{\substack{=\left(
+\text{\# of partitions of }n\text{ whose largest part is }i\right)
+\\\text{(by Proposition \ref{prop.pars.pkn=dual},}\\\text{applied to }i\text{
+instead of }k\text{)}}}\\
+&  =\sum_{i=0}^{k}\left(  \text{\# of partitions of }n\text{ whose largest
+part is }i\right) \\
+&  =\left(  \text{\# of partitions of }n\text{ whose largest part is }\leq
+k\right)  .
+\end{align*}
+This proves Corollary \ref{cor.pars.p0kn=dual}.
+\end{proof}
+
+Corollary \ref{cor.pars.p0kn=dual} leads to yet another FPS identity:
+
+\begin{theorem}
+\label{thm.pars.main-gf-0n}Let $m\in\mathbb{N}$. Then,%
+\[
+\sum_{n\in\mathbb{N}}\left(  p_{0}\left(  n\right)  +p_{1}\left(  n\right)
++\cdots+p_{m}\left(  n\right)  \right)  x^{n}=\prod_{k=1}^{m}\dfrac{1}%
+{1-x^{k}}.
+\]
+
+\end{theorem}
+
+\begin{proof}
+[Proof of Theorem \ref{thm.pars.main-gf-0n}.]For each $n\in\mathbb{N}$, we
+have%
+\begin{align*}
+&  p_{0}\left(  n\right)  +p_{1}\left(  n\right)  +\cdots+p_{m}\left(
+n\right) \\
+&  =\left(  \text{\# of partitions of }n\text{ whose largest part is }\leq
+m\right)  \ \ \ \ \ \ \ \ \ \ \left(  \text{by Corollary
+\ref{cor.pars.p0kn=dual}}\right) \\
+&  =\left(  \text{\# of partitions of }n\text{ whose all parts are }\leq
+m\right) \\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{because the condition \textquotedblleft the largest part is }\leq
+m\text{\textquotedblright\ for a}\\
+\text{partition is clearly equivalent to \textquotedblleft all parts are }\leq
+m\text{\textquotedblright}%
+\end{array}
+\right) \\
+&  =p_{\operatorname*{parts}\leq m}\left(  n\right)  ,
+\end{align*}
+where $p_{\operatorname*{parts}\leq m}\left(  n\right)  $ is defined as in
+Theorem \ref{thm.pars.main-gf-parts-n}. Hence,%
+\[
+\sum_{n\in\mathbb{N}}\underbrace{\left(  p_{0}\left(  n\right)  +p_{1}\left(
+n\right)  +\cdots+p_{m}\left(  n\right)  \right)  }_{=p_{\operatorname*{parts}%
+\leq m}\left(  n\right)  }x^{n}=\sum_{n\in\mathbb{N}}p_{\operatorname*{parts}%
+\leq m}\left(  n\right)  x^{n}=\prod_{k=1}^{m}\dfrac{1}{1-x^{k}}%
+\]
+(by Theorem \ref{thm.pars.main-gf-parts-n}). This proves Theorem
+\ref{thm.pars.main-gf-0n}.
+\end{proof}
+
+\subsubsection{Partition number vs. sums of divisors}
+
+We shall now prove a curious combinatorial identity (due, I think, to Euler),
+illustrating the usefulness of generating functions and logarithmic
+derivatives. It connects the partition numbers $p\left(  n\right)  $ with a
+further sequence, which counts the positive divisors of a given positive integer:
+
+\begin{theorem}
+\label{thm.pars.sigma1}For any positive integer $n$, let $\sigma\left(
+n\right)  $ denote the sum of all positive divisors of $n$. (For example,
+$\sigma\left(  6\right)  =1+2+3+6=12$ and $\sigma\left(  7\right)  =1+7=8$.)
+
+For any $n\in\mathbb{N}$, we have%
+\[
+np\left(  n\right)  =\sum_{k=1}^{n}\sigma\left(  k\right)  p\left(
+n-k\right)  .
+\]
+
+\end{theorem}
+
+For example, for $n=3$, this says that%
+\[
+3\underbrace{p\left(  3\right)  }_{=3}=\underbrace{\sigma\left(  1\right)
+}_{=1}\underbrace{p\left(  2\right)  }_{=2}+\underbrace{\sigma\left(
+2\right)  }_{=3}\underbrace{p\left(  1\right)  }_{=1}+\underbrace{\sigma
+\left(  3\right)  }_{=4}\underbrace{p\left(  0\right)  }_{=1}.
+\]
+
+
+For reference, let us give a table of the first $15$ sums $\sigma\left(
+n\right)  $ defined in Theorem \ref{thm.pars.sigma1} (see the
+\href{https://oeis.org/A000203}{Sequence A000203 in the OEIS} for more
+values):%
+\[%
+\begin{tabular}
+[c]{|c||c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}\hline
+$n$ & $1$ & $2$ & $3$ & $4$ & $5$ & $6$ & $7$ & $8$ & $9$ & $10$ & $11$ & $12$
+& $13$ & \multicolumn{1}{|c|}{$14$} & $15$\\\hline
+$\sigma\left(  n\right)  $ & $1$ & $3$ & $4$ & $7$ & $6$ & $12$ & $8$ & $15$ &
+$13$ & $18$ & $12$ & $28$ & $14$ & $24$ & $24$\\\hline
+\end{tabular}
+\ \ \ \ \ .
+\]
+
+
+\begin{proof}
+[Proof of Theorem \ref{thm.pars.sigma1} (sketched).]Define the two FPSs%
+\[
+P:=\sum_{n\in\mathbb{N}}p\left(  n\right)  x^{n}\in\mathbb{Z}\left[  \left[
+x\right]  \right]  \ \ \ \ \ \ \ \ \ \ \text{and}\ \ \ \ \ \ \ \ \ \ S:=\sum
+_{k>0}\sigma\left(  k\right)  x^{k}\in\mathbb{Z}\left[  \left[  x\right]
+\right]  .
+\]
+Hence,%
+\begin{align}
+SP  &  =\left(  \sum_{k>0}\sigma\left(  k\right)  x^{k}\right)  \left(
+\sum_{n\in\mathbb{N}}p\left(  n\right)  x^{n}\right)  =\sum_{k>0}%
+\ \ \sum_{n\in\mathbb{N}}\sigma\left(  k\right)  \underbrace{x^{k}p\left(
+n\right)  x^{n}}_{=p\left(  n\right)  x^{k+n}}\nonumber\\
+&  =\sum_{k>0}\ \ \sum_{n\in\mathbb{N}}\sigma\left(  k\right)  p\left(
+n\right)  x^{k+n}=\underbrace{\sum_{k>0}\ \ \sum_{\substack{m\in
+\mathbb{N};\\m\geq k}}}_{\substack{=\sum_{m\in\mathbb{N}}\ \ \sum
+_{\substack{k>0;\\m\geq k}}\\=\sum_{m\in\mathbb{N}}\ \ \sum_{k=1}^{m}}%
+}\sigma\left(  k\right)  p\left(  m-k\right)  \underbrace{x^{k+\left(
+m-k\right)  }}_{=x^{m}}\nonumber\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{here, we have
+substituted }m-k\text{ for }n\text{ in the inner sum}\right) \nonumber\\
+&  =\sum_{m\in\mathbb{N}}\ \ \sum_{k=1}^{m}\sigma\left(  k\right)  p\left(
+m-k\right)  x^{m}. \label{pf.thm.pars.sigma1.SP=}%
+\end{align}
+From $P=\sum_{n\in\mathbb{N}}p\left(  n\right)  x^{n}$, we obtain%
+\begin{equation}
+P^{\prime}=\sum_{n>0}np\left(  n\right)  x^{n-1}.
+\label{pf.thm.pars.sigma1.P'=}%
+\end{equation}
+Multiplying this equality by $x$, we obtain the somewhat nicer%
+\begin{align}
+xP^{\prime}  &  =x\sum_{n>0}np\left(  n\right)  x^{n-1}=\sum_{n>0}np\left(
+n\right)  \underbrace{xx^{n-1}}_{=x^{n}}=\sum_{n>0}np\left(  n\right)
+x^{n}\nonumber\\
+&  =\sum_{n\in\mathbb{N}}np\left(  n\right)  x^{n}
+\label{pf.thm.pars.sigma1.xP'=}%
+\end{align}
+(here, we have extended the range of the sum to include $n=0$, which caused no
+change to the value of the sum, since the newly added $n=0$ addend is
+$0p\left(  0\right)  x^{0}=0$).
+
+Let us now recall the notion of a logarithmic derivative (as defined in
+Definition \ref{def.fps.loder.1}). The FPS $P$ has constant coefficient
+$\left[  x^{0}\right]  P=p\left(  0\right)  =1$, thus belongs to
+$\mathbb{Z}\left[  \left[  x\right]  \right]  _{1}$. Hence, its logarithmic
+derivative $\operatorname*{loder}P$ is well-defined.
+
+We shall now use $\operatorname*{loder}P$ to compute $P^{\prime}$ in a
+roundabout way. Namely, we have%
+\[
+P=\sum_{n\in\mathbb{N}}p\left(  n\right)  x^{n}=\prod_{k=1}^{\infty}\dfrac
+{1}{1-x^{k}}%
+\]
+(by Theorem \ref{thm.pars.main-gf}). In other words,%
+\begin{equation}
+P=\prod_{k>0}\dfrac{1}{1-x^{k}} \label{pf.thm.pars.sigma1.P=prod}%
+\end{equation}
+(since the product sign $\prod\limits_{k=1}^{\infty}$ is synonymous with
+$\prod\limits_{k>0}$).
+
+But Corollary \ref{cor.fps.loder.prodk} says that any $k$ FPSs $f_{1}%
+,f_{2},\ldots,f_{k}\in K\left[  \left[  x\right]  \right]  _{1}$ (for any
+commutative ring $K$) satisfy%
+\[
+\operatorname*{loder}\left(  f_{1}f_{2}\cdots f_{k}\right)
+=\operatorname*{loder}\left(  f_{1}\right)  +\operatorname*{loder}\left(
+f_{2}\right)  +\cdots+\operatorname*{loder}\left(  f_{k}\right)  .
+\]
+In other words, the logarithmic derivative of a product of $k$ FPSs (which
+belong to $K\left[  \left[  x\right]  \right]  _{1}$) equals the sum of the
+logarithmic derivatives of these $k$ FPSs. By a simple limit argument (using
+Theorem \ref{thm.fps.lim.prod-lim}, Theorem \ref{thm.fps.lim.sum-lim},
+Proposition \ref{prop.fps.lim.sum-quot} and Proposition
+\ref{prop.fps.lim.deriv-lim}), we can extend this fact to an infinite product
+(as long as it is multipliable). Thus, if $\left(  f_{1},f_{2},f_{3}%
+,\ldots\right)  $ is a multipliable sequence of FPSs in $K\left[  \left[
+x\right]  \right]  _{1}$ (for any commutative ring $K$), then%
+\[
+\operatorname*{loder}\left(  f_{1}f_{2}f_{3}\cdots\right)
+=\operatorname*{loder}\left(  f_{1}\right)  +\operatorname*{loder}\left(
+f_{2}\right)  +\operatorname*{loder}\left(  f_{3}\right)  +\cdots;
+\]
+equivalently,%
+\[
+\operatorname*{loder}\left(  \prod_{k>0}f_{k}\right)  =\sum_{k>0}%
+\operatorname*{loder}\left(  f_{k}\right)  .
+\]
+Applying this to $K=\mathbb{Z}$ and $f_{k}=\dfrac{1}{1-x^{k}}$, we obtain%
+\[
+\operatorname*{loder}\left(  \prod_{k>0}\dfrac{1}{1-x^{k}}\right)  =\sum
+_{k>0}\operatorname*{loder}\dfrac{1}{1-x^{k}}.
+\]
+In view of (\ref{pf.thm.pars.sigma1.P=prod}), we can rewrite this as%
+\begin{equation}
+\operatorname*{loder}P=\sum_{k>0}\operatorname*{loder}\dfrac{1}{1-x^{k}}.
+\label{pf.thm.pars.sigma1.loderP=sumk}%
+\end{equation}
+However, every positive integer $k$ satisfies%
+\begin{align*}
+\operatorname*{loder}\underbrace{\dfrac{1}{1-x^{k}}}_{=\left(  1-x^{k}\right)
+^{-1}}  &  =\operatorname*{loder}\left(  \left(  1-x^{k}\right)  ^{-1}\right)
+\\
+&  =-\underbrace{\operatorname*{loder}\left(  1-x^{k}\right)  }%
+_{\substack{=\dfrac{\left(  1-x^{k}\right)  ^{\prime}}{1-x^{k}}\\\text{(by the
+definition of a}\\\text{logarithmic derivative)}}}\ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{by Corollary \ref{cor.fps.loder.inv},}\\
+\text{applied to }f=1-x^{k}%
+\end{array}
+\right) \\
+&  =-\dfrac{\left(  1-x^{k}\right)  ^{\prime}}{1-x^{k}}=-\dfrac{-kx^{k-1}%
+}{1-x^{k}}\ \ \ \ \ \ \ \ \ \ \left(  \text{since }\left(  1-x^{k}\right)
+^{\prime}=-kx^{k-1}\right) \\
+&  =\dfrac{kx^{k-1}}{1-x^{k}}=kx^{k-1}\underbrace{\left(  1-x^{k}\right)
+^{-1}}_{\substack{=\sum_{m\in\mathbb{N}}\left(  x^{k}\right)  ^{m}\\\text{(by
+the geometric series formula)}}}\\
+&  =kx^{k-1}\sum_{m\in\mathbb{N}}\left(  x^{k}\right)  ^{m}=\sum
+_{m\in\mathbb{N}}k\underbrace{x^{k-1}\left(  x^{k}\right)  ^{m}}%
+_{=x^{k-1+km}=x^{k\left(  m+1\right)  -1}}\\
+&  =\sum_{m\in\mathbb{N}}kx^{k\left(  m+1\right)  -1}\\
+&  =\sum_{i>0}kx^{ki-1}\ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have substituted }i\\
+\text{for }m+1\text{ in the sum}%
+\end{array}
+\right) \\
+&  =\sum_{\substack{n>0;\\k\mid n}}kx^{n-1}\ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have substituted }n\\
+\text{for }ki\text{ in the sum}%
+\end{array}
+\right)  .
+\end{align*}
+Hence, we can rewrite (\ref{pf.thm.pars.sigma1.loderP=sumk}) as%
+\begin{align*}
+\operatorname*{loder}P  &  =\underbrace{\sum_{k>0}\ \ \sum
+_{\substack{n>0;\\k\mid n}}}_{=\sum_{n>0}\ \ \sum_{\substack{k>0;\\k\mid n}%
+}}kx^{n-1}=\sum_{n>0}\ \ \sum_{\substack{k>0;\\k\mid n}}kx^{n-1}\\
+&  =\sum_{n>0}\underbrace{\left(  \sum_{\substack{k>0;\\k\mid n}}k\right)
+}_{\substack{=\left(  \text{sum of all positive divisors of }n\right)
+\\=\sigma\left(  n\right)  \\\text{(by the definition of }\sigma\left(
+n\right)  \text{)}}}x^{n-1}=\sum_{n>0}\sigma\left(  n\right)  x^{n-1}.
+\end{align*}
+Comparing this with%
+\[
+\operatorname*{loder}P=\dfrac{P^{\prime}}{P}\ \ \ \ \ \ \ \ \ \ \left(
+\text{by Definition \ref{def.fps.loder.1}}\right)  ,
+\]
+we obtain
+\[
+\dfrac{P^{\prime}}{P}=\sum_{n>0}\sigma\left(  n\right)  x^{n-1}.
+\]
+Multiplying both sides of this equality by $xP$, we find%
+\begin{align*}
+xP^{\prime}  &  =xP\cdot\sum_{n>0}\sigma\left(  n\right)  x^{n-1}=P\cdot
+\sum_{n>0}\sigma\left(  n\right)  \underbrace{xx^{n-1}}_{=x^{n}}%
+=P\cdot\underbrace{\sum_{n>0}\sigma\left(  n\right)  x^{n}}_{=\sum_{k>0}%
+\sigma\left(  k\right)  x^{k}=S}=P\cdot S=SP\\
+&  =\sum_{m\in\mathbb{N}}\ \ \sum_{k=1}^{m}\sigma\left(  k\right)  p\left(
+m-k\right)  x^{m}\ \ \ \ \ \ \ \ \ \ \left(  \text{by
+(\ref{pf.thm.pars.sigma1.SP=})}\right) \\
+&  =\sum_{n\in\mathbb{N}}\ \ \sum_{k=1}^{n}\sigma\left(  k\right)  p\left(
+n-k\right)  x^{n}\ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have renamed the}\\
+\text{summation index }m\text{ as }n
+\end{array}
+\right)  .
+\end{align*}
+Comparing this with (\ref{pf.thm.pars.sigma1.xP'=}), we find%
+\[
+\sum_{n\in\mathbb{N}}np\left(  n\right)  x^{n}=\sum_{n\in\mathbb{N}}%
+\ \ \sum_{k=1}^{n}\sigma\left(  k\right)  p\left(  n-k\right)  x^{n}.
+\]
+Comparing coefficients in front of $x^{n}$ on both sides of this equality, we
+find that%
+\[
+np\left(  n\right)  =\sum_{k=1}^{n}\sigma\left(  k\right)  p\left(
+n-k\right)  \ \ \ \ \ \ \ \ \ \ \text{for each }n\in\mathbb{N}\text{.}%
+\]
+This proves Theorem \ref{thm.pars.sigma1}.
+\end{proof}
+
+More generally, the following holds:
+
+\begin{theorem}
+\label{thm.pars.sigma1-I}Let $I$ be a subset of $\left\{  1,2,3,\ldots
+\right\}  $. For each $n\in\mathbb{N}$, let $p_{I}\left(  n\right)  $ be the
+\# of partitions $\lambda$ of $n$ such that all parts of $\lambda$ belong to
+$I$.
+
+For any positive integer $n$, let $\sigma_{I}\left(  n\right)  $ denote the
+sum of all positive divisors of $n$ that belong to $I$. (For example, if
+$O=\left\{  \text{all odd positive integers}\right\}  $ and $E=\left\{
+\text{all even positive integers}\right\}  $, then $\sigma_{O}\left(
+6\right)  =1+3=4$ and $\sigma_{E}\left(  6\right)  =2+6=8$.)
+
+For any $n\in\mathbb{N}$, we have%
+\[
+np_{I}\left(  n\right)  =\sum_{k=1}^{n}\sigma_{I}\left(  k\right)
+p_{I}\left(  n-k\right)  .
+\]
+
+\end{theorem}
+
+Of course, Theorem \ref{thm.pars.sigma1} is the particular case of Theorem
+\ref{thm.pars.sigma1-I} for $I=\left\{  1,2,3,\ldots\right\}  $.
+
+\begin{proof}
+[Proof of Theorem \ref{thm.pars.sigma1-I} (sketched).]Argue as in our above
+proof of Theorem \ref{thm.pars.sigma1}, making some replacements: In
+particular, symbols like $\sum\limits_{k>0}$ and $\prod\limits_{k>0}$ must be
+replaced by $\sum\limits_{k\in I}$ and $\prod\limits_{k\in I}$ (respectively),
+and Theorem \ref{thm.pars.main-gf-parts-I} must be used instead of Theorem
+\ref{thm.pars.main-gf}. We leave the details to the reader.
+\end{proof}
+
+We note that Theorem \ref{thm.pars.sigma1} and even the more general Theorem
+\ref{thm.pars.sigma1-I} are not hard to prove by completely elementary ways
+(see, e.g., Exercise \ref{exe.pars.sigma-I-elem}). Nevertheless, our above
+proof using generating functions has some interesting consequences, one of
+which we might soon explore.

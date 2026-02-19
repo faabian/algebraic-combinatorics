@@ -1,0 +1,1195 @@
+\subsection{\label{sec.det.comb.lgv}The Lindstr\"{o}m--Gessel--Viennot lemma}
+
+We have so far mostly been discussing algebraic properties of determinants, if
+often from a combinatorial point of view. We shall now see a situation where
+determinants naturally appear in combinatorics.
+
+Namely, we will see an application of determinants to lattice path enumeration
+-- i.e., to the counting of paths on a certain infinite digraph called the
+\emph{integer lattice}. A survey of this subject can be found in
+\cite{Kratte17}; we will restrict ourselves to one of the most accessible
+highlights: the \emph{Lindstr\"{o}m--Gessel--Viennot lemma} (for short:
+\emph{LGV lemma}). This \textquotedblleft lemma\textquotedblright\ is by now
+so classical and popular that it is often deservedly called the
+\emph{Lindstr\"{o}m--Gessel--Viennot theorem}. Alternate treatments of this
+theorem can be found in \cite[\S 2.5]{Sagan19}, in \cite[\S 2.7]{Stanley-EC1}
+and in \cite[\S 2]{GesVie89}. Some applications predating the general
+statement of the theorem can be found in \cite{GesVie85}, and a surprising
+recent generalization in \cite[Theorem 2.5]{Talask12}.
+
+\subsubsection{Definitions}
+
+We have already seen lattice paths (and even counted them in Subsection
+\ref{subsec.qbin.motiv}). We shall now introduce them formally and study them
+in greater depth.
+
+\Needspace{20pc}
+
+\begin{convention}
+\label{conv.lgv.digraph}\textbf{(a)} Recall that \textquotedblleft%
+\emph{digraph}\textquotedblright\ means \textquotedblleft directed
+graph\textquotedblright, i.e., a graph whose edges are directed (and are
+called \emph{arcs}). Against a widespread convention, we will allow our
+digraphs to be infinite (i.e., to have infinitely many vertices and arcs).
+\medskip
+
+\textbf{(b)} A digraph $D$ will be called \emph{path-finite} if it has the
+property that for any two vertices $u$ and $v$, there are only finitely many
+paths from $u$ to $v$. (Thus, in particular, such paths can be counted.)
+\medskip
+
+\textbf{(c)} A digraph $D$ will be called \emph{acyclic} if it has no directed
+cycles. For example, the digraph $%
+%TCIMACRO{\TeXButton{tikz digraph}{\raisebox{-3.3pc}{
+%% [tikz figure removed]
+%}}}%
+%BeginExpansion
+\raisebox{-3.3pc}{
+% [tikz figure removed]
+}%
+%EndExpansion
+$ is acyclic, whereas the digraph $%
+%TCIMACRO{\TeXButton{tikz digraph}{\raisebox{-3.3pc}{
+%% [tikz figure removed]
+%}}}%
+%BeginExpansion
+\raisebox{-3.3pc}{
+% [tikz figure removed]
+}%
+%EndExpansion
+$ is not. \medskip
+
+\textbf{(d)} A \emph{simple digraph} $D$ means a digraph whose arcs are merely
+pairs of distinct vertices (i.e., each arc is a pair $\left(  u,v\right)  $ of
+two vertices $u$ and $v$ with $u\neq v$).
+\end{convention}
+
+We note that a path may contain $0$ arcs (in which case its starting and
+ending point are identical).
+
+\begin{definition}
+\label{def.lgv.lattice}We consider the infinite simple digraph with vertex set
+$\mathbb{Z}^{2}$ (so the vertices are pairs of integers) and arcs%
+\begin{equation}
+\left(  i,j\right)  \rightarrow\left(  i+1,j\right)
+\ \ \ \ \ \ \ \ \ \ \text{for all }\left(  i,j\right)  \in\mathbb{Z}^{2}
+\label{eq.def.lgv.lattice.east}%
+\end{equation}
+and%
+\begin{equation}
+\left(  i,j\right)  \rightarrow\left(  i,j+1\right)
+\ \ \ \ \ \ \ \ \ \ \text{for all }\left(  i,j\right)  \in\mathbb{Z}^{2}.
+\label{eq.def.lgv.lattice.north}%
+\end{equation}
+The arcs of the form (\ref{eq.def.lgv.lattice.east}) are called
+\textquotedblleft\emph{east-steps}\textquotedblright\ or \textquotedblleft%
+\emph{right-steps}\textquotedblright; the arcs of the form
+(\ref{eq.def.lgv.lattice.north}) are called \textquotedblleft%
+\emph{north-steps}\textquotedblright\ or \textquotedblleft\emph{up-steps}%
+\textquotedblright.
+
+The vertices of this digraph will be called \emph{lattice points} or
+\emph{grid points} or simply \emph{points}. They will be represented as points
+in the Cartesian plane (in the usual way: the vertex $\left(  i,j\right)
+\in\mathbb{Z}^{2}$ is represented as the point with x-coordinate $i$ and
+y-coordinate $j$).
+
+The entire digraph will be denoted by $\mathbb{Z}^{2}$ and called the
+\emph{integer lattice} or \emph{integer grid} (or, to be short, just
+\emph{lattice} or \emph{grid}). Here is a picture of a small part of this
+digraph $\mathbb{Z}^{2}$:%
+\[%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\ \ .
+\]
+Formally speaking, this path is the $9$-tuple%
+\[
+\left(  \left(  0,0\right)  ,\left(  0,1\right)  ,\left(  1,1\right)  ,\left(
+2,1\right)  ,\left(  3,1\right)  ,\left(  3,2\right)  ,\left(  4,2\right)
+,\left(  4,3\right)  ,\left(  5,3\right)  \right)  .
+\]
+Its step sequence\ (i.e., the sequence of the directions of its steps) is
+$URRRURUR$ (meaning that its first step is an up-step, its second step is a
+right-step, its third step is a right-step, and so on).
+\end{example}
+
+Clearly, any path is uniquely determined by its starting point and its step sequence.
+
+Note that we are considering one of the simplest possible notions of a lattice
+path here. In more advanced texts, the word \textquotedblleft lattice
+path\textquotedblright\ is often used for paths in digraphs more complicated
+than $\mathbb{Z}^{2}$ (for instance, a digraph with the same vertex set
+$\mathbb{Z}^{2}$ but allowing steps in all four directions). However, the
+digraph we are considering is perhaps the most useful for algebraic combinatorics.
+
+\subsubsection{Counting paths from $\left(  a,b\right)  $ to $\left(
+c,d\right)  $}
+
+In Subsection \ref{subsec.qbin.motiv}, we have counted the lattice paths from
+$\left(  0,0\right)  $ to $\left(  6,4\right)  $ that begin with an east-step
+and end with a north-step. These are, of course, in bijection with the paths
+from $\left(  1,0\right)  $ to $\left(  6,3\right)  $ (since the first and
+last step are predetermined and thus can be ignored). Let us now generalize
+this by counting paths between any two lattice points:
+
+\begin{proposition}
+\label{prop.lgv.1-paths.ct}Let $\left(  a,b\right)  \in\mathbb{Z}^{2}$ and
+$\left(  c,d\right)  \in\mathbb{Z}^{2}$ be two points. Then,%
+\[
+\left(  \text{\# of paths from }\left(  a,b\right)  \text{ to }\left(
+c,d\right)  \right)  =%
+\begin{cases}
+\dbinom{c+d-a-b}{c-a}, & \text{if }c+d\geq a+b;\\
+0, & \text{if }c+d<a+b.
+\end{cases}
+\]
+
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.lgv.1-paths.ct}.]This is just a formalization
+(and generalization) of the reasoning we used in Subsection
+\ref{subsec.qbin.motiv}.
+
+We shall first show the following two observations:
+
+\begin{statement}
+\textit{Observation 1:} Each path from $\left(  a,b\right)  $ to $\left(
+c,d\right)  $ has exactly $c+d-a-b$ steps\footnote{A \textquotedblleft
+step\textquotedblright\ of a path means an arc of this path.}.
+\end{statement}
+
+\begin{statement}
+\textit{Observation 2:} Each path from $\left(  a,b\right)  $ to $\left(
+c,d\right)  $ has exactly $c-a$ east-steps.
+\end{statement}
+
+\begin{fineprint}
+[\textit{Proof of Observation 1:} We define the \emph{coordinate sum} of a
+point $\left(  x,y\right)  \in\mathbb{Z}^{2}$ to be $x+y$. We shall denote
+this coordinate sum by $\operatorname*{cs}\left(  x,y\right)  $. We observe
+that the coordinate sum of a point increases by exactly $1$ along each arc of
+$\mathbb{Z}^{2}$: That is, if $u\rightarrow v$ is an arc of $\mathbb{Z}^{2}$,
+then%
+\begin{equation}
+\operatorname*{cs}\left(  v\right)  -\operatorname*{cs}\left(  u\right)  =1.
+\label{pf.prop.lgv.1-paths.ct.o1.pf.1}%
+\end{equation}
+(This is because we can write $u$ in the form $u=\left(  i,j\right)  $ and
+then must have either $v=\left(  i+1,j\right)  $ or $v=\left(  i,j+1\right)
+$; but this entails $\operatorname*{cs}\left(  v\right)  =\underbrace{i+j}%
+_{=\operatorname*{cs}\left(  u\right)  }+\,1=\operatorname*{cs}\left(
+u\right)  +1$ in either case.)
+
+Let $\left(  v_{0},v_{1},\ldots,v_{n}\right)  $ be a path from $\left(
+a,b\right)  $ to $\left(  c,d\right)  $. Thus, $v_{0}=\left(  a,b\right)  $
+and $v_{n}=\left(  c,d\right)  $. Moreover, for each $i\in\left[  n\right]  $,
+we know that $v_{i-1}\rightarrow v_{i}$ is an arc of $\mathbb{Z}^{2}$, and
+thus we have%
+\[
+\operatorname*{cs}\left(  v_{i}\right)  -\operatorname*{cs}\left(
+v_{i-1}\right)  =1
+\]
+(by (\ref{pf.prop.lgv.1-paths.ct.o1.pf.1}), applied to $u=v_{i-1}$ and
+$v=v_{i}$). Summing these equalities over all $i\in\left[  n\right]  $, we
+obtain%
+\[
+\sum_{i=1}^{n}\left(  \operatorname*{cs}\left(  v_{i}\right)
+-\operatorname*{cs}\left(  v_{i-1}\right)  \right)  =\sum_{i=1}^{n}1=n.
+\]
+Hence,%
+\begin{align*}
+n  &  =\sum_{i=1}^{n}\left(  \operatorname*{cs}\left(  v_{i}\right)
+-\operatorname*{cs}\left(  v_{i-1}\right)  \right)  =\operatorname*{cs}%
+\underbrace{\left(  v_{n}\right)  }_{=\left(  c,d\right)  }-\operatorname*{cs}%
+\underbrace{\left(  v_{0}\right)  }_{=\left(  a,b\right)  }%
+\ \ \ \ \ \ \ \ \ \ \left(  \text{by the telescope principle}\right) \\
+&  =\underbrace{\operatorname*{cs}\left(  c,d\right)  }_{=c+d}%
+-\underbrace{\operatorname*{cs}\left(  a,b\right)  }_{=a+b}=c+d-\left(
+a+b\right)  =c+d-a-b.
+\end{align*}
+In other words, the path $\left(  v_{0},v_{1},\ldots,v_{n}\right)  $ has
+exactly $c+d-a-b$ steps (since this path clearly has $n$ steps).
+
+Forget that we fixed $\left(  v_{0},v_{1},\ldots,v_{n}\right)  $. We thus have
+shown that each path $\left(  v_{0},v_{1},\ldots,v_{n}\right)  $ from $\left(
+a,b\right)  $ to $\left(  c,d\right)  $ has exactly $c+d-a-b$ steps. This
+proves Observation 1.] \medskip
+\end{fineprint}
+
+\begin{fineprint}
+[\textit{Proof of Observation 2:} For any point $v\in\mathbb{Z}^{2}$, we
+define $\operatorname*{x}\left(  v\right)  $ to be the x-coordinate of $v$.
+(Thus, $\operatorname*{x}\left(  x,y\right)  =x$ for each $\left(  x,y\right)
+\in\mathbb{Z}^{2}$.)
+
+Obviously, the x-coordinate of a point increases by exactly $1$ along each
+east-step and stays unchanged along each north-step: That is, if $u\rightarrow
+v$ is an arc of $\mathbb{Z}^{2}$, then%
+\begin{equation}
+\operatorname*{x}\left(  v\right)  -\operatorname*{x}\left(  u\right)  =%
+\begin{cases}
+1, & \text{if }u\rightarrow v\text{ is an east-step;}\\
+0, & \text{if }u\rightarrow v\text{ is a north-step.}%
+\end{cases}
+\label{pf.prop.lgv.1-paths.ct.o2.pf.1}%
+\end{equation}
+
+\end{fineprint}
+
+Let $\left(  v_{0},v_{1},\ldots,v_{n}\right)  $ be a path from $\left(
+a,b\right)  $ to $\left(  c,d\right)  $. Thus, $v_{0}=\left(  a,b\right)  $
+and $v_{n}=\left(  c,d\right)  $. Moreover, for each $i\in\left[  n\right]  $,
+we know that $v_{i-1}\rightarrow v_{i}$ is an arc of $\mathbb{Z}^{2}$, and
+thus we have%
+\[
+\operatorname*{x}\left(  v_{i}\right)  -\operatorname*{x}\left(
+v_{i-1}\right)  =%
+\begin{cases}
+1, & \text{if }v_{i-1}\rightarrow v_{i}\text{ is an east-step;}\\
+0, & \text{if }v_{i-1}\rightarrow v_{i}\text{ is a north-step}%
+\end{cases}
+\]
+(by (\ref{pf.prop.lgv.1-paths.ct.o2.pf.1}), applied to $u=v_{i-1}$ and
+$v=v_{i}$). Summing these equalities over all $i\in\left[  n\right]  $, we
+obtain%
+\begin{align*}
+\sum_{i=1}^{n}\left(  \operatorname*{x}\left(  v_{i}\right)
+-\operatorname*{x}\left(  v_{i-1}\right)  \right)   &  =\sum_{i=1}^{n}%
+\begin{cases}
+1, & \text{if }v_{i-1}\rightarrow v_{i}\text{ is an east-step;}\\
+0, & \text{if }v_{i-1}\rightarrow v_{i}\text{ is a north-step}%
+\end{cases}
+\\
+&  =\left(  \text{\# of }i\in\left[  n\right]  \text{ such that }%
+v_{i-1}\rightarrow v_{i}\text{ is an east-step}\right) \\
+&  =\left(  \text{\# of east-steps in the path }\left(  v_{0},v_{1}%
+,\ldots,v_{n}\right)  \right)  .
+\end{align*}
+Hence,%
+\begin{align*}
+&  \left(  \text{\# of east-steps in the path }\left(  v_{0},v_{1}%
+,\ldots,v_{n}\right)  \right) \\
+&  =\sum_{i=1}^{n}\left(  \operatorname*{x}\left(  v_{i}\right)
+-\operatorname*{x}\left(  v_{i-1}\right)  \right)  =\operatorname*{x}%
+\underbrace{\left(  v_{n}\right)  }_{=\left(  c,d\right)  }-\operatorname*{x}%
+\underbrace{\left(  v_{0}\right)  }_{=\left(  a,b\right)  }%
+\ \ \ \ \ \ \ \ \ \ \left(  \text{by the telescope principle}\right) \\
+&  =\underbrace{\operatorname*{x}\left(  c,d\right)  }_{=c}%
+-\underbrace{\operatorname*{x}\left(  a,b\right)  }_{=a}=c-a.
+\end{align*}
+In other words, the path $\left(  v_{0},v_{1},\ldots,v_{n}\right)  $ has
+exactly $c-a$ east-steps.
+
+Forget that we fixed $\left(  v_{0},v_{1},\ldots,v_{n}\right)  $. We thus have
+shown that each path $\left(  v_{0},v_{1},\ldots,v_{n}\right)  $ from $\left(
+a,b\right)  $ to $\left(  c,d\right)  $ has exactly $c-a$ east-steps. This
+proves Observation 2.] \medskip
+
+Observation 1 immediately shows that no path from $\left(  a,b\right)  $ to
+$\left(  c,d\right)  $ exists when $c+d-a-b<0$. In other words, no path from
+$\left(  a,b\right)  $ to $\left(  c,d\right)  $ exists when $c+d<a+b$. In
+other words, $\left(  \text{\# of paths from }\left(  a,b\right)  \text{ to
+}\left(  c,d\right)  \right)  =0$ when $c+d<a+b$. This proves Proposition
+\ref{prop.lgv.1-paths.ct} in the case when $c+d<a+b$. Hence, for the rest of
+this proof of Proposition \ref{prop.lgv.1-paths.ct}, we WLOG assume that
+$c+d\geq a+b$. Thus, $c+d-a-b\geq0$, so that $c+d-a-b\in\mathbb{N}$.
+
+Observations 1 and 2 have a sort of (common) converse:
+
+\begin{statement}
+\textit{Observation 3:} Let $p$ be a path that starts at the point $\left(
+a,b\right)  $ and has exactly $c+d-a-b$ steps. Assume that exactly $c-a$ of
+these steps are east-steps. Then, this path $p$ ends at $\left(  c,d\right)  $.
+\end{statement}
+
+\begin{fineprint}
+[\textit{Proof of Observation 3:} Let $\left(  c^{\prime},d^{\prime}\right)  $
+be the point at which this path $p$ ends. Then, we can apply Observation 1 to
+$\left(  c^{\prime},d^{\prime}\right)  $ instead of $\left(  c,d\right)  $,
+and hence conclude that this path has exactly $c^{\prime}+d^{\prime}-a-b$
+steps. Since we already know that this path has exactly $c+d-a-b$ steps, we
+therefore conclude that $c^{\prime}+d^{\prime}-a-b=c+d-a-b$. In other words,
+$c^{\prime}+d^{\prime}=c+d$. Similarly, using Observation 2, we can find that
+$c^{\prime}=c$. Subtracting this equality from $c^{\prime}+d^{\prime}=c+d$, we
+obtain $d^{\prime}=d$. Combining $c^{\prime}=c$ with $d^{\prime}=d$, we find
+$\left(  c^{\prime},d^{\prime}\right)  =\left(  c,d\right)  $. Thus, our path
+$p$ ends at $\left(  c,d\right)  $ (since we know that it ends at $\left(
+c^{\prime},d^{\prime}\right)  $). This proves Observation 3.] \medskip
+\end{fineprint}
+
+Now, combining Observations 1, 2 and 3, we see that the paths from $\left(
+a,b\right)  $ to $\left(  c,d\right)  $ are precisely the paths that start at
+$\left(  a,b\right)  $ and have exactly $c+d-a-b$ steps and exactly $c-a$
+east-steps (among these $c+d-a-b$ steps). Such a path is therefore uniquely
+determined if we know \textbf{which} $c-a$ of its $c+d-a-b$ steps are
+east-steps. Thus, specifying such a path is equivalent to specifying a
+$\left(  c-a\right)  $-element subset of the $\left(  c+d-a-b\right)
+$-element set\footnote{Here we are tacitly using $c+d-a-b\geq0$.} $\left[
+c+d-a-b\right]  $. The bijection principle thus yields\footnote{To make this
+more formal: We are saying that the map
+\begin{align*}
+\left\{  \text{paths from }\left(  a,b\right)  \text{ to }\left(  c,d\right)
+\right\}   &  \rightarrow\left\{  \left(  c-a\right)  \text{-element subsets
+of }\left[  c+d-a-b\right]  \right\}  ,\\
+\left(  v_{0},v_{1},\ldots,v_{c+d-a-b}\right)   &  \mapsto\left\{  i\in\left[
+c+d-a-b\right]  \ \mid\ \text{the arc }v_{i-1}\rightarrow v_{i}\text{ is an
+east-step}\right\}
+\end{align*}
+is a bijection, and we are applying the bijection principle to this
+bijection.}%
+\begin{align*}
+&  \left(  \text{\# of paths from }\left(  a,b\right)  \text{ to }\left(
+c,d\right)  \right) \\
+&  =\left(  \text{\# of }\left(  c-a\right)  \text{-element subsets of
+}\left[  c+d-a-b\right]  \right) \\
+&  =\dbinom{c+d-a-b}{c-a}\ \ \ \ \ \ \ \ \ \ \left(  \text{since }%
+c+d-a-b\in\mathbb{N}\right)  .
+\end{align*}
+This proves Proposition \ref{prop.lgv.1-paths.ct} (since we have assumed that
+$c+d\geq a+b$).
+\end{proof}
+
+\subsubsection{Path tuples, nipats and ipats}
+
+Now, let us try to count something more interesting: tuples of
+non-intersecting paths.
+
+\begin{definition}
+\label{def.lgv.path-tups}Let $k\in\mathbb{N}$. \medskip
+
+\textbf{(a)} A $k$\emph{-vertex} means a $k$-tuple of lattice points (i.e., a
+$k$-tuple of vertices). For example, $\left(  \left(  1,2\right)  ,\ \left(
+4,5\right)  ,\ \left(  7,4\right)  \right)  $ is a $3$-vertex. \medskip
+
+\textbf{(b)} If $\mathbf{A}=\left(  A_{1},A_{2},\ldots,A_{k}\right)  $ is a
+$k$-vertex, and if $\sigma\in S_{k}$ is a permutation, then $\sigma\left(
+\mathbf{A}\right)  $ shall denote the $k$-vertex $\left(  A_{\sigma\left(
+1\right)  },A_{\sigma\left(  2\right)  },\ldots,A_{\sigma\left(  k\right)
+}\right)  $. For instance, for the simple transposition $s_{1}\in S_{3}$, we
+have $s_{1}\left(  A,B,C\right)  =\left(  B,A,C\right)  $ for any $3$-vertex
+$\left(  A,B,C\right)  $. \medskip
+
+\textbf{(c)} If $\mathbf{A}=\left(  A_{1},A_{2},\ldots,A_{k}\right)  $ and
+$\mathbf{B}=\left(  B_{1},B_{2},\ldots,B_{k}\right)  $ are two $k$-vertices,
+then a \emph{path tuple} from $\mathbf{A}$ to $\mathbf{B}$ means a $k$-tuple
+$\left(  p_{1},p_{2},\ldots,p_{k}\right)  $, where each $p_{i}$ is a path from
+$A_{i}$ to $B_{i}$. \medskip
+
+\textbf{(d)} A path tuple $\left(  p_{1},p_{2},\ldots,p_{k}\right)  $ is said
+to be \emph{non-intersecting} if no two of the paths $p_{1},p_{2},\ldots
+,p_{k}$ have any vertex in common. (Visually speaking, this not only forbids
+them from crossing each other, but also forbids them from touching or bouncing
+off each other, or starting or ending at the same point.)
+
+We shall abbreviate \textquotedblleft non-intersecting path
+tuple\textquotedblright\ as \textquotedblleft\emph{nipat}\textquotedblright.
+(Historically, the more common abbreviation is \textquotedblleft%
+\emph{NILP}\textquotedblright, for \textquotedblleft non-intersecting lattice
+paths\textquotedblright, but I prefer \textquotedblleft
+nipat\textquotedblright\ as it stresses the tupleness.) \medskip
+
+\textbf{(e)} A path tuple $\left(  p_{1},p_{2},\ldots,p_{k}\right)  $ is said
+to be \emph{intersecting} if it is not non-intersecting (i.e., if two of its
+paths have a vertex in common).
+
+We shall abbreviate \textquotedblleft intersecting path
+tuple\textquotedblright\ as \textquotedblleft\emph{ipat}\textquotedblright.
+\end{definition}
+
+\begin{example}
+Here are some path tuples for $k=3$: \medskip
+
+\textbf{(a)} The following path tuple is a nipat:%
+\[%
+%TCIMACRO{\TeXButton{nipat}{% [tikz figure removed]
+%}}%
+%BeginExpansion
+% [tikz figure removed]
+%EndExpansion
+\ \ .
+\]
+
+
+\textbf{(b)} The following path tuple is an ipat:%
+\[%
+%TCIMACRO{\TeXButton{ipat}{% [tikz figure removed]}}%
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\ \ .
+\]
+
+
+\textbf{(c)} The following path tuple is an ipat, too (for several reasons):%
+\[%
+%TCIMACRO{\TeXButton{ipat}{% [tikz figure removed]}}%
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\ \ .
+\]
+(In this tuple, the paths $p_{1}$ and $p_{2}$ even have an arc in common.
+Don't let the picture confuse you: The two curved arcs are actually one and
+the same arc of $\mathbb{Z}^{2}$ appearing in two paths, not two different arcs.)
+\end{example}
+
+\subsubsection{The LGV lemma for two paths}
+
+As I mentioned, we want to count nipats. Here is a first result on the case
+$k=2$:
+
+\begin{proposition}
+[LGV lemma for two paths]\label{prop.lgv.2paths.count}Let $\left(
+A,A^{\prime}\right)  $ and $\left(  B,B^{\prime}\right)  $ be two $2$-vertices
+(i.e., let $A,A^{\prime},B,B^{\prime}$ be four lattice points). Then,%
+\begin{align*}
+&  \det\left(
+\begin{array}
+[c]{cc}%
+\left(  \text{\# of paths from }A\text{ to }B\right)  & \left(  \text{\# of
+paths from }A\text{ to }B^{\prime}\right) \\
+\left(  \text{\# of paths from }A^{\prime}\text{ to }B\right)  & \left(
+\text{\# of paths from }A^{\prime}\text{ to }B^{\prime}\right)
+\end{array}
+\right) \\
+&  =\left(  \text{\# of nipats from }\left(  A,A^{\prime}\right)  \text{ to
+}\left(  B,B^{\prime}\right)  \right) \\
+&  \ \ \ \ \ \ \ \ \ \ -\left(  \text{\# of nipats from }\left(  A,A^{\prime
+}\right)  \text{ to }\left(  B^{\prime},B\right)  \right)  .
+\end{align*}
+
+\end{proposition}
+
+\begin{example}
+Let $A=\left(  0,0\right)  $ and $A^{\prime}=\left(  1,1\right)  $ and
+$B=\left(  2,2\right)  $ and $B^{\prime}=\left(  3,3\right)  $. Then,
+Proposition \ref{prop.lgv.2paths.count} says that%
+\begin{align*}
+\det\left(
+\begin{array}
+[c]{cc}%
+\dbinom{4}{2} & \dbinom{6}{3}\\
+\dbinom{2}{1} & \dbinom{4}{2}%
+\end{array}
+\right)   &  =\left(  \text{\# of nipats from }\left(  A,A^{\prime}\right)
+\text{ to }\left(  B,B^{\prime}\right)  \right) \\
+&  \ \ \ \ \ \ \ \ \ \ -\left(  \text{\# of nipats from }\left(  A,A^{\prime
+}\right)  \text{ to }\left(  B^{\prime},B\right)  \right)  .
+\end{align*}
+(The matrix entries on the left hand side have been computed using Proposition
+\ref{prop.lgv.1-paths.ct}.)
+
+And indeed, this equality is easily verified. There are $2$ nipats from
+$\left(  A,A^{\prime}\right)  $ to $\left(  B,B^{\prime}\right)  $, one of
+which is
+\[%
+%TCIMACRO{\TeXButton{nipat}{% [tikz figure removed]}}%
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\]
+while the other is its reflection in the $x=y$ diagonal. There are $6$ nipats
+from $\left(  A,A^{\prime}\right)  $ to $\left(  B^{\prime},B\right)  $, three
+of which are
+\[%
+%TCIMACRO{\TeXButton{nipat}{% [tikz figure removed]}}%
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\ \ \ \ \ \ \ \ \ \
+%TCIMACRO{\TeXButton{nipat}{% [tikz figure removed]}}%
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\ \ \ \ \ \ \ \ \ \
+%TCIMACRO{\TeXButton{nipat}{% [tikz figure removed]}}%
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\]
+while the other three are their reflections in the $x=y$ diagonal. The right
+hand side of the above equality is thus $2-6=-4$, which is also the left hand side.
+\end{example}
+
+\begin{example}
+\label{exa.lgv.2paths.2}Let $A=\left(  0,0\right)  $ and $A^{\prime}=\left(
+-1,1\right)  $ and $B=\left(  2,2\right)  $ and $B^{\prime}=\left(
+0,3\right)  $. Then, the claim of Proposition \ref{prop.lgv.2paths.count}
+simplifies, since $\left(  \text{\# of nipats from }\left(  A,A^{\prime
+}\right)  \text{ to }\left(  B^{\prime},B\right)  \right)  =0$ in this case.
+Here is a picture of the four points that should make this visually clear:
+\[%
+%TCIMACRO{\TeXButton{just four points}{% [tikz figure removed]}}%
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\ \ .
+\]
+
+\end{example}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.lgv.2paths.count}.]We have%
+\begin{align}
+&  \det\left(
+\begin{array}
+[c]{cc}%
+\left(  \text{\# of paths from }A\text{ to }B\right)  & \left(  \text{\# of
+paths from }A\text{ to }B^{\prime}\right) \\
+\left(  \text{\# of paths from }A^{\prime}\text{ to }B\right)  & \left(
+\text{\# of paths from }A^{\prime}\text{ to }B^{\prime}\right)
+\end{array}
+\right) \nonumber\\
+&  =\underbrace{\left(  \text{\# of paths from }A\text{ to }B\right)
+\cdot\left(  \text{\# of paths from }A^{\prime}\text{ to }B^{\prime}\right)
+}_{\substack{=\left(  \text{\# of path tuples from }\left(  A,A^{\prime
+}\right)  \text{ to }\left(  B,B^{\prime}\right)  \right)  \\\text{(by the
+product rule, since a path tuple from }\left(  A,A^{\prime}\right)  \text{ to
+}\left(  B,B^{\prime}\right)  \text{ is just}\\\text{a pair consisting of a
+path from }A\text{ to }B\text{ and a path from }A^{\prime}\text{ to }%
+B^{\prime}\text{)}}}\nonumber\\
+&  \ \ \ \ \ \ \ \ \ \ -\underbrace{\left(  \text{\# of paths from }A\text{ to
+}B^{\prime}\right)  \cdot\left(  \text{\# of paths from }A^{\prime}\text{ to
+}B\right)  }_{\substack{=\left(  \text{\# of path tuples from }\left(
+A,A^{\prime}\right)  \text{ to }\left(  B^{\prime},B\right)  \right)
+\\\text{(by the product rule, since a path tuple from }\left(  A,A^{\prime
+}\right)  \text{ to }\left(  B^{\prime},B\right)  \text{ is just}\\\text{a
+pair consisting of a path from }A\text{ to }B^{\prime}\text{ and a path from
+}A^{\prime}\text{ to }B\text{)}}}\nonumber\\
+&  =\left(  \text{\# of path tuples from }\left(  A,A^{\prime}\right)  \text{
+to }\left(  B,B^{\prime}\right)  \right) \nonumber\\
+&  \ \ \ \ \ \ \ \ \ \ -\left(  \text{\# of path tuples from }\left(
+A,A^{\prime}\right)  \text{ to }\left(  B^{\prime},B\right)  \right)  .
+\label{pf.prop.lgv.2paths.count.1}%
+\end{align}
+We need to show that on the right hand side, all the intersecting path tuples
+cancel each other out (so that only the nipats remain).
+
+Our $k$-vertices are $2$-vertices; thus, our path tuples are pairs. Hence,
+such a path tuple $\left(  p,p^{\prime}\right)  $ is intersecting if and only
+if $p$ and $p^{\prime}$ have a vertex in common. We shall use these common
+vertices to define a sign-reversing involution on the intersecting path
+tuples. Specifically, we do the following:
+
+Define the set%
+\begin{align*}
+\mathcal{A}  &  :=\left\{  \text{path tuples from }\left(  A,A^{\prime
+}\right)  \text{ to }\left(  B,B^{\prime}\right)  \right\} \\
+&  \ \ \ \ \ \ \ \ \ \ \sqcup\left\{  \text{path tuples from }\left(
+A,A^{\prime}\right)  \text{ to }\left(  B^{\prime},B\right)  \right\}  .
+\end{align*}
+Here, the symbol \textquotedblleft$\sqcup$\textquotedblright\ means
+\textquotedblleft disjoint union (of sets)\textquotedblright, which is a way
+of uniting two sets without removing duplicates (i.e., even if the sets are
+not disjoint, we treat them as disjoint for the purpose of the union, and
+therefore include two copies of each common element). As a consequence of us
+taking the disjoint union, each path tuple in $\mathcal{A}$ \textquotedblleft
+remembers\textquotedblright\ whether it comes from the set \newline$\left\{
+\text{path tuples from }\left(  A,A^{\prime}\right)  \text{ to }\left(
+B,B^{\prime}\right)  \right\}  $ or from the set \newline$\left\{  \text{path
+tuples from }\left(  A,A^{\prime}\right)  \text{ to }\left(  B^{\prime
+},B\right)  \right\}  $ (and if these two sets have a path tuple in common,
+then $\mathcal{A}$ has two copies of it, each of which remembers from which
+set it comes). However, in practice, this is barely relevant: Indeed, the only
+case in which the sets \newline$\left\{  \text{path tuples from }\left(
+A,A^{\prime}\right)  \text{ to }\left(  B,B^{\prime}\right)  \right\}  $ and
+$\left\{  \text{path tuples from }\left(  A,A^{\prime}\right)  \text{ to
+}\left(  B^{\prime},B\right)  \right\}  $ can fail to be disjoint is the case
+when $B=B^{\prime}$; however, in this case, the claim we are proving is
+trivial anyway, since there are no nipats\footnote{Indeed, if $p$ and
+$p^{\prime}$ are two paths with the same destination, then $p$ and $p^{\prime
+}$ automatically have a vertex in common.}, and our matrix has determinant $0$
+(since it has two equal columns).
+
+Define a subset $\mathcal{X}$ of $\mathcal{A}$ by%
+\[
+\mathcal{X}:=\left\{  \text{ipats in }\mathcal{A}\right\}  =\left\{  \left(
+p,p^{\prime}\right)  \in\mathcal{A}\ \mid\ p\text{ and }p^{\prime}\text{ have
+a vertex in common}\right\}  .
+\]
+Hence, $\mathcal{A}\setminus\mathcal{X}=\left\{  \text{nipats in }%
+\mathcal{A}\right\}  $.
+
+For each $\left(  p,p^{\prime}\right)  \in\mathcal{A}$, we set%
+\[
+\operatorname*{sign}\left(  p,p^{\prime}\right)  :=%
+\begin{cases}
+1, & \text{if }\left(  p,p^{\prime}\right)  \text{ is a path tuple from
+}\left(  A,A^{\prime}\right)  \text{ to }\left(  B,B^{\prime}\right)  ;\\
+-1, & \text{if }\left(  p,p^{\prime}\right)  \text{ is a path tuple from
+}\left(  A,A^{\prime}\right)  \text{ to }\left(  B^{\prime},B\right)  .
+\end{cases}
+\]
+(This is well-defined, because each $\left(  p,p^{\prime}\right)
+\in\mathcal{A}$ is either a path tuple from $\left(  A,A^{\prime}\right)  $ to
+$\left(  B,B^{\prime}\right)  $ or a path tuple from $\left(  A,A^{\prime
+}\right)  $ to $\left(  B^{\prime},B\right)  $ but never both at the same
+time\footnote{because we took the \textbf{disjoint} union of $\left\{
+\text{path tuples from }\left(  A,A^{\prime}\right)  \text{ to }\left(
+B,B^{\prime}\right)  \right\}  $ and $\left\{  \text{path tuples from }\left(
+A,A^{\prime}\right)  \text{ to }\left(  B^{\prime},B\right)  \right\}  $}.)
+Thus,
+\begin{align*}
+&  \left(  \text{\# of path tuples from }\left(  A,A^{\prime}\right)  \text{
+to }\left(  B,B^{\prime}\right)  \right) \\
+&  \ \ \ \ \ \ \ \ \ \ -\left(  \text{\# of path tuples from }\left(
+A,A^{\prime}\right)  \text{ to }\left(  B^{\prime},B\right)  \right) \\
+&  =\sum_{\left(  p,p^{\prime}\right)  \in\mathcal{A}}\operatorname*{sign}%
+\left(  p,p^{\prime}\right)
+\end{align*}
+and%
+\begin{align*}
+&  \left(  \text{\# of nipats from }\left(  A,A^{\prime}\right)  \text{ to
+}\left(  B,B^{\prime}\right)  \right) \\
+&  \ \ \ \ \ \ \ \ \ \ -\left(  \text{\# of nipats from }\left(  A,A^{\prime
+}\right)  \text{ to }\left(  B^{\prime},B\right)  \right) \\
+&  =\sum_{\left(  p,p^{\prime}\right)  \in\mathcal{A}\setminus\mathcal{X}%
+}\operatorname*{sign}\left(  p,p^{\prime}\right)  \ \ \ \ \ \ \ \ \ \ \left(
+\text{since }\mathcal{A}\setminus\mathcal{X}=\left\{  \text{nipats in
+}\mathcal{A}\right\}  \right)  .
+\end{align*}
+We want to prove that the left hand sides of these two equalities are equal.
+Thus, it clearly suffices to show that the right hand sides are equal. By
+Lemma \ref{lem.sign.cancel2}, it suffices to find a sign-reversing involution
+$f:\mathcal{X}\rightarrow\mathcal{X}$ that has no fixed points.
+
+So let us define our sign-reversing involution $f:\mathcal{X}\rightarrow
+\mathcal{X}$. For each path tuple $\left(  p,p^{\prime}\right)  \in
+\mathcal{X}$, we define $f\left(  p,p^{\prime}\right)  $ as follows:
+
+\begin{itemize}
+\item Since $\left(  p,p^{\prime}\right)  \in\mathcal{X}$, the paths $p$ and
+$p^{\prime}$ have a vertex in common. There might be several; let $v$ be the
+first one. (The first one on $p$ or the first one on $p^{\prime}$ ? Doesn't
+matter, because these are the same thing. Indeed, if the first vertex on $p$
+that is contained in $p^{\prime}$ was different from the first vertex on
+$p^{\prime}$ that is contained in $p$, then we could obtain a nontrivial
+circuit of our digraph by walking from the former vertex to the latter vertex
+along $p$ and then back along $p^{\prime}$; but this is impossible, since our
+digraph is acyclic.)
+
+We call this vertex $v$ the \emph{first intersection} of $\left(  p,p^{\prime
+}\right)  $.
+
+\item Call the part of $p$ that comes after $v$ the \emph{tail} of $p$. Call
+the part of $p$ that comes before $v$ the \emph{head}\textbf{ }of $p$.
+
+Call the part of $p^{\prime}$ that comes after $v$ the \emph{tail} of
+$p^{\prime}$. Call the part of $p^{\prime}$ that comes before $v$ the
+\emph{head}\textbf{ }of $p^{\prime}$.
+
+\item Now, we exchange the tails of the paths $p$ and $p^{\prime}$. That is,
+we set%
+\begin{align*}
+q  &  :=\left(  \text{head of }p\right)  \cup\left(  \text{tail of }p^{\prime
+}\right)  \ \ \ \ \ \ \ \ \ \ \text{and}\\
+q^{\prime}  &  :=\left(  \text{head of }p^{\prime}\right)  \cup\left(
+\text{tail of }p\right)
+\end{align*}
+(where the symbol \textquotedblleft$\cup$\textquotedblright\ means combining a
+path ending at $v$ with a path starting at $v$ in the obvious way), and set
+$f\left(  p,p^{\prime}\right)  :=\left(  q,q^{\prime}\right)  $.
+\end{itemize}
+
+Thus, we have defined a map $f:\mathcal{X}\rightarrow\mathcal{X}$ (in a
+moment, we will explain why it is well-defined). Here is an example:
+\[
+\text{If }\left(  p,p^{\prime}\right)  =%
+%TCIMACRO{\TeXButton{ppprime}{\raisebox{-6pc}{
+%% [tikz figure removed]
+%}}}%
+%BeginExpansion
+\raisebox{-6pc}{
+% [tikz figure removed]
+}%
+%EndExpansion
+\text{, then }\left(  q,q^{\prime}\right)  =%
+%TCIMACRO{\TeXButton{qqprime}{\raisebox{-6pc}{% [tikz figure removed]
+%}}}%
+%BeginExpansion
+\raisebox{-6pc}{% [tikz figure removed]
+}%
+%EndExpansion
+\text{.}%
+\]
+Here is the same configuration, with the point $v$ marked and with the tails
+of the two paths drawn extra-thick:%
+\[%
+%TCIMACRO{\TeXButton{v and tails}{\raisebox{-6pc}{
+%% [tikz figure removed]
+%}}}%
+%BeginExpansion
+\raisebox{-6pc}{
+% [tikz figure removed]
+}%
+%EndExpansion
+\ \ .
+\]
+
+
+We note that if $\left(  p,p^{\prime}\right)  \in\mathcal{X}$ is an ipat from
+$\left(  A,A^{\prime}\right)  $ to $\left(  B,B^{\prime}\right)  $, then
+$f\left(  p,p^{\prime}\right)  =\left(  q,q^{\prime}\right)  $ is an ipat from
+$\left(  A,A^{\prime}\right)  $ to $\left(  B^{\prime},B\right)  $ (because by
+exchanging the tails of $p$ and $p^{\prime}$, we have caused the two paths to
+exchange their destinations as well), and vice versa. Thus, $f\left(
+p,p^{\prime}\right)  \in\mathcal{X}$ whenever $\left(  p,p^{\prime}\right)
+\in\mathcal{X}$. This shows that the map $f:\mathcal{X}\rightarrow\mathcal{X}$
+is well-defined.
+
+Furthermore, let $\left(  p,p^{\prime}\right)  \in\mathcal{X}$ be any ipat,
+and let $\left(  q,q^{\prime}\right)  =f\left(  p,p^{\prime}\right)  $. Then,
+the vertex $v$ chosen in the definition of $f\left(  p,p^{\prime}\right)  $
+(that is, the first intersection of $\left(  p,p^{\prime}\right)  $) is still
+the first intersection of $\left(  q,q^{\prime}\right)  $ (because when we
+exchange the tails of $p$ and $p^{\prime}$, we do not change their heads, and
+thus the resulting paths $q$ and $q^{\prime}$ still do not intersect until
+$v$), and therefore this vertex gets chosen again if we apply our map $f$ to
+$\left(  q,q^{\prime}\right)  $. As a consequence, $f\left(  q,q^{\prime
+}\right)  $ is again $\left(  p,p^{\prime}\right)  $ (since exchanging the
+tails of $q$ and $q^{\prime}$ simply undoes the changes incurred when we
+exchanged the tails of $p$ and $p^{\prime}$). Thus,
+\[
+\left(  f\circ f\right)  \left(  p,p^{\prime}\right)  =f\left(
+\underbrace{f\left(  p,p^{\prime}\right)  }_{=\left(  q,q^{\prime}\right)
+}\right)  =f\left(  q,q^{\prime}\right)  =\left(  p,p^{\prime}\right)  .
+\]
+
+
+Forget that we fixed $\left(  p,p^{\prime}\right)  $. We thus have shown that
+$\left(  f\circ f\right)  \left(  p,p^{\prime}\right)  =\left(  p,p^{\prime
+}\right)  $ for each $\left(  p,p^{\prime}\right)  \in\mathcal{X}$. Hence,
+$f\circ f=\operatorname*{id}$. In other words, $f$ is an involution on
+$\mathcal{X}$. Moreover, this involution $f$ is sign-reversing (i.e.,
+satisfies $\operatorname*{sign}\left(  f\left(  p,p^{\prime}\right)  \right)
+=-\operatorname*{sign}\left(  p,p^{\prime}\right)  $ for any $\left(
+p,p^{\prime}\right)  \in\mathcal{X}$)\ \ \ \ \footnote{This is because we have
+observed above that if $\left(  p,p^{\prime}\right)  \in\mathcal{X}$ is an
+ipat from $\left(  A,A^{\prime}\right)  $ to $\left(  B,B^{\prime}\right)  $,
+then $f\left(  p,p^{\prime}\right)  =\left(  q,q^{\prime}\right)  $ is an ipat
+from $\left(  A,A^{\prime}\right)  $ to $\left(  B^{\prime},B\right)  $, and
+vice versa.}. As a consequence of the latter fact, we see that $f$ has no
+fixed points (i.e., that we have $f\left(  p,p^{\prime}\right)  \neq\left(
+p,p^{\prime}\right)  $ for any $\left(  p,p^{\prime}\right)  \in\mathcal{X}$).
+Hence, Lemma \ref{lem.sign.cancel2} yields%
+\begin{equation}
+\sum_{\left(  p,p^{\prime}\right)  \in\mathcal{A}}\operatorname*{sign}\left(
+p,p^{\prime}\right)  =\sum_{\left(  p,p^{\prime}\right)  \in\mathcal{A}%
+\setminus\mathcal{X}}\operatorname*{sign}\left(  p,p^{\prime}\right)  .
+\label{pf.prop.lgv.2paths.count.at}%
+\end{equation}
+As we have explained above, the left hand side of this equality is%
+\begin{align*}
+&  \left(  \text{\# of path tuples from }\left(  A,A^{\prime}\right)  \text{
+to }\left(  B,B^{\prime}\right)  \right) \\
+&  \ \ \ \ \ \ \ \ \ \ -\left(  \text{\# of path tuples from }\left(
+A,A^{\prime}\right)  \text{ to }\left(  B^{\prime},B\right)  \right)  ,
+\end{align*}
+whereas its right hand side is%
+\begin{align*}
+&  \left(  \text{\# of nipats from }\left(  A,A^{\prime}\right)  \text{ to
+}\left(  B,B^{\prime}\right)  \right) \\
+&  \ \ \ \ \ \ \ \ \ \ -\left(  \text{\# of nipats from }\left(  A,A^{\prime
+}\right)  \text{ to }\left(  B^{\prime},B\right)  \right)
+\end{align*}
+(since $\mathcal{A}\setminus\mathcal{X}=\left\{  \text{nipats in }%
+\mathcal{A}\right\}  $). Hence, (\ref{pf.prop.lgv.2paths.count.at}) rewrites
+as%
+\begin{align*}
+&  \left(  \text{\# of path tuples from }\left(  A,A^{\prime}\right)  \text{
+to }\left(  B,B^{\prime}\right)  \right) \\
+&  \ \ \ \ \ \ \ \ \ \ -\left(  \text{\# of path tuples from }\left(
+A,A^{\prime}\right)  \text{ to }\left(  B^{\prime},B\right)  \right) \\
+&  =\left(  \text{\# of nipats from }\left(  A,A^{\prime}\right)  \text{ to
+}\left(  B,B^{\prime}\right)  \right) \\
+&  \ \ \ \ \ \ \ \ \ \ -\left(  \text{\# of nipats from }\left(  A,A^{\prime
+}\right)  \text{ to }\left(  B^{\prime},B\right)  \right)  .
+\end{align*}
+In view of (\ref{pf.prop.lgv.2paths.count.1}), this rewrites as%
+\begin{align*}
+&  \det\left(
+\begin{array}
+[c]{cc}%
+\left(  \text{\# of paths from }A\text{ to }B\right)  & \left(  \text{\# of
+paths from }A\text{ to }B^{\prime}\right) \\
+\left(  \text{\# of paths from }A^{\prime}\text{ to }B\right)  & \left(
+\text{\# of paths from }A^{\prime}\text{ to }B^{\prime}\right)
+\end{array}
+\right) \\
+&  =\left(  \text{\# of nipats from }\left(  A,A^{\prime}\right)  \text{ to
+}\left(  B,B^{\prime}\right)  \right) \\
+&  \ \ \ \ \ \ \ \ \ \ -\left(  \text{\# of nipats from }\left(  A,A^{\prime
+}\right)  \text{ to }\left(  B^{\prime},B\right)  \right)  .
+\end{align*}
+This completes our proof of Proposition \ref{prop.lgv.2paths.count}.
+\end{proof}
+
+As in Example \ref{exa.lgv.2paths.2}, the proposition becomes particularly
+nice when we have $\left(  \text{\# of nipats from }\left(  A,A^{\prime
+}\right)  \text{ to }\left(  B^{\prime},B\right)  \right)  =0$. Here is a
+sufficient criterion for when this happens:
+
+\begin{proposition}
+[baby Jordan curve theorem]\label{prop.lgv.jordan-2}Let $A$, $B$, $A^{\prime}$
+and $B^{\prime}$ be four lattice points satisfying%
+\begin{align}
+\operatorname*{x}\left(  A^{\prime}\right)   &  \leq\operatorname*{x}\left(
+A\right)  ,\ \ \ \ \ \ \ \ \ \ \operatorname*{y}\left(  A^{\prime}\right)
+\geq\operatorname*{y}\left(  A\right)  ,\label{eq.prop.lgv.jordan-2.1}\\
+\operatorname*{x}\left(  B^{\prime}\right)   &  \leq\operatorname*{x}\left(
+B\right)  ,\ \ \ \ \ \ \ \ \ \ \operatorname*{y}\left(  B^{\prime}\right)
+\geq\operatorname*{y}\left(  B\right)  . \label{eq.prop.lgv.jordan-2.2}%
+\end{align}
+Here, $\operatorname*{x}\left(  P\right)  $ and $\operatorname*{y}\left(
+P\right)  $ denote the two coordinates of any point $P\in\mathbb{Z}^{2}$.
+
+Let $p$ be any path from $A$ to $B^{\prime}$. Let $p^{\prime}$ be any path
+from $A^{\prime}$ to $B$. Then, $p$ and $p^{\prime}$ have a vertex in common.
+\end{proposition}
+
+Note that the condition (\ref{eq.prop.lgv.jordan-2.1}) can be restated as
+\textquotedblleft the point $A^{\prime}$ lies weakly northwest of
+$A$\textquotedblright, where \textquotedblleft weakly northwest of
+$A$\textquotedblright\ allows for the options \textquotedblleft due north of
+$A$\textquotedblright, \textquotedblleft due west of $A$\textquotedblright%
+\ and \textquotedblleft at $A$\textquotedblright. Likewise,
+(\ref{eq.prop.lgv.jordan-2.2}) can be restated as \textquotedblleft the point
+$B^{\prime}$ lies weakly northwest of $B$\textquotedblright. The following
+picture illustrates the situation of Proposition \ref{prop.lgv.jordan-2}:%
+\[%
+%TCIMACRO{\TeXButton{mse fig 1}{% [tikz figure removed]}}%
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\]
+
+
+Proposition \ref{prop.lgv.jordan-2} has an intuitive plausibility to it (one
+can think of the path $p$ as creating a \textquotedblleft
+river\textquotedblright\ that the path $p^{\prime}$ must necessarily cross
+somewhere), but it is not obvious from a mathematical perspective. We give a
+rigorous proof in Section \ref{sec.details.det.comb}.
+
+Proposition \ref{prop.lgv.2paths.count} is just the $k=2$ case of a more
+general theorem that we will soon derive; however, it already has a nice application:
+
+\begin{corollary}
+\label{cor.lgv.binom-unimod}Let $n,k\in\mathbb{N}$. Then, $\dbinom{n}{k}%
+^{2}\geq\dbinom{n}{k-1}\cdot\dbinom{n}{k+1}$.
+\end{corollary}
+
+\begin{proof}
+[Proof of Corollary \ref{cor.lgv.binom-unimod} (sketched).]This is easy to see
+algebraically, but here is a combinatorial proof: Define four lattice points
+$A=\left(  1,0\right)  $ and $A^{\prime}=\left(  0,1\right)  $ and $B=\left(
+k+1,n-k\right)  $ and $B^{\prime}=\left(  k,n-k+1\right)  $. Then, Proposition
+\ref{prop.lgv.2paths.count} yields%
+\begin{align*}
+&  \det\left(
+\begin{array}
+[c]{cc}%
+\left(  \text{\# of paths from }A\text{ to }B\right)  & \left(  \text{\# of
+paths from }A\text{ to }B^{\prime}\right) \\
+\left(  \text{\# of paths from }A^{\prime}\text{ to }B\right)  & \left(
+\text{\# of paths from }A^{\prime}\text{ to }B^{\prime}\right)
+\end{array}
+\right) \\
+&  =\left(  \text{\# of nipats from }\left(  A,A^{\prime}\right)  \text{ to
+}\left(  B,B^{\prime}\right)  \right)  -\underbrace{\left(  \text{\# of nipats
+from }\left(  A,A^{\prime}\right)  \text{ to }\left(  B^{\prime},B\right)
+\right)  }_{\substack{=0\\\text{(since Proposition \ref{prop.lgv.jordan-2}
+yields that any path}\\\text{from }A\text{ to }B^{\prime}\text{ and any path
+from }A^{\prime}\text{ to }B\text{ have a}\\\text{vertex in common)}}}\\
+&  =\left(  \text{\# of nipats from }\left(  A,A^{\prime}\right)  \text{ to
+}\left(  B,B^{\prime}\right)  \right)  \geq0.
+\end{align*}
+However, Proposition \ref{prop.lgv.1-paths.ct} yields
+\begin{align*}
+&  \left(
+\begin{array}
+[c]{cc}%
+\left(  \text{\# of paths from }A\text{ to }B\right)  & \left(  \text{\# of
+paths from }A\text{ to }B^{\prime}\right) \\
+\left(  \text{\# of paths from }A^{\prime}\text{ to }B\right)  & \left(
+\text{\# of paths from }A^{\prime}\text{ to }B^{\prime}\right)
+\end{array}
+\right) \\
+&  =\left(
+\begin{array}
+[c]{cc}%
+\dbinom{n}{k} & \dbinom{n}{k-1}\\
+\dbinom{n}{k+1} & \dbinom{n}{k}%
+\end{array}
+\right)  ,
+\end{align*}
+so the determinant on the left hand side is $\dbinom{n}{k}^{2}-\dbinom{n}%
+{k-1}\cdot\dbinom{n}{k+1}$. Thus, we have obtained%
+\[
+\dbinom{n}{k}^{2}-\dbinom{n}{k-1}\cdot\dbinom{n}{k+1}\geq0,
+\]
+and this proves Corollary \ref{cor.lgv.binom-unimod}.
+\end{proof}
+
+Corollary \ref{cor.lgv.binom-unimod} is often stated as \textquotedblleft the
+sequence $\dbinom{n}{0},\dbinom{n}{1},\ldots,\dbinom{n}{n}$ is
+log-concave\textquotedblright. There are many more log-concave sequences in
+combinatorics (see, e.g., \cite{Sagan19}, \cite{Stanle89} and \cite{Brande14}
+for more).
+
+\subsubsection{The LGV lemma for $k$ paths}
+
+The following proposition -- which is one of the weakest forms of the
+\emph{LGV lemma} (short for \emph{Lindstr\"{o}m--Gessel--Viennot lemma}) --
+extends the logic of Proposition \ref{prop.lgv.2paths.count} to nipats between
+$k$-vertices for general $k$).
+
+\begin{proposition}
+[LGV lemma, lattice counting version]\label{prop.lgv.kpaths.count}Let
+$k\in\mathbb{N}$. Let $\mathbf{A}=\left(  A_{1},A_{2},\ldots,A_{k}\right)  $
+and $\mathbf{B}=\left(  B_{1},B_{2},\ldots,B_{k}\right)  $ be two
+$k$-vertices. Then,%
+\begin{align*}
+&  \det\left(  \left(  \text{\# of paths from }A_{i}\text{ to }B_{j}\right)
+_{1\leq i\leq k,\ 1\leq j\leq k}\right) \\
+&  =\sum_{\sigma\in S_{k}}\left(  -1\right)  ^{\sigma}\left(  \text{\# of
+nipats from }\mathbf{A}\text{ to }\sigma\left(  \mathbf{B}\right)  \right)  .
+\end{align*}
+
+\end{proposition}
+
+The right hand side of this equality can be viewed as a signed count of all
+$k$-tuples of paths that start at the points $A_{1},A_{2},\ldots,A_{k}$ in
+\textbf{this} order, but end at the points $B_{1},B_{2},\ldots,B_{k}$ in
+\textbf{some} order. For example, for $k=3$, the claim of Proposition
+\ref{prop.lgv.kpaths.count} takes the form%
+\begin{align*}
+&  \det\left(  \left(  \text{\# of paths from }A_{i}\text{ to }B_{j}\right)
+_{1\leq i\leq3,\ 1\leq j\leq3}\right) \\
+&  =\left(  \text{\# of nipats from }\left(  A_{1},A_{2},A_{3}\right)  \text{
+to }\left(  B_{1},B_{2},B_{3}\right)  \right) \\
+&  \ \ \ \ \ \ \ \ \ \ -\left(  \text{\# of nipats from }\left(  A_{1}%
+,A_{2},A_{3}\right)  \text{ to }\left(  B_{1},B_{3},B_{2}\right)  \right) \\
+&  \ \ \ \ \ \ \ \ \ \ -\left(  \text{\# of nipats from }\left(  A_{1}%
+,A_{2},A_{3}\right)  \text{ to }\left(  B_{2},B_{1},B_{3}\right)  \right) \\
+&  \ \ \ \ \ \ \ \ \ \ +\left(  \text{\# of nipats from }\left(  A_{1}%
+,A_{2},A_{3}\right)  \text{ to }\left(  B_{2},B_{3},B_{1}\right)  \right) \\
+&  \ \ \ \ \ \ \ \ \ \ +\left(  \text{\# of nipats from }\left(  A_{1}%
+,A_{2},A_{3}\right)  \text{ to }\left(  B_{3},B_{1},B_{2}\right)  \right) \\
+&  \ \ \ \ \ \ \ \ \ \ -\left(  \text{\# of nipats from }\left(  A_{1}%
+,A_{2},A_{3}\right)  \text{ to }\left(  B_{3},B_{2},B_{1}\right)  \right)  .
+\end{align*}
+
+
+\begin{proof}
+[Proof of Proposition \ref{prop.lgv.kpaths.count} (sketched).]We adapt the
+idea of our proof of Proposition \ref{prop.lgv.2paths.count}, but we have to
+be more systematic now. Define a set%
+\[
+\mathcal{A}:=\left\{  \left(  \sigma,\mathbf{p}\right)  \ \mid\ \sigma\in
+S_{k}\text{, and}\ \mathbf{p}\text{ is a path tuple from }\mathbf{A}\text{ to
+}\sigma\left(  \mathbf{B}\right)  \right\}
+\]
+\footnote{This set $\mathcal{A}$ is meant to generalize the set $\mathcal{A}$
+that was used in the proof of Proposition \ref{prop.lgv.2paths.count}. The
+reason why we are defining it to be
+\begin{align*}
+&  \left\{  \left(  \sigma,\mathbf{p}\right)  \ \mid\ \sigma\in S_{k}\text{,
+and}\ \mathbf{p}\text{ is a path tuple from }\mathbf{A}\text{ to }%
+\sigma\left(  \mathbf{B}\right)  \right\} \\
+&  \text{instead of }\left\{  \mathbf{p}\ \mid\ \mathbf{p}\text{ is a path
+tuple from }\mathbf{A}\text{ to }\sigma\left(  \mathbf{B}\right)  \text{ for
+some }\sigma\in S_{k}\right\}
+\end{align*}
+is to make sure that each path tuple in $\mathcal{A}$ \textquotedblleft
+remembers\textquotedblright\ which permutation $\sigma\in S_{k}$ it comes
+from. (This is the same rationale that caused us to take the disjoint union in
+the proof of Proposition \ref{prop.lgv.2paths.count}; but now we are
+explicitly inserting the $\sigma$ into the elements of $\mathcal{A}$ rather
+than handwaving about disjoint unions.)}. Define a subset $\mathcal{X}$ of
+$\mathcal{A}$ by\footnote{Here we are saying that a pair $\left(
+\sigma,\mathbf{p}\right)  \in\mathcal{A}$ is an \emph{ipat} if the path tuple
+$\mathbf{p}$ is an ipat, and we are saying that a pair $\left(  \sigma
+,\mathbf{p}\right)  \in\mathcal{A}$ is a \emph{nipat} if the path tuple
+$\mathbf{p}$ is a nipat. This is a bit sloppy ($\sigma$ has nothing to do with
+whether $\mathbf{p}$ is an ipat or a nipat), but we hope that no confusion
+will ensue.}%
+\[
+\mathcal{X}:=\left\{  \text{ipats in }\mathcal{A}\right\}  =\left\{  \left(
+\sigma,\mathbf{p}\right)  \in\mathcal{A}\ \mid\ \mathbf{p}\text{ is
+intersecting}\right\}  .
+\]
+Set%
+\[
+\operatorname*{sign}\left(  \sigma,\mathbf{p}\right)  :=\left(  -1\right)
+^{\sigma}\ \ \ \ \ \ \ \ \ \ \text{for each }\left(  \sigma,\mathbf{p}\right)
+\in\mathcal{A}.
+\]
+
+
+Again, we need to find a sign-reversing involution $f:\mathcal{X}%
+\rightarrow\mathcal{X}$ that has no fixed points.
+
+Again, we construct this involution by exchanging the tails of two
+intersecting paths\footnote{This is probably obvious, but just in case: We say
+that two paths \emph{intersect} if they have a vertex in common.} in our path
+tuple. There is a complication now, due to the fact that there might be
+several pairs of intersecting paths. We have to come up with a rule for
+picking one such pair so that when we apply $f$ again to the result of the
+exchange, then we again pick the same pair. Otherwise, $f$ won't be an involution!
+
+There are different ways to do this. Here is one: If $\left(  \sigma,\left(
+p_{1},p_{2},\ldots,p_{k}\right)  \right)  \in\mathcal{X}$, then we construct
+$f\left(  \sigma,\left(  p_{1},p_{2},\ldots,p_{k}\right)  \right)
+\in\mathcal{X}$ as follows:
+
+\begin{itemize}
+\item We say that a point $u$ is \emph{crowded} if it is contained in at least
+two of our paths $p_{1},p_{2},\ldots,p_{k}$. Since $\left(  p_{1},p_{2}%
+,\ldots,p_{k}\right)  $ is intersecting, there exists at least one crowded point.
+
+\item We pick the smallest $i\in\left[  k\right]  $ such that $p_{i}$ contains
+a crowded point.
+
+\item Then, we pick the first crowded point $v$ on $p_{i}$.
+
+\item Then, we pick the largest $j\in\left[  k\right]  $ such that $v$ belongs
+to $p_{j}$. (Note that $j>i$, since $v$ is crowded.)
+
+\item Call the part of $p_{i}$ that comes after $v$ the \emph{tail} of $p_{i}%
+$. Call the part of $p_{i}$ that comes before $v$ the \emph{head}\textbf{ }of
+$p_{i}$.
+
+Call the part of $p_{j}$ that comes after $v$ the \emph{tail} of $p_{j}$. Call
+the part of $p_{j}$ that comes before $v$ the \emph{head}\textbf{ }of $p_{j}$.
+
+\item Then, we exchange the tails of the paths $p_{i}$ and $p_{j}$ (while
+leaving all other paths unchanged).
+
+\item We let $\left(  q_{1},q_{2},\ldots,q_{k}\right)  $ be the resulting path
+tuple\footnote{Thus,%
+\[
+q_{i}=\left(  \text{head of }p_{i}\right)  \cup\left(  \text{tail of }%
+p_{j}\right)  \ \ \ \ \ \ \ \ \ \ \text{and}\ \ \ \ \ \ \ \ \ \ q_{j}=\left(
+\text{head of }p_{j}\right)  \cup\left(  \text{tail of }p_{i}\right)
+\]
+(where \textquotedblleft head\textquotedblright\ means \textquotedblleft part
+until $v$\textquotedblright, and \textquotedblleft tail\textquotedblright%
+\ means \textquotedblleft part after $v$\textquotedblright). Furthermore, we
+have $q_{m}=p_{m}$ for any $m\in\left[  k\right]  \setminus\left\{
+i,j\right\}  $, since we have left all paths other than $p_{i}$ and $p_{j}$
+unchanged.}.
+
+\item We set $\sigma^{\prime}:=\sigma t_{i,j}$, where $t_{i,j}$ is the
+transposition in $S_{k}$ that swaps $i$ with $j$. Thus, $\left(  q_{1}%
+,q_{2},\ldots,q_{k}\right)  $ is a path tuple from $\mathbf{A}$ to
+$\sigma^{\prime}\left(  \mathbf{B}\right)  $ (because exchanging the tails of
+the paths $p_{i}$ and $p_{j}$ has switched their ending points $B_{\sigma
+\left(  i\right)  }$ and $B_{\sigma\left(  j\right)  }$ to $B_{\sigma\left(
+j\right)  }=B_{\sigma^{\prime}\left(  i\right)  }$ and $B_{\sigma\left(
+i\right)  }=B_{\sigma^{\prime}\left(  j\right)  }$, respectively).
+
+\item Finally, we set%
+\[
+f\left(  \sigma,\left(  p_{1},p_{2},\ldots,p_{k}\right)  \right)  :=\left(
+\sigma^{\prime},\left(  q_{1},q_{2},\ldots,q_{k}\right)  \right)  .
+\]
+
+\end{itemize}
+
+This defines a map $f:\mathcal{X}\rightarrow\mathcal{X}$ (again, it is not
+hard to see that it is well-defined). Here is an example: If $k=5$ and if
+$\left(  p_{1},p_{2},\ldots,p_{k}\right)  $ is%
+\[%
+%TCIMACRO{\TeXButton{five paths}{% [tikz figure removed]}}%
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\]
+(where $B_{m}^{\prime}$ is shorthand for $B_{\sigma\left(  m\right)  }$), then
+$v$ is the point where paths $p_{2}$ and $p_{4}$ intersect, and we have $i=2$
+and $j=4$, and therefore $\left(  q_{1},q_{2},\ldots,q_{k}\right)  $ is%
+\[%
+%TCIMACRO{\TeXButton{five paths}{% [tikz figure removed]}}%
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\]
+(where we again have drawn the exchanged tails extra-thick).
+
+Convince yourself that the map $f$ defined above really is a sign-reversing
+involution from $\mathcal{X}$ to $\mathcal{X}$. (This means showing that
+applying $f$ twice in succession to any given $\left(  \sigma,\mathbf{p}%
+\right)  \in\mathcal{X}$ returns $\left(  \sigma,\mathbf{p}\right)  $, and
+that $\operatorname*{sign}\left(  f\left(  \sigma,\mathbf{p}\right)  \right)
+=-\operatorname*{sign}\left(  \sigma,\mathbf{p}\right)  $ for any $\left(
+\sigma,\mathbf{p}\right)  \in\mathcal{X}$. The proof of the second claim, of
+course, relies on parts \textbf{(b)} and \textbf{(d)} of Proposition
+\ref{prop.perm.sign.props}.)
+
+Thus, we have defined a sign-reversing involution $f:\mathcal{X}%
+\rightarrow\mathcal{X}$. This involution $f$ has no fixed points (since it is
+sign-reversing). It is now easy to complete the proof: Lemma
+\ref{lem.sign.cancel2} yields%
+\[
+\sum_{\left(  \sigma,\mathbf{p}\right)  \in\mathcal{A}}\operatorname*{sign}%
+\left(  \sigma,\mathbf{p}\right)  =\sum_{\left(  \sigma,\mathbf{p}\right)
+\in\mathcal{A}\setminus\mathcal{X}}\operatorname*{sign}\left(  \sigma
+,\mathbf{p}\right)  .
+\]
+In view of our definition of $\operatorname*{sign}\left(  \sigma
+,\mathbf{p}\right)  $, this rewrites as%
+\begin{equation}
+\sum_{\left(  \sigma,\mathbf{p}\right)  \in\mathcal{A}}\left(  -1\right)
+^{\sigma}=\sum_{\left(  \sigma,\mathbf{p}\right)  \in\mathcal{A}%
+\setminus\mathcal{X}}\left(  -1\right)  ^{\sigma}.
+\label{pf.prop.lgv.kpaths.count.at}%
+\end{equation}
+The left hand side of this equality is%
+\begin{align*}
+\sum_{\left(  \sigma,\mathbf{p}\right)  \in\mathcal{A}}\left(  -1\right)
+^{\sigma}  &  =\sum_{\sigma\in S_{k}}\left(  -1\right)  ^{\sigma
+}\underbrace{\left(  \text{\# of path tuples from }\mathbf{A}\text{ to }%
+\sigma\left(  \mathbf{B}\right)  \right)  }_{\substack{=\prod_{i=1}^{k}\left(
+\text{\# of paths from }A_{i}\text{ to }B_{\sigma\left(  i\right)  }\right)
+\\\text{(by the product rule, since a path tuple from }\mathbf{A}\text{ to
+}\sigma\left(  \mathbf{B}\right)  \text{ is just}\\\text{a tuple }\left(
+p_{1},p_{2},\ldots,p_{k}\right)  \text{, where each }p_{i}\text{ is a path
+from }A_{i}\text{ to }B_{\sigma\left(  i\right)  }\text{)}}}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{by the definition of
+}\mathcal{A}\right) \\
+&  =\sum_{\sigma\in S_{k}}\left(  -1\right)  ^{\sigma}\prod_{i=1}^{k}\left(
+\text{\# of paths from }A_{i}\text{ to }B_{\sigma\left(  i\right)  }\right) \\
+&  =\det\left(  \left(  \text{\# of paths from }A_{i}\text{ to }B_{j}\right)
+_{1\leq i\leq k,\ 1\leq j\leq k}\right)
+\end{align*}
+(by the definition of the determinant), whereas the right hand side is%
+\begin{align*}
+\sum_{\left(  \sigma,\mathbf{p}\right)  \in\mathcal{A}\setminus\mathcal{X}%
+}\left(  -1\right)  ^{\sigma}  &  =\sum_{\left(  \sigma,\mathbf{p}\right)
+\in\mathcal{A}\text{ is a nipat}}\left(  -1\right)  ^{\sigma}%
+\ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{since }\mathcal{X}=\left\{  \text{ipats in }\mathcal{A}\right\} \\
+\text{entails }\mathcal{A}\setminus\mathcal{X}=\left\{  \text{nipats in
+}\mathcal{A}\right\}
+\end{array}
+\right) \\
+&  =\sum_{\sigma\in S_{k}}\left(  -1\right)  ^{\sigma}\left(  \text{\# of
+nipats from }\mathbf{A}\text{ to }\sigma\left(  \mathbf{B}\right)  \right)
+\end{align*}
+(by the definition of $\mathcal{A}$). Thus, (\ref{pf.prop.lgv.kpaths.count.at}%
+) rewrites as
+\begin{align*}
+&  \det\left(  \left(  \text{\# of paths from }A_{i}\text{ to }B_{j}\right)
+_{1\leq i\leq k,\ 1\leq j\leq k}\right) \\
+&  =\sum_{\sigma\in S_{k}}\left(  -1\right)  ^{\sigma}\left(  \text{\# of
+nipats from }\mathbf{A}\text{ to }\sigma\left(  \mathbf{B}\right)  \right)  .
+\end{align*}
+This proves Proposition \ref{prop.lgv.kpaths.count}.
+\end{proof}
+

@@ -1,0 +1,506 @@
+\section{$q$-Binomial Coefficients}
+
+\begin{convention}
+\label{conv.pars.qbinom.q}
+In this section, we will mostly be using FPSs in the
+indeterminate $q$. That is, we call the indeterminate $q$ rather than $x$.
+The ring of FPSs in the indeterminate $q$ over a commutative ring $K$ will be
+denoted by $K[[q]]$. The ring of polynomials in
+the indeterminate $q$ over $K$ will be denoted by $K[q]$.
+\end{convention}
+
+\subsection{Motivation}
+
+\begin{proposition}
+\label{prop.pars.qbinom.intro-count-binom}
+\lean{AlgebraicCombinatorics.card_partitions_with_parts_and_largest}
+\leantarget
+\leanok
+For any positive integers $k$ and $\ell$, we have
+\[
+\left(\text{\# of partitions with }k\text{ parts and largest part }\ell\right)
+= \dbinom{k+\ell-2}{k-1}.
+\]
+\end{proposition}
+
+\begin{proof}
+Consider the Young diagram of a partition with $k$ parts and largest part $\ell$.
+Its lower boundary is a lattice path from $(0,0)$ to $(\ell,k)$
+consisting of east-steps and north-steps. This path begins with an
+east-step (since otherwise, the partition would have fewer than $k$ parts) and
+ends with a north-step (since otherwise, the largest part would be $<\ell$).
+There are precisely $k+\ell$ steps total, and the first and last are
+predetermined, so it remains to choose which $k-1$ of the remaining $k+\ell-2$
+steps are north-steps. The number of such choices is $\dbinom{k+\ell-2}{k-1}$.
+\end{proof}
+
+\subsection{Definition}
+
+\begin{definition}
+\label{def.pars.qbinom.qbinom}
+\lean{AlgebraicCombinatorics.qBinomial}
+\leantarget
+\leanok
+Let $n\in\mathbb{N}$ and $k\in\mathbb{Z}$.
+
+\textbf{(a)} The $q$-binomial coefficient (or Gaussian binomial
+coefficient) $\dbinom{n}{k}_{q}$ is defined to be the polynomial
+\[
+\sum_{\substack{\lambda\text{ is a partition}\\\text{with largest part }\leq
+n-k\\\text{and length }\leq k}}q^{|\lambda|}\in\mathbb{Z}[q].
+\]
+
+\textbf{(b)} If $a$ is any element of a ring $A$, then we set
+\[
+\dbinom{n}{k}_{a} := \dbinom{n}{k}_{q}[a]
+= \sum_{\substack{\lambda\text{ is a partition}\\\text{with largest part
+}\leq n-k\\\text{and length }\leq k}}a^{|\lambda|}\in A.
+\]
+\end{definition}
+
+\subsection{Basic properties}
+
+\begin{lemma}
+\label{lem.pars.qbinom.monotone-partition-bij}
+\lean{AlgebraicCombinatorics.card_monotoneFunctions_sum_eq}
+\leanhelper
+\leanok
+For each $s \le k \cdot m$, the number of weakly increasing tuples
+$(f_0, f_1, \ldots, f_{k-1}) \in \{0,1,\ldots,m\}^k$ with value sum $s$
+equals the number of partitions of $s$ fitting in a $k \times m$ box.
+\end{lemma}
+
+\begin{proof}
+The forward map sends $f$ to the partition whose parts are the nonzero values
+of $f$; the inverse pads the partition's parts with zeros to length $k$
+and sorts. This is a sum-preserving bijection.
+\end{proof}
+
+\begin{lemma}
+\label{lem.pars.qbinom.partition-gf}
+\lean{AlgebraicCombinatorics.qBinomial_eq_partition_gf}
+\leanhelper
+\leanok
+Let $n, k \in \mathbb{N}$ with $k \le n$. Then
+\[
+\dbinom{n}{k}_{q}
+= \sum_{m=0}^{k(n-k)}
+  \bigl|\{\text{partitions of } m \text{ fitting in a } k \times (n{-}k) \text{ box}\}\bigr|
+  \cdot q^{m}.
+\]
+\end{lemma}
+
+\begin{proof}
+This is a restatement of the definition, grouping the sum by partition size $m = |\lambda|$,
+and applying Lemma~\ref{lem.pars.qbinom.monotone-partition-bij} to count the monotone
+functions with each given value sum.
+\end{proof}
+
+\begin{lemma}
+\label{lem.pars.qbinom.monotone-count-choose}
+\lean{AlgebraicCombinatorics.card_monotoneFunctions_eq_choose}
+\leanhelper
+\leanok
+The number of weakly increasing $k$-tuples from $\{0, 1, \ldots, \ell\}$
+equals $\binom{k+\ell}{k}$, the number of multisets of size $k$
+from $\ell + 1$ elements.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The set of weakly increasing tuples is in bijection with the set of
+multisets of size $k$ from $\ell + 1$ elements,
+whose cardinality is $\binom{k+\ell}{k}$ by the stars-and-bars formula.
+\end{proof}
+
+\begin{proposition}
+\label{prop.pars.qbinom.alt-defs}
+\lean{AlgebraicCombinatorics.qBinomial_eq_sum_increasing_tuples, AlgebraicCombinatorics.qBinomial_eq_sum_subsets, AlgebraicCombinatorics.qBinomial_one_eq_binomial}
+\leantarget
+\leanok
+Let $n\in\mathbb{N}$ and $k\in\mathbb{Z}$.
+
+\textbf{(a)} We have
+\[
+\dbinom{n}{k}_{q}=\sum_{0\leq i_{1}\leq i_{2}\leq\cdots\leq i_{k}\leq
+n-k}q^{i_{1}+i_{2}+\cdots+i_{k}}.
+\]
+Here, the sum ranges over all weakly increasing $k$-tuples $(i_{1},i_{2},\ldots,i_{k})
+\in\{0,1,\ldots,n-k\}^{k}$. If $k>n$, then this is an empty sum.
+If $k<0$, then this is also an empty sum.
+
+\textbf{(b)} Set $\operatorname{sum}S=\sum_{s\in S}s$ for any finite set $S$
+of integers. Then, we have
+\[
+\dbinom{n}{k}_{q}=\sum_{\substack{S\subseteq\{1,2,\ldots,n\}
+;\\\left|S\right|=k}}q^{\operatorname{sum}S-(1+2+\cdots+k)}.
+\]
+
+\textbf{(c)} We have
+\[
+\dbinom{n}{k}_{1}=\dbinom{n}{k}.
+\]
+\end{proposition}
+
+\begin{proof}
+\textbf{(a)} The definition of $\dbinom{n}{k}_{q}$ yields
+\[
+\dbinom{n}{k}_{q}
+=\sum_{\substack{\lambda\text{ is a partition}\\\text{with largest part }\leq
+n-k\\\text{and length }\leq k}}q^{|\lambda|}
+=\sum_{\ell=0}^{k}\;\sum_{\substack{\lambda\text{ is a partition}
+\\\text{with largest part }\leq n-k\\\text{and length }\ell}}q^{|\lambda|}.
+\]
+For each fixed $\ell\in\{0,1,\ldots,k\}$, the partitions $\lambda$ with
+largest part $\leq n-k$ and length $\ell$ correspond bijectively to
+$k$-tuples $(\lambda_{1},\lambda_{2},\ldots,\lambda_{k})\in\mathbb{N}^{k}$
+satisfying $n-k\geq\lambda_{1}\geq\lambda_{2}\geq\cdots\geq\lambda_{k}\geq0$
+and having exactly $\ell$ positive entries (by padding with zeros).
+Summing over all $\ell$ and then reversing the $k$-tuple (substituting
+$(i_{k},i_{k-1},\ldots,i_{1})$ for $(\lambda_{1},\ldots,\lambda_{k})$)
+gives part \textbf{(a)}.
+
+\textbf{(b)} There is a bijection from weakly increasing $k$-tuples
+$(i_{1},\ldots,i_{k})\in\{0,1,\ldots,n-k\}^{k}$ to strictly increasing
+$k$-tuples $(s_{1},\ldots,s_{k})\in\{1,2,\ldots,n\}^{k}$, given by
+$(i_{1},\ldots,i_{k})\mapsto(i_{1}+1,\,i_{2}+2,\,\ldots,\,i_{k}+k)$.
+Moreover, strictly increasing $k$-tuples from $\{1,\ldots,n\}$ correspond
+bijectively to $k$-element subsets $S\subseteq\{1,\ldots,n\}$.
+Combining with \textbf{(a)} gives \textbf{(b)}.
+
+\textbf{(c)} Substituting $1$ for $q$ in \textbf{(b)} gives
+$\dbinom{n}{k}_{1} = |\{S\subseteq\{1,\ldots,n\}:\,|S|=k\}| = \dbinom{n}{k}$.
+\end{proof}
+
+\begin{proposition}
+\label{prop.pars.qbinom.0}
+\lean{AlgebraicCombinatorics.qBinomial_zero_of_lt}
+\leantarget
+\leanok
+Let $n,k\in\mathbb{N}$ satisfy $k>n$. Then,
+$\dbinom{n}{k}_{q}=0$.
+\end{proposition}
+
+\begin{proof}
+\leanok
+From $k>n$, we obtain $n-k<0$. The sum in the definition is empty,
+since there exists no partition with largest part $\leq n-k < 0$.
+Thus $\dbinom{n}{k}_{q} = 0$.
+\end{proof}
+
+\begin{proposition}
+\label{prop.pars.qbinom.n0}
+\lean{AlgebraicCombinatorics.qBinomial_n_zero, AlgebraicCombinatorics.qBinomial_n_n}
+\leantarget
+\leanok
+We have $\dbinom{n}{0}_{q}=\dbinom{n}{n}_{q}=1$ for
+each $n\in\mathbb{N}$.
+\end{proposition}
+
+\begin{proof}
+\leanok
+For $\dbinom{n}{0}_q$: the only weakly increasing $0$-tuple
+is the empty one, whose value sum is $0$, giving $q^0 = 1$.
+
+For $\dbinom{n}{n}_q$: when $k = n$, we have $n - k = 0$, so the values
+must lie in $\{0\}$, and the only weakly increasing tuple sends
+everything to $0$; the value sum is $0$, giving $q^0 = 1$.
+\end{proof}
+
+\begin{convention}
+\label{conv.pars.qbinom.neg-k}
+Let $n\in\mathbb{N}$. For any $k\notin\mathbb{Z}$, we set $\dbinom{n}{k}_{q}:=0$.
+\end{convention}
+
+\subsection{Recurrence relations}
+
+\begin{theorem}
+\label{thm.pars.qbinom.rec}
+\lean{AlgebraicCombinatorics.qBinomial_rec_left, AlgebraicCombinatorics.qBinomial_rec_right}
+\leantarget
+\leanok
+Let $n$ be a positive integer. Let $k\in\mathbb{N}$.
+Then:
+
+\textbf{(a)} We have
+\[
+\dbinom{n}{k}_{q}=q^{n-k}\dbinom{n-1}{k-1}_{q}+\dbinom{n-1}{k}_{q}.
+\]
+
+\textbf{(b)} We have
+\[
+\dbinom{n}{k}_{q}=\dbinom{n-1}{k-1}_{q}+q^{k}\dbinom{n-1}{k}_{q}.
+\]
+\end{theorem}
+
+\begin{proof}
+\textbf{(a)} If $k=0$, the claim reduces to $1 = q^{n-k}\cdot 0 + 1$, which
+holds by Proposition~\ref{prop.pars.qbinom.n0} and Convention~\ref{conv.pars.qbinom.neg-k}.
+So assume $k > 0$.
+
+Using Proposition~\ref{prop.pars.qbinom.alt-defs} \textbf{(b)}, we write
+$\dbinom{n}{k}_q$ as a sum over $k$-element subsets $S \subseteq \{1,\ldots,n\}$.
+We split these subsets into type-1 (containing $n$) and type-2 (not containing $n$).
+
+The type-2 subsets are exactly the $k$-element subsets of $\{1,\ldots,n-1\}$,
+contributing $\dbinom{n-1}{k}_q$.
+
+The type-1 subsets biject to $(k{-}1)$-element subsets of $\{1,\ldots,n-1\}$
+via $S \mapsto S \setminus \{n\}$. Since $\operatorname{sum}(S\cup\{n\}) =
+\operatorname{sum}S + n$, the exponent shifts by $n - k$, giving
+$q^{n-k}\dbinom{n-1}{k-1}_q$.
+
+\textbf{(b)} This is proved similarly, or by combining part \textbf{(a)} with
+symmetry (applied locally before the main symmetry theorem is established).
+\end{proof}
+
+\subsection{Product and quotient formulas}
+
+\begin{lemma}
+\label{lem.pars.qbinom.qint-ne-zero}
+\lean{AlgebraicCombinatorics.qInt_ne_zero}
+\leanhelper
+\leanok
+Over a field, if $q^n \neq 1$ then $[n]_q \neq 0$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By Lemma~\ref{lem.pars.qbinom.qint-geom}, $(1-q)[n]_q = 1 - q^n$.
+If $[n]_q = 0$, then $1 - q^n = 0$, contradicting $q^n \neq 1$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.pars.qbinom.qfactorial-ne-zero}
+\lean{AlgebraicCombinatorics.qFactorial_ne_zero}
+\leanhelper
+\leanok
+Over a field, if $q^{i} \neq 1$ for all $i = 1, \ldots, n$, then $[n]_q! \neq 0$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Since $[n]_q! = \prod_{i=1}^{n} [i]_q$ and each factor is nonzero by
+Lemma~\ref{lem.pars.qbinom.qint-ne-zero}, the product is nonzero.
+\end{proof}
+
+\begin{theorem}
+\label{thm.pars.qbinom.quot1}
+\lean{AlgebraicCombinatorics.qBinomial_quot_formula, AlgebraicCombinatorics.qBinomial_eq_prod_quot}
+\leantarget
+\leanok
+Let $n,k\in\mathbb{N}$ satisfy $n\geq k$. Then:
+
+\textbf{(a)} We have
+\[
+(1-q^{k})(1-q^{k-1})\cdots(1-q^{1})\cdot\dbinom{n}{k}_{q}
+=(1-q^{n})(1-q^{n-1})\cdots(1-q^{n-k+1}).
+\]
+
+\textbf{(b)} We have
+\[
+\dbinom{n}{k}_{q}=\dfrac{(1-q^{n})(1-q^{n-1})
+\cdots(1-q^{n-k+1})}{(1-q^{k})(1-q^{k-1})\cdots(1-q^{1})}
+\]
+(in the ring $\mathbb{Z}[[q]]$ or in the field
+of rational functions over $\mathbb{Q}$).
+\end{theorem}
+
+\begin{proof}
+\textbf{(a)} By induction on $n$ (strong induction). For $k = 0$ both sides
+equal $1$. For $k > 0$, we use the recurrence from
+Theorem~\ref{thm.pars.qbinom.rec} \textbf{(a)} to split $\dbinom{n}{k}_q$,
+multiply both sides by the product $(1-q^k)\cdots(1-q)$, apply the inductive
+hypothesis to the two resulting terms (at $n-1$), and combine using the
+identity $(1-q^{k+1})q^{n-k-1} + (1-q^{n-k-1}) = 1-q^n$ (after appropriate
+index shifts).
+
+\textbf{(b)} Divide both sides of \textbf{(a)} by
+$(1-q^k)(1-q^{k-1})\cdots(1-q)$, which is nonzero when $q$ is not a root
+of unity of order $\leq k$.
+\end{proof}
+
+\subsection{$q$-integers and $q$-factorials}
+
+\begin{definition}
+\label{def.pars.qbinom.qint}
+\lean{AlgebraicCombinatorics.qInt, AlgebraicCombinatorics.qFactorial}
+\leantarget
+\leanok
+\textbf{(a)} For any $n\in\mathbb{N}$, define the
+$q$-integer $[n]_{q}$ to be
+\[
+[n]_{q}:=q^{0}+q^{1}+\cdots+q^{n-1}\in\mathbb{Z}[q].
+\]
+
+\textbf{(b)} For any $n\in\mathbb{N}$, define the $q$-factorial
+$[n]_{q}!$ to be
+\[
+[n]_{q}!\ :=[1]_{q}[2]_{q}\cdots[n]_{q}\in\mathbb{Z}[q].
+\]
+
+\textbf{(c)} As usual, if $a$ is an element of a ring $A$, then $[n]_{a}$
+and $[n]_{a}!$ will mean the results of substituting $a$ for $q$ in
+$[n]_{q}$ and $[n]_{q}!$, respectively. Thus, explicitly,
+$[n]_{a}=a^{0}+a^{1}+\cdots+a^{n-1}$ and
+$[n]_{a}!=[1]_{a}[2]_{a}\cdots[n]_{a}$.
+\end{definition}
+
+\begin{lemma}
+\label{lem.pars.qbinom.qint-geom}
+\lean{AlgebraicCombinatorics.qInt_eq_geom_sum}
+\leanhelper
+\leanok
+For any $n\in\mathbb{N}$, we have
+\[
+(1-q)\cdot [n]_{q} = 1-q^{n}
+\]
+and hence
+$[n]_{q}=\dfrac{1-q^{n}}{1-q}$
+(in $\mathbb{Z}[[q]]$ or in the field
+of rational functions over $\mathbb{Q}$).
+\end{lemma}
+
+\begin{proof}
+Telescoping:
+$(1-q)(q^{0}+q^{1}+\cdots+q^{n-1})
+=(q^{0}+\cdots+q^{n-1})-(q^{1}+\cdots+q^{n})
+=1-q^{n}$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.pars.qbinom.qint-one}
+\lean{AlgebraicCombinatorics.qInt_one_eq, AlgebraicCombinatorics.qFactorial_one_eq}
+\leanhelper
+\leanok
+For any $n\in\mathbb{N}$, we have
+$[n]_{1}=n$ and $[n]_{1}!=n!$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+$[n]_1 = 1^0+1^1+\cdots+1^{n-1} = \underbrace{1+1+\cdots+1}_{n\text{ times}} = n$.
+Then $[n]_1! = [1]_1[2]_1\cdots[n]_1 = 1\cdot 2\cdots n = n!$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.pars.qbinom.qfactorial-split}
+\lean{AlgebraicCombinatorics.qFactorial_split}
+\leanhelper
+\leanok
+For $k \le n$, we have
+\[
+[n]_q! = \bigl([n]_q \cdot [n{-}1]_q \cdots [n{-}k{+}1]_q\bigr) \cdot [n{-}k]_q!\,.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+By induction on $k$. The base case $k=0$ is trivial. For $k+1$, split off
+the last factor $[n-k]_q$ from the falling product and use
+$[n-k]_q! = [n-k-1]_q! \cdot [n-k]_q$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.pars.qbinom.qint-prod-quot}
+\lean{AlgebraicCombinatorics.qBinomial_eq_qInt_prod_quot}
+\leanhelper
+\leanok
+Over a field, when $q$ is not a root of unity of order $\le k$,
+\[
+\dbinom{n}{k}_q = \prod_{i=0}^{k-1} \frac{[n-i]_q}{[i+1]_q}.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+Divide the product formula from Theorem~\ref{thm.pars.qbinom.quot1}~\textbf{(b)}
+by $(1-q)^k$ to replace each factor $(1-q^m)/(1-q)$ with $[m]_q$.
+\end{proof}
+
+\begin{theorem}
+\label{thm.pars.qbinom.quot2}
+\lean{AlgebraicCombinatorics.qBinomial_eq_qFactorial_quot}
+\leantarget
+\leanok
+Let $n,k\in\mathbb{N}$ with $n\geq k$. Then,
+\[
+\dbinom{n}{k}_{q}=\dfrac{[n]_{q}[n-1]_{q}
+\cdots[n-k+1]_{q}}{[k]_{q}!}=\dfrac{[n]_{q}!}{[k]_{q}!\cdot[n-k]_{q}!}
+\]
+(in the ring $\mathbb{Z}[[q]]$ or in the ring of
+rational functions over $\mathbb{Q}$).
+\end{theorem}
+
+\begin{proof}
+The first equality follows from Theorem~\ref{thm.pars.qbinom.quot1}
+\textbf{(b)} by rewriting each factor $(1-q^m)/(1-q)$ as $[m]_q$
+(using Lemma~\ref{lem.pars.qbinom.qint-geom}).
+The second equality follows from the splitting
+$[n]_q! = [n]_q[n{-}1]_q\cdots[n{-}k{+}1]_q \cdot [n{-}k]_q!$
+(Lemma~\ref{lem.pars.qbinom.qfactorial-split}).
+\end{proof}
+
+\subsection{Symmetry}
+
+\subsubsection{Helpers for Proposition~\ref{prop.pars.qbinom.symm}}
+
+\begin{lemma}
+\label{lem.pars.qbinom.transpose-monotone-involutive}
+\lean{AlgebraicCombinatorics.transposeMonotone_involutive}
+\leanhelper
+\leanok
+Let $(f_0, f_1, \ldots, f_{k-1})$ be a weakly increasing tuple in $\{0,1,\ldots,m\}^k$. Define
+the transpose $(g_0, g_1, \ldots, g_{m-1})$ with $g_j = \#\{i : f_i > m{-}1{-}j\}$.
+Then applying the transpose operation
+twice recovers the original tuple.
+\end{lemma}
+
+\begin{proof}
+For each index $i$, the number of $j \in \{0,1,\ldots,m{-}1\}$ with $g_j > k{-}1{-}i$ equals
+the number of $j$ with $j \ge m - f_i$, which equals $f_i$.
+The proof uses the complement counting identity and the characterization of the profile
+of $f$ via the predicate $f_{i'} \le m{-}1{-}j$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.pars.qbinom.transpose-sum-preserved}
+\lean{AlgebraicCombinatorics.sum_transposeMonotone}
+\leanhelper
+\leanok
+The transpose operation preserves the sum of values:
+$\sum_{j} g(j) = \sum_{i} f(i)$.
+\end{lemma}
+
+\begin{proof}
+By swapping the order of summation in the double sum
+$\sum_j \#\{i : f(i) > m{-}1{-}j\}$ and using the identity
+$\#\{j : j \ge m - v\} = v$ for $0 \le v \le m$.
+\end{proof}
+
+\begin{proposition}
+\label{prop.pars.qbinom.symm}
+\lean{AlgebraicCombinatorics.qBinomial_symm}
+\leantarget
+\leanok
+Let $n,k\in\mathbb{N}$. Then,
+\[
+\dbinom{n}{k}_{q}=\dbinom{n}{n-k}_{q}.
+\]
+\end{proposition}
+
+\begin{proof}
+\leanok
+We construct an explicit involution on weakly increasing tuples. Given a weakly increasing
+tuple $(f_0, f_1, \ldots, f_{k-1}) \in \{0,1,\ldots,m\}^k$ (where $m = n-k$),
+define the \emph{transpose} $(g_0, g_1, \ldots, g_{m-1}) \in \{0,1,\ldots,k\}^m$ by
+\[
+g_j = \#\{i : f_i > m - 1 - j\}.
+\]
+This tuple is again weakly increasing. The transpose operation is an involution
+(applying it twice recovers the original tuple) and preserves the sum of values
+($\sum_j g_j = \sum_i f_i$). It therefore gives a sum-preserving
+bijection between weakly increasing $k$-tuples in $\{0,\ldots,n{-}k\}$ and
+weakly increasing $(n{-}k)$-tuples in $\{0,\ldots,k\}$, proving
+$\dbinom{n}{k}_q = \dbinom{n}{n-k}_q$.
+\end{proof}

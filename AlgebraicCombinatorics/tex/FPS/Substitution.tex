@@ -1,0 +1,1129 @@
+\subsection{Substitution and evaluation of power series}
+
+\subsubsection{Defining substitution}
+
+Definition \ref{def.pol.subs} shows that if $f\in K\left[  x\right]  $ is a
+polynomial, then almost anything (to be more precise: any element of a
+$K$-algebra) can be substituted into $f$.
+
+In contrast, if $f\in K\left[  \left[  x\right]  \right]  $ is a FPS, then
+there are far fewer things that can be substituted into $f$. Even elements of
+$K$ itself cannot always be substituted into $f$. For example, if we try to
+substitute $1$ for $x$ in the FPS $1+x+x^{2}+x^{3}+\cdots$, then we get%
+\[
+1+1+1^{2}+1^{3}+\cdots=1+1+1+1+\cdots,
+\]
+which is undefined. Real analysis can help make sense of certain values of
+FPSs (for example, substituting $\dfrac{1}{2}$ for $x$ into the FPS
+$1+x+x^{2}+x^{3}+\cdots$ yields the convergent series $1+\dfrac{1}{2}%
++\dfrac{1}{2^{2}}+\dfrac{1}{2^{3}}+\cdots=2$), but this is subtle and specific
+to certain numbers and certain FPSs.\footnote{For instance, it is not hard to
+see that there is no nonzero complex number that can be substituted into the
+FPS $\sum_{n\in\mathbb{N}}n!x^{n}$ to obtain a convergent result. Thus, even
+though some complex numbers can be substituted into some FPSs, there is no
+complex number other than $0$ that can be substituted into \textbf{every}
+FPS.}
+
+Thus, polynomials have a clear advantage over FPSs.
+
+However, let us not give up on FPSs yet. \textbf{Some} things can be
+substituted into an FPS. For example:
+
+\begin{itemize}
+\item We can always substitute $0$ for $x$ in an FPS $a_{0}+a_{1}x+a_{2}%
+x^{2}+a_{3}x^{3}+\cdots$. The result is%
+\[
+a_{0}+a_{1}0+a_{2}0^{2}+a_{3}0^{3}+\cdots=a_{0}+0+0+0+\cdots=a_{0}.
+\]
+
+
+\item We can always substitute $x$ for $x$ in an FPS $a_{0}+a_{1}x+a_{2}%
+x^{2}+a_{3}x^{3}+\cdots$. The result is the same FPS $a_{0}+a_{1}x+a_{2}%
+x^{2}+a_{3}x^{3}+\cdots$ that we started with (obviously).
+
+\item We can always substitute $2x$ for $x$ in an FPS $a_{0}+a_{1}x+a_{2}%
+x^{2}+a_{3}x^{3}+\cdots$. The result is%
+\[
+a_{0}+a_{1}\left(  2x\right)  +a_{2}\left(  2x\right)  ^{2}+a_{3}\left(
+2x\right)  ^{3}+\cdots=a_{0}+2a_{1}x+4a_{2}x^{2}+8a_{3}x^{3}+\cdots.
+\]
+
+
+\item We can always substitute $x^{2}+x$ for $x$ in an FPS $a_{0}+a_{1}%
+x+a_{2}x^{2}+a_{3}x^{3}+\cdots$. This is less obvious, so let me explain why.
+If we try to substitute $x^{2}+x$ for $x$ in an FPS $a_{0}+a_{1}x+a_{2}%
+x^{2}+a_{3}x^{3}+\cdots$, then we obtain%
+\begin{align*}
+&  \left(  a_{0}+a_{1}x+a_{2}x^{2}+a_{3}x^{3}+\cdots\right)  \left[
+x+x^{2}\right] \\
+&  =a_{0}+a_{1}\left(  x+x^{2}\right)  +a_{2}\left(  x+x^{2}\right)
+^{2}+a_{3}\left(  x+x^{2}\right)  ^{3}+\cdots\\
+&  =a_{0}+a_{1}\left(  x+x^{2}\right)  +a_{2}\left(  x^{2}+2x^{3}%
++x^{4}\right)  +a_{3}\left(  x^{3}+3x^{4}+3x^{5}+x^{6}\right)  +\cdots\\
+&  =a_{0}+a_{1}x+\left(  a_{1}+a_{2}\right)  x^{2}+\left(  2a_{2}%
++a_{3}\right)  x^{3}+\left(  a_{2}+3a_{3}+a_{4}\right)  x^{4}+\cdots.
+\end{align*}
+I claim that the right hand side here is well-defined. To prove this, I need
+to show that for each $n\in\mathbb{N}$, the coefficient of $x^{n}$ on this
+right hand side is a \textbf{finite} sum of $a_{i}$'s. Indeed, fix
+$n\in\mathbb{N}$. Recall that the right hand side is obtained by expanding the
+infinite sum%
+\[
+a_{0}+a_{1}\left(  x+x^{2}\right)  +a_{2}\left(  x+x^{2}\right)  ^{2}%
++a_{3}\left(  x+x^{2}\right)  ^{3}+\cdots.
+\]
+Only the first $n+1$ addends of this infinite sum (i.e., only the addends
+$a_{k}\left(  x+x^{2}\right)  ^{k}$ with $k\leq n$) can contribute to the
+coefficient of $x^{n}$, since any of the remaining addends is a multiple of
+$x^{n+1}$ (because it has the form $a_{k}\left(  x+x^{2}\right)  ^{k}%
+=a_{k}\left(  x\left(  1+x\right)  \right)  ^{k}=a_{k}x^{k}\left(  1+x\right)
+^{k}$ with $k\geq n+1$) and thus has a zero coefficient of $x^{n}$. Hence, the
+coefficient of $x^{n}$ in this infinite sum equals the coefficient of $x^{n}$
+in the \textbf{finite} sum
+\[
+a_{0}+a_{1}\left(  x+x^{2}\right)  +a_{2}\left(  x+x^{2}\right)  ^{2}%
++a_{3}\left(  x+x^{2}\right)  ^{3}+\cdots+a_{n}\left(  x+x^{2}\right)  ^{n}.
+\]
+But the latter coefficient is clearly a \textbf{finite} sum of $a_{i}$'s.
+Thus, my claim is proved, and it follows that the result of substituting
+$x^{2}+x$ for $x$ in an FPS $a_{0}+a_{1}x+a_{2}x^{2}+a_{3}x^{3}+\cdots$ is well-defined.
+\end{itemize}
+
+The idea of the last example can be generalized; there was nothing special
+about $x+x^{2}$ that we used other than the fact that $x+x^{2}$ is a multiple
+of $x$ (that is, an FPS whose constant term is $0$). Thus, generalizing our
+reasoning from this example, we can convince ourselves that any FPS $g$ that
+is a multiple of $x$ (that is, whose constant term is $0$) can be substituted
+into any FPS. Let us introduce a notation for this, exactly like we did for
+substituting things into polynomials:
+
+\begin{definition}
+\label{def.fps.subs}Let $f$ and $g$ be two FPSs in $K\left[  \left[  x\right]
+\right]  $. Assume that $\left[  x^{0}\right]  g=0$ (that is, $g=g_{1}%
+x^{1}+g_{2}x^{2}+g_{3}x^{3}+\cdots$ for some $g_{1},g_{2},g_{3},\ldots\in K$).
+
+We then define an FPS $f\left[  g\right]  \in K\left[  \left[  x\right]
+\right]  $ as follows:
+
+Write $f$ in the form $f=\sum_{n\in\mathbb{N}}f_{n}x^{n}$ with $f_{0}%
+,f_{1},f_{2},\ldots\in K$. (That is, $f_{n}=\left[  x^{n}\right]  f$ for each
+$n\in\mathbb{N}$.) Then, set%
+\begin{equation}
+f\left[  g\right]  :=\sum_{n\in\mathbb{N}}f_{n}g^{n}.
+\label{eq.def.fps.subs.eq}%
+\end{equation}
+(This sum is well-defined, as we will see in Proposition
+\ref{prop.fps.subs.wd} \textbf{(b)} below.)
+
+This FPS $f\left[  g\right]  $ is also denoted by $f\circ g$, and is called
+the \emph{composition} of $f$ with $g$, or the result of \emph{substituting}
+$g$ for $x$ in $f$.
+\end{definition}
+
+Once again, it is not uncommon to see this FPS $f\left[  g\right]  $ denoted
+by $f\left(  g\right)  $, but I will eschew the latter notation (since it can
+be confused with a product).
+
+In order to prove that Definition \ref{def.fps.subs} makes sense, we need to
+ensure that the infinite sum $\sum_{n\in\mathbb{N}}f_{n}g^{n}$ in
+(\ref{eq.def.fps.subs.eq}) is well-defined. The proof of this fact is
+analogous to the reasoning I used in the last example; let me present it again
+in the general case:
+
+\begin{proposition}
+\label{prop.fps.subs.wd}Let $f$ and $g$ be two FPSs in $K\left[  \left[
+x\right]  \right]  $. Assume that $\left[  x^{0}\right]  g=0$. Write $f$ in
+the form $f=\sum_{n\in\mathbb{N}}f_{n}x^{n}$ with $f_{0},f_{1},f_{2},\ldots\in
+K$. Then: \medskip
+
+\textbf{(a)} For each $n\in\mathbb{N}$, the first $n$ coefficients of the FPS
+$g^{n}$ are $0$. \medskip
+
+\textbf{(b)} The sum $\sum_{n\in\mathbb{N}}f_{n}g^{n}$ is well-defined, i.e.,
+the family $\left(  f_{n}g^{n}\right)  _{n\in\mathbb{N}}$ is summable.
+\medskip
+
+\textbf{(c)} We have $\left[  x^{0}\right]  \left(  \sum_{n\in\mathbb{N}}%
+f_{n}g^{n}\right)  =f_{0}$.
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.fps.subs.wd}.]\textbf{(a)} This is easily
+proved by induction on $n$. Here is a shorter alternative argument:
+
+The FPS $g$ has constant term $\left[  x^{0}\right]  g=0$. Hence, Lemma
+\ref{lem.fps.g=xh} (applied to $a=g$) yields that there exists an $h\in
+K\left[  \left[  x\right]  \right]  $ such that $g=xh$. Consider this $h$.
+
+Now, let $n\in\mathbb{N}$. From $g=xh$, we obtain $g^{n}=\left(  xh\right)
+^{n}=x^{n}h^{n}$. However, Lemma \ref{lem.fps.first-n-coeffs-of-xna} (applied
+to $k=n$ and $a=h^{n}$) yields that the first $n$ coefficients of the FPS
+$x^{n}h^{n}$ are $0$. In other words, the first $n$ coefficients of the FPS
+$g^{n}$ are $0$ (since $g^{n}=x^{n}h^{n}$). Thus, Proposition
+\ref{prop.fps.subs.wd} \textbf{(a)} is proved. \medskip
+
+\textbf{(b)} This follows from part \textbf{(a)}. Here are the details.
+
+We must prove that the family $\left(  f_{n}g^{n}\right)  _{n\in\mathbb{N}}$
+is summable. In other words, we must prove that the family $\left(  f_{i}%
+g^{i}\right)  _{i\in\mathbb{N}}$ is summable (since $\left(  f_{i}%
+g^{i}\right)  _{i\in\mathbb{N}}=\left(  f_{n}g^{n}\right)  _{n\in\mathbb{N}}%
+$). In other words, we must prove that for each $n\in\mathbb{N}$, all but
+finitely many $i\in\mathbb{N}$ satisfy $\left[  x^{n}\right]  \left(
+f_{i}g^{i}\right)  =0$ (by the definition of \textquotedblleft
+summable\textquotedblright). So let us prove this.
+
+Fix $n\in\mathbb{N}$. We must prove that all but finitely many $i\in
+\mathbb{N}$ satisfy $\left[  x^{n}\right]  \left(  f_{i}g^{i}\right)  =0$.
+
+Indeed, let $i\in\mathbb{N}$ satisfy $i>n$. Then, $n<i$. Now, the first $i$
+coefficients of the FPS $g^{i}$ are $0$ (by Proposition \ref{prop.fps.subs.wd}
+\textbf{(a)}, applied to $i$ instead of $n$). However, the coefficient
+$\left[  x^{n}\right]  \left(  g^{i}\right)  $ of $g^{i}$ is one of these
+first $i$ coefficients (because $n<i$). Thus, this coefficient $\left[
+x^{n}\right]  \left(  g^{i}\right)  $ must be $0$. Now, $f_{i}\in K$; thus,
+(\ref{pf.thm.fps.ring.xn(la)=}) (applied to $\lambda=f_{i}$ and $\mathbf{a}%
+=g^{i}$) yields $\left[  x^{n}\right]  \left(  f_{i}g^{i}\right)  =f_{i}%
+\cdot\underbrace{\left[  x^{n}\right]  \left(  g^{i}\right)  }_{=0}=0$.
+
+Forget that we fixed $i$. We thus have shown that all $i\in\mathbb{N}$
+satisfying $i>n$ satisfy $\left[  x^{n}\right]  \left(  f_{i}g^{i}\right)
+=0$. Hence, all but finitely many $i\in\mathbb{N}$ satisfy $\left[
+x^{n}\right]  \left(  f_{i}g^{i}\right)  =0$ (because all but finitely many
+$i\in\mathbb{N}$ satisfy $i>n$). This is precisely what we wanted to prove.
+Thus, Proposition \ref{prop.fps.subs.wd} \textbf{(b)} is proved. \medskip
+
+\textbf{(c)} Let $n$ be a positive integer. We shall first show that $\left[
+x^{0}\right]  \left(  f_{n}g^{n}\right)  =0$.
+
+Indeed, Proposition \ref{prop.fps.subs.wd} \textbf{(a)} shows that the first
+$n$ coefficients of the FPS $g^{n}$ are $0$. However, the coefficient $\left[
+x^{0}\right]  \left(  g^{n}\right)  $ is one of these first $n$ coefficients
+(since $n$ is positive). Thus, this coefficient $\left[  x^{0}\right]  \left(
+g^{n}\right)  $ must be $0$. Now, $f_{n}\in K$; thus,
+(\ref{pf.thm.fps.ring.xn(la)=}) (applied to $f_{n}$, $g^{n}$ and $0$ instead
+of $\lambda$, $\mathbf{a}$ and $n$) yields $\left[  x^{0}\right]  \left(
+f_{n}g^{n}\right)  =f_{n}\cdot\underbrace{\left[  x^{0}\right]  \left(
+g^{n}\right)  }_{=0}=0$.
+
+Forget that we fixed $n$. We thus have shown that
+\begin{equation}
+\left[  x^{0}\right]  \left(  f_{n}g^{n}\right)
+=0\ \ \ \ \ \ \ \ \ \ \text{for each positive integer }n.
+\label{pf.prop.fps.subs.wd.c.1}%
+\end{equation}
+
+
+Now,%
+\begin{align*}
+\left[  x^{0}\right]  \left(  \sum_{n\in\mathbb{N}}f_{n}g^{n}\right)   &
+=\sum_{n\in\mathbb{N}}\left[  x^{0}\right]  \left(  f_{n}g^{n}\right)
+\ \ \ \ \ \ \ \ \ \ \left(  \text{by (\ref{eq.def.fps.summable.sum})}\right)
+\\
+&  =\left[  x^{0}\right]  \left(  f_{0}\underbrace{g^{0}}_{=\underline{1}%
+}\right)  +\sum_{n>0}\underbrace{\left[  x^{0}\right]  \left(  f_{n}%
+g^{n}\right)  }_{\substack{=0\\\text{(by (\ref{pf.prop.fps.subs.wd.c.1}))}}}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have split off the}\\
+\text{addend for }n=0\text{ from the sum}%
+\end{array}
+\right) \\
+&  =\left[  x^{0}\right]  \underbrace{\left(  f_{0}\underline{1}\right)
+}_{\substack{=f_{0}\left(  1,0,0,0,\ldots\right)  \\=\left(  f_{0}%
+,0,0,0,\ldots\right)  }}+\underbrace{\sum_{n>0}0}_{=0}=\left[  x^{0}\right]
+\left(  f_{0},0,0,0,\ldots\right)  =f_{0}.
+\end{align*}
+This proves Proposition \ref{prop.fps.subs.wd} \textbf{(c)}.
+\end{proof}
+
+\begin{example}
+\label{exa.fps.subs.fibonacci}The FPS $x+x^{2}$ has constant term $\left[
+x^{0}\right]  \left(  x+x^{2}\right)  =0$. Hence, according to Definition
+\ref{def.fps.subs}, we can substitute it for $x$ into $1+x+x^{2}+x^{3}+\cdots
+$. The result is%
+\begin{align*}
+&  \left(  1+x+x^{2}+x^{3}+\cdots\right)  \left[  x+x^{2}\right] \\
+&  =1+\left(  x+x^{2}\right)  +\left(  x+x^{2}\right)  ^{2}+\left(
+x+x^{2}\right)  ^{3}+\left(  x+x^{2}\right)  ^{4}+\left(  x+x^{2}\right)
+^{5}+\cdots\\
+&  =1+x+2x^{2}+3x^{3}+5x^{4}+8x^{5}+\cdots.
+\end{align*}
+The right hand side appears to be $f_{1}+f_{2}x+f_{3}x^{2}+f_{4}x^{3}+\cdots$,
+where $\left(  f_{0},f_{1},f_{2},\ldots\right)  $ is the Fibonacci sequence
+(as defined in Section \ref{sec.gf.exas}). Let me show that this indeed the case.
+
+In Example 1 in Section \ref{sec.gf.exas}, we had shown that%
+\[
+f_{0}+f_{1}x+f_{2}x^{2}+f_{3}x^{3}+\cdots=\dfrac{x}{1-x-x^{2}}.
+\]
+Thus,%
+\begin{align*}
+\dfrac{x}{1-x-x^{2}}  &  =\underbrace{f_{0}}_{=0}+\,f_{1}x+f_{2}x^{2}%
++f_{3}x^{3}+\cdots\\
+&  =f_{1}x+f_{2}x^{2}+f_{3}x^{3}+f_{4}x^{4}+\cdots\\
+&  =x\left(  f_{1}+f_{2}x+f_{3}x^{2}+f_{4}x^{3}+\cdots\right)  .
+\end{align*}
+Cancelling $x$ from this equality (this is indeed allowed -- make sure you
+understand why!), we obtain%
+\[
+\dfrac{1}{1-x-x^{2}}=f_{1}+f_{2}x+f_{3}x^{2}+f_{4}x^{3}+\cdots.
+\]
+However, it appears reasonable to expect that
+\begin{equation}
+\dfrac{1}{1-x-x^{2}}=\dfrac{1}{1-x}\left[  x+x^{2}\right]  ,
+\label{eq.exa.fps.subs.fibonacci.subs-plausible}%
+\end{equation}
+because substituting $x+x^{2}$ for $x$ in the expression $\dfrac{1}{1-x}$
+results in $\dfrac{1}{1-x-x^{2}}$. This is plausible but not obvious -- after
+all, we defined $\dfrac{1}{1-x}\left[  x+x^{2}\right]  $ to be the result of
+substituting $x+x^{2}$ for $x$ into the \textbf{expanded} version of
+$\dfrac{1}{1-x}$ (which is $1+x+x^{2}+x^{3}+\cdots$), not into the fractional
+expression $\dfrac{1}{1-x}$. Nevertheless,
+(\ref{eq.exa.fps.subs.fibonacci.subs-plausible}) is true (and will soon be
+proved). If we take this fact for granted, then our claim easily follows:%
+\begin{align*}
+f_{1}+f_{2}x+f_{3}x^{2}+f_{4}x^{3}+\cdots &  =\dfrac{1}{1-x-x^{2}}=\dfrac
+{1}{1-x}\left[  x+x^{2}\right] \\
+&  =\left(  1+x+x^{2}+x^{3}+\cdots\right)  \left[  x+x^{2}\right]
+\end{align*}
+(since $\dfrac{1}{1-x}=1+x+x^{2}+x^{3}+\cdots$).
+\end{example}
+
+\subsubsection{Laws of substitution}
+
+The plausible but nontrivial statement
+(\ref{eq.exa.fps.subs.fibonacci.subs-plausible}) that we have just used
+follows from part \textbf{(c)} of the following proposition:\footnote{We are
+treating the symbol \textquotedblleft$\circ$\textquotedblright\ similarly to
+the multiplication sign $\cdot$ in our PEMDAS convention. Thus, an expression
+like \textquotedblleft$f_{1}\circ g+f_{2}\circ g$\textquotedblright\ is
+understood to mean $\left(  f_{1}\circ g\right)  +\left(  f_{2}\circ g\right)
+$.}
+
+\begin{proposition}
+\label{prop.fps.subs.rules}Composition of FPSs satisfies the rules you would
+expect it to satisfy: \medskip
+
+\textbf{(a)} If $f_{1},f_{2},g\in K\left[  \left[  x\right]  \right]  $
+satisfy $\left[  x^{0}\right]  g=0$, then $\left(  f_{1}+f_{2}\right)  \circ
+g=f_{1}\circ g+f_{2}\circ g$. \medskip
+
+\textbf{(b)} If $f_{1},f_{2},g\in K\left[  \left[  x\right]  \right]  $
+satisfy $\left[  x^{0}\right]  g=0$, then $\left(  f_{1}\cdot f_{2}\right)
+\circ g=\left(  f_{1}\circ g\right)  \cdot\left(  f_{2}\circ g\right)  $.
+\medskip
+
+\textbf{(c)} If $f_{1},f_{2},g\in K\left[  \left[  x\right]  \right]  $
+satisfy $\left[  x^{0}\right]  g=0$, then $\dfrac{f_{1}}{f_{2}}\circ
+g=\dfrac{f_{1}\circ g}{f_{2}\circ g}$, as long as $f_{2}$ is invertible. (In
+particular, $f_{2}\circ g$ is automatically invertible under these
+assumptions.) \medskip
+
+\textbf{(d)} If $f,g\in K\left[  \left[  x\right]  \right]  $ satisfy $\left[
+x^{0}\right]  g=0$, then $f^{k}\circ g=\left(  f\circ g\right)  ^{k}$ for each
+$k\in\mathbb{N}$. \medskip
+
+\textbf{(e)} If $f,g,h\in K\left[  \left[  x\right]  \right]  $ satisfy
+$\left[  x^{0}\right]  g=0$ and $\left[  x^{0}\right]  h=0$, then $\left[
+x^{0}\right]  \left(  g\circ h\right)  =0$ and $\left(  f\circ g\right)  \circ
+h=f\circ\left(  g\circ h\right)  $. \medskip
+
+\textbf{(f)} We have $\underline{a}\circ g=\underline{a}$ for each $a\in K$
+and $g\in K\left[  \left[  x\right]  \right]  $. \medskip
+
+\textbf{(g)} We have $x\circ g=g\circ x=g$ for each $g\in K\left[  \left[
+x\right]  \right]  $. \medskip
+
+\textbf{(h)} If $\left(  f_{i}\right)  _{i\in I}\in K\left[  \left[  x\right]
+\right]  ^{I}$ is a summable family of FPSs, and if $g\in K\left[  \left[
+x\right]  \right]  $ is an FPS satisfying $\left[  x^{0}\right]  g=0$, then
+the family $\left(  f_{i}\circ g\right)  _{i\in I}\in K\left[  \left[
+x\right]  \right]  ^{I}$ is summable as well and we have $\left(  \sum_{i\in
+I}f_{i}\right)  \circ g=\sum_{i\in I}f_{i}\circ g$.
+\end{proposition}
+
+For our proof of Proposition \ref{prop.fps.subs.rules}, we will need the
+following lemma:
+
+\begin{lemma}
+\label{lem.fps.fg-coeffs-0}Let $f,g\in K\left[  \left[  x\right]  \right]  $
+satisfy $\left[  x^{0}\right]  g=0$. Let $k\in\mathbb{N}$ be such that the
+first $k$ coefficients of $f$ are $0$. Then, the first $k$ coefficients of
+$f\circ g$ are $0$.
+\end{lemma}
+
+\begin{proof}
+[Proof of Lemma \ref{lem.fps.fg-coeffs-0}.]This is very similar to the proof
+of Proposition \ref{prop.fps.subs.wd} \textbf{(a)}.
+
+We have $\left[  x^{0}\right]  g=0$. Hence, Lemma \ref{lem.fps.g=xh} (applied
+to $a=g$) yields that there exists an $h\in K\left[  \left[  x\right]
+\right]  $ such that $g=xh$. Consider this $h$.
+
+Write the FPS $f$ in the form $f=\left(  f_{0},f_{1},f_{2},\ldots\right)  $.
+Then, the first $k$ coefficients of $f$ are $f_{0},f_{1},\ldots,f_{k-1}$.
+Hence, these coefficients $f_{0},f_{1},\ldots,f_{k-1}$ are $0$ (since the
+first $k$ coefficients of $f$ are $0$). In other words,%
+\begin{equation}
+f_{n}=0\ \ \ \ \ \ \ \ \ \ \text{for each }n<k.
+\label{pf.lem.fps.fg-coeffs-0.gn=0}%
+\end{equation}
+
+
+Now, $f=\left(  f_{0},f_{1},f_{2},\ldots\right)  =\sum_{n\in\mathbb{N}}%
+f_{n}x^{n}$ with $f_{0},f_{1},f_{2},\ldots\in K$. Hence, Definition
+\ref{def.fps.subs} yields%
+\begin{align*}
+f\left[  g\right]   &  =\sum_{n\in\mathbb{N}}f_{n}g^{n}=\sum_{\substack{n\in
+\mathbb{N};\\n<k}}\underbrace{f_{n}}_{\substack{=0\\\text{(by
+(\ref{pf.lem.fps.fg-coeffs-0.gn=0}))}}}g^{n}+\underbrace{\sum_{\substack{n\in
+\mathbb{N};\\n\geq k}}}_{=\sum_{\substack{n\in\mathbb{N};\\k\leq n}}}%
+f_{n}\underbrace{g^{n}}_{\substack{=\left(  xh\right)  ^{n}\\\text{(since
+}g=xh\text{)}}}=\underbrace{\sum_{\substack{n\in\mathbb{N};\\n<k}}0g^{n}}%
+_{=0}+\sum_{\substack{n\in\mathbb{N};\\k\leq n}}f_{n}\left(  xh\right)  ^{n}\\
+&  =\sum_{\substack{n\in\mathbb{N};\\k\leq n}}f_{n}\underbrace{\left(
+xh\right)  ^{n}}_{=x^{n}h^{n}}=\sum_{\substack{n\in\mathbb{N};\\k\leq n}%
+}f_{n}x^{n}h^{n}.
+\end{align*}
+Thus,
+\[
+f\circ g=f\left[  g\right]  =\sum_{\substack{n\in\mathbb{N};\\k\leq
+n}}\underbrace{f_{n}x^{n}}_{=x^{n}f_{n}}h^{n}=\sum_{\substack{n\in
+\mathbb{N};\\k\leq n}}x^{n}f_{n}h^{n}.
+\]
+But this ensures that the first $k$ coefficients of $f\circ g$ are
+$0$\ \ \ \ \footnote{\textit{Proof.} We must show that $\left[  x^{m}\right]
+\left(  f\circ g\right)  =0$ for any nonnegative integer $m<k$. But we can do
+this directly: If $m$ is a nonnegative integer such that $m<k$, then%
+\begin{align*}
+\left[  x^{m}\right]  \left(  f\circ g\right)   &  =\left[  x^{m}\right]
+\left(  \sum_{\substack{n\in\mathbb{N};\\k\leq n}}x^{n}f_{n}h^{n}\right)
+\ \ \ \ \ \ \ \ \ \ \left(  \text{since }f\circ g=\sum_{\substack{n\in
+\mathbb{N};\\k\leq n}}x^{n}f_{n}h^{n}\right) \\
+&  =\sum_{\substack{n\in\mathbb{N};\\k\leq n}}\underbrace{\left[
+x^{m}\right]  \left(  x^{n}f_{n}h^{n}\right)  }_{\substack{=\sum_{i=0}%
+^{m}\left[  x^{i}\right]  \left(  x^{n}\right)  \cdot\left[  x^{m-i}\right]
+\left(  f_{n}h^{n}\right)  \\\text{(by (\ref{pf.thm.fps.ring.xn(ab)=2}%
+),}\\\text{applied to }x^{n}\text{, }f_{n}h^{n}\text{ and }m\\\text{instead of
+}\mathbf{a}\text{, }\mathbf{b}\text{ and }n\text{)}}}=\sum_{\substack{n\in
+\mathbb{N};\\k\leq n}}\ \ \sum_{i=0}^{m}\underbrace{\left[  x^{i}\right]
+\left(  x^{n}\right)  }_{\substack{=0\\\text{(since }i\leq m<k\leq
+n\\\text{and thus }i\neq n\text{)}}}\cdot\left[  x^{m-i}\right]  \left(
+f_{n}h^{n}\right) \\
+&  =\sum_{\substack{n\in\mathbb{N};\\k\leq n}}\ \ \sum_{i=0}^{m}0\cdot\left[
+x^{m-i}\right]  \left(  f_{n}h^{n}\right)  =0,
+\end{align*}
+exactly as we wanted to show.}. Thus, Lemma \ref{lem.fps.fg-coeffs-0} follows.
+\end{proof}
+
+Our proof of Proposition \ref{prop.fps.subs.rules} will furthermore use the
+\emph{Kronecker delta notation}:
+
+\begin{definition}
+\label{def.kron-delta}If $i$ and $j$ are any objects, then $\delta_{i,j}$
+means the element $%
+\begin{cases}
+1, & \text{if }i=j;\\
+0, & \text{if }i\neq j
+\end{cases}
+$\ \ \ of $K$.
+\end{definition}
+
+For example, $\delta_{2,2}=1$ and $\delta_{3,8}=0$.
+
+\begin{proof}
+[Proof of Proposition \ref{prop.fps.subs.rules}.]The proof is long and not
+particularly combinatorial. I am merely writing it down because it is so
+rarely explained in the literature. \medskip
+
+\textbf{(a)} This is an easy consequence of the definitions, and also appears
+in \cite[Theorem 7.62]{Loehr-BC} and \cite[Proposition 2.2.2]{Brewer14}.
+
+Here are the details: Let $f_{1},f_{2},g\in K\left[  \left[  x\right]
+\right]  $ satisfy $\left[  x^{0}\right]  g=0$. Write the FPSs $f_{1}$ and
+$f_{2}$ as
+\begin{equation}
+f_{1}=\sum_{n\in\mathbb{N}}f_{1,n}x^{n}\ \ \ \ \ \ \ \ \ \ \text{and}%
+\ \ \ \ \ \ \ \ \ \ f_{2}=\sum_{n\in\mathbb{N}}f_{2,n}x^{n}
+\label{pf.prop.fps.subs.rules.a.1}%
+\end{equation}
+with $f_{1,0},f_{1,1},f_{1,2},\ldots\in K$ and $f_{2,0},f_{2,1},f_{2,2}%
+,\ldots\in K$. Then, adding the two equalities in
+(\ref{pf.prop.fps.subs.rules.a.1}) together, we find%
+\[
+f_{1}+f_{2}=\sum_{n\in\mathbb{N}}f_{1,n}x^{n}+\sum_{n\in\mathbb{N}}%
+f_{2,n}x^{n}=\sum_{n\in\mathbb{N}}\underbrace{\left(  f_{1,n}x^{n}%
++f_{2,n}x^{n}\right)  }_{=\left(  f_{1,n}+f_{2,n}\right)  x^{n}}=\sum
+_{n\in\mathbb{N}}\left(  f_{1,n}+f_{2,n}\right)  x^{n}.
+\]
+Thus, Definition \ref{def.fps.subs} (applied to $f=f_{1}+f_{2}$) yields%
+\begin{equation}
+\left(  f_{1}+f_{2}\right)  \left[  g\right]  =\sum_{n\in\mathbb{N}}\left(
+f_{1,n}+f_{2,n}\right)  g^{n} \label{pf.prop.fps.subs.rules.a.3}%
+\end{equation}
+(since $f_{1,n}+f_{2,n}\in K$ for each $n\in\mathbb{N}$).
+
+On the other hand, we have $f_{1}=\sum_{n\in\mathbb{N}}f_{1,n}x^{n}$. Thus,
+Definition \ref{def.fps.subs} yields $f_{1}\left[  g\right]  =\sum
+_{n\in\mathbb{N}}f_{1,n}g^{n}$ (since $f_{1,n}\in K$ for each $n\in\mathbb{N}%
+$). Similarly, $f_{2}\left[  g\right]  =\sum_{n\in\mathbb{N}}f_{2,n}g^{n}$.
+Adding these two equalities together, we obtain%
+\[
+f_{1}\left[  g\right]  +f_{2}\left[  g\right]  =\sum_{n\in\mathbb{N}}%
+f_{1,n}g^{n}+\sum_{n\in\mathbb{N}}f_{2,n}g^{n}=\sum_{n\in\mathbb{N}%
+}\underbrace{\left(  f_{1,n}g^{n}+f_{2,n}g^{n}\right)  }_{=\left(
+f_{1,n}+f_{2,n}\right)  g^{n}}=\sum_{n\in\mathbb{N}}\left(  f_{1,n}%
++f_{2,n}\right)  g^{n}.
+\]
+Comparing this with (\ref{pf.prop.fps.subs.rules.a.3}), we obtain $\left(
+f_{1}+f_{2}\right)  \left[  g\right]  =f_{1}\left[  g\right]  +f_{2}\left[
+g\right]  $. In other words, $\left(  f_{1}+f_{2}\right)  \circ g=f_{1}\circ
+g+f_{2}\circ g$ (since the notation $f\circ g$ is synonymous to $f\left[
+g\right]  $). This proves Proposition \ref{prop.fps.subs.rules} \textbf{(a)}.
+
+\bigskip
+
+\textbf{(f)} This is a near-trivial consequence of the definitions. To wit:
+Let $a\in K$. Then,
+\begin{align}
+\sum_{n\in\mathbb{N}}a\delta_{n,0}x^{n}  &  =a\underbrace{\delta_{0,0}%
+}_{\substack{=1\\\text{(since }0=0\text{)}}}\underbrace{x^{0}}_{=\underline{1}%
+}+\sum_{\substack{n\in\mathbb{N};\\n\neq0}}a\underbrace{\delta_{n,0}%
+}_{\substack{=0\\\text{(since }n\neq0\text{)}}}x^{n}=a\cdot\underline{1}%
++\underbrace{\sum_{\substack{n\in\mathbb{N};\\n\neq0}}a\cdot0x^{n}}%
+_{=0}\nonumber\\
+&  =a\cdot\underline{1}=a\cdot\left(  1,0,0,0,\ldots\right)  =\left(
+a\cdot1,a\cdot0,a\cdot0,a\cdot0,\ldots\right) \nonumber\\
+&  =\left(  a,0,0,0,\ldots\right)  =\underline{a}.
+\label{pf.prop.fps.subs.rules.f.1}%
+\end{align}
+
+
+Let $g\in K\left[  \left[  x\right]  \right]  $. We must prove that
+$\underline{a}\circ g=\underline{a}$. From (\ref{pf.prop.fps.subs.rules.f.1}),
+we obtain $\underline{a}=\sum_{n\in\mathbb{N}}a\delta_{n,0}x^{n}$. Hence,
+Definition \ref{def.fps.subs} (or Definition \ref{def.pol.subs}) yields
+$\underline{a}\left[  g\right]  =\sum_{n\in\mathbb{N}}a\delta_{n,0}g^{n}$
+(since $a\delta_{n,0}\in K$ for each $n\in\mathbb{N}$). Thus,%
+\begin{align*}
+\underline{a}\left[  g\right]   &  =\sum_{n\in\mathbb{N}}a\delta_{n,0}%
+g^{n}=a\underbrace{\delta_{0,0}}_{\substack{=1\\\text{(since }0=0\text{)}%
+}}\underbrace{g^{0}}_{=\underline{1}}+\sum_{\substack{n\in\mathbb{N};\\n\neq
+0}}a\underbrace{\delta_{n,0}}_{\substack{=0\\\text{(since }n\neq0\text{)}%
+}}g^{n}=a\cdot\underline{1}+\underbrace{\sum_{\substack{n\in\mathbb{N}%
+;\\n\neq0}}a\cdot0g^{n}}_{=0}\\
+&  =a\cdot\underline{1}=\underline{a}.
+\end{align*}
+In other words, $\underline{a}\circ g=\underline{a}$ (since $\underline{a}%
+\circ g$ is a synonym for $\underline{a}\left[  g\right]  $). This proves
+Proposition \ref{prop.fps.subs.rules} \textbf{(f)}.
+
+\bigskip
+
+\textbf{(g)} This is easy, too. Indeed, we have%
+\begin{align}
+\sum_{n\in\mathbb{N}}\delta_{n,1}x^{n}  &  =\underbrace{\delta_{1,1}%
+}_{\substack{=1\\\text{(since }1=1\text{)}}}\underbrace{x^{1}}_{=x}%
++\sum_{\substack{n\in\mathbb{N};\\n\neq1}}\underbrace{\delta_{n,1}%
+}_{\substack{=0\\\text{(since }n\neq1\text{)}}}x^{n}=x+\underbrace{\sum
+_{\substack{n\in\mathbb{N};\\n\neq1}}0x^{n}}_{=0}\nonumber\\
+&  =x. \label{pf.prop.fps.subs.rules.g.1}%
+\end{align}
+
+
+Let $g\in K\left[  \left[  x\right]  \right]  $. We must prove that $x\circ
+g=g\circ x=g$. From (\ref{pf.prop.fps.subs.rules.g.1}), we obtain
+$x=\sum_{n\in\mathbb{N}}\delta_{n,1}x^{n}$. Hence, Definition
+\ref{def.fps.subs} (or Definition \ref{def.pol.subs}) yields $x\left[
+g\right]  =\sum_{n\in\mathbb{N}}\delta_{n,1}g^{n}$ (since $\delta_{n,1}\in K$
+for each $n\in\mathbb{N}$). Thus,%
+\[
+x\left[  g\right]  =\sum_{n\in\mathbb{N}}\delta_{n,1}g^{n}=\underbrace{\delta
+_{1,1}}_{\substack{=1\\\text{(since }1=1\text{)}}}\underbrace{g^{1}}_{=g}%
++\sum_{\substack{n\in\mathbb{N};\\n\neq1}}\underbrace{\delta_{n,1}%
+}_{\substack{=0\\\text{(since }n\neq1\text{)}}}g^{n}=g+\underbrace{\sum
+_{\substack{n\in\mathbb{N};\\n\neq1}}0g^{n}}_{=0}=g.
+\]
+In other words, $x\circ g=g$ (since $x\circ g$ is a synonym for $x\left[
+g\right]  $).
+
+Next, let us write $g$ in the form $g=\sum_{n\in\mathbb{N}}g_{n}x^{n}$ for
+some $g_{0},g_{1},g_{2},\ldots\in K$. Then, Definition \ref{def.fps.subs}
+yields $g\left[  x\right]  =\sum_{n\in\mathbb{N}}g_{n}x^{n}=g$. Thus, $g\circ
+x=g\left[  x\right]  =g$. Combining this with $x\circ g=g$, we obtain $x\circ
+g=g\circ x=g$. This proves Proposition \ref{prop.fps.subs.rules} \textbf{(g)}.
+
+\bigskip
+
+\textbf{(b)} This appears in \cite[Theorem 7.62]{Loehr-BC} and
+\cite[Proposition 2.2.2]{Brewer14}. Here is the proof:
+
+Let $f_{1},f_{2},g\in K\left[  \left[  x\right]  \right]  $ satisfy $\left[
+x^{0}\right]  g=0$. Write the FPSs $f_{1}$ and $f_{2}$ as
+\begin{equation}
+f_{1}=\sum_{n\in\mathbb{N}}f_{1,n}x^{n}\ \ \ \ \ \ \ \ \ \ \text{and}%
+\ \ \ \ \ \ \ \ \ \ f_{2}=\sum_{n\in\mathbb{N}}f_{2,n}x^{n}
+\label{pf.prop.fps.subs.rules.b.1}%
+\end{equation}
+with $f_{1,0},f_{1,1},f_{1,2},\ldots\in K$ and $f_{2,0},f_{2,1},f_{2,2}%
+,\ldots\in K$. Thus, Definition \ref{def.fps.subs} yields%
+\[
+f_{1}\left[  x\right]  =\sum_{n\in\mathbb{N}}f_{1,n}x^{n}=f_{1}%
+\ \ \ \ \ \ \ \ \ \ \text{and}\ \ \ \ \ \ \ \ \ \ f_{2}\left[  x\right]
+=\sum_{n\in\mathbb{N}}f_{2,n}x^{n}=f_{2}%
+\]
+and
+\[
+f_{1}\left[  g\right]  =\sum_{n\in\mathbb{N}}f_{1,n}g^{n}%
+\ \ \ \ \ \ \ \ \ \ \text{and}\ \ \ \ \ \ \ \ \ \ f_{2}\left[  g\right]
+=\sum_{n\in\mathbb{N}}f_{2,n}g^{n}.
+\]
+Hence,%
+\begin{align*}
+f_{1}\left[  g\right]   &  =\sum_{n\in\mathbb{N}}f_{1,n}g^{n}=\sum
+_{i\in\mathbb{N}}f_{1,i}g^{i}\ \ \ \ \ \ \ \ \ \ \text{and}\\
+f_{2}\left[  g\right]   &  =\sum_{n\in\mathbb{N}}f_{2,n}g^{n}=\sum
+_{j\in\mathbb{N}}f_{2,j}g^{j}.
+\end{align*}
+Multiplying these two equalities together, we find%
+\begin{align}
+f_{1}\left[  g\right]  \cdot f_{2}\left[  g\right]   &  =\left(  \sum
+_{i\in\mathbb{N}}f_{1,i}g^{i}\right)  \left(  \sum_{j\in\mathbb{N}}%
+f_{2,j}g^{j}\right)  =\sum_{i\in\mathbb{N}}\ \ \sum_{j\in\mathbb{N}%
+}\underbrace{f_{1,i}g^{i}f_{2,j}g^{j}}_{\substack{=f_{1,i}f_{2,j}g^{i}%
+g^{j}\\=f_{1,i}f_{2,j}g^{i+j}}}\nonumber\\
+&  =\underbrace{\sum_{i\in\mathbb{N}}\ \ \sum_{j\in\mathbb{N}}}_{=\sum
+_{\left(  i,j\right)  \in\mathbb{N}^{2}}}f_{1,i}f_{2,j}g^{i+j}%
+=\underbrace{\sum_{\left(  i,j\right)  \in\mathbb{N}^{2}}}_{=\sum
+_{n\in\mathbb{N}}\ \ \sum_{\substack{\left(  i,j\right)  \in\mathbb{N}%
+^{2};\\i+j=n}}}f_{1,i}f_{2,j}g^{i+j}\nonumber\\
+&  =\sum_{n\in\mathbb{N}}\ \ \sum_{\substack{\left(  i,j\right)  \in
+\mathbb{N}^{2};\\i+j=n}}f_{1,i}f_{2,j}\underbrace{g^{i+j}}_{\substack{=g^{n}%
+\\\text{(since }i+j=n\text{)}}}=\sum_{n\in\mathbb{N}}\ \ \sum
+_{\substack{\left(  i,j\right)  \in\mathbb{N}^{2};\\i+j=n}}f_{1,i}f_{2,j}%
+g^{n}\nonumber\\
+&  =\sum_{n\in\mathbb{N}}\left(  \sum_{\substack{\left(  i,j\right)
+\in\mathbb{N}^{2};\\i+j=n}}f_{1,i}f_{2,j}\right)  g^{n}.
+\label{pf.prop.fps.subs.rules.b.3}%
+\end{align}
+
+
+However, we can apply the same computations to $x$ instead of $g$ (since $x$
+is also an FPS with $\left[  x^{0}\right]  x=0$). Thus, we obtain%
+\[
+f_{1}\left[  x\right]  \cdot f_{2}\left[  x\right]  =\sum_{n\in\mathbb{N}%
+}\left(  \sum_{\substack{\left(  i,j\right)  \in\mathbb{N}^{2};\\i+j=n}%
+}f_{1,i}f_{2,j}\right)  x^{n}.
+\]
+In view of $f_{1}\left[  x\right]  =f_{1}$ and $f_{2}\left[  x\right]  =f_{2}%
+$, this rewrites as%
+\[
+f_{1}\cdot f_{2}=\sum_{n\in\mathbb{N}}\left(  \sum_{\substack{\left(
+i,j\right)  \in\mathbb{N}^{2};\\i+j=n}}f_{1,i}f_{2,j}\right)  x^{n}.
+\]
+Hence, Definition \ref{def.fps.subs} yields%
+\[
+\left(  f_{1}\cdot f_{2}\right)  \left[  g\right]  =\sum_{n\in\mathbb{N}%
+}\left(  \sum_{\substack{\left(  i,j\right)  \in\mathbb{N}^{2};\\i+j=n}%
+}f_{1,i}f_{2,j}\right)  g^{n}%
+\]
+(since $\sum_{\substack{\left(  i,j\right)  \in\mathbb{N}^{2};\\i+j=n}%
+}f_{1,i}f_{2,j}\in K$ for each $n\in\mathbb{N}$). Comparing this with
+(\ref{pf.prop.fps.subs.rules.b.3}), we obtain%
+\[
+\left(  f_{1}\cdot f_{2}\right)  \left[  g\right]  =f_{1}\left[  g\right]
+\cdot f_{2}\left[  g\right]  .
+\]
+In other words, $\left(  f_{1}\cdot f_{2}\right)  \circ g=\left(  f_{1}\circ
+g\right)  \cdot\left(  f_{2}\circ g\right)  $ (since the notation $f\circ g$
+is synonymous to $f\left[  g\right]  $). This proves Proposition
+\ref{prop.fps.subs.rules} \textbf{(b)}. \smallskip
+
+\begin{fineprint}
+Did you notice it? I have cheated. The above proof of Proposition
+\ref{prop.fps.subs.rules} \textbf{(b)} relied on some manipulations of
+infinite sums that need to be justified. Namely, we replaced \textquotedblleft%
+$\sum_{i\in\mathbb{N}}\ \ \sum_{j\in\mathbb{N}}$\textquotedblright\ by
+\textquotedblleft$\sum_{\left(  i,j\right)  \in\mathbb{N}^{2}}$%
+\textquotedblright. This is an application of the \textquotedblleft discrete
+Fubini rule\textquotedblright, and as we said above, this rule can only be
+used if we know that the family $\left(  f_{1,i}f_{2,j}g^{i+j}\right)
+_{\left(  i,j\right)  \in\mathbb{N}\times\mathbb{N}}$ is summable. In other
+words, we need to show the following statement:
+
+\begin{statement}
+\textit{Statement 1:} For each $m\in\mathbb{N}$, all but finitely many pairs
+$\left(  i,j\right)  \in\mathbb{N}\times\mathbb{N}$ satisfy $\left[
+x^{m}\right]  \left(  f_{1,i}f_{2,j}g^{i+j}\right)  =0$.
+\end{statement}
+
+We shall achieve this by proving the following statement:
+
+\begin{statement}
+\textit{Statement 2:} For any three nonnegative integers $m,i,j$ with $m<i+j$,
+we have $\left[  x^{m}\right]  \left(  g^{i+j}\right)  =0$.
+\end{statement}
+
+[\textit{Proof of Statement 2:} Let $m,i,j$ be three nonnegative integers with
+$m<i+j$. We must show that $\left[  x^{m}\right]  \left(  g^{i+j}\right)  =0$.
+
+We have $\left[  x^{0}\right]  g=0$. Hence, Lemma \ref{lem.fps.g=xh} (applied
+to $a=g$) shows that there exists an $h\in K\left[  \left[  x\right]  \right]
+$ such that $g=xh$. Consider this $h$.
+
+Now, from $g=xh$, we obtain $g^{i+j}=\left(  xh\right)  ^{i+j}=x^{i+j}h^{i+j}%
+$. However, Lemma \ref{lem.fps.first-n-coeffs-of-xna} (applied to $i+j$ and
+$h^{i+j}$ instead of $k$ and $a$) shows that the first $i+j$ coefficients of
+the FPS $x^{i+j}h^{i+j}$ are $0$. In other words, the first $i+j$ coefficients
+of the FPS $g^{i+j}$ are $0$ (since $g^{i+j}=x^{i+j}h^{i+j}$). But $\left[
+x^{m}\right]  \left(  g^{i+j}\right)  $ is one of these first $i+j$
+coefficients (since $m<i+j$). Thus, we conclude that $\left[  x^{m}\right]
+\left(  g^{i+j}\right)  =0$. This proves Statement 2.]
+
+[\textit{Proof of Statement 1:} Let $m\in\mathbb{N}$. If $\left(  i,j\right)
+\in\mathbb{N}\times\mathbb{N}$ is a pair satisfying $m<i+j$, then%
+\begin{align*}
+\left[  x^{m}\right]  \left(  f_{1,i}f_{2,j}g^{i+j}\right)   &  =f_{1,i}%
+f_{2,j}\underbrace{\left[  x^{m}\right]  \left(  g^{i+j}\right)
+}_{\substack{=0\\\text{(by Statement 2)}}}\ \ \ \ \ \ \ \ \ \ \left(  \text{by
+(\ref{pf.thm.fps.ring.xn(la)=})}\right) \\
+&  =0.
+\end{align*}
+Thus, all but finitely many pairs $\left(  i,j\right)  \in\mathbb{N}%
+\times\mathbb{N}$ satisfy $\left[  x^{m}\right]  \left(  f_{1,i}f_{2,j}%
+g^{i+j}\right)  =0$ (because all but finitely many such pairs satisfy
+$m<i+j$). This proves Statement 1.]
+
+As explained above, Statement 1 shows that the family \newline$\left(
+f_{1,i}f_{2,j}g^{i+j}\right)  _{\left(  i,j\right)  \in\mathbb{N}%
+\times\mathbb{N}}$ is summable, and thus our interchange of summation signs
+made above is justified. This completes our proof of Proposition
+\ref{prop.fps.subs.rules} \textbf{(b)}.
+\end{fineprint}
+
+\bigskip
+
+\textbf{(c)} This follows easily from parts \textbf{(b)} and \textbf{(f)}. In
+detail: Let $f_{1},f_{2},g\in K\left[  \left[  x\right]  \right]  $ be such
+that $\left[  x^{0}\right]  g=0$. Assume that $f_{2}$ is invertible. Let us
+first show that $f_{2}\circ g$ is invertible.
+
+Indeed, consider the inverse $f_{2}^{-1}$ of $f_{2}$. This inverse exists
+(since $f_{2}$ is invertible) and satisfies $f_{2}^{-1}\cdot f_{2}%
+=\underline{1}$. Now, Proposition \ref{prop.fps.subs.rules} \textbf{(b)}
+(applied to $f_{2}^{-1}$ instead of $f_{1}$) yields $\left(  f_{2}^{-1}\cdot
+f_{2}\right)  \circ g=\left(  f_{2}^{-1}\circ g\right)  \cdot\left(
+f_{2}\circ g\right)  $. Hence,%
+\[
+\left(  f_{2}^{-1}\circ g\right)  \cdot\left(  f_{2}\circ g\right)
+=\underbrace{\left(  f_{2}^{-1}\cdot f_{2}\right)  }_{=\underline{1}}%
+\circ\,g=\underline{1}\circ g=\underline{1}%
+\]
+(by Proposition \ref{prop.fps.subs.rules} \textbf{(f)}, applied to $a=1$).
+Thus, the FPS $f_{2}^{-1}\circ g$ is an inverse of $f_{2}\circ g$. Hence,
+$f_{2}\circ g$ is invertible. The expression $\dfrac{f_{1}\circ g}{f_{2}\circ
+g}$ is therefore well-defined.
+
+It now remains to prove that $\dfrac{f_{1}}{f_{2}}\circ g=\dfrac{f_{1}\circ
+g}{f_{2}\circ g}$. To this purpose, we argue as follows: The expression
+$\dfrac{f_{1}}{f_{2}}$ is well-defined, since $f_{2}$ is invertible.
+Proposition \ref{prop.fps.subs.rules} \textbf{(b)} (applied to $\dfrac{f_{1}%
+}{f_{2}}$ instead of $f_{1}$) yields $\left(  \dfrac{f_{1}}{f_{2}}\cdot
+f_{2}\right)  \circ g=\left(  \dfrac{f_{1}}{f_{2}}\circ g\right)  \cdot\left(
+f_{2}\circ g\right)  $. In view of $\dfrac{f_{1}}{f_{2}}\cdot f_{2}=f_{1}$,
+this rewrites as $f_{1}\circ g=\left(  \dfrac{f_{1}}{f_{2}}\circ g\right)
+\cdot\left(  f_{2}\circ g\right)  $. We can divide both sides of this equality
+by $f_{2}\circ g$ (since $f_{2}\circ g$ is invertible), and thus obtain
+$\dfrac{f_{1}\circ g}{f_{2}\circ g}=\dfrac{f_{1}}{f_{2}}\circ g$. In other
+words, $\dfrac{f_{1}}{f_{2}}\circ g=\dfrac{f_{1}\circ g}{f_{2}\circ g}$. Thus,
+Proposition \ref{prop.fps.subs.rules} \textbf{(c)} is proven.
+
+\bigskip
+
+\textbf{(d)} Let $f,g\in K\left[  \left[  x\right]  \right]  $ satisfy
+$\left[  x^{0}\right]  g=0$. We must prove that $f^{k}\circ g=\left(  f\circ
+g\right)  ^{k}$ for each $k\in\mathbb{N}$.
+
+We prove this by induction on $k$:
+
+\textit{Induction base:} We have $\underbrace{f^{0}}_{=\underline{1}}%
+\circ\,g=\underline{1}\circ g=\underline{1}$ (by Proposition
+\ref{prop.fps.subs.rules} \textbf{(f)}, applied to $a=1$). Comparing this with
+$\left(  f\circ g\right)  ^{0}=\underline{1}$, we find $f^{0}\circ g=\left(
+f\circ g\right)  ^{0}$. In other words, $f^{k}\circ g=\left(  f\circ g\right)
+^{k}$ holds for $k=0$.
+
+\textit{Induction step:} Let $m\in\mathbb{N}$. Assume that $f^{k}\circ
+g=\left(  f\circ g\right)  ^{k}$ holds for $k=m$. We must prove that
+$f^{k}\circ g=\left(  f\circ g\right)  ^{k}$ holds for $k=m+1$.
+
+We have assumed that $f^{k}\circ g=\left(  f\circ g\right)  ^{k}$ holds for
+$k=m$. In other words, we have $f^{m}\circ g=\left(  f\circ g\right)  ^{m}$.
+Now,%
+\begin{align*}
+\underbrace{f^{m+1}}_{=f\cdot f^{m}}\circ\,g  &  =\left(  f\cdot f^{m}\right)
+\circ g=\left(  f\circ g\right)  \cdot\underbrace{\left(  f^{m}\circ g\right)
+}_{=\left(  f\circ g\right)  ^{m}}\\
+&  \ \ \ \ \ \ \ \ \ \ \left(  \text{by Proposition \ref{prop.fps.subs.rules}
+\textbf{(b)}, applied to }f_{1}=f\text{ and }f_{2}=f^{m}\right) \\
+&  =\left(  f\circ g\right)  \cdot\left(  f\circ g\right)  ^{m}=\left(  f\circ
+g\right)  ^{m+1}.
+\end{align*}
+In other words, $f^{k}\circ g=\left(  f\circ g\right)  ^{k}$ holds for
+$k=m+1$. This completes the induction step. Thus, we have proven that
+$f^{k}\circ g=\left(  f\circ g\right)  ^{k}$ for each $k\in\mathbb{N}$.
+Proposition \ref{prop.fps.subs.rules} \textbf{(d)} is now proven.
+
+\bigskip
+
+\textbf{(h)} This is just a generalization of Proposition
+\ref{prop.fps.subs.rules} \textbf{(a)} to (potentially) infinite sums. The
+proof follows the same method, but unfortunately requires some technical
+reasoning about summability. I will give the full proof for the sake of
+completeness, but be warned that it contains nothing of interest.
+
+Let $\left(  f_{i}\right)  _{i\in I}\in K\left[  \left[  x\right]  \right]
+^{I}$ be a summable family of FPSs. Let $g\in K\left[  \left[  x\right]
+\right]  $ be an FPS satisfying $\left[  x^{0}\right]  g=0$.
+
+First, we shall prove that the family $\left(  f_{i}\circ g\right)  _{i\in
+I}\in K\left[  \left[  x\right]  \right]  ^{I}$ is summable. Indeed, we recall
+that the family $\left(  f_{i}\right)  _{i\in I}\in K\left[  \left[  x\right]
+\right]  ^{I}$ is summable. In other words,%
+\[
+\text{for each }n\in\mathbb{N}\text{, all but finitely many }i\in I\text{
+satisfy }\left[  x^{n}\right]  f_{i}=0
+\]
+(by the definition of \textquotedblleft summable\textquotedblright). In other
+words, for each $n\in\mathbb{N}$, there exists a finite subset $I_{n}$ of $I$
+such that%
+\begin{equation}
+\text{all }i\in I\setminus I_{n}\text{ satisfy }\left[  x^{n}\right]  f_{i}=0.
+\label{pf.prop.fps.subs.rules.h.1}%
+\end{equation}
+Consider this subset $I_{n}$. Thus, all the sets $I_{0},I_{1},I_{2},\ldots$
+are finite subsets of $I$.
+
+Now, let $n\in\mathbb{N}$ be arbitrary. The set $I_{0}\cup I_{1}\cup\cdots\cup
+I_{n}$ is a union of $n+1$ finite subsets of $I$ (because all the sets
+$I_{0},I_{1},I_{2},\ldots$ are finite subsets of $I$), and thus itself is a
+finite subset of $I$. Moreover,
+\begin{equation}
+\text{all }i\in I\setminus\left(  I_{0}\cup I_{1}\cup\cdots\cup I_{n}\right)
+\text{ satisfy }\left[  x^{n}\right]  \left(  f_{i}\circ g\right)  =0.
+\label{pf.prop.fps.subs.rules.h.2}%
+\end{equation}
+
+
+\begin{fineprint}
+[\textit{Proof of (\ref{pf.prop.fps.subs.rules.h.2}):} Let $i\in
+I\setminus\left(  I_{0}\cup I_{1}\cup\cdots\cup I_{n}\right)  $. We must show
+that $\left[  x^{n}\right]  \left(  f_{i}\circ g\right)  =0$.
+
+Let $m\in\left\{  0,1,\ldots,n\right\}  $. Then, $I_{m}\subseteq I_{0}\cup
+I_{1}\cup\cdots\cup I_{n}$, so that $I_{0}\cup I_{1}\cup\cdots\cup
+I_{n}\supseteq I_{m}$ and thus $I\setminus\underbrace{\left(  I_{0}\cup
+I_{1}\cup\cdots\cup I_{n}\right)  }_{\supseteq I_{m}}\subseteq I\setminus
+I_{m}$. Hence, $i\in I\setminus\left(  I_{0}\cup I_{1}\cup\cdots\cup
+I_{n}\right)  \subseteq I\setminus I_{m}$. Therefore,
+(\ref{pf.prop.fps.subs.rules.h.1}) (applied to $m$ instead of $n$) yields
+$\left[  x^{m}\right]  f_{i}=0$.
+
+Forget that we fixed $m$. We thus have shown that $\left[  x^{m}\right]
+f_{i}=0$ for each $m\in\left\{  0,1,\ldots,n\right\}  $. In other words, the
+first $n+1$ coefficients of $f_{i}$ are $0$. Hence, Lemma
+\ref{lem.fps.fg-coeffs-0} (applied to $f_{i}$ and $n+1$ instead of $f$ and
+$k$) shows that the first $n+1$ coefficients of $f_{i}\circ g$ are $0$.
+However, $\left[  x^{n}\right]  \left(  f_{i}\circ g\right)  $ is one of these
+first $n+1$ coefficients (indeed, it is the last of them); thus, this
+coefficient $\left[  x^{n}\right]  \left(  f_{i}\circ g\right)  $ must be $0$.
+This proves (\ref{pf.prop.fps.subs.rules.h.2}).] \smallskip
+\end{fineprint}
+
+Now, recall that $I_{0}\cup I_{1}\cup\cdots\cup I_{n}$ is a finite subset of
+$I$. Hence, thanks to (\ref{pf.prop.fps.subs.rules.h.2}), we know that there
+exists a finite subset $J$ of $I$ such that all $i\in I\setminus J$ satisfy
+$\left[  x^{n}\right]  \left(  f_{i}\circ g\right)  =0$ (namely, $J=I_{0}\cup
+I_{1}\cup\cdots\cup I_{n}$). In other words, all but finitely many $i\in I$
+satisfy $\left[  x^{n}\right]  \left(  f_{i}\circ g\right)  =0$.
+
+Forget that we fixed $n$. We thus have shown that%
+\[
+\text{for each }n\in\mathbb{N}\text{, all but finitely many }i\in I\text{
+satisfy }\left[  x^{n}\right]  \left(  f_{i}\circ g\right)  =0.
+\]
+In other words, the family $\left(  f_{i}\circ g\right)  _{i\in I}\in K\left[
+\left[  x\right]  \right]  ^{I}$ is summable (by the definition of
+\textquotedblleft summable\textquotedblright).
+
+It now remains to prove that $\left(  \sum_{i\in I}f_{i}\right)  \circ
+g=\sum_{i\in I}f_{i}\circ g$.
+
+For each $i\in I$, we write the FPS $f_{i}$ in the form $f_{i}=\sum
+_{n\in\mathbb{N}}f_{i,n}x^{n}$ with \newline$f_{i,0},f_{i,1},f_{i,2},\ldots\in
+K$. First, we shall show that
+\begin{equation}
+\text{the family }\left(  f_{i,m}g^{m}\right)  _{\left(  i,m\right)  \in
+I\times\mathbb{N}}\text{ is summable.} \label{pf.prop.fps.subs.rules.h.3}%
+\end{equation}
+
+
+\begin{fineprint}
+[\textit{Proof of (\ref{pf.prop.fps.subs.rules.h.3}):} Fix an $n\in\mathbb{N}%
+$. Let $J$ denote the set $I_{0}\cup I_{1}\cup\cdots\cup I_{n}$. Hence, $J$ is
+a union of $n+1$ finite subsets of $I$ (because all the sets $I_{0}%
+,I_{1},I_{2},\ldots$ are finite subsets of $I$), and thus itself is a finite
+subset of $I$. The set $J\times\left\{  0,1,\ldots,n\right\}  $ must be finite
+(since it is the product of the two finite sets $J$ and $\left\{
+0,1,\ldots,n\right\}  $).
+
+Now, let $\left(  i,m\right)  \in\left(  I\times\mathbb{N}\right)
+\setminus\left(  J\times\left\{  0,1,\ldots,n\right\}  \right)  $. We shall
+prove that $\left[  x^{n}\right]  \left(  f_{i,m}g^{m}\right)  =0$.
+
+We have $\left(  i,m\right)  \notin J\times\left\{  0,1,\ldots,n\right\}  $
+(since $\left(  i,m\right)  \in\left(  I\times\mathbb{N}\right)
+\setminus\left(  J\times\left\{  0,1,\ldots,n\right\}  \right)  $).
+
+We note that $f_{i,m}\in K$ and thus $\left[  x^{n}\right]  \left(
+f_{i,m}g^{m}\right)  =f_{i,m}\cdot\left[  x^{n}\right]  \left(  g^{m}\right)
+$ (by (\ref{pf.thm.fps.ring.xn(la)=})). However, we have $\left[
+x^{0}\right]  g=0$. Thus, Proposition \ref{prop.fps.subs.wd} \textbf{(a)}
+(applied to $f_{i}$ and $f_{i,j}$ and $m$ instead of $f$ and $f_{j}$ and $n$)
+yields that the first $m$ coefficients of the FPS $g^{m}$ are $0$. In other
+words, we have
+\begin{equation}
+\left[  x^{k}\right]  \left(  g^{m}\right)  =0\ \ \ \ \ \ \ \ \ \ \text{for
+each }k\in\left\{  0,1,\ldots,m-1\right\}  .
+\label{pf.prop.fps.subs.rules.h.3.pf.5}%
+\end{equation}
+
+
+Now, if we have $n\in\left\{  0,1,\ldots,m-1\right\}  $, then we have $\left[
+x^{n}\right]  \left(  g^{m}\right)  =0$ (by
+(\ref{pf.prop.fps.subs.rules.h.3.pf.5}), applied to $k=n$) and therefore
+$\left[  x^{n}\right]  \left(  f_{i,m}g^{m}\right)  =f_{i,m}\cdot
+\underbrace{\left[  x^{n}\right]  \left(  g^{m}\right)  }_{=0}=0$. Hence,
+$\left[  x^{n}\right]  \left(  f_{i,m}g^{m}\right)  =0$ is proved in the case
+when $n\in\left\{  0,1,\ldots,m-1\right\}  $. Thus, for the rest of this proof
+of $\left[  x^{n}\right]  \left(  f_{i,m}g^{m}\right)  =0$, we WLOG assume
+that $n\notin\left\{  0,1,\ldots,m-1\right\}  $. Hence, $n>m-1$ (since
+$n\in\mathbb{N}$), so that $n\geq m$ (since $n$ and $m$ are integers).
+Therefore, $m\leq n$, so that $m\in\left\{  0,1,\ldots,n\right\}  $ and
+therefore $I_{m}\subseteq I_{0}\cup I_{1}\cup\cdots\cup I_{n}=J$ (since we
+defined $J$ to be $I_{0}\cup I_{1}\cup\cdots\cup I_{n}$).
+
+If we had $i\in I_{m}$, then we would have $\left(  i,m\right)  \in
+J\times\left\{  0,1,\ldots,n\right\}  $ (since $i\in I_{m}\subseteq J$ and
+$m\in\left\{  0,1,\ldots,n\right\}  $), which would contradict the fact that
+$\left(  i,m\right)  \notin J\times\left\{  0,1,\ldots,n\right\}  $. Thus, we
+cannot have $i\in I_{m}$. Hence, $i\notin I_{m}$, so that $i\in I\setminus
+I_{m}$ (since $i\in I$). Thus, (\ref{pf.prop.fps.subs.rules.h.1}) (applied to
+$m$ instead of $n$) yields $\left[  x^{m}\right]  f_{i}=0$. However, from
+$f_{i}=\sum_{n\in\mathbb{N}}f_{i,n}x^{n}$, we see that $\left[  x^{m}\right]
+f_{i}=f_{i,m}$. Thus, $f_{i,m}=\left[  x^{m}\right]  f_{i}=0$. Consequently,
+$\left[  x^{n}\right]  \left(  f_{i,m}g^{m}\right)  =\underbrace{f_{i,m}}%
+_{=0}\cdot\left[  x^{n}\right]  \left(  g^{m}\right)  =0$.
+
+Forget that we fixed $\left(  i,m\right)  $. We thus have shown that
+\[
+\text{all }\left(  i,m\right)  \in\left(  I\times\mathbb{N}\right)
+\setminus\left(  J\times\left\{  0,1,\ldots,n\right\}  \right)  \text{ satisfy
+}\left[  x^{n}\right]  \left(  f_{i,m}g^{m}\right)  =0.
+\]
+Therefore, all but finitely many $\left(  i,m\right)  \in I\times\mathbb{N}$
+satisfy $\left[  x^{n}\right]  \left(  f_{i,m}g^{m}\right)  =0$ (since
+$J\times\left\{  0,1,\ldots,n\right\}  $ is a finite subset of $I\times
+\mathbb{N}$).
+
+Forget that we fixed $n$. We thus have shown that%
+\[
+\text{for each }n\in\mathbb{N}\text{, all but finitely many }\left(
+i,m\right)  \in I\times\mathbb{N}\text{ satisfy }\left[  x^{n}\right]  \left(
+f_{i,m}g^{m}\right)  =0.
+\]
+In other words, the family $\left(  f_{i,m}g^{m}\right)  _{\left(  i,m\right)
+\in I\times\mathbb{N}}$ is summable. This proves
+(\ref{pf.prop.fps.subs.rules.h.3}).]
+\end{fineprint}
+
+Now, we have shown that the family $\left(  f_{i,m}g^{m}\right)  _{\left(
+i,m\right)  \in I\times\mathbb{N}}$ is summable. Renaming the index $\left(
+i,m\right)  $ as $\left(  i,n\right)  $, we thus conclude that the family
+$\left(  f_{i,n}g^{n}\right)  _{\left(  i,n\right)  \in I\times\mathbb{N}}$ is
+summable. The same argument (but with $g$ replaced by $x$) shows that the
+family $\left(  f_{i,n}x^{n}\right)  _{\left(  i,n\right)  \in I\times
+\mathbb{N}}$ is summable (since the FPS $x$ satisfies $\left[  x^{0}\right]
+x=0$).
+
+The proof of $\left(  \sum_{i\in I}f_{i}\right)  \circ g=\sum_{i\in I}%
+f_{i}\circ g$ is now just a matter of computation: hen, summing the equalities
+$f_{i}=\sum_{n\in\mathbb{N}}f_{i,n}x^{n}$ over all $i\in I$, we obtain%
+\[
+\sum_{i\in I}f_{i}=\sum_{i\in I}\ \ \sum_{n\in\mathbb{N}}f_{i,n}x^{n}%
+=\sum_{n\in\mathbb{N}}\ \ \sum_{i\in I}f_{i,n}x^{n}%
+\]
+(here, we have been able to interchange the summation signs, since the family
+$\left(  f_{i,n}x^{n}\right)  _{\left(  i,n\right)  \in I\times\mathbb{N}}$ is
+summable). Thus,%
+\[
+\sum_{i\in I}f_{i}=\sum_{n\in\mathbb{N}}\ \ \sum_{i\in I}f_{i,n}x^{n}%
+=\sum_{n\in\mathbb{N}}\left(  \sum_{i\in I}f_{i,n}\right)  x^{n}.
+\]
+Hence, Definition \ref{def.fps.subs} (applied to $f=\sum_{i\in I}f_{i}$)
+yields%
+\begin{equation}
+\left(  \sum_{i\in I}f_{i}\right)  \left[  g\right]  =\sum_{n\in\mathbb{N}%
+}\left(  \sum_{i\in I}f_{i,n}\right)  g^{n} \label{pf.prop.fps.subs.rules.h.5}%
+\end{equation}
+(since $\sum_{i\in I}f_{i,n}\in K$ for each $n\in\mathbb{N}$).
+
+On the other hand, for each $i\in I$, we have $f_{i}\left[  g\right]
+=\sum_{n\in\mathbb{N}}f_{i,n}g^{n}$ (by Definition \ref{def.fps.subs}, since
+$f_{i}=\sum_{n\in\mathbb{N}}f_{i,n}x^{n}$ with $f_{i,0},f_{i,1},f_{i,2}%
+,\ldots\in K$). Summing these equalities over all $i\in I$, we find%
+\[
+\sum_{i\in I}f_{i}\left[  g\right]  =\sum_{i\in I}\ \ \sum_{n\in\mathbb{N}%
+}f_{i,n}g^{n}=\sum_{n\in\mathbb{N}}\ \ \sum_{i\in I}f_{i,n}g^{n}%
+\]
+(again, we have been able to interchange the summation signs, since the family
+$\left(  f_{i,n}g^{n}\right)  _{\left(  i,n\right)  \in I\times\mathbb{N}}$ is
+summable). Thus,%
+\[
+\sum_{i\in I}f_{i}\left[  g\right]  =\sum_{n\in\mathbb{N}}\ \ \sum_{i\in
+I}f_{i,n}g^{n}=\sum_{n\in\mathbb{N}}\left(  \sum_{i\in I}f_{i,n}\right)
+g^{n}.
+\]
+Comparing this with (\ref{pf.prop.fps.subs.rules.h.5}), we find $\left(
+\sum_{i\in I}f_{i}\right)  \left[  g\right]  =\sum_{i\in I}f_{i}\left[
+g\right]  $. In other words, $\left(  \sum_{i\in I}f_{i}\right)  \circ
+g=\sum_{i\in I}f_{i}\circ g$ (since the notation $f\circ g$ is synonymous to
+$f\left[  g\right]  $). Thus, Proposition \ref{prop.fps.subs.rules}
+\textbf{(h)} is proven.
+
+\bigskip
+
+\textbf{(e)} This is \cite[Theorem 7.63]{Loehr-BC} and \cite[Proposition
+2.2.5]{Brewer14}.\footnote{See also \cite[Proposition 7.6.14]{19s} for a
+similar property for polynomials.} Again, let us give the proof:
+
+Write the FPS $g$ in the form $g=\sum_{n\in\mathbb{N}}g_{n}x^{n}$ for some
+$g_{0},g_{1},g_{2},\ldots\in K$. Then, $g_{0}=\left[  x^{0}\right]  g=0$.
+Moreover, $g\circ h=g\left[  h\right]  =\sum_{n\in\mathbb{N}}g_{n}h^{n}$ (by
+Definition \ref{def.fps.subs}, because $g=\sum_{n\in\mathbb{N}}g_{n}x^{n}$
+with $g_{0},g_{1},g_{2},\ldots\in K$). But Proposition \ref{prop.fps.subs.wd}
+\textbf{(c)} (applied to $g$, $h$ and $g_{n}$ instead of $f$, $g$ and $f_{n}$)
+yields $\left[  x^{0}\right]  \left(  \sum_{n\in\mathbb{N}}g_{n}h^{n}\right)
+=g_{0}=0$. In view of $g\circ h=\sum_{n\in\mathbb{N}}g_{n}h^{n}$, this
+rewrites as $\left[  x^{0}\right]  \left(  g\circ h\right)  =0$. Hence, the
+composition $f\circ\left(  g\circ h\right)  $ is well-defined.
+
+It remains to show that $\left(  f\circ g\right)  \circ h=f\circ\left(  g\circ
+h\right)  $.
+
+Write the FPS $f$ in the form $f=\sum_{n\in\mathbb{N}}f_{n}x^{n}$ for some
+$f_{0},f_{1},f_{2},\ldots\in K$. Thus, Definition \ref{def.fps.subs} yields%
+\[
+f\left[  g\right]  =\sum_{n\in\mathbb{N}}f_{n}g^{n}%
+\ \ \ \ \ \ \ \ \ \ \text{and}\ \ \ \ \ \ \ \ \ \ f\left[  g\circ h\right]
+=\sum_{n\in\mathbb{N}}f_{n}\cdot\left(  g\circ h\right)  ^{n}.
+\]
+Moreover, the family $\left(  f_{n}g^{n}\right)  _{n\in\mathbb{N}}$ is
+summable (by Proposition \ref{prop.fps.subs.wd} \textbf{(b)}). Hence,
+Proposition \ref{prop.fps.subs.rules} \textbf{(h)} (applied to $\left(
+f_{n}g^{n}\right)  _{n\in\mathbb{N}}$ and $h$ instead of $\left(
+f_{i}\right)  _{i\in I}$ and $g$) yields that the family $\left(  \left(
+f_{n}g^{n}\right)  \circ h\right)  _{n\in\mathbb{N}}\in K\left[  \left[
+x\right]  \right]  ^{\mathbb{N}}$ is summable as well and that we have
+\begin{equation}
+\left(  \sum_{n\in\mathbb{N}}f_{n}g^{n}\right)  \circ h=\sum_{n\in\mathbb{N}%
+}\left(  f_{n}g^{n}\right)  \circ h. \label{pf.prop.fps.subs.rules.e.3}%
+\end{equation}
+In view of $f\circ g=f\left[  g\right]  =\sum_{n\in\mathbb{N}}f_{n}g^{n}$, we
+can rewrite (\ref{pf.prop.fps.subs.rules.e.3}) as%
+\begin{equation}
+\left(  f\circ g\right)  \circ h=\sum_{n\in\mathbb{N}}\left(  f_{n}%
+g^{n}\right)  \circ h. \label{pf.prop.fps.subs.rules.e.4}%
+\end{equation}
+However, for each $n\in\mathbb{N}$, we have $f_{n}g^{n}=\underline{f_{n}}\cdot
+g^{n}$ (by Theorem \ref{thm.fps.ring} \textbf{(d)}, applied to $\lambda=f_{n}$
+and $\mathbf{a}=g^{n}$) and thus%
+\begin{align}
+\left(  f_{n}g^{n}\right)  \circ h  &  =\left(  \underline{f_{n}}\cdot
+g^{n}\right)  \circ h=\underbrace{\left(  \underline{f_{n}}\circ h\right)
+}_{\substack{=\underline{f_{n}}\\\text{(by Proposition
+\ref{prop.fps.subs.rules} \textbf{(f)},}\\\text{applied to }f_{n}\text{ and
+}h\\\text{instead of }a\text{ and }g\text{)}}}\cdot\underbrace{\left(
+g^{n}\circ h\right)  }_{\substack{=\left(  g\circ h\right)  ^{n}\\\text{(by
+Proposition \ref{prop.fps.subs.rules} \textbf{(d)},}\\\text{applied to
+}g\text{ and }h\\\text{instead of }f\text{ and }g\text{)}}}\nonumber\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{by Proposition \ref{prop.fps.subs.rules} \textbf{(b)},}\\
+\text{applied to }\underline{f_{n}}\text{, }g^{n}\text{ and }h\text{ instead
+of }f_{1}\text{, }f_{2}\text{ and }g
+\end{array}
+\right) \nonumber\\
+&  =\underline{f_{n}}\cdot\left(  g\circ h\right)  ^{n}=f_{n}\cdot\left(
+g\circ h\right)  ^{n} \label{pf.prop.fps.subs.rules.e.5}%
+\end{align}
+(since Theorem \ref{thm.fps.ring} \textbf{(d)} (applied to $\lambda=f_{n}$ and
+$\mathbf{a}=\left(  g\circ h\right)  ^{n}$) yields $f_{n}\cdot\left(  g\circ
+h\right)  ^{n}=\underline{f_{n}}\cdot\left(  g\circ h\right)  ^{n}$). Thus,
+(\ref{pf.prop.fps.subs.rules.e.4}) becomes%
+\begin{align*}
+\left(  f\circ g\right)  \circ h  &  =\sum_{n\in\mathbb{N}}\underbrace{\left(
+f_{n}g^{n}\right)  \circ h}_{\substack{=f_{n}\cdot\left(  g\circ h\right)
+^{n}\\\text{(by (\ref{pf.prop.fps.subs.rules.e.5}))}}}=\sum_{n\in\mathbb{N}%
+}f_{n}\cdot\left(  g\circ h\right)  ^{n}\\
+&  =f\left[  g\circ h\right]  \ \ \ \ \ \ \ \ \ \ \left(  \text{since
+}f\left[  g\circ h\right]  =\sum_{n\in\mathbb{N}}f_{n}\cdot\left(  g\circ
+h\right)  ^{n}\right) \\
+&  =f\circ\left(  g\circ h\right)  .
+\end{align*}
+This completes the proof of Proposition \ref{prop.fps.subs.rules} \textbf{(e)}.
+\end{proof}
+
+\begin{example}
+Let us use Proposition \ref{prop.fps.subs.rules} \textbf{(c)} to justify the
+equality (\ref{eq.exa.fps.subs.fibonacci.subs-plausible}) that we used in
+Example \ref{exa.fps.subs.fibonacci}. Indeed, we know that the FPS $1-x$ is
+invertible. Thus, applying Proposition \ref{prop.fps.subs.rules} \textbf{(c)}
+to $f_{1}=1$ and $f_{2}=1-x$ and $g=x+x^{2}$, we obtain%
+\[
+\dfrac{1}{1-x}\circ\left(  x+x^{2}\right)  =\dfrac{1\circ\left(
+x+x^{2}\right)  }{\left(  1-x\right)  \circ\left(  x+x^{2}\right)  }.
+\]
+Using the notation $f\left[  g\right]  $ instead of $f\circ g$, we can rewrite
+this as%
+\[
+\dfrac{1}{1-x}\left[  x+x^{2}\right]  =\dfrac{1\left[  x+x^{2}\right]
+}{\left(  1-x\right)  \left[  x+x^{2}\right]  }.
+\]
+In view of $1\left[  x+x^{2}\right]  =1$ and $\left(  1-x\right)  \left[
+x+x^{2}\right]  =1-\left(  x+x^{2}\right)  =1-x-x^{2}$, this rewrites as
+$\dfrac{1}{1-x}\left[  x+x^{2}\right]  =\dfrac{1}{1-x-x^{2}}$. Thus,
+(\ref{eq.exa.fps.subs.fibonacci.subs-plausible}) is proved.
+\end{example}
+
+Let us summarize: If $f,g\in K\left[  \left[  x\right]  \right]  $ are two
+FPSs, then the composition $f\left[  g\right]  $ is not always defined.
+However, it is defined at least in the following two cases:
+
+\begin{itemize}
+\item in the case when $f$ is a polynomial (that is, $f\in K\left[  x\right]
+$), and
+
+\item in the case when $g$ has constant term $0$ (that is, $\left[
+x^{0}\right]  g=0$).
+\end{itemize}
+
+This justifies some more of the things we did back in Section
+\ref{sec.gf.exas}; in particular, Example 1 from that section is now fully
+justified. But we still have not defined (e.g.) the square root of an FPS,
+which we used in Example 2.
+
+Before I explain square roots, let me quickly survey differentiation of FPSs.

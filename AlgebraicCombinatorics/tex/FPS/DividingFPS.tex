@@ -1,0 +1,995 @@
+\subsection{Dividing FPSs}
+
+\subsubsection{Conventions}
+
+We shall make ourselves at home in the ring $K\left[  \left[  x\right]
+\right]  $ a bit more. (Recall that $K$ is a fixed commutative ring.)
+
+\begin{convention}
+\label{conv.fps.const}From now on, we identify each $a\in K$ with the constant
+FPS $\underline{a}=\left(  a,0,0,0,0,\ldots\right)  \in K\left[  \left[
+x\right]  \right]  $.
+\end{convention}
+
+This is motivated by the fact that $\underline{a}=a+0x+0x^{2}+0x^{3}+\cdots$
+for any $a\in K$. Convention \ref{conv.fps.const} does not cause any dangerous
+ambiguities, because we have%
+\begin{align*}
+\underline{a+b}  &  =\underline{a}+\underline{b}\ \ \ \ \ \ \ \ \ \ \text{and}%
+\\
+\underline{a-b}  &  =\underline{a}-\underline{b}\ \ \ \ \ \ \ \ \ \ \text{and}%
+\\
+\underline{a\cdot b}  &  =\underline{a}\cdot\underline{b}%
+\ \ \ \ \ \ \ \ \ \ \text{for any }a,b\in K
+\end{align*}
+(check this!), and because the zero and the unity of the ring $K\left[
+\left[  x\right]  \right]  $ are $\underline{0}$ and $\underline{1}$, respectively.
+
+Furthermore, I will stop using boldfaced letters (like $\mathbf{a}%
+,\mathbf{b},\mathbf{c}$) for FPSs. (I did this above for the sake of
+convenience, but this is rarely done in the literature.)
+
+\subsubsection{Inverses in commutative rings}
+
+We recall the notion of an \emph{inverse} in a commutative ring:
+
+\begin{definition}
+\label{def.commring.inverse}Let $L$ be a commutative ring. Let $a\in L$. Then:
+\medskip
+
+\textbf{(a)} An \emph{inverse} (or \emph{multiplicative inverse}) of $a$ means
+an element $b\in L$ such that $ab=ba=1$ (where the \textquotedblleft%
+$1$\textquotedblright\ means the unity of $L$). \medskip
+
+\textbf{(b)} We say that $a$ is \emph{invertible} in $L$ (or a \emph{unit} of
+$L$) if $a$ has an inverse.
+\end{definition}
+
+Note that the condition \textquotedblleft$ab=ba=1$\textquotedblright\ in
+Definition \ref{def.commring.inverse} \textbf{(a)} can be restated as
+\textquotedblleft$ab=1$\textquotedblright, because we automatically have
+$ab=ba$ (since $L$ is a commutative ring). I have chosen to write
+\textquotedblleft$ab=ba=1$\textquotedblright\ in order to state the definition
+in a form that applies verbatim to noncommutative rings as well.
+
+\begin{example}
+\textbf{(a)} In the ring $\mathbb{Z}$, the only two invertible elements are
+$1$ and $-1$. Each of these two elements is its own inverse. \medskip
+
+\textbf{(b)} In the ring $\mathbb{Q}$, every nonzero element is invertible.
+The same holds for the rings $\mathbb{R}$ and $\mathbb{C}$ (and, more
+generally, for any field).
+\end{example}
+
+Our next goal is to study inverses of FPSs in $K\left[  \left[  x\right]
+\right]  $, answering in particular the natural question \textquotedblleft
+which elements of $K\left[  \left[  x\right]  \right]  $ have
+inverses\textquotedblright. But let us first prove their uniqueness in the
+generality of an arbitrary commutative ring:
+
+\begin{theorem}
+\label{thm.commring.inverse-uni}Let $L$ be a commutative ring. Let $a\in L$.
+Then, there is \textbf{at most one} inverse of $a$.
+\end{theorem}
+
+\begin{proof}
+Let $b$ and $c$ be two inverses of $a$. We must prove that $b=c$.
+
+Since $b$ is an inverse of $a$, we have $ab=ba=1$. Since $c$ is an inverse of
+$a$, we have $ac=ca=1$. Now, we have $b\underbrace{\left(  ac\right)  }%
+_{=1}=b\cdot1=b$ and $\underbrace{\left(  ba\right)  }_{=1}c=1\cdot c=c$.
+However, because of the \textquotedblleft associativity of
+multiplication\textquotedblright\ axiom in Definition \ref{def.alg.commring},
+we have $b\left(  ac\right)  =\left(  ba\right)  c$. Hence, $b=b\left(
+ac\right)  =\left(  ba\right)  c=c$. This proves Theorem
+\ref{thm.commring.inverse-uni}.
+\end{proof}
+
+Theorem \ref{thm.commring.inverse-uni} allows us to make the following definition:
+
+\begin{definition}
+\label{def.commring.fracs}Let $L$ be a commutative ring. Let $a\in L$. Assume
+that $a$ is invertible. Then: \medskip
+
+\textbf{(a)} The inverse of $a$ is called $a^{-1}$. (This notation is
+unambiguous, since Theorem \ref{thm.commring.inverse-uni} shows that the
+inverse of $a$ is unique.) \medskip
+
+\textbf{(b)} For any $b\in L$, the product $b\cdot a^{-1}$ is called
+$\dfrac{b}{a}$ (or $b/a$). \medskip
+
+\textbf{(c)} For any negative integer $n$, we define $a^{n}$ to be $\left(
+a^{-1}\right)  ^{-n}$. Thus, the $n$-th power $a^{n}$ is defined for each
+$n\in\mathbb{Z}$.
+\end{definition}
+
+The following facts are easy to check:
+
+\begin{proposition}
+\label{prop.commring.fracs.1}Let $L$ be a commutative ring. Then: \medskip
+
+\textbf{(a)} Any invertible element $a\in L$ satisfies $a^{-1}=1/a$. \medskip
+
+\textbf{(b)} For any invertible elements $a,b\in L$, the element $ab$ is
+invertible as well, and satisfies $\left(  ab\right)  ^{-1}=b^{-1}%
+a^{-1}=a^{-1}b^{-1}$. \medskip
+
+\textbf{(c)} If $a\in L$ is invertible, and if $n\in\mathbb{Z}$ is arbitrary,
+then $a^{-n}=\left(  a^{-1}\right)  ^{n}=\left(  a^{n}\right)  ^{-1}$.
+\medskip
+
+\textbf{(d)} Laws of exponents hold for negative exponents as well: If $a$ and
+$b$ are invertible elements of $L$, then%
+\begin{align*}
+a^{n+m}  &  =a^{n}a^{m}\ \ \ \ \ \ \ \ \ \ \text{for all }n,m\in\mathbb{Z};\\
+\left(  ab\right)  ^{n}  &  =a^{n}b^{n}\ \ \ \ \ \ \ \ \ \ \text{for all }%
+n\in\mathbb{Z};\\
+\left(  a^{n}\right)  ^{m}  &  =a^{nm}\ \ \ \ \ \ \ \ \ \ \text{for all
+}n,m\in\mathbb{Z}.
+\end{align*}
+
+
+\textbf{(e)} Laws of fractions hold: If $a$ and $c$ are two invertible
+elements of $L$, and if $b$ and $d$ are any two elements of $L$, then
+\[
+\dfrac{b}{a}+\dfrac{d}{c}=\dfrac{bc+ad}{ac}\ \ \ \ \ \ \ \ \ \ \text{and}%
+\ \ \ \ \ \ \ \ \ \ \dfrac{b}{a}\cdot\dfrac{d}{c}=\dfrac{bd}{ac}.
+\]
+
+
+\textbf{(f)} Division undoes multiplication: If $a,b,c$ are three elements of
+$L$ with $a$ being invertible, then the equality $\dfrac{c}{a}=b$ is
+equivalent to $c=ab$.
+\end{proposition}
+
+\begin{proof}
+Exercise. (See, e.g., \cite[solution to Exercise 4.1.1]{19s} for a proof of
+parts \textbf{(c)} and \textbf{(d)} in the special case where $L=\mathbb{C}$;
+essentially the same argument works in the general case. The remaining parts
+of Proposition \ref{prop.commring.fracs.1} are even easier to check. Note that
+parts \textbf{(a)} and \textbf{(c)} as well as the $\left(  ab\right)
+^{-1}=b^{-1}a^{-1}$ part of part \textbf{(b)} would hold even if $L$ was a
+noncommutative ring.)
+\end{proof}
+
+\subsubsection{Inverses in $K\left[  \left[  x\right]  \right]  $}
+
+Now, which FPSs are invertible in the ring $K\left[  \left[  x\right]
+\right]  $ ? For example, we know from (\ref{eq.sec.gf.exas.1.1/1-x}) that the
+FPS $1-x$ is invertible, with inverse $1+x+x^{2}+x^{3}+\cdots$. On the other
+hand, the FPS $x$ is not invertible, since Lemma \ref{lem.fps.xa} shows that
+any product of $x$ with an FPS must begin with a $0$ (but the unity of
+$K\left[  \left[  x\right]  \right]  $ does not begin with a $0$). (Strictly
+speaking, this is only true if the ring $K$ is nontrivial -- i.e., if not all
+elements of $K$ are equal. If $K$ is trivial, then $K\left[  \left[  x\right]
+\right]  $ is trivial, and thus any FPS in $K\left[  \left[  x\right]
+\right]  $ is invertible, but this does not make an interesting statement.)
+
+It turns out that we can characterize invertible FPSs in $K\left[  \left[
+x\right]  \right]  $ in a rather simple way:
+
+\begin{proposition}
+\label{prop.fps.invertible}Let $a\in K\left[  \left[  x\right]  \right]  $.
+Then, the FPS $a$ is invertible in $K\left[  \left[  x\right]  \right]  $ if
+and only if its constant term $\left[  x^{0}\right]  a$ is invertible in $K$.
+\end{proposition}
+
+\begin{proof}
+The statement we are proving is an \textquotedblleft if and only
+if\textquotedblright\ statement. We shall prove its \textquotedblleft only
+if\textquotedblright\ (i.e., \textquotedblleft$\Longrightarrow$%
+\textquotedblright) and its \textquotedblleft if\textquotedblright\ (i.e.,
+\textquotedblleft$\Longleftarrow$\textquotedblright) directions separately:
+
+\begin{enumerate}
+\item[$\Longrightarrow:$] Assume that $a$ is invertible in $K\left[  \left[
+x\right]  \right]  $. That is, $a$ has an inverse $b\in K\left[  \left[
+x\right]  \right]  $. Consider this $b$. Since $b$ is an inverse of $a$, we
+have $ab=ba=1$ (where \textquotedblleft$1$\textquotedblright\ means
+$\underline{1}$ by Convention \ref{conv.fps.const}). However,
+(\ref{pf.thm.fps.ring.x0(ab)=}) (applied to $\mathbf{a}=a$ and $\mathbf{b}=b$)
+yields $\left[  x^{0}\right]  \left(  ab\right)  =\left[  x^{0}\right]
+a\cdot\left[  x^{0}\right]  b$. Comparing this with $\left[  x^{0}\right]
+\underbrace{\left(  ab\right)  }_{=1}=\left[  x^{0}\right]  1=1$, we find
+$\left[  x^{0}\right]  a\cdot\left[  x^{0}\right]  b=1$. Thus, $\left[
+x^{0}\right]  b$ is an inverse of $\left[  x^{0}\right]  a$ in $K$ (since
+$\left[  x^{0}\right]  b\cdot\left[  x^{0}\right]  a=\left[  x^{0}\right]
+a\cdot\left[  x^{0}\right]  b=1$, so that $\left[  x^{0}\right]  a\cdot\left[
+x^{0}\right]  b=\left[  x^{0}\right]  b\cdot\left[  x^{0}\right]  a=1$).
+Therefore, $\left[  x^{0}\right]  a$ is invertible in $K$ (with inverse
+$\left[  x^{0}\right]  b$). This proves the \textquotedblleft$\Longrightarrow
+$\textquotedblright\ direction of Proposition \ref{prop.fps.invertible}.
+
+\item[$\Longleftarrow:$] Assume that $\left[  x^{0}\right]  a$ is invertible
+in $K$. Write the FPS $a$ in the form $a=\left(  a_{0},a_{1},a_{2}%
+,\ldots\right)  $. Thus, $\left[  x^{0}\right]  a=a_{0}$, so that $a_{0}$ is
+invertible in $K$ (since $\left[  x^{0}\right]  a$ is invertible in $K$).
+Thus, its inverse $a_{0}^{-1}$ is well-defined.
+
+Now, we want to prove that $a$ is invertible in $K\left[  \left[  x\right]
+\right]  $. We thus try to find an inverse of $a$.
+
+We work backwards at first: We assume that $b=\left(  b_{0},b_{1},b_{2}%
+,\ldots\right)  \in K\left[  \left[  x\right]  \right]  $ is an inverse for
+$a$, and we try to figure out how this inverse looks like.
+
+Since $b$ is an inverse of $a$, we have $ab=\underline{1}=\left(
+1,0,0,0,\ldots\right)  $. However, from $a=\left(  a_{0},a_{1},a_{2}%
+,\ldots\right)  $ and $b=\left(  b_{0},b_{1},b_{2},\ldots\right)  $, we have%
+\begin{align*}
+ab  &  =\left(  a_{0},a_{1},a_{2},\ldots\right)  \left(  b_{0},b_{1}%
+,b_{2},\ldots\right) \\
+&  =\left(  a_{0}b_{0},\ \ a_{0}b_{1}+a_{1}b_{0},\ \ a_{0}b_{2}+a_{1}%
+b_{1}+a_{2}b_{0},\ \ a_{0}b_{3}+a_{1}b_{2}+a_{2}b_{1}+a_{3}b_{0}%
+,\ \ \ldots\right)
+\end{align*}
+(by the definition of the product of FPSs). Comparing this with $ab=\left(
+1,0,0,0,\ldots\right)  $, we obtain%
+\begin{align*}
+&  \left(  1,0,0,0,\ldots\right) \\
+&  =\left(  a_{0}b_{0},\ \ a_{0}b_{1}+a_{1}b_{0},\ \ a_{0}b_{2}+a_{1}%
+b_{1}+a_{2}b_{0},\ \ a_{0}b_{3}+a_{1}b_{2}+a_{2}b_{1}+a_{3}b_{0}%
+,\ \ \ldots\right)  .
+\end{align*}
+This can be rewritten as the following system of equations:%
+\begin{equation}
+\left\{
+\begin{array}
+[c]{l}%
+1=a_{0}b_{0},\\
+0=a_{0}b_{1}+a_{1}b_{0},\\
+0=a_{0}b_{2}+a_{1}b_{1}+a_{2}b_{0},\\
+0=a_{0}b_{3}+a_{1}b_{2}+a_{2}b_{1}+a_{3}b_{0},\\
+\ldots.
+\end{array}
+\right.  \label{pf.prop.fps.invertible.sys}%
+\end{equation}
+I claim that this system of equations uniquely determines $\left(  b_{0}%
+,b_{1},b_{2},\ldots\right)  $. Indeed, we can solve the first equation
+($1=a_{0}b_{0}$) for $b_{0}$, thus obtaining $b_{0}=a_{0}^{-1}$ (since $a_{0}$
+is invertible). Having thus found $b_{0}$, we can solve the second equation
+($0=a_{0}b_{1}+a_{1}b_{0}$) for $b_{1}$, thus obtaining $b_{1}=-a_{0}%
+^{-1}\left(  a_{1}b_{0}\right)  $ (again because $a_{0}$ is invertible).
+Having thus found both $b_{0}$ and $b_{1}$, we can solve the third equation
+($0=a_{0}b_{2}+a_{1}b_{1}+a_{2}b_{0}$) for $b_{2}$, thus obtaining
+$b_{2}=-a_{0}^{-1}\left(  a_{1}b_{1}+a_{2}b_{0}\right)  $. Proceeding like
+this, we obtain recursive expressions for all coefficients $b_{0},b_{1}%
+,b_{2},\ldots$ of $b$, namely%
+\begin{equation}
+\left\{
+\begin{array}
+[c]{l}%
+b_{0}=a_{0}^{-1},\\
+b_{1}=-a_{0}^{-1}\left(  a_{1}b_{0}\right)  ,\\
+b_{2}=-a_{0}^{-1}\left(  a_{1}b_{1}+a_{2}b_{0}\right)  ,\\
+b_{3}=-a_{0}^{-1}\left(  a_{1}b_{2}+a_{2}b_{1}+a_{3}b_{0}\right)  ,\\
+\ldots.
+\end{array}
+\right.  \label{pf.prop.fps.invertible.sol}%
+\end{equation}
+(This procedure for solving systems of linear equations is well-known from
+linear algebra -- it is a form of Gaussian elimination, but a particularly
+simple one because our system is triangular with invertible coefficients on
+the diagonal. The only complication is that it has infinitely many variables
+and infinitely many equations.)
+
+So we have shown that if $b$ is an inverse of $a$, then the entries $b_{i}$ of
+the FPS $b$ are given recursively by (\ref{pf.prop.fps.invertible.sol}). This
+yields that $b$ is unique; alas, this is not what we want to prove. Instead,
+we want to prove that $b$ exists.
+
+Fortunately, we can achieve this by simply turning our above argument around:
+Forget that we fixed $b$. Instead, we define a sequence $\left(  b_{0}%
+,b_{1},b_{2},\ldots\right)  $ of elements of $K$ recursively by
+(\ref{pf.prop.fps.invertible.sol}), and we define the FPS $b=\left(
+b_{0},b_{1},b_{2},\ldots\right)  \in K\left[  \left[  x\right]  \right]
+$.\ Then, the equalities (\ref{pf.prop.fps.invertible.sys}) hold (because they
+are just equivalent restatements of the equalities
+(\ref{pf.prop.fps.invertible.sol})). In other words, we have%
+\begin{align*}
+&  \left(  1,0,0,0,\ldots\right) \\
+&  =\left(  a_{0}b_{0},\ \ a_{0}b_{1}+a_{1}b_{0},\ \ a_{0}b_{2}+a_{1}%
+b_{1}+a_{2}b_{0},\ \ a_{0}b_{3}+a_{1}b_{2}+a_{2}b_{1}+a_{3}b_{0}%
+,\ \ \ldots\right)  .
+\end{align*}
+However, as before, we can show that%
+\[
+ab=\left(  a_{0}b_{0},\ \ a_{0}b_{1}+a_{1}b_{0},\ \ a_{0}b_{2}+a_{1}%
+b_{1}+a_{2}b_{0},\ \ a_{0}b_{3}+a_{1}b_{2}+a_{2}b_{1}+a_{3}b_{0}%
+,\ \ \ldots\right)  .
+\]
+Comparing these two equalities, we find $ab=\left(  1,0,0,0,\ldots\right)
+=\underline{1}$. Thus, $ba=ab=\underline{1}$, so that $ab=ba=\underline{1}$.
+This shows that $b$ is an inverse of $a$, so that $a$ is invertible. This
+proves the \textquotedblleft$\Longleftarrow$\textquotedblright\ direction of
+Proposition \ref{prop.fps.invertible}.
+\end{enumerate}
+\end{proof}
+
+We note a particularly simple corollary of Proposition
+\ref{prop.fps.invertible} when $K$ is a field:
+
+\begin{corollary}
+\label{cor.fps.invertible.field}Assume that $K$ is a field. Let $a\in K\left[
+\left[  x\right]  \right]  $. Then, the FPS $a$ is invertible in $K\left[
+\left[  x\right]  \right]  $ if and only if $\left[  x^{0}\right]  a\neq0$.
+\end{corollary}
+
+\begin{proof}
+An element of $K$ is invertible in $K$ if and only if it is nonzero (since $K$
+is a field). Hence, Corollary \ref{cor.fps.invertible.field} follows from
+Proposition \ref{prop.fps.invertible}.
+\end{proof}
+
+\subsubsection{Newton's binomial formula}
+
+Let us now return to considering specific FPSs. We have already seen that the
+FPS $1-x$ is invertible, with inverse $1+x+x^{2}+x^{3}+\cdots$. We shall now
+show an analogous result for the FPS $1+x$. Its invertibility follows from
+Proposition \ref{prop.fps.invertible}, but it is better to derive it by hand,
+as this also gives a formula for the inverse:
+
+\begin{proposition}
+\label{prop.fps.invertible.1+x}The FPS $1+x\in K\left[  \left[  x\right]
+\right]  $ is invertible, and its inverse is%
+\[
+\left(  1+x\right)  ^{-1}=1-x+x^{2}-x^{3}+x^{4}-x^{5}\pm\cdots=\sum
+_{n\in\mathbb{N}}\left(  -1\right)  ^{n}x^{n}.
+\]
+
+\end{proposition}
+
+\begin{proof}
+[First proof of Proposition \ref{prop.fps.invertible.1+x}.]We have%
+\begin{align*}
+&  \left(  1+x\right)  \cdot\left(  1-x+x^{2}-x^{3}+x^{4}-x^{5}\pm
+\cdots\right) \\
+&  =\underbrace{1\cdot\left(  1-x+x^{2}-x^{3}+x^{4}-x^{5}\pm\cdots\right)
+}_{=1-x+x^{2}-x^{3}+x^{4}-x^{5}\pm\cdots}+\underbrace{x\cdot\left(
+1-x+x^{2}-x^{3}+x^{4}-x^{5}\pm\cdots\right)  }_{=x-x^{2}+x^{3}-x^{4}%
++x^{5}-x^{6}\pm\cdots}\\
+&  =\left(  1-x+x^{2}-x^{3}+x^{4}-x^{5}\pm\cdots\right)  +\left(
+x-x^{2}+x^{3}-x^{4}+x^{5}-x^{6}\pm\cdots\right) \\
+&  =1
+\end{align*}
+(since all powers of $x$ other than $1$ cancel out). This shows that
+$1-x+x^{2}-x^{3}+x^{4}-x^{5}\pm\cdots$ is an inverse of $1+x$ (since $K\left[
+\left[  x\right]  \right]  $ is a commutative ring). Thus, $1+x$ is
+invertible, and its inverse is $\left(  1+x\right)  ^{-1}=1-x+x^{2}%
+-x^{3}+x^{4}-x^{5}\pm\cdots=\sum_{n\in\mathbb{N}}\left(  -1\right)  ^{n}x^{n}%
+$. This proves Proposition \ref{prop.fps.invertible.1+x}.
+\end{proof}
+
+\begin{proof}
+[Second proof of Proposition \ref{prop.fps.invertible.1+x}.]We have%
+\begin{align*}
+&  \left(  1+x\right)  \cdot\left(  1-x+x^{2}-x^{3}+x^{4}-x^{5}\pm
+\cdots\right) \\
+&  =\underbrace{\left(  1+x\right)  \cdot1}_{=1+x}-\underbrace{\left(
+1+x\right)  \cdot x}_{=x+x^{2}}+\underbrace{\left(  1+x\right)  \cdot x^{2}%
+}_{=x^{2}+x^{3}}-\underbrace{\left(  1+x\right)  \cdot x^{3}}_{=x^{3}+x^{4}%
+}+\underbrace{\left(  1+x\right)  \cdot x^{4}}_{=x^{4}+x^{5}}%
+-\underbrace{\left(  1+x\right)  \cdot x^{5}}_{=x^{5}+x^{6}}\pm\cdots\\
+&  =\left(  1+x\right)  -\left(  x+x^{2}\right)  +\left(  x^{2}+x^{3}\right)
+-\left(  x^{3}+x^{4}\right)  +\left(  x^{4}+x^{5}\right)  -\left(  x^{5}%
++x^{6}\right)  \pm\cdots\\
+&  =1
+\end{align*}
+(since we have a telescoping sum in front of us, in which all powers of $x$
+other than $1$ cancel out). This shows that $1-x+x^{2}-x^{3}+x^{4}-x^{5}%
+\pm\cdots$ is an inverse of $1+x$ (since $K\left[  \left[  x\right]  \right]
+$ is a commutative ring). Thus, $1+x$ is invertible, and its inverse is
+$\left(  1+x\right)  ^{-1}=1-x+x^{2}-x^{3}+x^{4}-x^{5}\pm\cdots=\sum
+_{n\in\mathbb{N}}\left(  -1\right)  ^{n}x^{n}$. This proves Proposition
+\ref{prop.fps.invertible.1+x}.
+\end{proof}
+
+Proposition \ref{prop.fps.invertible.1+x} shows that the FPS $1+x$ is
+invertible; thus, its powers $\left(  1+x\right)  ^{n}$ are defined for all
+$n\in\mathbb{Z}$ (by Definition \ref{def.commring.fracs} \textbf{(c)}). The
+following formula -- known as \emph{Newton's binomial theorem}\footnote{or
+\emph{Newton's binomial formula}} -- describes these powers explicitly:
+
+\begin{theorem}
+\label{thm.fps.newton-binom}For each $n\in\mathbb{Z}$, we have%
+\[
+\left(  1+x\right)  ^{n}=\sum_{k\in\mathbb{N}}\dbinom{n}{k}x^{k}.
+\]
+
+\end{theorem}
+
+Note that the sum $\sum_{k\in\mathbb{N}}\dbinom{n}{k}x^{k}$ is summable for
+each $n\in\mathbb{N}$ (indeed, it equals the FPS $\left(  \dbinom{n}%
+{0},\dbinom{n}{1},\dbinom{n}{2},\ldots\right)  $). If $n\in\mathbb{N}$, then
+it is essentially finite.
+
+The reader may want to check that the particular case $n=-1$ of Theorem
+\ref{thm.fps.newton-binom} agrees with Proposition
+\ref{prop.fps.invertible.1+x}. (Recall Example \ref{exa.binom.-1choosek}!)
+
+Of course, Theorem \ref{thm.fps.newton-binom} should look familiar -- an
+identical-looking formula appears in real analysis under the same name.
+However, the result in real analysis is concerned with infinite sums of real
+numbers, while our Theorem \ref{thm.fps.newton-binom} is an identity between
+FPSs over an arbitrary commutative ring. Thus, the two facts are not the same.
+
+We will prove Theorem \ref{thm.fps.newton-binom} in a somewhat roundabout way,
+since this gives us an opportunity to establish some auxiliary results that
+are of separate interest (and usefulness). The first of these auxiliary
+results is a fundamental property of binomial coefficients, known as the
+\emph{upper negation formula} (see, e.g., \cite[Proposition 1.3.7]{19fco}):
+
+\begin{theorem}
+\label{thm.binom.upneg-n}Let $n\in\mathbb{C}$ and $k\in\mathbb{Z}$. Then,%
+\[
+\dbinom{-n}{k}=\left(  -1\right)  ^{k}\dbinom{k+n-1}{k}.
+\]
+
+\end{theorem}
+
+\begin{proof}
+[Proof of Theorem \ref{thm.binom.upneg-n} (sketched).]If $k<0$, then this is
+trivial because both $\dbinom{-n}{k}$ and $\dbinom{k+n-1}{k}$ are $0$ (by
+(\ref{eq.def.binom.binom.eq})). Thus, we WLOG assume that $k\geq0$. Hence,
+$k\in\mathbb{N}$. Thus, (\ref{eq.def.binom.binom.eq}) yields%
+\begin{align*}
+\dbinom{-n}{k}  &  =\dfrac{\left(  -n\right)  \left(  -n-1\right)  \left(
+-n-2\right)  \cdots\left(  -n-k+1\right)  }{k!}\ \ \ \ \ \ \ \ \ \ \text{and}%
+\\
+\dbinom{k+n-1}{k}  &  =\dfrac{\left(  k+n-1\right)  \left(  k+n-2\right)
+\left(  k+n-3\right)  \cdots\left(  k+n-k\right)  }{k!}.
+\end{align*}
+A moment of thought reveals that the right hand sides of these two equalities
+are equal up to a factor of $\left(  -1\right)  ^{k}$. Thus, so are the left
+hand sides. In other words, $\dbinom{-n}{k}=\left(  -1\right)  ^{k}%
+\dbinom{k+n-1}{k}$. This proves Theorem \ref{thm.binom.upneg-n}.
+\end{proof}
+
+(Quick exercise: Rederive Example \ref{exa.binom.-1choosek} from Theorem
+\ref{thm.binom.upneg-n}.)
+
+Next, we show a formula for negative powers of $1+x$:
+
+\begin{proposition}
+\label{prop.fps.anti-newton-binom}For each $n\in\mathbb{N}$, we have%
+\[
+\left(  1+x\right)  ^{-n}=\sum_{k\in\mathbb{N}}\left(  -1\right)  ^{k}%
+\dbinom{n+k-1}{k}x^{k}.
+\]
+
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.fps.anti-newton-binom}.]We proceed by
+induction on $n$:
+
+\textit{Induction base:} Comparing
+\[
+\left(  1+x\right)  ^{-0}=\left(  1+x\right)  ^{0}=\underline{1}=\left(
+1,0,0,0,\ldots\right)  =1
+\]
+with%
+\begin{align*}
+&  \sum_{k\in\mathbb{N}}\left(  -1\right)  ^{k}\dbinom{0+k-1}{k}x^{k}\\
+&  =\underbrace{\left(  -1\right)  ^{0}}_{=1}\underbrace{\dbinom{0+0-1}{0}%
+}_{=1}\underbrace{x^{0}}_{=1}+\sum_{\substack{k\in\mathbb{N};\\k>0}}\left(
+-1\right)  ^{k}\underbrace{\dbinom{0+k-1}{k}}_{\substack{=\dbinom{k-1}%
+{k}=0\\\text{(by Proposition \ref{prop.binom.0}}\\\text{(applied to
+}m=k-1\text{ and }n=k\text{),}\\\text{since }k-1<k\text{ and }k-1\in
+\mathbb{N}\text{)}}}x^{k}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{here, we have split
+off the addend for }k=0\text{ from the sum}\right) \\
+&  =1+\underbrace{\sum_{\substack{k\in\mathbb{N};\\k>0}}\left(  -1\right)
+^{k}0x^{k}}_{=0}=1,
+\end{align*}
+we obtain $\left(  1+x\right)  ^{-0}=\sum_{k\in\mathbb{N}}\left(  -1\right)
+^{k}\dbinom{0+k-1}{k}x^{k}$. In other words, Proposition
+\ref{prop.fps.anti-newton-binom} holds for $n=0$.
+
+\textit{Induction step:} Let $j\in\mathbb{N}$. Assume that Proposition
+\ref{prop.fps.anti-newton-binom} holds for $n=j$. We must prove that
+Proposition \ref{prop.fps.anti-newton-binom} holds for $n=j+1$.
+
+We have assumed that Proposition \ref{prop.fps.anti-newton-binom} holds for
+$n=j$. In other words, we have%
+\begin{equation}
+\left(  1+x\right)  ^{-j}=\sum_{k\in\mathbb{N}}\left(  -1\right)  ^{k}%
+\dbinom{j+k-1}{k}x^{k}. \label{pf.prop.fps.anti-newton-binom.IH}%
+\end{equation}
+
+
+Now, we want to prove that Proposition \ref{prop.fps.anti-newton-binom} holds
+for $n=j+1$. In other words, we want to prove that%
+\[
+\left(  1+x\right)  ^{-\left(  j+1\right)  }=\sum_{k\in\mathbb{N}}\left(
+-1\right)  ^{k}\dbinom{\left(  j+1\right)  +k-1}{k}x^{k}.
+\]
+In view of $\left(  1+x\right)  ^{-\left(  j+1\right)  }=\left(  1+x\right)
+^{-j}\cdot\left(  1+x\right)  ^{-1}$ and $\left(  j+1\right)  +k-1=j+k$, this
+equality can be rewritten as%
+\[
+\left(  1+x\right)  ^{-j}\cdot\left(  1+x\right)  ^{-1}=\sum_{k\in\mathbb{N}%
+}\left(  -1\right)  ^{k}\dbinom{j+k}{k}x^{k}.
+\]
+Since $1+x$ is invertible, we can equivalently transform this equality by
+multiplying both sides with $1+x$; thus, it becomes%
+\[
+\left(  1+x\right)  ^{-j}=\left(  \sum_{k\in\mathbb{N}}\left(  -1\right)
+^{k}\dbinom{j+k}{k}x^{k}\right)  \cdot\left(  1+x\right)  .
+\]
+So this is the equality we must prove.
+
+We do this by simplifying its right hand side:%
+\begin{align*}
+&  \left(  \sum_{k\in\mathbb{N}}\left(  -1\right)  ^{k}\dbinom{j+k}{k}%
+x^{k}\right)  \cdot\left(  1+x\right) \\
+&  =\sum_{k\in\mathbb{N}}\underbrace{\left(  -1\right)  ^{k}\dbinom{j+k}%
+{k}x^{k}\left(  1+x\right)  }_{\substack{=\left(  -1\right)  ^{k}\dbinom
+{j+k}{k}\left(  x^{k}+x^{k+1}\right)  \\=\left(  -1\right)  ^{k}\dbinom
+{j+k}{k}x^{k}+\left(  -1\right)  ^{k}\dbinom{j+k}{k}x^{k+1}}}\\
+&  =\sum_{k\in\mathbb{N}}\left(  \left(  -1\right)  ^{k}\dbinom{j+k}{k}%
+x^{k}+\left(  -1\right)  ^{k}\dbinom{j+k}{k}x^{k+1}\right) \\
+&  =\sum_{k\in\mathbb{N}}\left(  -1\right)  ^{k}\underbrace{\dbinom{j+k}{k}%
+}_{\substack{=\dbinom{j+k-1}{k-1}+\dbinom{j+k-1}{k}\\\text{(by Proposition
+\ref{prop.binom.rec},}\\\text{applied to }m=j+k\text{ and }n=k\text{)}}%
+}x^{k}+\underbrace{\sum_{k\in\mathbb{N}}\left(  -1\right)  ^{k}\dbinom{j+k}%
+{k}x^{k+1}}_{\substack{=\sum_{k\geq1}\left(  -1\right)  ^{k-1}\dbinom
+{j+\left(  k-1\right)  }{k-1}x^{k}\\\text{(here, we have substituted
+}k-1\text{ for }k\\\text{in the sum)}}}\\
+&  =\underbrace{\sum_{k\in\mathbb{N}}\left(  -1\right)  ^{k}\left(
+\dbinom{j+k-1}{k-1}+\dbinom{j+k-1}{k}\right)  x^{k}}_{=\sum_{k\in\mathbb{N}%
+}\left(  -1\right)  ^{k}\dbinom{j+k-1}{k-1}x^{k}+\sum_{k\in\mathbb{N}}\left(
+-1\right)  ^{k}\dbinom{j+k-1}{k}x^{k}}+\sum_{k\geq1}\underbrace{\left(
+-1\right)  ^{k-1}}_{=-\left(  -1\right)  ^{k}}\underbrace{\dbinom{j+\left(
+k-1\right)  }{k-1}}_{=\dbinom{j+k-1}{k-1}}x^{k}\\
+&  =\sum_{k\in\mathbb{N}}\left(  -1\right)  ^{k}\dbinom{j+k-1}{k-1}x^{k}%
++\sum_{k\in\mathbb{N}}\left(  -1\right)  ^{k}\dbinom{j+k-1}{k}x^{k}%
++\sum_{k\geq1}\left(  -\left(  -1\right)  ^{k}\right)  \dbinom{j+k-1}%
+{k-1}x^{k}\\
+&  =\sum_{k\in\mathbb{N}}\left(  -1\right)  ^{k}\dbinom{j+k-1}{k-1}x^{k}%
++\sum_{k\in\mathbb{N}}\left(  -1\right)  ^{k}\dbinom{j+k-1}{k}x^{k}%
+-\sum_{k\geq1}\left(  -1\right)  ^{k}\dbinom{j+k-1}{k-1}x^{k}\\
+&  =\underbrace{\left(  \sum_{k\in\mathbb{N}}\left(  -1\right)  ^{k}%
+\dbinom{j+k-1}{k-1}x^{k}-\sum_{k\geq1}\left(  -1\right)  ^{k}\dbinom
+{j+k-1}{k-1}x^{k}\right)  }_{\substack{=\left(  -1\right)  ^{0}\dbinom
+{j+0-1}{0-1}x^{0}\\\text{(since the two sums differ only in their }k=0\text{
+addend)}}}+\underbrace{\sum_{k\in\mathbb{N}}\left(  -1\right)  ^{k}%
+\dbinom{j+k-1}{k}x^{k}}_{\substack{=\left(  1+x\right)  ^{-j}\\\text{(by
+(\ref{pf.prop.fps.anti-newton-binom.IH}))}}}\\
+&  =\left(  -1\right)  ^{0}\underbrace{\dbinom{j+0-1}{0-1}}%
+_{\substack{=0\\\text{(by (\ref{eq.def.binom.binom.eq}), since }%
+0-1\notin\mathbb{N}\text{)}}}x^{0}+\left(  1+x\right)  ^{-j}=\left(
+1+x\right)  ^{-j}.
+\end{align*}
+Multiplying both sides of this equality by $\left(  1+x\right)  ^{-1}$, we
+obtain%
+\[
+\sum_{k\in\mathbb{N}}\left(  -1\right)  ^{k}\dbinom{j+k}{k}x^{k}=\left(
+1+x\right)  ^{-j}\cdot\left(  1+x\right)  ^{-1}=\left(  1+x\right)  ^{\left(
+-j\right)  +\left(  -1\right)  }=\left(  1+x\right)  ^{-\left(  j+1\right)
+},
+\]
+so that
+\[
+\left(  1+x\right)  ^{-\left(  j+1\right)  }=\sum_{k\in\mathbb{N}}\left(
+-1\right)  ^{k}\underbrace{\dbinom{j+k}{k}}_{=\dbinom{\left(  j+1\right)
++k-1}{k}}x^{k}=\sum_{k\in\mathbb{N}}\left(  -1\right)  ^{k}\dbinom{\left(
+j+1\right)  +k-1}{k}x^{k}.
+\]
+In other words, Proposition \ref{prop.fps.anti-newton-binom} holds for
+$n=j+1$. This completes the induction step. Thus, Proposition
+\ref{prop.fps.anti-newton-binom} is proved.
+\end{proof}
+
+We can rewrite Proposition \ref{prop.fps.anti-newton-binom} using negative
+binomial coefficients:
+
+\begin{corollary}
+\label{cor.fps.anti-newton-binom-2}For each $n\in\mathbb{N}$, we have%
+\[
+\left(  1+x\right)  ^{-n}=\sum_{k\in\mathbb{N}}\dbinom{-n}{k}x^{k}.
+\]
+
+\end{corollary}
+
+\begin{proof}
+[Proof of Corollary \ref{cor.fps.anti-newton-binom-2}.]Proposition
+\ref{prop.fps.anti-newton-binom} yields%
+\[
+\left(  1+x\right)  ^{-n}=\sum_{k\in\mathbb{N}}\underbrace{\left(  -1\right)
+^{k}\dbinom{n+k-1}{k}}_{\substack{=\left(  -1\right)  ^{k}\dbinom{k+n-1}%
+{k}\\=\dbinom{-n}{k}\\\text{(by Theorem \ref{thm.binom.upneg-n})}}}x^{k}%
+=\sum_{k\in\mathbb{N}}\dbinom{-n}{k}x^{k}.
+\]
+This proves Corollary \ref{cor.fps.anti-newton-binom-2}.
+\end{proof}
+
+We can now easily prove Newton's binomial formula:
+
+\begin{proof}
+[Proof of Theorem \ref{thm.fps.newton-binom}.]Let $n\in\mathbb{Z}$. We must
+prove that $\left(  1+x\right)  ^{n}=\sum_{k\in\mathbb{N}}\dbinom{n}{k}x^{k}$.
+
+If $n\in\mathbb{N}$, then this follows by comparing%
+\begin{align*}
+\left(  1+x\right)  ^{n}  &  =\left(  x+1\right)  ^{n}=\sum_{k=0}^{n}%
+\dbinom{n}{k}x^{k}\underbrace{1^{n-k}}_{=1}\ \ \ \ \ \ \ \ \ \ \left(
+\text{by the binomial theorem}\right) \\
+&  =\sum_{k=0}^{n}\dbinom{n}{k}x^{k}%
+\end{align*}
+with%
+\begin{align*}
+\sum_{k\in\mathbb{N}}\dbinom{n}{k}x^{k}  &  =\sum_{k=0}^{n}\dbinom{n}{k}%
+x^{k}+\sum_{k>n}\underbrace{\dbinom{n}{k}}_{\substack{=0\\\text{(by
+Proposition \ref{prop.binom.0},}\\\text{since }n<k\text{)}}}x^{k}=\sum
+_{k=0}^{n}\dbinom{n}{k}x^{k}+\underbrace{\sum_{k>n}0x^{k}}_{=0}\\
+&  =\sum_{k=0}^{n}\dbinom{n}{k}x^{k}.
+\end{align*}
+Hence, for the rest of this proof, we WLOG assume that $n\notin\mathbb{N}$.
+
+Hence, $n$ is a negative integer, so that $-n\in\mathbb{N}$. Thus, Corollary
+\ref{cor.fps.anti-newton-binom-2} (applied to $-n$ instead of $n$) yields%
+\[
+\left(  1+x\right)  ^{-\left(  -n\right)  }=\sum_{k\in\mathbb{N}}%
+\dbinom{-\left(  -n\right)  }{k}x^{k}.
+\]
+Since $-\left(  -n\right)  =n$, this rewrites as $\left(  1+x\right)
+^{n}=\sum_{k\in\mathbb{N}}\dbinom{n}{k}x^{k}$. Thus, Theorem
+\ref{thm.fps.newton-binom} is proven.
+\end{proof}
+
+We thus have a formula for $\left(  1+x\right)  ^{n}$ for each
+\textbf{integer} $n$. We don't yet have such a formula for $\left(
+1+x\right)  ^{1/2}$ (nor do we have a proper definition of $\left(
+1+x\right)  ^{1/2}$), but this was clearly a step forward.
+
+\subsubsection{Dividing by $x$}
+
+Let us see how this all helps us justify our arguments in Section
+\ref{sec.gf.exas}. Proposition \ref{prop.fps.invertible} justifies the
+fractions that appear in (\ref{eq.sec.gf.exas.1.Fx=2}), but it does not
+justify dividing by the FPS $2x$ in (\ref{eq.sec.gf.exas.2.-}), since the
+constant term $\left[  x^{0}\right]  \left(  2x\right)  $ is surely not
+invertible. And indeed, the FPS $2x$ is not invertible; the fraction
+$\dfrac{1}{2x}$ is not a well-defined FPS.
+
+However, it is easy to see directly which FPSs can be divided by $x$ (and thus
+by $2x$, if $K=\mathbb{Q}$), and what it means to divide them by $x$. In fact,
+Lemma \ref{lem.fps.xa} shows that multiplying an FPS by $x$ means moving all
+its entries by one position to the right, and putting a $0$ into the newly
+vacated starting position. Thus, it is rather clear what dividing by $x$
+should be:
+
+\begin{definition}
+\label{def.fps.div-by-x}Let $a=\left(  a_{0},a_{1},a_{2},\ldots\right)  $ be
+an FPS whose constant term $a_{0}$ is $0$. Then, $\dfrac{a}{x}$ is defined to
+be the FPS $\left(  a_{1},a_{2},a_{3},\ldots\right)  $.
+\end{definition}
+
+The following is almost trivial:
+
+\begin{proposition}
+\label{prop.fps.div-by-x-inverts}Let $a\in K\left[  \left[  x\right]  \right]
+$ and $b\in K\left[  \left[  x\right]  \right]  $ be two FPSs. Then, $a=xb$ if
+and only if $\left(  \left[  x^{0}\right]  a=0\text{ and }b=\dfrac{a}%
+{x}\right)  $.
+\end{proposition}
+
+\begin{proof}
+Exercise.
+\end{proof}
+
+Having defined $\dfrac{a}{x}$ in Definition \ref{def.fps.div-by-x} (when $a$
+has constant term $0$), we can also define $\dfrac{a}{2x}$ when $2$ is
+invertible in $K$ (just set $\dfrac{a}{2x}=\dfrac{1}{2}\cdot\dfrac{a}{x}$).
+Thus, the fraction $\dfrac{1\pm\sqrt{1-4x}}{2x}$ in (\ref{eq.sec.gf.exas.2.-})
+makes sense when the $\pm$ sign is a $-$ sign (but not when it is a $+$ sign),
+at least if we interpret the square root $\sqrt{1-4x}$ as $\sum_{k\geq
+0}\dbinom{1/2}{k}\left(  -4x\right)  ^{k}$.
+
+\subsubsection{A few lemmas}
+
+Let us use this occasion to state two simple lemmas (vaguely related to
+Definition \ref{def.fps.div-by-x}) that will be used later on:
+
+\begin{lemma}
+\label{lem.fps.g=xh}Let $a\in K\left[  \left[  x\right]  \right]  $ be an FPS
+with $\left[  x^{0}\right]  a=0$. Then, there exists an $h\in K\left[  \left[
+x\right]  \right]  $ such that $a=xh$.
+\end{lemma}
+
+\begin{proof}
+[Proof of Lemma \ref{lem.fps.g=xh}.]Write the FPS $a$ in the form $a=\left(
+a_{0},a_{1},a_{2},\ldots\right)  $. Thus, $a_{0}=\left[  x^{0}\right]  a=0$.
+Hence, the FPS $\dfrac{a}{x}$ is well-defined. Moreover, it is easy to see
+that $a=x\cdot\dfrac{a}{x}$\ \ \ \ \footnote{\textit{Proof.} We have
+$\dfrac{a}{x}=\left(  a_{1},a_{2},a_{3},\ldots\right)  $ (by Definition
+\ref{def.fps.div-by-x}). Thus, Lemma \ref{lem.fps.xa} (applied to $\dfrac
+{a}{x}$ and $a_{i-1}$ instead of $\mathbf{a}$ and $a_{i}$) yields%
+\begin{align*}
+x\cdot\dfrac{a}{x}  &  =\left(  0,a_{1},a_{2},a_{3},\ldots\right)  =\left(
+a_{0},a_{1},a_{2},a_{3},\ldots\right)  \ \ \ \ \ \ \ \ \ \ \left(  \text{since
+}0=a_{0}\right) \\
+&  =\left(  a_{0},a_{1},a_{2},\ldots\right)  =a.
+\end{align*}
+Thus, $a=x\cdot\dfrac{a}{x}$.}. Hence, there exists an $h\in K\left[  \left[
+x\right]  \right]  $ such that $a=xh$ (namely, $h=\dfrac{a}{x}$). This proves
+Lemma \ref{lem.fps.g=xh}.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.first-n-coeffs-of-xna}Let $k\in\mathbb{N}$. Let $a\in K\left[
+\left[  x\right]  \right]  $ be any FPS. Then, the first $k$ coefficients of
+the FPS $x^{k}a$ are $0$.
+\end{lemma}
+
+\begin{proof}
+[Proof of Lemma \ref{lem.fps.first-n-coeffs-of-xna}.]We must show that
+$\left[  x^{m}\right]  \left(  x^{k}a\right)  =0$ for any nonnegative integer
+$m<k$. But we can do this directly: If $m$ is a nonnegative integer such that
+$m<k$, then (\ref{pf.thm.fps.ring.xn(ab)=2}) (applied to $x^{k}$, $a$ and $m$
+instead of $\mathbf{a}$, $\mathbf{b}$ and $n$) yields%
+\[
+\left[  x^{m}\right]  \left(  x^{k}a\right)  =\sum_{i=0}^{m}%
+\underbrace{\left[  x^{i}\right]  \left(  x^{k}\right)  }%
+_{\substack{=0\\\text{(since }i\leq m<k\\\text{and thus }i\neq k\text{)}%
+}}\cdot\left[  x^{m-i}\right]  a=\sum_{i=0}^{m}0\cdot\left[  x^{m-i}\right]
+a=0,
+\]
+which is exactly what we wanted to show. Thus, Lemma
+\ref{lem.fps.first-n-coeffs-of-xna} is proved.
+
+(Alternatively, we could prove Lemma \ref{lem.fps.first-n-coeffs-of-xna} by
+writing $a$ in the form $a=\left(  a_{0},a_{1},a_{2},\ldots\right)  $ and
+observing that $x^{k}a=\left(  \underbrace{0,0,\ldots,0}_{k\text{ times}%
+},a_{0},a_{1},a_{2},\ldots\right)  $. This follows by applying Lemma
+\ref{lem.fps.xa} a total of $k$ times, or more formally by induction on $k$.)
+\end{proof}
+
+Lemma \ref{lem.fps.first-n-coeffs-of-xna} has a converse; here is a statement
+that combines it with this converse:
+
+\begin{lemma}
+\label{lem.fps.muls-of-xn}Let $k\in\mathbb{N}$. Let $f\in K\left[  \left[
+x\right]  \right]  $ be any FPS. Then, the first $k$ coefficients of the FPS
+$f$ are $0$ if and only if $f$ is a multiple of $x^{k}$.
+\end{lemma}
+
+Here, we use the following notation:
+
+\begin{definition}
+Let $g\in K\left[  \left[  x\right]  \right]  $ be an FPS. Then, a
+\emph{multiple} of $g$ means an FPS of the form $ga$ with $a\in K\left[
+\left[  x\right]  \right]  $.
+\end{definition}
+
+(This is just a particular case of the usual concept of multiples in a
+commutative ring.)
+
+\begin{proof}
+[Proof of Lemma \ref{lem.fps.muls-of-xn}.]The statement we are proving is an
+\textquotedblleft if and only if\textquotedblright\ statement. We shall prove
+its \textquotedblleft only if\textquotedblright\ (i.e., \textquotedblleft%
+$\Longrightarrow$\textquotedblright) and its \textquotedblleft
+if\textquotedblright\ (i.e., \textquotedblleft$\Longleftarrow$%
+\textquotedblright) directions separately:
+
+\begin{enumerate}
+\item[$\Longrightarrow:$] Assume that the first $k$ coefficients of the FPS
+$f$ are $0$. We must show that $f$ is a multiple of $x^{k}$.
+
+Write $f$ as $f=\left(  f_{0},f_{1},f_{2},\ldots\right)  $. Then, the first
+$k$ coefficients of the FPS $f$ are $f_{0},f_{1},\ldots,f_{k-1}$. Hence, these
+$k$ coefficients $f_{0},f_{1},\ldots,f_{k-1}$ are $0$ (since we have assumed
+that the first $k$ coefficients of the FPS $f$ are $0$). In other words,
+$f_{n}=0$ for each $n\in\left\{  0,1,\ldots,k-1\right\}  $. Hence, $\sum
+_{n=0}^{k-1}\underbrace{f_{n}}_{=0}x^{n}=\sum_{n=0}^{k-1}0x^{n}=0$.
+
+Now,
+\begin{align*}
+f  &  =\left(  f_{0},f_{1},f_{2},\ldots\right)  =\sum_{n\in\mathbb{N}}%
+f_{n}x^{n}=\underbrace{\sum_{n=0}^{k-1}f_{n}x^{n}}_{=0}+\sum_{n=k}^{\infty
+}f_{n}\underbrace{x^{n}}_{\substack{=x^{k}x^{n-k}\\\text{(since }n\geq
+k\text{)}}}=\sum_{n=k}^{\infty}f_{n}x^{k}x^{n-k}\\
+&  =x^{k}\sum_{n=k}^{\infty}f_{n}x^{n-k}.
+\end{align*}
+In other words, $f=x^{k}a$ for $a=\sum_{n=k}^{\infty}f_{n}x^{n-k}$. This shows
+that $f$ is a multiple of $x^{k}$. Thus, the \textquotedblleft$\Longrightarrow
+$\textquotedblright\ direction of Lemma \ref{lem.fps.muls-of-xn} is proved.
+
+\item[$\Longleftarrow:$] Assume that $f$ is a multiple of $x^{k}$. In other
+words, $f=x^{k}a$ for some $a\in K\left[  \left[  x\right]  \right]  $.
+Consider this $a$. Now, Lemma \ref{lem.fps.first-n-coeffs-of-xna} yields that
+the first $k$ coefficients of the FPS $x^{k}a$ are $0$. In other words, the
+first $k$ coefficients of the FPS $f$ are $0$ (since $f=x^{k}a$). This proves
+the \textquotedblleft$\Longleftarrow$\textquotedblright\ direction of Lemma
+\ref{lem.fps.muls-of-xn}.
+\end{enumerate}
+
+The proof of Lemma \ref{lem.fps.muls-of-xn} is now complete, as both
+directions have been proved.
+\end{proof}
+
+Another lemma that will prove its usefulness much later concerns FPSs that are
+equal up until a certain coefficient. It says that if $f$ and $g$ are two FPSs
+whose first $n+1$ coefficients agree (for a certain $n\in\mathbb{N}$), then
+the same is true of the FPSs $af$ and $ag$ whenever $a$ is any further FPS. In
+more details:
+
+\begin{lemma}
+\label{lem.fps.prod.irlv.fg}Let $a,f,g\in K\left[  \left[  x\right]  \right]
+$ be three FPSs. Let $n\in\mathbb{N}$. Assume that
+\begin{equation}
+\left[  x^{m}\right]  f=\left[  x^{m}\right]  g\ \ \ \ \ \ \ \ \ \ \text{for
+each }m\in\left\{  0,1,\ldots,n\right\}  . \label{eq.lem.fps.prod.irlv.fg.ass}%
+\end{equation}
+Then,
+\[
+\left[  x^{m}\right]  \left(  af\right)  =\left[  x^{m}\right]  \left(
+ag\right)  \ \ \ \ \ \ \ \ \ \ \text{for each }m\in\left\{  0,1,\ldots
+,n\right\}  .
+\]
+
+\end{lemma}
+
+\begin{proof}
+[Proof of Lemma \ref{lem.fps.prod.irlv.fg}.]Let $m\in\left\{  0,1,\ldots
+,n\right\}  $. Then, $m\leq n$. Hence, each $j\in\left\{  0,1,\ldots
+,m\right\}  $ satisfies $j\leq m\leq n$ and thus $j\in\left\{  0,1,\ldots
+,n\right\}  $ and therefore%
+\begin{equation}
+\left[  x^{j}\right]  f=\left[  x^{j}\right]  g
+\label{pf.lem.fps.prod.irlv.fg.1}%
+\end{equation}
+(by (\ref{eq.lem.fps.prod.irlv.fg.ass}), applied to $j$ instead of $m$).
+However, (\ref{pf.thm.fps.ring.xn(ab)=3}) (applied to $m$, $a$ and $f$ instead
+of $n$, $\mathbf{a}$ and $\mathbf{b}$) yields%
+\[
+\left[  x^{m}\right]  \left(  af\right)  =\sum_{j=0}^{m}\left[  x^{m-j}%
+\right]  a\cdot\underbrace{\left[  x^{j}\right]  f}_{\substack{=\left[
+x^{j}\right]  g\\\text{(by (\ref{pf.lem.fps.prod.irlv.fg.1}))}}}=\sum
+_{j=0}^{m}\left[  x^{m-j}\right]  a\cdot\left[  x^{j}\right]  g.
+\]
+On the other hand, (\ref{pf.thm.fps.ring.xn(ab)=3}) (applied to $m$, $a$ and
+$g$ instead of $n$, $\mathbf{a}$ and $\mathbf{b}$) yields%
+\[
+\left[  x^{m}\right]  \left(  ag\right)  =\sum_{j=0}^{m}\left[  x^{m-j}%
+\right]  a\cdot\left[  x^{j}\right]  g.
+\]
+Comparing these two equalities, we obtain $\left[  x^{m}\right]  \left(
+af\right)  =\left[  x^{m}\right]  \left(  ag\right)  $. This proves Lemma
+\ref{lem.fps.prod.irlv.fg}.
+\end{proof}
+
+A consequence of Lemma \ref{lem.fps.prod.irlv.fg} is the following fact:
+
+\begin{lemma}
+\label{lem.fps.prod.irlv.mul}Let $u,v\in K\left[  \left[  x\right]  \right]  $
+be two FPSs such that $v$ is a multiple of $u$. Let $n\in\mathbb{N}$. Assume
+that
+\begin{equation}
+\left[  x^{m}\right]  u=0\ \ \ \ \ \ \ \ \ \ \text{for each }m\in\left\{
+0,1,\ldots,n\right\}  . \label{eq.lem.fps.prod.irlv.mul.ass}%
+\end{equation}
+Then,
+\[
+\left[  x^{m}\right]  v=0\ \ \ \ \ \ \ \ \ \ \text{for each }m\in\left\{
+0,1,\ldots,n\right\}  .
+\]
+
+\end{lemma}
+
+\begin{proof}
+[Proof of Lemma \ref{lem.fps.prod.irlv.mul}.]We have assumed that $v$ is a
+multiple of $u$. In other words, $v=ua$ for some $a\in K\left[  \left[
+x\right]  \right]  $. Consider this $a$.
+
+For each $m\in\left\{  0,1,\ldots,n\right\}  $, we have%
+\begin{align*}
+\left[  x^{m}\right]  u  &  =0\ \ \ \ \ \ \ \ \ \ \left(  \text{by
+(\ref{eq.lem.fps.prod.irlv.mul.ass})}\right) \\
+&  =\left[  x^{m}\right]  0\ \ \ \ \ \ \ \ \ \ \left(  \text{since the FPS
+}0\text{ satisfies }\left[  x^{m}\right]  0=0\right)  .
+\end{align*}
+Hence, Lemma \ref{lem.fps.prod.irlv.fg} (applied to $f=u$ and $g=0$) yields
+that%
+\begin{equation}
+\left[  x^{m}\right]  \left(  au\right)  =\left[  x^{m}\right]  \left(
+a\cdot0\right)  \ \ \ \ \ \ \ \ \ \ \text{for each }m\in\left\{
+0,1,\ldots,n\right\}  . \label{pf.lem.fps.prod.irlv.mul.2}%
+\end{equation}
+Now, for each $m\in\left\{  0,1,\ldots,n\right\}  $, we have%
+\begin{align*}
+\left[  x^{m}\right]  v  &  =\left[  x^{m}\right]  \left(  au\right)
+\ \ \ \ \ \ \ \ \ \ \left(  \text{since }v=ua=au\right) \\
+&  =\left[  x^{m}\right]  \underbrace{\left(  a\cdot0\right)  }_{=0}%
+\ \ \ \ \ \ \ \ \ \ \left(  \text{by (\ref{pf.lem.fps.prod.irlv.mul.2}%
+)}\right) \\
+&  =\left[  x^{m}\right]  0=0.
+\end{align*}
+This proves Lemma \ref{lem.fps.prod.irlv.mul}.
+\end{proof}
+
+We can derive a further useful consequence from Lemma
+\ref{lem.fps.prod.irlv.mul}:
+
+\begin{lemma}
+\label{lem.fps.prod.irlv.cong-mul}Let $a,b,c,d\in K\left[  \left[  x\right]
+\right]  $ be four FPSs. Let $n\in\mathbb{N}$. Assume that
+\begin{equation}
+\left[  x^{m}\right]  a=\left[  x^{m}\right]  b\ \ \ \ \ \ \ \ \ \ \text{for
+each }m\in\left\{  0,1,\ldots,n\right\}  .
+\label{pf.lem.fps.prod.irlv.cong-mul.assab}%
+\end{equation}
+Assume further that%
+\begin{equation}
+\left[  x^{m}\right]  c=\left[  x^{m}\right]  d\ \ \ \ \ \ \ \ \ \ \text{for
+each }m\in\left\{  0,1,\ldots,n\right\}  .
+\label{pf.lem.fps.prod.irlv.cong-mul.asscd}%
+\end{equation}
+Then,
+\[
+\left[  x^{m}\right]  \left(  ac\right)  =\left[  x^{m}\right]  \left(
+bd\right)  \ \ \ \ \ \ \ \ \ \ \text{for each }m\in\left\{  0,1,\ldots
+,n\right\}  .
+\]
+
+\end{lemma}
+
+\begin{proof}
+[Proof of Lemma \ref{lem.fps.prod.irlv.cong-mul}.]For each $m\in\left\{
+0,1,\ldots,n\right\}  $, we have%
+\begin{align*}
+\left[  x^{m}\right]  \left(  a-b\right)   &  =\left[  x^{m}\right]  a-\left[
+x^{m}\right]  b\ \ \ \ \ \ \ \ \ \ \left(  \text{by
+(\ref{pf.thm.fps.ring.xn(a-b)=})}\right) \\
+&  =0\ \ \ \ \ \ \ \ \ \ \left(  \text{by
+(\ref{pf.lem.fps.prod.irlv.cong-mul.assab})}\right)  .
+\end{align*}
+Moreover, the FPS $ac-bc$ is a multiple of $a-b$ (since $ac-bc=\left(
+a-b\right)  c$). Hence, Lemma \ref{lem.fps.prod.irlv.mul} (applied to $u=a-b$
+and $v=ac-bc$) shows that
+\begin{equation}
+\left[  x^{m}\right]  \left(  ac-bc\right)  =0\ \ \ \ \ \ \ \ \ \ \text{for
+each }m\in\left\{  0,1,\ldots,n\right\}
+\label{pf.lem.fps.prod.irlv.cong-mul.2}%
+\end{equation}
+(since we have $\left[  x^{m}\right]  \left(  a-b\right)  =0$ for each
+$m\in\left\{  0,1,\ldots,n\right\}  $).
+
+For each $m\in\left\{  0,1,\ldots,n\right\}  $, we have%
+\begin{align*}
+\left[  x^{m}\right]  \left(  c-d\right)   &  =\left[  x^{m}\right]  c-\left[
+x^{m}\right]  d\ \ \ \ \ \ \ \ \ \ \left(  \text{by
+(\ref{pf.thm.fps.ring.xn(a-b)=})}\right) \\
+&  =0\ \ \ \ \ \ \ \ \ \ \left(  \text{by
+(\ref{pf.lem.fps.prod.irlv.cong-mul.asscd})}\right)  .
+\end{align*}
+Moreover, the FPS $bc-bd$ is a multiple of $c-d$ (since $bc-bd=b\left(
+c-d\right)  =\left(  c-d\right)  b$). Hence, Lemma \ref{lem.fps.prod.irlv.mul}
+(applied to $u=c-d$ and $v=bc-bd$) shows that
+\begin{equation}
+\left[  x^{m}\right]  \left(  bc-bd\right)  =0\ \ \ \ \ \ \ \ \ \ \text{for
+each }m\in\left\{  0,1,\ldots,n\right\}
+\label{pf.lem.fps.prod.irlv.cong-mul.4}%
+\end{equation}
+(since we have $\left[  x^{m}\right]  \left(  c-d\right)  =0$ for each
+$m\in\left\{  0,1,\ldots,n\right\}  $).
+
+Now, let $m\in\left\{  0,1,\ldots,n\right\}  $. Then,
+(\ref{pf.thm.fps.ring.xn(a-b)=}) yields $\left[  x^{m}\right]  \left(
+ac-bc\right)  =\left[  x^{m}\right]  \left(  ac\right)  -\left[  x^{m}\right]
+\left(  bc\right)  $. Comparing this with
+(\ref{pf.lem.fps.prod.irlv.cong-mul.2}), we obtain $\left[  x^{m}\right]
+\left(  ac\right)  -\left[  x^{m}\right]  \left(  bc\right)  =0$. In other
+words, $\left[  x^{m}\right]  \left(  ac\right)  =\left[  x^{m}\right]
+\left(  bc\right)  $. On the other hand, (\ref{pf.thm.fps.ring.xn(a-b)=})
+yields $\left[  x^{m}\right]  \left(  bc-bd\right)  =\left[  x^{m}\right]
+\left(  bc\right)  -\left[  x^{m}\right]  \left(  bd\right)  $. Comparing this
+with (\ref{pf.lem.fps.prod.irlv.cong-mul.4}), we obtain $\left[  x^{m}\right]
+\left(  bc\right)  -\left[  x^{m}\right]  \left(  bd\right)  =0$. In other
+words, $\left[  x^{m}\right]  \left(  bc\right)  =\left[  x^{m}\right]
+\left(  bd\right)  $. Hence, $\left[  x^{m}\right]  \left(  ac\right)
+=\left[  x^{m}\right]  \left(  bc\right)  =\left[  x^{m}\right]  \left(
+bd\right)  $. This proves Lemma \ref{lem.fps.prod.irlv.cong-mul}.
+\end{proof}

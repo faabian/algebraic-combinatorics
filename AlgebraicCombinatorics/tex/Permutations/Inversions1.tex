@@ -1,0 +1,704 @@
+\subsection{\label{sec.perm.inversions}Inversions, length and Lehmer codes}
+
+\subsubsection{Inversions and lengths}
+
+Let us define some features of arbitrary permutations of $\left[  n\right]  $:
+
+\begin{definition}
+\label{def.perm.invs}Let $n\in\mathbb{N}$ and $\sigma\in S_{n}$. \medskip
+
+\textbf{(a)} An \emph{inversion} of $\sigma$ means a pair $\left(  i,j\right)
+$ of elements of $\left[  n\right]  $ such that $i<j$ and $\sigma\left(
+i\right)  >\sigma\left(  j\right)  $. \medskip
+
+\textbf{(b)} The \emph{length} (also known as the \emph{Coxeter length}) of
+$\sigma$ is the \# of inversions of $\sigma$. It is called $\ell\left(
+\sigma\right)  $. (Some authors call it $\operatorname*{inv}\sigma$ instead.)
+\end{definition}
+
+(In LaTeX, the symbol \textquotedblleft$\ell$\textquotedblright\ is obtained
+by typing \textquotedblleft\texttt{%
+%TCIMACRO{\TEXTsymbol{\backslash}}%
+%BeginExpansion
+$\backslash$%
+%EndExpansion
+ell}\textquotedblright. If you just type \textquotedblleft\texttt{l}%
+\textquotedblright, you will get \textquotedblleft$l$\textquotedblright.)
+
+An inversion of a permutation $\sigma$ can thus be viewed as a pair of
+elements of $\left[  n\right]  $ whose relative order changes when $\sigma$ is
+applied to them. (We require this pair $\left(  i,j\right)  $ to satisfy $i<j$
+in order not to count each such pair doubly.)
+
+\begin{example}
+Let $\pi\in S_{4}$ be the permutation with OLN $3142$. The inversions of $\pi$
+are%
+\begin{align*}
+&  \left(  1,2\right)  \ \ \ \ \ \ \ \ \ \ \left(  \text{since }1<2\text{ and
+}\underbrace{\pi\left(  1\right)  }_{=3}>\underbrace{\pi\left(  2\right)
+}_{=1}\right)  \ \ \ \ \ \ \ \ \ \ \text{and}\\
+&  \left(  1,4\right)  \ \ \ \ \ \ \ \ \ \ \left(  \text{since }1<4\text{ and
+}\underbrace{\pi\left(  1\right)  }_{=3}>\underbrace{\pi\left(  4\right)
+}_{=2}\right)  \ \ \ \ \ \ \ \ \ \ \text{and}\\
+&  \left(  3,4\right)  \ \ \ \ \ \ \ \ \ \ \left(  \text{since }3<4\text{ and
+}\underbrace{\pi\left(  3\right)  }_{=4}>\underbrace{\pi\left(  4\right)
+}_{=2}\right)  .
+\end{align*}
+Thus, the length of $\pi$ is $3$.
+\end{example}
+
+For a given $n\in\mathbb{N}$ and a given $k\in\mathbb{N}$, how many
+permutations $\sigma\in S_{n}$ have length $k$ ? The following proposition
+gives a partial answer:
+
+\begin{proposition}
+\label{prop.perm.lengths-k-small-k}Let $n\in\mathbb{N}$. \medskip
+
+\textbf{(a)} For any $\sigma\in S_{n}$, we have $\ell\left(  \sigma\right)
+\in\left\{  0,1,\ldots,\dbinom{n}{2}\right\}  $. \medskip
+
+\textbf{(b)} We have%
+\[
+\left(  \text{\# of }\sigma\in S_{n}\text{ with }\ell\left(  \sigma\right)
+=0\right)  =1.
+\]
+Indeed, the only permutation $\sigma\in S_{n}$ with $\ell\left(
+\sigma\right)  =0$ is the identity map $\operatorname*{id}$. \medskip
+
+\textbf{(c)} We have%
+\[
+\left(  \text{\# of }\sigma\in S_{n}\text{ with }\ell\left(  \sigma\right)
+=\dbinom{n}{2}\right)  =1.
+\]
+Indeed, the only permutation $\sigma\in S_{n}$ with $\ell\left(
+\sigma\right)  =\dbinom{n}{2}$ is the permutation with OLN $n\left(
+n-1\right)  \left(  n-2\right)  \cdots21$. (This permutation is often called
+$w_{0}$.) \medskip
+
+\textbf{(d)} If $n\geq1$, then%
+\[
+\left(  \text{\# of }\sigma\in S_{n}\text{ with }\ell\left(  \sigma\right)
+=1\right)  =n-1.
+\]
+Indeed, the only permutations $\sigma\in S_{n}$ with $\ell\left(
+\sigma\right)  =1$ are the simple transpositions $s_{i}$ with $i\in\left[
+n-1\right]  $. \medskip
+
+\textbf{(e)} If $n\geq2$, then%
+\[
+\left(  \text{\# of }\sigma\in S_{n}\text{ with }\ell\left(  \sigma\right)
+=2\right)  =\dfrac{\left(  n-2\right)  \left(  n+1\right)  }{2}.
+\]
+Indeed, the only permutations $\sigma\in S_{n}$ with $\ell\left(
+\sigma\right)  =2$ are the products $s_{i}s_{j}$ with $1\leq i<j<n$ as well as
+the products $s_{i}s_{i-1}$ with $i\in\left\{  2,3,\ldots,n-1\right\}  $. If
+$n\geq2$, then there are $\dfrac{\left(  n-2\right)  \left(  n+1\right)  }{2}$
+such products (and they are all distinct). \medskip
+
+\textbf{(f)} For any $k\in\mathbb{Z}$, we have%
+\[
+\left(  \text{\# of }\sigma\in S_{n}\text{ with }\ell\left(  \sigma\right)
+=k\right)  =\left(  \text{\# of }\sigma\in S_{n}\text{ with }\ell\left(
+\sigma\right)  =\dbinom{n}{2}-k\right)  .
+\]
+
+\end{proposition}
+
+\begin{proof}
+Exercise \ref{exe.perm.lengths-k-small-k}.
+\end{proof}
+
+What about the general case? Alas, there is no explicit formula for the \# of
+$\sigma\in S_{n}$ with $\ell\left(  \sigma\right)  =k$. However, there is a
+nice formula for the generating function%
+\[
+\sum_{k\in\mathbb{N}}\left(  \text{\# of }\sigma\in S_{n}\text{ with }%
+\ell\left(  \sigma\right)  =k\right)  x^{k}=\sum_{\sigma\in S_{n}}%
+x^{\ell\left(  \sigma\right)  }.
+\]
+Let us first sound it out on the case $n=3$:
+
+\begin{example}
+Written in one-line notation, the permutations of the set $\left[  3\right]  $
+are $123$, $132$, $213$, $231$,\ $312$, and $321$. Their lengths are%
+\begin{align*}
+\ell\left(  123\right)   &  =0,\ \ \ \ \ \ \ \ \ \ \ell\left(  132\right)
+=1,\ \ \ \ \ \ \ \ \ \ \ell\left(  213\right)  =1,\\
+\ell\left(  231\right)   &  =2,\ \ \ \ \ \ \ \ \ \ \ell\left(  312\right)
+=2,\ \ \ \ \ \ \ \ \ \ \ell\left(  321\right)  =3.
+\end{align*}
+Thus,
+\begin{align*}
+\sum_{\sigma\in S_{3}}x^{\ell\left(  \sigma\right)  }  &  =x^{\ell\left(
+123\right)  }+x^{\ell\left(  132\right)  }+x^{\ell\left(  213\right)
+}+x^{\ell\left(  231\right)  }+x^{\ell\left(  312\right)  }+x^{\ell\left(
+321\right)  }\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{where we are writing
+each }\sigma\in S_{3}\text{ in OLN}\right) \\
+&  =x^{0}+x^{1}+x^{1}+x^{2}+x^{2}+x^{3}=1+2x+2x^{2}+x^{3}\\
+&  =\left(  1+x\right)  \left(  1+x+x^{2}\right)  .
+\end{align*}
+
+\end{example}
+
+This suggests the following general result:
+
+\begin{proposition}
+\label{prop.perm.length.gf}Let $n\in\mathbb{N}$. Then,%
+\begin{align*}
+&  \sum_{\sigma\in S_{n}}x^{\ell\left(  \sigma\right)  }\\
+&  =\prod_{i=1}^{n-1}\left(  1+x+x^{2}+\cdots+x^{i}\right) \\
+&  =\left(  1+x\right)  \left(  1+x+x^{2}\right)  \left(  1+x+x^{2}%
++x^{3}\right)  \cdots\left(  1+x+x^{2}+\cdots+x^{n-1}\right) \\
+&  =\left[  n\right]  _{x}!.
+\end{align*}
+(Here, we are using Definition \ref{def.pars.qbinom.qint}, so that $\left[
+n\right]  _{x}!$ means the result of substituting $x$ for $q$ in the
+$q$-factorial $\left[  n\right]  _{q}!$.)
+\end{proposition}
+
+\subsubsection{Lehmer codes}
+
+We will prove this proposition using the so-called \emph{Lehmer code} of a
+permutation, which is defined as follows:
+
+\begin{definition}
+\label{def.perm.lehmer1}Let $n\in\mathbb{N}$. The following notations will be
+used throughout Section \ref{sec.perm.inversions}: \medskip
+
+\textbf{(a)} For each $\sigma\in S_{n}$ and $i\in\left[  n\right]  $, we set%
+\begin{align*}
+\ell_{i}\left(  \sigma\right)  :=  &  \left(  \text{\# of all }j\in\left[
+n\right]  \text{ satisfying }i<j\text{ and }\sigma\left(  i\right)
+>\sigma\left(  j\right)  \right) \\
+=  &  \left(  \text{\# of all }j\in\left\{  i+1,i+2,\ldots,n\right\}  \text{
+such that }\sigma\left(  i\right)  >\sigma\left(  j\right)  \right)  .
+\end{align*}
+(The last equality sign here is clear, since the $j\in\left[  n\right]  $
+satisfying $i<j$ are precisely the $j\in\left\{  i+1,i+2,\ldots,n\right\}  $.)
+\medskip
+
+\textbf{(b)} For each $m\in\mathbb{Z}$, we let $\left[  m\right]  _{0}$ denote
+the set $\left\{  0,1,\ldots,m\right\}  $. (This is an empty set when $m<0$.)
+\medskip
+
+\textbf{(c)} We let $H_{n}$ denote the set
+\begin{align*}
+&  \left[  n-1\right]  _{0}\times\left[  n-2\right]  _{0}\times\cdots
+\times\left[  n-n\right]  _{0}\\
+&  =\left\{  \left(  j_{1},j_{2},\ldots,j_{n}\right)  \in\mathbb{N}^{n}%
+\ \mid\ j_{i}\leq n-i\text{ for each }i\in\left[  n\right]  \right\}  .
+\end{align*}
+This set $H_{n}$ has size%
+\begin{align*}
+\left\vert H_{n}\right\vert  &  =\left\vert \left[  n-1\right]  _{0}%
+\times\left[  n-2\right]  _{0}\times\cdots\times\left[  n-n\right]
+_{0}\right\vert \\
+&  =\underbrace{\left\vert \left[  n-1\right]  _{0}\right\vert }_{=n}%
+\cdot\underbrace{\left\vert \left[  n-2\right]  _{0}\right\vert }_{=n-1}%
+\cdot\cdots\cdot\underbrace{\left\vert \left[  n-n\right]  _{0}\right\vert
+}_{=1}\\
+&  =n\left(  n-1\right)  \cdots1=n!.
+\end{align*}
+
+
+\textbf{(d)} We define the map%
+\begin{align*}
+L:S_{n}  &  \rightarrow H_{n},\\
+\sigma &  \mapsto\left(  \ell_{1}\left(  \sigma\right)  ,\ell_{2}\left(
+\sigma\right)  ,\ldots,\ell_{n}\left(  \sigma\right)  \right)  .
+\end{align*}
+(This map is well-defined, since each $\sigma\in S_{n}$ and each $i\in\left[
+n\right]  $ satisfy $\ell_{i}\left(  \sigma\right)  \in\left\{  0,1,\ldots
+,n-i\right\}  =\left[  n-i\right]  _{0}$.) \medskip
+
+\textbf{(e)} If $\sigma\in S_{n}$ is a permutation, then the $n$-tuple
+$L\left(  \sigma\right)  =\left(  \ell_{1}\left(  \sigma\right)  ,\ell
+_{2}\left(  \sigma\right)  ,\ldots,\ell_{n}\left(  \sigma\right)  \right)  $
+is called the \emph{Lehmer code} (or just the \emph{code}) of $\sigma$.
+\end{definition}
+
+\begin{example}
+\label{exa.perm.lehmer1}\textbf{(a)} If $n=6$, and if $\sigma\in S_{6}$ is the
+permutation with one-line notation $451263$, then $\ell_{2}\left(
+\sigma\right)  =3$ (because the numbers $j\in\left[  n\right]  $ satisfying
+$2<j$ and $\sigma\left(  2\right)  >\sigma\left(  j\right)  $ are precisely
+$3$, $4$ and $6$, so that there are $3$ of them) and likewise $\ell_{1}\left(
+\sigma\right)  =3$ and $\ell_{3}\left(  \sigma\right)  =0$ and $\ell
+_{4}\left(  \sigma\right)  =0$ and $\ell_{5}\left(  \sigma\right)  =1$ and
+$\ell_{6}\left(  \sigma\right)  =0$, and thus $L\left(  \sigma\right)
+=\left(  3,3,0,0,1,0\right)  \in H_{6}$. \medskip
+
+\textbf{(b)} Here is a table of all $6$ permutations $\sigma\in S_{3}$
+(written in one-line notation) and their respective Lehmer codes $L\left(
+\sigma\right)  $:%
+\[%
+\begin{tabular}
+[c]{|c|c|}\hline
+$\sigma$ & $L\left(  \sigma\right)  $\\\hline\hline
+$123$ & $\left(  0,0,0\right)  $\\\hline
+$132$ & $\left(  0,1,0\right)  $\\\hline
+$213$ & $\left(  1,0,0\right)  $\\\hline
+$231$ & $\left(  1,1,0\right)  $\\\hline
+$312$ & $\left(  2,0,0\right)  $\\\hline
+$321$ & $\left(  2,1,0\right)  $\\\hline
+\end{tabular}
+\ \ .
+\]
+
+\end{example}
+
+The Lehmer code $L\left(  \sigma\right)  $ of a permutation $\sigma$ is a
+refinement of its length $\ell\left(  \sigma\right)  $, in the sense that it
+gives finer information (i.e., we can reconstruct $\ell\left(  \sigma\right)
+$ from $L\left(  \sigma\right)  $):
+
+\begin{proposition}
+\label{prop.perm.lehmer.l}Let $n\in\mathbb{N}$ and $\sigma\in S_{n}$. Then,
+$\ell\left(  \sigma\right)  =\ell_{1}\left(  \sigma\right)  +\ell_{2}\left(
+\sigma\right)  +\cdots+\ell_{n}\left(  \sigma\right)  $.
+\end{proposition}
+
+\begin{proof}
+This follows from the definitions of $\ell\left(  \sigma\right)  $ and
+$\ell_{i}\left(  \sigma\right)  $.
+\end{proof}
+
+The main property of Lehmer codes is that they uniquely determine
+permutations, and in fact are in bijection with them (cf. Example
+\ref{exa.perm.lehmer1} \textbf{(b)}):
+
+\begin{theorem}
+\label{thm.perm.lehmer.bij}Let $n\in\mathbb{N}$. Then, the map $L:S_{n}%
+\rightarrow H_{n}$ is a bijection.
+\end{theorem}
+
+We shall sketch two ways of proving this theorem.
+
+\begin{proof}
+[First proof of Theorem \ref{thm.perm.lehmer.bij} (sketched).]Let $\sigma\in
+S_{n}$. Let $i\in\left[  n\right]  $. Recall that the OLN of $\sigma$ is the
+$n$-tuple $\sigma\left(  1\right)  \ \sigma\left(  2\right)  \ \cdots
+\ \sigma\left(  n\right)  $. The definition of $\ell_{i}\left(  \sigma\right)
+$ can be rewritten as follows:%
+\begin{align*}
+\ell_{i}\left(  \sigma\right)   &  =\left(  \text{\# of all }j\in\left\{
+i+1,i+2,\ldots,n\right\}  \text{ such that }\sigma\left(  i\right)
+>\sigma\left(  j\right)  \right) \\
+&  =\left(  \text{\# of all entries in the OLN of }\sigma\text{ that
+appear}\right. \\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left.  \text{after }\sigma\left(
+i\right)  \text{ but are smaller than }\sigma\left(  i\right)  \right) \\
+&  =\left(  \text{\# of elements of }\left[  n\right]  \setminus\left\{
+\sigma\left(  1\right)  ,\sigma\left(  2\right)  ,\ldots,\sigma\left(
+i\right)  \right\}  \right. \\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left.  \text{that are smaller than
+}\sigma\left(  i\right)  \right)
+\end{align*}
+(since the elements of $\left[  n\right]  \setminus\left\{  \sigma\left(
+1\right)  ,\sigma\left(  2\right)  ,\ldots,\sigma\left(  i\right)  \right\}  $
+are precisely the entries that appear after $\sigma\left(  i\right)  $ in the
+OLN of $\sigma$). We can replace the set $\left[  n\right]  \setminus\left\{
+\sigma\left(  1\right)  ,\sigma\left(  2\right)  ,\ldots,\sigma\left(
+i\right)  \right\}  $ by $\left[  n\right]  \setminus\left\{  \sigma\left(
+1\right)  ,\sigma\left(  2\right)  ,\ldots,\sigma\left(  i-1\right)  \right\}
+$ in this equality\footnote{If $i=1$, then the set $\left\{  \sigma\left(
+1\right)  ,\sigma\left(  2\right)  ,\ldots,\sigma\left(  i-1\right)  \right\}
+$ is empty, so that we have $\left[  n\right]  \setminus\left\{  \sigma\left(
+1\right)  ,\sigma\left(  2\right)  ,\ldots,\sigma\left(  i-1\right)  \right\}
+=\left[  n\right]  $ in this case.} (this will not change the \# of elements
+of this set that are smaller than $\sigma\left(  i\right)  $, because it only
+inserts the element $\sigma\left(  i\right)  $ into the set, and obviously
+this element $\sigma\left(  i\right)  $ is not smaller than $\sigma\left(
+i\right)  $). Thus, we obtain%
+\begin{align}
+\ell_{i}\left(  \sigma\right)   &  =\left(  \text{\# of elements of }\left[
+n\right]  \setminus\left\{  \sigma\left(  1\right)  ,\sigma\left(  2\right)
+,\ldots,\sigma\left(  i-1\right)  \right\}  \right. \nonumber\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left.  \text{that are smaller than
+}\sigma\left(  i\right)  \right)  . \label{pf.thm.perm.lehmer.bij.1st.1}%
+\end{align}
+Therefore,%
+\begin{align}
+\sigma\left(  i\right)   &  =\left(  \text{the }\left(  \ell_{i}\left(
+\sigma\right)  +1\right)  \text{-st smallest element of}\right. \nonumber\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left.  \text{the set }\left[
+n\right]  \setminus\left\{  \sigma\left(  1\right)  ,\sigma\left(  2\right)
+,\ldots,\sigma\left(  i-1\right)  \right\}  \right)
+\label{pf.thm.perm.lehmer.bij.1st.2}%
+\end{align}
+(since $\sigma\left(  i\right)  $ is an element of $\left[  n\right]
+\setminus\left\{  \sigma\left(  1\right)  ,\sigma\left(  2\right)
+,\ldots,\sigma\left(  i-1\right)  \right\}  $).
+
+Forget that we fixed $i$. We thus have proved the equality
+(\ref{pf.thm.perm.lehmer.bij.1st.2}) for each $i\in\left[  n\right]  $. This
+equality (\ref{pf.thm.perm.lehmer.bij.1st.2}) allows us to find $\sigma\left(
+i\right)  $ if $\ell_{i}\left(  \sigma\right)  $ and $\sigma\left(  1\right)
+,\sigma\left(  2\right)  ,\ldots,\sigma\left(  i-1\right)  $ are known. This
+can be used to recover $\sigma$ from $L\left(  \sigma\right)  $. Let us
+perform this recovery in an example: Let $n=5$, and let $\sigma\in S_{5}$
+satisfy $L\left(  \sigma\right)  =\left(  3,1,2,1,0\right)  $. What is
+$\sigma$ ?
+
+From $L\left(  \sigma\right)  =\left(  3,1,2,1,0\right)  $, we obtain
+$\ell_{1}\left(  \sigma\right)  =3$ and $\ell_{2}\left(  \sigma\right)  =1$
+and $\ell_{3}\left(  \sigma\right)  =2$ and $\ell_{4}\left(  \sigma\right)
+=1$ and $\ell_{5}\left(  \sigma\right)  =0$.
+
+Applying (\ref{pf.thm.perm.lehmer.bij.1st.2}) to $i=1$, we find%
+\begin{align*}
+\sigma\left(  1\right)   &  =\left(  \text{the }\left(  \ell_{1}\left(
+\sigma\right)  +1\right)  \text{-st smallest element of}\right. \\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left.  \text{the set }\left[
+n\right]  \setminus\underbrace{\left\{  \sigma\left(  1\right)  ,\sigma\left(
+2\right)  ,\ldots,\sigma\left(  1-1\right)  \right\}  }_{=\varnothing}\right)
+\\
+&  =\left(  \text{the }\left(  3+1\right)  \text{-st smallest element of the
+set }\left[  5\right]  \right) \\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{since }\ell
+_{1}\left(  \sigma\right)  =3\text{ and }n=5\right) \\
+&  =\left(  \text{the }4\text{-th smallest element of the set }\left[
+5\right]  \right)  =4.
+\end{align*}
+
+
+Applying (\ref{pf.thm.perm.lehmer.bij.1st.2}) to $i=2$, we find%
+\begin{align*}
+\sigma\left(  2\right)   &  =\left(  \text{the }\left(  \ell_{2}\left(
+\sigma\right)  +1\right)  \text{-st smallest element of}\right. \\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left.  \text{the set }\left[
+n\right]  \setminus\underbrace{\left\{  \sigma\left(  1\right)  ,\sigma\left(
+2\right)  ,\ldots,\sigma\left(  2-1\right)  \right\}  }_{=\left\{
+\sigma\left(  1\right)  \right\}  }\right) \\
+&  =\left(  \text{the }\left(  1+1\right)  \text{-st smallest element of the
+set }\left[  5\right]  \setminus\left\{  4\right\}  \right) \\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{since }\ell
+_{2}\left(  \sigma\right)  =1\text{ and }n=5\text{ and }\sigma\left(
+1\right)  =4\right) \\
+&  =\left(  \text{the }2\text{-nd smallest element of the set }\left[
+5\right]  \setminus\left\{  4\right\}  \right)  =2.
+\end{align*}
+
+
+Applying (\ref{pf.thm.perm.lehmer.bij.1st.2}) to $i=3$, we find%
+\begin{align*}
+\sigma\left(  3\right)   &  =\left(  \text{the }\left(  \ell_{3}\left(
+\sigma\right)  +1\right)  \text{-st smallest element of}\right. \\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left.  \text{the set }\left[
+n\right]  \setminus\underbrace{\left\{  \sigma\left(  1\right)  ,\sigma\left(
+2\right)  ,\ldots,\sigma\left(  3-1\right)  \right\}  }_{=\left\{
+\sigma\left(  1\right)  ,\sigma\left(  2\right)  \right\}  }\right) \\
+&  =\left(  \text{the }\left(  2+1\right)  \text{-st smallest element of the
+set }\left[  5\right]  \setminus\left\{  4,2\right\}  \right) \\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{since }\ell
+_{3}\left(  \sigma\right)  =2\text{ and }n=5\text{ and }\sigma\left(
+1\right)  =4\text{ and }\sigma\left(  2\right)  =2\right) \\
+&  =\left(  \text{the }3\text{-rd smallest element of the set }\left[
+5\right]  \setminus\left\{  4,2\right\}  \right)  =5
+\end{align*}
+(since $\left[  5\right]  \setminus\left\{  4,2\right\}  =\left\{
+1,3,5\right\}  $).
+
+Continuing like this, we find $\sigma\left(  4\right)  =3$ and $\sigma\left(
+5\right)  =1$. Thus, the OLN of $\sigma$ is $\sigma\left(  1\right)
+\ \sigma\left(  2\right)  \ \sigma\left(  3\right)  \ \sigma\left(  4\right)
+\ \sigma\left(  5\right)  =42531$.
+
+This method allows us to reconstruct any $\sigma\in S_{n}$ from $L\left(
+\sigma\right)  $ (and thus shows that the map $L$ is injective). We shall now
+see what happens if we apply it to an \textbf{arbitrary} $n$-tuple
+$\mathbf{j}=\left(  j_{1},j_{2},\ldots,j_{n}\right)  \in H_{n}$ instead of
+$L\left(  \sigma\right)  $ (that is, we replace $\ell_{i}\left(
+\sigma\right)  $ by $j_{i}$).
+
+Thus, we define a map%
+\[
+M:H_{n}\rightarrow S_{n}%
+\]
+as follows: If $\mathbf{j}=\left(  j_{1},j_{2},\ldots,j_{n}\right)  \in H_{n}%
+$, then $M\left(  \mathbf{j}\right)  $ is the map $\sigma:\left[  n\right]
+\rightarrow\left[  n\right]  $ whose values $\sigma\left(  1\right)
+,\sigma\left(  2\right)  ,\ldots,\sigma\left(  n\right)  $ are defined
+recursively by the rule%
+\begin{align}
+\sigma\left(  i\right)   &  =\left(  \text{the }\left(  j_{i}+1\right)
+\text{-st smallest element of}\right. \nonumber\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left.  \text{the set }\left[
+n\right]  \setminus\left\{  \sigma\left(  1\right)  ,\sigma\left(  2\right)
+,\ldots,\sigma\left(  i-1\right)  \right\}  \right)  .
+\label{pf.thm.perm.lehmer.bij.1st.6}%
+\end{align}
+This map $\sigma$
+
+\begin{itemize}
+\item is always well-defined (indeed, we never run out of values in the
+process of constructing $\sigma$, because of the following argument: each
+$i\in\left[  n\right]  $ satisfies $j_{i}\leq n-i$\ \ \ \ \footnote{because
+$\left(  j_{1},j_{2},\ldots,j_{n}\right)  \in H_{n}=\left[  n-1\right]
+_{0}\times\left[  n-2\right]  _{0}\times\cdots\times\left[  n-n\right]  _{0}$
+entails $j_{i}\in\left[  n-i\right]  _{0}$}, and thus the $\left(
+n-i+1\right)  $-element set $\left[  n\right]  \setminus\left\{  \sigma\left(
+1\right)  ,\sigma\left(  2\right)  ,\ldots,\sigma\left(  i-1\right)  \right\}
+$ has a $\left(  j_{i}+1\right)  $-st smallest element\footnote{To be fully
+precise: We don't know yet that $\left[  n\right]  \setminus\left\{
+\sigma\left(  1\right)  ,\sigma\left(  2\right)  ,\ldots,\sigma\left(
+i-1\right)  \right\}  $ is an $\left(  n-i+1\right)  $-element set, since we
+haven't yet shown that the $i-1$ elements $\sigma\left(  1\right)
+,\sigma\left(  2\right)  ,\ldots,\sigma\left(  i-1\right)  $ are distinct.
+However, if they are not distinct, then the set $\left[  n\right]
+\setminus\left\{  \sigma\left(  1\right)  ,\sigma\left(  2\right)
+,\ldots,\sigma\left(  i-1\right)  \right\}  $ has more than $n-i+1$ elements,
+which is just as good for our argument.}), and
+
+\item always is a permutation of $\left[  n\right]  $ (indeed, our definition
+of $\sigma\left(  i\right)  $ ensures that $\sigma\left(  i\right)  \in\left[
+n\right]  \setminus\left\{  \sigma\left(  1\right)  ,\sigma\left(  2\right)
+,\ldots,\sigma\left(  i-1\right)  \right\}  $, so that $\sigma\left(
+i\right)  \notin\left\{  \sigma\left(  1\right)  ,\sigma\left(  2\right)
+,\ldots,\sigma\left(  i-1\right)  \right\}  $, and therefore the map $\sigma$
+has no two equal values; thus, $\sigma$ is injective; therefore, by the
+Pigeonhole Principle for Injections\footnote{The \emph{Pigeonhole Principle
+for Injections} says the following two things:
+\par
+\begin{itemize}
+\item If $f:X\rightarrow Y$ is an injective map between two finite sets $X$
+and $Y$, then $\left\vert X\right\vert \leq\left\vert Y\right\vert $.
+\par
+\item If $f:X\rightarrow Y$ is an injective map between two finite sets $X$
+and $Y$ of the same size, then $f$ is bijective.
+\end{itemize}
+\par
+We are here using the second statement.}, the map $\sigma$ must also be
+bijective, i.e., a permutation of $\left[  n\right]  $).
+\end{itemize}
+
+\noindent Thus, the map $M$ is well-defined.
+
+We claim that the maps $L$ and $M$ are mutually inverse. Indeed, we already
+know that $M$ undoes $L$ (since applying $M$ to $L\left(  \sigma\right)  $
+produces precisely our above-discussed algorithm for reconstructing $\sigma$
+from $L\left(  \sigma\right)  $); in other words, we have $M\circ
+L=\operatorname*{id}$. It is also easy to see that $L\circ
+M=\operatorname*{id}$. Thus, the maps $L$ and $M$ are inverse, so that $L$ is
+bijective. This proves Theorem \ref{thm.perm.lehmer.bij}.
+\end{proof}
+
+Our second proof of Theorem \ref{thm.perm.lehmer.bij} will be less
+algorithmic, but it provides a good illustration for the use of total orders.
+We will only outline it; the details can be found in \cite[solution to
+Exercise 5.18]{detnotes}.
+
+This second proof relies on a total order that can be defined on the set
+$\mathbb{Z}^{n}$ of $n$-tuples of integers:
+
+\begin{definition}
+\label{def.perm.lehmer.lex-ord}Let $\left(  a_{1},a_{2},\ldots,a_{n}\right)  $
+and $\left(  b_{1},b_{2},\ldots,b_{n}\right)  $ be two $n$-tuples of integers.
+We say that%
+\begin{equation}
+\left(  a_{1},a_{2},\ldots,a_{n}\right)  <_{\operatorname*{lex}}\left(
+b_{1},b_{2},\ldots,b_{n}\right)  \label{eq.def.perm.lehmer.lex-ord.ineq}%
+\end{equation}
+if and only if
+
+\begin{itemize}
+\item there exists some $k\in\left[  n\right]  $ such that $a_{k}\neq b_{k}$, and
+
+\item the \textbf{smallest} such $k$ satisfies $a_{k}<b_{k}$.
+\end{itemize}
+\end{definition}
+
+For example, $\left(  4,1,2,5\right)  <_{\operatorname*{lex}}\left(
+4,1,3,0\right)  $ and $\left(  1,1,0,1\right)  <_{\operatorname*{lex}}\left(
+2,0,0,0\right)  $. The relation (\ref{eq.def.perm.lehmer.lex-ord.ineq}) is
+usually pronounced as \textquotedblleft$\left(  a_{1},a_{2},\ldots
+,a_{n}\right)  $ is \emph{lexicographically smaller} than $\left(  b_{1}%
+,b_{2},\ldots,b_{n}\right)  $\textquotedblright; the word \textquotedblleft
+lexicographic\textquotedblright\ comes from the idea that if numbers were
+letters, then a \textquotedblleft word\textquotedblright\ $a_{1}a_{2}\cdots
+a_{n}$ would appear earlier in a dictionary than $b_{1}b_{2}\cdots b_{n}$ if
+and only if $\left(  a_{1},a_{2},\ldots,a_{n}\right)  <_{\operatorname*{lex}%
+}\left(  b_{1},b_{2},\ldots,b_{n}\right)  $.
+
+Now, the following is easy to see:
+
+\begin{proposition}
+\label{prop.perm.lehmer.lex-ord.total}If $\mathbf{a}$ and $\mathbf{b}$ are two
+distinct $n$-tuples of integers, then we have either $\mathbf{a}%
+<_{\operatorname*{lex}}\mathbf{b}$ or $\mathbf{b}<_{\operatorname*{lex}%
+}\mathbf{a}$.
+\end{proposition}
+
+Actually, it is not hard to show that the relation $<_{\operatorname*{lex}}$
+is a total order on the set $\mathbb{Z}^{n}$ (known as the \emph{lexicographic
+order}); however, Proposition \ref{prop.perm.lehmer.lex-ord.total} is the only
+part of this statement that we will need.
+
+\begin{proposition}
+\label{prop.perm.lehmer.lex}Let $\sigma\in S_{n}$ and $\tau\in S_{n}$ be such
+that
+\begin{equation}
+\left(  \sigma\left(  1\right)  ,\sigma\left(  2\right)  ,\ldots,\sigma\left(
+n\right)  \right)  <_{\operatorname*{lex}}\left(  \tau\left(  1\right)
+,\tau\left(  2\right)  ,\ldots,\tau\left(  n\right)  \right)  .
+\label{eq.prop.perm.lehmer.lex.ass}%
+\end{equation}
+Then,
+\begin{equation}
+\left(  \ell_{1}\left(  \sigma\right)  ,\ell_{2}\left(  \sigma\right)
+,\ldots,\ell_{n}\left(  \sigma\right)  \right)  <_{\operatorname*{lex}}\left(
+\ell_{1}\left(  \tau\right)  ,\ell_{2}\left(  \tau\right)  ,\ldots,\ell
+_{n}\left(  \tau\right)  \right)  . \label{eq.prop.perm.lehmer.lex.clm}%
+\end{equation}
+(In other words, $L\left(  \sigma\right)  <_{\operatorname*{lex}}L\left(
+\tau\right)  $.)
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.perm.lehmer.lex} (sketched).](See
+\cite[solution to Exercise 5.18, proof of Proposition 5.50]{detnotes} for
+details.) The assumption (\ref{eq.prop.perm.lehmer.lex.ass}) shows that there
+exists some $k\in\left[  n\right]  $ such that $\sigma\left(  k\right)
+\neq\tau\left(  k\right)  $, and that the \textbf{smallest} such $k$ satisfies
+$\sigma\left(  k\right)  <\tau\left(  k\right)  $. Consider this smallest $k$.
+Thus, $\sigma\left(  i\right)  =\tau\left(  i\right)  $ for each $i\in\left[
+k-1\right]  $ (since $k$ is smallest with $\sigma\left(  k\right)  \neq
+\tau\left(  k\right)  $). Hence, using (\ref{pf.thm.perm.lehmer.bij.1st.1}),
+we can easily see that%
+\begin{equation}
+\ell_{i}\left(  \sigma\right)  =\ell_{i}\left(  \tau\right)
+\ \ \ \ \ \ \ \ \ \ \text{for each }i\in\left[  k-1\right]  .
+\label{pf.prop.perm.lehmer.lex.1}%
+\end{equation}
+Let $Z$ be the set%
+\[
+\left[  n\right]  \setminus\left\{  \sigma\left(  1\right)  ,\sigma\left(
+2\right)  ,\ldots,\sigma\left(  k-1\right)  \right\}  =\left[  n\right]
+\setminus\left\{  \tau\left(  1\right)  ,\tau\left(  2\right)  ,\ldots
+,\tau\left(  k-1\right)  \right\}  .
+\]
+Then, (\ref{pf.thm.perm.lehmer.bij.1st.1}) (applied to $i=k$) yields that
+\[
+\ell_{k}\left(  \sigma\right)  =\left(  \text{\# of elements of }Z\text{ that
+are smaller than }\sigma\left(  k\right)  \right)  ,
+\]
+and similarly we have%
+\[
+\ell_{k}\left(  \tau\right)  =\left(  \text{\# of elements of }Z\text{ that
+are smaller than }\tau\left(  k\right)  \right)  .
+\]
+From these two equalities, we can easily see that $\ell_{k}\left(
+\sigma\right)  <\ell_{k}\left(  \tau\right)  $. (In fact, any element of $Z$
+that is smaller than $\sigma\left(  k\right)  $ must also be smaller than
+$\tau\left(  k\right)  $ (since $\sigma\left(  k\right)  <\tau\left(
+k\right)  $), but there is at least one element of $Z$ that is smaller than
+$\tau\left(  k\right)  $ but not smaller than $\sigma\left(  k\right)  $
+(namely, the element $\sigma\left(  k\right)  $). Hence, there are fewer
+elements of $Z$ that are smaller than $\sigma\left(  k\right)  $ than there
+are elements of $Z$ that are smaller than $\tau\left(  k\right)  $.)
+
+Combining (\ref{pf.prop.perm.lehmer.lex.1}) with $\ell_{k}\left(
+\sigma\right)  <\ell_{k}\left(  \tau\right)  $, we obtain $\left(  \ell
+_{1}\left(  \sigma\right)  ,\ell_{2}\left(  \sigma\right)  ,\ldots,\ell
+_{n}\left(  \sigma\right)  \right)  <_{\operatorname*{lex}}\left(  \ell
+_{1}\left(  \tau\right)  ,\ell_{2}\left(  \tau\right)  ,\ldots,\ell_{n}\left(
+\tau\right)  \right)  $ (by Definition \ref{def.perm.lehmer.lex-ord}). This
+proves Proposition \ref{prop.perm.lehmer.lex}.
+\end{proof}
+
+Now, we can easily finish our second proof of Theorem
+\ref{thm.perm.lehmer.bij}:
+
+\begin{proof}
+[Second proof of Theorem \ref{thm.perm.lehmer.bij} (sketched).]We shall first
+show that the map $L$ is injective.
+
+Indeed, let $\sigma$ and $\tau$ be two distinct permutations in $S_{n}$. Then,
+the two $n$-tuples $\left(  \sigma\left(  1\right)  ,\sigma\left(  2\right)
+,\ldots,\sigma\left(  n\right)  \right)  $ and $\left(  \tau\left(  1\right)
+,\tau\left(  2\right)  ,\ldots,\tau\left(  n\right)  \right)  $ (that is, the
+OLNs of $\sigma$ and $\tau$) are distinct as well. Hence, Proposition
+\ref{prop.perm.lehmer.lex-ord.total} yields that we have either $\left(
+\sigma\left(  1\right)  ,\sigma\left(  2\right)  ,\ldots,\sigma\left(
+n\right)  \right)  <_{\operatorname*{lex}}\left(  \tau\left(  1\right)
+,\tau\left(  2\right)  ,\ldots,\tau\left(  n\right)  \right)  $ or $\left(
+\tau\left(  1\right)  ,\tau\left(  2\right)  ,\ldots,\tau\left(  n\right)
+\right)  <_{\operatorname*{lex}}\left(  \sigma\left(  1\right)  ,\sigma\left(
+2\right)  ,\ldots,\sigma\left(  n\right)  \right)  $. In the first case, we
+obtain $L\left(  \sigma\right)  <_{\operatorname*{lex}}L\left(  \tau\right)  $
+(by Proposition \ref{prop.perm.lehmer.lex}); in the second case, we likewise
+obtain $L\left(  \tau\right)  <_{\operatorname*{lex}}L\left(  \sigma\right)
+$. In either case, we thus conclude that $L\left(  \sigma\right)  \neq
+L\left(  \tau\right)  $.
+
+Forget that we fixed $\sigma$ and $\tau$. We thus have shown that if $\sigma$
+and $\tau$ are two distinct permutations in $S_{n}$, then $L\left(
+\sigma\right)  \neq L\left(  \tau\right)  $. In other words, the map
+$L:S_{n}\rightarrow H_{n}$ is injective. However, $L$ is a map between two
+finite sets of the same size (indeed, $\left\vert S_{n}\right\vert
+=n!=\left\vert H_{n}\right\vert $). Thus, the Pigeonhole Principle for
+Injections shows that $L$ is bijective (since $L$ is injective). This proves
+Theorem \ref{thm.perm.lehmer.bij} again.
+\end{proof}
+
+Now, we can prove Proposition \ref{prop.perm.length.gf} at last:
+
+\begin{proof}
+[Proof of Proposition \ref{prop.perm.length.gf}.]Each $\sigma\in S_{n}$
+satisfies
+\begin{align*}
+\ell\left(  \sigma\right)   &  =\ell_{1}\left(  \sigma\right)  +\ell
+_{2}\left(  \sigma\right)  +\cdots+\ell_{n}\left(  \sigma\right)
+\ \ \ \ \ \ \ \ \ \ \left(  \text{by Proposition \ref{prop.perm.lehmer.l}%
+}\right) \\
+&  =\left(  \text{sum of the entries of }L\left(  \sigma\right)  \right)
+\end{align*}
+(since $L\left(  \sigma\right)  =\left(  \ell_{1}\left(  \sigma\right)
+,\ell_{2}\left(  \sigma\right)  ,\ldots,\ell_{n}\left(  \sigma\right)
+\right)  $). Thus,%
+\begin{align*}
+\sum_{\sigma\in S_{n}}x^{\ell\left(  \sigma\right)  }  &  =\sum_{\sigma\in
+S_{n}}x^{\left(  \text{sum of the entries of }L\left(  \sigma\right)  \right)
+}=\sum_{\left(  j_{1},j_{2},\ldots,j_{n}\right)  \in H_{n}}%
+\underbrace{x^{\left(  \text{sum of the entries of }\left(  j_{1},j_{2}%
+,\ldots,j_{n}\right)  \right)  }}_{=x^{j_{1}+j_{2}+\cdots+j_{n}}=x^{j_{1}%
+}x^{j_{2}}\cdots x^{j_{n}}}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have substituted }\left(  j_{1},j_{2},\ldots,j_{n}\right)
+\text{ for }L\left(  \sigma\right)  \text{ in}\\
+\text{the sum, since the map }L:S_{n}\rightarrow H_{n}\text{ is a bijection}%
+\end{array}
+\right) \\
+&  =\sum_{\left(  j_{1},j_{2},\ldots,j_{n}\right)  \in H_{n}}x^{j_{1}}%
+x^{j_{2}}\cdots x^{j_{n}}=\sum_{\left(  j_{1},j_{2},\ldots,j_{n}\right)
+\in\left[  n-1\right]  _{0}\times\left[  n-2\right]  _{0}\times\cdots
+\times\left[  n-n\right]  _{0}}x^{j_{1}}x^{j_{2}}\cdots x^{j_{n}}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{since }H_{n}=\left(
+j_{1},j_{2},\ldots,j_{n}\right)  \in\left[  n-1\right]  _{0}\times\left[
+n-2\right]  _{0}\times\cdots\times\left[  n-n\right]  _{0}\right) \\
+&  =\left(  \sum_{j_{1}\in\left[  n-1\right]  _{0}}x^{j_{1}}\right)  \left(
+\sum_{j_{2}\in\left[  n-2\right]  _{0}}x^{j_{2}}\right)  \cdots\left(
+\sum_{j_{n}\in\left[  n-n\right]  _{0}}x^{j_{n}}\right) \\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{by the product rule
+(\ref{eq.lem.fps.prodrule-fin-fin.eq})}\right) \\
+&  =\left(  \sum_{j_{1}=0}^{n-1}x^{j_{1}}\right)  \left(  \sum_{j_{2}=0}%
+^{n-2}x^{j_{2}}\right)  \cdots\left(  \sum_{j_{n}=0}^{n-n}x^{j_{n}}\right) \\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{since }\left[
+m\right]  _{0}=\left\{  0,1,\ldots,m\right\}  \text{ for any }m\in
+\mathbb{Z}\right) \\
+&  =\left(  1+x+x^{2}+\cdots+x^{n-1}\right)  \left(  1+x+x^{2}+\cdots
++x^{n-2}\right)  \cdots\left(  1+x\right)  \left(  1\right) \\
+&  =\left(  1+x+x^{2}+\cdots+x^{n-1}\right)  \left(  1+x+x^{2}+\cdots
++x^{n-2}\right)  \cdots\left(  1+x\right) \\
+&  =\left(  1+x\right)  \left(  1+x+x^{2}\right)  \left(  1+x+x^{2}%
++x^{3}\right)  \cdots\left(  1+x+x^{2}+\cdots+x^{n-1}\right) \\
+&  =\prod_{i=1}^{n-1}\left(  1+x+x^{2}+\cdots+x^{i}\right)  =\left[  n\right]
+_{x}!
+\end{align*}
+(the last equality sign here is easy to check). This proves Proposition
+\ref{prop.perm.length.gf}.
+\end{proof}
+

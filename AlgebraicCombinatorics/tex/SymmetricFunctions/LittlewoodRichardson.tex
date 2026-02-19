@@ -1,0 +1,925 @@
+\subsubsection{The Littlewood--Richardson rule}
+
+The Bender--Knuth involutions have served us well in the above proof of
+Theorem \ref{thm.sf.skew-schur-symm}, but they have much more to offer. We
+will soon see them prove one of the most famous results in the theory of
+symmetric polynomials, namely the Littlewood--Richardson rule. In the process,
+we will also (finally) prove Theorem \ref{thm.sf.schur-symm} \textbf{(b)}.
+
+The Littlewood--Richardson rule has its roots in the representation theory of
+the classical groups (specifically, $\operatorname*{GL}\nolimits_{N}\left(
+\mathbb{C}\right)  $). We shall say a few words about this motivation before
+we move on to stating the rule itself (which is purely combinatorial, as is
+its proof). At the simplest level, the Littlewood--Richardson rule is about
+expanding the product $s_{\nu}s_{\lambda}$ of two Schur polynomials as a sum
+of other Schur polynomials. For instance, for $N=4$, we have%
+\[
+s_{2100}s_{1100}=s_{2111}+s_{2210}+s_{3110}+s_{3200},
+\]
+where we are omitting commas and parentheses for brevity (i.e., we are writing
+$2100$ for the $N$-partition $\left(  2,1,0,0\right)  $, and likewise for the
+other $N$-partitions). Likewise, for $N=3$, we have%
+\[
+s_{210}s_{210}=s_{222}+2s_{321}+s_{330}+s_{411}+s_{420}.
+\]
+I think it was Hermann Weyl who originally proved the existence of such an
+expansion (i.e., that any product $s_{\nu}s_{\lambda}$ of two Schur
+polynomials is a sum of Schur polynomials). The original proof used Lie group
+representations. The idea of the proof, in a nutshell, is the following (skip
+this paragraph if you are unfamiliar with representation theory): The
+irreducible polynomial representations of the classical group
+$\operatorname*{GL}\nolimits_{N}\left(  \mathbb{C}\right)  $ are (more or
+less) in bijection with the $N$-partitions, meaning that there is an
+irreducible polynomial representation $V_{\lambda}$ for each $N$-partition
+$\lambda$, and all irreps (= irreducible polynomial representations) of
+$\operatorname*{GL}\nolimits_{N}\left(  \mathbb{C}\right)  $ have this
+form\footnote{At least if one uses the \textquotedblleft
+right\textquotedblright\ definition of a polynomial representation. See
+\cite[\S 5 and \S 6]{KraPro10} or \cite[\S 6.1]{Prasad-rep} for details.}.
+These $V_{\lambda}$'s are known as the \emph{Weyl modules}, or in a slightly
+more general form as the \emph{Schur functors}. The tensor product of two such
+irreps can be decomposed as a direct sum of irreps (since polynomial
+representations of $\operatorname*{GL}\nolimits_{N}\left(  \mathbb{C}\right)
+$ are completely reducible):%
+\[
+V_{\nu}\otimes V_{\lambda}\cong\bigoplus_{\omega\text{ is an }%
+N\text{-partition}}\ \ \underbrace{V_{\omega}^{c\left(  \nu,\lambda
+,\omega\right)  }}_{\substack{\text{a direct sum of }c\left(  \nu
+,\lambda,\omega\right)  \\\text{many }V_{\omega}\text{'s}}}.
+\]
+The multiplicities $c\left(  \nu,\lambda,\omega\right)  $ in this
+decomposition are precisely the coefficients that you get when you decompose
+the product of the Schur polynomials $s_{\nu}$ and $s_{\lambda}$ as a sum of
+Schur polynomials:%
+\[
+s_{\nu}s_{\lambda}=\sum_{\omega\text{ is an }N\text{-partition}}c\left(
+\nu,\lambda,\omega\right)  s_{\omega}.
+\]
+In fact, the Schur polynomials $s_{\lambda}$ are the so-called
+\emph{characters} of the irreps $V_{\lambda}$, and it is known that tensor
+products of representations correspond to products of their characters.
+
+All of this, in the detail it deserves, is commonly taught in a 1st or 2nd
+course on representation theory (e.g., \cite{Proces07} or \cite{EGHetc11} or
+\cite[Chapter 6]{Prasad-rep}). But we are here for something else: we want to
+know these $c\left(  \nu,\lambda,\omega\right)  $'s. In other words, we want a
+formula that expands a product $s_{\nu}s_{\lambda}$ as a finite sum of Schur polynomials.
+
+Such a formula was first conjectured by
+\href{https://mathshistory.st-andrews.ac.uk/Biographies/Littlewood_Dudley/}{Dudley
+Ernest Littlewood} and
+\href{https://mathshistory.st-andrews.ac.uk/Biographies/Richardson_Archibald/}{Archibald
+Read Richardson} in 1934. It remained unproven for 40 years, not least because
+the statement was not very clear. In the 1970s, proofs were found
+independently by
+\href{https://mathshistory.st-andrews.ac.uk/Biographies/Schutzenberger/}{Marcel-Paul
+Sch\"{u}tzenberger} and Glanffrwd Thomas. Since then, at least a dozen
+different proofs have appeared. The proof that I will show was published by
+Stembridge in 1997 (in \cite{Stembr02}, perhaps one of the most readable
+papers in all of mathematics), and crystallizes decades of work by many
+authors (Gasharov's somewhat similar proof \cite{Gashar98} probably being the
+main harbinger). It will prove not just an expansion for $s_{\nu}s_{\lambda}$,
+but also a generalization (replacing $s_{\lambda}$ by a skew Schur polynomial
+$s_{\lambda/\mu}$) found by Zelevinsky in 1981 (\cite{Zelevi81}), as well as
+Theorem \ref{thm.sf.schur-symm} \textbf{(b)}. My presentation of this proof
+will follow \cite[\S 2.6]{GriRei} (which, in turn, elaborates on
+\cite{Stembr02}).
+
+To state the Littlewood--Richardson rule, we need some notions and notations.
+We begin with the notations:
+
+\begin{definition}
+\label{def.sf.tuple-addition}\textbf{(a)} We let $\mathbf{0}$ denote the
+$N$-tuple $\left(  0,0,\ldots,0\right)  \in\mathbb{N}^{N}$. \medskip
+
+\textbf{(b)} Let $\alpha=\left(  \alpha_{1},\alpha_{2},\ldots,\alpha
+_{N}\right)  $ and $\beta=\left(  \beta_{1},\beta_{2},\ldots,\beta_{N}\right)
+$ be two $N$-tuples in $\mathbb{N}^{N}$. Then, we set%
+\begin{align*}
+\alpha+\beta &  :=\left(  \alpha_{1}+\beta_{1},\alpha_{2}+\beta_{2}%
+,\ldots,\alpha_{N}+\beta_{N}\right)  \ \ \ \ \ \ \ \ \ \ \text{and}\\
+\alpha-\beta &  :=\left(  \alpha_{1}-\beta_{1},\alpha_{2}-\beta_{2}%
+,\ldots,\alpha_{N}-\beta_{N}\right)  .
+\end{align*}
+Note that $\alpha+\beta\in\mathbb{N}^{N}$, whereas $\alpha-\beta\in
+\mathbb{Z}^{N}$.
+\end{definition}
+
+Of course, the addition operation $+$ that we just defined on the set
+$\mathbb{N}^{N}$ is associative and commutative, and the $N$-tuple
+$\mathbf{0}$ is its neutral element. The subtraction operation $-$ undoes $+$.
+Note that the operation $+$ defined in Definition \ref{def.sf.tuple-addition}
+is precisely the one that we used in Theorem \ref{thm.sf.schur-symm}
+\textbf{(b)}. We notice that (using the notation of Definition
+\ref{def.sf.sort} \textbf{(a)}) we have%
+\begin{equation}
+x^{\alpha}x^{\beta}=x^{\alpha+\beta} \label{eq.def.sf.tuple-addition.xab}%
+\end{equation}
+for any two $N$-tuples $\alpha,\beta\in\mathbb{N}^{N}$ (check this!).
+
+Our next piece of notation is mostly a bookkeeping device:
+
+\begin{definition}
+\label{def.sf.content}Let $\lambda$ and $\mu$ be two $N$-partitions. Let $T$
+be a tableau of shape $\lambda/\mu$. We define the \emph{content} of $T$ to be
+the $N$-tuple $\left(  a_{1},a_{2},\ldots,a_{N}\right)  $, where%
+\[
+a_{i}:=\left(  \text{\# of }i\text{'s in }T\right)  =\left(  \text{\# of boxes
+}c\text{ of }T\text{ such that }T\left(  c\right)  =i\right)  .
+\]
+We denote this $N$-tuple by $\operatorname*{cont}T$.
+\end{definition}
+
+For instance, if $N=5$, then $\operatorname*{cont}%
+\ytableaushort{112,4}=\left(  2,1,0,1,0\right)  $.
+
+Note that%
+\begin{equation}
+x_{T}=x^{\operatorname*{cont}T}\ \ \ \ \ \ \ \ \ \ \text{for any tableau }T.
+\label{eq.def.sf.content.xT=}%
+\end{equation}
+(Indeed, both sides of this equality equal $\prod_{i=1}^{N}x_{i}^{\left(
+\text{\# of }i\text{'s in }T\right)  }$.)
+
+Another notation lets us cut certain columns out of a tableau:
+
+\begin{definition}
+\label{def.sf.col-tab}Let $\lambda$ and $\mu$ be two $N$-partitions. Let $T$
+be a tableau of shape $\lambda/\mu$. Let $j$ be a positive integer. Then,
+$\operatorname{col}_{\geq j}T$ means the restriction of $T$ to columns
+$j,j+1,j+2,\ldots$ (that is, the result of removing the first $j-1$ columns
+from $T$). Formally speaking, this means the restriction of the map $T$ to the
+set $\left\{  \left(  u,v\right)  \in Y\left(  \lambda/\mu\right)
+\ \mid\ v\geq j\right\}  $.
+\end{definition}
+
+For example,%
+\begin{align*}
+\operatorname{col}_{\geq3}\ytableaushort{\none 112,\none 23,135,22}\ \  &
+=\ \ \ \ \ \ \ \ \ \ \ \ \ \ytableaushort{12,3,5}\ \ \ \ \ \ \ \ \ \ \text{and}%
+\\
+& \\
+\operatorname{col}_{\geq5}\ytableaushort{\none 112,\none 23,135,22}\ \  &
+=\ \ \left(  \text{empty tableau}\right)  .
+\end{align*}
+
+
+\begin{remark}
+What shape does the tableau $\operatorname{col}_{\geq j}T$ in Definition
+\ref{def.sf.col-tab} have?
+
+We don't care, since we will only need this tableau for its content
+$\operatorname{col}_{\geq j}T$ (which is defined independently of the shape).
+However, the answer is not hard to give: If $\lambda=\left(  \lambda
+_{1},\lambda_{2},\ldots,\lambda_{N}\right)  $ and $\mu=\left(  \mu_{1},\mu
+_{2},\ldots,\mu_{N}\right)  $, then $\operatorname{col}_{\geq j}T$ is a skew
+Young tableau of shape $\widetilde{\lambda}/\widetilde{\mu}$, where%
+\begin{align*}
+\widetilde{\lambda}  &  =\left(  \min\left\{  j-1,\lambda_{1}\right\}
+,\ \min\left\{  j-1,\lambda_{2}\right\}  ,\ \ldots,\ \min\left\{
+j-1,\lambda_{N}\right\}  \right)  \ \ \ \ \ \ \ \ \ \ \text{and}\\
+\widetilde{\mu}  &  =\left(  \min\left\{  j-1,\mu_{1}\right\}  ,\ \min\left\{
+j-1,\mu_{2}\right\}  ,\ \ldots,\ \min\left\{  j-1,\mu_{N}\right\}  \right)  .
+\end{align*}
+(Thus, the first $j-1$ columns of $\operatorname{col}_{\geq j}T$ are empty,
+i.e., have no boxes.)
+\end{remark}
+
+Note that $\operatorname{col}_{\geq1}T=T$ for any tableau $T$.
+
+Now we are ready to define a nontrivial notion:
+
+\begin{definition}
+\label{def.sf.yamanouchi}Let $\lambda,\mu,\nu$ be three $N$-partitions. A
+semistandard tableau $T$ of shape $\lambda/\mu$ is said to be $\nu
+$\emph{-Yamanouchi} (this is an adjective) if for each positive integer $j$,
+the $N$-tuple $\nu+\operatorname*{cont}\left(  \operatorname{col}_{\geq
+j}T\right)  \in\mathbb{N}^{N}$ is an $N$-partition (i.e., weakly decreasing).
+\end{definition}
+
+This is a complex and somewhat confusing notion; before we move on, let us
+thus give a metaphor that might help clarify it, and several examples.
+
+\begin{remark}
+\label{rmk.sf.yamanouchi.votes}Definition \ref{def.sf.yamanouchi} becomes
+somewhat easier to conceptualize (and memorize) through a voting metaphor
+(which, incidentally, is the reason why $\mathbf{0}$-Yamanouchi tableaux are
+sometimes called \textquotedblleft ballot tableaux\textquotedblright):
+
+Let $\lambda,\mu,\nu$ and $T$ be as in Definition \ref{def.sf.yamanouchi}.
+Consider an election between $N$ candidates numbered $1,2,\ldots,N$. Regard
+each entry $i$ of $T$ as a single vote for candidate $i$. Thus, for example,
+the tableau $\ytableaushort{\none 12,25}$ has one vote for candidate $1$, two
+votes for candidate $2$, and one for candidate $5$. Now, we count the votes by
+keeping an \textquotedblleft tally board\textquotedblright, i.e., an $N$-tuple
+$\left(  a_{1},a_{2},\ldots,a_{N}\right)  \in\mathbb{N}^{N}$ that records how
+many votes each candidate has received (namely, candidate $i$ has received
+$a_{i}$ votes). Assume that, at the beginning of our counting process, the
+tally board is $\nu$ (as a consequence of ballot stuffing, or because some
+votes have already been counted on the previous day). Now, we process the
+votes from the tableau $T$, column by column, starting with the rightmost
+column and moving left. Each time a column is processed, all the votes from
+this column are simultaneously added to our tally board. Thus, after the
+rightmost column is processed, our tally board is $\nu+\operatorname*{cont}%
+\left(  \operatorname{col}_{\geq j}T\right)  $, where $j$ is the index of the
+rightmost column (i.e., the rightmost column is the $j$-th column). Then, the
+second-to-rightmost column gets processed, and the tally board becomes
+$\nu+\operatorname*{cont}\left(  \operatorname{col}_{\geq j-1}T\right)  $. And
+so on, until all columns have been processed.
+
+Now, the tableau $T$ is $\nu$-Yamanouchi if and only if the tally board has
+stayed weakly decreasing (i.e., candidate $1$ has at least as many votes as
+candidate $2$, who in turn has at least as many votes as candidate $3$, who in
+turn has at least as many votes as candidate $4$, and so on) throughout the
+vote counting process. This is just a trivial restatement of the definition of
+\textquotedblleft$\nu$-Yamanouchi\textquotedblright, but in my impression it
+is conducive to understanding.
+
+One takeaway from this interpretation is the following useful feature of the
+vote counting process: No candidate gains more than one vote at a single time
+(because no column of $T$ has two equal entries). Thus, the number of votes
+for any given candidate increases only in small steps (viz., not at all or by
+only $1$ vote).
+\end{remark}
+
+\begin{example}
+\label{exa.sf.yamanouchi.1}\textbf{(a)} Let $N=3$ and $\nu=\mathbf{0}=\left(
+0,0,0\right)  $. Which of the following six tableaux are $\mathbf{0}%
+$-Yamanouchi?%
+\begin{align*}
+T_{1}  &  =\ytableaushort{\none 11,22}\ \ ,\qquad T_{2}%
+=\ytableaushort{\none 11,23}\ \ ,\qquad T_{3}%
+=\ytableaushort{\none 12,22}\ \ ,\\
+& \\
+T_{4}  &  =\ytableaushort{\none 1,1,2}\ \ ,\qquad T_{5}%
+=\ytableaushort{\none 1,1,3}\ \ ,\qquad T_{6}%
+=\ytableaushort{\none\none 11,\none 122,23}\ \ .
+\end{align*}
+
+
+Note that all six of these tableaux are semistandard.
+
+Let us check whether $T_{1}$ is $\mathbf{0}$-Yamanouchi. Indeed, we compute
+the $N$-tuple $\nu+\operatorname*{cont}\left(  \operatorname{col}_{\geq
+j}T\right)  \in\mathbb{N}^{N}$ for each positive integer $j$, obtaining
+\begin{align*}
+\nu+\operatorname*{cont}\left(  \operatorname{col}_{\geq1}T_{1}\right)   &
+=\mathbf{0}+\left(  2,2,0\right)  =\left(  2,2,0\right)  ;\\
+\nu+\operatorname*{cont}\left(  \operatorname{col}_{\geq2}T_{1}\right)   &
+=\mathbf{0}+\left(  2,1,0\right)  =\left(  2,1,0\right)  ;\\
+\nu+\operatorname*{cont}\left(  \operatorname{col}_{\geq3}T_{1}\right)   &
+=\mathbf{0}+\left(  1,0,0\right)  =\left(  1,0,0\right)  ;\\
+\nu+\operatorname*{cont}\left(  \operatorname{col}_{\geq j}T_{1}\right)   &
+=\mathbf{0}+\left(  0,0,0\right)  =\left(  0,0,0\right)  \text{ for each
+}j\geq4\text{.}%
+\end{align*}
+All of the results $\left(  2,2,0\right)  $, $\left(  2,1,0\right)  $,
+$\left(  1,0,0\right)  $ and $\left(  0,0,0\right)  $ are $N$-partitions.
+Thus, $T_{1}$ is $\mathbf{0}$-Yamanouchi.
+
+Let us check whether $T_{2}$ is $\mathbf{0}$-Yamanouchi. Indeed,%
+\begin{align*}
+\nu+\operatorname*{cont}\left(  \operatorname{col}_{\geq1}T_{2}\right)   &
+=\mathbf{0}+\left(  2,1,1\right)  =\left(  2,1,1\right)  \text{ is an
+}N\text{-partition;}\\
+\nu+\operatorname*{cont}\left(  \operatorname{col}_{\geq2}T_{2}\right)   &
+=\mathbf{0}+\left(  2,0,1\right)  =\left(  2,0,1\right)  \text{ is
+\textbf{not} an }N\text{-partition.}%
+\end{align*}
+Thus, $T_{2}$ is \textbf{not} $\mathbf{0}$-Yamanouchi.
+
+The tableau $T_{3}$ is \textbf{not} $\mathbf{0}$-Yamanouchi, since
+$\nu+\operatorname*{cont}\left(  \operatorname{col}_{\geq1}T_{3}\right)
+=\left(  1,3,0\right)  $ is not an $N$-partition.
+
+The tableau $T_{4}$ is $\mathbf{0}$-Yamanouchi.
+
+The tableau $T_{5}$ is \textbf{not} $\mathbf{0}$-Yamanouchi, since
+$\nu+\operatorname*{cont}\left(  \operatorname{col}_{\geq1}T_{5}\right)
+=\left(  2,0,1\right)  $ is not an $N$-partition.
+
+The tableau $T_{6}$ is $\mathbf{0}$-Yamanouchi. \medskip
+
+\textbf{(b)} So we know that $T_{2},T_{3},T_{5}$ are not $\mathbf{0}%
+$-Yamanouchi. However, they are $\nu$-Yamanouchi for some other $N$-partitions
+$\nu$. For example:
+
+\begin{itemize}
+\item The tableau $T_{2}$ becomes $\nu$-Yamanouchi for $\nu=\left(
+1,1,0\right)  $.
+
+\item The tableau $T_{3}$ becomes $\nu$-Yamanouchi for $\nu=\left(
+2,0,0\right)  $.
+
+\item The tableau $T_{5}$ becomes $\nu$-Yamanouchi for $\nu=\left(
+1,1,0\right)  $.
+\end{itemize}
+
+\noindent These are, in a sense, the \textquotedblleft
+minimal\textquotedblright\ choices of $\nu$ for this to happen, but of course
+there are many other choices of $\nu$ that work.
+\end{example}
+
+We can now state the Littlewood--Richardson rule:
+
+\begin{theorem}
+[Zelevinsky's generalized Littlewood--Richardson rule, in Yamanouchi
+form]\label{thm.sf.lr-zy}Let $\lambda,\mu,\nu$ be three $N$-partitions. Then,%
+\begin{equation}
+s_{\nu}\cdot s_{\lambda/\mu}=\sum_{\substack{T\text{ is a }\nu
+\text{-Yamanouchi}\\\text{semistandard tableau}\\\text{of shape }\lambda/\mu
+}}s_{\nu+\operatorname*{cont}T}. \label{eq.thm.sf.lr-zy.eq}%
+\end{equation}
+
+\end{theorem}
+
+Some comments are in order:
+
+\begin{itemize}
+\item In the sum on the right hand side of (\ref{eq.thm.sf.lr-zy.eq}), the
+Schur polynomial $s_{\nu+\operatorname*{cont}T}$ is always well-defined.
+Indeed, if $T$ is a $\nu$-Yamanouchi semistandard tableau of shape
+$\lambda/\mu$, then $\nu+\operatorname*{cont}\underbrace{T}%
+_{=\operatorname{col}_{\geq1}T}=\nu+\operatorname*{cont}\left(
+\operatorname{col}_{\geq1}T\right)  $ is an $N$-partition (by the definition
+of \textquotedblleft$\nu$-Yamanouchi\textquotedblright), so that
+$s_{\nu+\operatorname*{cont}T}$ is a well-defined Schur polynomial.
+
+\item Theorem \ref{thm.sf.lr-zy} expresses a product of a regular Schur
+polynomial $s_{\nu}$ with a skew Schur polynomial $s_{\lambda/\mu}$ as a sum
+of Schur polynomials. You can get a similar formula for the product of two
+regular Schur polynomials by setting $\mu=\mathbf{0}=\left(  0,0,\ldots
+,0\right)  $ in Theorem \ref{thm.sf.lr-zy}, so that $s_{\lambda/\mu}$ becomes
+$s_{\lambda/\mathbf{0}}=s_{\lambda}$.
+\end{itemize}
+
+\begin{example}
+\label{exa.sf.lr-zy.1}Let us apply Theorem \ref{thm.sf.lr-zy} to $N=3$ and
+$\nu=\left(  1,0,0\right)  $ and $\lambda=\left(  2,1,0\right)  $ and
+$\mu=\mathbf{0}=\left(  0,0,0\right)  $. Thus we get%
+\begin{equation}
+s_{\left(  1,0,0\right)  }\cdot s_{\left(  2,1,0\right)  }=\sum
+_{\substack{T\text{ is a }\left(  1,0,0\right)  \text{-Yamanouchi}%
+\\\text{semistandard tableau}\\\text{of shape }\left(  2,1,0\right)
+/\mathbf{0}}}s_{\left(  1,0,0\right)  +\operatorname*{cont}T}.
+\label{eq.exa.sf.lr-zy.1.1}%
+\end{equation}
+What are the $T$'s in the sum? The $\left(  1,0,0\right)  $-Yamanouchi
+semistandard tableaux of shape $\left(  2,1,0\right)  /\mathbf{0}$ are
+\[
+\ytableaushort{11,2}\ \ ,\ \ \ \ \ \ \ \ \ \ \ytableaushort{12,2}\ \ ,\ \ \ \ \ \ \ \ \ \ \ytableaushort{12,3}\ \ ,
+\]
+and the corresponding addends of our sum are%
+\begin{align*}
+s_{\left(  1,0,0\right)  +\left(  2,1,0\right)  }  &  =s_{\left(
+3,1,0\right)  },\\
+s_{\left(  1,0,0\right)  +\left(  1,2,0\right)  }  &  =s_{\left(
+2,2,0\right)  },\\
+s_{\left(  1,0,0\right)  +\left(  1,1,1\right)  }  &  =s_{\left(
+2,1,1\right)  }.
+\end{align*}
+Thus, the equality (\ref{eq.exa.sf.lr-zy.1.1}) rewrites as%
+\[
+s_{\left(  1,0,0\right)  }\cdot s_{\left(  2,1,0\right)  }=s_{\left(
+3,1,0\right)  }+s_{\left(  2,2,0\right)  }+s_{\left(  2,1,1\right)  }.
+\]
+Note that $s_{\left(  1,0,0\right)  }=x_{1}+x_{2}+x_{3}$ and $s_{\left(
+2,1,0\right)  }=\sum_{i\leq j\text{ and }i<k}x_{i}x_{j}x_{k}$.
+\end{example}
+
+We will prove the Littlewood--Richardson rule as a consequence of the
+following lemma:
+
+\begin{lemma}
+[Stembridge's Lemma]\label{lem.sf.stemb-lem}Let $\lambda,\mu,\nu$ be three
+$N$-partitions. Then,%
+\[
+a_{\nu+\rho}\cdot s_{\lambda/\mu}=\sum_{\substack{T\text{ is a }%
+\nu\text{-Yamanouchi}\\\text{semistandard tableau}\\\text{of shape }%
+\lambda/\mu}}a_{\nu+\operatorname*{cont}T+\rho}.
+\]
+
+\end{lemma}
+
+Before we prove this lemma, let us explore its consequences. One of them is
+the Littlewood--Richardson rule; another is Theorem \ref{thm.sf.schur-symm}
+\textbf{(b)}. Let us first see how the latter can be derived from the lemma.
+This derivation, in turn, relies on another (simple) lemma:
+
+\begin{lemma}
+\label{lem.sf.tab-greater-i}Let $\lambda$ be any $N$-partition. Let $T$ be a
+semistandard tableau of shape $\lambda$. Then, $T\left(  i,j\right)  \geq i$
+for each $\left(  i,j\right)  \in Y\left(  \lambda\right)  $.
+\end{lemma}
+
+\begin{proof}
+[Proof of Lemma \ref{lem.sf.tab-greater-i}.]This lemma is an easy consequence
+of the fact that the entries of a semistandard tableau increase strictly down
+each column. A detailed proof is given in Section \ref{sec.details.sf.schur}.
+\end{proof}
+
+\begin{proof}
+[Proof of Theorem \ref{thm.sf.schur-symm} \textbf{(b)} using Lemma
+\ref{lem.sf.stemb-lem}.]Recall that $\mathbf{0}=\left(  0,0,\ldots,0\right)
+\in\mathbb{N}^{N}$. Applying Lemma \ref{lem.sf.stemb-lem} to $\mu=\mathbf{0}$
+and $\nu=\mathbf{0}$, we obtain%
+\[
+a_{\mathbf{0}+\rho}\cdot s_{\lambda/\mathbf{0}}=\sum_{\substack{T\text{ is a
+}\mathbf{0}\text{-Yamanouchi}\\\text{semistandard tableau}\\\text{of shape
+}\lambda/\mathbf{0}}}a_{\mathbf{0}+\operatorname*{cont}T+\rho}.
+\]
+This rewrites as%
+\begin{equation}
+a_{\rho}\cdot s_{\lambda}=\sum_{\substack{T\text{ is a }\mathbf{0}%
+\text{-Yamanouchi}\\\text{semistandard tableau}\\\text{of shape }%
+\lambda/\mathbf{0}}}a_{\operatorname*{cont}T+\rho}
+\label{pf.thm.sf.schur-symm.b.1}%
+\end{equation}
+(since $\mathbf{0}+\rho=\rho$ and $s_{\lambda/\mathbf{0}}=s_{\lambda}$ and
+$\mathbf{0}+\operatorname*{cont}T=\operatorname*{cont}T$).
+
+Now, we shall analyze the sum on the right hand side. What are the
+$\mathbf{0}$-Yamanouchi semistandard tableaux of shape $\lambda/\mathbf{0}$ ?
+One such tableau is easy to construct: namely, the one tableau (of shape
+$\lambda/\mathbf{0}$) whose all entries in the $1$-st row are $1$'s, all
+entries in the $2$-nd row are $2$'s, all entries in the $3$-rd row are $3$'s,
+and so on. Let us call this tableau \emph{minimalistic}, and denote it by
+$T_{0}$. Formally speaking, this minimalistic tableau $T_{0}$ is defined to be
+the map $Y\left(  \lambda/0\right)  \rightarrow\left[  N\right]  $ that sends
+each $\left(  i,j\right)  \in Y\left(  \lambda/0\right)  $ to $i$. Here is how
+this minimalistic tableau looks like for $N=4$ and $\lambda=\left(
+4,2,2,1\right)  $:%
+\[
+T_{0}=\ytableaushort{1111,22,33,4}\ \ .
+\]
+
+
+It turns out that this minimalistic tableau is the only $T$ on the right hand
+side of (\ref{pf.thm.sf.schur-symm.b.1}). This will follow from the following
+two observations:
+
+\begin{statement}
+\textit{Observation 1:} The minimalistic tableau $T_{0}$ is a $\mathbf{0}%
+$-Yamanouchi semistandard tableau of shape $\lambda/\mathbf{0}$.
+\end{statement}
+
+\begin{statement}
+\textit{Observation 2:} If $T$ is a $\mathbf{0}$-Yamanouchi semistandard
+tableau of shape $\lambda/\mathbf{0}$, then $T=T_{0}$.
+\end{statement}
+
+\begin{fineprint}
+[\textit{Proof of Observation 1:} It is clear that $T_{0}$ is a semistandard
+tableau of shape $\lambda/\mathbf{0}$. Thus, we only need to show that it is
+$\mathbf{0}$-Yamanouchi. In other words, we need to show that for each
+positive integer $j$, the $N$-tuple $\mathbf{0}+\operatorname*{cont}\left(
+\operatorname{col}_{\geq j}T_{0}\right)  \in\mathbb{N}^{N}$ is an
+$N$-partition (i.e., weakly decreasing).
+
+This can be done directly: Write $\lambda$ in the form $\lambda=\left(
+\lambda_{1},\lambda_{2},\ldots,\lambda_{N}\right)  $. Thus, $\lambda_{1}%
+\geq\lambda_{2}\geq\cdots\geq\lambda_{N}$ (since $\lambda$ is an
+$N$-partition). Let $j$ be a positive integer. Recall that the tableau $T_{0}$
+is minimalistic; hence, the restricted tableau $\operatorname{col}_{\geq
+j}T_{0}$ is itself minimalistic (meaning that all its entries in the $1$-st
+row are $1$'s, all entries in the $2$-nd row are $2$'s, all entries in the
+$3$-rd row are $3$'s, and so on). Therefore, for each $i\in\left[  N\right]
+$, we have%
+\begin{align}
+&  \left(  \text{\# of }i\text{'s in }\operatorname{col}_{\geq j}T_{0}\right)
+\nonumber\\
+&  =\left(  \text{\# of boxes in the }i\text{-th row of }\operatorname{col}%
+_{\geq j}T_{0}\right) \nonumber\\
+&  =\max\left\{  \lambda_{i}-\left(  j-1\right)  ,0\right\}
+\label{pf.thm.sf.schur-symm.b.o1.pf.num=max}%
+\end{align}
+(since the $i$-th row of $T_{0}$ has $\lambda_{i}$ many boxes, and thus the
+$i$-th row of $\operatorname{col}_{\geq j}T_{0}$ has $\max\left\{  \lambda
+_{i}-\left(  j-1\right)  ,0\right\}  $ many boxes). Now, the $N$-tuple
+\begin{align*}
+&  \mathbf{0}+\operatorname*{cont}\left(  \operatorname{col}_{\geq j}%
+T_{0}\right) \\
+&  =\operatorname*{cont}\left(  \operatorname{col}_{\geq j}T_{0}\right) \\
+&  =\left(  \text{\# of }1\text{'s in }\operatorname{col}_{\geq j}%
+T_{0},\ \ \ \text{\# of }2\text{'s in }\operatorname{col}_{\geq j}%
+T_{0},\ \ \ldots,\ \ \text{\# of }N\text{'s in }\operatorname{col}_{\geq
+j}T_{0}\right) \\
+&  =\left(  \max\left\{  \lambda_{1}-\left(  j-1\right)  ,0\right\}
+,\ \ \max\left\{  \lambda_{2}-\left(  j-1\right)  ,0\right\}  ,\ \ \ldots
+,\ \ \max\left\{  \lambda_{N}-\left(  j-1\right)  ,0\right\}  \right) \\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{by
+(\ref{pf.thm.sf.schur-symm.b.o1.pf.num=max})}\right)
+\end{align*}
+is weakly decreasing (since $\lambda_{1}\geq\lambda_{2}\geq\cdots\geq
+\lambda_{N}$ quickly yields $\max\left\{  \lambda_{1}-\left(  j-1\right)
+,0\right\}  \geq\max\left\{  \lambda_{2}-\left(  j-1\right)  ,0\right\}
+\geq\cdots\geq\max\left\{  \lambda_{N}-\left(  j-1\right)  ,0\right\}  $), and
+thus is an $N$-partition. Forget that we fixed $j$. Thus, we have shown that
+for each positive integer $j$, the $N$-tuple $\mathbf{0}+\operatorname*{cont}%
+\left(  \operatorname{col}_{\geq j}T_{0}\right)  \in\mathbb{N}^{N}$ is an
+$N$-partition. This proves that the tableau $T_{0}$ is $\mathbf{0}%
+$-Yamanouchi. This completes the proof of Observation 1.] \medskip
+\end{fineprint}
+
+\begin{fineprint}
+[\textit{Proof of Observation 2:} Let $T$ be a $\mathbf{0}$-Yamanouchi
+semistandard tableau of shape $\lambda/\mathbf{0}$. We must prove that
+$T=T_{0}$.
+
+Let us assume the contrary. Thus, $T\neq T_{0}$. Hence, there exists some
+$\left(  i,j\right)  \in Y\left(  \lambda/\mathbf{0}\right)  $ satisfying
+$T\left(  i,j\right)  \neq T_{0}\left(  i,j\right)  $. Choose such an $\left(
+i,j\right)  $ with maximum possible $j$. More precisely, among all such pairs
+$\left(  i,j\right)  $ with maximum possible $j$, we choose one with the
+minimum possible $i$.
+
+Thus, for each $\left(  i^{\prime},j^{\prime}\right)  \in Y\left(
+\lambda/\mathbf{0}\right)  $ satisfying $j^{\prime}>j$, we have%
+\begin{equation}
+T\left(  i^{\prime},j^{\prime}\right)  =T_{0}\left(  i^{\prime},j^{\prime
+}\right)  \label{pf.thm.sf.schur-symm.b.o2.pf.maxj}%
+\end{equation}
+(since we have chosen $\left(  i,j\right)  $ to have maximum possible $j$
+among the pairs satisfying $T\left(  i,j\right)  \neq T_{0}\left(  i,j\right)
+$). Furthermore, for each $\left(  i^{\prime},j^{\prime}\right)  \in Y\left(
+\lambda/\mathbf{0}\right)  $ satisfying $i^{\prime}<i$ and $j^{\prime}=j$, we
+have%
+\begin{equation}
+T\left(  i^{\prime},j^{\prime}\right)  =T_{0}\left(  i^{\prime},j^{\prime
+}\right)  \label{pf.thm.sf.schur-symm.b.o2.pf.mini}%
+\end{equation}
+(since we have chosen $\left(  i,j\right)  $ to have minimum possible $i$
+among the maximum-$j$ pairs satisfying $T\left(  i,j\right)  \neq T_{0}\left(
+i,j\right)  $).
+
+The definition of the minimalistic tableau $T_{0}$ yields $T_{0}\left(
+i,j\right)  =i$. Set $p:=T\left(  i,j\right)  $. Hence, $p=T\left(
+i,j\right)  \neq T_{0}\left(  i,j\right)  =i$.\ \ \ \ \footnote{Here is an
+example of how our tableau $T$ can look like at this point (for $N=6$ and
+$\lambda=\left(  6,5,5,2,2,1\right)  $ and $\left(  i,j\right)  =\left(
+3,2\right)  $):%
+\[
+\ytableaushort{?11111,?2222,?p333,??,??,?}\ \ .
+\]
+Here, the known entries come from (\ref{pf.thm.sf.schur-symm.b.o2.pf.maxj})
+and (\ref{pf.thm.sf.schur-symm.b.o2.pf.mini}) (since the definition of the
+minimalistic tableau $T_{0}$ shows that $T_{0}\left(  i^{\prime},j^{\prime
+}\right)  =i^{\prime}$ for each $\left(  i^{\prime},j^{\prime}\right)  \in
+Y\left(  \lambda/\mathbf{0}\right)  $).}
+
+The number $p$ appears at least once in the $j$-th column of $T$ (since
+$p=T\left(  i,j\right)  $), and thus appears at least once in the restricted
+tableau $\operatorname{col}_{\geq j}T$ (since this restricted tableau contains
+the $j$-th column of $T$).
+
+The definition of $Y\left(  \lambda/\mathbf{0}\right)  $ yields $Y\left(
+\lambda/\mathbf{0}\right)  =Y\left(  \lambda\right)  \setminus
+\underbrace{Y\left(  \mathbf{0}\right)  }_{=\varnothing}=Y\left(
+\lambda\right)  $. Hence, a tableau of shape $\lambda/\mathbf{0}$ is the same
+as a tableau of shape $\lambda$. Thus, $T$ is a tableau of shape $\lambda$
+(since $T$ is a tableau of shape $\lambda/\mathbf{0}$). Since $T$ is
+semistandard, we can thus apply Lemma \ref{lem.sf.tab-greater-i}, and conclude
+that $T\left(  i,j\right)  \geq i$. Hence, $p=T\left(  i,j\right)  \geq i$.
+Combining this with $p\neq i$, we obtain $p>i$. In other words, $i<p$.
+
+Now, recall that $T$ is $\mathbf{0}$-Yamanouchi; hence, $\mathbf{0}%
++\operatorname*{cont}\left(  \operatorname{col}_{\geq j}T\right)  $ is an
+$N$-partition (by the definition of \textquotedblleft$\mathbf{0}%
+$-Yamanouchi\textquotedblright). In other words, $\operatorname*{cont}\left(
+\operatorname{col}_{\geq j}T\right)  $ is an $N$-partition (since
+$\mathbf{0}+\operatorname*{cont}\left(  \operatorname{col}_{\geq j}T\right)
+=\operatorname*{cont}\left(  \operatorname{col}_{\geq j}T\right)  $). Write
+this $N$-partition $\operatorname*{cont}\left(  \operatorname{col}_{\geq
+j}T\right)  $ as $\left(  a_{1},a_{2},\ldots,a_{N}\right)  $. For each
+$k\in\left[  N\right]  $, its entry $a_{k}$ is the \# of $k$'s in
+$\operatorname{col}_{\geq j}T$ (by the definition of $\operatorname*{cont}%
+\left(  \operatorname{col}_{\geq j}T\right)  $). Applying this to $k=i$, we
+see that $a_{i}$ is the \# of $i$'s in $\operatorname{col}_{\geq j}T$.
+
+Similarly, $a_{p}$ is the \# of $p$'s in $\operatorname{col}_{\geq j}T$.
+Hence, $a_{p}\geq1$ (since we know that the number $p$ appears at least once
+in the restricted tableau $\operatorname{col}_{\geq j}T$). However, $a_{1}\geq
+a_{2}\geq\cdots\geq a_{N}$ (since $\left(  a_{1},a_{2},\ldots,a_{N}\right)  $
+is an $N$-partition), and thus $a_{i}\geq a_{p}$ (since $i<p$). Hence,
+$a_{i}\geq a_{p}\geq1$. In other words, the number $i$ appears at least once
+in the restricted tableau $\operatorname{col}_{\geq j}T$ (since $a_{i}$ is the
+\# of $i$'s in $\operatorname{col}_{\geq j}T$). In other words, the number $i$
+appears at least once in one of the columns $j,j+1,j+2,\ldots$ of the tableau
+$T$. In other words, there exists some $\left(  i^{\prime},j^{\prime}\right)
+\in Y\left(  \lambda/\mathbf{0}\right)  $ satisfying $j^{\prime}\geq j$ and
+$T\left(  i^{\prime},j^{\prime}\right)  =i$. Consider this $\left(  i^{\prime
+},j^{\prime}\right)  $.
+
+Let us first assume (for the sake of contradiction) that $j^{\prime}>j$. Thus,
+(\ref{pf.thm.sf.schur-symm.b.o2.pf.maxj}) yields $T\left(  i^{\prime
+},j^{\prime}\right)  =T_{0}\left(  i^{\prime},j^{\prime}\right)  =i^{\prime}$
+(by the definition of the minimalistic tableau $T_{0}$). Therefore,
+$i^{\prime}=T\left(  i^{\prime},j^{\prime}\right)  =i$. Hence, we can rewrite
+$\left(  i^{\prime},j^{\prime}\right)  \in Y\left(  \lambda/\mathbf{0}\right)
+$ and $T\left(  i^{\prime},j^{\prime}\right)  =i$ as $\left(  i,j^{\prime
+}\right)  \in Y\left(  \lambda/\mathbf{0}\right)  $ and $T\left(  i,j^{\prime
+}\right)  =i$. Also, $j<j^{\prime}$ (since $j^{\prime}>j$). However, the
+tableau $T$ is semistandard; thus, its entries increase weakly along each row.
+Therefore, from $j<j^{\prime}$, we obtain $T\left(  i,j\right)  \leq T\left(
+i,j^{\prime}\right)  $\ \ \ \ \footnote{Strictly speaking, this follows by
+applying Lemma \ref{lem.sf.skew-ssyt.increase} \textbf{(a)} to $\left(
+i,j\right)  $ and $\left(  i,j^{\prime}\right)  $ instead of $\left(
+i,j_{1}\right)  $ and $\left(  i,j_{2}\right)  $.}. Thus, $p=T\left(
+i,j\right)  \leq T\left(  i,j^{\prime}\right)  =i$. But this contradicts $p>i$.
+
+This contradiction shows that our assumption (that $j^{\prime}>j$) was false.
+Hence, we must have $j^{\prime}\leq j$. Combined with $j^{\prime}\geq j$, this
+yields $j^{\prime}=j$. Thus, we can rewrite $\left(  i^{\prime},j^{\prime
+}\right)  \in Y\left(  \lambda/\mathbf{0}\right)  $ and $T\left(  i^{\prime
+},j^{\prime}\right)  =i$ as $\left(  i^{\prime},j\right)  \in Y\left(
+\lambda/\mathbf{0}\right)  $ and $T\left(  i^{\prime},j\right)  =i$.
+
+We assume (for the sake of contradiction) that $i^{\prime}<i$. Hence,
+(\ref{pf.thm.sf.schur-symm.b.o2.pf.mini}) yields $T\left(  i^{\prime
+},j^{\prime}\right)  =T_{0}\left(  i^{\prime},j^{\prime}\right)  =i^{\prime}$
+(by the definition of the minimalistic tableau $T_{0}$), so that $i^{\prime
+}=T\left(  i^{\prime},j^{\prime}\right)  =i$; but this contradicts $i^{\prime
+}<i$.
+
+This contradiction shows that our assumption (that $i^{\prime}<i$) was false.
+Hence, we must have $i^{\prime}\geq i$. In other words, $i\leq i^{\prime}$.
+However, the tableau $T$ is semistandard; thus, its entries increase strictly
+down each column. Therefore, from $i\leq i^{\prime}$, we obtain $T\left(
+i,j\right)  \leq T\left(  i^{\prime},j\right)  $\ \ \ \ \footnote{Strictly
+speaking, this follows by applying Lemma \ref{lem.sf.skew-ssyt.increase}
+\textbf{(b)} to $\left(  i,j\right)  $ and $\left(  i^{\prime},j\right)  $
+instead of $\left(  i_{1},j\right)  $ and $\left(  i_{2},j\right)  $.}. Thus,
+$T\left(  i^{\prime},j\right)  \geq T\left(  i,j\right)  =p>i$, so that
+$i<T\left(  i^{\prime},j\right)  =i$. Thus we have obtained a contradiction
+again. This contradiction shows that our assumption was false; hence,
+$T=T_{0}$. This proves Observation 2.] \medskip
+\end{fineprint}
+
+\begin{noncompile}
+[\textit{Old (not quite formal and not very readable) proof of Observation 2:}
+Let $T$ be any $\mathbf{0}$-Yamanouchi semistandard tableau of shape
+$\lambda/\mathbf{0}$. We must prove that $T=T_{0}$.
+
+Let $c$ be the \# of (nonempty) columns of $T$. (Note that $c=\lambda_{1}$ if
+$N>0$.)
+
+We now claim that for each $m\in\left\{  0,1,\ldots,c\right\}  $,
+\begin{equation}
+\text{the }m\text{ rightmost columns of }T\text{ agree with }T_{0}
+\label{pf.thm.sf.schur-symm.b.o1.pf.1}%
+\end{equation}
+(i.e., the entries in these columns are equal to the corresponding entries of
+$T_{0}$).
+
+[\textit{Proof of (\ref{pf.thm.sf.schur-symm.b.o1.pf.1}):} We shall prove this
+by induction on $m$. The \textit{induction base} (i.e., the case $m=0$) is
+obvious (indeed, the $0$ rightmost columns of $T$ have no entries, and thus
+agree with $T_{0}$).
+
+For the \textit{induction step}, we fix some $k\in\left[  c\right]  $, and we
+assume (as the induction hypothesis) that
+(\ref{pf.thm.sf.schur-symm.b.o1.pf.1}) holds for $m=k-1$ (that is, the $k-1$
+rightmost columns of $T$ agree with $T_{0}$). We must then show that
+(\ref{pf.thm.sf.schur-symm.b.o1.pf.1}) also holds for $m=k$ (that is, we must
+show that the $k$ rightmost columns of $T$ agree with $T_{0}$). It clearly
+suffices to prove that the $k$-th column of $T$ from the right has the same
+entries as the corresponding column of $T_{0}$ (since the induction hypothesis
+guarantees that the same holds for all columns to the right of this column).
+
+We shall prove this by example: Here is how $T$ can look like (for $N=6$ and
+$\lambda=\left(  6,5,5,2,2,1\right)  $ and $c=6$ and $k=5$):%
+\begin{equation}
+\ytableaushort{\ast ?1111,\ast ?222,\ast ?333,\ast ?,\ast ?,\ast}\ \ ,
+\label{pf.thm.sf.schur-symm.b.o1.pf.1.pf.2}%
+\end{equation}
+where the question marks stand for the entries in the $k$-th column of $T$
+from the right, whereas the asterisks stand for the entries to its left (which
+we are not currently interested in). We want to prove that the $k$-th column
+of $T$ from the right has the same entries as the corresponding column of
+$T_{0}$, which are $1,2,3,4,5$ from top to bottom. In other words, we need to
+prove that the question marks in (\ref{pf.thm.sf.schur-symm.b.o1.pf.1.pf.2})
+are $1,2,3,4,5$ from top to bottom. For the topmost three question marks, this
+follows from the semistandardness of $T$: Indeed, the topmost question mark is
+$1$ (because it has to be $\leq$ to the entry directly to its right, but that
+entry is a $1$). Therefore, the second question mark from the top is $2$
+(since it has to be greater than the $1$ above it, but $\leq$ to the $2$
+directly to its right). Thus, the third question mark from the top is $3$
+(since it has to be greater than the $2$ above it, but $\leq$ to the $3$
+directly to its right). It remains to show that the remaining two question
+marks are $4$ and $5$ (from top to bottom). Here, we have to use the
+$\mathbf{0}$-Yamanouchi condition. Indeed, let us refer to the $k$-th column
+of $T$ from the right as the \emph{questionable column} (since it is the
+column with the question marks). Let $j\in\left[  c\right]  $ be such that the
+questionable column is the $j$-th column of $T$ from the left. Now, recall
+that $T$ is $\mathbf{0}$-Yamanouchi; hence, $\mathbf{0}+\operatorname*{cont}%
+\left(  \operatorname{col}_{\geq j}T\right)  $ is an $N$-partition (by the
+definition of \textquotedblleft$\mathbf{0}$-Yamanouchi\textquotedblright). In
+other words, $\operatorname*{cont}\left(  \operatorname{col}_{\geq j}T\right)
+$ is an $N$-partition (since $\mathbf{0}+\operatorname*{cont}\left(
+\operatorname{col}_{\geq j}T\right)  =\operatorname*{cont}\left(
+\operatorname{col}_{\geq j}T\right)  $). Write this $N$-partition
+$\operatorname*{cont}\left(  \operatorname{col}_{\geq j}T\right)  $ as
+$\left(  a_{1},a_{2},\ldots,a_{N}\right)  $. For each $i\in\left[  N\right]
+$, its entry $a_{i}$ is the \# of $i$'s in the $j$-th column of $T$ (that is,
+the questionable column) and the columns further right. We have $a_{1}\geq
+a_{2}\geq\cdots\geq a_{N}$ (since $\left(  a_{1},a_{2},\ldots,a_{N}\right)  $
+is an $N$-partition). Now, we can identify the question mark in the $4$-th
+row: Indeed, let $p$ be this question mark (or, to be more precise, the entry
+that it stands for). Then, $p>3$ (since it must be greater than the $3$ above
+it). Moreover, $a_{p}>0$ (since there is a $p$ in the questionable column --
+namely, the question mark we are currently discussing). If we had $p>4$, then
+the questionable column of $T$ would not contain a $4$ at all, and therefore
+we would have $a_{4}=0$ (since the columns to the right of this column don't
+contain any $4$ either) and thus $a_{p}>0=a_{4}$, which would contradict $p>4$
+(since $a_{1}\geq a_{2}\geq\cdots\geq a_{N}$). Thus, we cannot have $p>4$.
+Hence, we must have $p\leq4$ and therefore $p=4$ (since $p>3$). Thus, we have
+shown that the question mark in the $4$-th row must be equal to $4$.
+Similarly, the question mark directly below it must be equal to $5$. Thus, we
+have proved that the five question marks in the questionable column must be
+$1,2,3,4,5$ from top to bottom. Hence, the questionable column (i.e., the
+$k$-th column of $T$ from the right) has the same entries as the corresponding
+column of $T_{0}$. This completes the induction step. Thus,
+(\ref{pf.thm.sf.schur-symm.b.o1.pf.1}) is proved.]
+
+Applying (\ref{pf.thm.sf.schur-symm.b.o1.pf.1}) to $m=c$, we conclude that the
+$c$ rightmost columns of $T$ agree with $T_{0}$. In other words, $T$ agrees
+with $T_{0}$ entirely (since $T$ has only $c$ columns). In other words,
+$T=T_{0}$. Thus we have proved Observation 1.] \medskip
+\end{noncompile}
+
+Combining Observation 1 with Observation 2, we see that the minimalistic
+tableau $T_{0}$ is the \textbf{only} $\mathbf{0}$-Yamanouchi semistandard
+tableau of shape $\lambda/\mathbf{0}$. Hence, the sum on the right hand side
+of (\ref{pf.thm.sf.schur-symm.b.1}) has only one addend, namely the addend for
+$T=T_{0}$. Thus, (\ref{pf.thm.sf.schur-symm.b.1}) simplifies to
+\[
+a_{\rho}\cdot s_{\lambda}=a_{\operatorname*{cont}\left(  T_{0}\right)  +\rho
+}=a_{\lambda+\rho},
+\]
+since it is easy to see that $\operatorname*{cont}\left(  T_{0}\right)
+=\lambda$. This proves Theorem \ref{thm.sf.schur-symm} \textbf{(b)} (using
+Lemma \ref{lem.sf.stemb-lem}).
+\end{proof}
+
+Let us furthermore derive Theorem \ref{thm.sf.lr-zy} from Lemma
+\ref{lem.sf.stemb-lem}. This relies on some elementary properties of certain
+polynomials. The underlying notion is defined in an arbitrary commutative ring:
+
+\begin{definition}
+\label{def.cring.reg}Let $L$ be a commutative ring. Let $a\in L$. The element
+$a$ of $L$ is said to be \emph{regular} if and only if every $x\in L$
+satisfying $ax=0$ satisfies $x=0$.
+\end{definition}
+
+Regular elements of a commutative ring are often called \textquotedblleft%
+\emph{non-zero-divisors}\textquotedblright\footnote{This name is somewhat
+murky in the literature (and is best avoided). In fact, many authors prefer to
+consider $0$ to be a non-zero-divisor as well (so that they can say that an
+integral domain has no zero-divisors, rather than saying that the only
+zero-divisor in an integral domain is $0$), even though $0$ is not a regular
+element (unless the ring $L$ is trivial). This exception tends to make the
+notion of a non-zero-divisor fickle and unreliable.} or \emph{cancellable}
+elements. The latter word is explained by the following simple fact:
+
+\begin{lemma}
+\label{lem.cring.reg.cancel}Let $L$ be a commutative ring. Let $a,u,v\in L$ be
+such that $a$ is regular. Assume that $au=av$. Then, $u=v$.
+\end{lemma}
+
+\begin{proof}
+[Proof of Lemma \ref{lem.cring.reg.cancel}.]We have $a\left(  u-v\right)
+=au-av=0$ (since $au=av$). However, $a$ is regular; in other words, every
+$x\in L$ satisfying $ax=0$ satisfies $x=0$ (by the definition of
+\textquotedblleft regular\textquotedblright). Applying this to $x=u-v$, we
+obtain $u-v=0$ (since $a\left(  u-v\right)  =0$). Thus, $u=v$. This proves
+Lemma \ref{lem.cring.reg.cancel}.
+\end{proof}
+
+Lemma \ref{lem.cring.reg.cancel} shows that regular elements of a commutative
+ring can be cancelled when they appear as factors on both sides of an
+equality. To make use of this, we need to actually find nontrivial regular
+elements. Here is one:
+
+\begin{lemma}
+\label{lem.sf.arho-reg}The element $a_{\rho}$ of the polynomial ring
+$\mathcal{P}$ is regular.
+\end{lemma}
+
+\begin{proof}
+[Proof of Lemma \ref{lem.sf.arho-reg} (sketched).]There are different ways to
+prove this. One is to define a lexicographic order on the monomials in
+$\mathcal{P}$, and to argue that the leading coefficient of $a_{\rho}$ with
+respect to this order is $1$ (which is a regular element of $R$); this uses a
+bit of multivariate polynomial theory (see \cite[Theorem 40.7]{Warner90} or
+\cite[Proposition 6.2.10]{23wa} for the properties of polynomials that are
+used here).\footnote{This argument can in fact be used to show a more general
+statement: Namely, for any $N$-tuple $\alpha=\left(  \alpha_{1},\alpha
+_{2},\ldots,\alpha_{N}\right)  \in\mathbb{N}^{N}$ satisfying $\alpha
+_{1}>\alpha_{2}>\cdots>\alpha_{N}$, the alternant $a_{\alpha}$ is regular in
+$\mathcal{P}$. (But we won't need this statement.)}
+
+Here is a more elementary proof. First, we observe that each of the
+indeterminates $x_{1},x_{2},\ldots,x_{N}$ is regular (as an element of
+$\mathcal{P}$). Indeed, multiplying a polynomial $f$ by an indeterminate
+$x_{i}$ merely shifts the coefficients of $f$ to different monomials; thus, if
+$x_{i}f=0$, then $f=0$. Next, we conclude that the polynomial $x_{i}-x_{j}%
+\in\mathcal{P}$ is regular whenever $1\leq i<j\leq N$. Indeed, this polynomial
+$x_{i}-x_{j}$ is the image of the indeterminate $x_{i}$ under a certain
+$K$-algebra automorphism of $\mathcal{P}$ (namely, under the automorphism that
+sends $x_{i}$ to $x_{i}-x_{j}$ while leaving all other indeterminates
+unchanged\footnote{This is an automorphism, because its inverse is easily
+constructed (namely, it sends $x_{i}$ to $x_{i}+x_{j}$ while leaving all other
+indeterminates unchanged).}), and therefore is regular because $x_{i}$ is
+regular (and because any ring automorphism sends regular elements to regular
+elements). However, it is easy to see (see \cite[Proposition 2.3]{regpol} for
+a proof) that any finite product of regular elements is again regular. Thus,
+the element $\prod_{1\leq i<j\leq N}\left(  x_{i}-x_{j}\right)  \in
+\mathcal{P}$ is regular (since it is the product of the regular elements
+$x_{i}-x_{j}$ for $1\leq i<j\leq N$). In view of
+(\ref{eq.def.sf.alternants.arho=vdm}), this rewrites as follows: The element
+$a_{\rho}\in\mathcal{P}$ is regular. This proves Lemma \ref{lem.sf.arho-reg}.
+\end{proof}
+
+We can now derive Theorem \ref{thm.sf.lr-zy} from Lemma \ref{lem.sf.stemb-lem}:
+
+\begin{proof}
+[Proof of Theorem \ref{thm.sf.lr-zy} using Lemma \ref{lem.sf.stemb-lem}%
+.]Theorem \ref{thm.sf.schur-symm} \textbf{(b)} (applied to $\nu$ instead of
+$\lambda$) tells us that $a_{\nu+\rho}=a_{\rho}\cdot s_{\nu}$. However, Lemma
+\ref{lem.sf.stemb-lem} says that%
+\begin{align*}
+a_{\nu+\rho}\cdot s_{\lambda/\mu}  &  =\sum_{\substack{T\text{ is a }%
+\nu\text{-Yamanouchi}\\\text{semistandard tableau}\\\text{of shape }%
+\lambda/\mu}}\underbrace{a_{\nu+\operatorname*{cont}T+\rho}}%
+_{\substack{=a_{\rho}\cdot s_{\nu+\operatorname*{cont}T}\\\text{(by Theorem
+\ref{thm.sf.schur-symm} \textbf{(b)}}\\\text{(applied to }\nu
++\operatorname*{cont}T\text{ instead of }\lambda\text{),}\\\text{since }%
+\nu+\operatorname*{cont}T\text{ is an }N\text{-partition}\\\text{(as we have
+shown in a comment}\\\text{after Theorem \ref{thm.sf.lr-zy}))}}}\\
+&  =\sum_{\substack{T\text{ is a }\nu\text{-Yamanouchi}\\\text{semistandard
+tableau}\\\text{of shape }\lambda/\mu}}a_{\rho}\cdot s_{\nu
++\operatorname*{cont}T}=a_{\rho}\cdot\sum_{\substack{T\text{ is a }%
+\nu\text{-Yamanouchi}\\\text{semistandard tableau}\\\text{of shape }%
+\lambda/\mu}}s_{\nu+\operatorname*{cont}T}.
+\end{align*}
+In view of $a_{\nu+\rho}=a_{\rho}\cdot s_{\nu}$, this equality rewrites as%
+\[
+a_{\rho}\cdot s_{\nu}\cdot s_{\lambda/\mu}=a_{\rho}\cdot\sum
+_{\substack{T\text{ is a }\nu\text{-Yamanouchi}\\\text{semistandard
+tableau}\\\text{of shape }\lambda/\mu}}s_{\nu+\operatorname*{cont}T}.
+\]
+Since the element $a_{\rho}\in\mathcal{P}$ is regular (by Lemma
+\ref{lem.sf.arho-reg}), we can cancel $a_{\rho}$ from this equality (i.e., we
+can apply Lemma \ref{lem.cring.reg.cancel} to $L=\mathcal{P}$ and $a=a_{\rho}$
+and $u=s_{\nu}\cdot s_{\lambda/\mu}$ and $v=\sum_{\substack{T\text{ is a }%
+\nu\text{-Yamanouchi}\\\text{semistandard tableau}\\\text{of shape }%
+\lambda/\mu}}s_{\nu+\operatorname*{cont}T}$). As a result, we obtain%
+\[
+s_{\nu}\cdot s_{\lambda/\mu}=\sum_{\substack{T\text{ is a }\nu
+\text{-Yamanouchi}\\\text{semistandard tableau}\\\text{of shape }\lambda/\mu
+}}s_{\nu+\operatorname*{cont}T}.
+\]
+Thus, Theorem \ref{thm.sf.lr-zy} is proven.
+\end{proof}
+
+Thus it remains to prove Stembridge's lemma. Before we do so, let us spell out
+two simple properties of alternants that will be used in the proof:
+
+\begin{lemma}
+\label{lem.sf.alternant-0}Let $\alpha\in\mathbb{N}^{N}$. \medskip
+
+\textbf{(a)} If the $N$-tuple $\alpha$ has two equal entries, then $a_{\alpha
+}=0$. \medskip
+
+\textbf{(b)} Let $\beta\in\mathbb{N}^{N}$ be an $N$-tuple obtained from
+$\alpha$ by swapping two entries. Then, $a_{\beta}=-a_{\alpha}$.
+\end{lemma}
+
+\begin{proof}
+[Proof of Lemma \ref{lem.sf.alternant-0}.]This is an easy consequence of
+Definition \ref{def.sf.alternants} \textbf{(b)}. See Section
+\ref{sec.details.sf.schur} for a detailed proof.
+\end{proof}
+
+\begin{proof}
+[Proof of Lemma \ref{lem.sf.stemb-lem}.]For any $\beta\in\mathbb{N}^{N}$ and
+any $i\in\left[  N\right]  $, we let $\beta_{i}$ denote the $i$-th entry of
+$\beta$. Thus, for example, $\rho_{k}=N-k$ for each $k\in\left[  N\right]  $
+(since $\rho=\left(  N-1,N-2,\ldots,N-N\right)  $).
+
+Since addition on $\mathbb{N}^{N}$ is defined entrywise, we have $\left(
+\beta+\gamma\right)  _{i}=\beta_{i}+\gamma_{i}$ for any $\beta,\gamma
+\in\mathbb{N}^{N}$ and $i\in\left[  N\right]  $.
+
+The group $S_{N}$ acts on $\mathcal{P}$ by $K$-algebra automorphisms. Hence,
+in particular, we have%
+\[
+\sigma\cdot\left(  fg\right)  =\left(  \sigma\cdot f\right)  \cdot\left(
+\sigma\cdot g\right)
+\]
+for any $\sigma\in S_{N}$ and any $f,g\in\mathcal{P}$. In other words, we have%
+\begin{equation}
+\left(  \sigma\cdot f\right)  \cdot\left(  \sigma\cdot g\right)  =\sigma
+\cdot\left(  fg\right)  \label{pf.lem.sf.stemb-lem.sigfg=}%
+\end{equation}
+for any $\sigma\in S_{N}$ and any $f,g\in\mathcal{P}$.

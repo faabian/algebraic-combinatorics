@@ -1,0 +1,683 @@
+\section{The cycle decomposition}
+
+\begin{theorem}
+[disjoint cycle decomposition of permutations]
+\label{thm.perm.dcd.main}
+\lean{AlgebraicCombinatorics.CycleDecomposition.exists_dcd, AlgebraicCombinatorics.CycleDecomposition.dcd_unique_cycleType, AlgebraicCombinatorics.CycleDecomposition.canonicalDcd_exists_unique}
+\leantarget
+\leanok
+Let $X$
+be a finite set. Let $\sigma$ be a permutation of $X$. Then: \medskip
+
+\textbf{(a)} There is a list%
+\begin{align*}
+&  \Big(\left(  a_{1,1},a_{1,2},\ldots,a_{1,n_{1}}\right)  ,\\
+&  \ \ \ \left(  a_{2,1},a_{2,2},\ldots,a_{2,n_{2}}\right)  ,\\
+&  \ \ \ \ldots,\\
+&  \ \ \ \left(  a_{k,1},a_{k,2},\ldots,a_{k,n_{k}}\right)  \Big)
+\end{align*}
+of nonempty lists of elements of $X$ such that:
+
+\begin{itemize}
+\item each element of $X$ appears exactly once in the composite list%
+\begin{align*}
+&  (a_{1,1},a_{1,2},\ldots,a_{1,n_{1}},\\
+&  \ \ \ a_{2,1},a_{2,2},\ldots,a_{2,n_{2}},\\
+&  \ \ \ \ldots,\\
+&  \ \ \ a_{k,1},a_{k,2},\ldots,a_{k,n_{k}}),
+\end{align*}
+and
+
+\item we have%
+\[
+\sigma=\operatorname*{cyc}\nolimits_{a_{1,1},a_{1,2},\ldots,a_{1,n_{1}}}%
+\circ\operatorname*{cyc}\nolimits_{a_{2,1},a_{2,2},\ldots,a_{2,n_{2}}}%
+\circ\cdots\circ\operatorname*{cyc}\nolimits_{a_{k,1},a_{k,2},\ldots
+,a_{k,n_{k}}}.
+\]
+
+\end{itemize}
+
+Such a list is called a \emph{disjoint cycle decomposition} (or short
+\emph{DCD}) of $\sigma$. Its entries (which themselves are lists of elements
+of $X$) are called the \emph{cycles} of $\sigma$. \medskip
+
+\textbf{(b)} Any two DCDs of $\sigma$ can be obtained from each other by
+(repeatedly) swapping the cycles with each other, and rotating each cycle
+(i.e., replacing $\left(  a_{i,1},a_{i,2},\ldots,a_{i,n_{i}}\right)  $ by
+$\left(  a_{i,2},a_{i,3},\ldots,a_{i,n_{i}},a_{i,1}\right)  $). \medskip
+
+\textbf{(c)} Now assume that $X$ is a set of integers (or, more generally, any
+totally ordered finite set). Then, there is a unique DCD
+\begin{align*}
+&  \Big(\left(  a_{1,1},a_{1,2},\ldots,a_{1,n_{1}}\right)  ,\\
+&  \ \ \ \left(  a_{2,1},a_{2,2},\ldots,a_{2,n_{2}}\right)  ,\\
+&  \ \ \ \ldots,\\
+&  \ \ \ \left(  a_{k,1},a_{k,2},\ldots,a_{k,n_{k}}\right)  \Big)
+\end{align*}
+of $\sigma$ that satisfies the additional requirements that
+
+\begin{itemize}
+\item we have $a_{i,1}\leq a_{i,p}$ for each $i\in\left[  k\right]  $ and each
+$p\in\left[  n_{i}\right]  $ (that is, each cycle in this DCD is written with
+its smallest entry first), and
+
+\item we have $a_{1,1}>a_{2,1}>\cdots>a_{k,1}$ (that is, the cycles appear in
+this DCD in the order of decreasing first entries).
+\end{itemize}
+\end{theorem}
+
+\begin{proof}
+\leanok
+\textbf{(a)} Let $\mathcal{D}$ be the cycle digraph of $\sigma$.
+This cycle digraph $\mathcal{D}$ has the following two properties:
+
+\begin{itemize}
+\item \textit{Outbound uniqueness:} For each node $i$, there is exactly one
+arc outgoing from $i$. (Indeed, this is the arc from $i$ to $\sigma\left(
+i\right)  $.)
+
+\item \textit{Inbound uniqueness:} For each node $i$, there is exactly one arc
+incoming into $i$. (Indeed, this is the arc from $\sigma^{-1}\left(  i\right)
+$ to $i$, since $\sigma$ is a permutation and therefore invertible.)
+\end{itemize}
+
+Using these two properties, we will now show that the cycle digraph
+$\mathcal{D}$ consists of several node-disjoint cycles.
+
+Indeed, if two cycles $C$ and $D$ of
+$\mathcal{D}$ have a node in common, then they are identical
+(because the outbound
+uniqueness property prevents these cycles from ever separating after meeting
+at the common node). In other words, any two cycles $C$ and $D$ of
+$\mathcal{D}$ are either identical or node-disjoint.
+
+Now, let $i$ be any node of $\mathcal{D}$. Then, if we start at $i$ and follow
+the outgoing arcs, then we obtain an infinite walk%
+\[
+\sigma^{0}\left(  i\right)  \rightarrow\sigma^{1}\left(  i\right)
+\rightarrow\sigma^{2}\left(  i\right)  \rightarrow\sigma^{3}\left(  i\right)
+\rightarrow\cdots
+\]
+along our digraph $\mathcal{D}$. Since $X$ is finite, the Pigeonhole Principle
+guarantees that this walk will eventually revisit a node it has already been
+to; i.e., there exist two integers $u,v\in\mathbb{N}$ with $u<v$ and
+$\sigma^{u}\left(  i\right)  =\sigma^{v}\left(  i\right)  $. Let us pick two
+such integers $u,v$ with the \textbf{smallest} possible $v$. Thus,
+\begin{equation}
+\text{the }v\text{ nodes }\sigma^{0}\left(  i\right)  ,\sigma^{1}\left(
+i\right)  ,\ldots,\sigma^{v-1}\left(  i\right)  \text{ are distinct}
+\label{pf.thm.perm.dcd.main.a.dist}%
+\end{equation}
+(since otherwise, $v$ would not be smallest possible). Now, $\sigma$ is a
+permutation and thus has an inverse $\sigma^{-1}$. Applying the map
+$\sigma^{-1}$ to both sides of the equality $\sigma^{u}\left(  i\right)
+=\sigma^{v}\left(  i\right)  $, we obtain $\sigma^{u-1}\left(  i\right)
+=\sigma^{v-1}\left(  i\right)  $. However, if we had $u\geq1$, then
+(\ref{pf.thm.perm.dcd.main.a.dist}) would entail $\sigma^{u-1}\left(
+i\right)  \neq\sigma^{v-1}\left(  i\right)  $,
+which would contradict $\sigma^{u-1}\left(  i\right)
+=\sigma^{v-1}\left(  i\right)  $. Thus, we cannot have $u\geq1$. Hence, $u<1$,
+so that $u=0$. Therefore, $\sigma^{u}\left(  i\right)  =\sigma^{0}\left(
+i\right)  $, so that $\sigma^{0}\left(  i\right)  =\sigma^{u}\left(  i\right)
+=\sigma^{v}\left(  i\right)  $. This shows that our walk is
+circular: it comes back to its starting node $\sigma^{0}\left(  i\right)  =i$
+after $v$ steps. We have thus found a cycle in our digraph $\mathcal{D}$:%
+\[
+\sigma^{0}\left(  i\right)  \rightarrow\sigma^{1}\left(  i\right)
+\rightarrow\sigma^{2}\left(  i\right)  \rightarrow\cdots\rightarrow\sigma
+^{v}\left(  i\right)  =\sigma^{0}\left(  i\right)  .
+\]
+This shows that the node $i$ lies on a
+cycle $C_{i}$ of $\mathcal{D}$.
+
+We thus have shown that each node $i$ of
+$\mathcal{D}$ lies on a cycle $C_{i}$.
+Any arc of our digraph $\mathcal{D}$ must belong to one of these chosen
+cycles.
+
+Combining these facts, we conclude that $\mathcal{D}$ consists of several
+node-disjoint cycles. Let us label these cycles as%
+\begin{align*}
+&  \left(  a_{1,1}\rightarrow a_{1,2}\rightarrow\cdots\rightarrow a_{1,n_{1}%
+}\rightarrow a_{1,1}\right)  ,\\
+&  \left(  a_{2,1}\rightarrow a_{2,2}\rightarrow\cdots\rightarrow a_{2,n_{2}%
+}\rightarrow a_{2,1}\right)  ,\\
+&  \ldots,\\
+&  \left(  a_{k,1}\rightarrow a_{k,2}\rightarrow\cdots\rightarrow a_{k,n_{k}%
+}\rightarrow a_{k,1}\right)
+\end{align*}
+(making sure to label each cycle only once). Then, each element of $X$ appears
+exactly once in the composite list%
+\begin{align*}
+&  (a_{1,1},a_{1,2},\ldots,a_{1,n_{1}},\\
+&  \ \ \ a_{2,1},a_{2,2},\ldots,a_{2,n_{2}},\\
+&  \ \ \ \ldots,\\
+&  \ \ \ a_{k,1},a_{k,2},\ldots,a_{k,n_{k}}),
+\end{align*}
+and we have%
+\[
+\sigma=\operatorname*{cyc}\nolimits_{a_{1,1},a_{1,2},\ldots,a_{1,n_{1}}}%
+\circ\operatorname*{cyc}\nolimits_{a_{2,1},a_{2,2},\ldots,a_{2,n_{2}}}%
+\circ\cdots\circ\operatorname*{cyc}\nolimits_{a_{k,1},a_{k,2},\ldots
+,a_{k,n_{k}}}%
+\]
+(since $\sigma$ moves any node $i\in X$ one step forward along its chosen
+cycle). This proves Theorem \ref{thm.perm.dcd.main} \textbf{(a)}.
+
+\medskip
+
+\textbf{(b)} See \cite[Theorem 1.5.3]{Goodman} or \cite[Chapter I, \S 5.7,
+Proposition 7]{Bourba74}. Let%
+\begin{align*}
+&  \Big(\left(  a_{1,1},a_{1,2},\ldots,a_{1,n_{1}}\right)  ,\\
+&  \ \ \ \left(  a_{2,1},a_{2,2},\ldots,a_{2,n_{2}}\right)  ,\\
+&  \ \ \ \ldots,\\
+&  \ \ \ \left(  a_{k,1},a_{k,2},\ldots,a_{k,n_{k}}\right)  \Big)
+\end{align*}
+be a DCD of $\sigma$. Then, for each $i\in X$, the cycle of this DCD that
+contains $i$ is uniquely determined by $\sigma$ and $i$ up to cyclic rotation
+(indeed, it is a rotated version of the list $\left(  i,\sigma\left(
+i\right)  ,\sigma^{2}\left(  i\right)  ,\ldots,\sigma^{r-1}\left(  i\right)
+\right)  $, where $r$ is the smallest positive integer satisfying $\sigma
+^{r}\left(  i\right)  =i$). Therefore, all cycles of this DCD are uniquely
+determined by $\sigma$ up to cyclic rotation and up to the relative order in
+which these cycles appear in the DCD. This is the claim of
+Theorem \ref{thm.perm.dcd.main} \textbf{(b)}.
+
+\medskip
+
+\textbf{(c)} In order to obtain a DCD of $\sigma$ that satisfies these two
+requirements, it suffices to
+
+\begin{itemize}
+\item start with an arbitrary DCD of $\sigma$,
+
+\item then rotate each cycle of this DCD so that it begins with its smallest
+entry, and
+
+\item then repeatedly swap these cycles so they appear in the order of
+decreasing first entries.
+\end{itemize}
+
+It is clear that the result of this procedure is uniquely determined (a
+consequence of Theorem \ref{thm.perm.dcd.main} \textbf{(b)}). Thus, Theorem
+\ref{thm.perm.dcd.main} \textbf{(c)} is proven.
+\end{proof}
+
+\begin{definition}
+\label{def.perm.cycs.cycs}
+\lean{AlgebraicCombinatorics.CycleDecomposition.cycles, AlgebraicCombinatorics.CycleDecomposition.cycleLengthsPartition}
+\leantarget
+\leanok
+Let $X$ be a finite set. Let $\sigma$ be a
+permutation of $X$. \medskip
+
+\textbf{(a)} The \emph{cycles} of $\sigma$ are defined to be the cycles in the
+DCD of $\sigma$ (as defined in Theorem \ref{thm.perm.dcd.main} \textbf{(a)}).
+(This includes $1$-cycles, if there are any in the DCD of $\sigma$.)
+
+We shall equate a cycle of $\sigma$ with any of its cyclic rotations; thus,
+for example, $\left(  3,1,4\right)  $ and $\left(  1,4,3\right)  $ shall be
+regarded as being the same cycle (but $\left(  3,1,4\right)  $ and $\left(
+3,4,1\right)  $ shall not). \medskip
+
+\textbf{(b)} The \emph{cycle lengths partition} of $\sigma$ shall denote the
+partition of $\left\vert X\right\vert $ obtained by writing down the lengths
+of the cycles of $\sigma$ in weakly decreasing order.
+\end{definition}
+
+\subsection{Properties of the cycle decomposition}
+
+\begin{lemma}
+\label{lem.cycles_pairwise_disjoint}
+\lean{AlgebraicCombinatorics.CycleDecomposition.cycles_pairwise_disjoint}
+\leanhelper
+\leanok
+The cycles of $\sigma$ are pairwise disjoint, i.e., their supports are pairwise disjoint.
+\end{lemma}
+
+\begin{proof}
+\leanok
+This is the cycle factors pairwise disjointness lemma from Mathlib.
+\end{proof}
+
+\begin{lemma}
+\label{lem.cycles_noncommProd_eq}
+\lean{AlgebraicCombinatorics.CycleDecomposition.cycles_noncommProd_eq}
+\leanhelper
+\leanok
+The product of the cycles of $\sigma$ (in any order, since they commute) equals $\sigma$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The cycles are pairwise disjoint, hence pairwise commuting.
+Their product equals $\sigma$ by the cycle factorization theorem from Mathlib.
+\end{proof}
+
+\begin{lemma}
+\label{lem.cycleOf_mem_cycles}
+\lean{AlgebraicCombinatorics.CycleDecomposition.cycleOf_mem_cycles}
+\leanhelper
+\leanok
+If $x$ is not a fixed point of $\sigma$ (i.e., $\sigma(x) \neq x$),
+then the cycle of $\sigma$ containing $x$ is among the cycles of $\sigma$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+This is the characterization of cycle factor membership from Mathlib.
+\end{proof}
+
+\begin{lemma}
+\label{lem.cycleType_eq_iff_isConj}
+\lean{AlgebraicCombinatorics.CycleDecomposition.cycleType_eq_iff_isConj}
+\leanhelper
+\leanok
+Two permutations $\sigma, \tau$ of a finite set $X$ have the same cycle type
+(i.e., the same multiset of cycle lengths) if and only if they are conjugate, i.e.,
+there exists a permutation $g$ of $X$ such that $\tau = g \sigma g^{-1}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+This is the conjugacy-iff-same-cycle-type characterization from Mathlib.
+\end{proof}
+
+\begin{definition}
+\label{def.cycleLengths}
+\lean{AlgebraicCombinatorics.CycleDecomposition.cycleLengths}
+\leanhelper
+\leanok
+The \emph{cycle lengths} of $\sigma$ is the multiset of lengths
+of the nontrivial cycles (length $\geq 2$) in the cycle decomposition of $\sigma$.
+\end{definition}
+
+\begin{lemma}
+\label{lem.cycleLengths_sum}
+\lean{AlgebraicCombinatorics.CycleDecomposition.cycleLengths_sum_eq_support_card}
+\leanhelper
+\leanok
+The sum of the cycle lengths (of nontrivial cycles) equals the number of
+non-fixed-point elements of $\sigma$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Follows from the cycle type summation lemma in Mathlib.
+\end{proof}
+
+\begin{lemma}
+\label{lem.cycleLengths_mem_ge_two}
+\lean{AlgebraicCombinatorics.CycleDecomposition.cycleLengths_mem_ge_two}
+\leanhelper
+\leanok
+Every element of the cycle lengths multiset is at least $2$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Follows from the fact that each cycle type entry is at least $2$, which is proved in Mathlib.
+\end{proof}
+
+\begin{lemma}
+\label{lem.cycleLengthsPartition_sum}
+\lean{AlgebraicCombinatorics.CycleDecomposition.cycleLengthsPartition_sum}
+\leanhelper
+\leanok
+The parts of the cycle lengths partition sum to $|X|$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+This is the defining property of a partition of $|X|$.
+\end{proof}
+
+\subsection{Auxiliary lemmas on cycles}
+
+\begin{lemma}
+\label{lem.cyc_rotate_eq}
+\lean{AlgebraicCombinatorics.CycleDecomposition.cyc_rotate_eq}
+\leanhelper
+\leanok
+Let $l$ be a list with no duplicate entries, and let $k \in \mathbb{N}$.
+Then the cycle permutation of $l$ equals the cycle permutation of the
+$k$-fold rotation of $l$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+This is the rotation invariance of cycle permutations from Mathlib.
+\end{proof}
+
+\begin{lemma}
+\label{lem.cyc_eq_of_isRotated}
+\lean{AlgebraicCombinatorics.CycleDecomposition.cyc_eq_of_isRotated}
+\leanhelper
+\leanok
+Let $l_1, l_2$ be lists such that $l_1$ is a cyclic rotation of $l_2$,
+and $l_1$ has no duplicate entries. Then $l_1$ and $l_2$ give rise to
+the same cycle permutation.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Follows from Lemma \ref{lem.cyc_rotate_eq}.
+\end{proof}
+
+\begin{proposition}
+\label{prop.perm.cycs.same}
+\lean{AlgebraicCombinatorics.CycleDecomposition.sameCycle_iff_exists_pow}
+\leantarget
+\leanok
+Let $X$ be a finite set. Let $i,j\in X$. Let
+$\sigma$ be a permutation of $X$. Then, we have the following chain of
+equivalences:%
+\begin{align*}
+\  &  \left(  i\text{ and }j\text{ belong to the same cycle of }\sigma\right)
+\\
+\Longleftrightarrow\  &  \left(  i=\sigma^{p}\left(  j\right)  \text{ for some
+}p\in\mathbb{N}\right) \\
+\Longleftrightarrow\  &  \left(  j=\sigma^{p}\left(  i\right)  \text{ for some
+}p\in\mathbb{N}\right)  .
+\end{align*}
+\end{proposition}
+
+\begin{proof}
+\leanok
+The forward direction uses that for finite types, $\mathbb{Z}$-powers
+can be replaced by $\mathbb{N}$-powers (reducing $k$ modulo the order of $\sigma$).
+The backward direction is immediate.
+
+The symmetric version (the third equivalence)
+follows by applying the first equivalence to $\sigma^{-1}$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.mem_same_cycle_iff}
+\lean{AlgebraicCombinatorics.CycleDecomposition.mem_same_cycle_iff}
+\leanhelper
+\leanok
+Let $X$ be a finite set, $\sigma$ a permutation of $X$, and $i, j \in X$
+with $i$ not a fixed point of $\sigma$. Then $i$ and $j$ belong to the
+support of a common cycle of $\sigma$ if and only if $i$ and $j$ belong to the
+same cycle of $\sigma$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+For the forward direction, if $i$ and $j$ are both in the support of a cycle
+$c$, then $i$ and $j$ are in the same cycle of $c$, and since $c$ is the cycle
+of $\sigma$ containing $i$, this transfers to $i$ and $j$ being in the same
+cycle of $\sigma$.
+For the backward direction, the cycle of $\sigma$ containing $i$ is among
+the cycles of $\sigma$, and both $i$ and $j$ belong to its support.
+\end{proof}
+
+\subsection{Sign from cycle decomposition}
+
+\begin{lemma}
+\label{lem.numCyclesTotal}
+\lean{AlgebraicCombinatorics.CycleDecomposition.numCyclesTotal}
+\leanhelper
+\leanok
+The total number of cycles of a permutation $\sigma$ of a finite set $X$
+(including $1$-cycles / fixed points) equals the number of nontrivial cycles
+(those of length $\geq 2$) plus the number of fixed points of $\sigma$,
+i.e., the number of elements $x \in X$ with $\sigma(x) = x$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Immediate from the definitions.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sign_cycle}
+\lean{AlgebraicCombinatorics.CycleDecomposition.sign_cycle}
+\leanhelper
+\leanok
+Let $\sigma \in S_n$ be a $k$-cycle (i.e., $\sigma$ is a cycle and moves
+exactly $k$ elements). Then
+$(-1)^{\sigma} = (-1)^{k-1}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+This follows from the sign-of-a-cycle lemma in Mathlib, which gives
+$(-1)^{\sigma} = -(-1)^{k}$ for a $k$-cycle $\sigma$.
+Since $-(-1)^k = (-1)^{k-1}$ for $k \geq 1$, the result follows.
+\end{proof}
+
+\begin{proposition}
+\label{prop.perm.cycs.sign}
+\lean{AlgebraicCombinatorics.CycleDecomposition.sign_eq_neg_one_pow_card_sub_numCycles}
+\leantarget
+\leanok
+Let $n\in\mathbb{N}$. Let $\sigma\in S_{n}$. Let
+$k\in\mathbb{N}$ be such that $\sigma$ has exactly $k$ cycles (including the
+$1$-cycles). Then, $\left(  -1\right)  ^{\sigma}=\left(  -1\right)  ^{n-k}$.
+\end{proposition}
+
+\begin{proof}
+\leanok
+Let
+\begin{align*}
+&  \left(  a_{1,1},a_{1,2},\ldots,a_{1,n_{1}}\right)  ,\\
+&  \left(  a_{2,1},a_{2,2},\ldots,a_{2,n_{2}}\right)  ,\\
+&  \ldots,\\
+&  \left(  a_{k,1},a_{k,2},\ldots,a_{k,n_{k}}\right)
+\end{align*}
+be the $k$ cycles of $\sigma$. Thus,
+\begin{align*}
+\sigma &  =\operatorname*{cyc}\nolimits_{a_{1,1},a_{1,2},\ldots,a_{1,n_{1}}%
+}\circ\operatorname*{cyc}\nolimits_{a_{2,1},a_{2,2},\ldots,a_{2,n_{2}}}%
+\circ\cdots\circ\operatorname*{cyc}\nolimits_{a_{k,1},a_{k,2},\ldots
+,a_{k,n_{k}}}
+\end{align*}
+so that, by Proposition
+\ref{prop.perm.sign.props} \textbf{(e)} and \textbf{(c)},
+\begin{align*}
+\left(  -1\right)  ^{\sigma}
+&  =\left(  -1\right)  ^{n_{1}-1}\cdot\left(  -1\right)  ^{n_{2}-1}\cdot
+\cdots\cdot\left(  -1\right)  ^{n_{k}-1}\\
+&  =\left(  -1\right)  ^{\left(  n_{1}-1\right)  +\left(  n_{2}-1\right)
++\cdots+\left(  n_{k}-1\right)  }.
+\end{align*}
+Since each element of $\left[  n\right]  $ appears exactly once in the
+DCD, we have $n_{1}+n_{2}+\cdots+n_{k}=n$. Hence,%
+\[
+\left(  n_{1}-1\right)  +\left(  n_{2}-1\right)  +\cdots+\left(
+n_{k}-1\right)  =\underbrace{\left(  n_{1}+n_{2}+\cdots+n_{k}\right)  }%
+_{=n}-\,k=n-k.
+\]
+Thus, $\left(  -1\right)
+^{\sigma}=\left(  -1\right)  ^{n-k}$. This proves Proposition
+\ref{prop.perm.cycs.sign}.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sign_eq_neg_one_pow_sum_cycle_lengths_minus_one}
+\lean{AlgebraicCombinatorics.CycleDecomposition.sign_eq_neg_one_pow_sum_cycle_lengths_minus_one}
+\leanhelper
+\leanok
+Let $\sigma \in S_n$. Let $m_1, m_2, \ldots, m_j$ be the lengths of the
+nontrivial cycles (of length $\geq 2$) of $\sigma$. Then
+$(-1)^{\sigma} = (-1)^{(m_1 - 1) + (m_2 - 1) + \cdots + (m_j - 1)}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+This follows from the sign-from-cycle-type formula in Mathlib by observing that
+$(m_1 + \cdots + m_j) + j$ and $(m_1 + \cdots + m_j) - j$ have the
+same parity (they differ by $2j$).
+\end{proof}
+
+\subsection{Canonical DCD construction helpers}
+
+\begin{definition}
+\label{def.cycleMinElem}
+\lean{AlgebraicCombinatorics.CycleDecomposition.cycleMinElem}
+\leanhelper
+\leanok
+Let $c$ be a cycle permutation (i.e., $c$ is a cycle in the sense of
+Definition~\ref{def.perm.cycs.cycs}).
+The \emph{minimum element} of $c$ is the smallest element in the support of $c$.
+\end{definition}
+
+\begin{definition}
+\label{def.cycleToCanonicalList}
+\lean{AlgebraicCombinatorics.CycleDecomposition.cycleToCanonicalList}
+\leanhelper
+\leanok
+Let $c$ be a cycle permutation. The \emph{canonical list representation}
+of $c$ is the list $(a, c(a), c^2(a), \ldots)$ where $a$ is the minimum
+element of $c$ (Definition~\ref{def.cycleMinElem}).
+\end{definition}
+
+\begin{lemma}
+\label{lem.cycleToCanonicalList_head_le}
+\lean{AlgebraicCombinatorics.CycleDecomposition.cycleToCanonicalList_head_le}
+\leanhelper
+\leanok
+The first element of the canonical list is minimal among all elements of
+the list.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The first element is the minimum element of $c$, and
+every element in the canonical list belongs to the support of $c$, so
+the minimum is $\leq$ every element.
+\end{proof}
+
+\begin{lemma}
+\label{lem.cycleToCanonicalList_formPerm}
+\lean{AlgebraicCombinatorics.CycleDecomposition.cycleToCanonicalList_formPerm}
+\leanhelper
+\leanok
+The cycle permutation determined by the canonical list equals $c$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The canonical list is the orbit of the minimum element under $c$.
+The cycle permutation of this list recovers $c$ because the minimum element
+is moved by $c$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.cycleMinElem_mem_support}
+\lean{AlgebraicCombinatorics.CycleDecomposition.cycleMinElem_mem_support}
+\leanhelper
+\leanok
+The minimum element of a cycle $c$ belongs to the support of $c$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By definition, the minimum element of $c$ is the minimum of the support,
+which is an element of the support.
+\end{proof}
+
+\begin{lemma}
+\label{lem.cycleToCanonicalList_nodup}
+\lean{AlgebraicCombinatorics.CycleDecomposition.cycleToCanonicalList_nodup}
+\leanhelper
+\leanok
+The canonical list representation of a cycle has no duplicate entries.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Follows from the no-duplicates property of permutation cycle lists in Mathlib.
+\end{proof}
+
+\begin{lemma}
+\label{lem.mem_cycleToCanonicalList_iff}
+\lean{AlgebraicCombinatorics.CycleDecomposition.mem_cycleToCanonicalList_iff}
+\leanhelper
+\leanok
+An element $x$ is in the canonical list of $c$ if and only if $x$ is in the support of $c$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The canonical list enumerates the orbit of the minimum element under $c$,
+which is exactly the support of $c$ (since $c$ is a cycle).
+\end{proof}
+
+\begin{lemma}
+\label{lem.cycleToCanonicalList_disjoint}
+\lean{AlgebraicCombinatorics.CycleDecomposition.cycleToCanonicalList_disjoint}
+\leanhelper
+\leanok
+If two cycles $c$ and $d$ are disjoint (as permutations), then their canonical
+lists are disjoint (as lists).
+\end{lemma}
+
+\begin{proof}
+\leanok
+By Lemma~\ref{lem.mem_cycleToCanonicalList_iff}, membership in the canonical list
+is equivalent to membership in the support.  Since $c$ and $d$ are disjoint,
+their supports are disjoint.
+\end{proof}
+
+\begin{definition}
+\label{def.dcdListToPerm}
+\lean{AlgebraicCombinatorics.CycleDecomposition.dcdListToPerm}
+\leanhelper
+\leanok
+Given a list of lists (each representing a cycle), the corresponding
+permutation is obtained by composing the cycle permutations
+$\operatorname{cyc}_{a_1, a_2, \ldots, a_m}$ for each list
+$(a_1, a_2, \ldots, a_m)$ in the input.
+\end{definition}
+
+\begin{lemma}
+\label{lem.dcdListToPerm_cyclesList_eq}
+\lean{AlgebraicCombinatorics.CycleDecomposition.dcdListToPerm_cyclesList_eq}
+\leanhelper
+\leanok
+The product of the cycle permutations of the canonical list representations of
+$\sigma$'s cycles equals $\sigma$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Each canonical list determines a cycle permutation that recovers the original cycle (by
+Lemma~\ref{lem.cycleToCanonicalList_formPerm}), and the product of all cycles
+equals $\sigma$ (by the cycle factorization theorem from Mathlib).
+\end{proof}
+
+\begin{lemma}
+\label{lem.cyclesList_flatten_nodup}
+\lean{AlgebraicCombinatorics.CycleDecomposition.cyclesList_flatten_nodup}
+\leanhelper
+\leanok
+The flattened list of all canonical cycle lists has no duplicate entries.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Each individual canonical list is nodup (Lemma~\ref{lem.cycleToCanonicalList_nodup}),
+and different cycles have disjoint canonical lists
+(Lemma~\ref{lem.cycleToCanonicalList_disjoint}).
+\end{proof}
+
+\begin{lemma}
+\label{lem.cyclesList_flatten_eq_support}
+\lean{AlgebraicCombinatorics.CycleDecomposition.cyclesList_flatten_eq_support}
+\leanhelper
+\leanok
+An element $y$ appears in the flattened list of canonical cycle lists if and only if
+$y$ is not a fixed point of $\sigma$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By Lemma~\ref{lem.mem_cycleToCanonicalList_iff}, each canonical list covers
+exactly the support of its cycle, and the union of all cycle supports equals
+$\sigma$'s support.
+\end{proof}

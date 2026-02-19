@@ -1,0 +1,1277 @@
+\subsection{\label{sec.sign.det}Determinants}
+
+Determinants were introduced by Leibniz in the 17th century, and quickly
+became one of the most powerful tools in mathematics. They remained so until
+the early 20th century. There is a 5-volume book by Thomas Muir \cite{Muir}
+that merely summarizes the results found on determinants... until 1920.
+
+Most of these old results are still interesting and nontrivial. The relative
+role of determinants in mathematics has declined mainly because other parts of
+mathematics have \textquotedblleft caught up\textquotedblright\ and have
+produced easier ways to many of the places that were previously only
+accessible through the study of determinants.
+
+As with anything else, we will just present some of the most basic results and
+methods related to determinants. For more, see \cite{MuiMet60}, \cite{Zeilbe},
+\cite[Chapter 6]{detnotes}, \cite[Chapter I]{Prasolov}, \cite[Chapter
+9]{BruRys91} and various other sources. A good introduction to the most
+fundamental properties is \cite{Strick13}.
+
+\begin{convention}
+\label{conv.det.K}For the rest of Section \ref{sec.sign.det}, we fix a
+commutative ring $K$. In most examples, $K$ will be $\mathbb{Z}$ or
+$\mathbb{Q}$ or a polynomial ring.
+\end{convention}
+
+\begin{convention}
+\label{conv.det.matrices}Let $n,m\in\mathbb{N}$. \medskip
+
+\textbf{(a)} If $A$ is an $n\times m$-matrix, then $A_{i,j}$ shall mean the
+$\left(  i,j\right)  $-th entry of $A$, that is, the entry of $A$ in row $i$
+and column $j$. \medskip
+
+\textbf{(b)} If $a_{i,j}$ is an element of $K$ for each $i\in\left[  n\right]
+$ and each $j\in\left[  m\right]  $, then
+\[
+\left(  a_{i,j}\right)  _{1\leq i\leq n,\ 1\leq j\leq m}%
+\]
+shall denote the $n\times m$-matrix whose $\left(  i,j\right)  $-th entry is
+$a_{i,j}$ for all $i\in\left[  n\right]  $ and $j\in\left[  m\right]  $.
+Explicitly:%
+\[
+\left(  a_{i,j}\right)  _{1\leq i\leq n,\ 1\leq j\leq m}=\left(
+\begin{array}
+[c]{cccc}%
+a_{1,1} & a_{1,2} & \cdots & a_{1,m}\\
+a_{2,1} & a_{2,2} & \cdots & a_{2,m}\\
+\vdots & \vdots & \ddots & \vdots\\
+a_{n,1} & a_{n,2} & \cdots & a_{n,m}%
+\end{array}
+\right)  .
+\]
+
+
+Note that the letters \textquotedblleft$i$\textquotedblright\ and
+\textquotedblleft$j$\textquotedblright\ in the notation \textquotedblleft%
+$\left(  a_{i,j}\right)  _{1\leq i\leq n,\ 1\leq j\leq m}$\textquotedblright%
+\ are not carved in stone. We could just as well use any other letters
+instead, and write $\left(  a_{x,y}\right)  _{1\leq x\leq n,\ 1\leq y\leq m}$
+or (somewhat misleadingly, but technically correctly) $\left(  a_{j,i}\right)
+_{1\leq j\leq n,\ 1\leq i\leq m}$ for the exact same matrix. (However,
+$\left(  a_{j,i}\right)  _{1\leq i\leq m,\ 1\leq j\leq n}$ is a different
+matrix. Whichever index is mentioned first in the subscript after the closing
+parenthesis is used to index rows; the other index is used to index columns.)
+\medskip
+
+\textbf{(c)} We let $K^{n\times m}$ denote the set of all $n\times m$-matrices
+with entries in $K$. This is a $K$-module. If $n=m$, this is also a
+$K$-algebra. \medskip
+
+\textbf{(d)} Let $A\in K^{n\times m}$ be an $n\times m$-matrix. The
+\emph{transpose} $A^{T}$ of $A$ is defined to be the $m\times n$-matrix whose
+entries are given by%
+\[
+\left(  A^{T}\right)  _{i,j}=A_{j,i}\ \ \ \ \ \ \ \ \ \ \text{for all }%
+i\in\left[  m\right]  \text{ and }j\in\left[  n\right]  .
+\]
+
+\end{convention}
+
+\subsubsection{Definition}
+
+There are several ways to define the determinant of a square matrix. The
+following is the most direct one:
+
+\begin{definition}
+\label{def.det.det}Let $n\in\mathbb{N}$. Let $A\in K^{n\times n}$ be an
+$n\times n$-matrix. The \emph{determinant} $\det A$ of $A$ is defined to be
+the element%
+\[
+\sum_{\sigma\in S_{n}}\left(  -1\right)  ^{\sigma}\underbrace{A_{1,\sigma
+\left(  1\right)  }A_{2,\sigma\left(  2\right)  }\cdots A_{n,\sigma\left(
+n\right)  }}_{=\prod\limits_{i=1}^{n}A_{i,\sigma\left(  i\right)  }}%
+\]
+of $K$. Here, as before:
+
+\begin{itemize}
+\item we let $S_{n}$ denote the $n$-th symmetric group (i.e., the group of
+permutations of $\left[  n\right]  =\left\{  1,2,\ldots,n\right\}  $);
+
+\item we let $\left(  -1\right)  ^{\sigma}$ denote the sign of the permutation
+$\sigma$ (as defined in Definition \ref{def.perm.sign}).
+\end{itemize}
+\end{definition}
+
+\begin{example}
+For $n=2$, we have%
+\begin{align*}
+\det A  &  =\sum_{\sigma\in S_{2}}\left(  -1\right)  ^{\sigma}A_{1,\sigma
+\left(  1\right)  }A_{2,\sigma\left(  2\right)  }\\
+&  =\underbrace{\left(  -1\right)  ^{\operatorname*{id}}}_{=1}%
+\underbrace{A_{1,\operatorname*{id}\left(  1\right)  }}_{=A_{1,1}%
+}\underbrace{A_{2,\operatorname*{id}\left(  2\right)  }}_{=A_{2,2}%
+}+\underbrace{\left(  -1\right)  ^{s_{1}}}_{=-1}\underbrace{A_{1,s_{1}\left(
+1\right)  }}_{=A_{1,2}}\underbrace{A_{2,s_{1}\left(  2\right)  }}_{=A_{2,1}}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{since the two elements of }S_{2}\text{ are the identity}\\
+\text{map }\operatorname*{id}\text{ and the simple transposition }%
+s_{1}=t_{1,2}%
+\end{array}
+\right) \\
+&  =A_{1,1}A_{2,2}-A_{1,2}A_{2,1}.
+\end{align*}
+Using less cumbersome notations, we can rewrite this as follows: For any
+$a,b,a^{\prime},b^{\prime}\in K$, we have%
+\[
+\det\left(
+\begin{array}
+[c]{cc}%
+a & b\\
+a^{\prime} & b^{\prime}%
+\end{array}
+\right)  =ab^{\prime}-ba^{\prime}.
+\]
+
+
+Similarly, for $n=3$, we obtain%
+\[
+\det\left(
+\begin{array}
+[c]{ccc}%
+a & b & c\\
+a^{\prime} & b^{\prime} & c^{\prime}\\
+a^{\prime\prime} & b^{\prime\prime} & c^{\prime\prime}%
+\end{array}
+\right)  =ab^{\prime}c^{\prime\prime}-ac^{\prime}b^{\prime\prime}-ba^{\prime
+}c^{\prime\prime}+bc^{\prime}a^{\prime\prime}+ca^{\prime}b^{\prime\prime
+}-cb^{\prime}a^{\prime\prime}.
+\]
+(The six addends on the right hand side here correspond to the six
+permutations in $S_{3}$, which in one-line notation are $123$, $132$, $213$,
+$231$, $312$, and $321$, respectively.)
+
+Similarly, for $n=1$, we obtain that the determinant of the $1\times1$-matrix
+$\left(
+\begin{array}
+[c]{c}%
+a
+\end{array}
+\right)  $ is%
+\[
+\det\left(
+\begin{array}
+[c]{c}%
+a
+\end{array}
+\right)  =a.
+\]
+Here, the \textquotedblleft$\left(
+\begin{array}
+[c]{c}%
+a
+\end{array}
+\right)  $\textquotedblright\ on the left hand side is a $1\times1$-matrix.
+
+Finally, for $n=0$, we obtain that the determinant of the $0\times0$-matrix
+$\left(  {}\right)  $ (this is an empty matrix, with no rows and no columns)
+is%
+\[
+\det\left(  {}\right)  =\left(  \text{empty product}\right)  =1.
+\]
+
+\end{example}
+
+Some (particularly, older) texts use the notation $\left\vert A\right\vert $
+instead of $\det A$ for the determinant of the matrix $A$.
+
+The above definition of the determinant is purely combinatorial: it is an
+alternating sum over the $n$-th symmetric group $S_{n}$. Typically, when
+computing determinants, this definition is not in itself very useful (e.g.,
+because $S_{n}$ gets rather large when $n$ is large). However, in some cases,
+it suffices. Here are a few examples:
+
+\begin{example}
+\label{exa.det.hollow5x5}Let $a,b,c,d,e,\ldots,p$ be $16$ elements of $K$.
+Prove that%
+\[
+\det\left(
+\begin{array}
+[c]{ccccc}%
+a & b & c & d & e\\
+p & 0 & 0 & 0 & f\\
+o & 0 & 0 & 0 & g\\
+n & 0 & 0 & 0 & h\\
+m & l & k & j & i
+\end{array}
+\right)  =0.
+\]
+(The \textquotedblleft$o$\textquotedblright\ is a letter \textquotedblleft
+oh\textquotedblright, not a zero. Not that it matters much...)
+\end{example}
+
+\begin{proof}
+[Proof of Example \ref{exa.det.hollow5x5}.]Let $A$ be the $5\times5$-matrix
+whose determinant we are trying to identify as $0$; thus, $A_{1,1}=a$ and
+$A_{1,2}=b$ and $A_{3,2}=0$ and so on. Notice that%
+\begin{equation}
+A_{i,j}=0\ \ \ \ \ \ \ \ \ \ \text{whenever }i,j\in\left\{  2,3,4\right\}
+\label{pf.exa.det.hollow5x5.0}%
+\end{equation}
+(since $A$ has a \textquotedblleft hollow core\textquotedblright, i.e., a
+$3\times3$-square consisting entirely of zeroes in its middle). We must prove
+that $\det A=0$.
+
+Our definition of $\det A$ yields%
+\begin{equation}
+\det A=\sum_{\sigma\in S_{5}}\left(  -1\right)  ^{\sigma}\prod\limits_{i=1}%
+^{5}A_{i,\sigma\left(  i\right)  }. \label{pf.exa.det.hollow5x5.detA=}%
+\end{equation}
+
+
+Now, I claim that each of the addends in the sum on the right hand side is
+$0$. In other words, I claim that $\prod\limits_{i=1}^{5}A_{i,\sigma\left(
+i\right)  }=0$ for each $\sigma\in S_{5}$.
+
+To prove this, fix $\sigma\in S_{5}$. The three numbers $\sigma\left(
+2\right)  ,\sigma\left(  3\right)  ,\sigma\left(  4\right)  $ are three
+distinct elements of $\left[  5\right]  $ (distinct because $\sigma$ is
+injective), so they cannot all belong to the $2$-element set $\left\{
+1,5\right\}  $ (since there are no three distinct elements in a $2$-element
+set). Hence, at least one of them must belong to the complement $\left\{
+2,3,4\right\}  $ of this set. In other words, there exists some $i\in\left\{
+2,3,4\right\}  $ such that $\sigma\left(  i\right)  \in\left\{  2,3,4\right\}
+$. This $i$ must then satisfy $A_{i,\sigma\left(  i\right)  }=0$ (by
+(\ref{pf.exa.det.hollow5x5.0}), applied to $j=\sigma\left(  i\right)  $).
+Thus, we have shown that there exists some $i\in\left\{  2,3,4\right\}  $ such
+that $A_{i,\sigma\left(  i\right)  }=0$.
+
+This shows that at least one factor of the product $\prod\limits_{i=1}%
+^{5}A_{i,\sigma\left(  i\right)  }$ is $0$. Thus, the entire product is $0$.
+
+Forget that we fixed $\sigma$. We thus have proved that $\prod\limits_{i=1}%
+^{5}A_{i,\sigma\left(  i\right)  }=0$ for each $\sigma\in S_{5}$. Hence,%
+\[
+\det A=\sum_{\sigma\in S_{5}}\left(  -1\right)  ^{\sigma}\underbrace{\prod
+\limits_{i=1}^{5}A_{i,\sigma\left(  i\right)  }}_{=0}=0,
+\]
+and thus Example \ref{exa.det.hollow5x5} is proved.
+
+[We note that there are various alternative proofs, e.g., using Laplace
+expansion. Also, if $K$ is a field, you can argue that $\det A=0$ using rank
+arguments. See \cite[Exercise 6.47 \textbf{(a)}]{detnotes} for a
+generalization of Example \ref{exa.det.hollow5x5}.]
+\end{proof}
+
+\begin{example}
+Let $n\in\mathbb{N}$, and let $x_{1},x_{2},\ldots,x_{n}\in K$ and $y_{1}%
+,y_{2},\ldots,y_{n}\in K$. Compute%
+\[
+\det\left(  \left(  x_{i}y_{j}\right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}\right)  =\det\left(
+\begin{array}
+[c]{cccc}%
+x_{1}y_{1} & x_{1}y_{2} & \cdots & x_{1}y_{n}\\
+x_{2}y_{1} & x_{2}y_{2} & \cdots & x_{2}y_{n}\\
+\vdots & \vdots & \ddots & \vdots\\
+x_{n}y_{1} & x_{n}y_{2} & \cdots & x_{n}y_{n}%
+\end{array}
+\right)  .
+\]
+
+\end{example}
+
+Let us experiment with small $n$'s:%
+\begin{align*}
+\det\left(  {}\right)   &  =1;\\
+\det\left(
+\begin{array}
+[c]{c}%
+x_{1}y_{1}%
+\end{array}
+\right)   &  =x_{1}y_{1};\\
+\det\left(
+\begin{array}
+[c]{cc}%
+x_{1}y_{1} & x_{1}y_{2}\\
+x_{2}y_{1} & x_{2}y_{2}%
+\end{array}
+\right)   &  =0;\\
+\det\left(
+\begin{array}
+[c]{ccc}%
+x_{1}y_{1} & x_{1}y_{2} & x_{1}y_{3}\\
+x_{2}y_{1} & x_{2}y_{2} & x_{2}y_{3}\\
+x_{3}y_{1} & x_{3}y_{2} & x_{3}y_{3}%
+\end{array}
+\right)   &  =0.
+\end{align*}
+This makes us suspect the following:
+
+\begin{proposition}
+\label{prop.det.xiyj}Let $n\in\mathbb{N}$ be such that $n\geq2$. Let
+$x_{1},x_{2},\ldots,x_{n}\in K$ and $y_{1},y_{2},\ldots,y_{n}\in K$. Then,%
+\[
+\det\left(  \left(  x_{i}y_{j}\right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}\right)  =0.
+\]
+
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.det.xiyj} (sketched).]The definition of the
+determinant yields%
+\begin{align*}
+\det\left(  \left(  x_{i}y_{j}\right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}\right)   &  =\sum_{\sigma\in S_{n}}\left(  -1\right)  ^{\sigma
+}\underbrace{\left(  x_{1}y_{\sigma\left(  1\right)  }\right)  \left(
+x_{2}y_{\sigma\left(  2\right)  }\right)  \cdots\left(  x_{n}y_{\sigma\left(
+n\right)  }\right)  }_{=\left(  x_{1}x_{2}\cdots x_{n}\right)  \left(
+y_{\sigma\left(  1\right)  }y_{\sigma\left(  2\right)  }\cdots y_{\sigma
+\left(  n\right)  }\right)  }\\
+&  =\sum_{\sigma\in S_{n}}\left(  -1\right)  ^{\sigma}\left(  x_{1}x_{2}\cdots
+x_{n}\right)  \underbrace{\left(  y_{\sigma\left(  1\right)  }y_{\sigma\left(
+2\right)  }\cdots y_{\sigma\left(  n\right)  }\right)  }_{\substack{=y_{1}%
+y_{2}\cdots y_{n}\\\text{(since }\sigma\text{ is a bijection }\left[
+n\right]  \rightarrow\left[  n\right]  \text{)}}}\\
+&  =\sum_{\sigma\in S_{n}}\left(  -1\right)  ^{\sigma}\left(  x_{1}x_{2}\cdots
+x_{n}\right)  \left(  y_{1}y_{2}\cdots y_{n}\right) \\
+&  =\left(  x_{1}x_{2}\cdots x_{n}\right)  \left(  y_{1}y_{2}\cdots
+y_{n}\right)  \underbrace{\sum_{\sigma\in S_{n}}\left(  -1\right)  ^{\sigma}%
+}_{\substack{=0\\\text{(by (\ref{eq.cor.perm.num-even.sum-sign}))}}}=0.
+\end{align*}
+Thus, Proposition \ref{prop.det.xiyj} is proved.
+\end{proof}
+
+As a consequence of Proposition \ref{prop.det.xiyj} (applied to $x_{i}=x$ and
+$y_{j}=1$), we see that%
+\begin{equation}
+\det\underbrace{\left(
+\begin{array}
+[c]{cccc}%
+x & x & \cdots & x\\
+x & x & \cdots & x\\
+\vdots & \vdots & \ddots & \vdots\\
+x & x & \cdots & x
+\end{array}
+\right)  }_{\text{an }n\times n\text{-matrix with }n\geq2}=0
+\label{eq.prop.det.xiyj.cor-x}%
+\end{equation}
+for any $x\in K$. In other words, if all entries of a square matrix of size
+$\geq2$ are equal, then the determinant of this matrix is $0$.
+
+\begin{example}
+Let $n\in\mathbb{N}$, and let $x_{1},x_{2},\ldots,x_{n}\in K$ and $y_{1}%
+,y_{2},\ldots,y_{n}\in K$. Compute%
+\[
+\det\left(  \left(  x_{i}+y_{j}\right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}\right)  =\det\left(
+\begin{array}
+[c]{cccc}%
+x_{1}+y_{1} & x_{1}+y_{2} & \cdots & x_{1}+y_{n}\\
+x_{2}+y_{1} & x_{2}+y_{2} & \cdots & x_{2}+y_{n}\\
+\vdots & \vdots & \ddots & \vdots\\
+x_{n}+y_{1} & x_{n}+y_{2} & \cdots & x_{n}+y_{n}%
+\end{array}
+\right)  .
+\]
+
+\end{example}
+
+Let us experiment with small $n$'s:%
+\begin{align*}
+\det\left(  {}\right)   &  =1;\\
+\det\left(
+\begin{array}
+[c]{c}%
+x_{1}+y_{1}%
+\end{array}
+\right)   &  =x_{1}+y_{1};\\
+\det\left(
+\begin{array}
+[c]{cc}%
+x_{1}+y_{1} & x_{1}+y_{2}\\
+x_{2}+y_{1} & x_{2}+y_{2}%
+\end{array}
+\right)   &  =-\left(  x_{1}-x_{2}\right)  \left(  y_{1}-y_{2}\right)  ;\\
+\det\left(
+\begin{array}
+[c]{ccc}%
+x_{1}+y_{1} & x_{1}+y_{2} & x_{1}+y_{3}\\
+x_{2}+y_{1} & x_{2}+y_{2} & x_{2}+y_{3}\\
+x_{3}+y_{1} & x_{3}+y_{2} & x_{3}+y_{3}%
+\end{array}
+\right)   &  =0.
+\end{align*}
+So we suspect the following:
+
+\begin{proposition}
+\label{prop.det.xi+yj}Let $n\in\mathbb{N}$ be such that $n\geq3$. Let
+$x_{1},x_{2},\ldots,x_{n}\in K$ and $y_{1},y_{2},\ldots,y_{n}\in K$. Then,%
+\[
+\det\left(  \left(  x_{i}+y_{j}\right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}\right)  =0.
+\]
+
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.det.xi+yj} (sketched).](See \cite[Example
+6.7]{detnotes} for more details.) The definition of the determinant yields%
+\begin{align*}
+&  \det\left(  \left(  x_{i}+y_{j}\right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}\right) \\
+&  =\sum_{\sigma\in S_{n}}\left(  -1\right)  ^{\sigma}\underbrace{\left(
+x_{1}+y_{\sigma\left(  1\right)  }\right)  \left(  x_{2}+y_{\sigma\left(
+2\right)  }\right)  \cdots\left(  x_{n}+y_{\sigma\left(  n\right)  }\right)
+}_{\substack{=\prod_{i=1}^{n}\left(  x_{i}+y_{\sigma\left(  i\right)
+}\right)  =\sum\limits_{I\subseteq\left[  n\right]  }\left(  \prod
+\limits_{i\in I}x_{i}\right)  \left(  \prod\limits_{i\in\left[  n\right]
+\setminus I}y_{\sigma\left(  i\right)  }\right)  \\\text{(by
+(\ref{eq.lem.prodrule.sum-ai-plus-bi.eq}), applied to }a_{i}=x_{i}\text{ and
+}b_{i}=y_{\sigma\left(  i\right)  }\text{)}}}\\
+&  =\sum_{\sigma\in S_{n}}\left(  -1\right)  ^{\sigma}\sum\limits_{I\subseteq
+\left[  n\right]  }\left(  \prod\limits_{i\in I}x_{i}\right)  \left(
+\prod\limits_{i\in\left[  n\right]  \setminus I}y_{\sigma\left(  i\right)
+}\right) \\
+&  =\sum\limits_{I\subseteq\left[  n\right]  }\ \ \sum_{\sigma\in S_{n}%
+}\left(  -1\right)  ^{\sigma}\left(  \prod\limits_{i\in I}x_{i}\right)
+\left(  \prod\limits_{i\in\left[  n\right]  \setminus I}y_{\sigma\left(
+i\right)  }\right) \\
+&  =\sum\limits_{I\subseteq\left[  n\right]  }\left(  \prod\limits_{i\in
+I}x_{i}\right)  \sum_{\sigma\in S_{n}}\left(  -1\right)  ^{\sigma}%
+\prod\limits_{i\in\left[  n\right]  \setminus I}y_{\sigma\left(  i\right)  }.
+\end{align*}
+
+
+Now, I claim that the inner sum is $0$ for each $I$. In other words, I claim
+that%
+\begin{equation}
+\sum_{\sigma\in S_{n}}\left(  -1\right)  ^{\sigma}\prod\limits_{i\in\left[
+n\right]  \setminus I}y_{\sigma\left(  i\right)  }%
+=0\ \ \ \ \ \ \ \ \ \ \text{for each }I\subseteq\left[  n\right]  .
+\label{pf.prop.det.xi+yj.innersum}%
+\end{equation}
+For instance, for $I=\left\{  1,2\right\}  $, this is claiming that%
+\[
+\sum_{\sigma\in S_{n}}\left(  -1\right)  ^{\sigma}y_{\sigma\left(  3\right)
+}y_{\sigma\left(  4\right)  }\cdots y_{\sigma\left(  n\right)  }=0.
+\]
+
+
+[\textit{Proof of (\ref{pf.prop.det.xi+yj.innersum}):} Fix a subset $I$ of
+$\left[  n\right]  $. We shall show that all addends in the sum $\sum
+_{\sigma\in S_{n}}\left(  -1\right)  ^{\sigma}\prod\limits_{i\in\left[
+n\right]  \setminus I}y_{\sigma\left(  i\right)  }$ cancel each other -- i.e.,
+that for each addend in this sum, there is a different addend with the same
+product of $y_{j}$'s but a different sign $\left(  -1\right)  ^{\sigma}$. To
+achieve this, we need to pair up each $\sigma\in S_{n}$ with a different
+permutation $\sigma^{\prime}=\sigma t_{u,v}\in S_{n}$ that satisfies
+$\prod\limits_{i\in\left[  n\right]  \setminus I}y_{\sigma^{\prime}\left(
+i\right)  }=\prod\limits_{i\in\left[  n\right]  \setminus I}y_{\sigma\left(
+i\right)  }$ but $\left(  -1\right)  ^{\sigma^{\prime}}=-\left(  -1\right)
+^{\sigma}$. (Indeed, this pairing will then produce the required
+cancellations: the addend for each $\sigma$ will cancel the addend for the
+corresponding $\sigma^{\prime}$. To be more rigorous, we are here applying
+Lemma \ref{lem.sign.cancel2} to $\mathcal{A}=S_{n}$, $\mathcal{X}=S_{n}$ and
+$\operatorname*{sign}\sigma=\left(  -1\right)  ^{\sigma}\prod\limits_{i\in
+\left[  n\right]  \setminus I}y_{\sigma\left(  i\right)  }$ (of course, this
+should not be confused for the notation $\operatorname*{sign}\sigma$ for
+$\left(  -1\right)  ^{\sigma}$) and \newline$f=\left(  \text{the map }%
+S_{n}\rightarrow S_{n}\text{ that sends each }\sigma\in S_{n}\text{ to the
+corresponding }\sigma^{\prime}\right)  $.)
+
+So let us construct our pairing. Indeed, from $I\subseteq\left[  n\right]  $,
+we obtain $\left\vert I\right\vert +\left\vert \left[  n\right]  \setminus
+I\right\vert =\left\vert \left[  n\right]  \right\vert =n\geq3$; hence, at
+least one of the two sets $I$ and $\left[  n\right]  \setminus I$ has size
+$>1$. In other words, must be in one of the following two cases:
+
+\textit{Case 1:} We have $\left\vert I\right\vert >1$.
+
+\textit{Case 2:} We have $\left\vert \left[  n\right]  \setminus I\right\vert
+>1$.
+
+Let us first consider Case 1. In this case, we have $\left\vert I\right\vert
+>1$. Thus, $\left\vert I\right\vert \geq2$. Pick two distinct elements $u$ and
+$v$ of $I$. (These exist, since $\left\vert I\right\vert \geq2$.) Now, for
+each permutation $\sigma\in S_{n}$, we set $\sigma^{\prime}:=\sigma t_{u,v}\in
+S_{n}$. Then, each $\sigma\in S_{n}$ satisfies $\sigma^{\prime\prime
+}=\underbrace{\sigma^{\prime}}_{=\sigma t_{u,v}}t_{u,v}=\sigma
+\underbrace{t_{u,v}t_{u,v}}_{=t_{u,v}^{2}=\operatorname*{id}}=\sigma$. Hence,
+we can pair up each $\sigma\in S_{n}$ with $\sigma^{\prime}\in S_{n}$. Any two
+permutations $\sigma$ and $\sigma^{\prime}$ that are paired with each other
+have different signs (indeed, if $\sigma\in S_{n}$, then $\sigma^{\prime
+}=\sigma t_{u,v}$ and thus $\left(  -1\right)  ^{\sigma^{\prime}}=\left(
+-1\right)  ^{\sigma t_{u,v}}=\left(  -1\right)  ^{\sigma}\underbrace{\left(
+-1\right)  ^{t_{u,v}}}_{=-1}=-\left(  -1\right)  ^{\sigma}$), but the
+corresponding products $\prod\limits_{i\in\left[  n\right]  \setminus
+I}y_{\sigma\left(  i\right)  }$ and $\prod\limits_{i\in\left[  n\right]
+\setminus I}y_{\sigma^{\prime}\left(  i\right)  }$ are equal (indeed, the
+permutations $\sigma$ and $\sigma^{\prime}=\sigma t_{u,v}$ differ only in
+their values at $u$ and $v$, but neither of these two values appears in any of
+our two products, since $u,v\in I$). This shows that our pairing has precisely
+the properties we want: Each $\sigma\in S_{n}$ satisfies $\prod\limits_{i\in
+\left[  n\right]  \setminus I}y_{\sigma^{\prime}\left(  i\right)  }%
+=\prod\limits_{i\in\left[  n\right]  \setminus I}y_{\sigma\left(  i\right)  }$
+but $\left(  -1\right)  ^{\sigma^{\prime}}=-\left(  -1\right)  ^{\sigma}$ (and
+thus $\sigma^{\prime}\neq\sigma$). As explained above, this completes the
+proof of (\ref{pf.prop.det.xi+yj.innersum}) in Case 1.
+
+Let us now consider Case 2. In this case, we have $\left\vert \left[
+n\right]  \setminus I\right\vert >1$. Thus, $\left\vert \left[  n\right]
+\setminus I\right\vert \geq2$. Pick two distinct elements $u$ and $v$ of
+$\left[  n\right]  \setminus I$. (These exist, since $\left\vert \left[
+n\right]  \setminus I\right\vert \geq2$.) We now proceed just as we did in
+Case 1: For each permutation $\sigma\in S_{n}$, we set $\sigma^{\prime
+}:=\sigma t_{u,v}\in S_{n}$. Then, each $\sigma\in S_{n}$ satisfies
+$\sigma^{\prime\prime}=\underbrace{\sigma^{\prime}}_{=\sigma t_{u,v}}%
+t_{u,v}=\sigma\underbrace{t_{u,v}t_{u,v}}_{=t_{u,v}^{2}=\operatorname*{id}%
+}=\sigma$. Hence, we can pair up each $\sigma\in S_{n}$ with $\sigma^{\prime
+}\in S_{n}$. Any two permutations $\sigma$ and $\sigma^{\prime}$ that are
+paired with each other have different signs (this can be seen as in Case 1),
+but the corresponding products $\prod\limits_{i\in\left[  n\right]  \setminus
+I}y_{\sigma\left(  i\right)  }$ and $\prod\limits_{i\in\left[  n\right]
+\setminus I}y_{\sigma^{\prime}\left(  i\right)  }$ are equal (indeed, the
+permutation $\sigma^{\prime}=\sigma t_{u,v}$ can be obtained from $\sigma$ by
+swapping the values at $u$ and $v$ (so that $\sigma^{\prime}\left(  u\right)
+=\sigma\left(  v\right)  $ and $\sigma^{\prime}\left(  v\right)
+=\sigma\left(  u\right)  $); thus, the products $\prod\limits_{i\in\left[
+n\right]  \setminus I}y_{\sigma\left(  i\right)  }$ and $\prod\limits_{i\in
+\left[  n\right]  \setminus I}y_{\sigma^{\prime}\left(  i\right)  }$ differ
+only in the order in which their factors $y_{\sigma\left(  u\right)  }$ and
+$y_{\sigma\left(  v\right)  }$ appear in them\footnote{Both factors
+$y_{\sigma\left(  u\right)  }$ and $y_{\sigma\left(  v\right)  }$ do indeed
+appear in these products, since $u$ and $v$ belong to $\left[  n\right]
+\setminus I$.}; hence, these products are equal, since $K$ is commutative).
+Again, this shows that our pairing has the properties we want, and thus the
+proof of (\ref{pf.prop.det.xi+yj.innersum}) is complete in Case 2.
+
+Thus, (\ref{pf.prop.det.xi+yj.innersum}) is proved in both cases.]
+
+Now, we can finish our computation of the original determinant:%
+\[
+\det\left(  \left(  x_{i}+y_{j}\right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}\right)  =\sum\limits_{I\subseteq\left[  n\right]  }\left(  \prod
+\limits_{i\in I}x_{i}\right)  \underbrace{\sum_{\sigma\in S_{n}}\left(
+-1\right)  ^{\sigma}\prod\limits_{i\in\left[  n\right]  \setminus I}%
+y_{\sigma\left(  i\right)  }}_{\substack{=0\\\text{(by
+(\ref{pf.prop.det.xi+yj.innersum}))}}}=0.
+\]
+This proves Proposition \ref{prop.det.xi+yj}.
+\end{proof}
+
+\subsubsection{Basic properties}
+
+The examples above show that pedestrian proofs of facts about determinants
+(using just the definition) are possible, but become cumbersome fairly
+quickly. Fortunately, determinants have a lot of properties that, once proved,
+provide new methods for computing determinants.
+
+Let us first recall a few basic facts that should (ideally) be known from a
+good course on linear algebra. Recall that the transpose of a matrix $A$ is
+denoted by $A^{T}$.
+
+\begin{theorem}
+[Transposes preserve determinants]\label{thm.det.transp}Let $n\in\mathbb{N}$.
+If $A\in K^{n\times n}$ is any $n\times n$-matrix, then $\det\left(
+A^{T}\right)  =\det A$.
+\end{theorem}
+
+\begin{proof}
+See \cite[Corollary B.16]{Strick13} or \cite[Exercise 6.4]{detnotes} or
+\cite[\S 5.3.2]{Laue-det}.
+\end{proof}
+
+\begin{theorem}
+[Determinants of triangular matrices]\label{thm.det.triang}Let $n\in
+\mathbb{N}$. Let $A\in K^{n\times n}$ be a triangular (i.e., lower-triangular
+or upper-triangular) $n\times n$-matrix. Then, the determinant of the matrix
+$A$ is the product of its diagonal entries. That is,%
+\[
+\det A=A_{1,1}A_{2,2}\cdots A_{n,n}.
+\]
+
+\end{theorem}
+
+\begin{proof}
+See \cite[Proposition B.11]{Strick13} or \cite[Exercise 6.3 and the paragraph
+after Exercise 6.4]{detnotes}.
+\end{proof}
+
+As a consequence of Theorem \ref{thm.det.triang}, we see that the determinant
+of a diagonal matrix is the product of its diagonal entries (since any
+diagonal matrix is triangular).
+
+\begin{theorem}
+[Row operation properties]\label{thm.det.rowop}Let $n\in\mathbb{N}$. Let $A\in
+K^{n\times n}$ be an $n\times n$-matrix. Then: \medskip
+
+\textbf{(a)} If we swap two rows of $A$, then $\det A$ gets multiplied by
+$-1$. \medskip
+
+\textbf{(b)} If $A$ has a zero row (i.e., a row that consists entirely of
+zeroes), then $\det A=0$. \medskip
+
+\textbf{(c)} If $A$ has two equal rows, then $\det A=0$. \medskip
+
+\textbf{(d)} Let $\lambda\in K$. If we multiply a row of $A$ by $\lambda$
+(that is, we multiply all entries of this one row by $\lambda$, while leaving
+all other entries of $A$ unchanged), then $\det A$ gets multiplied by
+$\lambda$. \medskip
+
+\textbf{(e)} If we add a row of $A$ to another row of $A$ (that is, we add
+each entry of the former row to the corresponding entry of the latter), then
+$\det A$ stays unchanged. \medskip
+
+\textbf{(f)} Let $\lambda\in K$. If we add $\lambda$ times a row of $A$ to
+another row of $A$ (that is, we add $\lambda$ times each entry of the former
+row to the corresponding entry of the latter), then $\det A$ stays unchanged.
+\medskip
+
+\textbf{(g)} Let $B,C\in K^{n\times n}$ be two further $n\times n$-matrices.
+Let $k\in\left[  n\right]  $. Assume that%
+\[
+\left(  \text{the }k\text{-th row of }C\right)  =\left(  \text{the }k\text{-th
+row of }A\right)  +\left(  \text{the }k\text{-th row of }B\right)  ,
+\]
+whereas each $i\neq k$ satisfies%
+\[
+\left(  \text{the }i\text{-th row of }C\right)  =\left(  \text{the }i\text{-th
+row of }A\right)  =\left(  \text{the }i\text{-th row of }B\right)  .
+\]
+Then,%
+\[
+\det C=\det A+\det B.
+\]
+
+\end{theorem}
+
+\begin{example}
+Let us see what Theorem \ref{thm.det.rowop} is saying in some particular cases
+(specifically, for $3\times3$-matrices): \medskip
+
+\textbf{(a)} One instance of Theorem \ref{thm.det.rowop} \textbf{(a)} is
+\[
+\det\left(
+\begin{array}
+[c]{ccc}%
+a & b & c\\
+a^{\prime\prime} & b^{\prime\prime} & c^{\prime\prime}\\
+a^{\prime} & b^{\prime} & c^{\prime}%
+\end{array}
+\right)  =-\det\left(
+\begin{array}
+[c]{ccc}%
+a & b & c\\
+a^{\prime} & b^{\prime} & c^{\prime}\\
+a^{\prime\prime} & b^{\prime\prime} & c^{\prime\prime}%
+\end{array}
+\right)  .
+\]
+
+
+\textbf{(b)} One instance of Theorem \ref{thm.det.rowop} \textbf{(b)} is
+\[
+\det\left(
+\begin{array}
+[c]{ccc}%
+a & b & c\\
+0 & 0 & 0\\
+a^{\prime\prime} & b^{\prime\prime} & c^{\prime\prime}%
+\end{array}
+\right)  =0.
+\]
+
+
+\textbf{(c)} One instance of Theorem \ref{thm.det.rowop} \textbf{(c)} is
+\[
+\det\left(
+\begin{array}
+[c]{ccc}%
+a & b & c\\
+a^{\prime} & b^{\prime} & c^{\prime}\\
+a & b & c
+\end{array}
+\right)  =0.
+\]
+
+
+\textbf{(d)} One instance of Theorem \ref{thm.det.rowop} \textbf{(d)} is
+\[
+\det\left(
+\begin{array}
+[c]{ccc}%
+a & b & c\\
+\lambda a^{\prime} & \lambda b^{\prime} & \lambda c^{\prime}\\
+a^{\prime\prime} & b^{\prime\prime} & c^{\prime\prime}%
+\end{array}
+\right)  =\lambda\det\left(
+\begin{array}
+[c]{ccc}%
+a & b & c\\
+a^{\prime} & b^{\prime} & c^{\prime}\\
+a^{\prime\prime} & b^{\prime\prime} & c^{\prime\prime}%
+\end{array}
+\right)  .
+\]
+
+
+\textbf{(e)} One instance of Theorem \ref{thm.det.rowop} \textbf{(e)} is
+\[
+\det\left(
+\begin{array}
+[c]{ccc}%
+a & b & c\\
+a^{\prime}+a^{\prime\prime} & b^{\prime}+b^{\prime\prime} & c^{\prime
+}+c^{\prime\prime}\\
+a^{\prime\prime} & b^{\prime\prime} & c^{\prime\prime}%
+\end{array}
+\right)  =\det\left(
+\begin{array}
+[c]{ccc}%
+a & b & c\\
+a^{\prime} & b^{\prime} & c^{\prime}\\
+a^{\prime\prime} & b^{\prime\prime} & c^{\prime\prime}%
+\end{array}
+\right)  .
+\]
+
+
+\textbf{(f)} One instance of Theorem \ref{thm.det.rowop} \textbf{(f)} is
+\[
+\det\left(
+\begin{array}
+[c]{ccc}%
+a & b & c\\
+a^{\prime}+\lambda a^{\prime\prime} & b^{\prime}+\lambda b^{\prime\prime} &
+c^{\prime}+\lambda c^{\prime\prime}\\
+a^{\prime\prime} & b^{\prime\prime} & c^{\prime\prime}%
+\end{array}
+\right)  =\det\left(
+\begin{array}
+[c]{ccc}%
+a & b & c\\
+a^{\prime} & b^{\prime} & c^{\prime}\\
+a^{\prime\prime} & b^{\prime\prime} & c^{\prime\prime}%
+\end{array}
+\right)  .
+\]
+
+
+\textbf{(g)} One instance of Theorem \ref{thm.det.rowop} \textbf{(g)} is%
+\[
+\det\underbrace{\left(
+\begin{array}
+[c]{ccc}%
+a & b & c\\
+d+d^{\prime} & e+e^{\prime} & f+f^{\prime}\\
+g & h & i
+\end{array}
+\right)  }_{\text{this is }C}=\det\underbrace{\left(
+\begin{array}
+[c]{ccc}%
+a & b & c\\
+d & e & f\\
+g & h & i
+\end{array}
+\right)  }_{\text{this is }A}+\det\underbrace{\left(
+\begin{array}
+[c]{ccc}%
+a & b & c\\
+d^{\prime} & e^{\prime} & f^{\prime}\\
+g & h & i
+\end{array}
+\right)  }_{\text{this is }B}.
+\]
+(Specifically, this is the particular case of Theorem \ref{thm.det.rowop}
+\textbf{(g)} for $n=3$ and $k=2$.)
+\end{example}
+
+Parts \textbf{(b)}, \textbf{(d)} and \textbf{(g)} of Theorem
+\ref{thm.det.rowop} are commonly summarized under the mantle of
+\textquotedblleft\emph{multilinearity of the determinant}\textquotedblright%
+\ or \textquotedblleft\emph{linearity of the determinant in the }$k$\emph{-th
+row}\textquotedblright. In fact, they say that (for any given $n\in\mathbb{N}$
+and $k\in\left[  n\right]  $) if we hold all rows other than the $k$-th row of
+an $n\times n$-matrix $A$ fixed, then $\det A$ depends $K$-linearly on the
+$k$-th row of $A$.
+
+\begin{proof}
+[Proof of Theorem \ref{thm.det.rowop}.]\textbf{(a)} See \cite[Exercise 6.7
+\textbf{(a)}]{detnotes}. This is also a particular case of \cite[Corollary
+B.19]{Strick13}.
+
+\textbf{(b)} See \cite[Exercise 6.7 \textbf{(c)}]{detnotes}. This is also
+near-obvious from Definition \ref{def.det.det}.
+
+\textbf{(c)} See \cite[Exercise 6.7 \textbf{(e)}]{detnotes} or \cite[\S 5.3.3,
+property (iii)]{Laue-det} or \cite[2019-10-23 blackboard notes, Theorem
+1.3.3]{19fla}.\footnote{\textit{Warning:} Several authors claim to give an
+easy proof of part \textbf{(c)} using part \textbf{(a)}. This
+\textquotedblleft proof\textquotedblright\ goes as follows: If $A$ has two
+equal rows, then swapping these rows leaves $A$ unchanged, but (because of
+Theorem \ref{thm.det.rowop}) flips the sign of $\det A$. Hence, in this case,
+we have $\det A=-\det A$, so that $2\det A=0$ and therefore $\det A=0$, right?
+Not so fast! In order to obtain $\det A=0$ from $2\det A=0$, we need the
+element $2$ of $K$ to be invertible or at least be a non-zero-divisor (since
+we have to divide by $2$). This is true when $K$ is one of the
+\textquotedblleft high-school rings\textquotedblright\ $\mathbb{Z}$,
+$\mathbb{Q}$, $\mathbb{R}$ and $\mathbb{C}$, but it is not true when $K$ is
+the field $\mathbb{F}_{2}$ with $2$ elements (or, more generally, any field of
+characteristic $2$). This slick argument can be salvaged, but in the form just
+given it is incomplete.}
+
+\textbf{(d)} See \cite[Exercise 6.7 \textbf{(g)}]{detnotes} or \cite[\S 5.3.3,
+property (ii)]{Laue-det}. This is also a particular case of \cite[Corollary
+B.19]{Strick13}.
+
+\textbf{(f)} See \cite[Exercise 6.8 \textbf{(a)}]{detnotes}. This is also a
+particular case of \cite[Corollary B.19]{Strick13}.
+
+\textbf{(e)} This is the particular case of part \textbf{(f)} for $\lambda=1$.
+
+\textbf{(g)} See \cite[Exercise 6.7 \textbf{(i)}]{detnotes} or \cite[\S 5.3.3,
+property (i)]{Laue-det} or \cite[2019-10-30 blackboard notes, Theorem
+1.2.3]{19fla}.
+\end{proof}
+
+\begin{theorem}
+[Column operation properties]\label{thm.det.colop}Theorem \ref{thm.det.rowop}
+also holds if we replace \textquotedblleft row\textquotedblright\ by
+\textquotedblleft column\textquotedblright\ throughout it.
+\end{theorem}
+
+\begin{proof}
+Theorem \ref{thm.det.transp} shows that the determinant of a matrix does not
+change when we replace it by its transpose; however, the rows of this
+transpose $A^{T}$ are the transposes of the columns of $A$. Thus, Theorem
+\ref{thm.det.colop} follows by applying Theorem \ref{thm.det.rowop} to the
+transposes of all the matrices involved. (See \cite[Exercises 6.7 and
+6.8]{detnotes} for the details.)
+\end{proof}
+
+\begin{corollary}
+\label{cor.det.sig-row-col}Let $n\in\mathbb{N}$. Let $A\in K^{n\times n}$ and
+$\tau\in S_{n}$. Then,%
+\begin{equation}
+\det\left(  \left(  A_{\tau\left(  i\right)  ,j}\right)  _{1\leq i\leq
+n,\ 1\leq j\leq n}\right)  =\left(  -1\right)  ^{\tau}\cdot\det A
+\label{eq.cor.det.sig-row-col.row}%
+\end{equation}
+and%
+\begin{equation}
+\det\left(  \left(  A_{i,\tau\left(  j\right)  }\right)  _{1\leq i\leq
+n,\ 1\leq j\leq n}\right)  =\left(  -1\right)  ^{\tau}\cdot\det A.
+\label{eq.cor.det.sig-row-col.col}%
+\end{equation}
+
+\end{corollary}
+
+In words: When we permute the rows or the columns of a matrix, its determinant
+gets multiplied by the sign of the permutation.
+
+\begin{proof}
+[Proof of Corollary \ref{cor.det.sig-row-col}.]Let us first prove
+(\ref{eq.cor.det.sig-row-col.col}).
+
+The definition of $\det A$ yields%
+\begin{align}
+\det A  &  =\sum_{\sigma\in S_{n}}\left(  -1\right)  ^{\sigma}%
+\underbrace{A_{1,\sigma\left(  1\right)  }A_{2,\sigma\left(  2\right)  }\cdots
+A_{n,\sigma\left(  n\right)  }}_{=\prod_{i=1}^{n}A_{i,\sigma\left(  i\right)
+}}\nonumber\\
+&  =\sum_{\sigma\in S_{n}}\left(  -1\right)  ^{\sigma}\prod_{i=1}%
+^{n}A_{i,\sigma\left(  i\right)  }. \label{pf.cor.det.sig-row-col.0}%
+\end{align}
+
+
+The definition of $\det\left(  \left(  A_{i,\tau\left(  j\right)  }\right)
+_{1\leq i\leq n,\ 1\leq j\leq n}\right)  $ yields%
+\begin{align}
+\det\left(  \left(  A_{i,\tau\left(  j\right)  }\right)  _{1\leq i\leq
+n,\ 1\leq j\leq n}\right)   &  =\sum_{\sigma\in S_{n}}\left(  -1\right)
+^{\sigma}\underbrace{A_{1,\tau\left(  \sigma\left(  1\right)  \right)
+}A_{2,\tau\left(  \sigma\left(  2\right)  \right)  }\cdots A_{n,\tau\left(
+\sigma\left(  n\right)  \right)  }}_{=\prod_{i=1}^{n}A_{i,\tau\left(
+\sigma\left(  i\right)  \right)  }}\nonumber\\
+&  =\sum_{\sigma\in S_{n}}\left(  -1\right)  ^{\sigma}\prod_{i=1}^{n}%
+A_{i,\tau\left(  \sigma\left(  i\right)  \right)  }.
+\label{pf.cor.det.sig-row-col.1}%
+\end{align}
+
+
+However, $S_{n}$ is a group. Thus, the map%
+\begin{align*}
+S_{n}  &  \rightarrow S_{n},\\
+\sigma &  \mapsto\tau^{-1}\sigma
+\end{align*}
+is a bijection. Hence, we can substitute $\tau^{-1}\sigma$ for $\sigma$ in the
+sum $\sum_{\sigma\in S_{n}}\left(  -1\right)  ^{\sigma}\prod_{i=1}%
+^{n}A_{i,\tau\left(  \sigma\left(  i\right)  \right)  }$. Thus, we obtain%
+\begin{align*}
+&  \sum_{\sigma\in S_{n}}\left(  -1\right)  ^{\sigma}\prod_{i=1}^{n}%
+A_{i,\tau\left(  \sigma\left(  i\right)  \right)  }\\
+&  =\sum_{\sigma\in S_{n}}\underbrace{\left(  -1\right)  ^{\tau^{-1}\sigma}%
+}_{\substack{=\left(  -1\right)  ^{\tau^{-1}}\cdot\left(  -1\right)  ^{\sigma
+}\\\text{(by Proposition \ref{prop.perm.sign.props} \textbf{(d)}%
+,}\\\text{applied to }\tau^{-1}\text{ and }\sigma\text{ instead of }%
+\sigma\text{ and }\tau\text{)}}}\prod_{i=1}^{n}\underbrace{A_{i,\tau\left(
+\left(  \tau^{-1}\sigma\right)  \left(  i\right)  \right)  }}%
+_{\substack{=A_{i,\sigma\left(  i\right)  }\\\text{(since }\tau\left(  \left(
+\tau^{-1}\sigma\right)  \left(  i\right)  \right)  =\left(  \tau\tau
+^{-1}\sigma\right)  \left(  i\right)  =\sigma\left(  i\right)
+\\\text{(because }\tau\tau^{-1}\sigma=\sigma\text{))}}}\\
+&  =\sum_{\sigma\in S_{n}}\left(  -1\right)  ^{\tau^{-1}}\cdot\left(
+-1\right)  ^{\sigma}\prod_{i=1}^{n}A_{i,\sigma\left(  i\right)  }%
+=\underbrace{\left(  -1\right)  ^{\tau^{-1}}}_{\substack{=\left(  -1\right)
+^{\tau}\\\text{(by Proposition \ref{prop.perm.sign.props} \textbf{(f)}%
+,}\\\text{applied to }\tau^{-1}\text{ instead of }\sigma\text{)}}%
+}\cdot\underbrace{\sum_{\sigma\in S_{n}}\left(  -1\right)  ^{\sigma}%
+\prod_{i=1}^{n}A_{i,\sigma\left(  i\right)  }}_{\substack{=\det A\\\text{(by
+(\ref{pf.cor.det.sig-row-col.0}))}}}\\
+&  =\left(  -1\right)  ^{\tau}\cdot\det A.
+\end{align*}
+In view of this, we can rewrite (\ref{pf.cor.det.sig-row-col.1}) as%
+\[
+\det\left(  \left(  A_{i,\tau\left(  j\right)  }\right)  _{1\leq i\leq
+n,\ 1\leq j\leq n}\right)  =\left(  -1\right)  ^{\tau}\cdot\det A.
+\]
+This proves (\ref{eq.cor.det.sig-row-col.col}).
+
+Now, we can easily derive (\ref{eq.cor.det.sig-row-col.row}) by using the
+transpose. Indeed, applying (\ref{eq.cor.det.sig-row-col.col}) to $A^{T}$
+instead of $A$, we obtain%
+\begin{align}
+\det\left(  \left(  \left(  A^{T}\right)  _{i,\tau\left(  j\right)  }\right)
+_{1\leq i\leq n,\ 1\leq j\leq n}\right)   &  =\left(  -1\right)  ^{\tau}%
+\cdot\underbrace{\det\left(  A^{T}\right)  }_{\substack{=\det A\\\text{(by
+Theorem \ref{thm.det.transp})}}}\nonumber\\
+&  =\left(  -1\right)  ^{\tau}\cdot\det A. \label{pf.cor.det.sig-row-col.5}%
+\end{align}
+However, each $\left(  i,j\right)  \in\left[  n\right]  ^{2}$ satisfies%
+\[
+\left(  A^{T}\right)  _{i,\tau\left(  j\right)  }=A_{\tau\left(  j\right)
+,i}\ \ \ \ \ \ \ \ \ \ \left(  \text{by the definition of }A^{T}\right)  .
+\]
+Thus,%
+\[
+\left(  \left(  A^{T}\right)  _{i,\tau\left(  j\right)  }\right)  _{1\leq
+i\leq n,\ 1\leq j\leq n}=\left(  A_{\tau\left(  j\right)  ,i}\right)  _{1\leq
+i\leq n,\ 1\leq j\leq n}=\left(  \left(  A_{\tau\left(  i\right)  ,j}\right)
+_{1\leq i\leq n,\ 1\leq j\leq n}\right)  ^{T}%
+\]
+(again by the definition of the transpose). Therefore,%
+\begin{align*}
+\det\left(  \left(  \left(  A^{T}\right)  _{i,\tau\left(  j\right)  }\right)
+_{1\leq i\leq n,\ 1\leq j\leq n}\right)   &  =\det\left(  \left(  \left(
+A_{\tau\left(  i\right)  ,j}\right)  _{1\leq i\leq n,\ 1\leq j\leq n}\right)
+^{T}\right) \\
+&  =\det\left(  \left(  A_{\tau\left(  i\right)  ,j}\right)  _{1\leq i\leq
+n,\ 1\leq j\leq n}\right)
+\end{align*}
+(by Theorem \ref{thm.det.transp}, applied to $\left(  A_{\tau\left(  i\right)
+,j}\right)  _{1\leq i\leq n,\ 1\leq j\leq n}$ instead of $A$). Hence,%
+\[
+\det\left(  \left(  A_{\tau\left(  i\right)  ,j}\right)  _{1\leq i\leq
+n,\ 1\leq j\leq n}\right)  =\det\left(  \left(  \left(  A^{T}\right)
+_{i,\tau\left(  j\right)  }\right)  _{1\leq i\leq n,\ 1\leq j\leq n}\right)
+=\left(  -1\right)  ^{\tau}\cdot\det A
+\]
+(by (\ref{pf.cor.det.sig-row-col.5})). This proves
+(\ref{eq.cor.det.sig-row-col.row}). Thus, the proof of Corollary
+\ref{cor.det.sig-row-col} is complete.
+\end{proof}
+
+The following is probably the most remarkable property of determinants:
+
+\begin{theorem}
+[Multiplicativity of the determinant]\label{thm.det.detAB}Let $n\in\mathbb{N}%
+$. Let $A,B\in K^{n\times n}$ be two $n\times n$-matrices. Then,%
+\[
+\det\left(  AB\right)  =\det A\cdot\det B.
+\]
+
+\end{theorem}
+
+\begin{proof}
+See \cite[Theorem B.17]{Strick13} or \cite[Theorem 6.23]{detnotes} or
+\cite[\S 5]{Zeilbe} or \cite[Lemma 4.7.5 (1)]{Ford21} or \cite[Theorem
+5.7]{Laue-det}. (Many of these proofs are at least partly combinatorial, but
+the one in \cite[\S 5]{Zeilbe} is fully so, constructing quite explicitly a
+sign-reversing involution.)
+\end{proof}
+
+As an application of these properties, let us reprove Proposition
+\ref{prop.det.xiyj} and Proposition \ref{prop.det.xi+yj}:
+
+\begin{proof}
+[Second proof of Proposition \ref{prop.det.xiyj}.]Define two $n\times
+n$-matrices%
+\[
+A:=\left(
+\begin{array}
+[c]{ccccc}%
+x_{1} & 0 & 0 & \cdots & 0\\
+x_{2} & 0 & 0 & \cdots & 0\\
+x_{3} & 0 & 0 & \cdots & 0\\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+x_{n} & 0 & 0 & \cdots & 0
+\end{array}
+\right)  \ \ \ \ \ \ \ \ \ \ \text{and}\ \ \ \ \ \ \ \ \ \ B:=\left(
+\begin{array}
+[c]{ccccc}%
+y_{1} & y_{2} & y_{3} & \cdots & y_{n}\\
+0 & 0 & 0 & \cdots & 0\\
+0 & 0 & 0 & \cdots & 0\\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+0 & 0 & 0 & \cdots & 0
+\end{array}
+\right)  .
+\]
+(Only the first column of $A$ and the first row of $B$ have any nonzero entries.)
+
+Now,
+\begin{align*}
+\left(  x_{i}y_{j}\right)  _{1\leq i\leq n,\ 1\leq j\leq n}  &  =\left(
+\begin{array}
+[c]{cccc}%
+x_{1}y_{1} & x_{1}y_{2} & \cdots & x_{1}y_{n}\\
+x_{2}y_{1} & x_{2}y_{2} & \cdots & x_{2}y_{n}\\
+\vdots & \vdots & \ddots & \vdots\\
+x_{n}y_{1} & x_{n}y_{2} & \cdots & x_{n}y_{n}%
+\end{array}
+\right) \\
+&  =\underbrace{\left(
+\begin{array}
+[c]{ccccc}%
+x_{1} & 0 & 0 & \cdots & 0\\
+x_{2} & 0 & 0 & \cdots & 0\\
+x_{3} & 0 & 0 & \cdots & 0\\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+x_{n} & 0 & 0 & \cdots & 0
+\end{array}
+\right)  }_{=A}\underbrace{\left(
+\begin{array}
+[c]{ccccc}%
+y_{1} & y_{2} & y_{3} & \cdots & y_{n}\\
+0 & 0 & 0 & \cdots & 0\\
+0 & 0 & 0 & \cdots & 0\\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+0 & 0 & 0 & \cdots & 0
+\end{array}
+\right)  }_{=B}=AB,
+\end{align*}
+so that%
+\[
+\det\left(  \left(  x_{i}y_{j}\right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}\right)  =\det\left(  AB\right)  =\det A\cdot\det B
+\]
+(by Theorem \ref{thm.det.detAB}). However, the matrix $A$ has a zero column
+(since $n\geq2$), and thus satisfies $\det A=0$ (by Theorem
+\ref{thm.det.colop} \textbf{(b)}\footnote{Of course, by \textquotedblleft
+Theorem \ref{thm.det.colop} \textbf{(b)}\textquotedblright, we mean
+\textquotedblleft the analogue of Theorem \ref{thm.det.rowop} \textbf{(b)} for
+columns instead of rows\textquotedblright.}). Hence,%
+\[
+\det\left(  \left(  x_{i}y_{j}\right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}\right)  =\underbrace{\det A}_{=0}\cdot\,\det B=0.
+\]
+Thus, Proposition \ref{prop.det.xiyj} is proven again.
+\end{proof}
+
+\begin{proof}
+[Second proof of Proposition \ref{prop.det.xi+yj}.]Define two $n\times
+n$-matrices%
+\[
+A:=\left(
+\begin{array}
+[c]{ccccc}%
+x_{1} & 1 & 0 & \cdots & 0\\
+x_{2} & 1 & 0 & \cdots & 0\\
+x_{3} & 1 & 0 & \cdots & 0\\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+x_{n} & 1 & 0 & \cdots & 0
+\end{array}
+\right)  \ \ \ \ \ \ \ \ \ \ \text{and}\ \ \ \ \ \ \ \ \ \ B:=\left(
+\begin{array}
+[c]{ccccc}%
+1 & 1 & 1 & \cdots & 1\\
+y_{1} & y_{2} & y_{3} & \cdots & y_{n}\\
+0 & 0 & 0 & \cdots & 0\\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+0 & 0 & 0 & \cdots & 0
+\end{array}
+\right)  .
+\]
+(Only the first two columns of $A$ and the first two rows of $B$ have any
+nonzero entries.)
+
+Now,
+\begin{align*}
+\left(  x_{i}+y_{j}\right)  _{1\leq i\leq n,\ 1\leq j\leq n}  &  =\left(
+\begin{array}
+[c]{cccc}%
+x_{1}+y_{1} & x_{1}+y_{2} & \cdots & x_{1}+y_{n}\\
+x_{2}+y_{1} & x_{2}+y_{2} & \cdots & x_{2}+y_{n}\\
+\vdots & \vdots & \ddots & \vdots\\
+x_{n}+y_{1} & x_{n}+y_{2} & \cdots & x_{n}+y_{n}%
+\end{array}
+\right) \\
+&  =\underbrace{\left(
+\begin{array}
+[c]{ccccc}%
+x_{1} & 1 & 0 & \cdots & 0\\
+x_{2} & 1 & 0 & \cdots & 0\\
+x_{3} & 1 & 0 & \cdots & 0\\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+x_{n} & 1 & 0 & \cdots & 0
+\end{array}
+\right)  }_{=A}\underbrace{\left(
+\begin{array}
+[c]{ccccc}%
+1 & 1 & 1 & \cdots & 1\\
+y_{1} & y_{2} & y_{3} & \cdots & y_{n}\\
+0 & 0 & 0 & \cdots & 0\\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+0 & 0 & 0 & \cdots & 0
+\end{array}
+\right)  }_{=B}=AB,
+\end{align*}
+so that%
+\[
+\det\left(  \left(  x_{i}+y_{j}\right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}\right)  =\det\left(  AB\right)  =\det A\cdot\det B
+\]
+(by Theorem \ref{thm.det.detAB}). However, the matrix $A$ has a zero column
+(since $n\geq3$), and thus satisfies $\det A=0$ (by Theorem
+\ref{thm.det.colop} \textbf{(b)}). Hence,%
+\[
+\det\left(  \left(  x_{i}+y_{j}\right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}\right)  =\underbrace{\det A}_{=0}\cdot\,\det B=0.
+\]
+Thus, Proposition \ref{prop.det.xi+yj} is proven again.
+\end{proof}
+
+The following fact follows equally easily from everything we know so far about determinants:
+
+\begin{corollary}
+\label{cor.det.scale-row-col}Let $n\in\mathbb{N}$. Let $A\in K^{n\times n}$
+and $d_{1},d_{2},\ldots,d_{n}\in K$. Then,%
+\begin{equation}
+\det\left(  \left(  d_{i}A_{i,j}\right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}\right)  =d_{1}d_{2}\cdots d_{n}\cdot\det A
+\label{eq.cor.det.scale-row-col.row}%
+\end{equation}
+and%
+\begin{equation}
+\det\left(  \left(  d_{j}A_{i,j}\right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}\right)  =d_{1}d_{2}\cdots d_{n}\cdot\det A.
+\label{eq.cor.det.scale-row-col.col}%
+\end{equation}
+
+\end{corollary}
+
+\begin{proof}
+[First proof of Corollary \ref{cor.det.scale-row-col} (sketched).]The matrix
+$\left(  d_{i}A_{i,j}\right)  _{1\leq i\leq n,\ 1\leq j\leq n}$ is obtained
+from the matrix $A$ by multiplying the $1$-st row by $d_{1}$, multiplying the
+$2$-nd row by $d_{2}$, multiplying the $3$-rd row by $d_{3}$, and so on.
+Theorem \ref{thm.det.rowop} \textbf{(d)} (applied repeatedly -- once for each
+row) shows that these multiplications result in the determinant of $A$ getting
+multiplied by $d_{1},d_{2},\ldots,d_{n}$ (in succession). Hence,%
+\[
+\det\left(  \left(  d_{i}A_{i,j}\right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}\right)  =d_{1}d_{2}\cdots d_{n}\cdot\det A.
+\]
+Thus, (\ref{eq.cor.det.scale-row-col.row}) is proved. The proof of
+(\ref{eq.cor.det.scale-row-col.col}) is analogous (using columns instead of
+rows). Corollary \ref{cor.det.scale-row-col} is proven.
+\end{proof}
+
+\begin{proof}
+[Second proof of Corollary \ref{cor.det.scale-row-col} (sketched).]Let $D$ be
+the diagonal matrix
+\[
+\left(
+\begin{array}
+[c]{cccc}%
+d_{1} & 0 & \cdots & 0\\
+0 & d_{2} & \cdots & 0\\
+\vdots & \vdots & \ddots & \vdots\\
+0 & 0 & \cdots & d_{n}%
+\end{array}
+\right)  \in K^{n\times n}.
+\]
+Then, $D$ is upper-triangular; hence, Theorem \ref{thm.det.triang} shows that
+its determinant is $\det D=d_{1}d_{2}\cdots d_{n}$.
+
+However, it is easy to see that $\left(  d_{i}A_{i,j}\right)  _{1\leq i\leq
+n,\ 1\leq j\leq n}=DA$. Hence,%
+\begin{align*}
+\det\left(  \left(  d_{i}A_{i,j}\right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}\right)   &  =\det\left(  DA\right)  =\det D\cdot\det
+A\ \ \ \ \ \ \ \ \ \ \left(  \text{by Theorem \ref{thm.det.detAB}}\right) \\
+&  =d_{1}d_{2}\cdots d_{n}\cdot\det A\ \ \ \ \ \ \ \ \ \ \left(  \text{since
+}\det D=d_{1}d_{2}\cdots d_{n}\right)  .
+\end{align*}
+This proves (\ref{eq.cor.det.scale-row-col.row}). A similar argument using
+$\left(  d_{j}A_{i,j}\right)  _{1\leq i\leq n,\ 1\leq j\leq n}=AD$ proves
+(\ref{eq.cor.det.scale-row-col.col}). Thus, Corollary
+\ref{cor.det.scale-row-col} is proven again.
+\end{proof}
+
+\begin{proof}
+[Third proof of Corollary \ref{cor.det.scale-row-col}.]Let us now proceed
+completely elementarily. The definition of a determinant yields%
+\begin{equation}
+\det A=\sum_{\sigma\in S_{n}}\left(  -1\right)  ^{\sigma}A_{1,\sigma\left(
+1\right)  }A_{2,\sigma\left(  2\right)  }\cdots A_{n,\sigma\left(  n\right)  }
+\label{pf.cor.det.scale-row-col.3rd.1}%
+\end{equation}
+and%
+\begin{align*}
+\det\left(  \left(  d_{i}A_{i,j}\right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}\right)   &  =\sum_{\sigma\in S_{n}}\left(  -1\right)  ^{\sigma
+}\underbrace{\left(  d_{1}A_{1,\sigma\left(  1\right)  }\right)  \left(
+d_{2}A_{2,\sigma\left(  2\right)  }\right)  \cdots\left(  d_{n}A_{n,\sigma
+\left(  n\right)  }\right)  }_{=\left(  d_{1}d_{2}\cdots d_{n}\right)  \left(
+A_{1,\sigma\left(  1\right)  }A_{2,\sigma\left(  2\right)  }\cdots
+A_{n,\sigma\left(  n\right)  }\right)  }\\
+&  =\sum_{\sigma\in S_{n}}\left(  -1\right)  ^{\sigma}\left(  d_{1}d_{2}\cdots
+d_{n}\right)  \left(  A_{1,\sigma\left(  1\right)  }A_{2,\sigma\left(
+2\right)  }\cdots A_{n,\sigma\left(  n\right)  }\right) \\
+&  =d_{1}d_{2}\cdots d_{n}\cdot\underbrace{\sum_{\sigma\in S_{n}}\left(
+-1\right)  ^{\sigma}A_{1,\sigma\left(  1\right)  }A_{2,\sigma\left(  2\right)
+}\cdots A_{n,\sigma\left(  n\right)  }}_{\substack{=\det A\\\text{(by
+(\ref{pf.cor.det.scale-row-col.3rd.1}))}}}\\
+&  =d_{1}d_{2}\cdots d_{n}\cdot\det A
+\end{align*}
+and%
+\begin{align*}
+&  \det\left(  \left(  d_{j}A_{i,j}\right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}\right) \\
+&  =\sum_{\sigma\in S_{n}}\left(  -1\right)  ^{\sigma}\underbrace{\left(
+d_{\sigma\left(  1\right)  }A_{1,\sigma\left(  1\right)  }\right)  \left(
+d_{\sigma\left(  2\right)  }A_{2,\sigma\left(  2\right)  }\right)
+\cdots\left(  d_{\sigma\left(  n\right)  }A_{n,\sigma\left(  n\right)
+}\right)  }_{=\left(  d_{\sigma\left(  1\right)  }d_{\sigma\left(  2\right)
+}\cdots d_{\sigma\left(  n\right)  }\right)  \left(  A_{1,\sigma\left(
+1\right)  }A_{2,\sigma\left(  2\right)  }\cdots A_{n,\sigma\left(  n\right)
+}\right)  }\\
+&  =\sum_{\sigma\in S_{n}}\left(  -1\right)  ^{\sigma}\underbrace{\left(
+d_{\sigma\left(  1\right)  }d_{\sigma\left(  2\right)  }\cdots d_{\sigma
+\left(  n\right)  }\right)  }_{\substack{=d_{1}d_{2}\cdots d_{n}\\\text{(since
+}\sigma\text{ is a permutation of the set }\left[  n\right]  \text{)}}}\left(
+A_{1,\sigma\left(  1\right)  }A_{2,\sigma\left(  2\right)  }\cdots
+A_{n,\sigma\left(  n\right)  }\right) \\
+&  =\sum_{\sigma\in S_{n}}\left(  -1\right)  ^{\sigma}\left(  d_{1}d_{2}\cdots
+d_{n}\right)  \left(  A_{1,\sigma\left(  1\right)  }A_{2,\sigma\left(
+2\right)  }\cdots A_{n,\sigma\left(  n\right)  }\right) \\
+&  =d_{1}d_{2}\cdots d_{n}\cdot\det A\ \ \ \ \ \ \ \ \ \ \left(  \text{as we
+have seen above}\right)  .
+\end{align*}
+Once again, this proves Corollary \ref{cor.det.scale-row-col}.
+\end{proof}
+

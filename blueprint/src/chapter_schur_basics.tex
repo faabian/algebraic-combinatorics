@@ -1,0 +1,1047 @@
+\section{Schur polynomials}
+
+\subsection{Alternants}
+
+We work over a fixed positive integer $N$ and the polynomial ring
+$\mathcal{P} = \mathbb{Z}[x_1, x_2, \ldots, x_N]$.
+An $N$-partition is a weakly decreasing $N$-tuple
+$\lambda = (\lambda_1, \lambda_2, \ldots, \lambda_N) \in \mathbb{N}^N$
+with $\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_N$.
+
+\begin{definition}
+\label{def.sf.alternants}
+\lean{rhoVector, alternant}
+\leantarget
+\leanok
+\textbf{(a)} We let $\rho$ be the $N$-tuple $\left(
+N-1,N-2,\ldots,N-N\right)  \in\mathbb{N}^{N}$. \medskip
+
+\textbf{(b)} For any $N$-tuple $\alpha=\left(  \alpha_{1},\alpha_{2}%
+,\ldots,\alpha_{N}\right)  \in\mathbb{N}^{N}$, we define%
+\[
+a_{\alpha}:=\det\left(  \underbrace{\left(  x_{i}^{\alpha_{j}}\right)  _{1\leq
+i\leq N,\ 1\leq j\leq N}}_{\in\mathcal{P}^{N\times N}}\right)  \in
+\mathcal{P}.
+\]
+This is called the $\alpha$\emph{-alternant} (of $x_{1},x_{2},\ldots,x_{N}$).
+\end{definition}
+
+\begin{lemma}
+\label{lem.sf.rhoVector-strictAnti}
+\lean{rhoVector_strictAnti}
+\leanhelper
+\leanok
+The $\rho$ vector is strictly decreasing: if $i < j$ (as indices in $\{0, 1, \ldots, N{-}1\}$),
+then $\rho_i > \rho_j$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Immediate from $\rho_i = N - 1 - i$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.rhoVector-sum}
+\lean{rhoVector_sum}
+\leanhelper
+\leanok
+The sum of the $\rho$ vector equals the triangular number:
+\[
+  \sum_{i=0}^{N-1} \rho_i = \frac{N(N-1)}{2}.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+Follows from $\sum_{i=0}^{N-1}(N-1-i) = \sum_{k=0}^{N-1} k = N(N-1)/2$.
+\end{proof}
+
+\begin{definition}
+\label{def.sf.rhoPartition}
+\lean{rhoPartition}
+\leanhelper
+\leanok
+The $\rho$ vector $(N{-}1, N{-}2, \ldots, 0)$ is itself an $N$-partition
+(since it is strictly decreasing, hence weakly decreasing).
+\end{definition}
+
+\begin{theorem}
+\label{thm.sf.alternant-rho-vandermonde}
+\lean{alternant_rho_eq_vandermonde}
+\leanhelper
+\leanok
+We have
+$a_\rho = \prod_{1 \le i < j \le N}(x_i - x_j)$.
+\end{theorem}
+
+\begin{proof}
+\leanok
+This is the classical Vandermonde determinant identity.
+The matrix for $a_\rho$ has entry $(i,j)$ equal to $x_i^{N-j}$,
+and its determinant equals $\prod_{i<j}(x_i - x_j)$ by the Vandermonde formula.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.alternant-0}
+\lean{alternant_zero_of_eq, alternant_swap}
+\leantarget
+\leanok
+Let $\alpha\in\mathbb{N}^{N}$. \medskip
+
+\textbf{(a)} If the $N$-tuple $\alpha$ has two equal entries, then $a_{\alpha
+}=0$. \medskip
+
+\textbf{(b)} Let $\beta\in\mathbb{N}^{N}$ be an $N$-tuple obtained from
+$\alpha$ by swapping two entries. Then, $a_{\beta}=-a_{\alpha}$.
+\end{lemma}
+
+\begin{proof}
+\textbf{(a)} If $\alpha_i = \alpha_j$, then two columns of the matrix
+$(x_k^{\alpha_\ell})$ are equal, so its determinant is $0$.
+
+\textbf{(b)} Swapping entries $\alpha_i$ and $\alpha_j$ amounts to permuting
+two columns of the matrix by a transposition, which multiplies the determinant by $-1$.
+\end{proof}
+
+\subsection{Young diagrams and Schur polynomials}
+
+\begin{definition}
+\label{def.sf.ydiag}
+\lean{NPartition.youngDiagram}
+\leantarget
+\leanok
+Let $\lambda$ be an $N$-partition.
+
+The \emph{Young diagram} of $\lambda$ is defined as the set%
+\[
+\left\{  \left(  i,j\right)  \ \mid\ i\in\left[  N\right]  \text{ and }%
+j\in\left[  \lambda_{i}\right]  \right\}  \subseteq\left\{  1,2,3,\ldots
+\right\}  ^{2}.
+\]
+We visually represent each element $\left(  i,j\right)  $ of this Young
+diagram as a box in row $i$ and column $j$.
+
+We denote the Young diagram of $\lambda$ by $Y\left(  \lambda\right)  $.
+\end{definition}
+
+\begin{lemma}
+\label{lem.sf.ydiag-mem}
+\lean{NPartition.mem_youngDiagram}
+\leanhelper
+\leanok
+A cell $(i,j)$ belongs to $Y(\lambda)$ if and only if $j < \lambda_i$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Immediate from the definition.
+\end{proof}
+
+\begin{definition}
+\label{def.sf.ytab}
+\lean{YoungTableau}
+\leantarget
+\leanok
+Let $\lambda$ be an $N$-partition.
+
+A \emph{Young tableau} of shape $\lambda$ means a way of filling the boxes of
+$Y\left(  \lambda\right)  $ with elements of $\left[  N\right]  $ (one element
+per box). Formally speaking, it is defined as a map $T:Y\left(  \lambda
+\right)  \rightarrow\left[  N\right]  $.
+\end{definition}
+
+\begin{definition}
+\label{def.sf.ssyt}
+\lean{SSYT}
+\leantarget
+\leanok
+Let $\lambda$ be an $N$-partition.
+
+A Young tableau $T$ of shape $\lambda$ is said to be \emph{semistandard} if
+its entries
+
+\begin{itemize}
+\item increase weakly along each row (from left to right);
+
+\item increase strictly down each column (from top to bottom).
+\end{itemize}
+
+Formally speaking, this means that a Young tableau $T:Y\left(  \lambda\right)
+\rightarrow\left[  N\right]  $ is semistandard if and only if
+
+\begin{itemize}
+\item we have $T\left(  i,j\right)  \leq T\left(  i,j+1\right)  $ for any
+$\left(  i,j\right)  \in Y\left(  \lambda\right)  $ satisfying $\left(
+i,j+1\right)  \in Y\left(  \lambda\right)  $;
+
+\item we have $T\left(  i,j\right)  <T\left(  i+1,j\right)  $ for any $\left(
+i,j\right)  \in Y\left(  \lambda\right)  $ satisfying $\left(  i+1,j\right)
+\in Y\left(  \lambda\right)  $.
+\end{itemize}
+
+We let $\operatorname*{SSYT}\left(  \lambda\right)  $ denote the set of all
+semistandard Young tableaux of shape $\lambda$.
+\end{definition}
+
+\begin{lemma}
+\label{lem.sf.ssyt-row-weak-of-le}
+\lean{SSYT.row_weak_of_le}
+\leanhelper
+\leanok
+Let $T$ be a semistandard Young tableau of shape $\lambda$.
+If $(i, j_1)$ and $(i, j_2)$ are cells of $Y(\lambda)$ with $j_1 \le j_2$,
+then $T(i,j_1) \le T(i,j_2)$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+If $j_1 = j_2$ the claim is trivial; otherwise $j_1 < j_2$ and we
+apply the row-weak condition.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.ssyt-col-weak}
+\lean{SSYT.col_weak}
+\leanhelper
+\leanok
+Let $T$ be a semistandard Young tableau of shape $\lambda$.
+If $(i_1, j)$ and $(i_2, j)$ are cells of $Y(\lambda)$ with $i_1 \le i_2$,
+then $T(i_1,j) \le T(i_2,j)$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+If $i_1 = i_2$ the claim is trivial; otherwise $i_1 < i_2$ and
+$T(i_1,j) < T(i_2,j)$ by column-strictness.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.ssyt-entry-ge-row}
+\lean{SSYT.entry_ge_row}
+\leanhelper
+\leanok
+In a semistandard tableau $T$ of shape $\lambda$, we have $T(i,j) \ge i$ for
+every cell $(i,j) \in Y(\lambda)$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By induction on $i$.
+For $i = 0$, this holds since entries are nonneg.
+For the inductive step, column-strictness gives
+$T(i, j) > T(i{-}1, j) \ge i{-}1$, so $T(i,j) \ge i$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.ssyt-highest-weight}
+\lean{SSYT.highestWeight}
+\leanhelper
+\leanok
+For any $N$-partition $\lambda$, the tableau that fills every cell $(i,j)$ with
+the value $i$ is semistandard.
+This is called the \emph{highest weight tableau}.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Row-weakness holds because each row is constant.
+Column-strictness holds because entry values equal row indices, which
+are strictly increasing down columns.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.ssyt-highest-weight-le}
+\lean{SSYT.highestWeight_entry_le}
+\leanhelper
+\leanok
+The highest weight tableau achieves the minimum possible entry at each cell:
+for any semistandard tableau $T$ of shape $\lambda$ and any cell $c \in Y(\lambda)$,
+the entry of the highest weight tableau at $c$ is $\le T(c)$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The highest weight entry at $(i,j)$ is $i$, and by
+Lemma~\ref{lem.sf.ssyt-entry-ge-row}, $T(i,j) \ge i$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.ytab-size-sum-parts}
+\lean{YoungTableau.size_eq_sum_parts}
+\leanhelper
+\leanok
+The size of a Young tableau (the number of cells in $Y(\lambda)$) equals
+$\sum_{i=1}^{N} \lambda_i$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The Young diagram is the disjoint union of rows, and row $i$ has $\lambda_i$ cells.
+\end{proof}
+
+\begin{definition}
+\label{def.sf.ytab.xT}
+\lean{YoungTableau.monomial}
+\leantarget
+\leanok
+Let $\lambda$ be an $N$-partition. If $T$ is any Young
+tableau of shape $\lambda$, then we define the corresponding monomial%
+\[
+x_{T}:=\prod_{c\text{ is a box of }Y\left(  \lambda\right)  }x_{T\left(
+c\right)  }=\prod_{\left(  i,j\right)  \in Y\left(  \lambda\right)
+}x_{T\left(  i,j\right)  }=\prod_{k=1}^{N}x_{k}^{\left(  \text{\# of times
+}k\text{ appears in }T\right)  }.
+\]
+\end{definition}
+
+\begin{lemma}
+\label{lem.sf.ytab-monomial-prod-pow}
+\lean{YoungTableau.monomial_eq_prod_pow}
+\leanhelper
+\leanok
+For any Young tableau $T$ of shape $\lambda$,
+\[
+  x_T = \prod_{k=1}^{N} x_k^{(\text{occurrences of } k \text{ in } T)}.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+Reindex the product over cells by partitioning according to the entry value.
+\end{proof}
+
+\begin{definition}
+\label{def.sf.schur}
+\lean{schurPoly}
+\leantarget
+\leanok
+Let $\lambda$ be an $N$-partition. We define the
+\emph{Schur polynomial} $s_{\lambda}\in\mathcal{P}$ by%
+\[
+s_{\lambda}:=\sum_{T\in\operatorname*{SSYT}\left(  \lambda\right)  }x_{T}.
+\]
+\end{definition}
+
+\subsection{Examples of Schur polynomials}
+
+\begin{theorem}
+\label{thm.sf.schur-row-eq-h}
+\lean{schurPoly_row_eq_h}
+\leanhelper
+\leanok
+The Schur polynomial $s_{(n,0,\ldots,0)}$ equals the complete homogeneous symmetric
+polynomial $h_n$:
+\[
+  s_{(n,0,\ldots,0)} = h_n = \sum_{i_1 \le i_2 \le \cdots \le i_n} x_{i_1} x_{i_2} \cdots x_{i_n}.
+\]
+\end{theorem}
+
+\begin{proof}
+For a single-row partition $(n,0,\ldots,0)$, the Young diagram has $n$ cells in row~0.
+An SSYT filling is a weakly increasing sequence of $n$ elements from $[N]$,
+which corresponds bijectively to a multiset of size~$n$.
+The monomials correspond under this bijection, so the sums are equal.
+\end{proof}
+
+\begin{theorem}
+\label{thm.sf.schur-col-eq-e}
+\lean{schurPoly_col_eq_e}
+\leanhelper
+\leanok
+The Schur polynomial $s_{(1^n, 0^{N-n})}$ (with $n$ ones followed by zeros) equals the
+elementary symmetric polynomial $e_n$:
+\[
+  s_{(1,1,\ldots,1,0,\ldots,0)} = e_n = \sum_{i_1 < i_2 < \cdots < i_n} x_{i_1} x_{i_2} \cdots x_{i_n}.
+\]
+\end{theorem}
+
+\begin{proof}
+For a single-column partition $(1^n)$, the Young diagram has $n$ cells in column~0.
+An SSYT filling assigns strictly increasing values (by column-strictness), which
+corresponds bijectively to an $n$-element subset of $[N]$.
+The monomials match under this bijection.
+\end{proof}
+
+\begin{theorem}
+\label{thm.sf.schur-21-eq}
+\lean{schurPoly_21_eq}
+\leanhelper
+\leanok
+For $N \ge 2$, the Schur polynomial $s_{(2,1,0,\ldots,0)}$ equals
+$e_2 \cdot e_1 - e_3$.
+\end{theorem}
+
+\begin{proof}
+\leanok
+The Young diagram of $(2,1)$ has three cells: $(0,0)$, $(0,1)$, $(1,0)$.
+An SSYT filling assigns values $(i, j, k)$ with $i \le j$ and $i < k$.
+Summing $x_i x_j x_k$ over all such triples and comparing with
+the expansion $e_2 \cdot e_1 = 3 e_3 + \sum_{a<b} x_a^2 x_b + \sum_{a<b} x_a x_b^2$
+yields the result.
+\end{proof}
+
+\subsection{Symmetry of Schur polynomials}
+
+\begin{theorem}
+\label{thm.sf.schur-symm}
+\lean{schurPoly_isSymmetric, alternant_eq_rho_mul_schur}
+\leantarget
+\leanok
+Let $\lambda$ be an $N$-partition. Then:\medskip
+
+\textbf{(a)} The polynomial $s_{\lambda}$ is symmetric. \medskip
+
+\textbf{(b)} We have
+\[
+a_{\lambda+\rho}=a_{\rho}\cdot s_{\lambda}.
+\]
+Here, the addition on $\mathbb{N}^{N}$ is defined entrywise.
+\end{theorem}
+
+\begin{proof}
+\textbf{(a)} This follows from Theorem~\ref{thm.sf.skew-schur-symm} applied
+to $\mu = \mathbf{0}$, since $s_{\lambda/\mathbf{0}} = s_\lambda$.
+The proof of Theorem~\ref{thm.sf.skew-schur-symm} uses Bender--Knuth involutions.
+
+\textbf{(b)} The proof uses Stembridge's Lemma applied to $\mu = 0$ and $\nu = 0$.
+The only $0$-Yamanouchi semistandard tableau of shape $\lambda$ is the
+highest weight tableau $T_0$ (where each row $i$ contains only $i$'s).
+The content of $T_0$ equals $\lambda$, so the result reduces to
+$a_\rho \cdot s_\lambda = a_{\lambda + \rho}$.
+\end{proof}
+
+\subsection{Skew Young diagrams and skew Schur polynomials}
+
+\begin{definition}
+\label{def.sf.par-subset}
+\lean{NPartition.instLE}
+\leantarget
+\leanok
+Let $\lambda$ and $\mu$ be two $N$-partitions.
+
+We say that $\mu\subseteq\lambda$ if and only if $Y\left(  \mu\right)
+\subseteq Y\left(  \lambda\right)  $. Equivalently, $\mu\subseteq\lambda$ if
+and only if%
+\[
+\text{each }i\in\left[  N\right]  \text{ satisfies }\mu_{i}\leq\lambda_{i}.
+\]
+Thus we have defined a partial order $\subseteq$ on
+the set of all $N$-partitions.
+\end{definition}
+
+\begin{lemma}
+\label{lem.sf.par-subset-iff-yd}
+\lean{NPartition.le_iff_youngDiagram_subset}
+\leanhelper
+\leanok
+We have $\mu \le \lambda$ if and only if $Y(\mu) \subseteq Y(\lambda)$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+$(\Rightarrow)$: If $\mu_i \le \lambda_i$ for all $i$ and $(i,j) \in Y(\mu)$
+(i.e.\ $j < \mu_i$), then $j < \lambda_i$, so $(i,j) \in Y(\lambda)$.
+$(\Leftarrow)$: If $\mu_i > \lambda_i$ for some $i$, then
+$(i, \lambda_i) \in Y(\mu) \setminus Y(\lambda)$.
+\end{proof}
+
+\begin{definition}
+\label{def.sf.skew-diag}
+\lean{skewYoungDiagram}
+\leantarget
+\leanok
+Let $\lambda$ and $\mu$ be two $N$-partitions such
+that $\mu\subseteq\lambda$. Then, we define the \emph{skew Young diagram}
+$Y\left(  \lambda/\mu\right)  $ to be the set difference%
+\begin{align*}
+Y\left(  \lambda\right)  \setminus Y\left(  \mu\right)   &  =\left\{  \left(
+i,j\right)  \ \mid\ i\in\left[  N\right]  \text{ and }j\in\left[  \lambda
+_{i}\right]  \setminus\left[  \mu_{i}\right]  \right\} \\
+&  =\left\{  \left(  i,j\right)  \ \mid\ i\in\left[  N\right]  \text{ and
+}j\in\mathbb{Z}\text{ and }\mu_{i}<j\leq\lambda_{i}\right\}  .
+\end{align*}
+\end{definition}
+
+\begin{lemma}
+\label{lem.sf.skew-diag-mem}
+\lean{mem_skewYoungDiagram}
+\leanhelper
+\leanok
+A cell $(i,j)$ belongs to $Y(\lambda/\mu)$ if and only if
+$\mu_i \le j < \lambda_i$ (in 0-indexed coordinates).
+\end{lemma}
+
+\begin{proof}
+\leanok
+Follows from the definition $Y(\lambda/\mu) = Y(\lambda) \setminus Y(\mu)$
+and the membership characterization of Young diagrams.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.skew-diag-zero}
+\lean{skewYoungDiagram_zero}
+\leanhelper
+\leanok
+The skew Young diagram $Y(\lambda/\mathbf{0})$ equals the
+full Young diagram $Y(\lambda)$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Since $\mathbf{0}_i = 0$ for all $i$, the condition $\mu_i \le j$
+is automatic, and the skew diagram reduces to the full diagram.
+\end{proof}
+
+\begin{lemma}[Convexity of skew Young diagrams]
+\label{lem.sf.skew-diag.convexity}
+\lean{skewYoungDiagram_convex}
+\leantarget
+\leanok
+Let $\lambda$ and $\mu$ be two $N$-partitions such that $\mu\subseteq\lambda$. Let
+$\left(  a,b\right)  $ and $\left(  e,f\right)  $ be two elements of $Y\left(
+\lambda/\mu\right)  $. Let $\left(  c,d\right)  \in\mathbb{Z}^{2}$ satisfy
+$a\leq c\leq e$ and $b\leq d\leq f$. Then, $\left(  c,d\right)  \in Y\left(
+\lambda/\mu\right)  $.
+\end{lemma}
+
+\begin{proof}
+We need $\mu_c \le d$ and $d < \lambda_c$.
+Since $\mu$ is weakly decreasing and $a \le c$, we have $\mu_c \le \mu_a \le b \le d$.
+Since $\lambda$ is weakly decreasing and $c \le e$, we have
+$d \le f < \lambda_e \le \lambda_c$.
+\end{proof}
+
+\begin{definition}
+\label{def.sf.skew-tab}
+\lean{SkewYoungTableau}
+\leantarget
+\leanok
+Let $\lambda$ and $\mu$ be two $N$-partitions such that
+$\mu\subseteq\lambda$. A \emph{Young tableau} of shape $\lambda/\mu$ means a
+way of filling the boxes of $Y\left(  \lambda/\mu\right)  $ with elements of
+$\left[  N\right]  $ (one element per box). Formally speaking, it is defined
+as a map $T:Y\left(  \lambda/\mu\right)  \rightarrow\left[  N\right]  $.
+
+Young tableaux of shape $\lambda/\mu$ are often called \emph{skew Young
+tableaux}.
+
+If we don't have $\mu\subseteq\lambda$, then we agree that there are no Young
+tableaux of shape $\lambda/\mu$.
+\end{definition}
+
+\begin{definition}
+\label{def.sf.skew-ssyt}
+\lean{SkewSSYT}
+\leantarget
+\leanok
+Let $\lambda$ and $\mu$ be two $N$-partitions.
+
+A Young tableau $T$ of shape $\lambda/\mu$ is said to be \emph{semistandard}
+if its entries
+
+\begin{itemize}
+\item increase weakly along each row (from left to right);
+
+\item increase strictly down each column (from top to bottom).
+\end{itemize}
+
+Formally speaking, this means that a Young tableau $T:Y\left(  \lambda
+/\mu\right)  \rightarrow\left[  N\right]  $ is semistandard if and only if
+
+\begin{itemize}
+\item we have $T\left(  i,j\right)  \leq T\left(  i,j+1\right)  $ for any
+$\left(  i,j\right)  \in Y\left(  \lambda/\mu\right)  $ satisfying $\left(
+i,j+1\right)  \in Y\left(  \lambda/\mu\right)  $;
+
+\item we have $T\left(  i,j\right)  <T\left(  i+1,j\right)  $ for any $\left(
+i,j\right)  \in Y\left(  \lambda/\mu\right)  $ satisfying $\left(
+i+1,j\right)  \in Y\left(  \lambda/\mu\right)  $.
+\end{itemize}
+
+We let $\operatorname*{SSYT}\left(  \lambda/\mu\right)  $ denote the set of
+all semistandard Young tableaux of shape $\lambda/\mu$.
+\end{definition}
+
+\begin{lemma}
+\label{lem.sf.skew-ssyt.increase}
+\lean{SkewSSYT.row_weak_of_le, SkewSSYT.col_weak, SkewSSYT.col_strict_of_lt, SkewSSYT.monotone, SkewSSYT.strict_monotone}
+\leantarget
+\leanok
+Let $\lambda$ and $\mu$ be two $N$%
+-partitions. Let $T$ be a semistandard Young tableau of shape $\lambda/\mu$.
+Then: \medskip
+
+\textbf{(a)} If $\left(  i,j_{1}\right)  $ and $\left(  i,j_{2}\right)  $ are
+two elements of $Y\left(  \lambda/\mu\right)  $ satisfying $j_{1}\leq j_{2}$,
+then $T\left(  i,j_{1}\right)  \leq T\left(  i,j_{2}\right)  $. \medskip
+
+\textbf{(b)} If $\left(  i_{1},j\right)  $ and $\left(  i_{2},j\right)  $ are
+two elements of $Y\left(  \lambda/\mu\right)  $ satisfying $i_{1}\leq i_{2}$,
+then $T\left(  i_{1},j\right)  \leq T\left(  i_{2},j\right)  $. \medskip
+
+\textbf{(c)} If $\left(  i_{1},j\right)  $ and $\left(  i_{2},j\right)  $ are
+two elements of $Y\left(  \lambda/\mu\right)  $ satisfying $i_{1}<i_{2}$, then
+$T\left(  i_{1},j\right)  <T\left(  i_{2},j\right)  $. \medskip
+
+\textbf{(d)} If $\left(  i_{1},j_{1}\right)  $ and $\left(  i_{2}%
+,j_{2}\right)  $ are two elements of $Y\left(  \lambda/\mu\right)  $
+satisfying $i_{1}\leq i_{2}$ and $j_{1}\leq j_{2}$, then $T\left(  i_{1}%
+,j_{1}\right)  \leq T\left(  i_{2},j_{2}\right)  $. \medskip
+
+\textbf{(e)} If $\left(  i_{1},j_{1}\right)  $ and $\left(  i_{2}%
+,j_{2}\right)  $ are two elements of $Y\left(  \lambda/\mu\right)  $
+satisfying $i_{1}<i_{2}$ and $j_{1}\leq j_{2}$, then $T\left(  i_{1}%
+,j_{1}\right)  <T\left(  i_{2},j_{2}\right)  $.
+\end{lemma}
+
+\begin{proof}
+\textbf{(a)} If $j_1 = j_2$ the claim is trivial; otherwise apply row-weakness.
+
+\textbf{(b)} If $i_1 = i_2$ the claim is trivial; otherwise
+$T(i_1,j) < T(i_2,j)$ by column-strictness.
+
+\textbf{(c)} This is just the column-strict condition.
+
+\textbf{(d)} By convexity (Lemma~\ref{lem.sf.skew-diag.convexity}),
+$(i_2, j_1) \in Y(\lambda/\mu)$.
+Then $T(i_1, j_1) \le T(i_2, j_1) \le T(i_2, j_2)$ using parts (b) and (a).
+
+\textbf{(e)} Similarly, $(i_2, j_1) \in Y(\lambda/\mu)$ by convexity.
+Then $T(i_1, j_1) < T(i_2, j_1) \le T(i_2, j_2)$ using parts (c) and (a).
+\end{proof}
+
+\begin{definition}
+\label{def.sf.ytab.skew-xT}
+\lean{SkewYoungTableau.monomial}
+\leantarget
+\leanok
+Let $\lambda$ and $\mu$ be two $N$-partitions. If
+$T$ is any Young tableau of shape $\lambda/\mu$, then we define the
+corresponding monomial%
+\[
+x_{T}:=\prod_{c\text{ is a box of }Y\left(  \lambda/\mu\right)  }x_{T\left(
+c\right)  }=\prod_{\left(  i,j\right)  \in Y\left(  \lambda/\mu\right)
+}x_{T\left(  i,j\right)  }=\prod_{k=1}^{N}x_{k}^{\left(  \text{\# of times
+}k\text{ appears in }T\right)  }.
+\]
+\end{definition}
+
+\begin{lemma}
+\label{lem.sf.skew-tab-monomial-prod-pow}
+\lean{SkewYoungTableau.monomial_eq_prod_pow}
+\leanhelper
+\leanok
+For any skew Young tableau $T$ of shape $\lambda/\mu$,
+\[
+  x_T = \prod_{k=1}^{N} x_k^{(\text{occurrences of } k \text{ in } T)}.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+Reindex the product over cells by partitioning according to the entry value.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.skew-diag-self}
+\lean{skewYoungDiagram_self}
+\leanhelper
+\leanok
+The skew Young diagram $Y(\lambda/\lambda)$ is empty for any $N$-partition $\lambda$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By the membership characterization, $(i,j) \in Y(\lambda/\lambda)$ iff
+$\lambda_i \le j < \lambda_i$, which is impossible.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.skew-tab-entry-lt-mu}
+\lean{SkewYoungTableau.entry_of_lt_mu}
+\leanhelper
+\leanok
+For a skew Young tableau $T$ of shape $\lambda/\mu$, if $j < \mu_i$ then $T(i,j) = 0$.
+That is, entries to the left of the inner partition are zero.
+\end{lemma}
+
+\begin{proof}
+\leanok
+If $j < \mu_i$, then $(i,j) \notin Y(\lambda/\mu)$, so the support condition gives $T(i,j) = 0$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.skew-tab-entry-ge-lam}
+\lean{SkewYoungTableau.entry_of_ge_lam}
+\leanhelper
+\leanok
+For a skew Young tableau $T$ of shape $\lambda/\mu$, if $j \ge \lambda_i$ then $T(i,j) = 0$.
+That is, entries to the right of the outer partition are zero.
+\end{lemma}
+
+\begin{proof}
+\leanok
+If $j \ge \lambda_i$, then $(i,j) \notin Y(\lambda/\mu)$, so the support condition gives $T(i,j) = 0$.
+\end{proof}
+
+\subsection{Filling infrastructure for Schur polynomials}
+
+The formal definition of Schur polynomials represents SSYT as functions
+from the diagram to $[N]$ (``fillings''), filters for those satisfying
+the semistandard conditions, and sums the associated monomials.
+
+\begin{definition}
+\label{def.sf.filling}
+\lean{SkewFilling, isSSYTFilling, ssytFillings, fillingMonomial}
+\leanhelper
+\leanok
+A \emph{filling} of a skew Young diagram $Y(\lambda/\mu)$ is a function
+$f : Y(\lambda/\mu) \to [N]$.
+A filling is \emph{semistandard} if it satisfies the row-weak and column-strict conditions.
+The \emph{filling monomial} is $x_f = \prod_{c \in Y(\lambda/\mu)} x_{f(c)}$.
+\end{definition}
+
+\begin{definition}
+\label{def.sf.filling-content}
+\lean{fillingContent}
+\leanhelper
+\leanok
+The \emph{content} of a filling $f$ of $Y(\lambda/\mu)$ is the function
+$\mathrm{cont}(f) : [N] \to \mathbb{N}$ defined by
+\[
+  \mathrm{cont}(f)(i) = \#\{c \in Y(\lambda/\mu) : f(c) = i\}.
+\]
+\end{definition}
+
+\begin{lemma}
+\label{lem.sf.filling-monomial-prod-pow}
+\lean{fillingMonomial_eq_prod_pow}
+\leanhelper
+\leanok
+For any filling $f$ of $Y(\lambda/\mu)$,
+\[
+  x_f = \prod_{i=0}^{N-1} x_i^{\mathrm{cont}(f)(i)}.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+Reindex the product over cells by partitioning according to the entry value
+(fiberwise product decomposition).
+\end{proof}
+
+\begin{definition}
+\label{def.sf.skew-schur}
+\lean{skewSchurPoly}
+\leantarget
+\leanok
+Let $\lambda$ and $\mu$ be two $N$-partitions. We
+define the \emph{skew Schur polynomial} $s_{\lambda/\mu}\in\mathcal{P}$ by%
+\[
+s_{\lambda/\mu}:=\sum_{T\in\operatorname*{SSYT}\left(  \lambda/\mu\right)
+}x_{T}.
+\]
+\end{definition}
+
+\begin{lemma}
+\label{lem.sf.skew-schur-zero-sb}
+\lean{skewSchurPoly_zero}
+\leanhelper
+\leanok
+For any $N$-partition $\lambda$, we have $s_{\lambda/\mathbf{0}} = s_\lambda$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The semistandard tableaux of shape $\lambda/\mathbf{0}$ are precisely the
+semistandard tableaux of shape $\lambda$, since
+$Y(\lambda/\mathbf{0}) = Y(\lambda)$ by Lemma~\ref{lem.sf.skew-diag-zero}.
+\end{proof}
+
+\begin{theorem}
+\label{thm.sf.skew-schur-symm}
+\lean{skewSchurPoly_isSymmetric}
+\leantarget
+\leanok
+Let $\lambda$ and $\mu$ be any two
+$N$-partitions. Then, the polynomial $s_{\lambda/\mu}$ is symmetric.
+\end{theorem}
+
+\begin{proof}
+\leanok
+The proof uses the Bender--Knuth involutions. For each
+$k \in \{0, 1, \ldots, N{-}2\}$, the $k$-th Bender--Knuth involution
+$\mathrm{BK}_k$ is a bijection on $\operatorname{SSYT}(\lambda/\mu)$
+satisfying:
+\begin{enumerate}
+\item $\mathrm{BK}_k$ is an involution: $\mathrm{BK}_k \circ \mathrm{BK}_k = \mathrm{id}$;
+\item $\mathrm{BK}_k$ preserves the shape of the tableau;
+\item $x_{\mathrm{BK}_k(T)} = s_k \cdot x_T$ (where $s_k$ swaps $x_k$ and $x_{k+1}$).
+\end{enumerate}
+Since the simple transpositions $s_0, s_1, \ldots, s_{N-2}$ generate $S_N$,
+and each $\mathrm{BK}_k$ establishes that $s_k \cdot s_{\lambda/\mu} = s_{\lambda/\mu}$
+(Lemma~\ref{lem.sf.skew-schur-swap-inv}),
+we conclude that $s_{\lambda/\mu}$ is symmetric.
+
+The reduction from arbitrary permutations to adjacent transpositions
+uses Lemma~\ref{lem.sf.simples-enough-sb} (strong induction on the distance $|j - i|$).
+\end{proof}
+
+\subsection{Bender--Knuth involutions (helper lemmas)}
+
+The following helper lemmas formalize the key properties of the Bender--Knuth involution,
+used in the proof of Theorem~\ref{thm.sf.skew-schur-symm}.
+
+\begin{definition}
+\label{def.sf.skew-cell-equiv}
+\lean{skewCellEquiv}
+\leanhelper
+\leanok
+The \emph{cell bijection} between two representations of skew Young diagrams.
+The first uses 0-indexed columns ($(i,j) \in Y(\lambda/\mu)$ iff $\mu_i \le j < \lambda_i$),
+and the second uses 1-indexed columns ($(i,j) \in Y(\lambda/\mu)$ iff $\mu_i < j \le \lambda_i$).
+The bijection is $(i, j) \mapsto (i, j+1)$.
+\end{definition}
+
+\begin{definition}
+\label{def.sf.skew-filling-equiv}
+\lean{skewFillingEquiv}
+\leanhelper
+\leanok
+The \emph{filling bijection} converts fillings between the two skew diagram
+representations by composing with the cell bijection.
+\end{definition}
+
+\begin{lemma}
+\label{lem.sf.skew-filling-equiv-ssyt}
+\lean{skewFillingEquiv_isSSYT}
+\leanhelper
+\leanok
+The filling bijection preserves the semistandard property:
+a filling $f$ is semistandard if and only if its image under
+the filling bijection is semistandard in the 1-indexed representation.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Both row-weak and column-strict conditions depend only on the relative ordering
+of indices, which is preserved by the column shift $j \mapsto j+1$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.skew-filling-equiv-content}
+\lean{skewFillingEquiv_content}
+\leanhelper
+\leanok
+The filling bijection preserves content: for any filling $f$ and index $i$,
+the content of $f$ at $i$ equals the content of the corresponding filling
+in the 1-indexed representation at $i$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The cell bijection induces a bijection between
+$\{c : f(c) = i\}$ and the corresponding set in the 1-indexed representation,
+since the entry values are unchanged.
+\end{proof}
+
+\begin{definition}
+\label{def.sf.bk-invol}
+\lean{benderKnuthInvol}
+\leanhelper
+\leanok
+The \emph{Bender--Knuth involution} $\mathrm{BK}_k$ on fillings of $Y(\lambda/\mu)$.
+For a semistandard filling~$f$, $\mathrm{BK}_k(f)$ swaps certain entries $k$ and $k{+}1$
+while preserving semistandardness.
+For non-semistandard fillings, it returns the input unchanged.
+\end{definition}
+
+\begin{lemma}
+\label{lem.sf.bk-mem}
+\lean{benderKnuthInvol_mem}
+\leanhelper
+\leanok
+The Bender--Knuth involution $\mathrm{BK}_k$ preserves SSYT membership:
+if $f$ is a semistandard filling, then so is $\mathrm{BK}_k(f)$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Transfers through the filling bijection: the image is semistandard
+by the Bender--Knuth semistandard preservation theorem,
+and the bijection preserves semistandardness.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.bk-invol}
+\lean{benderKnuthInvol_invol}
+\leanhelper
+\leanok
+The Bender--Knuth map is an involution: applying it twice returns the
+original filling.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Transfers through the filling bijection using
+the Bender--Knuth involutivity theorem.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.bk-content-swap}
+\lean{benderKnuthInvol_content_swap_spec}
+\leanhelper
+\leanok
+Let $f$ be a semistandard filling and $f' = \mathrm{BK}_k(f)$.
+Then the content of $f'$ at index $k$ equals the content of $f$ at $k{+}1$,
+the content of $f'$ at $k{+}1$ equals the content of $f$ at $k$,
+and the content at all other indices is unchanged.
+\end{lemma}
+
+\begin{proof}
+\leanok
+This is the key property of the Bender--Knuth involution.
+Proved via the Bender--Knuth content swap theorem,
+transferred through the filling bijection using
+Lemma~\ref{lem.sf.skew-filling-equiv-content}.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.bk-mono}
+\lean{benderKnuthInvol_mono}
+\leanhelper
+\leanok
+The monomial effect of the Bender--Knuth involution:
+$x_{\mathrm{BK}_k(f)} = (\text{swap } x_k\, x_{k+1}) \cdot x_f$.
+
+This says that $\mathrm{BK}_k$ effectively swaps the roles of variables $x_k$
+and $x_{k+1}$ in the monomial.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem.sf.bk-content-swap}, the content of $\mathrm{BK}_k(f)$ is
+obtained from that of $f$ by swapping entries $k$ and $k{+}1$.
+Since the monomial is $\prod_i x_i^{\mathrm{cont}(f)(i)}$,
+this transposition of the content corresponds to renaming $x_k \leftrightarrow x_{k+1}$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.skew-schur-swap-inv}
+\lean{skewSchurPoly_swap_invariant}
+\leanhelper
+\leanok
+The skew Schur polynomial is invariant under simple transpositions:
+\[
+  s_k \cdot s_{\lambda/\mu} = s_{\lambda/\mu}
+\]
+for each $k \in \{0, 1, \ldots, N{-}2\}$.
+\end{lemma}
+
+\begin{proof}
+Apply $s_k$ to the sum $s_{\lambda/\mu} = \sum_f x_f$.
+By Lemma~\ref{lem.sf.bk-mono}, $s_k \cdot x_f = x_{\mathrm{BK}_k(f)}$.
+Since $\mathrm{BK}_k$ is an involution on the SSYT fillings
+(Lemmas~\ref{lem.sf.bk-mem} and \ref{lem.sf.bk-invol}),
+reindexing the sum by $\mathrm{BK}_k$ shows
+$\sum_f x_{\mathrm{BK}_k(f)} = \sum_f x_f$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.simples-enough-sb}
+If a polynomial $P$ is invariant under every simple transposition $s_k$
+(swapping $x_k$ and $x_{k+1}$), then $P$ is invariant under every
+transposition (swapping any two variables $x_i$ and $x_j$).
+\end{lemma}
+
+\begin{proof}
+By strong induction on the distance $|j - i|$.
+If $|j - i| = 1$, the swap is already a simple transposition.
+Otherwise, decompose $\mathrm{swap}(i, j) = \mathrm{swap}(k, j) \cdot \mathrm{swap}(i, k) \cdot \mathrm{swap}(k, j)$
+where $k = j - 1$, and apply the inductive hypothesis to the smaller swap.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.rename-filling-monomial}
+\lean{rename_fillingMonomial_eq}
+\leanhelper
+\leanok
+Renaming variables in a filling monomial equals applying the permutation to each entry:
+\[
+  \mathrm{rename}(\sigma)(x_f) = x_{\sigma \circ f}.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+Follows from $\mathrm{rename}(\sigma)(X_i) = X_{\sigma(i)}$ applied to each factor of the product.
+\end{proof}
+
+\subsection{Equivalences between Schur polynomial definitions}
+
+The project maintains multiple representations of SSYT and Schur polynomials
+for different proof contexts. This subsection records the key equivalence results.
+
+\begin{theorem}
+\label{thm.sf.schurPoly-eq-AC-schurPoly}
+\lean{schurPoly_eq_AC_schurPoly}
+\leanhelper
+\leanok
+The two definitions of Schur polynomials in this project
+(one using $\mathbb{Z}$ coefficients and $N$-partitions,
+the other using generic coefficients and raw $N$-tuples)
+are equal.
+\end{theorem}
+
+\begin{proof}
+Both definitions sum over semistandard Young tableaux of shape~$\lambda$.
+The cell bijection $(i,j) \mapsto (i,j+1)$ between the two indexing conventions
+preserves the SSYT conditions and the monomials.
+\end{proof}
+
+\begin{definition}
+\label{def.sf.ssyt-equiv}
+\lean{SSYTEquiv.ssytEquiv}
+\leanhelper
+\leanok
+An equivalence between the two SSYT representations in this project:
+\begin{itemize}
+\item The first uses a total function $T : [N] \times \mathbb{N} \to [N]$
+  with a support condition (entries outside the diagram are $0$).
+\item The second uses a dependent function where the column index
+  is bounded by the partition part: $T(i, j)$ for $j < \lambda_i$.
+\end{itemize}
+The equivalence converts between the total function and the bounded
+representations.
+\end{definition}
+
+\begin{theorem}
+\label{thm.sf.schur-eq-schurPoly-int}
+\lean{SSYTEquiv.schur_eq_schurPoly_int}
+\leanhelper
+\leanok
+The two Schur polynomial definitions agree over $\mathbb{Z}$.
+More precisely, the Schur polynomial defined via fillings of the Young diagram
+equals the one defined via the bounded representation.
+\end{theorem}
+
+\begin{proof}
+Both are sums over SSYT with the same monomials.
+The equivalence on tableaux preserves the monomial
+at each tableau, so the sums are equal.
+\end{proof}
+
+\begin{theorem}
+\label{thm.sf.schurPoly-eq-schur}
+\lean{SSYTEquiv.schurPoly_eq_schur}
+\leanhelper
+\leanok
+Corollary of Theorem~\ref{thm.sf.schur-eq-schurPoly-int}:
+the filling-based Schur polynomial equals the bounded-representation
+Schur polynomial (with appropriate conversion of the partition).
+\end{theorem}
+
+\begin{proof}
+\leanok
+Direct application of Theorem~\ref{thm.sf.schur-eq-schurPoly-int} with the
+partition conversion being an involution.
+\end{proof}

@@ -1,0 +1,1137 @@
+\section{Details: Limits of FPSs}
+
+\subsection{Detailed proof of Lemma~\ref{lem.fps.lim.xn-equiv}}
+
+\begin{proof}[Detailed proof of Lemma~\ref{lem.fps.lim.xn-equiv}]
+\proves{lem.fps.lim.xn-equiv}
+\leanok
+We have $\lim_{i\to\infty} f_i = f$.
+In other words, the sequence $(f_i)_{i\in\mathbb{N}}$ coefficientwise
+stabilizes to $f$.
+In other words, for each $n\in\mathbb{N}$,
+\begin{equation}
+\text{the sequence } \bigl([x^n] f_i\bigr)_{i\in\mathbb{N}}
+\text{ stabilizes to } [x^n] f
+\label{pf.lem.fps.lim.xn-equiv.stab}
+\end{equation}
+(by the definition of ``coefficientwise stabilizing'').
+
+Now, let $n\in\mathbb{N}$. Furthermore, let $k\in\{0,1,\ldots,n\}$.
+Then, the sequence $\bigl([x^k] f_i\bigr)_{i\in\mathbb{N}}$ stabilizes
+to $[x^k] f$ (by~\eqref{pf.lem.fps.lim.xn-equiv.stab}, applied to $k$
+instead of $n$). In other words, there exists some $N\in\mathbb{N}$
+such that
+\[
+\text{all integers } i\geq N \text{ satisfy } [x^k] f_i = [x^k] f
+\]
+(by the definition of ``stabilizing''). Let us denote this $N$ by $N_k$.
+Thus,
+\begin{equation}
+\text{all integers } i\geq N_k \text{ satisfy } [x^k] f_i = [x^k] f.
+\label{pf.lem.fps.lim.xn-equiv.Nk}
+\end{equation}
+
+Forget that we fixed $k$. Thus, for each $k\in\{0,1,\ldots,n\}$, we
+have defined an integer $N_k\in\mathbb{N}$ for
+which~\eqref{pf.lem.fps.lim.xn-equiv.Nk} holds. Altogether, we have
+thus defined $n+1$ integers $N_0, N_1, \ldots, N_n \in \mathbb{N}$.
+
+Let us set $P := \max\{N_0, N_1, \ldots, N_n\}$. Then, of course,
+$P\in\mathbb{N}$.
+
+Now, let $i\geq P$ be an integer. Then, for each $k\in\{0,1,\ldots,n\}$,
+we have $i\geq P = \max\{N_0, N_1, \ldots, N_n\} \geq N_k$ (since
+$k\in\{0,1,\ldots,n\}$) and therefore $[x^k] f_i = [x^k] f$
+(by~\eqref{pf.lem.fps.lim.xn-equiv.Nk}). In other words, each
+$k\in\{0,1,\ldots,n\}$ satisfies $[x^k] f_i = [x^k] f$. Renaming the
+variable $k$ as $m$ in this result, we obtain the following:
+\[
+\text{Each } m\in\{0,1,\ldots,n\} \text{ satisfies } [x^m] f_i = [x^m] f.
+\]
+In other words, $f_i \overset{x^n}{\equiv} f$ (by the definition of
+$x^n$-equivalence).
+
+Forget that we fixed $i$. We thus have shown that all integers $i\geq P$
+satisfy $f_i \overset{x^n}{\equiv} f$. Hence, there exists some integer
+$N\in\mathbb{N}$ such that
+\[
+\text{all integers } i\geq N \text{ satisfy }
+f_i \overset{x^n}{\equiv} f
+\]
+(namely, $N = P$). This proves Lemma~\ref{lem.fps.lim.xn-equiv}.
+\end{proof}
+
+\subsection{Detailed proof of Proposition~\ref{prop.fps.lim.sum-prod}}
+
+\begin{lemma}
+\label{prop.fps.lim.sum-prod.K}
+\lean{PowerSeries.exists_xnEquiv_K}
+\leantarget
+\leanok
+Let $(f_i)_{i\in\mathbb{N}}$ be a sequence of FPSs that coefficientwise
+stabilizes to an FPS $f$, and let $n\in\mathbb{N}$. Then there exists
+an integer $K\in\mathbb{N}$ such that
+\[
+\text{all integers } i\geq K \text{ satisfy }
+f_i \overset{x^n}{\equiv} f.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+This follows directly from Lemma~\ref{lem.fps.lim.xn-equiv}
+applied to the sequence $(f_i)$ and limit $f$.
+\end{proof}
+
+\begin{lemma}
+\label{prop.fps.lim.sum-prod.L}
+\lean{PowerSeries.exists_xnEquiv_L}
+\leantarget
+\leanok
+Let $(g_i)_{i\in\mathbb{N}}$ be a sequence of FPSs that coefficientwise
+stabilizes to an FPS $g$, and let $n\in\mathbb{N}$. Then there exists
+an integer $L\in\mathbb{N}$ such that
+\[
+\text{all integers } i\geq L \text{ satisfy }
+g_i \overset{x^n}{\equiv} g.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+This is the exact same statement as
+Lemma~\ref{prop.fps.lim.sum-prod.K}, but applied to the sequence
+$(g_i)$ and limit $g$. It follows directly from
+Lemma~\ref{lem.fps.lim.xn-equiv}.
+\end{proof}
+
+\begin{lemma}
+\label{prop.fps.lim.sum-prod.both}
+\lean{PowerSeries.exists_xnEquiv_both}
+\leanhelper
+\leanok
+Let $(f_i)_{i\in\mathbb{N}}$ and $(g_i)_{i\in\mathbb{N}}$ be sequences
+of FPSs that coefficientwise stabilize to $f$ and $g$ respectively, and
+let $n\in\mathbb{N}$. Then there exists an integer $P\in\mathbb{N}$
+such that for all $i\geq P$,
+\[
+f_i \overset{x^n}{\equiv} f
+\qquad\text{and}\qquad
+g_i \overset{x^n}{\equiv} g.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+By Lemma~\ref{prop.fps.lim.sum-prod.K}, there exists $K$ such that
+$f_i \overset{x^n}{\equiv} f$ for all $i\geq K$.
+By Lemma~\ref{prop.fps.lim.sum-prod.L}, there exists $L$ such that
+$g_i \overset{x^n}{\equiv} g$ for all $i\geq L$.
+Set $P := \max\{K, L\}$. Then for all $i\geq P$, both
+$i\geq K$ and $i\geq L$ hold, so both equivalences hold.
+\end{proof}
+
+\begin{proof}[Detailed proof of Proposition~\ref{prop.fps.lim.sum-prod}]
+\proves{prop.fps.lim.sum-prod}
+\leanok
+Recall that $\lim_{i\to\infty} f_i = f$.
+Hence, Lemma~\ref{lem.fps.lim.xn-equiv} shows that there exists some
+integer $N\in\mathbb{N}$ such that
+\[
+\text{all integers } i\geq N \text{ satisfy }
+f_i \overset{x^n}{\equiv} f.
+\]
+Let us denote this $N$ by $K$. Hence, all integers $i\geq K$ satisfy
+$f_i \overset{x^n}{\equiv} f$.
+
+Thus, we have found an integer $K\in\mathbb{N}$ such that
+\[
+\text{all integers } i\geq K \text{ satisfy }
+f_i \overset{x^n}{\equiv} f.
+\]
+Similarly, using $\lim_{i\to\infty} g_i = g$, we can find an integer
+$L\in\mathbb{N}$ such that
+\[
+\text{all integers } i\geq L \text{ satisfy }
+g_i \overset{x^n}{\equiv} g.
+\]
+Consider these $K$ and $L$. Let us furthermore set
+$P := \max\{K, L\}$. Thus, $P\in\mathbb{N}$.
+
+We shall now show that each integer $i\geq P$ satisfies
+$[x^n](f_i g_i) = [x^n](fg)$.
+
+Indeed, let $i\geq P$ be an integer. Then, $f_i \overset{x^n}{\equiv} f$
+(since $i\geq P = \max\{K, L\} \geq K$), whereas
+$g_i \overset{x^n}{\equiv} g$
+(since $i\geq P = \max\{K, L\} \geq L$). Hence, we obtain
+\[
+f_i g_i \overset{x^n}{\equiv} fg
+\]
+(by the multiplicativity of $x^n$-equivalence, i.e., Theorem~\ref{thm.fps.xneq.props}~\textbf{(b)}). In other words,
+\[
+\text{each } m\in\{0,1,\ldots,n\} \text{ satisfies }
+[x^m](f_i g_i) = [x^m](fg)
+\]
+(by the definition of $x^n$-equivalence). Applying this to $m = n$,
+we find
+\[
+[x^n](f_i g_i) = [x^n](fg).
+\]
+
+Forget that we fixed $i$. We thus have shown that all integers $i\geq P$
+satisfy $[x^n](f_i g_i) = [x^n](fg)$. Hence, there exists some
+$N\in\mathbb{N}$ such that
+\[
+\text{all integers } i\geq N \text{ satisfy }
+[x^n](f_i g_i) = [x^n](fg)
+\]
+(namely, $N = P$). In other words,
+\[
+\text{the sequence } \bigl([x^n](f_i g_i)\bigr)_{i\in\mathbb{N}}
+\text{ stabilizes to } [x^n](fg)
+\]
+(by the definition of ``stabilizes'').
+
+Forget that we fixed $n$. We thus have shown that for each
+$n\in\mathbb{N}$, the sequence $\bigl([x^n](f_i g_i)\bigr)_{i\in\mathbb{N}}$
+stabilizes to $[x^n](fg)$. In other words, the sequence
+$(f_i g_i)_{i\in\mathbb{N}}$ coefficientwise stabilizes to $fg$
+(by the definition of ``coefficientwise stabilizing''). In other words,
+$\lim_{i\to\infty}(f_i g_i) = fg$.
+
+The same argument---but using the additivity of $x^n$-equivalence instead
+of the multiplicativity---shows that
+$\lim_{i\to\infty}(f_i + g_i) = f + g$. Thus, the proof of
+Proposition~\ref{prop.fps.lim.sum-prod} is complete.
+\end{proof}
+
+\begin{lemma}
+\label{prop.fps.lim.sum-prod.add-detail}
+\lean{PowerSeries.coeffStabilizesTo_add'}
+\leanhelper
+\leanok
+If $(f_i)$ coefficientwise stabilizes to $f$ and $(g_i)$ coefficientwise
+stabilizes to $g$, then $(f_i + g_i)$ coefficientwise stabilizes to
+$f + g$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+For each $n\in\mathbb{N}$:
+\begin{enumerate}
+\item By Lemma~\ref{lem.fps.lim.xn-equiv}, obtain $K_f$ such that
+  $f_i \overset{x^n}{\equiv} f$ for $i\geq K_f$, and $K_g$ such that
+  $g_i \overset{x^n}{\equiv} g$ for $i\geq K_g$.
+\item Set $P := \max\{K_f, K_g\}$.
+\item For $i\geq P$, by the additivity of $x^n$-equivalence,
+  $f_i + g_i \overset{x^n}{\equiv} f + g$.
+\item Extracting the $n$-th coefficient:
+  $[x^n](f_i + g_i) = [x^n](f + g)$.
+\end{enumerate}
+\end{proof}
+
+\begin{lemma}
+\label{prop.fps.lim.sum-prod.mul-detail}
+\lean{PowerSeries.coeffStabilizesTo_mul'}
+\leanhelper
+\leanok
+If $(f_i)$ coefficientwise stabilizes to $f$ and $(g_i)$ coefficientwise
+stabilizes to $g$, then $(f_i \cdot g_i)$ coefficientwise stabilizes to
+$f \cdot g$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+For each $n\in\mathbb{N}$:
+\begin{enumerate}
+\item By Lemma~\ref{lem.fps.lim.xn-equiv}, obtain $K_f$ such that
+  $f_i \overset{x^n}{\equiv} f$ for $i\geq K_f$, and $K_g$ such that
+  $g_i \overset{x^n}{\equiv} g$ for $i\geq K_g$.
+\item Set $P := \max\{K_f, K_g\}$.
+\item For $i\geq P$, by the multiplicativity of $x^n$-equivalence,
+  $f_i \cdot g_i \overset{x^n}{\equiv} f \cdot g$.
+\item Extracting the $n$-th coefficient:
+  $[x^n](f_i \cdot g_i) = [x^n](f \cdot g)$.
+\end{enumerate}
+\end{proof}
+
+\subsection{Helpers for Proposition~\ref{prop.fps.lim.sum-quot}}
+
+\begin{lemma}
+\label{lem.fps.lim.xnEquiv-invOfUnit-prime}
+\lean{PowerSeries.xnEquiv_invOfUnit'}
+\leanhelper
+\leanok
+Let $f, g \in K[[x]]$ with $f \overset{x^n}{\equiv} g$, and let
+$u, v$ be units in $K$ with $u = v$ as elements. Then
+the formal inverse of $f$ with respect to $u$ is $x^n$-equivalent to
+the formal inverse of $g$ with respect to $v$.
+\end{lemma}
+
+\begin{lemma}
+\label{lem.fps.lim.xnEquiv-div}
+\lean{PowerSeries.xnEquiv_div}
+\leanhelper
+\leanok
+Let $a \overset{x^n}{\equiv} b$ and $c \overset{x^n}{\equiv} d$,
+where $c$ and $d$ are invertible with constant terms $u$ and $v$
+respectively. Then
+$a \cdot c^{-1} \overset{x^n}{\equiv}
+b \cdot d^{-1}$.
+\end{lemma}
+
+\begin{lemma}
+\label{lem.fps.lim.unit-eq-of-coeffStabilizesTo}
+\lean{PowerSeries.unit_eq_of_coeffStabilizesTo}
+\leanhelper
+\leanok
+If $(g_i)$ coefficientwise stabilizes to $g$ and each $g_i$ has
+invertible constant term, then eventually the unit associated to the
+constant term of $g_i$ equals the unit associated to the constant term
+of $g$.
+\end{lemma}
+
+\begin{lemma}
+\label{lem.fps.lim.coeffStabilizesTo-invOfUnit}
+\lean{PowerSeries.coeffStabilizesTo_invOfUnit}
+\leanhelper
+\leanok
+If $(g_i)$ coefficientwise stabilizes to $g$ and each $g_i$ has
+invertible constant term, then the sequence of formal inverses
+$(g_i^{-1})_{i \in \mathbb{N}}$
+coefficientwise stabilizes to $g^{-1}$. The proof
+proceeds by strong induction on the coefficient index, using the
+recursive formula for coefficients of the formal inverse.
+\end{lemma}
+
+\subsection{Detailed proof of Proposition~\ref{prop.fps.lim.sum-quot}}
+
+\begin{proof}[Detailed proof of Proposition~\ref{prop.fps.lim.sum-quot}]
+\proves{prop.fps.lim.sum-quot}
+\leanok
+First, let us show that $g$ is invertible:
+
+\textbf{Claim 1:} \textit{The FPS $g\in K[[x]]$ is invertible.}
+
+\begin{proof}[Proof of Claim 1]
+\leanok
+We have assumed that $\lim_{i\to\infty} g_i = g$. In other words, the
+sequence $(g_i)_{i\in\mathbb{N}}$ coefficientwise stabilizes to $g$.
+In other words, for each $n\in\mathbb{N}$, the sequence
+$\bigl([x^n] g_i\bigr)_{i\in\mathbb{N}}$ stabilizes to $[x^n] g$
+(by the definition of ``coefficientwise stabilizing''). Applying this to
+$n = 0$, we see that the sequence $\bigl([x^0] g_i\bigr)_{i\in\mathbb{N}}$
+stabilizes to $[x^0] g$. In other words, there exists some
+$N\in\mathbb{N}$ such that
+\[
+\text{all integers } i\geq N \text{ satisfy }
+[x^0] g_i = [x^0] g
+\]
+(by the definition of ``stabilizes''). Consider this $N$. Thus, all
+integers $i\geq N$ satisfy $[x^0] g_i = [x^0] g$. Applying this to
+$i = N$, we obtain $[x^0] g_N = [x^0] g$.
+
+However, each FPS $g_i$ is invertible (by assumption). Hence, in
+particular, the FPS $g_N$ is invertible. By
+Proposition~\ref{prop.fps.invertible} (applied to $a = g_N$), this
+entails that its constant term $[x^0] g_N$ is invertible in $K$. In
+other words, $[x^0] g$ is invertible in $K$ (since
+$[x^0] g_N = [x^0] g$).
+
+But the FPS $g$ is invertible if and only if its constant term $[x^0] g$
+is invertible in $K$ (by Proposition~\ref{prop.fps.invertible}, applied
+to $a = g$). Hence, $g$ is invertible (since its constant term $[x^0] g$
+is invertible in $K$). This proves Claim 1.
+\end{proof}
+
+It remains to prove that
+$\lim_{i\to\infty} \frac{f_i}{g_i} = \frac{f}{g}$.
+
+Recall that $\lim_{i\to\infty} f_i = f$. Hence,
+Lemma~\ref{lem.fps.lim.xn-equiv} shows that there exists some integer
+$N\in\mathbb{N}$ such that
+\[
+\text{all integers } i\geq N \text{ satisfy }
+f_i \overset{x^n}{\equiv} f.
+\]
+Let us denote this $N$ by $K$. Hence, all integers $i\geq K$ satisfy
+$f_i \overset{x^n}{\equiv} f$.
+
+Thus, we have found an integer $K\in\mathbb{N}$ such that
+\[
+\text{all integers } i\geq K \text{ satisfy }
+f_i \overset{x^n}{\equiv} f.
+\]
+Similarly, using $\lim_{i\to\infty} g_i = g$, we can find an integer
+$L\in\mathbb{N}$ such that
+\[
+\text{all integers } i\geq L \text{ satisfy }
+g_i \overset{x^n}{\equiv} g.
+\]
+Consider these $K$ and $L$. Let us furthermore set
+$P := \max\{K, L\}$. Thus, $P\in\mathbb{N}$.
+
+We shall now show that each integer $i\geq P$ satisfies
+$[x^n] \frac{f_i}{g_i} = [x^n] \frac{f}{g}$.
+
+Indeed, let $i\geq P$ be an integer. Then,
+$f_i \overset{x^n}{\equiv} f$
+(since $i\geq P = \max\{K, L\} \geq K$), whereas
+$g_i \overset{x^n}{\equiv} g$
+(since $i\geq P = \max\{K, L\} \geq L$). Since both FPSs $g_i$ and
+$g$ are invertible (by Claim 1), we thus obtain
+\[
+\frac{f_i}{g_i} \overset{x^n}{\equiv} \frac{f}{g}
+\]
+(by Theorem~\ref{thm.fps.xneq.props}~\textbf{(e)}, applied to
+$a = f_i$, $b = f$, $c = g_i$ and $d = g$). In other words,
+\[
+\text{each } m\in\{0,1,\ldots,n\} \text{ satisfies }
+[x^m] \frac{f_i}{g_i} = [x^m] \frac{f}{g}
+\]
+(by the definition of $x^n$-equivalence). Applying this to $m = n$,
+we find
+\[
+[x^n] \frac{f_i}{g_i} = [x^n] \frac{f}{g}.
+\]
+
+Forget that we fixed $i$. We thus have shown that all integers $i\geq P$
+satisfy $[x^n] \frac{f_i}{g_i} = [x^n] \frac{f}{g}$. Hence, there
+exists some $N\in\mathbb{N}$ such that
+\[
+\text{all integers } i\geq N \text{ satisfy }
+[x^n] \frac{f_i}{g_i} = [x^n] \frac{f}{g}
+\]
+(namely, $N = P$). In other words,
+\[
+\text{the sequence } \left([x^n] \frac{f_i}{g_i}\right)_{i\in\mathbb{N}}
+\text{ stabilizes to } [x^n] \frac{f}{g}
+\]
+(by the definition of ``stabilizes'').
+
+Forget that we fixed $n$. We thus have shown that for each
+$n\in\mathbb{N}$, the sequence
+$\left([x^n] \frac{f_i}{g_i}\right)_{i\in\mathbb{N}}$ stabilizes to
+$[x^n] \frac{f}{g}$. In other words, the sequence
+$\left(\frac{f_i}{g_i}\right)_{i\in\mathbb{N}}$ coefficientwise
+stabilizes to $\frac{f}{g}$ (by the definition of ``coefficientwise
+stabilizing''). In other words,
+$\lim_{i\to\infty} \frac{f_i}{g_i} = \frac{f}{g}$.
+This proves Proposition~\ref{prop.fps.lim.sum-quot} (since we already
+have shown that $g$ is invertible).
+\end{proof}
+
+\subsection{Detailed proof of Theorem~\ref{thm.fps.lim.sum-lim}}
+
+\begin{proof}[Proof of Theorem~\ref{thm.fps.lim.sum-lim}]
+\proves{thm.fps.lim.sum-lim}
+\leanok
+The family $(f_n)_{n\in\mathbb{N}}$ is summable. In other words,
+the family $(f_k)_{k\in\mathbb{N}}$ is summable (since this is the same
+family as $(f_n)_{n\in\mathbb{N}}$). In other words, for each
+$n\in\mathbb{N}$,
+\begin{equation}
+\text{all but finitely many } k\in\mathbb{N} \text{ satisfy }
+[x^n] f_k = 0
+\label{pf.thm.fps.lim.sum-lim.1}
+\end{equation}
+(by the definition of ``summable'').
+
+Let us define
+\begin{equation}
+g_i := \sum_{k=0}^{i} f_k
+\qquad\text{for each } i\in\mathbb{N}.
+\label{pf.thm.fps.lim.sum-lim.gi}
+\end{equation}
+Let us furthermore set
+\begin{equation}
+g := \sum_{k\in\mathbb{N}} f_k.
+\label{pf.thm.fps.lim.sum-lim.g}
+\end{equation}
+
+Now, fix $n\in\mathbb{N}$. Then, all but finitely many
+$k\in\mathbb{N}$ satisfy $[x^n] f_k = 0$
+(by~\eqref{pf.thm.fps.lim.sum-lim.1}). In other words, there exists a
+finite subset $J$ of $\mathbb{N}$ such that
+\begin{equation}
+\text{all } k\in\mathbb{N}\setminus J \text{ satisfy } [x^n] f_k = 0.
+\label{pf.thm.fps.lim.sum-lim.2}
+\end{equation}
+Consider this subset $J$. The set $J$ is a finite set of nonnegative
+integers, and thus has an upper bound. In other words, there exists some
+$m\in\mathbb{N}$ such that
+\begin{equation}
+\text{all } k\in J \text{ satisfy } k\leq m.
+\label{pf.thm.fps.lim.sum-lim.3}
+\end{equation}
+Consider this $m$.
+
+Let $k\in\mathbb{N}$ be such that $k\geq m+1$. If we had $k\in J$,
+then we would have $k\leq m$
+(by~\eqref{pf.thm.fps.lim.sum-lim.3}), which would contradict
+$k\geq m+1 > m$. Thus, we cannot have $k\in J$. Hence,
+$k\in\mathbb{N}\setminus J$ (since $k\in\mathbb{N}$ but not
+$k\in J$). Therefore,~\eqref{pf.thm.fps.lim.sum-lim.2} yields
+$[x^n] f_k = 0$.
+
+Forget that we fixed $k$. We thus have shown that
+\begin{equation}
+[x^n] f_k = 0 \qquad\text{for each } k\in\mathbb{N} \text{ satisfying }
+k\geq m+1.
+\label{pf.thm.fps.lim.sum-lim.4}
+\end{equation}
+
+Now, let $i$ be an integer such that $i\geq m$. Then,
+$i\in\mathbb{N}$ (since $i\geq m\geq 0$) and $i+1\geq m+1$ (since
+$i\geq m$). From $g = \sum_{k\in\mathbb{N}} f_k$, we obtain
+\begin{align}
+[x^n] g &= [x^n]\left(\sum_{k\in\mathbb{N}} f_k\right)
+= \sum_{k\in\mathbb{N}} [x^n] f_k \nonumber\\
+&= \sum_{k=0}^{i} [x^n] f_k + \sum_{k=i+1}^{\infty}
+\underbrace{[x^n] f_k}_{\substack{= 0 \\ \text{(by~\eqref{pf.thm.fps.lim.sum-lim.4}} \\ \text{since } k\geq i+1\geq m+1\text{)}}}
+= \sum_{k=0}^{i} [x^n] f_k + \underbrace{\sum_{k=i+1}^{\infty} 0}_{=0} \nonumber\\
+&= \sum_{k=0}^{i} [x^n] f_k.
+\label{pf.thm.fps.lim.sum-lim.5}
+\end{align}
+On the other hand, from $g_i = \sum_{k=0}^{i} f_k$, we obtain
+\[
+[x^n] g_i = [x^n]\left(\sum_{k=0}^{i} f_k\right)
+= \sum_{k=0}^{i} [x^n] f_k.
+\]
+Comparing this with~\eqref{pf.thm.fps.lim.sum-lim.5}, we obtain
+$[x^n] g_i = [x^n] g$.
+
+Forget that we fixed $i$. We thus have shown that
+\[
+\text{all integers } i\geq m \text{ satisfy } [x^n] g_i = [x^n] g.
+\]
+Hence, there exists some $N\in\mathbb{N}$ such that
+\[
+\text{all integers } i\geq N \text{ satisfy } [x^n] g_i = [x^n] g
+\]
+(namely, $N = m$). In other words, the sequence
+$\bigl([x^n] g_i\bigr)_{i\in\mathbb{N}}$ stabilizes to $[x^n] g$
+(by the definition of ``stabilizes'').
+
+Forget that we fixed $n$. We thus have shown that for each
+$n\in\mathbb{N}$,
+\[
+\text{the sequence } \bigl([x^n] g_i\bigr)_{i\in\mathbb{N}}
+\text{ stabilizes to } [x^n] g.
+\]
+In other words, the sequence $(g_i)_{i\in\mathbb{N}}$ coefficientwise
+stabilizes to $g$. In other words, $\lim_{i\to\infty} g_i = g$.
+In view of~\eqref{pf.thm.fps.lim.sum-lim.gi}
+and~\eqref{pf.thm.fps.lim.sum-lim.g}, we can rewrite this as
+\[
+\lim_{i\to\infty} \sum_{k=0}^{i} f_k = \sum_{k\in\mathbb{N}} f_k.
+\]
+Renaming the summation index $k$ as $n$ everywhere in this equality,
+we can rewrite it as
+\[
+\lim_{i\to\infty} \sum_{n=0}^{i} f_n = \sum_{n\in\mathbb{N}} f_n.
+\]
+This proves Theorem~\ref{thm.fps.lim.sum-lim}.
+\end{proof}
+
+\subsection{Helpers for Theorem~\ref{thm.fps.lim.prod-lim}}
+
+\begin{lemma}
+\label{lem.fps.lim.coeff-mul-one-plus-higher}
+\lean{PowerSeries.coeff_mul_one_plus_higher}
+\leanhelper
+\leanok
+Let $f \in K[[x]]$ satisfy $[x^k] f = \delta_{k,0}$ for all
+$k \le n$ (i.e., $f \equiv 1 \pmod{x^{n+1}}$). Then for any
+$g \in K[[x]]$ and any $k \le n$,
+\[
+[x^k](g \cdot f) = [x^k] g.
+\]
+The proof expands the product coefficient as a sum over the antidiagonal
+and observes that only the term with second component $0$ survives,
+since $[x^j] f = 0$ for $0 < j \le n$.
+\end{lemma}
+
+\begin{lemma}
+\label{lem.fps.lim.coeff-prod-extend}
+\lean{PowerSeries.coeff_prod_extend}
+\leanhelper
+\leanok
+If $f_m \equiv 1 \pmod{x^{n+1}}$, then for any $k \le n$,
+\[
+[x^k] \prod_{j=0}^{m} f_j = [x^k] \prod_{j=0}^{m-1} f_j.
+\]
+That is, extending a partial product by one more term that is
+$1 + O(x^{n+1})$ does not change the first $n+1$ coefficients.
+\end{lemma}
+
+\begin{lemma}
+\label{lem.fps.lim.coeff-prod-range-eq-of-ge}
+\lean{PowerSeries.coeff_prod_range_eq_of_ge}
+\leanhelper
+\leanok
+For a multipliable family $(f_j)$, if $f_j \equiv 1 \pmod{x^{n+1}}$
+for all $j \ge N$, then for all $i \ge N$ and $k \le n$,
+\[
+[x^k] \prod_{j=0}^{i} f_j = [x^k] \prod_{j=0}^{N} f_j.
+\]
+The proof proceeds by induction on $i$, repeatedly applying
+Lemma~\ref{lem.fps.lim.coeff-prod-extend}.
+\end{lemma}
+
+\begin{lemma}
+\label{lem.fps.lim.coeff-partial-prod-stabilizes}
+\lean{PowerSeries.coeff_partial_prod_stabilizes}
+\leanhelper
+\leanok
+For a multipliable family $(f_j)$, for each $n \in \mathbb{N}$,
+there exists $N$ such that for all $i \ge N$,
+\[
+[x^n] \prod_{j=0}^{i} f_j = [x^n] \prod_{j\in\mathbb{N}} f_j.
+\]
+This is the key stabilization lemma that directly implies
+Theorem~\ref{thm.fps.lim.prod-lim}.
+\end{lemma}
+
+\subsection{Detailed proof of Theorem~\ref{thm.fps.lim.prod-lim}}
+
+\begin{proof}[Proof of Theorem~\ref{thm.fps.lim.prod-lim}]
+\proves{thm.fps.lim.prod-lim}
+\leanok
+The family $(f_n)_{n\in\mathbb{N}}$ is multipliable. In other words,
+each coefficient in the product of this family is finitely determined
+(by the definition of ``multipliable'').
+
+Let us define
+\begin{equation}
+g_i := \prod_{k=0}^{i} f_k
+\qquad\text{for each } i\in\mathbb{N}.
+\label{pf.thm.fps.lim.prod-lim.gi}
+\end{equation}
+Let us furthermore set
+\begin{equation}
+g := \prod_{k\in\mathbb{N}} f_k.
+\label{pf.thm.fps.lim.prod-lim.g}
+\end{equation}
+
+Now, fix $n\in\mathbb{N}$. Then, the $x^n$-coefficient in the product
+of the family $(f_k)_{k\in\mathbb{N}}$ is finitely determined. In other
+words, there is a finite subset $M$ of $\mathbb{N}$ that determines the
+$x^n$-coefficient in the product of $(f_k)_{k\in\mathbb{N}}$. Consider
+this subset $M$.
+
+The set $M$ is a finite set of nonnegative integers, and thus has an
+upper bound. In other words, there exists some $m\in\mathbb{N}$ such
+that
+\begin{equation}
+\text{all } k\in M \text{ satisfy } k\leq m.
+\label{pf.thm.fps.lim.prod-lim.3}
+\end{equation}
+Consider this $m$.
+
+Now, let $i$ be an integer such that $i\geq m$. Then,
+$i\in\mathbb{N}$ (since $i\geq m\geq 0$) and $m\leq i$.
+From~\eqref{pf.thm.fps.lim.prod-lim.3}, we see that all $k\in M$
+satisfy $k\leq m\leq i$ and therefore $k\in\{0,1,\ldots,i\}$. In other
+words, $M\subseteq\{0,1,\ldots,i\}$.
+
+However, the set $M$ determines the $x^n$-coefficient in the product of
+$(f_k)_{k\in\mathbb{N}}$. In other words, every finite subset $J$ of
+$\mathbb{N}$ satisfying $M\subseteq J\subseteq\mathbb{N}$ satisfies
+\[
+[x^n]\left(\prod_{k\in J} f_k\right) = [x^n]\left(\prod_{k\in M} f_k\right)
+\]
+(by the definition of ``determines the $x^n$-coefficient in the product
+of $(f_k)_{k\in\mathbb{N}}$''). Applying this to
+$J = \{0,1,\ldots,i\}$, we obtain
+\begin{equation}
+[x^n]\left(\prod_{k\in\{0,1,\ldots,i\}} f_k\right)
+= [x^n]\left(\prod_{k\in M} f_k\right)
+\label{pf.thm.fps.lim.prod-lim.4}
+\end{equation}
+(since $\{0,1,\ldots,i\}$ is a finite subset of $\mathbb{N}$ satisfying
+$M\subseteq\{0,1,\ldots,i\}\subseteq\mathbb{N}$).
+
+Moreover, the definition of the product of the multipliable family
+$(f_k)_{k\in\mathbb{N}}$ shows that
+\[
+[x^n]\left(\prod_{k\in\mathbb{N}} f_k\right)
+= [x^n]\left(\prod_{k\in M} f_k\right)
+\]
+(since $M$ is a finite subset of $\mathbb{N}$ that determines the
+$x^n$-coefficient in the product of $(f_k)_{k\in\mathbb{N}}$).
+Comparing this with~\eqref{pf.thm.fps.lim.prod-lim.4}, we find
+\[
+[x^n]\left(\prod_{k\in\{0,1,\ldots,i\}} f_k\right)
+= [x^n]\left(\prod_{k\in\mathbb{N}} f_k\right).
+\]
+In view of $\prod_{k\in\{0,1,\ldots,i\}} f_k = \prod_{k=0}^{i} f_k = g_i$
+(by~\eqref{pf.thm.fps.lim.prod-lim.gi}) and
+$\prod_{k\in\mathbb{N}} f_k = g$
+(by~\eqref{pf.thm.fps.lim.prod-lim.g}), we can rewrite this as
+\[
+[x^n] g_i = [x^n] g.
+\]
+
+Forget that we fixed $i$. We thus have shown that
+\[
+\text{all integers } i\geq m \text{ satisfy } [x^n] g_i = [x^n] g.
+\]
+Hence, the sequence $\bigl([x^n] g_i\bigr)_{i\in\mathbb{N}}$ stabilizes
+to $[x^n] g$.
+
+Forget that we fixed $n$. We thus have shown that for each
+$n\in\mathbb{N}$, the sequence $\bigl([x^n] g_i\bigr)_{i\in\mathbb{N}}$
+stabilizes to $[x^n] g$. In other words, the sequence
+$(g_i)_{i\in\mathbb{N}}$ coefficientwise stabilizes to $g$. In other
+words, $\lim_{i\to\infty} g_i = g$. In view
+of~\eqref{pf.thm.fps.lim.prod-lim.gi}
+and~\eqref{pf.thm.fps.lim.prod-lim.g}, we can rewrite this as
+\[
+\lim_{i\to\infty} \prod_{k=0}^{i} f_k = \prod_{k\in\mathbb{N}} f_k.
+\]
+Renaming the product index $k$ as $n$ everywhere in this equality, we
+can rewrite it as
+\[
+\lim_{i\to\infty} \prod_{n=0}^{i} f_n = \prod_{n\in\mathbb{N}} f_n.
+\]
+This proves Theorem~\ref{thm.fps.lim.prod-lim}.
+\end{proof}
+
+\subsection{Detailed proofs of Corollary~\ref{cor.fps.lim.fps-as-pol}}
+
+\begin{proof}[Proof of Corollary~\ref{cor.fps.lim.fps-as-pol}]
+\proves{cor.fps.lim.fps-as-pol}
+\leanok
+Let a FPS $a\in K[[x]]$ be written in the form
+$a = \sum_{n\in\mathbb{N}} a_n x^n$ with $a_n\in K$.
+Then, the family $(a_n x^n)_{n\in\mathbb{N}}$ is summable.
+Hence, Theorem~\ref{thm.fps.lim.sum-lim} (applied to $f_n = a_n x^n$)
+yields
+\[
+\lim_{i\to\infty} \sum_{n=0}^{i} a_n x^n
+= \sum_{n\in\mathbb{N}} a_n x^n = a.
+\]
+In other words, $a = \lim_{i\to\infty} \sum_{n=0}^{i} a_n x^n$.
+This proves Corollary~\ref{cor.fps.lim.fps-as-pol}.
+\end{proof}
+
+\subsection{Detailed proof of Theorem~\ref{thm.fps.lim.sum-lim-conv}}
+
+\begin{proof}[Proof of Theorem~\ref{thm.fps.lim.sum-lim-conv}]
+\proves{thm.fps.lim.sum-lim-conv}
+\leanok
+Let us define
+\begin{equation}
+g_i := \sum_{k=0}^{i} f_k
+\qquad\text{for each } i\in\mathbb{N}.
+\label{pf.thm.fps.lim.sum-lim-conv.gi}
+\end{equation}
+We have assumed that the limit $\lim_{i\to\infty} \sum_{n=0}^{i} f_n$
+exists. Let us denote this limit by $g$. Thus,
+\begin{equation}
+g = \lim_{i\to\infty} \sum_{n=0}^{i} f_n
+= \lim_{i\to\infty} g_i.
+\label{pf.thm.fps.lim.sum-lim-conv.g=lim}
+\end{equation}
+In other words, the sequence $(g_i)_{i\in\mathbb{N}}$ coefficientwise
+stabilizes to $g$. In other words, for each $n\in\mathbb{N}$,
+\begin{equation}
+\text{the sequence } \bigl([x^n] g_i\bigr)_{i\in\mathbb{N}}
+\text{ stabilizes to } [x^n] g.
+\label{pf.thm.fps.lim.sum-lim-conv.gstab}
+\end{equation}
+
+Let $n\in\mathbb{N}$. Then, the sequence
+$\bigl([x^n] g_i\bigr)_{i\in\mathbb{N}}$ stabilizes to $[x^n] g$
+(by~\eqref{pf.thm.fps.lim.sum-lim-conv.gstab}). In other words, there
+exists some $N\in\mathbb{N}$ such that
+\begin{equation}
+\text{all integers } i\geq N \text{ satisfy }
+[x^n] g_i = [x^n] g.
+\label{pf.thm.fps.lim.sum-lim-conv.1}
+\end{equation}
+Consider this $N$. Let $M$ be the set $\{0,1,\ldots,N\}$; this is a
+finite subset of $\mathbb{N}$.
+
+Let $i\in\mathbb{N}\setminus M$. Thus,
+\[
+i\in\mathbb{N}\setminus M = \mathbb{N}\setminus\{0,1,\ldots,N\}
+= \{N+1, N+2, N+3, \ldots\}.
+\]
+In other words, $i$ is a nonnegative integer with $i\geq N+1$. Hence,
+$i-1\geq N$.
+Therefore,~\eqref{pf.thm.fps.lim.sum-lim-conv.1} (applied to $i-1$
+instead of $i$) yields $[x^n] g_{i-1} = [x^n] g$.
+But~\eqref{pf.thm.fps.lim.sum-lim-conv.1} also yields
+$[x^n] g_i = [x^n] g$ (since $i\geq N+1\geq N$). Comparing these two
+equalities, we find
+\begin{equation}
+[x^n] g_{i-1} = [x^n] g_i.
+\label{pf.thm.fps.lim.sum-lim-conv.2}
+\end{equation}
+
+However,~\eqref{pf.thm.fps.lim.sum-lim-conv.gi} yields
+\begin{equation}
+g_i = \sum_{k=0}^{i} f_k = f_i + \sum_{k=0}^{i-1} f_k.
+\label{pf.thm.fps.lim.sum-lim-conv.3}
+\end{equation}
+Moreover,~\eqref{pf.thm.fps.lim.sum-lim-conv.gi} (applied to $i-1$
+instead of $i$) yields $g_{i-1} = \sum_{k=0}^{i-1} f_k$. In view of
+this, we can rewrite~\eqref{pf.thm.fps.lim.sum-lim-conv.3} as
+\[
+g_i = f_i + g_{i-1}.
+\]
+Hence,
+$[x^n] g_i = [x^n](f_i + g_{i-1}) = [x^n] f_i + \underbrace{[x^n] g_{i-1}}_{\substack{= [x^n] g_i \\ \text{(by~\eqref{pf.thm.fps.lim.sum-lim-conv.2})}}}
+= [x^n] f_i + [x^n] g_i$.
+Subtracting $[x^n] g_i$ from both sides of this equality, we find
+$0 = [x^n] f_i$. In other words, $[x^n] f_i = 0$.
+
+Forget that we fixed $i$. We thus have shown that all
+$i\in\mathbb{N}\setminus M$ satisfy $[x^n] f_i = 0$. Hence, all but
+finitely many $i\in\mathbb{N}$ satisfy $[x^n] f_i = 0$ (since all but
+finitely many $i\in\mathbb{N}$ belong to $\mathbb{N}\setminus M$
+because the set $M$ is finite). Renaming the index $i$ as $k$ in this
+statement, we obtain the following: All but finitely many
+$k\in\mathbb{N}$ satisfy $[x^n] f_k = 0$.
+
+Forget that we fixed $n$. We thus have shown that for each
+$n\in\mathbb{N}$,
+\[
+\text{all but finitely many } k\in\mathbb{N} \text{ satisfy }
+[x^n] f_k = 0.
+\]
+In other words, the family $(f_n)_{n\in\mathbb{N}}$ is summable (by the
+definition of ``summable'').
+
+Hence, Theorem~\ref{thm.fps.lim.sum-lim} yields
+$\lim_{i\to\infty} \sum_{n=0}^{i} f_n = \sum_{n\in\mathbb{N}} f_n$.
+In other words,
+$\sum_{n\in\mathbb{N}} f_n = \lim_{i\to\infty} \sum_{n=0}^{i} f_n$.
+This completes the proof of Theorem~\ref{thm.fps.lim.sum-lim-conv}.
+\end{proof}
+
+\subsection{Helpers for Theorem~\ref{thm.fps.lim.prod-lim-conv}}
+
+\begin{lemma}
+\label{lem.fps.lim.constantCoeff-prod-eq-one}
+\lean{PowerSeries.constantCoeff_prod_eq_one}
+\leanhelper
+\leanok
+If $f_i$ has constant term $1$ for every $i$ in a finite set $S$,
+then $\prod_{i \in S} f_i$ also has constant term $1$.
+\end{lemma}
+
+\subsection{Detailed proof of Theorem~\ref{thm.fps.lim.prod-lim-conv}}
+
+\begin{proof}[Proof of Theorem~\ref{thm.fps.lim.prod-lim-conv}]
+\proves{thm.fps.lim.prod-lim-conv}
+\leanok
+Let us define
+\begin{equation}
+g_i := \prod_{k=0}^{i} f_k
+\qquad\text{for each } i\in\mathbb{N}.
+\label{pf.thm.fps.lim.prod-lim-conv.gi}
+\end{equation}
+
+We have assumed that the limit $\lim_{i\to\infty} \prod_{n=0}^{i} f_n$
+exists. Let us denote this limit by $g$. Thus,
+\begin{equation}
+g = \lim_{i\to\infty} \prod_{n=0}^{i} f_n = \lim_{i\to\infty} g_i.
+\label{pf.thm.fps.lim.prod-lim-conv.g=lim}
+\end{equation}
+
+Let $n\in\mathbb{N}$ be arbitrary.
+Lemma~\ref{lem.fps.lim.xn-equiv} (applied to $g_i$ and $g$ instead of
+$f_i$ and $f$) shows that there exists some integer $N\in\mathbb{N}$
+such that
+\begin{equation}
+\text{all integers } i\geq N \text{ satisfy }
+g_i \overset{x^n}{\equiv} g
+\label{pf.thm.fps.lim.prod-lim-conv.gi-equiv-g}
+\end{equation}
+(since $g = \lim_{i\to\infty} g_i$). Consider this $N$.
+
+Let $M = \{0,1,\ldots,N\}$. Thus, $M$ is a finite subset of
+$\mathbb{N}$. We shall show that this subset $M$ determines the
+$x^n$-coefficient in the product of $(f_k)_{k\in\mathbb{N}}$.
+
+For this purpose, we first observe that $M = \{0,1,\ldots,N\}$, so that
+\begin{equation}
+\prod_{k\in M} f_k = \prod_{k\in\{0,1,\ldots,N\}} f_k
+= \prod_{k=0}^{N} f_k = g_N
+\label{pf.thm.fps.lim.prod-lim-conv.=gN}
+\end{equation}
+(since $g_N$ was defined to be $\prod_{k=0}^{N} f_k$).
+Applying~\eqref{pf.thm.fps.lim.prod-lim-conv.gi-equiv-g} to $i = N$,
+we obtain $g_N \overset{x^n}{\equiv} g$ (since $N\geq N$). Therefore,
+$g \overset{x^n}{\equiv} g_N$ (since $\overset{x^n}{\equiv}$ is an
+equivalence relation and thus symmetric).
+
+Next, we shall show two claims:
+
+\textbf{Claim 1:} \textit{For each integer $j > N$, we have
+$g \overset{x^n}{\equiv} g f_j$.}
+
+\begin{proof}[Proof of Claim 1]
+\leanok
+Let $j > N$ be an integer. Thus, $j\geq N+1$, so that $j-1\geq N$.
+Hence,~\eqref{pf.thm.fps.lim.prod-lim-conv.gi-equiv-g} (applied to
+$i = j-1$) yields $g_{j-1} \overset{x^n}{\equiv} g$.
+However,~\eqref{pf.thm.fps.lim.prod-lim-conv.gi-equiv-g} (applied to
+$i = j$) yields $g_j \overset{x^n}{\equiv} g$ (since
+$j\geq N+1\geq N$). Thus, $g \overset{x^n}{\equiv} g_j$ (by symmetry).
+
+Also, we obviously have $f_j \overset{x^n}{\equiv} f_j$ (by
+reflexivity).
+
+However, the definition of $g_{j-1}$ yields
+$g_{j-1} = \prod_{k=0}^{j-1} f_k$. Furthermore, the definition of
+$g_j$ yields
+\[
+g_j = \prod_{k=0}^{j} f_k
+= \left(\prod_{k=0}^{j-1} f_k\right) f_j = g_{j-1} f_j.
+\]
+But recall that $g_{j-1} \overset{x^n}{\equiv} g$ and
+$f_j \overset{x^n}{\equiv} f_j$. Hence,
+$g_{j-1} f_j \overset{x^n}{\equiv} g f_j$ (by the multiplicativity of
+$x^n$-equivalence). In view of $g_j = g_{j-1} f_j$, we can rewrite
+this as $g_j \overset{x^n}{\equiv} g f_j$.
+
+Now, recall that $g \overset{x^n}{\equiv} g_j$. Thus,
+$g \overset{x^n}{\equiv} g_j \overset{x^n}{\equiv} g f_j$, so that
+$g \overset{x^n}{\equiv} g f_j$ (by transitivity). This proves Claim 1.
+\end{proof}
+
+\textbf{Claim 2:} \textit{If $U$ is any finite subset of $\mathbb{N}$
+satisfying $M\subseteq U$, then
+$g \overset{x^n}{\equiv} \prod_{k\in U} f_k$.}
+
+\begin{proof}[Proof of Claim 2]
+\leanok
+We induct on the nonnegative integer $|U\setminus M|$:
+
+\textit{Base case:} Let us check that Claim 2 holds when
+$|U\setminus M| = 0$.
+
+Indeed, let $U$ be any finite subset of $\mathbb{N}$ satisfying
+$M\subseteq U$ and $|U\setminus M| = 0$. Then,
+$U\setminus M = \varnothing$ (since $|U\setminus M| = 0$), so that
+$U\subseteq M$. Combined with $M\subseteq U$, this yields $U = M$.
+Thus, $\prod_{k\in U} f_k = \prod_{k\in M} f_k = g_N$
+(by~\eqref{pf.thm.fps.lim.prod-lim-conv.=gN}). But we have already
+proved that $g \overset{x^n}{\equiv} g_N$. In other words,
+$g \overset{x^n}{\equiv} \prod_{k\in U} f_k$ (since
+$\prod_{k\in U} f_k = g_N$). This completes the base case.
+
+\textit{Induction step:} Let $s\in\mathbb{N}$. Assume (as the induction
+hypothesis) that Claim 2 holds when $|U\setminus M| = s$. We must now
+prove that Claim 2 holds when $|U\setminus M| = s+1$.
+
+Indeed, let $U$ be any finite subset of $\mathbb{N}$ satisfying
+$M\subseteq U$ and $|U\setminus M| = s+1$. Then, the set
+$U\setminus M$ is nonempty (since $|U\setminus M| = s+1 > 0$). Hence,
+there exists some $u\in U\setminus M$. Consider this $u$. By the
+induction hypothesis (applied to $U\setminus\{u\}$ instead of $U$), we
+obtain $g \overset{x^n}{\equiv} \prod_{k\in U\setminus\{u\}} f_k$.
+
+However, $u\in U\setminus M$, so $u\notin M = \{0,1,\ldots,N\}$, which
+gives $u > N$. Hence, Claim 1 (applied to $j = u$) yields
+$g \overset{x^n}{\equiv} g f_u$.
+
+We have $g \overset{x^n}{\equiv} \prod_{k\in U\setminus\{u\}} f_k$ and
+$f_u \overset{x^n}{\equiv} f_u$. Hence,
+$g f_u \overset{x^n}{\equiv} \left(\prod_{k\in U\setminus\{u\}} f_k\right) f_u$
+(by the multiplicativity of $x^n$-equivalence). In view of
+$\prod_{k\in U} f_k = \left(\prod_{k\in U\setminus\{u\}} f_k\right) f_u$,
+we can rewrite this as
+$g f_u \overset{x^n}{\equiv} \prod_{k\in U} f_k$.
+
+Now, recall that $g \overset{x^n}{\equiv} g f_u$. Thus,
+$g \overset{x^n}{\equiv} g f_u \overset{x^n}{\equiv} \prod_{k\in U} f_k$,
+so $g \overset{x^n}{\equiv} \prod_{k\in U} f_k$ (by transitivity).
+This completes the induction step. Thus, Claim 2 is proved by induction.
+\end{proof}
+
+Now, let $J$ be a finite subset of $\mathbb{N}$ satisfying
+$M\subseteq J\subseteq\mathbb{N}$. Then,
+$g \overset{x^n}{\equiv} \prod_{k\in J} f_k$ (by Claim 2, applied to
+$U = J$). In other words,
+\[
+\text{each } m\in\{0,1,\ldots,n\} \text{ satisfies }
+[x^m] g = [x^m]\left(\prod_{k\in J} f_k\right)
+\]
+(by the definition of $x^n$-equivalence). Applying this to $m = n$, we
+find
+\[
+[x^n] g = [x^n]\left(\prod_{k\in J} f_k\right).
+\]
+The same argument can be applied to $M$ instead of $J$ (since
+$M\subseteq M\subseteq\mathbb{N}$), and thus yields
+\[
+[x^n] g = [x^n]\left(\prod_{k\in M} f_k\right).
+\]
+Comparing these two equalities, we find
+\[
+[x^n]\left(\prod_{k\in J} f_k\right)
+= [x^n]\left(\prod_{k\in M} f_k\right).
+\]
+
+Forget that we fixed $J$. We have now shown that every finite subset $J$
+of $\mathbb{N}$ satisfying $M\subseteq J\subseteq\mathbb{N}$ satisfies
+\[
+[x^n]\left(\prod_{k\in J} f_k\right)
+= [x^n]\left(\prod_{k\in M} f_k\right).
+\]
+In other words, the set $M$ determines the $x^n$-coefficient in the
+product of $(f_k)_{k\in\mathbb{N}}$. Hence, the $x^n$-coefficient in
+the product of $(f_k)_{k\in\mathbb{N}}$ is finitely determined (since
+$M$ is a finite subset of $\mathbb{N}$).
+
+Forget that we fixed $n$. We thus have shown that for each
+$n\in\mathbb{N}$, the $x^n$-coefficient in the product of
+$(f_k)_{k\in\mathbb{N}}$ is finitely determined. In other words, each
+coefficient in the product of $(f_k)_{k\in\mathbb{N}}$ is finitely
+determined. In other words, the family $(f_k)_{k\in\mathbb{N}}$ is
+multipliable. In other words, the family $(f_n)_{n\in\mathbb{N}}$ is
+multipliable.
+
+Hence, Theorem~\ref{thm.fps.lim.prod-lim} yields
+$\lim_{i\to\infty} \prod_{n=0}^{i} f_n = \prod_{n\in\mathbb{N}} f_n$.
+In other words,
+$\prod_{n\in\mathbb{N}} f_n = \lim_{i\to\infty} \prod_{n=0}^{i} f_n$.
+This completes the proof of Theorem~\ref{thm.fps.lim.prod-lim-conv}.
+\end{proof}
+
+\subsection{Helper lemmas from the Lean formalization}
+
+\begin{lemma}
+\label{lem.fps.lim.stab-unique-detail}
+\lean{Seq.stabilizesTo_unique'}
+\leanhelper
+\leanok
+If a sequence $(a_i)_{i\in\mathbb{N}}$ in $K$ stabilizes to both
+$\ell_1$ and $\ell_2$, then $\ell_1 = \ell_2$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Let $N_1$ and $N_2$ be the stabilization indices for $\ell_1$ and
+$\ell_2$ respectively. Set $N := \max(N_1, N_2)$. Then
+$a_N = \ell_1$ and $a_N = \ell_2$, whence $\ell_1 = \ell_2$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.lim.partial-sum-detail}
+\lean{PowerSeries.coeffStabilizesTo_partial_sum'}
+\leanhelper
+\leanok
+If the family $(f_n)_{n\in\mathbb{N}}$ is summable, then the sequence of
+partial sums $\left(\sum_{j=0}^{i} f_j\right)_{i\in\mathbb{N}}$
+coefficientwise stabilizes to $\sum_{n\in\mathbb{N}} f_n$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+This is a direct restatement of Theorem~\ref{thm.fps.lim.sum-lim}.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.lim.partial-prod-detail}
+\lean{PowerSeries.coeffStabilizesTo_partial_prod'}
+\leanhelper
+\leanok
+If the family $(f_n)_{n\in\mathbb{N}}$ is multipliable, then the
+sequence of partial products
+$\left(\prod_{j=0}^{i} f_j\right)_{i\in\mathbb{N}}$ coefficientwise
+stabilizes to $\prod_{n\in\mathbb{N}} f_n$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+This is a direct restatement of Theorem~\ref{thm.fps.lim.prod-lim}.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.lim.summable-of-partial-sum-detail}
+\lean{PowerSeries.isSummable_of_coeffStabilizesTo_partial_sum'}
+\leanhelper
+\leanok
+If the sequence of partial sums
+$\left(\sum_{j=0}^{i} f_j\right)_{i\in\mathbb{N}}$ coefficientwise
+stabilizes to some limit, then the family $(f_n)_{n\in\mathbb{N}}$ is
+summable.
+\end{lemma}
+
+\begin{proof}
+\leanok
+This is a direct restatement of the summability part of
+Theorem~\ref{thm.fps.lim.sum-lim-conv}.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.lim.tsum-eq-detail}
+\lean{PowerSeries.tsum'_eq_of_coeffStabilizesTo_partial_sum'}
+\leanhelper
+\leanok
+If the sequence of partial sums
+$\left(\sum_{j=0}^{i} f_j\right)_{i\in\mathbb{N}}$ coefficientwise
+stabilizes to some limit and the family $(f_n)_{n\in\mathbb{N}}$ is
+summable, then the infinite sum equals the limit.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By Theorem~\ref{thm.fps.lim.sum-lim}, the partial sums converge to the
+infinite sum. By uniqueness of limits
+(Lemma~\ref{lem.fps.lim.coeff-stab-unique}), the limit equals the
+infinite sum.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.lim.multipliable-of-partial-prod-detail}
+\lean{PowerSeries.isMultipliable_of_coeffStabilizesTo_partial_prod'}
+\leanhelper
+\leanok
+If the sequence of partial products
+$\left(\prod_{j=0}^{i} f_j\right)_{i\in\mathbb{N}}$ coefficientwise
+stabilizes to some limit, then the
+family $(f_n)_{n\in\mathbb{N}}$ is multipliable.
+\end{lemma}
+
+\begin{proof}
+\leanok
+This is a direct restatement of the multipliability part of
+Theorem~\ref{thm.fps.lim.prod-lim-conv}.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.lim.tprod-eq-detail}
+\lean{PowerSeries.tprod'_eq_of_coeffStabilizesTo_partial_prod'}
+\leanhelper
+\leanok
+If the sequence of partial products
+$\left(\prod_{j=0}^{i} f_j\right)_{i\in\mathbb{N}}$ coefficientwise
+stabilizes to some limit and the family $(f_n)_{n\in\mathbb{N}}$ is
+multipliable, then the infinite product equals the limit.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By Theorem~\ref{thm.fps.lim.prod-lim}, the partial products converge to
+the infinite product. By uniqueness of limits
+(Lemma~\ref{lem.fps.lim.coeff-stab-unique}), the limit equals the
+infinite product.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.lim.xnEquiv-pow}
+\lean{PowerSeries.xnEquiv_pow}
+\leanhelper
+\leanok
+If $f \overset{x^n}{\equiv} g$, then $f^d \overset{x^n}{\equiv} g^d$
+for every $d \in \mathbb{N}$. The proof proceeds by induction on $d$,
+using the multiplicativity of $x^n$-equivalence at each step.
+\end{lemma}

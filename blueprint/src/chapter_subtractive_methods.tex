@@ -1,0 +1,601 @@
+\section{More subtractive methods}
+
+\subsection{Sums with varying signs}
+
+\begin{definition}
+\label{def.cancel.all-even}
+\lean{AlgebraicCombinatorics.SubtractiveMethods.IsAllEven}
+\leanhelper
+\leanok
+Let $n\in\mathbb{N}$ and $d\in\mathbb{N}$. An
+$n$-tuple $\left(  x_{1},x_{2},\ldots,x_{n}\right)  \in\left[  d\right]  ^{n}$
+is said to be \emph{all-even} if each element of $\left[  d\right]  $ occurs
+an even number of times in this $n$-tuple (i.e., if for each $k\in\left[
+d\right]  $, the number of all $i\in\left[  n\right]  $ satisfying $x_{i}=k$
+is even).
+\end{definition}
+
+In the Lean formalization, sign tuples $\left(e_1, e_2, \ldots, e_d\right) \in \{1, -1\}^d$
+are represented as functions $e : \operatorname{Fin} d \to \mathbb{Z}/2\mathbb{Z}$,
+where $0$ represents $+1$ and $1$ represents $-1$. The conversion is performed
+by a sign conversion function. The product $e_{x_1} e_{x_2} \cdots e_{x_n}$
+is represented by a sign product function, and the sum $e_1 + e_2 + \cdots + e_d$
+(in $\mathbb{Z}$) by a sign sum function.
+
+\begin{definition}
+\label{def.cancel.multiplicity}
+\lean{AlgebraicCombinatorics.SubtractiveMethods.multiplicity}
+\leanhelper
+\leanok
+For an $n$-tuple $x : \operatorname{Fin} n \to \operatorname{Fin} d$ and
+$k \in \operatorname{Fin} d$, the \emph{multiplicity} of $k$ in $x$ is the
+number of all $i \in \operatorname{Fin} n$ satisfying $x(i) = k$.
+\end{definition}
+
+\begin{definition}[Sign conversion]
+\label{def.cancel.toSign}
+\lean{AlgebraicCombinatorics.SubtractiveMethods.toSign}
+\leanhelper
+\leanok
+The function $\operatorname{toSign} : \mathbb{Z}/2\mathbb{Z} \to \mathbb{Z}$
+converts elements of $\mathbb{Z}/2\mathbb{Z}$ to signs:
+$\operatorname{toSign}(0) = 1$ and $\operatorname{toSign}(1) = -1$.
+\end{definition}
+
+\begin{definition}[Sign product]
+\label{def.cancel.signProduct}
+\lean{AlgebraicCombinatorics.SubtractiveMethods.signProduct}
+\leanhelper
+\leanok
+For a sign tuple $e : \operatorname{Fin} d \to \mathbb{Z}/2\mathbb{Z}$ and an
+index tuple $x : \operatorname{Fin} n \to \operatorname{Fin} d$, the
+\emph{sign product} is
+\[
+\operatorname{signProduct}(e, x) := \prod_{i=1}^{n} \operatorname{toSign}(e_{x_i}).
+\]
+\end{definition}
+
+\begin{definition}[Sign sum]
+\label{def.cancel.signSum}
+\lean{AlgebraicCombinatorics.SubtractiveMethods.signSum}
+\leanhelper
+\leanok
+For a sign tuple $e : \operatorname{Fin} d \to \mathbb{Z}/2\mathbb{Z}$, the
+\emph{sign sum} is the integer
+\[
+\operatorname{signSum}(e) := \sum_{k=1}^{d} \operatorname{toSign}(e_k).
+\]
+\end{definition}
+
+\begin{definition}[Set of all-even tuples]
+\label{def.cancel.allEvenTuples}
+\lean{AlgebraicCombinatorics.SubtractiveMethods.allEvenTuples}
+\leanhelper
+\leanok
+The set of all-even $n$-tuples in $[d]^n$ is
+\[
+\operatorname{allEvenTuples}(n, d)
+:= \{x \in (\operatorname{Fin} n \to \operatorname{Fin} d) \mid x \text{ is all-even}\}.
+\]
+\end{definition}
+
+\begin{theorem}
+\label{thm.cancel.all-even}
+\lean{AlgebraicCombinatorics.SubtractiveMethods.allEven_count_formula}
+\leantarget
+\leanok
+Let $n\in\mathbb{N}$ and $d\in\mathbb{N}$.
+Then, the number of all all-even $n$-tuples $\left(  x_{1},x_{2},\ldots
+,x_{n}\right)  \in\left[  d\right]  ^{n}$ is
+\[
+\dfrac{1}{2^{d}}\sum_{k=0}^{d}\dbinom{d}{k}\left(  d-2k\right)  ^{n}.
+\]
+More precisely (avoiding division), the number of all-even $n$-tuples
+multiplied by $2^d$ equals $\sum_{k=0}^{d}\binom{d}{k}(d-2k)^n$.
+\end{theorem}
+
+\begin{proof}
+\leanok
+Lemma~\ref{lem.cancel.all-even.l1} yields
+\begin{align*}
+&  \sum_{\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}
+^{d}}\left(  e_{1}+e_{2}+\cdots+e_{d}\right)  ^{n}\\
+&  =\sum_{\left(  x_{1},x_{2},\ldots,x_{n}\right)  \in\left[  d\right]  ^{n}%
+}\ \ \sum_{\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}
+^{d}}e_{x_{1}}e_{x_{2}}\cdots e_{x_{n}}.
+\end{align*}
+By Lemma~\ref{lem.cancel.sum-signProduct-eq-allEven-count}
+(which splits according to whether each tuple is all-even or not,
+using Lemma~\ref{lem.cancel.all-even.l2a} and
+Lemma~\ref{lem.cancel.all-even.l2b}), the right-hand side equals
+$(\text{\# of all-even tuples}) \cdot 2^d$.
+
+On the other hand, a $d$-tuple $\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{
+1,-1\right\}  ^{d}$ is uniquely determined by the set $S = \left\{  i\in\left[
+d\right]  \ \mid\ e_{i}=-1\right\}$, and for this tuple we have
+$e_{1}+e_{2}+\cdots+e_{d}=d-2\left\vert S\right\vert$.
+By Lemma~\ref{lem.cancel.sum-signSum-pow-eq-sum-subset}, we can rewrite
+the sum over sign tuples as a sum over subsets.
+By Lemma~\ref{lem.cancel.sum-subset-eq-sum-choose}, grouping by
+cardinality $|S| = k$ yields
+\[
+\sum_{\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}  ^{d}%
+}\left(  e_{1}+e_{2}+\cdots+e_{d}\right)  ^{n}=\sum_{k=0}^{d}\dbinom{d}%
+{k}\left(  d-2k\right)  ^{n}.
+\]
+Comparing the two expressions gives
+\[
+\left(  \text{\# of all-even tuples}\right)  \cdot2^{d}=\sum_{k=0}^{d}\dbinom{d}%
+{k}\left(  d-2k\right)  ^{n}.
+\]
+\end{proof}
+
+\subsection{Lemmas for the proof}
+
+\begin{lemma}
+\label{lem.cancel.all-even.signProduct-eq-prod-pow}
+\lean{AlgebraicCombinatorics.SubtractiveMethods.signProduct_eq_prod_pow}
+\leanhelper
+\leanok
+Let $n,d\in\mathbb{N}$. Let $e = (e_1, \ldots, e_d) \in \{1,-1\}^d$ and
+$x = (x_1, \ldots, x_n) \in [d]^n$. For each $k \in [d]$, let $m_k$ be
+the multiplicity of $k$ in $x$. Then
+\[
+e_{x_{1}}e_{x_{2}}\cdots e_{x_{n}}=e_{1}^{m_{1}}e_{2}^{m_{2}}\cdots
+e_{d}^{m_{d}}.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+Each factor of the product $e_{x_{1}}e_{x_{2}}\cdots e_{x_{n}}$ is one of the $d$
+entries $e_{1},e_{2},\ldots,e_{d}$. Moreover, each given
+entry $e_{k}$ appears exactly $m_{k}$ times in the product $e_{x_{1}}e_{x_{2}%
+}\cdots e_{x_{n}}$, because $k$ appears exactly $m_{k}$ times among the
+subscripts $x_{1},x_{2},\ldots,x_{n}$. Thus the
+product equals $e_{1}^{m_{1}}e_{2}^{m_{2}}\cdots e_{d}^{m_{d}}$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.cancel.all-even.l1}
+\lean{AlgebraicCombinatorics.SubtractiveMethods.sum_signSum_pow_eq_sum_signProduct}
+\leantarget
+\leanok
+Let $n,d\in\mathbb{N}$. Then,
+\begin{align*}
+&  \sum_{\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}
+^{d}}\left(  e_{1}+e_{2}+\cdots+e_{d}\right)  ^{n}\\
+&  =\sum_{\left(  x_{1},x_{2},\ldots,x_{n}\right)  \in\left[  d\right]  ^{n}%
+}\ \ \sum_{\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}
+^{d}}e_{x_{1}}e_{x_{2}}\cdots e_{x_{n}}.
+\end{align*}
+\end{lemma}
+
+\begin{proof}
+\leanok
+For each $\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}
+^{d}$, we have
+\begin{align*}
+\left(  e_{1}+e_{2}+\cdots+e_{d}\right)  ^{n}
+&  =\left(  \sum_{k=1}^{d}e_{k}\right)  ^{n}
+=\sum_{\left(  x_{1},x_{2},\ldots,x_{n}\right)  \in\left[
+d\right]  ^{n}}e_{x_{1}}e_{x_{2}}\cdots e_{x_{n}}
+\end{align*}
+(by the generalized distributive law / product rule).
+Summing over all $\left(
+e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}  ^{d}$ and
+interchanging the order of summation yields the result.
+\end{proof}
+
+\begin{lemma}
+\label{lem.cancel.all-even.l2}
+\lean{AlgebraicCombinatorics.SubtractiveMethods.sum_signProduct_not_allEven, AlgebraicCombinatorics.SubtractiveMethods.sum_signProduct_allEven}
+\leantarget
+\leanok
+Let $n,d\in\mathbb{N}$. Let $\left(  x_{1},x_{2},\ldots,x_{n}\right)
+\in\left[  d\right]  ^{n}$.
+
+\textbf{(a)} If the $n$-tuple $\left(  x_{1},x_{2},\ldots,x_{n}\right)$ is
+not all-even, then
+$\sum_{\left(  e_{1},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}  ^{d}}
+e_{x_{1}}e_{x_{2}}\cdots e_{x_{n}}=0$.
+
+\textbf{(b)} If the $n$-tuple $\left(  x_{1},x_{2},\ldots,x_{n}\right)$ is
+all-even, then
+$\sum_{\left(  e_{1},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}  ^{d}}
+e_{x_{1}}e_{x_{2}}\cdots e_{x_{n}}=2^{d}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+This combines parts \textbf{(a)} and \textbf{(b)}.
+\end{proof}
+
+\subsection{Involution argument for part (a)}
+
+\begin{definition}
+\label{def.cancel.flipSign}
+\lean{AlgebraicCombinatorics.SubtractiveMethods.flipSign}
+\leanhelper
+\leanok
+For $k \in [d]$, the map $\operatorname{flipSign}_k : \{1,-1\}^d \to \{1,-1\}^d$
+sends a $d$-tuple $(e_1, \ldots, e_d)$ to the tuple obtained by flipping
+the sign of the $k$-th entry: i.e., replacing $e_k$ by $-e_k$ and
+leaving all other entries unchanged.
+\end{definition}
+
+\begin{lemma}
+\label{lem.cancel.flipSign-involutive}
+\lean{AlgebraicCombinatorics.SubtractiveMethods.flipSign_involutive}
+\leanhelper
+\leanok
+For any $k \in [d]$, the map $\operatorname{flipSign}_k$ is an involution.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Flipping the sign of the $k$-th entry twice restores the original sign.
+\end{proof}
+
+\begin{lemma}
+\label{lem.cancel.flipSign-ne}
+\lean{AlgebraicCombinatorics.SubtractiveMethods.flipSign_ne}
+\leanhelper
+\leanok
+For any $k \in [d]$ and $e \in \{1,-1\}^d$, we have
+$\operatorname{flipSign}_k(e) \neq e$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Since $e_k \in \{1, -1\}$, flipping the sign of $e_k$ produces a different
+value ($-e_k \neq e_k$), so the resulting tuple differs from the original.
+\end{proof}
+
+\begin{lemma}[flipSign at the flipped position]
+\label{lem.cancel.flipSign-self}
+\lean{AlgebraicCombinatorics.SubtractiveMethods.flipSign_self}
+\leanhelper
+\leanok
+For any $k \in [d]$ and $e \in \{1,-1\}^d$,
+$(\operatorname{flipSign}_k(e))_k = e_k + 1$ (in $\mathbb{Z}/2\mathbb{Z}$).
+\end{lemma}
+
+\begin{proof}
+\leanok
+By definition of $\operatorname{flipSign}$, which updates position $k$.
+\end{proof}
+
+\begin{lemma}[flipSign leaves other positions unchanged]
+\label{lem.cancel.flipSign-ne-self}
+\lean{AlgebraicCombinatorics.SubtractiveMethods.flipSign_ne_self}
+\leanhelper
+\leanok
+For any $k, j \in [d]$ with $j \neq k$ and $e \in \{1,-1\}^d$,
+$(\operatorname{flipSign}_k(e))_j = e_j$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The update only affects position $k$, so all other positions are unchanged.
+\end{proof}
+
+\begin{lemma}
+\label{lem.cancel.signProduct-flipSign}
+\lean{AlgebraicCombinatorics.SubtractiveMethods.signProduct_flipSign}
+\leanhelper
+\leanok
+Let $e \in \{1,-1\}^d$, $x \in [d]^n$, and $k \in [d]$ such that the
+multiplicity $m_k$ of $k$ in $x$ is odd. Then
+\[
+\operatorname{signProduct}(\operatorname{flipSign}_k(e), x) =
+-\operatorname{signProduct}(e, x).
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+Using the product-of-powers representation (Lemma~\ref{lem.cancel.all-even.signProduct-eq-prod-pow}),
+flipping the $k$-th entry multiplies the product by $(-1)^{m_k} = -1$
+(since $m_k$ is odd), while all other factors remain unchanged.
+\end{proof}
+
+\begin{lemma}
+\label{lem.cancel.all-even.l2a}
+\lean{AlgebraicCombinatorics.SubtractiveMethods.sum_signProduct_not_allEven}
+\leanhelper
+\leanok
+Let $n,d\in\mathbb{N}$. Let $\left(  x_{1}%
+,x_{2},\ldots,x_{n}\right)  \in\left[  d\right]  ^{n}$.
+If the $n$-tuple $\left(  x_{1},x_{2},\ldots,x_{n}\right)  $ is
+not all-even, then
+\[
+\sum_{\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}  ^{d}%
+}e_{x_{1}}e_{x_{2}}\cdots e_{x_{n}}=0.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+Since the tuple is not all-even, there exists some
+$k\in\left[  d\right]  $ such that $m_{k}$ is odd.
+
+Define $f:\left\{  1,-1\right\}  ^{d}\rightarrow\left\{  1,-1\right\}  ^{d}$
+as $\operatorname{flipSign}_k$ (flipping the sign of the $k$-th entry).
+By Lemma~\ref{lem.cancel.flipSign-involutive}, $f$ is an involution.
+By Lemma~\ref{lem.cancel.flipSign-ne}, $f$ has no fixed points.
+By Lemma~\ref{lem.cancel.signProduct-flipSign},
+$\operatorname{signProduct}(f(e), x) = -\operatorname{signProduct}(e, x)$.
+
+Hence, the terms cancel in pairs, giving
+\[
+\sum_{\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}  ^{d}%
+}e_{x_{1}}e_{x_{2}}\cdots e_{x_{n}}=0.
+\]
+The Lean proof uses the involution summation lemma from Mathlib.
+\end{proof}
+
+\begin{lemma}
+\label{lem.cancel.all-even.l2b}
+\lean{AlgebraicCombinatorics.SubtractiveMethods.sum_signProduct_allEven}
+\leanhelper
+\leanok
+Let $n,d\in\mathbb{N}$. Let $\left(  x_{1}%
+,x_{2},\ldots,x_{n}\right)  \in\left[  d\right]  ^{n}$.
+If the $n$-tuple $\left(  x_{1},x_{2},\ldots,x_{n}\right)  $ is
+all-even, then
+\[
+\sum_{\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}  ^{d}%
+}e_{x_{1}}e_{x_{2}}\cdots e_{x_{n}}=2^{d}.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+Since the tuple is all-even, all the multiplicities $m_{1},m_{2},\ldots,m_{d}$
+are even.
+
+Let $\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}
+^{d}$. For each $k\in\left[  d\right]  $, we have $e_{k}\in\left\{  1,-1\right\}  $
+and $m_{k}$ is even, so $e_{k}^{m_{k}}=1$.
+By Lemma~\ref{lem.cancel.all-even.signProduct-eq-prod-pow},
+$e_{x_{1}}e_{x_{2}}\cdots e_{x_{n}} = e_{1}^{m_{1}}e_{2}^{m_{2}}\cdots e_{d}^{m_{d}} = 1$.
+
+Since every sign product equals $1$ and there are $2^d$ sign tuples,
+\[
+\sum_{\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}  ^{d}%
+}e_{x_{1}}e_{x_{2}}\cdots e_{x_{n}}=2^{d}.
+\]
+\end{proof}
+
+\begin{lemma}
+\label{lem.cancel.sum-signProduct-eq-allEven-count}
+\lean{AlgebraicCombinatorics.SubtractiveMethods.sum_signProduct_eq_allEven_count}
+\leanhelper
+\leanok
+Let $n,d\in\mathbb{N}$. Then
+\[
+\sum_{\left(  x_{1},x_{2},\ldots,x_{n}\right)  \in\left[  d\right]  ^{n}%
+}\ \ \sum_{\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}
+^{d}}e_{x_{1}}e_{x_{2}}\cdots e_{x_{n}}
+= \left(\text{\# of all-even tuples in } [d]^n\right) \cdot 2^d.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+Split the outer sum according to whether each tuple is all-even or not.
+By Lemma~\ref{lem.cancel.all-even.l2a}, the non-all-even tuples contribute $0$.
+By Lemma~\ref{lem.cancel.all-even.l2b}, each all-even tuple contributes $2^d$.
+Hence the total is $(\text{\# of all-even tuples}) \cdot 2^d$.
+\end{proof}
+
+\subsection{Computing the left-hand side}
+
+\begin{lemma}
+\label{lem.cancel.signSum-eq-card}
+\lean{AlgebraicCombinatorics.SubtractiveMethods.signSum_eq_card}
+\leanhelper
+\leanok
+For a sign tuple $e \in \{1,-1\}^d$, let $S = \{i \in [d] \mid e_i = -1\}$.
+Then
+\[
+e_1 + e_2 + \cdots + e_d = d - 2|S|.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+Each entry $e_i$ equals $-1$ if $i \in S$ and $1$ if $i \notin S$.
+The sum has $|S|$ addends equal to $-1$ and $d - |S|$ addends equal to $1$,
+giving $|S| \cdot (-1) + (d - |S|) \cdot 1 = d - 2|S|$.
+\end{proof}
+
+\begin{definition}[Sign tuple to subset]
+\label{def.cancel.signTupleToSubset}
+\lean{AlgebraicCombinatorics.SubtractiveMethods.signTupleToSubset}
+\leanhelper
+\leanok
+The map $\operatorname{signTupleToSubset} : (\operatorname{Fin} d \to \mathbb{Z}/2\mathbb{Z}) \to \mathcal{P}(\operatorname{Fin} d)$
+sends a sign tuple $e$ to the set $S = \{k \in \operatorname{Fin} d \mid e_k = 1\}$
+(i.e., the positions where $\operatorname{toSign}(e_k) = -1$).
+\end{definition}
+
+\begin{definition}[Subset to sign tuple]
+\label{def.cancel.subsetToSignTuple}
+\lean{AlgebraicCombinatorics.SubtractiveMethods.subsetToSignTuple}
+\leanhelper
+\leanok
+The inverse map $\operatorname{subsetToSignTuple} : \mathcal{P}(\operatorname{Fin} d) \to (\operatorname{Fin} d \to \mathbb{Z}/2\mathbb{Z})$
+sends a subset $S \subseteq \operatorname{Fin} d$ to the sign tuple where
+position $k$ has value $1$ (representing $-1$) if $k \in S$, and $0$
+(representing $+1$) otherwise.
+\end{definition}
+
+\begin{lemma}
+\label{lem.cancel.signTupleEquivSubset}
+\lean{AlgebraicCombinatorics.SubtractiveMethods.signTupleEquivSubset}
+\leanhelper
+\leanok
+There is a bijection between sign tuples $\{1,-1\}^d$ and subsets of $[d]$,
+sending each tuple $e$ to the set $S = \{i \in [d] \mid e_i = -1\}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The inverse sends a subset $S \subseteq [d]$ to the sign tuple where
+position $k$ has $e_k = -1$ if $k \in S$ and $e_k = 1$ otherwise.
+\end{proof}
+
+\begin{lemma}[Sign sum under the subset correspondence]
+\label{lem.cancel.signSum-subsetToSignTuple}
+\lean{AlgebraicCombinatorics.SubtractiveMethods.signSum_subsetToSignTuple}
+\leanhelper
+\leanok
+For a subset $S \subseteq [d]$, the sign sum of the corresponding sign tuple is
+\[
+\operatorname{signSum}(\operatorname{subsetToSignTuple}(S)) = d - 2|S|.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+By Lemma~\ref{lem.cancel.signSum-eq-card}, the sign sum equals $d - 2|T|$
+where $T = \operatorname{signTupleToSubset}(\operatorname{subsetToSignTuple}(S)) = S$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.cancel.sum-signSum-pow-eq-sum-subset}
+\lean{AlgebraicCombinatorics.SubtractiveMethods.sum_signSum_pow_eq_sum_subset}
+\leanhelper
+\leanok
+Let $n,d\in\mathbb{N}$. Then
+\[
+\sum_{\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}  ^{d}%
+}\left(  e_{1}+e_{2}+\cdots+e_{d}\right)  ^{n}=\sum_{S\subseteq\left[
+d\right]  }\left(  d-2\left\vert S\right\vert \right)  ^{n}.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+Substitute via the bijection of Lemma~\ref{lem.cancel.signTupleEquivSubset}
+and use Lemma~\ref{lem.cancel.signSum-eq-card}.
+\end{proof}
+
+\begin{lemma}
+\label{lem.cancel.sum-subset-eq-sum-choose}
+\lean{AlgebraicCombinatorics.SubtractiveMethods.sum_subset_eq_sum_choose}
+\leanhelper
+\leanok
+Let $n,d\in\mathbb{N}$. Then
+\[
+\sum_{S\subseteq\left[  d\right]  }\left(  d-2\left\vert S\right\vert
+\right)  ^{n} = \sum_{k=0}^{d}\dbinom{d}{k}\left(  d-2k\right)  ^{n}.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+Split the sum over subsets $S$ according to the value of $|S| = k$.
+For each $k$, all subsets of size $k$ contribute the same summand $(d-2k)^n$,
+and the number of $k$-element subsets of $[d]$ is $\binom{d}{k}$.
+\end{proof}
+
+\subsection{Helper lemmas for toSign}
+
+\begin{lemma}
+\label{lem.cancel.toSign-sq}
+\lean{AlgebraicCombinatorics.SubtractiveMethods.toSign_sq}
+\leanhelper
+\leanok
+For any $b \in \mathbb{Z}/2\mathbb{Z}$, we have $(\operatorname{toSign} b)^2 = 1$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By case analysis: both $1^2 = 1$ and $(-1)^2 = 1$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.cancel.toSign-pow-even}
+\lean{AlgebraicCombinatorics.SubtractiveMethods.toSign_pow_even}
+\leanhelper
+\leanok
+For any $b \in \mathbb{Z}/2\mathbb{Z}$ and even $m \in \mathbb{N}$,
+we have $(\operatorname{toSign} b)^m = 1$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Write $m = 2k$. Then $(\operatorname{toSign} b)^m = ((\operatorname{toSign} b)^2)^k = 1^k = 1$.
+\end{proof}
+
+\begin{lemma}[Odd powers of a sign]
+\label{lem.cancel.toSign-pow-odd}
+\lean{AlgebraicCombinatorics.SubtractiveMethods.toSign_pow_odd}
+\leanhelper
+\leanok
+For any $b \in \mathbb{Z}/2\mathbb{Z}$ and odd $m \in \mathbb{N}$,
+we have $(\operatorname{toSign} b)^m = \operatorname{toSign} b$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Write $m = 2k + 1$. Then
+$(\operatorname{toSign} b)^m = ((\operatorname{toSign} b)^2)^k \cdot \operatorname{toSign} b
+= 1^k \cdot \operatorname{toSign} b = \operatorname{toSign} b$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.cancel.toSign-add-one}
+\lean{AlgebraicCombinatorics.SubtractiveMethods.toSign_add_one}
+\leanhelper
+\leanok
+For any $b \in \mathbb{Z}/2\mathbb{Z}$, we have
+$\operatorname{toSign}(b+1) = -\operatorname{toSign}(b)$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By case analysis on $b \in \{0, 1\}$: adding $1$ in $\mathbb{Z}/2\mathbb{Z}$ toggles between $0$ and $1$, and $\operatorname{toSign}(0) = 1 = -(-1) = -\operatorname{toSign}(1)$ while $\operatorname{toSign}(1) = -1 = -(1) = -\operatorname{toSign}(0)$.
+\end{proof}
+
+\subsection{Corollaries of the counting formula}
+
+\begin{corollary}[Divisibility by $2^d$]
+\label{cor.cancel.sum-choose-pow-dvd}
+\lean{AlgebraicCombinatorics.SubtractiveMethods.sum_choose_pow_dvd_pow_two}
+\leanhelper
+\leanok
+For any $n, d \in \mathbb{N}$, we have
+\[
+2^d \mid \sum_{k=0}^{d} \binom{d}{k} (d - 2k)^n.
+\]
+\end{corollary}
+
+\begin{proof}
+\leanok
+By Theorem~\ref{thm.cancel.all-even}, the sum equals
+$(\text{\# of all-even tuples}) \cdot 2^d$, which is divisible by $2^d$.
+\end{proof}
+
+\begin{corollary}[Nonnegativity]
+\label{cor.cancel.sum-choose-pow-nonneg}
+\lean{AlgebraicCombinatorics.SubtractiveMethods.sum_choose_pow_nonneg}
+\leanhelper
+\leanok
+For any $n, d \in \mathbb{N}$, we have
+\[
+\sum_{k=0}^{d} \binom{d}{k} (d - 2k)^n \geq 0.
+\]
+This is not obvious from the formula when $n$ is odd, since the summands
+can be negative.
+\end{corollary}
+
+\begin{proof}
+\leanok
+By Theorem~\ref{thm.cancel.all-even}, the sum equals
+$(\text{\# of all-even tuples}) \cdot 2^d$, which is a product of two nonnegative
+integers.
+\end{proof}

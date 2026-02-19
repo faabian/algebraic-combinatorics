@@ -1,0 +1,1331 @@
+\section{Euler's pentagonal number theorem and Jacobi's triple product identity}
+
+\subsection{Euler's pentagonal number theorem}
+
+\begin{definition}
+\label{def.pars.pent-num}
+\lean{AlgebraicCombinatorics.pentagonalNumber}
+\leantarget
+\leanok
+For any $k\in\mathbb{Z}$, define a nonnegative
+integer $w_{k}\in\mathbb{N}$ by
+\[
+w_{k}=\dfrac{\left(  3k-1\right)  k}{2}.
+\]
+This is called the $k$\emph{-th pentagonal number}.
+\end{definition}
+
+\begin{theorem}
+[Euler's pentagonal number theorem]
+\label{thm.pars.pent}
+\lean{AlgebraicCombinatorics.euler_pentagonal_number_theorem}
+\leantarget
+\leanok
+We have
+\[
+\prod_{k=1}^{\infty}\left(  1-x^{k}\right)  =\sum_{k\in\mathbb{Z}}\left(
+-1\right)  ^{k}x^{w_{k}}.
+\]
+\end{theorem}
+
+\begin{proof}
+Set $q=x^{3}$ and $z=-x$ in Theorem \ref{thm.pars.jtp2}. (This means that we apply
+Theorem \ref{thm.pars.jtp2} to $a=3$ and $b=1$ and $u=1$ and $v=-1$.) We get
+\begin{align}
+&  \prod_{n>0}\left(  \left(  1+\left(  x^{3}\right)  ^{2n-1}\left(
+-x\right)  \right)  \left(  1+\left(  x^{3}\right)  ^{2n-1}\left(  -x\right)
+^{-1}\right)  \left(  1-\left(  x^{3}\right)  ^{2n}\right)  \right)
+\nonumber\\
+&  =\sum_{\ell\in\mathbb{Z}}\left(  x^{3}\right)  ^{\ell^{2}}\left(
+-x\right)  ^{\ell}. \label{pf.thm.pars.pent.1}
+\end{align}
+The left hand side of this equality simplifies as follows:
+\begin{align*}
+&  \prod_{n>0}\left(  \left(  1-x^{6n-2}\right)  \left(
+1-x^{6n-4}\right)  \left(  1-x^{6n}\right)  \right) \\
+&  =\prod_{n>0}\left(  \left(  1-\left(  x^{2}\right)
+^{3n-1}\right)  \left(  1-\left(  x^{2}\right)
+^{3n-2}\right)  \left(  1-\left(  x^{2}\right)
+^{3n}\right)  \right) \\
+&  =\prod_{k>0}\left(  1-\left(  x^{2}\right)  ^{k}\right)  ,
+\end{align*}
+since each positive integer $k$ can be uniquely represented as $3n-1$ or
+$3n-2$ or $3n$ for some positive integer $n$.
+
+Comparing this with (\ref{pf.thm.pars.pent.1}), we obtain
+\begin{align}
+&  \prod_{k>0}\left(  1-\left(  x^{2}\right)  ^{k}\right) \nonumber\\
+&  =\sum_{\ell\in\mathbb{Z}}\left(  -1\right)  ^{\ell}x^{3\ell
+^{2}+\ell}=\sum_{\ell\in\mathbb{Z}}\left(  -1\right)  ^{\ell}x^{2w_{-\ell}} \nonumber\\
+&  =\sum_{k\in\mathbb{Z}}\left(  -1\right)  ^{k}\left(  x^{2}\right)  ^{w_{k}}
+\label{pf.thm.pars.pent.2}
+\end{align}
+(here, we have substituted $k$ for $-\ell$ in the sum, and used the
+identity $3\ell^{2}+\ell = 2w_{-\ell}$).
+
+Now, we ``substitute $x$ for $x^{2}$'' in
+this equality using Lemma \ref{lem.fps.fxx=gxx}. As a result, we obtain
+\[
+\prod_{k>0}\left(  1-x^{k}\right)  =\sum_{k\in\mathbb{Z}}\left(  -1\right)
+^{k}x^{w_{k}}.
+\]
+This is Euler's pentagonal number theorem (Theorem \ref{thm.pars.pent}).
+
+The Lean proof proceeds by first proving the identity over $\mathbb{Q}$
+(using Lemma~\ref{lem.jtp.euler-pentagonal-rat},
+Lemma~\ref{lem.jtp.jacobiLHS-eq-eulerProduct-sq},
+Lemma~\ref{lem.jtp.jacobiRHS-eq-pentagonalSeries-sq}, and
+Lemma~\ref{lem.fps.fxx=gxx}), and then transferring to $\mathbb{Z}$
+by comparing coefficients via the ring homomorphism $\mathbb{Z}\to\mathbb{Q}$
+(using Lemma~\ref{lem.jtp.eulerProduct-coeff-map}).
+\end{proof}
+
+\subsubsection{Pentagonal number properties}
+
+\begin{lemma}
+\label{lem.pent.injective}
+\lean{AlgebraicCombinatorics.pentagonalNumber_injective}
+\leanhelper
+\leanok
+The function $k\mapsto w_k$ is injective: if $w_j = w_k$ then $j = k$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By monotonicity on the positive integers (strictly increasing) and on the negative integers (also strictly increasing in absolute value), and the fact that
+$w_k = w_j$ forces $k, j$ to have the same sign.
+\end{proof}
+
+\begin{lemma}
+\label{lem.pent.below-finite}
+\lean{AlgebraicCombinatorics.pentagonal_below_finite}
+\leanhelper
+\leanok
+For any $n\in\mathbb{N}$, the set $\{k\in\mathbb{Z} : w_k < n\}$ is finite.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Since $w_k$ grows quadratically (specifically $w_k \geq |k|$ for $k\neq 0$),
+only finitely many $k$ satisfy $w_k < n$.
+\end{proof}
+
+\begin{definition}
+\label{def.pent.coeff}
+\lean{AlgebraicCombinatorics.pentagonalCoeff}
+\leanhelper
+\leanok
+The \emph{pentagonal coefficient} at $n\in\mathbb{N}$ is
+\[
+\mathrm{pentagonalCoeff}(n) =
+\begin{cases}
+(-1)^{|k|} & \text{if } n = w_k \text{ for some } k\in\mathbb{Z}, \\
+0 & \text{otherwise}.
+\end{cases}
+\]
+This is well-defined by the injectivity of pentagonal numbers
+(Lemma~\ref{lem.pent.injective}).
+\end{definition}
+
+\begin{lemma}
+\label{lem.pent.coeff-at-pentagonal}
+\lean{AlgebraicCombinatorics.pentagonalCoeff_of_pentagonalNumber}
+\leanhelper
+\leanok
+For any $k\in\mathbb{Z}$,
+$\mathrm{pentagonalCoeff}(w_k) = (-1)^{|k|}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Immediate from the definitions, since the inverse lookup recovers $k$ from $w_k$
+by injectivity (Lemma~\ref{lem.pent.injective}).
+\end{proof}
+
+\begin{lemma}
+\label{lem.pent.coeff-zero-non-pentagonal}
+\lean{AlgebraicCombinatorics.pentagonalCoeff_eq_zero_of_not_pentagonal}
+\leanhelper
+\leanok
+If $m\in\mathbb{N}$ is not a pentagonal number (i.e., $w_k \neq m$ for all $k\in\mathbb{Z}$),
+then $\mathrm{pentagonalCoeff}(m) = 0$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By definition of pentagonal coefficients.
+\end{proof}
+
+\subsubsection{Generating function definitions}
+
+\begin{definition}
+\label{def.pent.pentagonalSeries}
+\lean{AlgebraicCombinatorics.pentagonalSeries}
+\leanhelper
+\leanok
+The \emph{pentagonal series} is the formal power series
+\[
+Q = \sum_{n\geq 0} \mathrm{pentagonalCoeff}(n)\, x^n
+  = \sum_{k\in\mathbb{Z}} (-1)^k x^{w_k}
+  \in R[[x]].
+\]
+\end{definition}
+
+\begin{definition}
+\label{def.pent.eulerProduct}
+\lean{AlgebraicCombinatorics.eulerProduct}
+\leanhelper
+\leanok
+The \emph{Euler product} is the infinite product
+\[
+\prod_{k=1}^{\infty}(1 - x^k) \in R[[x]],
+\]
+defined as a multipliable product in the Pi topology on $R[[x]]$.
+\end{definition}
+
+\begin{definition}
+\label{def.fps.partitionGenFun}
+\lean{AlgebraicCombinatorics.partitionGenFun}
+\leanhelper
+\leanok
+The \emph{partition generating function} is
+\[
+P = \sum_{n\geq 0} p(n)\, x^n \in \mathbb{Z}[[x]],
+\]
+where $p(n)$ denotes the number of partitions of~$n$.
+\end{definition}
+
+\begin{lemma}
+\label{lem.fps.partition-gen-fun-eq}
+\lean{AlgebraicCombinatorics.partition_generating_function}
+\leanhelper
+\leanok
+The partition generating function satisfies
+\[
+P = \sum_{n\geq 0} p(n)\, x^n = \prod_{k=1}^{\infty}\frac{1}{1-x^k}.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+By Mathlib's partition generating function infrastructure.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.eulerProduct-mul-eulerProductInv}
+\lean{AlgebraicCombinatorics.eulerProduct_mul_eulerProductInv}
+\leanhelper
+\leanok
+The Euler product times the partition generating function equals $1$:
+\[
+\prod_{k=1}^{\infty}(1-x^k) \cdot \prod_{k=1}^{\infty}\frac{1}{1-x^k} = 1.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+Each factor $(1-x^k)$ cancels with its inverse, using the per-term identity
+$(1 + x^k + x^{2k} + \cdots)(1 - x^k) = 1$ and multipliability of the products.
+\end{proof}
+
+\begin{corollary}
+\label{cor.pars.pn-rec}
+\lean{AlgebraicCombinatorics.partition_recursive}
+\leantarget
+\leanok
+For each positive integer $n$, we have
+\begin{align*}
+p\left(  n\right)   &  =\sum_{\substack{k\in\mathbb{Z};\\k\neq0}}\left(
+-1\right)  ^{k-1}p\left(  n-w_{k}\right) \\
+&  =p\left(  n-1\right)  +p\left(  n-2\right)  -p\left(  n-5\right)  -p\left(
+n-7\right) \\
+&  \ \ \ \ \ \ \ \ \ \ +p\left(  n-12\right)  +p\left(  n-15\right)  -p\left(
+n-22\right)  -p\left(  n-26\right)  \pm\cdots.
+\end{align*}
+\end{corollary}
+
+\begin{proof}
+We have
+\[
+\sum_{m\in\mathbb{N}}p\left(  m\right)  x^{m}=\prod\limits_{k=1}^{\infty}\dfrac{1}{1-x^{k}}
+\]
+(by Theorem \ref{thm.pars.main-gf}) and
+\[
+\sum_{k\in\mathbb{Z}}\left(  -1\right)  ^{k}x^{w_{k}}=\prod\limits_{k=1}
+^{\infty}\left(  1-x^{k}\right)
+\]
+(by Theorem \ref{thm.pars.pent}). Multiplying these two equalities, we obtain
+\begin{align}
+\left(  \sum_{m\in\mathbb{N}}p\left(  m\right)  x^{m}\right)  \cdot\left(
+\sum_{k\in\mathbb{Z}}\left(  -1\right)  ^{k}x^{w_{k}}\right)   &  =\left(
+\prod\limits_{k=1}^{\infty}\dfrac{1}{1-x^{k}}\right)  \cdot\left(
+\prod\limits_{k=1}^{\infty}\left(  1-x^{k}\right)  \right) =1. \label{pf.cor.pars.pn-rec.1}
+\end{align}
+
+Now, let us fix a positive integer $n$. We shall compare the $x^{n}$-coefficients on both sides of (\ref{pf.cor.pars.pn-rec.1}).
+
+The $x^{n}$-coefficient on the left hand side of (\ref{pf.cor.pars.pn-rec.1}) is
+\begin{align*}
+\sum_{k\in\mathbb{Z}}\left(  -1\right)  ^{k}p\left(  n-w_{k}\right)
+&  =p\left(  n\right)  +\sum_{\substack{k\in\mathbb{Z};\\k\neq0}}\left(
+-1\right)  ^{k}p\left(  n-w_{k}\right)  .
+\end{align*}
+But the $x^{n}$-coefficient on the right hand side of (\ref{pf.cor.pars.pn-rec.1})
+is $0$ (since $n$ is positive). Hence, comparing the coefficients yields
+\[
+p\left(  n\right)  +\sum_{\substack{k\in\mathbb{Z};\\k\neq0}}\left(
+-1\right)  ^{k}p\left(  n-w_{k}\right)  =0.
+\]
+Solving this for $p\left(  n\right)  $, we find
+\[
+p\left(  n\right)  =\sum_{\substack{k\in\mathbb{Z}
+;\\k\neq0}}\left(  -1\right)  ^{k-1}p\left(  n-w_{k}\right)  .
+\]
+Corollary \ref{cor.pars.pn-rec} is thus proved.
+\end{proof}
+
+\subsection{Jacobi's triple product identity}
+
+\subsubsection{The identity}
+
+\begin{theorem}
+[Jacobi's triple product identity, take 1]
+\label{thm.pars.jtp1}
+\lean{AlgebraicCombinatorics.jacobi_triple_product_fps'}
+\leantarget
+\leanok
+In the ring
+$\left(  \mathbb{Z}\left[  z^{\pm}\right]  \right)  \left[  \left[  q\right]
+\right]  $, we have
+\[
+\prod_{n>0}\left(  \left(  1+q^{2n-1}z\right)  \left(  1+q^{2n-1}
+z^{-1}\right)  \left(  1-q^{2n}\right)  \right)  =\sum_{\ell\in\mathbb{Z}
+}q^{\ell^{2}}z^{\ell}.
+\]
+\end{theorem}
+
+\begin{proof}
+Both sides are equal after multiplying by the partition generating
+function $\prod_{k>0}(1-q^{2k})^{-1}$. This is shown in
+Lemma~\ref{lem.jtp.stateGenFun-eq-rhs} (for the RHS) and
+Lemma~\ref{lem.jtp.stateGenFun-eq-lhs} (for the LHS). Since the
+partition generating function is a unit
+(Lemma~\ref{lem.jtp.partitionGenFunJacobi-isUnit}), the result follows
+by cancellation.
+\end{proof}
+
+\begin{theorem}
+[Jacobi's triple product identity, take 2]
+\label{thm.pars.jtp2}
+\lean{AlgebraicCombinatorics.jacobi_triple_product}
+\leantarget
+\leanok
+Let $a$ and $b$
+be two integers such that $a>0$ and $a\geq\left\vert b\right\vert $. Let
+$u,v\in\mathbb{Q}$ be rational numbers with $v\neq0$. In the ring
+$\mathbb{Q}\left[\left[  x\right]\right]  $, set $q=ux^{a}$ and $z=vx^{b}$.
+Then,
+\[
+\prod_{n>0}\left(  \left(  1+q^{2n-1}z\right)  \left(  1+q^{2n-1}
+z^{-1}\right)  \left(  1-q^{2n}\right)  \right)  =\sum_{\ell\in\mathbb{Z}
+}q^{\ell^{2}}z^{\ell}.
+\]
+\end{theorem}
+
+\begin{proof}
+Both sides are equal after multiplying by the partition generating
+function $\prod_{k>0}(1-q^{2k})^{-1}$. This is shown in
+Lemma~\ref{lem.jtp.jacobiRHS-mul-partGenFun} (for the RHS) and
+Lemma~\ref{lem.jtp.jacobiLHS-mul-partGenFun} (for the LHS). Since the
+partition generating function is a unit
+(Lemma~\ref{lem.jtp.partitionGenFunEval-isUnit}), the result follows
+by cancellation.
+\end{proof}
+
+\subsubsection{Borcherds' state infrastructure}
+
+\begin{definition}
+\label{def.jtp.state}
+\lean{AlgebraicCombinatorics.State}
+\leanhelper
+\leanok
+A \emph{level} is a number of the form $p+\frac{1}{2}$ with
+$p\in\mathbb{Z}$. A \emph{state} is a set of levels that contains
+all but finitely many negative levels, and only finitely many positive levels.
+
+For any state $S$, we define:
+\begin{itemize}
+\item the \emph{energy} of $S$ to be
+\[
+\operatorname{energy}S:=\sum_{\substack{p>0;\\p\in S}}2p
+-\sum_{\substack{p<0;\\p\notin S}}2p \in\mathbb{N};
+\]
+
+\item the \emph{particle number} of $S$ to be
+\[
+\operatorname{parnum}S:=\left(\text{\# of positive levels in } S\right)
+-\left(\text{\# of negative levels not in } S\right)\in\mathbb{Z}.
+\]
+\end{itemize}
+\end{definition}
+
+\begin{definition}
+\label{def.jtp.groundState}
+\lean{AlgebraicCombinatorics.groundState}
+\leanhelper
+\leanok
+For $\ell\in\mathbb{Z}$, the \emph{$\ell$-ground state} is
+\[
+G_{\ell}:=\left\{  \text{all levels }<\ell\right\}.
+\]
+\end{definition}
+
+\begin{theorem}
+\label{thm.jtp.groundState-energy-parnum}
+\lean{AlgebraicCombinatorics.groundState_energy, AlgebraicCombinatorics.groundState_parnum}
+\leanhelper
+\leanok
+For any $\ell\in\mathbb{Z}$, we have
+$\operatorname{energy}G_{\ell}=\ell^{2}$ and
+$\operatorname{parnum}G_{\ell}=\ell$.
+\end{theorem}
+
+\begin{proof}
+\leanok
+If $\ell\geq0$, the energy is
+$1+3+5+\cdots+(2\ell-1)=\ell^{2}$
+and the particle number is $\ell-0=\ell$.
+If $\ell<0$, the energy is
+$-(-1)-(-3)-\cdots-(2\ell+1)=\ell^{2}$
+and the particle number is $0-(-\ell)=\ell$.
+\end{proof}
+
+\begin{definition}
+\label{def.jtp.jump}
+\lean{AlgebraicCombinatorics.State.jump}
+\leanhelper
+\leanok
+If $S$ is a state, $p\in S$, and $q$ is a positive integer such that
+$p+q\notin S$, then the state
+\[
+\operatorname{jump}_{p,q}S:=\left(  S\setminus\left\{  p\right\}
+\right)  \cup\left\{  p+q\right\}
+\]
+is said to be obtained from $S$ by letting the electron at level $p$
+\emph{jump} $q$ steps to the right.
+\end{definition}
+
+\begin{theorem}
+\label{thm.jtp.jump-parnum-energy}
+\lean{AlgebraicCombinatorics.jump_parnum, AlgebraicCombinatorics.jump_energy}
+\leanhelper
+\leanok
+A jump by $q$ steps keeps the particle number unchanged and raises the
+energy by $2q$.
+\end{theorem}
+
+\begin{proof}
+\leanok
+Three cases are checked: the particle jumps from a positive to a
+positive level, from a negative to a positive level, or from a negative
+to a negative level.
+\end{proof}
+
+\begin{definition}
+\label{def.jtp.excitedState}
+\lean{AlgebraicCombinatorics.excitedState}
+\leanhelper
+\leanok
+For any partition $\lambda=(\lambda_{1},\lambda_{2},\ldots,\lambda_{k})$
+and any $\ell\in\mathbb{Z}$, the \emph{excited state} $E_{\ell,\lambda}$
+is defined by starting with the $\ell$-ground state $G_{\ell}$ and then
+successively letting the $k$ electrons at the highest levels jump
+$\lambda_{1},\lambda_{2},\ldots,\lambda_{k}$ steps to the right,
+respectively:
+\[
+E_{\ell,\lambda}=\left\{  \text{all levels }<\ell-k\right\}  \cup\left\{
+\ell-i+\tfrac{1}{2}+\lambda_{i}\ \mid\ i\in\{1,\ldots,k\}\right\}.
+\]
+\end{definition}
+
+\begin{lemma}
+\label{lem.jtp.excitedState-reachable}
+\lean{AlgebraicCombinatorics.excitedState_reachable}
+\leanhelper
+\leanok
+The excited state $E_{\ell,\lambda}$ is reachable from the ground state $G_\ell$
+by a sequence of jumps (in the sense of Definition~\ref{def.jtp.jump}).
+\end{lemma}
+
+\begin{proof}
+\leanok
+By induction on the number of parts: starting from $G_\ell$, one performs $k$
+successive jumps of sizes $\lambda_1, \ldots, \lambda_k$. The intermediate
+state construction ensures each jump is valid (source is occupied, target is vacant).
+\end{proof}
+
+\begin{theorem}
+\label{thm.jtp.excitedState-energy-parnum}
+\lean{AlgebraicCombinatorics.excitedState_energy, AlgebraicCombinatorics.excitedState_parnum}
+\leanhelper
+\leanok
+The excited state $E_{\ell,\lambda}$ has energy $\ell^{2}+2|\lambda|$ and
+particle number $\ell$.
+\end{theorem}
+
+\begin{proof}
+\leanok
+The state $E_{\ell,\lambda}$ is obtained from $G_{\ell}$ by $k$ jumps of
+$\lambda_{1},\ldots,\lambda_{k}$ steps. Each jump by $q$ steps raises the
+energy by $2q$ and keeps the particle number unchanged. Since the ground
+state has energy $\ell^{2}$ and particle number $\ell$, the result follows.
+\end{proof}
+
+\subsubsection{The partition--state bijection}
+
+\begin{lemma}
+\label{lem.jtp.excitedState-injective}
+\lean{AlgebraicCombinatorics.excitedState_injective}
+\leanhelper
+\leanok
+For fixed $\ell\in\mathbb{Z}$, the map $\lambda\mapsto E_{\ell,\lambda}$ is
+injective: if $E_{\ell,\mu_1} = E_{\ell,\mu_2}$, then $\mu_1 = \mu_2$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Two excited states are equal if and only if their level sets agree.
+The partition $\lambda$ is recovered from the excited levels via
+$\lambda_i = (\text{$i$-th largest excited level}) - (\ell - i + \frac{1}{2})$,
+so equal level sets force equal partitions. The key step is that
+$i\mapsto \lambda_i - i$ is strictly decreasing for sorted parts,
+making the level encoding injective.
+\end{proof}
+
+\begin{lemma}
+\label{lem.jtp.excitedState-surjective}
+\lean{AlgebraicCombinatorics.excitedState_surjective}
+\leanhelper
+\leanok
+For any $\ell\in\mathbb{Z}$ and any state $S$ with $\operatorname{parnum}(S) = \ell$,
+there exists a partition $\mu$ such that $S = E_{\ell,\mu}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Given $S$ with particle number $\ell$, we construct $\mu$ by listing the excited
+levels of $S$ (those above the base level) in decreasing order and computing
+$\mu_i = (\text{$i$-th excited level}) - (\ell - i + \frac{1}{2})$.
+The proof shows these differences are positive integers forming a valid partition,
+and that the resulting excited state equals~$S$.
+\end{proof}
+
+\begin{theorem}
+\label{thm.jtp.partitionToState-bijective}
+\lean{AlgebraicCombinatorics.partitionToState_bijective}
+\leanhelper
+\leanok
+For each $\ell\in\mathbb{Z}$, the map
+\begin{align*}
+\Phi_{\ell}:\left\{  \text{partitions}\right\}   &  \rightarrow\left\{
+\text{states with particle number }\ell\right\}  ,\\
+\lambda &  \mapsto E_{\ell,\lambda}
+\end{align*}
+is a bijection.
+\end{theorem}
+
+\begin{proof}
+Injectivity is Lemma~\ref{lem.jtp.excitedState-injective}.
+Surjectivity is Lemma~\ref{lem.jtp.excitedState-surjective}.
+\end{proof}
+
+\begin{theorem}
+\label{thm.jtp.intPartitionToState-bijective}
+\lean{AlgebraicCombinatorics.intPartitionToState_bijective}
+\leanhelper
+\leanok
+The global map
+\begin{align*}
+\Phi : \mathbb{Z} \times \{\text{partitions}\} &\to \{\text{states}\}, \\
+(\ell, \mu) &\mapsto E_{\ell,\mu}
+\end{align*}
+is a bijection. The inverse sends a state $S$ to $(\operatorname{parnum}(S), \mu)$
+where $\mu$ is the unique partition with $E_{\operatorname{parnum}(S), \mu} = S$.
+\end{theorem}
+
+\begin{proof}
+Injectivity: if $E_{\ell_1,\mu_1} = E_{\ell_2,\mu_2}$, comparing particle
+numbers gives $\ell_1 = \ell_2$, and then injectivity of $\Phi_\ell$ gives
+$\mu_1 = \mu_2$. Surjectivity: any state $S$ has particle number $\ell = \operatorname{parnum}(S)$,
+and by the surjectivity of $\Phi_\ell$, there exists $\mu$ with $E_{\ell,\mu} = S$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.jtp.energy-eq-parnum-sq-add-even}
+\lean{AlgebraicCombinatorics.energy_eq_parnum_sq_add_even}
+\leanhelper
+\leanok
+For any state $S$, there exists $n\geq 0$ such that
+\[
+\operatorname{energy}(S) = |\operatorname{parnum}(S)|^2 + 2n.
+\]
+In particular, the energy is always at least $|\operatorname{parnum}(S)|^2$,
+and the excess is always even.
+\end{lemma}
+
+\begin{proof}
+By surjectivity (Lemma~\ref{lem.jtp.excitedState-surjective}),
+$S = E_{\ell,\mu}$ for some $\ell = \operatorname{parnum}(S)$ and partition $\mu$ of some $n$.
+Then $\operatorname{energy}(S) = \ell^2 + 2n$ by Theorem~\ref{thm.jtp.excitedState-energy-parnum}.
+\end{proof}
+
+\subsubsection{Finset pair bijection with states}
+
+\begin{definition}
+\label{def.jtp.fromFinsetPair}
+\lean{AlgebraicCombinatorics.State.fromFinsetPair}
+\leanhelper
+\leanok
+Given a pair $(P, N)$ of finite subsets of $\mathbb{N}$, define the state
+$\operatorname{fromFinsetPair}(P, N)$ whose levels are
+\[
+\{p\geq 0 : p \in P\} \cup \{p < 0 : (-p-1) \notin N\}.
+\]
+Here $P$ encodes the nonneg levels present, and $N$ encodes the
+negative levels missing (with $n \in N$ meaning level $-(n+1)$ is missing).
+\end{definition}
+
+\begin{lemma}
+\label{lem.jtp.fromFinsetPair-energy}
+\lean{AlgebraicCombinatorics.State.fromFinsetPair_energy}
+\leanhelper
+\leanok
+For any pair $(P, N)$ of finite subsets of $\mathbb{N}$,
+\[
+\operatorname{energy}(\operatorname{fromFinsetPair}(P,N))
+= \sum_{n\in P}(2n+1) + \sum_{n\in N}(2n+1).
+\]
+\end{lemma}
+
+\begin{proof}
+For nonneg level $n\in P$: contribution is $2n+1$. For missing negative level $-(n+1)$
+with $n\in N$: $|{-}(n{+}1)| = n+1$, so contribution is $2(n+1)-1 = 2n+1$. Both give $2n+1$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.jtp.fromFinsetPair-parnum}
+\lean{AlgebraicCombinatorics.State.fromFinsetPair_parnum}
+\leanhelper
+\leanok
+For any pair $(P, N)$ of finite subsets of $\mathbb{N}$,
+\[
+\operatorname{parnum}(\operatorname{fromFinsetPair}(P,N)) = |P| - |N|.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+The number of nonneg levels present is $|P|$, and the number of
+negative levels missing is $|N|$.
+\end{proof}
+
+\begin{theorem}
+\label{thm.jtp.finsetPair-bijective}
+\lean{AlgebraicCombinatorics.State.finsetPair_bijective}
+\leanhelper
+\leanok
+The map $(P,N)\mapsto \operatorname{fromFinsetPair}(P,N)$ is a bijection
+from pairs of finite subsets of $\mathbb{N}$ to states.
+\end{theorem}
+
+\begin{proof}
+\leanok
+Injectivity: $P$ and $N$ are recovered from any state $S$ by taking
+$P = \{p \geq 0 : p \in S\}$ and $N = \{n \in \mathbb{N} : -(n+1) \notin S\}$.
+Surjectivity: any state $S$ equals $\operatorname{fromFinsetPair}(P, N)$
+where $P$ and $N$ are constructed as above.
+\end{proof}
+
+\begin{lemma}
+\label{lem.jtp.finsetPair-sum-eq-partition-sum}
+\lean{AlgebraicCombinatorics.State.finsetPair_sum_eq_partition_sum}
+\leanhelper
+\leanok
+For any $d\in\mathbb{N}$ and function $f:\mathbb{Z}\to\mathbb{Z}[z^{\pm}]$,
+\[
+\sum_{\substack{(P,N):\\\operatorname{energy}=d}} f(|P|-|N|)
+= \sum_{\substack{(\ell,\mu):\\\ell^2+2|\mu|=d}} f(\ell).
+\]
+Both sums are over finite sets, and equality holds because both sides can
+be rewritten as $\sum_{S:\operatorname{energy}(S)=d} f(\operatorname{parnum}(S))$
+using the two bijections (finset pairs and integer--partition pairs with states).
+\end{lemma}
+
+\begin{proof}
+Both sides equal $\sum_{S:\operatorname{energy}(S)=d} f(\operatorname{parnum}(S))$
+via the respective bijections.
+The LHS uses the finset pair bijection (Theorem~\ref{thm.jtp.finsetPair-bijective}),
+and the RHS uses the integer--partition bijection
+(Theorem~\ref{thm.jtp.intPartitionToState-bijective}).
+\end{proof}
+
+\subsubsection{Jacobi ring definitions and state generating function}
+
+\begin{definition}
+\label{def.jtp.stateMonomial}
+\lean{AlgebraicCombinatorics.stateMonomial}
+\leanhelper
+\leanok
+The \emph{state monomial} with energy $e$ and particle number $p$ is
+the element $q^e z^p \in (\mathbb{Z}[z^{\pm}])[[q]]$.
+\end{definition}
+
+\begin{definition}
+\label{def.jtp.stateGenFun}
+\lean{AlgebraicCombinatorics.stateGenFun}
+\leanhelper
+\leanok
+The \emph{state generating function} is the formal sum over all
+integer--partition pairs $(\ell, \mu)$:
+\[
+\mathcal{S} = \sum_{\ell\in\mathbb{Z}} \sum_{\mu\text{ partition}}
+q^{\ell^2 + 2|\mu|} z^\ell
+\in (\mathbb{Z}[z^{\pm}])[[q]].
+\]
+It is defined as the formal sum
+$\sum'_{(\ell, \mu)} q^{\ell^2 + 2|\mu|} z^\ell$
+over all integer--partition pairs.
+\end{definition}
+
+\begin{definition}
+\label{def.jtp.partitionGenFunJacobi}
+\lean{AlgebraicCombinatorics.partitionGenFunJacobi}
+\leanhelper
+\leanok
+The \emph{partition generating function in JacobiRing} is
+\[
+\sum_{\mu\text{ partition}} q^{2|\mu|}
+= \prod_{k>0}(1-q^{2k})^{-1}
+\in (\mathbb{Z}[z^{\pm}])[[q]].
+\]
+\end{definition}
+
+\begin{definition}
+\label{def.jtp.jacobiZZProduct}
+\lean{AlgebraicCombinatorics.jacobiZZProduct}
+\leanhelper
+\leanok
+The \emph{$z$-dependent product} is
+\[
+\prod_{n>0}\left((1+q^{2n-1}z)(1+q^{2n-1}z^{-1})\right)
+\in (\mathbb{Z}[z^{\pm}])[[q]].
+\]
+\end{definition}
+
+\begin{definition}
+\label{def.jtp.jacobiQProduct}
+\lean{AlgebraicCombinatorics.jacobiQProduct}
+\leanhelper
+\leanok
+The \emph{$q$-only product} is
+\[
+\prod_{n>0}(1-q^{2n})
+\in (\mathbb{Z}[z^{\pm}])[[q]].
+\]
+\end{definition}
+
+\subsubsection{LHS factorization and product--state connection}
+
+\begin{lemma}
+\label{lem.jtp.jacobiLHS-eq-ZZProduct-mul-QProduct}
+\lean{AlgebraicCombinatorics.jacobiLHS'_eq_ZZProduct_mul_QProduct}
+\leanhelper
+\leanok
+The LHS of Jacobi's identity factors as
+\[
+\prod_{n>0}\left((1+q^{2n-1}z)(1+q^{2n-1}z^{-1})(1-q^{2n})\right)
+= \left(\prod_{n>0}(1+q^{2n-1}z)(1+q^{2n-1}z^{-1})\right)
+\cdot \left(\prod_{n>0}(1-q^{2n})\right).
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+Each factor in the LHS product is
+$(1+q^{2n-1}z)(1+q^{2n-1}z^{-1})(1-q^{2n})$,
+which splits into the product of the first two factors (which form the $z$-dependent product)
+and the third factor (which forms the $q$-only product). The infinite product
+distributes because both sub-products are multipliable.
+\end{proof}
+
+\begin{lemma}
+\label{lem.jtp.partitionGenFunJacobi-mul-QProduct}
+\lean{AlgebraicCombinatorics.partitionGenFunJacobi_mul_QProduct_eq_one}
+\leanhelper
+\leanok
+The partition generating function times the $q$-only product equals $1$:
+\[
+\prod_{k>0}(1-q^{2k})^{-1} \cdot \prod_{k>0}(1-q^{2k}) = 1.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+Per-term cancellation: $(1 + q^{2k} + q^{4k} + \cdots)(1 - q^{2k}) = 1$ for each $k$.
+The per-term identity and multipliability of both products give the result.
+\end{proof}
+
+\begin{lemma}
+\label{lem.jtp.jacobiZZProduct-eq-double-tsum}
+\lean{AlgebraicCombinatorics.jacobiZZProduct_eq_double_tsum}
+\leanhelper
+\leanok
+The $z$-dependent product admits a binary expansion as a double sum:
+\[
+\prod_{n>0}((1+q^{2n-1}z)(1+q^{2n-1}z^{-1}))
+= \sum_{P,N \text{ finite}} \left(\prod_{n\in P}(q^{2n+1}z)\right)\left(\prod_{n\in N}(q^{2n+1}z^{-1})\right).
+\]
+\end{lemma}
+
+\begin{proof}
+The product of $(1+a_n)(1+b_n)$ over $n$ expands by choosing a subset $P$ of indices
+contributing $a_n$ and a subset $N$ contributing $b_n$. This uses the identities
+$\prod(1+x_n) = \sum_{S\text{ finite}} \prod_{n\in S} x_n$ for each factor,
+combined via the product rule for infinite products.
+\end{proof}
+
+\begin{lemma}
+\label{lem.jtp.double-sum-term-explicit}
+\lean{AlgebraicCombinatorics.double_sum_term_explicit}
+\leanhelper
+\leanok
+Each term of the binary expansion has the explicit form
+\[
+\prod_{n\in P}(q^{2n+1}z) \cdot \prod_{n\in N}(q^{2n+1}z^{-1})
+= q^{\sum_{n\in P}(2n+1) + \sum_{n\in N}(2n+1)} \cdot z^{|P| - |N|}.
+\]
+\end{lemma}
+
+\begin{proof}
+The $q$-exponents add up, and the $z$-powers contribute $+1$ for each element of $P$
+and $-1$ for each element of $N$, giving $z^{|P|-|N|}$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.jtp.coeff-double-sum-eq-coeff-stateGenFun}
+\lean{AlgebraicCombinatorics.coeff_double_sum_eq_coeff_stateGenFun}
+\leanhelper
+\leanok
+For each $d\in\mathbb{N}$, the $q^d$-coefficient of the double sum
+equals the $q^d$-coefficient of the state generating function:
+\[
+[q^d]\sum_{P,N}\prod_{n\in P}(q^{2n+1}z)\prod_{n\in N}(q^{2n+1}z^{-1})
+= [q^d]\sum_{(\ell,\mu)} q^{\ell^2+2|\mu|}z^\ell.
+\]
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem.jtp.double-sum-term-explicit}, the LHS coefficient
+is a sum of $z^{|P|-|N|}$ over pairs with $\sum(2n+1) = d$.
+By Lemma~\ref{lem.jtp.finsetPair-sum-eq-partition-sum}, this equals the
+sum of $z^\ell$ over $(\ell,\mu)$ with $\ell^2 + 2|\mu| = d$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.jtp.jacobiZZProduct-eq-stateGenFun}
+\lean{AlgebraicCombinatorics.jacobiZZProduct_eq_stateGenFun}
+\leanhelper
+\leanok
+The $z$-dependent product equals the state generating function:
+\[
+\prod_{n>0}((1+q^{2n-1}z)(1+q^{2n-1}z^{-1})) = \mathcal{S}.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+By Lemma~\ref{lem.jtp.jacobiZZProduct-eq-double-tsum}, the LHS equals the double sum.
+By power series extensionality and Lemma~\ref{lem.jtp.coeff-double-sum-eq-coeff-stateGenFun},
+coefficients match those of the state generating function.
+\end{proof}
+
+\subsubsection{Proof infrastructure for Jacobi's triple product identity}
+
+\begin{lemma}
+\label{lem.jtp.partitionGenFunJacobi-isUnit}
+\lean{AlgebraicCombinatorics.partitionGenFunJacobi_isUnit}
+\leanhelper
+\leanok
+The partition generating function
+$\prod_{k>0}(1-q^{2k})^{-1}\in(\mathbb{Z}[z^{\pm}])[[q]]$
+is a unit (its constant term is $1$).
+\end{lemma}
+
+\begin{proof}
+\leanok
+The constant coefficient is $1$, which is a unit.
+\end{proof}
+
+\begin{lemma}
+\label{lem.jtp.stateGenFun-eq-rhs}
+\lean{AlgebraicCombinatorics.stateGenFun_eq_jacobiRHS'_mul_partitionGenFunJacobi}
+\leanhelper
+\leanok
+The state generating function equals the RHS of Jacobi's identity
+times the partition generating function:
+\[
+\sum_{S\text{ state}}q^{\operatorname{energy}S}z^{\operatorname{parnum}S}
+=\left(\sum_{\ell\in\mathbb{Z}}q^{\ell^{2}}z^{\ell}\right)
+\prod_{n>0}(1-q^{2n})^{-1}.
+\]
+\end{lemma}
+
+\begin{proof}
+Using the bijection $\Phi_{\ell}$ from Theorem~\ref{thm.jtp.partitionToState-bijective},
+we rewrite the sum over states as
+\[
+\sum_{\ell\in\mathbb{Z}}\sum_{\lambda\text{ partition}}
+q^{\ell^{2}+2|\lambda|}z^{\ell}
+=\left(\sum_{\ell\in\mathbb{Z}}q^{\ell^{2}}z^{\ell}\right)
+\left(\sum_{\lambda\text{ partition}}q^{2|\lambda|}\right).
+\]
+The second factor is $\prod_{n>0}(1-q^{2n})^{-1}$ by the generating
+function for partitions.
+\end{proof}
+
+\begin{lemma}
+\label{lem.jtp.stateGenFun-eq-lhs}
+\lean{AlgebraicCombinatorics.stateGenFun_eq_jacobiLHS'_mul_partitionGenFunJacobi}
+\leanhelper
+\leanok
+The state generating function equals the LHS of Jacobi's identity
+times the partition generating function:
+\[
+\sum_{S\text{ state}}q^{\operatorname{energy}S}z^{\operatorname{parnum}S}
+=\prod_{n>0}\left((1+q^{2n-1}z)(1+q^{2n-1}z^{-1})(1-q^{2n})\right)
+\cdot\prod_{k>0}(1-q^{2k})^{-1}.
+\]
+\end{lemma}
+
+\begin{proof}
+The proof chains the identities.
+By Lemma~\ref{lem.jtp.jacobiZZProduct-eq-stateGenFun},
+\[
+\mathcal{S} = \prod_{n>0}((1+q^{2n-1}z)(1+q^{2n-1}z^{-1})).
+\]
+By Lemma~\ref{lem.jtp.partitionGenFunJacobi-mul-QProduct}, this equals
+\[
+\prod_{n>0}((1+q^{2n-1}z)(1+q^{2n-1}z^{-1})) \cdot \left(\prod_{n>0}(1-q^{2n}) \cdot \prod_{n>0}(1-q^{2n})^{-1}\right).
+\]
+By Lemma~\ref{lem.jtp.jacobiLHS-eq-ZZProduct-mul-QProduct}, this equals
+\[
+\prod_{n>0}\left((1+q^{2n-1}z)(1+q^{2n-1}z^{-1})(1-q^{2n})\right) \cdot \prod_{n>0}(1-q^{2n})^{-1}.
+\]
+\end{proof}
+
+\subsubsection{Parameterized Jacobi identity infrastructure}
+
+\begin{lemma}
+\label{lem.jtp.partitionGenFunEval-isUnit}
+\lean{AlgebraicCombinatorics.partitionGenFunEval_isUnit}
+\leanhelper
+\leanok
+For integers $a>0$ and rational $u$, the evaluated partition generating
+function $\prod_{k>0}(1-u^{2k}x^{2ak})^{-1}\in\mathbb{Q}[[x]]$
+is a unit (its constant term is $1$).
+\end{lemma}
+
+\begin{proof}
+\leanok
+The constant coefficient is $1$, which is a unit in $\mathbb{Q}$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.jtp.partitionGenFunEval-mul-eulerProductParam}
+\lean{AlgebraicCombinatorics.partitionGenFunEval_mul_eulerProductParam}
+\leanhelper
+\leanok
+For $a > 0$, the partition generating function times the Euler product
+(both evaluated at parameter $a$, $u$) equals $1$:
+\[
+\prod_{k>0}\frac{1}{1-u^{2k}x^{2ak}} \cdot \prod_{k>0}(1-u^{2k}x^{2ak}) = 1.
+\]
+\end{lemma}
+
+\begin{proof}
+Per-factor cancellation: each geometric series factor
+$(1 + u^{2k}x^{2ak} + u^{4k}x^{4ak} + \cdots)$ multiplied by $(1 - u^{2k}x^{2ak})$ gives $1$.
+The proof stabilizes the partial products and shows the coefficients eventually agree.
+\end{proof}
+
+\begin{lemma}
+\label{lem.jtp.jacobiRHS-mul-partGenFun}
+\lean{AlgebraicCombinatorics.jacobiRHS_mul_partitionGenFun}
+\leanhelper
+\leanok
+The product of the RHS of Jacobi's identity (evaluated at $q=ux^a$, $z=vx^b$) with
+the partition generating function equals the state generating function:
+\[
+\left(\sum_{\ell\in\mathbb{Z}}q^{\ell^{2}}z^{\ell}\right)
+\prod_{n>0}(1-q^{2n})^{-1}
+=\sum_{(\ell,\mu)}u^{\ell^{2}+2|\mu|}v^{\ell}\,x^{a(\ell^{2}+2|\mu|)+b\ell}.
+\]
+\end{lemma}
+
+\begin{proof}
+Follows from the Cauchy product formula for infinite sums.
+\end{proof}
+
+\begin{lemma}
+\label{lem.jtp.jacobiLHS-mul-partGenFun}
+\lean{AlgebraicCombinatorics.jacobiLHS_mul_partitionGenFun}
+\leanhelper
+\leanok
+The product of the LHS of Jacobi's identity (evaluated at $q=ux^a$, $z=vx^b$) with
+the partition generating function equals the state generating function.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The proof requires:
+(1) showing that the $(1-q^{2n})$ factors cancel with the partition
+generating function (via Lemma~\ref{lem.jtp.partitionGenFunEval-mul-eulerProductParam}),
+(2) applying binary expansion to the remaining product,
+(3) reindexing using the state bijection
+(Theorem~\ref{thm.jtp.partitionToState-bijective}).
+\end{proof}
+
+\subsubsection{Jacobi implies Euler}
+
+\begin{lemma}
+\label{lem.jtp.pentagonal-exponent-identity}
+\lean{AlgebraicCombinatorics.pentagonal_exponent_identity}
+\leanhelper
+\leanok
+For any $\ell\in\mathbb{Z}$,
+\[
+3\ell^{2}+\ell = 2\,w_{-\ell}.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+Direct computation: $3\ell^{2}+\ell = (3\ell+1)\ell = (3(-\ell)-1)(-\ell) = 2w_{-\ell}$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.fxx=gxx}
+\lean{AlgebraicCombinatorics.fps_eq_of_sq_eq}
+\leantarget
+\leanok
+Let $K$ be a commutative ring. Let $f$ and $g$ be two
+FPSs in $K[[x]]$. Assume that $f[x^{2}]=g[x^{2}]$.
+Then, $f=g$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Write $f=\sum_{n\in\mathbb{N}}f_{n}x^{n}$ and
+$g=\sum_{n\in\mathbb{N}}g_{n}x^{n}$. Then
+$f[x^{2}]=\sum_{n\in\mathbb{N}}f_{n}x^{2n}$ and
+$g[x^{2}]=\sum_{n\in\mathbb{N}}g_{n}x^{2n}$. Comparing
+$x^{2n}$-coefficients in $f[x^{2}]=g[x^{2}]$ yields $f_{n}=g_{n}$
+for each $n\in\mathbb{N}$. Hence $f=g$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.jtp.jacobiLHS-eq-eulerProduct-sq}
+\lean{AlgebraicCombinatorics.jacobiLHSEval_3_1_1_neg1_eq_eulerProduct_sq}
+\leanhelper
+\leanok
+The LHS of Jacobi's identity evaluated at $a=3$, $b=1$, $u=1$, $v=-1$
+equals $\prod_{k>0}(1-x^{k})[x^{2}]$, i.e.\ the Euler product with
+$x$ replaced by $x^{2}$:
+\[
+\prod_{n>0}\left((1+q^{2n-1}z)(1+q^{2n-1}z^{-1})(1-q^{2n})\right)\Big|_{q=x^3,\,z=-x}
+= \left(\prod_{k>0}(1-x^{k})\right)\!\big[x^{2}\big].
+\]
+\end{lemma}
+
+\begin{proof}
+The LHS factors simplify: setting $q=x^{3}$, $z=-x$ gives factors
+$(1-x^{6n-2})(1-x^{6n-4})(1-x^{6n})$ for each $n>0$, which is
+$\prod_{k>0}(1-(x^{2})^{k})$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.jtp.jacobiRHS-eq-pentagonalSeries-sq}
+\lean{AlgebraicCombinatorics.jacobiRHSEval_3_1_1_neg1_eq_pentagonalSeries_sq}
+\leanhelper
+\leanok
+The RHS of Jacobi's identity evaluated at $a=3$, $b=1$, $u=1$, $v=-1$
+equals the pentagonal series with $x$ replaced by $x^{2}$:
+\[
+\sum_{\ell\in\mathbb{Z}}q^{\ell^2}z^{\ell}\Big|_{q=x^3,\,z=-x}
+= \left(\sum_{k\in\mathbb{Z}}(-1)^k x^{w_k}\right)\!\big[x^{2}\big].
+\]
+\end{lemma}
+
+\begin{proof}
+The RHS sum is $\sum_{\ell\in\mathbb{Z}}(-1)^{\ell}x^{3\ell^{2}+\ell}$.
+By Lemma~\ref{lem.jtp.pentagonal-exponent-identity},
+$3\ell^{2}+\ell=2w_{-\ell}$, so the exponents are all even and the
+sum equals $\sum_{k\in\mathbb{Z}}(-1)^{k}(x^{2})^{w_{k}}$, which is
+the pentagonal series evaluated at $x^{2}$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.jtp.euler-pentagonal-rat}
+\lean{AlgebraicCombinatorics.euler_pentagonal_number_theorem_rat}
+\leanhelper
+\leanok
+Euler's pentagonal number theorem holds over $\mathbb{Q}$:
+\[
+\prod_{k=1}^{\infty}(1-x^k) = \sum_{k\in\mathbb{Z}}(-1)^k x^{w_k}
+\quad\text{in } \mathbb{Q}[[x]].
+\]
+\end{lemma}
+
+\begin{proof}
+Apply Lemma~\ref{lem.fps.fxx=gxx} to reduce to showing $f[x^2] = g[x^2]$.
+By Lemma~\ref{lem.jtp.jacobiLHS-eq-eulerProduct-sq} and
+Lemma~\ref{lem.jtp.jacobiRHS-eq-pentagonalSeries-sq}, both sides squared equal the
+LHS and RHS of Jacobi's identity evaluated at $a=3$, $b=1$, $u=1$, $v=-1$,
+which are equal by Theorem~\ref{thm.pars.jtp2}.
+\end{proof}
+
+\begin{lemma}
+\label{lem.jtp.eulerProduct-coeff-map}
+\lean{AlgebraicCombinatorics.eulerProduct_coeff_map}
+\leanhelper
+\leanok
+The coefficients of the Euler product are preserved by the ring homomorphism
+$\mathbb{Z}\to\mathbb{Q}$:
+\[
+\iota\left([x^n]\prod_{k>0}(1-x^k)_{\mathbb{Z}}\right)
+= [x^n]\prod_{k>0}(1-x^k)_{\mathbb{Q}},
+\]
+where $\iota:\mathbb{Z}\hookrightarrow\mathbb{Q}$ is the inclusion.
+\end{lemma}
+
+\begin{proof}
+The ring homomorphism $\mathbb{Z}\to\mathbb{Q}$ sends the $\mathbb{Z}$-product to
+the $\mathbb{Q}$-product by continuity of the induced map on power series, and
+coefficients commute with the map.
+\end{proof}
+
+\subsubsection{Application: A recursion for the sum of divisors}
+
+\begin{lemma}
+\label{lem.jtp.partitionGenFun-mul-pentagonalSeries}
+\lean{AlgebraicCombinatorics.partitionGenFun_mul_pentagonalSeries}
+\leanhelper
+\leanok
+We have $P\cdot Q = 1$, where $P=\sum_{n\geq 0}p(n)x^{n}$ is the
+partition generating function and
+$Q=\sum_{k\in\mathbb{Z}}(-1)^{k}x^{w_{k}}$ is the pentagonal series.
+\end{lemma}
+
+\begin{proof}
+\leanok
+This follows from the partition generating function identity
+$P=\prod_{k\geq 1}(1-x^{k})^{-1}$ (Lemma~\ref{lem.fps.partition-gen-fun-eq})
+and Euler's pentagonal number theorem $Q=\prod_{k\geq 1}(1-x^{k})$
+(Theorem~\ref{thm.pars.pent}). Their product $PQ = 1$ is established
+by Lemma~\ref{lem.fps.eulerProduct-mul-eulerProductInv}.
+\end{proof}
+
+\begin{definition}
+\label{def.jtp.sigmaSeries}
+\lean{AlgebraicCombinatorics.sigmaSeries}
+\leanhelper
+\leanok
+The \emph{sum-of-divisors generating function} is
+\[
+S = \sum_{k>0} \sigma(k)\, x^k \in \mathbb{Z}[[x]],
+\]
+where $\sigma(k) = \sigma_1(k) = \sum_{d\mid k} d$ is the sum of
+positive divisors of~$k$.
+\end{definition}
+
+\begin{lemma}
+\label{lem.jtp.partition-sigma-identity}
+\lean{AlgebraicCombinatorics.partition_sigma_identity}
+\leanhelper
+\leanok
+For each $n\in\mathbb{N}$,
+\[
+n\cdot p(n) = \sum_{k=1}^{n} \sigma(k)\cdot p(n-k).
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+The proof uses a combinatorial double-counting argument: a marked partition $(p, i)$
+(a partition $p$ of $n$ together with a marked cell $i\in\{1,\ldots,n\}$)
+can equivalently be described by $(d, m, j, \mu)$ where $d$ is the row length of the
+marked cell, $m$ is the number of rows of length $d$, $j$ is the column of the cell,
+and $\mu$ is the partition obtained by removing all rows of length $d$.
+The identity follows by summing $\sum_{k=1}^n \sigma(k) p(n-k) = \sum_{d\mid k} d \cdot p(n-k)$
+and reindexing.
+\end{proof}
+
+\begin{lemma}
+\label{lem.jtp.X-mul-deriv-partitionGenFun}
+\lean{AlgebraicCombinatorics.X_mul_deriv_partitionGenFun_eq}
+\leanhelper
+\leanok
+We have $xP'=SP$, where $P$ is the partition generating function and
+$S=\sum_{k>0}\sigma(k)x^{k}$ is the sum-of-divisors generating function.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Both sides have the same coefficients: the coefficient of $x^{n}$ on
+the left is $n\cdot p(n)$, and on the right is
+$\sum_{k=1}^{n}\sigma(k)\cdot p(n-k)$. These are equal by the
+combinatorial identity (Lemma~\ref{lem.jtp.partition-sigma-identity}).
+\end{proof}
+
+\begin{lemma}
+\label{lem.jtp.pentagonal-deriv-identity}
+\lean{AlgebraicCombinatorics.pentagonal_deriv_identity}
+\leanhelper
+\leanok
+We have $xQ'=-QS$, where $Q$ is the pentagonal series and $S$ is the
+sum-of-divisors generating function.
+\end{lemma}
+
+\begin{proof}
+\leanok
+From $PQ=1$, differentiate to get $P'Q+PQ'=0$, so $PQ'=-P'Q$.
+Multiply by $x$: $xPQ'=-xP'Q=-SPQ=-S$ (using $xP'=SP$ and $PQ=1$).
+Since $PQ=1$ is a unit, multiply both sides by $Q$ to get $xQ'=-QS$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.jtp.coeff-X-mul-deriv-pentagonal-match}
+\lean{AlgebraicCombinatorics.coeff_X_mul_deriv_pentagonal_match}
+\leanhelper
+\leanok
+The $n$-th coefficient of $xQ'$ is determined by pentagonal numbers:
+\[
+[x^n](xQ') =
+\begin{cases}
+(-1)^{|k|}\cdot n & \text{if } n = w_k \text{ for some } k\in\mathbb{Z}, \\
+0 & \text{otherwise}.
+\end{cases}
+\]
+This follows from $xQ' = \sum_{k\in\mathbb{Z}} (-1)^k w_k x^{w_k}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Taking the derivative of $Q = \sum_n \mathrm{pentagonalCoeff}(n) x^n$ and multiplying by $x$
+gives $[x^n](xQ') = n\cdot\mathrm{pentagonalCoeff}(n)$. The result follows from
+Lemma~\ref{lem.pent.coeff-at-pentagonal} and Lemma~\ref{lem.pent.coeff-zero-non-pentagonal}.
+\end{proof}
+
+\begin{theorem}
+\label{thm.pars.euler-sum-div-rec}
+\lean{AlgebraicCombinatorics.euler_sum_divisors_recursive}
+\leantarget
+\leanok
+For any positive integer $n$, let
+$\sigma(n)$ denote the sum of all positive divisors of $n$.
+
+Then, for each positive integer $n$, we have
+\[
+\sum_{\substack{k\in\mathbb{Z};\\w_{k}<n}}\left(  -1\right)  ^{k}\sigma\left(
+n-w_{k}\right)  =
+\begin{cases}
+\left(  -1\right)  ^{k-1}n, & \text{if }n=w_{k}\text{ for some }k\in
+\mathbb{Z};\\
+0, & \text{if not.}
+\end{cases}
+\]
+(Here, $w_{k}$ is the $k$-th pentagonal number, defined in Definition
+\ref{def.pars.pent-num}.)
+\end{theorem}
+
+\begin{proof}
+From Lemma~\ref{lem.jtp.pentagonal-deriv-identity}, we have
+$xQ'=-QS$, where $Q=\sum_{k\in\mathbb{Z}}(-1)^{k}x^{w_{k}}$
+and $S=\sum_{k>0}\sigma(k)x^{k}$.
+
+Taking the derivative:
+\[
+xQ' = \sum_{k\in\mathbb{Z}}(-1)^{k}w_{k}x^{w_{k}}.
+\]
+On the other hand:
+\[
+-QS = -\left(\sum_{k\in\mathbb{Z}}(-1)^{k}x^{w_{k}}\right)
+\left(\sum_{i>0}\sigma(i)x^{i}\right)
+= \sum_{m>0}\sum_{\substack{k\in\mathbb{Z};\\m>w_{k}}}
+(-1)^{k-1}\sigma(m-w_{k})x^{m}.
+\]
+
+Comparing the coefficient of $x^{n}$ on both sides:
+\begin{itemize}
+\item On the left, the coefficient is $(-1)^{k}w_{k}$ if $n=w_{k}$
+for some $k$, and $0$ otherwise (Lemma~\ref{lem.jtp.coeff-X-mul-deriv-pentagonal-match});
+\item On the right, the coefficient is
+$\sum_{\substack{k\in\mathbb{Z};\\w_{k}<n}}(-1)^{k-1}\sigma(n-w_{k})$.
+\end{itemize}
+Rearranging gives the result.
+\end{proof}
+
+\subsubsection{Alternative proof via evaluation homomorphism}
+
+\begin{definition}
+\label{def.jtp.evalJacobiCorrect}
+\lean{AlgebraicCombinatorics.evalJacobiCorrect}
+\leanhelper
+\leanok
+The \emph{evaluation map} from $(\mathbb{Z}[z^{\pm}])[[q]]$ to $\mathbb{Q}[[x]]$
+is defined by sending a power series $f = \sum_e c_e q^e$ (where $c_e \in \mathbb{Z}[z^{\pm}]$)
+to
+\[
+\operatorname{eval}_{a,b,u,v}(f) = \sum_{e\geq 0} u^e \cdot \widehat{c_e}(a,b,v,e),
+\]
+where $\widehat{c_e}(a,b,v,e)$ denotes the shifted evaluation that replaces each
+$z^\ell$ in $c_e$ by $v^\ell x^{ae+b\ell}$.
+\end{definition}
+
+\begin{lemma}
+\label{lem.jtp.evalJacobiCorrect-jacobiRHS}
+\lean{AlgebraicCombinatorics.evalJacobiCorrect_jacobiRHS'}
+\leanhelper
+\leanok
+Evaluating the RHS of Jacobi's identity gives the parameterized RHS:
+\[
+\operatorname{eval}_{a,b,u,v}\!\left(\sum_{\ell\in\mathbb{Z}}q^{\ell^2}z^\ell\right)
+= \sum_{\ell\in\mathbb{Z}} u^{\ell^2} v^\ell\, x^{a\ell^2+b\ell}.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+Each sum term $q^{\ell^2}z^\ell$ is evaluated to $u^{\ell^2} v^\ell x^{a\ell^2+b\ell}$.
+The evaluation distributes over the infinite sum by summability and continuity.
+\end{proof}
+
+\begin{theorem}
+\label{thm.jtp.jacobi-via-evalCorrect}
+\lean{AlgebraicCombinatorics.jacobi_triple_product_via_evalCorrect}
+\leanhelper
+\leanok
+The parameterized Jacobi triple product identity (Theorem~\ref{thm.pars.jtp2})
+can also be derived from Theorem~\ref{thm.pars.jtp1} by applying the
+evaluation map $\operatorname{eval}_{a,b,u,v}$.
+\end{theorem}
+
+\begin{proof}
+\leanok
+Apply $\operatorname{eval}_{a,b,u,v}$ to both sides of
+the identity from Theorem~\ref{thm.pars.jtp1} (i.e., the LHS $=$ RHS in
+$(\mathbb{Z}[z^{\pm}])[[q]]$).
+By Lemma~\ref{lem.jtp.evalJacobiCorrect-jacobiRHS}, the RHS evaluates to
+the parameterized RHS. The LHS evaluates to the parameterized LHS
+by a corresponding evaluation lemma.
+\end{proof}

@@ -1,0 +1,427 @@
+\subsection{\label{sec.gf.defs}Definitions}
+
+The four examples above should have convinced you that generating functions
+can be useful. Thus, it is worthwhile to put them on a rigorous footing by
+first \textbf{defining} generating functions and then \textbf{justifying} the
+manipulations we have been doing to them in the previous section (e.g.,
+dividing them, solving quadratic equations, taking infinite sums, taking
+derivatives, ...). We are next going to sketch how this can be done (see
+\cite[Chapter 7 (in the 1st edition)]{Loehr-BC} and \cite[Chapter 7]{19s} for
+some details).
+
+First things first: Generating functions are not actually functions. They are
+so-called \emph{formal power series} (short \emph{FPSs}). Roughly speaking, a
+formal power series is a \textquotedblleft formal\textquotedblright\ infinite
+sum of the form $a_{0}+a_{1}x+a_{2}x^{2}+\cdots$, where $x$ is an
+\textquotedblleft indeterminate\textquotedblright\ (we shall soon see what
+this all means). You cannot substitute $x=2$ into such a power series. (For
+example, substituting $x=2$ into $\dfrac{1}{1-x}=1+x+x^{2}+x^{3}+\cdots$ would
+lead to the absurd equality $\dfrac{1}{-1}=1+2+4+8+16+\cdots$.) The word
+\textquotedblleft function\textquotedblright\ in \textquotedblleft generating
+function\textquotedblright\ is somewhat of a historical artifact.
+
+\subsubsection{\label{subsec.gf.defs.commrings}Reminder: Commutative rings}
+
+In order to obtain a precise understanding of what FPSs are, we go back to
+abstract algebra. We begin by recalling the concept of a commutative ring.
+This is defined in any textbook on abstract algebra for more details, but we
+recall the definition for the sake of completeness.
+
+Informally, a \emph{commutative ring} is a set $K$ equipped with binary
+operations $\oplus$, $\ominus$ and $\odot$ and elements $\mathbf{0}$ and
+$\mathbf{1}$ that \textquotedblleft behave\textquotedblright\ like addition,
+subtraction and multiplication (of numbers) and the numbers $0$ and $1$,
+respectively. For example, they should satisfy rules like $\left(  a\oplus
+b\right)  \odot c=\left(  a\odot c\right)  \oplus\left(  b\odot c\right)  $.
+
+Formally, commutative rings are defined as follows:
+
+\begin{definition}
+\label{def.alg.commring}A \emph{commutative ring} means a set $K$ equipped
+with three maps%
+\begin{align*}
+\oplus &  :K\times K\rightarrow K,\\
+\ominus &  :K\times K\rightarrow K,\\
+\odot &  :K\times K\rightarrow K
+\end{align*}
+and two elements $\mathbf{0}\in K$ and $\mathbf{1}\in K$ satisfying the
+following axioms:
+
+\begin{enumerate}
+\item \emph{Commutativity of addition:} We have $a\oplus b=b\oplus a$ for all
+$a,b\in K$.
+
+(Here and in the following, we write the three maps $\oplus$, $\ominus$ and
+$\odot$ infix -- i.e., we denote the image of a pair $\left(  a,b\right)  \in
+K\times K$ under the map $\oplus$ by $a\oplus b$ rather than by $\oplus\left(
+a,b\right)  $.)
+
+\item \emph{Associativity of addition:} We have $a\oplus\left(  b\oplus
+c\right)  =\left(  a\oplus b\right)  \oplus c$ for all $a,b,c\in K$.
+
+\item \emph{Neutrality of zero:} We have $a\oplus\mathbf{0}=\mathbf{0}\oplus
+a=a$ for all $a\in K$.
+
+\item \emph{Subtraction undoes addition:} Let $a,b,c\in K$. We have $a\oplus
+b=c$ if and only if $a=c\ominus b$.
+
+\item \emph{Commutativity of multiplication:} We have $a\odot b=b\odot a$ for
+all $a,b\in K$.
+
+\item \emph{Associativity of multiplication:} We have $a\odot\left(  b\odot
+c\right)  =\left(  a\odot b\right)  \odot c$ for all $a,b,c\in K$.
+
+\item \emph{Distributivity:} We have%
+\[
+a\odot\left(  b\oplus c\right)  =\left(  a\odot b\right)  \oplus\left(  a\odot
+c\right)  \ \ \ \ \ \ \ \ \ \ \text{and}\ \ \ \ \ \ \ \ \ \ \left(  a\oplus
+b\right)  \odot c=\left(  a\odot c\right)  \oplus\left(  b\odot c\right)
+\]
+for all $a,b,c\in K$.
+
+\item \emph{Neutrality of one:} We have $a\odot\mathbf{1}=\mathbf{1}\odot a=a$
+for all $a\in K$.
+
+\item \emph{Annihilation:} We have $a\odot\mathbf{0}=\mathbf{0}\odot
+a=\mathbf{0}$ for all $a\in K$.
+\end{enumerate}
+
+[\textbf{Note:} Most authors do not include $\ominus$ in the definition of a
+commutative ring, but instead require the existence of additive inverses for
+all $a\in K$. This is equivalent to our definition, because if additive
+inverses exist, then we can define $a\ominus b$ to be $a\oplus\overline{b}$
+where $\overline{b}$ is the additive inverse of $b$.]
+
+The operations $\oplus$, $\ominus$ and $\odot$ are called the \emph{addition},
+the \emph{subtraction} and the \emph{multiplication} of the ring $K$. This
+does not imply that they have any connection with the usual addition,
+subtraction and multiplication of numbers; it merely means that they play
+similar roles to the latter and behave similarly. When confusion is unlikely,
+we will denote these three operations $\oplus$, $\ominus$ and $\odot$ by $+$,
+$-$ and $\cdot$, respectively, and we will abbreviate $a\odot b=a\cdot b$ by
+$ab$.
+
+The elements $\mathbf{0}$ and $\mathbf{1}$ are called the \emph{zero} and the
+\emph{unity} (or the \emph{one}) of the ring $K$. Again, this does not imply
+that they equal the numbers $0$ and $1$, but merely that they play analogous
+roles. We will simply call these elements $0$ and $1$ when confusion with the
+corresponding numbers is unlikely.
+
+We will use \emph{PEMDAS conventions} for the three operations $\oplus$,
+$\ominus$ and $\odot$. These imply that the operation $\odot$ has higher
+precedence than $\oplus$ and $\ominus$, while the operations $\oplus$ and
+$\ominus$ are left-associative. Thus, for example, \textquotedblleft%
+$ab+ac$\textquotedblright\ means $\left(  ab\right)  +\left(  ac\right)  $
+(that is, $\left(  a\odot b\right)  \oplus\left(  a\odot c\right)  $).
+Likewise, \textquotedblleft$a-b+c$\textquotedblright\ means $\left(
+a-b\right)  +c=\left(  a\ominus b\right)  \oplus c$.
+\end{definition}
+
+Here are some examples of commutative rings:
+
+\begin{itemize}
+\item The sets $\mathbb{Z}$, $\mathbb{Q}$, $\mathbb{R}$ and $\mathbb{C}$ are
+commutative rings. (Of course, the operations $\oplus$, $\ominus$ and $\odot$
+of these rings are just the usual operations $+$, $-$ and $\cdot$ known from
+high school.)
+
+\item The set $\mathbb{N}$ is not a commutative ring, since it has no
+subtraction. (It is, however, something called a \emph{commutative semiring}.)
+
+\item The matrix ring $\mathbb{Q}^{m\times m}$ (this is the ring of all
+$m\times m$-matrices with rational entries) is not a commutative ring for
+$m>1$ (because it fails the \textquotedblleft commutativity of
+multiplication\textquotedblright\ axiom). However, it satisfies all axioms
+other than \textquotedblleft commutativity of multiplication\textquotedblright%
+. This makes it a \emph{noncommutative ring}.
+
+\item The set
+\[
+\mathbb{Z}\left[  \sqrt{5}\right]  =\left\{  a+b\sqrt{5}\ \mid\ a,b\in
+\mathbb{Z}\right\}
+\]
+is a commutative ring with operations $+$, $-$ and $\cdot$ inherited from
+$\mathbb{R}$. This is because any $a,b,c,d\in\mathbb{Z}$ satisfy%
+\begin{align*}
+\left(  a+b\sqrt{5}\right)  +\left(  c+d\sqrt{5}\right)   &  =\left(
+a+c\right)  +\left(  b+d\right)  \sqrt{5}\in\mathbb{Z}\left[  \sqrt{5}\right]
+;\\
+\left(  a+b\sqrt{5}\right)  -\left(  c+d\sqrt{5}\right)   &  =\left(
+a-c\right)  +\left(  b-d\right)  \sqrt{5}\in\mathbb{Z}\left[  \sqrt{5}\right]
+;\\
+\left(  a+b\sqrt{5}\right)  \left(  c+d\sqrt{5}\right)   &  =\left(
+ac+5bd\right)  +\left(  ad+bc\right)  \sqrt{5}\in\mathbb{Z}\left[  \sqrt
+{5}\right]  .
+\end{align*}
+This is called a \emph{subring} of $\mathbb{R}$ (i.e., a subset of
+$\mathbb{R}$ that is closed under the operations $+$, $-$ and $\cdot$ and
+therefore constitutes a commutative ring with these operations inherited from
+$\mathbb{R}$).
+
+\item For each $m\in\mathbb{Z}$, the set
+\begin{align*}
+\mathbb{Z}/m  &  =\left\{  \text{all residue classes modulo }m\right\} \\
+&  =\left\{
+\begin{array}
+[c]{c}%
+\text{equivalence classes of integers with respect to}\\
+\text{the equivalence \textquotedblleft congruent modulo }%
+m\text{\textquotedblright}\\
+\text{(that is, \textquotedblleft differ by a multiple of }%
+m\text{\textquotedblright)}%
+\end{array}
+\right\}
+\end{align*}
+is a commutative ring, with its operations defined by%
+\[
+\overline{a}+\overline{b}=\overline{a+b},\ \ \ \ \ \ \ \ \ \ \overline
+{a}-\overline{b}=\overline{a-b},\ \ \ \ \ \ \ \ \ \ \overline{a}\cdot
+\overline{b}=\overline{ab}.
+\]
+If $m>0$, then this ring $\mathbb{Z}/m$ is finite and has size $m$. It is also
+known as $\mathbb{Z}/m\mathbb{Z}$ or $\mathbb{Z}_{m}$ (careful with the latter
+notation; it can mean different things to different people). When $m$ is
+prime, the ring $\mathbb{Z}/m$ is actually a finite field and is called
+$\mathbb{F}_{m}$. (But, e.g., the ring $\mathbb{Z}/4$ is not a field, and not
+the same as $\mathbb{F}_{4}$.)
+
+\item In the examples we have seen so far, the elements of the commutative
+ring either are numbers or (as in the case of matrices or residue classes)
+consist of numbers. For a contrast, here is an example where they are sets:
+
+For any two sets $X$ and $Y$, we define the \emph{symmetric difference}
+$X\bigtriangleup Y$ of $X$ and $Y$ to be the set%
+\begin{align*}
+\left(  X\cup Y\right)  \setminus\left(  X\cap Y\right)   &  =\left(
+X\setminus Y\right)  \cup\left(  Y\setminus X\right) \\
+&  =\left\{  \text{all elements that belong to exactly one of }X\text{ and
+}Y\right\}  .
+\end{align*}
+
+
+Fix a set $S$. Consider the power set $\mathcal{P}\left(  S\right)  $ of $S$
+(that is, the set of all subsets of $S$). This power set $\mathcal{P}\left(
+S\right)  $ is a commutative ring if we equip it with the operation
+$\bigtriangleup$ as addition (that is, $X\oplus Y=X\bigtriangleup Y$ for any
+subsets $X$ and $Y$ of $S$), with the same operation $\bigtriangleup$ as
+subtraction (that is, $X\ominus Y=X\bigtriangleup Y$), and with the operation
+$\cap$ as multiplication (that is, $X\odot Y=X\cap Y$), and with the elements
+$\varnothing$ and $S$ as zero and unity (that is, with $\mathbf{0}%
+=\varnothing$ and $\mathbf{1}=S$). Indeed, it is straightforward to see that
+all the axioms in Definition \ref{def.alg.commring} hold for this ring. (For
+example, distributivity holds because any three sets $A,B,C$ satisfy
+$A\cap\left(  B\bigtriangleup C\right)  =\left(  A\cap B\right)
+\bigtriangleup\left(  A\cap C\right)  $ and $\left(  A\bigtriangleup B\right)
+\cap C=\left(  A\cap C\right)  \bigtriangleup\left(  B\cap C\right)  $.) This
+is an example of a \emph{Boolean ring} (i.e., a ring in which $aa=a$ for each
+element $a$ of the ring).
+
+\item Here is another example of a semiring, which is rather useful in
+combinatorics. Let $\mathbb{T}$ be the set $\mathbb{Z}\cup\left\{
+-\infty\right\}  $, where $-\infty$ is just some extra symbol. Define two
+operations $\oplus$ and $\odot$ on this set $\mathbb{T}$ by setting%
+\[
+a\oplus b=\max\left\{  a,b\right\}  \ \ \ \ \ \ \ \ \ \ \left(  \text{where
+}\max\left\{  n,-\infty\right\}  :=n\text{ for each }n\in\mathbb{T}\right)
+\]
+and%
+\[
+a\odot b=a+b\ \ \ \ \ \ \ \ \ \ \left(  \text{where }n+\left(  -\infty\right)
+:=\left(  -\infty\right)  +n:=-\infty\text{ for each }n\in\mathbb{T}\right)
+.
+\]
+Then, $\mathbb{T}$ is a commutative semiring (i.e., it would satisfy
+Definition \ref{def.alg.commring} if not for the lack of subtraction). It is
+called \href{https://en.wikipedia.org/wiki/Tropical_semiring}{the
+\emph{tropical semiring}} of $\mathbb{Z}$.
+\end{itemize}
+
+More examples can be found in algebra textbooks (or in \cite[\S 6.1]{detnotes}
+or \cite[\S 5.2]{19s} or \cite[\S 2.1.2, \S 2.3.2, \S 2.3.3]{23wa}). \medskip
+
+\textbf{Good news:} In any commutative ring $K$, the standard rules of
+computation apply:
+
+\begin{itemize}
+\item You can compute finite sums (of elements of $K$) without specifying the
+order of summation or the placement of parentheses. For example, for any
+$a,b,c,d,e\in K$, we have%
+\[
+\left(  \left(  a+b\right)  +\left(  c+d\right)  \right)  +e=\left(  a+\left(
+b+c\right)  \right)  +\left(  d+e\right)  ,
+\]
+so you can write the sum $a+b+c+d+e$ without putting parentheses around
+anything. (This is called \textquotedblleft general
+associativity\textquotedblright.)
+
+Also, finite sums do not depend on the order of addends. For example, for any
+$a,b,c,d,e\in K$, we have%
+\[
+a+b+c+d+e=d+b+a+e+c.
+\]
+(This is called \textquotedblleft general commutativity\textquotedblright.)
+
+More formally: If $\left(  a_{s}\right)  _{s\in S}$ is any finite family of
+elements of a commutative ring $K$ (this means that $S$ is a finite set, and
+$a_{s}$ is an element of $K$ for each $s\in S$), then the finite sum%
+\[
+\sum\limits_{s\in S}a_{s}%
+\]
+is a well-defined element of $K$. Furthermore, such sums satisfy the usual
+rules of sums (see \cite[\S 1.4.2]{detnotes}); for instance:
+
+\begin{itemize}
+\item If $S=X\cup Y$ and $X\cap Y=\varnothing$, then $\sum\limits_{s\in
+S}a_{s}=\sum\limits_{s\in X}a_{s}+\sum\limits_{s\in Y}a_{s}$.
+
+\item We have $\sum\limits_{s\in S}\left(  a_{s}+b_{s}\right)  =\sum
+\limits_{s\in S}a_{s}+\sum\limits_{s\in S}b_{s}$.
+
+\item If $S$ and $W$ are two finite sets, and if $f:S\rightarrow W$ is a map,
+then $\sum_{s\in S}a_{s}=\sum_{w\in W}\sum_{\substack{s\in S;\\f\left(
+s\right)  =w}}a_{s}$. (That is, you can subdivide a finite sum into a finite
+sum of finite sums by bunching its addends arbitrarily.)
+\end{itemize}
+
+(See \cite[\S 2.14]{detnotes} for very detailed proofs\footnote{These proofs
+are stated for numbers rather than elements of an arbitrary commutative ring
+$K$, but the exact same reasoning works in an arbitrary ring $K$.}.
+Alternatively, you can treat them as exercises on induction.)
+
+If $S=\varnothing$, then $\sum\limits_{s\in S}a_{s}=0$ by definition. Such a
+sum $\sum\limits_{s\in S}a_{s}$ with $S=\varnothing$ is called an empty sum.
+
+\item The same holds for finite products. If $S=\varnothing$, then
+$\prod\limits_{s\in S}a_{s}=1$ by definition.
+
+\item If $a\in K$, then $-a$ denotes $0-a=\mathbf{0}-a\in K$.
+
+\item If $n\in\mathbb{Z}$ and $a\in K$, then we can define an element $na\in
+K$ by%
+\[
+na=%
+\begin{cases}
+\underbrace{a+a+\cdots+a}_{n\text{ times}}, & \text{if }n\geq0;\\
+-\left(  \underbrace{a+a+\cdots+a}_{-n\text{ times}}\right)  , & \text{if
+}n<0.
+\end{cases}
+\]
+This generalizes the classical definition of multiplication (for integers) as
+repeated addition.
+
+\item If $n\in\mathbb{N}$ and $a\in K$, then we can define an element%
+\[
+a^{n}=\underbrace{aa\cdots a}_{n\text{ times}}\in K.
+\]
+In particular, $a^{0}=\underbrace{aa\cdots a}_{0\text{ times}}=1$ (since an
+empty product is always $1$).
+
+\item Standard rules hold:%
+\begin{align*}
+-\left(  a+b\right)   &  =\left(  -a\right)  +\left(  -b\right)
+\ \ \ \ \ \ \ \ \ \ \text{for any }a,b\in K;\\
+-\left(  -a\right)   &  =a\ \ \ \ \ \ \ \ \ \ \text{for any }a\in K;\\
+\left(  n+m\right)  a  &  =na+ma\ \ \ \ \ \ \ \ \ \ \text{for any }a\in
+K\text{ and }n,m\in\mathbb{Z};\\
+\left(  nm\right)  a  &  =n\left(  ma\right)  \ \ \ \ \ \ \ \ \ \ \text{for
+any }a\in K\text{ and }n,m\in\mathbb{Z};\\
+a\left(  b-c\right)   &  =\left(  ab\right)  -\left(  ac\right)
+\ \ \ \ \ \ \ \ \ \ \text{for any }a,b,c\in K;\\
+\left(  ab\right)  ^{n}  &  =a^{n}b^{n}\ \ \ \ \ \ \ \ \ \ \text{for any
+}a,b\in K\text{ and }n\in\mathbb{N};\\
+a^{n+m}  &  =a^{n}a^{m}\ \ \ \ \ \ \ \ \ \ \text{for any }a\in K\text{ and
+}n,m\in\mathbb{N};\\
+a^{nm}  &  =\left(  a^{n}\right)  ^{m}\ \ \ \ \ \ \ \ \ \ \text{for any }a\in
+K\text{ and }n,m\in\mathbb{N};\\
+&  \ldots;\\
+\left(  a+b\right)  ^{n}  &  =\sum_{k=0}^{n}\dbinom{n}{k}a^{k}b^{n-k}%
+\ \ \ \ \ \ \ \ \ \ \text{for any }a,b\in K\text{ and }n\in\mathbb{N}.
+\end{align*}
+(The latter equality is known as the \emph{binomial theorem} or \emph{binomial
+formula}.)
+\end{itemize}
+
+A further concept will be useful. Namely, if $K$ is a commutative ring, then
+the notion of a $K$\emph{-module} is the straightforward generalization of the
+concept of a $K$-vector space to cases where $K$ is not a field (but just a
+commutative ring). Here is the definition of a $K$-module in detail:
+
+\begin{definition}
+\label{def.alg.module}Let $K$ be a commutative ring.
+
+A $K$\emph{-module} means a set $M$ equipped with three maps
+\begin{align*}
+\oplus &  :M\times M\rightarrow M,\\
+\ominus &  :M\times M\rightarrow M,\\
+\rightharpoonup &  :K\times M\rightarrow M
+\end{align*}
+(notice that the third map has domain $K\times M$, not $M\times M$) and an
+element $\overrightarrow{0}\in M$ satisfying the following axioms:
+
+\begin{enumerate}
+\item \emph{Commutativity of addition:} We have $a\oplus b=b\oplus a$ for all
+$a,b\in M$.
+
+(Here and in the following, we write the three maps $\oplus$, $\ominus$ and
+$\rightharpoonup$ infix, just as for a commutative ring.)
+
+\item \emph{Associativity of addition:} We have $a\oplus\left(  b\oplus
+c\right)  =\left(  a\oplus b\right)  \oplus c$ for all $a,b,c\in M$.
+
+\item \emph{Neutrality of zero:} We have $a\oplus\overrightarrow{0}%
+=\overrightarrow{0}\oplus a=a$ for all $a\in M$.
+
+\item \emph{Subtraction undoes addition:} Let $a,b,c\in M$. We have $a\oplus
+b=c$ if and only if $a=c\ominus b$.
+
+\item \emph{Associativity of scaling:} We have $u\rightharpoonup\left(
+v\rightharpoonup a\right)  =\left(  uv\right)  \rightharpoonup a$ for all
+$u,v\in K$ and $a\in M$.
+
+\item \emph{Left distributivity:} We have $u\rightharpoonup\left(  a\oplus
+b\right)  =\left(  u\rightharpoonup a\right)  \oplus\left(  u\rightharpoonup
+b\right)  $ for all $u\in K$ and $a,b\in M$.
+
+\item \emph{Right distributivity:} We have $\left(  u+v\right)
+\rightharpoonup a=\left(  u\rightharpoonup a\right)  \oplus\left(
+v\rightharpoonup a\right)  $ for all $u,v\in K$ and $a\in M$.
+
+\item \emph{Neutrality of one:} We have $1\rightharpoonup a=a$ for all $a\in
+M$.
+
+\item \emph{Left annihilation:} We have $0\rightharpoonup a=\overrightarrow{0}%
+$ for all $a\in M$.
+
+\item \emph{Right annihilation:} We have $u\rightharpoonup\overrightarrow{0}%
+=\overrightarrow{0}$ for all $u\in K$.
+\end{enumerate}
+
+[\textbf{Note:} Most authors do not include $\ominus$ in the definition of a
+$K$-module. Instead, they may require the existence of additive inverses for
+all $a\in M$. Just like for commutative rings, this is equivalent. Actually,
+even the existence of additive inverses is not necessary, since the additive
+inverse of an $a\in M$ can be constructed using the operation $\rightharpoonup
+$ as $\left(  -1\right)  \rightharpoonup a$. Thus, you will sometimes see the
+notion of a $K$-module defined entirely without any reference to subtraction
+or additive inverses; it is still equivalent to ours.]
+
+The operations $\oplus$, $\ominus$ and $\rightharpoonup$ are called the
+\emph{addition}, the \emph{subtraction} and the \emph{scaling} (or the
+$K$\emph{-action}) of the $K$-module $M$. When confusion is unlikely, we will
+denote these three operations $\oplus$, $\ominus$ and $\rightharpoonup$ by
+$+$, $-$ and $\cdot$, respectively, and we will abbreviate $a\rightharpoonup
+b=a\cdot b$ by $ab$.
+
+The element $\overrightarrow{0}$ is called the \emph{zero} (or the \emph{zero
+vector}) of the $K$-module $M$. We will usually just call it $0$.
+
+When $M$ is a $K$-module, the elements of $M$ are called \emph{vectors}, while
+the elements of $K$ are called \emph{scalars}.
+
+We will use \emph{PEMDAS conventions} for the three operations $\oplus$,
+$\ominus$ and $\rightharpoonup$, with the operation $\rightharpoonup$ having
+higher precedence than $\oplus$ and $\ominus$.
+\end{definition}
+
+This all having been said, we can now define formal power series.
+

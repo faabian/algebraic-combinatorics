@@ -1,0 +1,973 @@
+\subsubsection{\label{subsec.gf.defs.fps}The definition of formal power
+series}
+
+Until the end of Chapter \ref{chap.gf}, the following convention will be in place:
+
+\begin{convention}
+Fix a commutative ring $K$. (For example, $K$ can be $\mathbb{Z}$ or
+$\mathbb{Q}$ or $\mathbb{C}$.)
+\end{convention}
+
+\begin{definition}
+\label{def.fps.fps}A \emph{formal power series} (or, short, \emph{FPS}) in $1$
+indeterminate over $K$ means a sequence $\left(  a_{0},a_{1},a_{2}%
+,\ldots\right)  =\left(  a_{n}\right)  _{n\in\mathbb{N}}\in K^{\mathbb{N}}$ of
+elements of $K$.
+\end{definition}
+
+Examples of FPSs over $\mathbb{Z}$ are $\left(  0,0,0,\ldots\right)  $ and
+$\left(  1,0,0,0,\ldots\right)  $ and $\left(  1,1,1,1,\ldots\right)  $ and
+$\left(  1,2,3,4,\ldots\right)  $.
+
+Definition \ref{def.fps.fps} technically answers the question
+\textquotedblleft what is an FPS\textquotedblright; however, the questions
+\textquotedblleft what can we do with an FPS\textquotedblright\ and
+\textquotedblleft why do the examples in Section \ref{sec.gf.exas}
+work\textquotedblright\ or \textquotedblleft what is $x$\textquotedblright%
+\ remain open. These questions will take us a while.
+
+First, let us define some operations on FPSs.
+
+\begin{definition}
+\label{def.fps.ops}\textbf{(a)} The \emph{sum} of two FPSs $\mathbf{a}=\left(
+a_{0},a_{1},a_{2},\ldots\right)  $ and $\mathbf{b}=\left(  b_{0},b_{1}%
+,b_{2},\ldots\right)  $ is defined to be the FPS%
+\[
+\left(  a_{0}+b_{0},\ \ a_{1}+b_{1},\ \ a_{2}+b_{2},\ \ \ldots\right)  .
+\]
+It is denoted by $\mathbf{a}+\mathbf{b}$. \medskip
+
+\textbf{(b)} The \emph{difference} of two FPSs $\mathbf{a}=\left(  a_{0}%
+,a_{1},a_{2},\ldots\right)  $ and $\mathbf{b}=\left(  b_{0},b_{1},b_{2}%
+,\ldots\right)  $ is defined to be the FPS%
+\[
+\left(  a_{0}-b_{0},\ \ a_{1}-b_{1},\ \ a_{2}-b_{2},\ \ \ldots\right)  .
+\]
+It is denoted by $\mathbf{a}-\mathbf{b}$. \medskip
+
+\textbf{(c)} If $\lambda\in K$ and if $\mathbf{a}=\left(  a_{0},a_{1}%
+,a_{2},\ldots\right)  $ is an FPS, then we define an FPS
+\[
+\lambda\mathbf{a}:=\left(  \lambda a_{0},\lambda a_{1},\lambda a_{2}%
+,\ldots\right)  .
+\]
+
+
+\textbf{(d)} The \emph{product} of two FPSs $\mathbf{a}=\left(  a_{0}%
+,a_{1},a_{2},\ldots\right)  $ and $\mathbf{b}=\left(  b_{0},b_{1},b_{2}%
+,\ldots\right)  $ is defined to be the FPS $\left(  c_{0},c_{1},c_{2}%
+,\ldots\right)  $, where
+\begin{align*}
+c_{n}  &  =\sum_{i=0}^{n}a_{i}b_{n-i}=\sum_{\substack{\left(  i,j\right)
+\in\mathbb{N}^{2};\\i+j=n}}a_{i}b_{j}\\
+&  =a_{0}b_{n}+a_{1}b_{n-1}+a_{2}b_{n-2}+\cdots+a_{n}b_{0}%
+\ \ \ \ \ \ \ \ \ \ \text{for each }n\in\mathbb{N}.
+\end{align*}
+This product is denoted by $\mathbf{a}\cdot\mathbf{b}$ or just by
+$\mathbf{ab}$. \medskip
+
+\textbf{(e)} For each $a\in K$, we define $\underline{a}$ to be the FPS
+$\left(  a,0,0,0,\ldots\right)  $. An FPS of the form $\underline{a}$ for some
+$a\in K$ (that is, an FPS $\left(  a_{0},a_{1},a_{2},\ldots\right)  $
+satisfying $a_{1}=a_{2}=a_{3}=\cdots=0$) is said to be \emph{constant}.
+\medskip
+
+\textbf{(f)} The set of all FPSs (in $1$ indeterminate over $K$) is denoted
+$K\left[  \left[  x\right]  \right]  $.
+\end{definition}
+
+The following theorem is crucial: essentially it says that the operations on
+FPSs that we have just defined behave as such operations should:
+
+\begin{theorem}
+\label{thm.fps.ring}\textbf{(a)} The set $K\left[  \left[  x\right]  \right]
+$ is a commutative ring (with its operations $+$, $-$ and $\cdot$ defined in
+Definition \ref{def.fps.ops}). Its zero and its unity are the FPSs
+$\underline{0}=\left(  0,0,0,\ldots\right)  $ and $\underline{1}=\left(
+1,0,0,0,\ldots\right)  $. This means, concretely, that the following facts hold:
+
+\begin{enumerate}
+\item \emph{Commutativity of addition:} We have $\mathbf{a}+\mathbf{b}%
+=\mathbf{b}+\mathbf{a}$ for all $\mathbf{a},\mathbf{b}\in K\left[  \left[
+x\right]  \right]  $.
+
+\item \emph{Associativity of addition:} We have $\mathbf{a}+\left(
+\mathbf{b}+\mathbf{c}\right)  =\left(  \mathbf{a}+\mathbf{b}\right)
++\mathbf{c}$ for all $\mathbf{a},\mathbf{b},\mathbf{c}\in K\left[  \left[
+x\right]  \right]  $.
+
+\item \emph{Neutrality of zero:} We have $\mathbf{a}+\underline{0}%
+=\underline{0}+\mathbf{a}=\mathbf{a}$ for all $\mathbf{a}\in K\left[  \left[
+x\right]  \right]  $.
+
+\item \emph{Subtraction undoes addition:} Let $\mathbf{a},\mathbf{b}%
+,\mathbf{c}\in K\left[  \left[  x\right]  \right]  $. We have $\mathbf{a}%
++\mathbf{b}=\mathbf{c}$ if and only if $\mathbf{a}=\mathbf{c}-\mathbf{b}$.
+
+\item \emph{Commutativity of multiplication:} We have $\mathbf{ab}%
+=\mathbf{ba}$ for all $\mathbf{a},\mathbf{b}\in K\left[  \left[  x\right]
+\right]  $.
+
+\item \emph{Associativity of multiplication:} We have $\mathbf{a}\left(
+\mathbf{bc}\right)  =\left(  \mathbf{ab}\right)  \mathbf{c}$ for all
+$\mathbf{a},\mathbf{b},\mathbf{c}\in K\left[  \left[  x\right]  \right]  $.
+
+\item \emph{Distributivity:} We have%
+\[
+\mathbf{a}\left(  \mathbf{b}+\mathbf{c}\right)  =\mathbf{ab}+\mathbf{ac}%
+\ \ \ \ \ \ \ \ \ \ \text{and}\ \ \ \ \ \ \ \ \ \ \left(  \mathbf{a}%
++\mathbf{b}\right)  \mathbf{c}=\mathbf{ac}+\mathbf{bc}%
+\]
+for all $\mathbf{a},\mathbf{b},\mathbf{c}\in K\left[  \left[  x\right]
+\right]  $.
+
+\item \emph{Neutrality of one:} We have $\mathbf{a}\cdot\underline{1}%
+=\underline{1}\cdot\mathbf{a}=\mathbf{a}$ for all $\mathbf{a}\in K\left[
+\left[  x\right]  \right]  $.
+
+\item \emph{Annihilation:} We have $\mathbf{a}\cdot\underline{0}%
+=\underline{0}\cdot\mathbf{a}=\underline{0}$ for all $\mathbf{a}\in K\left[
+\left[  x\right]  \right]  $.
+\end{enumerate}
+
+\textbf{(b)} Furthermore, $K\left[  \left[  x\right]  \right]  $ is a
+$K$-module (with its scaling being the map that sends each $\left(
+\lambda,\mathbf{a}\right)  \in K\times K\left[  \left[  x\right]  \right]  $
+to the FPS $\lambda\mathbf{a}$ defined in Definition \ref{def.fps.ops}
+\textbf{(c)}). Its zero vector is $\underline{0}$. Concretely, this means that:
+
+\begin{enumerate}
+\item[10.] \emph{Associativity of scaling:} We have $\lambda\left(
+\mu\mathbf{a}\right)  =\left(  \lambda\mu\right)  \mathbf{a}$ for all
+$\lambda,\mu\in K$ and $\mathbf{a}\in K\left[  \left[  x\right]  \right]  $.
+
+\item[11.] \emph{Left distributivity:} We have $\lambda\left(  \mathbf{a}%
++\mathbf{b}\right)  =\lambda\mathbf{a}+\lambda\mathbf{b}$ for all $\lambda\in
+K$ and $\mathbf{a},\mathbf{b}\in K\left[  \left[  x\right]  \right]  $.
+
+\item[12.] \emph{Right distributivity:} We have $\left(  \lambda+\mu\right)
+\mathbf{a}=\lambda\mathbf{a}+\mu\mathbf{a}$ for all $\lambda,\mu\in K$ and
+$\mathbf{a}\in K\left[  \left[  x\right]  \right]  $.
+
+\item[13.] \emph{Neutrality of one:} We have $1\mathbf{a}=\mathbf{a}$ for all
+$\mathbf{a}\in K\left[  \left[  x\right]  \right]  $.
+
+\item[14.] \emph{Left annihilation:} We have $0\mathbf{a}=\underline{0}$ for
+all $\mathbf{a}\in K\left[  \left[  x\right]  \right]  $.
+
+\item[15.] \emph{Right annihilation:} We have $\lambda\underline{0}%
+=\underline{0}$ for all $\lambda\in K$.
+\end{enumerate}
+
+(Also, some of the facts from part \textbf{(a)} are included in this
+statement.) \medskip
+
+\textbf{(c)} We have $\lambda\left(  \mathbf{a}\cdot\mathbf{b}\right)
+=\left(  \lambda\mathbf{a}\right)  \cdot\mathbf{b}=\mathbf{a}\cdot\left(
+\lambda\mathbf{b}\right)  $ for all $\lambda\in K$ and $\mathbf{a}%
+,\mathbf{b}\in K\left[  \left[  x\right]  \right]  $. \medskip
+
+\textbf{(d)} Finally, we have $\lambda\mathbf{a}=\underline{\lambda}%
+\cdot\mathbf{a}$ for all $\lambda\in K$ and $\mathbf{a}\in K\left[  \left[
+x\right]  \right]  $.
+\end{theorem}
+
+Theorem \ref{thm.fps.ring} allows us to calculate with FPSs as we do with
+numbers, at least as far as the operations $+$, $-$ and $\cdot$ are concerned.
+Hence, e.g., we know that:
+
+\begin{itemize}
+\item Sums and products in $K\left[  \left[  x\right]  \right]  $ need no
+parentheses and do not depend on the order of addends/factors. For example,
+for any $\mathbf{a},\mathbf{b},\mathbf{c},\mathbf{d}\in K\left[  \left[
+x\right]  \right]  $, we have $\left(  \left(  \mathbf{ab}\right)
+\mathbf{c}\right)  \mathbf{d}=\mathbf{a}\left(  \left(  \mathbf{bc}\right)
+\mathbf{d}\right)  =\left(  \mathbf{ab}\right)  \left(  \mathbf{cd}\right)  $,
+so that we can write $\mathbf{abcd}$ for each of these products; and moreover,
+we have $\mathbf{abcd}=\mathbf{bdac}=\mathbf{dacb}$.
+
+\item Finite sums and products (such as $\sum_{i=1}^{k}\mathbf{a}_{i}$ or
+$\sum_{i\in I}\mathbf{a}_{i}$ or $\prod_{i=1}^{k}\mathbf{a}_{i}$ or
+$\prod_{i\in I}\mathbf{a}_{i}$, where $I$ is a finite set) make sense and
+behave as one would expect.
+
+\item Powers exist: that is, you can take $\mathbf{a}^{n}$ for each FPS
+$\mathbf{a}$ and each $n\in\mathbb{N}$.
+
+\item Standard rules hold: e.g., we have $\mathbf{a}^{n+m}=\mathbf{a}%
+^{n}\mathbf{a}^{m}$ and $\left(  \mathbf{ab}\right)  ^{n}=\mathbf{a}%
+^{n}\mathbf{b}^{n}$ for any $\mathbf{a},\mathbf{b}\in K\left[  \left[
+x\right]  \right]  $ and any $n,m\in\mathbb{N}$.
+
+\item The binomial theorem holds: For any $\mathbf{a},\mathbf{b}\in K\left[
+\left[  x\right]  \right]  $ and any $n\in\mathbb{N}$, we have%
+\[
+\left(  \mathbf{a}+\mathbf{b}\right)  ^{n}=\sum_{k=0}^{n}\dbinom{n}%
+{k}\mathbf{a}^{k}\mathbf{b}^{n-k}.
+\]
+
+\end{itemize}
+
+Before we prove Theorem \ref{thm.fps.ring}, we introduce one more notation:
+
+\begin{definition}
+\label{def.fps.coeff}If $n\in\mathbb{N}$, and if $\mathbf{a}=\left(
+a_{0},a_{1},a_{2},\ldots\right)  \in K\left[  \left[  x\right]  \right]  $ is
+an FPS, then we define an element $\left[  x^{n}\right]  \mathbf{a}\in K$ by%
+\[
+\left[  x^{n}\right]  \mathbf{a}:=a_{n}.
+\]
+This is called the \emph{coefficient of }$x^{n}$\emph{ in }$\mathbf{a}$, or
+the $n$\emph{-th coefficient} of $\mathbf{a}$, or the $x^{n}$%
+\emph{-coefficient} of $\mathbf{a}$.
+\end{definition}
+
+Thus, the definition of the sum of two FPSs (Definition \ref{def.fps.ops}
+\textbf{(a)}) rewrites as follows: For any $\mathbf{a},\mathbf{b}\in K\left[
+\left[  x\right]  \right]  $ and any $n\in\mathbb{N}$, we have
+\begin{equation}
+\left[  x^{n}\right]  \left(  \mathbf{a}+\mathbf{b}\right)  =\left[
+x^{n}\right]  \mathbf{a}+\left[  x^{n}\right]  \mathbf{b}.
+\label{pf.thm.fps.ring.xn(a+b)=}%
+\end{equation}
+Similarly, for any $\mathbf{a},\mathbf{b}\in K\left[  \left[  x\right]
+\right]  $ and any $n\in\mathbb{N}$, we have
+\begin{equation}
+\left[  x^{n}\right]  \left(  \mathbf{a}-\mathbf{b}\right)  =\left[
+x^{n}\right]  \mathbf{a}-\left[  x^{n}\right]  \mathbf{b}.
+\label{pf.thm.fps.ring.xn(a-b)=}%
+\end{equation}
+Meanwhile, the definition of the product of two FPSs (Definition
+\ref{def.fps.ops} \textbf{(d)}) rewrites as follows: For any $\mathbf{a}%
+,\mathbf{b}\in K\left[  \left[  x\right]  \right]  $ and any $n\in\mathbb{N}$,
+we have
+\begin{align}
+&  \left[  x^{n}\right]  \left(  \mathbf{ab}\right) \nonumber\\
+&  =\left[  x^{0}\right]  \mathbf{a}\cdot\left[  x^{n}\right]  \mathbf{b}%
++\left[  x^{1}\right]  \mathbf{a}\cdot\left[  x^{n-1}\right]  \mathbf{b}%
++\left[  x^{2}\right]  \mathbf{a}\cdot\left[  x^{n-2}\right]  \mathbf{b}%
++\cdots+\left[  x^{n}\right]  \mathbf{a}\cdot\left[  x^{0}\right]
+\mathbf{b}\nonumber\\
+&  =\sum_{i=0}^{n}\left[  x^{i}\right]  \mathbf{a}\cdot\left[  x^{n-i}\right]
+\mathbf{b}\label{pf.thm.fps.ring.xn(ab)=2}\\
+&  =\sum_{j=0}^{n}\left[  x^{n-j}\right]  \mathbf{a}\cdot\left[  x^{j}\right]
+\mathbf{b} \label{pf.thm.fps.ring.xn(ab)=3}%
+\end{align}
+(here, we have substituted $n-j$ for $i$ in the sum). For $n=0$, this equality
+simplifies to%
+\begin{equation}
+\left[  x^{0}\right]  \left(  \mathbf{ab}\right)  =\left[  x^{0}\right]
+\mathbf{a}\cdot\left[  x^{0}\right]  \mathbf{b}.
+\label{pf.thm.fps.ring.x0(ab)=}%
+\end{equation}
+In other words, when we multiply two FPSs, their constant terms get
+multiplied. Here and in the following, the \emph{constant term} of an FPS
+$\mathbf{a}\in K\left[  \left[  x\right]  \right]  $ is defined to be its
+$0$-th coefficient $\left[  x^{0}\right]  \mathbf{a}$.
+
+Finally, Definition \ref{def.fps.ops} \textbf{(c)} rewrites as follows: For
+any $\lambda\in K$ and $\mathbf{a}\in K\left[  \left[  x\right]  \right]  $
+and any $n\in\mathbb{N}$, we have%
+\begin{equation}
+\left[  x^{n}\right]  \left(  \lambda\mathbf{a}\right)  =\lambda\cdot\left[
+x^{n}\right]  \mathbf{a}. \label{pf.thm.fps.ring.xn(la)=}%
+\end{equation}
+
+
+\begin{proof}
+[Proof of Theorem \ref{thm.fps.ring}.]Most parts of Theorem \ref{thm.fps.ring}
+are straightforward to verify. Let us check the associativity of multiplication.
+
+Let $\mathbf{a},\mathbf{b},\mathbf{c}\in K\left[  \left[  x\right]  \right]
+$. We must prove that $\mathbf{a}\left(  \mathbf{bc}\right)  =\left(
+\mathbf{ab}\right)  \mathbf{c}$. Let $n\in\mathbb{N}$. Consider the two
+equalities%
+\begin{align*}
+\left[  x^{n}\right]  \left(  \left(  \mathbf{ab}\right)  \mathbf{c}\right)
+&  =\sum_{j=0}^{n}\underbrace{\left[  x^{n-j}\right]  \left(  \mathbf{ab}%
+\right)  }_{\substack{=\sum_{i=0}^{n-j}\left[  x^{i}\right]  \mathbf{a}%
+\cdot\left[  x^{n-j-i}\right]  \mathbf{b}\\\text{(by
+(\ref{pf.thm.fps.ring.xn(ab)=2}),}\\\text{applied to }n-j\text{ instead of
+}n\text{)}}}\cdot\left[  x^{j}\right]  \mathbf{c}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{by (\ref{pf.thm.fps.ring.xn(ab)=3}), applied to }\mathbf{ab}\text{ and
+}\mathbf{c}\\
+\text{instead of }\mathbf{a}\text{ and }\mathbf{b}%
+\end{array}
+\right) \\
+&  =\sum_{j=0}^{n}\left(  \sum_{i=0}^{n-j}\left[  x^{i}\right]  \mathbf{a}%
+\cdot\left[  x^{n-j-i}\right]  \mathbf{b}\right)  \cdot\left[  x^{j}\right]
+\mathbf{c}\\
+&  =\sum_{j=0}^{n}\ \ \sum_{i=0}^{n-j}\left[  x^{i}\right]  \mathbf{a}%
+\cdot\left[  x^{n-j-i}\right]  \mathbf{b}\cdot\left[  x^{j}\right]  \mathbf{c}%
+\end{align*}
+and%
+\begin{align*}
+\left[  x^{n}\right]  \left(  \mathbf{a}\left(  \mathbf{bc}\right)  \right)
+&  =\sum_{i=0}^{n}\left[  x^{i}\right]  \mathbf{a}\cdot\underbrace{\left[
+x^{n-i}\right]  \left(  \mathbf{bc}\right)  }_{\substack{=\sum_{j=0}%
+^{n-i}\left[  x^{n-i-j}\right]  \mathbf{b}\cdot\left[  x^{j}\right]
+\mathbf{c}\\\text{(by (\ref{pf.thm.fps.ring.xn(ab)=3}), applied to
+}n-i-j\text{, }\mathbf{b}\text{ and }\mathbf{c}\\\text{instead of }n\text{,
+}\mathbf{a}\text{ and }\mathbf{b}\text{)}}}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{by
+(\ref{pf.thm.fps.ring.xn(ab)=2}), applied to }\mathbf{bc}\text{ instead of
+}\mathbf{b}\right) \\
+&  =\sum_{i=0}^{n}\left[  x^{i}\right]  \mathbf{a}\cdot\left(  \sum
+_{j=0}^{n-i}\left[  x^{n-i-j}\right]  \mathbf{b}\cdot\left[  x^{j}\right]
+\mathbf{c}\right) \\
+&  =\sum_{i=0}^{n}\ \ \sum_{j=0}^{n-i}\left[  x^{i}\right]  \mathbf{a}%
+\cdot\left[  x^{n-i-j}\right]  \mathbf{b}\cdot\left[  x^{j}\right]
+\mathbf{c}.
+\end{align*}
+The right hand sides of these two equalities are equal, since\footnote{The
+first equality we are about to state is an equality of summation signs. Such
+an equality means that whatever you put inside the summation signs, they
+produce equal results. For example, $\sum_{i\in\left\{  1,2,3\right\}  }%
+=\sum_{i=1}^{3}$ and $\sum_{i\in\mathbb{N}}=\sum_{i\geq0}$.}%
+\[
+\sum_{j=0}^{n}\ \ \sum_{i=0}^{n-j}=\sum_{\substack{\left(  i,j\right)
+\in\mathbb{N}^{2};\\i+j\leq n}}=\sum_{i=0}^{n}\ \ \sum_{j=0}^{n-i}%
+\]
+and $n-j-i=n-i-j$. Thus, their left hand sides are equal as well. In other
+words,%
+\[
+\left[  x^{n}\right]  \left(  \left(  \mathbf{ab}\right)  \mathbf{c}\right)
+=\left[  x^{n}\right]  \left(  \mathbf{a}\left(  \mathbf{bc}\right)  \right)
+.
+\]
+
+
+Now, forget that we fixed $n$. We thus have shown that $\left[  x^{n}\right]
+\left(  \left(  \mathbf{ab}\right)  \mathbf{c}\right)  =\left[  x^{n}\right]
+\left(  \mathbf{a}\left(  \mathbf{bc}\right)  \right)  $ for each
+$n\in\mathbb{N}$. In other words, each entry of $\left(  \mathbf{ab}\right)
+\mathbf{c}$ equals the corresponding entry of $\mathbf{a}\left(
+\mathbf{bc}\right)  $. This entails $\left(  \mathbf{ab}\right)
+\mathbf{c}=\mathbf{a}\left(  \mathbf{bc}\right)  $ (since a FPS is just the
+sequence of its entries). In other words, $\mathbf{a}\left(  \mathbf{bc}%
+\right)  =\left(  \mathbf{ab}\right)  \mathbf{c}$. This concludes the proof of
+associativity of multiplication.
+
+The remaining claims of Theorem \ref{thm.fps.ring} are
+LTTR\footnote{\textquotedblleft LTTR\textquotedblright\ means
+\textquotedblleft left to the reader\textquotedblright.} (their proofs follow
+the same pattern, but are easier to execute).
+\end{proof}
+
+Since $K\left[  \left[  x\right]  \right]  $ is a commutative ring, any finite
+sum of FPSs is well-defined. Sometimes, however, infinite sums of FPSs make
+sense as well: for example, it stands to reason that%
+\begin{align}
+&  \ \ \ \ \left(  1,1,1,1,\ldots\right) \nonumber\\
+&  +\left(  0,1,1,1,\ldots\right) \nonumber\\
+&  +\left(  0,0,1,1,\ldots\right) \nonumber\\
+&  +\left(  0,0,0,1,\ldots\right) \nonumber\\
+&  +\cdots\nonumber\\
+&  =\left(  1,2,3,4,\ldots\right)  , \label{eq.fps.summable.exa1}%
+\end{align}
+because FPSs are added entrywise. Let us rigorously define such sums. First,
+we define \textquotedblleft essentially finite\textquotedblright\ sums of
+elements of $K$:
+
+\begin{definition}
+\label{def.infsum.essfin}\textbf{(a)} A family $\left(  a_{i}\right)  _{i\in
+I}\in K^{I}$ of elements of $K$ is said to be \emph{essentially finite} if all
+but finitely many $i\in I$ satisfy $a_{i}=0$ (in other words, if the set
+$\left\{  i\in I\ \mid\ a_{i}\neq0\right\}  $ is finite). \medskip
+
+\textbf{(b)} Let $\left(  a_{i}\right)  _{i\in I}\in K^{I}$ be an essentially
+finite family of elements of $K$. Then, the infinite sum $\sum_{i\in I}a_{i}$
+is defined to equal the finite sum $\sum_{\substack{i\in I;\\a_{i}\neq0}%
+}a_{i}$. Such an infinite sum is said to be \emph{essentially finite}.
+\end{definition}
+
+For example, the family $\left(  \left\lfloor \dfrac{5}{2^{n}}\right\rfloor
+\right)  _{n\in\mathbb{N}}$ of integers is essentially finite\footnote{Here
+and in the following, the notation $\left\lfloor x\right\rfloor $ (where $x$
+is a real number) stands for the largest integer that is $\leq x$. For
+instance, $\left\lfloor \pi\right\rfloor =3$ and $\left\lfloor 3\right\rfloor
+=3$.}, and its sum is%
+\begin{align*}
+\sum_{n\in\mathbb{N}}\left\lfloor \dfrac{5}{2^{n}}\right\rfloor  &
+=\left\lfloor \dfrac{5}{2^{0}}\right\rfloor +\left\lfloor \dfrac{5}{2^{1}%
+}\right\rfloor +\left\lfloor \dfrac{5}{2^{2}}\right\rfloor +\left\lfloor
+\dfrac{5}{2^{3}}\right\rfloor +\left\lfloor \dfrac{5}{2^{4}}\right\rfloor
++\cdots\\
+&  =5+2+1+\underbrace{0+0+0+\cdots}_{\text{throw these away}}=5+2+1=8.
+\end{align*}
+
+
+Note the following:
+
+\begin{itemize}
+\item A family $\left(  a_{i}\right)  _{i\in I}\in K^{I}$ is always
+essentially finite if $I$ is finite; thus, essentially finite families are a
+wider class than finite families.
+
+\item Any essentially finite sum of real or complex numbers is convergent in
+the sense of analysis, but the converse is not true; for instance, the
+infinite sum $\sum_{n\in\mathbb{N}}\dfrac{1}{2^{n}}=\dfrac{1}{1}+\dfrac{1}%
+{2}+\dfrac{1}{4}+\dfrac{1}{8}+\cdots$ is convergent in the sense of analysis,
+but not essentially finite. Essential finiteness is a crude algebraic
+imitation of convergence. One of its advantage is that it works for sums of
+elements of any commutative ring, not just of $\mathbb{R}$ or $\mathbb{C}$.
+\end{itemize}
+
+So the idea behind Definition \ref{def.infsum.essfin} \textbf{(b)} is that
+addends that equal $0$ can be discarded in a sum, even when there are
+infinitely many of them. \medskip
+
+Sums of essentially finite families satisfy the usual rules for sums (such as
+the breaking-apart rule $\sum_{i\in S}a_{s}=\sum_{i\in X}a_{s}+\sum_{i\in
+Y}a_{s}$ when a set $S$ is the union of two disjoint sets $X$ and $Y$). See
+\cite[\S 2.14.15]{detnotes} for details\footnote{Note that \cite[\S 2.14.15]%
+{detnotes} uses the words \textquotedblleft\emph{finitely supported}%
+\textquotedblright\ instead of \textquotedblleft essentially
+finite\textquotedblright.}. There is only one \textbf{caveat}: Interchange of
+summation signs (e.g., replacing $\sum_{i\in I}\ \ \sum_{j\in J}a_{i,j}$ by
+$\sum_{j\in J}\ \ \sum_{i\in I}a_{i,j}$) works only if the family $\left(
+a_{i,j}\right)  _{\left(  i,j\right)  \in I\times J}$ is essentially finite
+(i.e., all but finitely many \textbf{pairs} $\left(  i,j\right)  \in I\times
+J$ satisfy $a_{i,j}=0$); it does not suffice that the sums $\sum_{i\in
+I}\ \ \sum_{j\in J}a_{i,j}$ and $\sum_{j\in J}\ \ \sum_{i\in I}a_{i,j}$
+themselves are essentially finite (i.e., that the families $\left(
+a_{i,j}\right)  _{j\in J}$ for all $i\in I$, the families $\left(
+a_{i,j}\right)  _{i\in I}$ for all $j\in J$, and the families $\left(
+\sum_{j\in J}a_{i,j}\right)  _{i\in I}$ and $\left(  \sum_{i\in I}%
+a_{i,j}\right)  _{j\in J}$ are essentially finite).
+
+\begin{fineprint}
+For a counterexample, consider the family $\left(  a_{i,j}\right)  _{\left(
+i,j\right)  \in I\times J}$ of integers with $I=\left\{  1,2,3,\ldots\right\}
+$ and $J=\left\{  1,2,3,\ldots\right\}  $, where $a_{i,j}$ is given by the
+following table:%
+\[%
+\begin{tabular}
+[c]{|c||c|c|c|c|c|c|}\hline
+$a_{i,j}$ & $j=1$ & $j=2$ & $j=3$ & $j=4$ & $j=5$ & $\cdots$\\\hline\hline
+$i=1$ & $1$ & $-1$ &  &  &  & $\cdots$\\\hline
+$i=2$ & $\phantom{-1}$ & $1$ & $-1$ &  &  & $\cdots$\\\hline
+$i=3$ &  &  & $1$ & $-1$ &  & $\cdots$\\\hline
+$i=4$ &  &  &  & $1$ & $-1$ & $\cdots$\\\hline
+$i=5$ &  &  &  &  & $1$ & $\cdots$\\\hline
+$\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\ddots
+$\\\hline
+\end{tabular}
+\ \ \ \ \ \
+\]
+(where all the entries in the empty cells are $0$). For this family $\left(
+a_{i,j}\right)  _{\left(  i,j\right)  \in I\times J}$, both sums $\sum_{i\in
+I}\ \ \sum_{j\in J}a_{i,j}$ and $\sum_{j\in J}\ \ \sum_{i\in I}a_{i,j}$ are
+essentially finite, but they are not equal (indeed, the former sum is
+$\sum_{i\in I}\ \ \underbrace{\sum_{j\in J}a_{i,j}}_{=0}=\sum_{i\in I}0=0$,
+whereas the latter sum is $\sum_{j\in J}\ \ \sum_{i\in I}a_{i,j}%
+=\underbrace{\sum_{i\in I}a_{i,1}}_{=1}+\sum_{j>1}\ \ \underbrace{\sum_{i\in
+I}a_{i,j}}_{=0}=1+\sum_{j>1}0=1$). And indeed, this family $\left(
+a_{i,j}\right)  _{\left(  i,j\right)  \in I\times J}$ is not essentially finite.
+\end{fineprint}
+
+\bigskip
+
+We have now made sense of infinite sums of elements of $K$ when all but
+finitely many addends are $0$. Of course, we can do the same for $K\left[
+\left[  x\right]  \right]  $ instead of $K$ (since $K\left[  \left[  x\right]
+\right]  $, too, is a commutative ring). However, this does not help make
+sense of the sum on the left hand side of (\ref{eq.fps.summable.exa1}),
+because this sum is not essentially finite (it is a sum of infinitely many
+nonzero FPSs). Thus, for sums of FPSs, we need a weaker version of essential
+finiteness. Here is its definition:
+
+\Needspace{19pc}
+
+\begin{definition}
+\label{def.fps.summable}A (possibly infinite) family $\left(  \mathbf{a}%
+_{i}\right)  _{i\in I}$ of FPSs is said to be \emph{summable} (or
+\emph{entrywise essentially finite}) if%
+\[
+\text{for each }n\in\mathbb{N}\text{, all but finitely many }i\in I\text{
+satisfy }\left[  x^{n}\right]  \mathbf{a}_{i}=0.
+\]
+In this case, the sum $\sum_{i\in I}\mathbf{a}_{i}$ is defined to be the FPS
+with%
+\begin{equation}
+\left[  x^{n}\right]  \left(  \sum_{i\in I}\mathbf{a}_{i}\right)
+=\underbrace{\sum_{i\in I}\left[  x^{n}\right]  \mathbf{a}_{i}}%
+_{\substack{\text{an essentially}\\\text{finite sum}}%
+}\ \ \ \ \ \ \ \ \ \ \text{for all }n\in\mathbb{N}\text{.}
+\label{eq.def.fps.summable.sum}%
+\end{equation}
+
+\end{definition}
+
+\begin{remark}
+The condition \textquotedblleft all but finitely many $i\in I$ satisfy
+$\left[  x^{n}\right]  \mathbf{a}_{i}=0$\textquotedblright\ in Definition
+\ref{def.fps.summable} is \textbf{not} equivalent to \textquotedblleft
+infinitely many $i\in I$ satisfy $\left[  x^{n}\right]  \mathbf{a}_{i}%
+=0$\textquotedblright.
+\end{remark}
+
+Any essentially finite family of FPSs is summable, but the converse is not
+generally the case.
+
+\begin{example}
+Let us see how Definition \ref{def.fps.summable} justifies
+(\ref{eq.fps.summable.exa1}). Consider the family $\left(  \mathbf{a}%
+_{i}\right)  _{i\in\mathbb{N}}\in K\left[  \left[  x\right]  \right]
+^{\mathbb{N}}$ of FPSs, where%
+\[
+\mathbf{a}_{i}:=\left(  \underbrace{0,0,\ldots,0}_{i\text{ zeroes}%
+},1,1,1,\ldots\right)  \ \ \ \ \ \ \ \ \ \ \text{for each }i\in\mathbb{N}.
+\]
+The left hand side of (\ref{eq.fps.summable.exa1}) is precisely $\mathbf{a}%
+_{0}+\mathbf{a}_{1}+\mathbf{a}_{2}+\cdots=\sum_{i\in\mathbb{N}}\mathbf{a}_{i}%
+$, so let us check that the family $\left(  \mathbf{a}_{i}\right)
+_{i\in\mathbb{N}}$ is summable and that its sum $\sum_{i\in\mathbb{N}%
+}\mathbf{a}_{i}$ really equals the right hand side of
+(\ref{eq.fps.summable.exa1}).
+
+For each $n\in\mathbb{N}$, all but finitely many $i\in\mathbb{N}$ satisfy
+$\left[  x^{n}\right]  \mathbf{a}_{i}=0$ (indeed, all $i>n$ satisfy this
+equality). Thus, the family $\left(  \mathbf{a}_{i}\right)  _{i\in\mathbb{N}}$
+is summable. For each $n\in\mathbb{N}$, we have%
+\begin{align*}
+\left[  x^{n}\right]  \left(  \sum_{i\in\mathbb{N}}\mathbf{a}_{i}\right)   &
+=\sum_{i\in\mathbb{N}}\left[  x^{n}\right]  \mathbf{a}_{i}%
+\ \ \ \ \ \ \ \ \ \ \left(  \text{by (\ref{eq.def.fps.summable.sum})}\right)
+\\
+&  =\sum_{i=0}^{n}\underbrace{\left[  x^{n}\right]  \mathbf{a}_{i}%
+}_{\substack{=1\\\text{(since }i\leq n\text{)}}}+\sum_{i>n}\underbrace{\left[
+x^{n}\right]  \mathbf{a}_{i}}_{\substack{=0\\\text{(since }i>n\text{)}}%
+}=\sum_{i=0}^{n}1+\underbrace{\sum_{i>n}0}_{=0}\\
+&  =\sum_{i=0}^{n}1=n+1.
+\end{align*}
+Thus, $\sum_{i\in\mathbb{N}}\mathbf{a}_{i}=\left(  1,2,3,4,\ldots\right)  $.
+This is precisely the right hand side of (\ref{eq.fps.summable.exa1}). Thus,
+(\ref{eq.fps.summable.exa1}) has been justified rigorously.
+\end{example}
+
+You can think of summable infinite sums of FPSs as a crude algebraic imitate
+of uniformly convergent infinite sums of holomorphic functions in complex
+analysis. (However, the former are a much simpler concept than the latter. In
+particular, complex analysis is completely unnecessary in their study.)
+
+The following fact is nearly obvious:\footnote{A \emph{subfamily} of a family
+$\left(  f_{i}\right)  _{i\in I}$ means a family of the form $\left(
+f_{i}\right)  _{i\in J}$, where $J$ is a subset of $I$.}
+
+\begin{proposition}
+\label{prop.fps.summable.sub}Let $\left(  \mathbf{a}_{i}\right)  _{i\in I}$ be
+a summable family of FPSs. Then, any subfamily of $\left(  \mathbf{a}%
+_{i}\right)  _{i\in I}$ is summable as well.
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.fps.summable.sub}.]Let $J$ be a subset of $I$.
+We must prove that the subfamily $\left(  \mathbf{a}_{i}\right)  _{i\in J}$ is summable.
+
+Let $n\in\mathbb{N}$. Then, all but finitely many $i\in I$ satisfy $\left[
+x^{n}\right]  \mathbf{a}_{i}=0$ (since the family $\left(  \mathbf{a}%
+_{i}\right)  _{i\in I}$ is summable). Hence, all but finitely many $i\in J$
+satisfy $\left[  x^{n}\right]  \mathbf{a}_{i}=0$ (since $J$ is a subset of
+$I$). Since we have proved this for each $n\in\mathbb{N}$, we thus conclude
+that the family $\left(  \mathbf{a}_{i}\right)  _{i\in J}$ is summable. This
+proves Proposition \ref{prop.fps.summable.sub}.
+\end{proof}
+
+Just as with essentially finite families, we can work with summable sums of
+FPSs \textquotedblleft as if they were finite\textquotedblright\ most of the time:
+
+\begin{proposition}
+\label{prop.fps.summable-sums-rule}Sums of summable families of FPSs satisfy
+the usual rules for sums (such as the breaking-apart rule $\sum_{i\in S}%
+a_{s}=\sum_{i\in X}a_{s}+\sum_{i\in Y}a_{s}$ when a set $S$ is the union of
+two disjoint sets $X$ and $Y$). See \cite[Proposition 7.2.11]{19s} for
+details. Again, the only \textbf{caveat} is about interchange of summation
+signs: The equality
+\[
+\sum_{i\in I}\ \ \sum_{j\in J}\mathbf{a}_{i,j}=\sum_{j\in J}\ \ \sum_{i\in
+I}\mathbf{a}_{i,j}%
+\]
+holds when the family $\left(  \mathbf{a}_{i,j}\right)  _{\left(  i,j\right)
+\in I\times J}$ is summable (i.e., when for each $n\in\mathbb{N}$, all but
+finitely many \textbf{pairs} $\left(  i,j\right)  \in I\times J$ satisfy
+$\left[  x^{n}\right]  \mathbf{a}_{i,j}=0$); it does not generally hold if we
+merely assume that the sums $\sum_{i\in I}\ \ \sum_{j\in J}\mathbf{a}_{i,j}$
+and $\sum_{j\in J}\ \ \sum_{i\in I}\mathbf{a}_{i,j}$ are summable.
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.fps.summable-sums-rule}.]The proof is tedious
+(as there are many rules to check), but fairly straightforward (the idea is
+always to focus on a single coefficient, and then to reduce the infinite sums
+to finite sums). For example, consider the \textquotedblleft discrete Fubini
+rule\textquotedblright, which says that%
+\begin{equation}
+\sum_{i\in I}\ \ \sum_{j\in J}\mathbf{a}_{i,j}=\sum_{\left(  i,j\right)  \in
+I\times J}\mathbf{a}_{i,j}=\sum_{j\in J}\ \ \sum_{i\in I}\mathbf{a}_{i,j}
+\label{pf.prop.fps.summable-sums-rule.fub}%
+\end{equation}
+whenever $\left(  \mathbf{a}_{i,j}\right)  _{\left(  i,j\right)  \in I\times
+J}$ is a summable family of FPSs. In order to prove this rule, we fix a
+summable family $\left(  \mathbf{a}_{i,j}\right)  _{\left(  i,j\right)  \in
+I\times J}$ of FPSs. It is easy to see that the families $\left(
+\mathbf{a}_{i,j}\right)  _{j\in J}$ for all $i\in I$ are summable as well, as
+are the families $\left(  \mathbf{a}_{i,j}\right)  _{i\in I}$ for all $j\in
+J$, and the families $\left(  \sum_{j\in J}\mathbf{a}_{i,j}\right)  _{i\in I}$
+and $\left(  \sum_{i\in I}\mathbf{a}_{i,j}\right)  _{j\in J}$. Hence, all sums
+in (\ref{pf.prop.fps.summable-sums-rule.fub}) are well-defined. Now, in order
+to prove (\ref{pf.prop.fps.summable-sums-rule.fub}), it suffices to check that%
+\[
+\left[  x^{n}\right]  \left(  \sum_{i\in I}\ \ \sum_{j\in J}\mathbf{a}%
+_{i,j}\right)  =\left[  x^{n}\right]  \left(  \sum_{\left(  i,j\right)  \in
+I\times J}\mathbf{a}_{i,j}\right)  =\left[  x^{n}\right]  \left(  \sum_{j\in
+J}\ \ \sum_{i\in I}\mathbf{a}_{i,j}\right)
+\]
+for each $n\in\mathbb{N}$. Fix $n\in\mathbb{N}$; then, we have $\left[
+x^{n}\right]  \left(  \mathbf{a}_{i,j}\right)  =0$ for all but finitely many
+$\left(  i,j\right)  \in I\times J$ (since the family $\left(  \mathbf{a}%
+_{i,j}\right)  _{\left(  i,j\right)  \in I\times J}$ is summable). That is,
+the set of all pairs $\left(  i,j\right)  \in I\times J$ satisfying $\left[
+x^{n}\right]  \left(  \mathbf{a}_{i,j}\right)  \neq0$ is finite. Hence, the
+set $I^{\prime}:=\left\{  i\ \mid\ \left(  i,j\right)  \in I\times J\text{
+with }\left[  x^{n}\right]  \left(  \mathbf{a}_{i,j}\right)  \neq0\right\}  $
+of the first entries of all these pairs is also finite, and so is the set
+$J^{\prime}:=\left\{  i\ \mid\ \left(  i,j\right)  \in I\times J\text{ with
+}\left[  x^{n}\right]  \left(  \mathbf{a}_{i,j}\right)  \neq0\right\}  $ of
+the second entries of all these pairs. Now, the definitions of $I^{\prime}$
+and $J^{\prime}$ ensure that any pair $\left(  i,j\right)  \in I\times J$
+satisfies $\left[  x^{n}\right]  \mathbf{a}_{i,j}=0$ unless $i\in I^{\prime}$
+and $j\in J^{\prime}$. Hence, we easily obtain the three equalities%
+\[
+\left[  x^{n}\right]  \left(  \sum_{i\in I}\ \ \sum_{j\in J}\mathbf{a}%
+_{i,j}\right)  =\sum_{i\in I}\ \ \sum_{j\in J}\left[  x^{n}\right]
+\mathbf{a}_{i,j}=\sum_{i\in I^{\prime}}\ \ \sum_{j\in J^{\prime}}\left[
+x^{n}\right]  \mathbf{a}_{i,j}%
+\]
+and%
+\[
+\left[  x^{n}\right]  \left(  \sum_{\left(  i,j\right)  \in I\times
+J}\mathbf{a}_{i,j}\right)  =\sum_{\left(  i,j\right)  \in I\times J}\left[
+x^{n}\right]  \mathbf{a}_{i,j}=\sum_{\left(  i,j\right)  \in I^{\prime}\times
+J^{\prime}}\left[  x^{n}\right]  \mathbf{a}_{i,j}%
+\]
+and%
+\[
+\left[  x^{n}\right]  \left(  \sum_{j\in J}\ \ \sum_{i\in I}\mathbf{a}%
+_{i,j}\right)  =\sum_{j\in J}\ \ \sum_{i\in I}\left[  x^{n}\right]
+\mathbf{a}_{i,j}=\sum_{j\in J^{\prime}}\ \ \sum_{i\in I^{\prime}}\left[
+x^{n}\right]  \mathbf{a}_{i,j}.
+\]
+However, the right hand sides of these three equalities are equal (since the
+sums appearing in them are finite sums, and thus satisfy the usual rules for
+sums). Thus, the left hand sides are equal, exactly as we needed to show. See
+\cite[proof of Proposition 7.2.11]{19s} for more details of this proof.
+Proving the other properties of sums is easier.
+\end{proof}
+
+A few conventions about infinite sums will be used rather often:
+
+\begin{convention}
+\label{conv.fps.infsum}\textbf{(a)} For any given integer $m\in\mathbb{Z}$,
+the summation sign $\sum_{k\geq m}$ is to be understood as $\sum_{k\in\left\{
+m,m+1,m+2,\ldots\right\}  }$. We also write $\sum_{k=m}^{\infty}$ for this
+summation sign. \medskip
+
+\textbf{(b)} For any given integer $m\in\mathbb{Z}$, the summation sign
+$\sum_{k>m}$ is to be understood as $\sum_{k\in\left\{  m+1,m+2,m+3,\ldots
+\right\}  }$. \medskip
+
+\textbf{(c)} Let $I$ be a set, and let $\mathcal{A}\left(  i\right)  $ be a
+logical statement for each $i\in I$. (For example, $I$ can be $\mathbb{N}$,
+and $\mathcal{A}\left(  i\right)  $ can be the statement \textquotedblleft$i$
+is odd\textquotedblright.) Then, the summation sign $\sum_{\substack{i\in
+I;\\\mathcal{A}\left(  i\right)  }}$ is to be understood as $\sum
+_{i\in\left\{  j\in I\ \mid\ \mathcal{A}\left(  j\right)  \right\}  }$. (For
+example, the summation sign $\sum_{\substack{i\in\mathbb{N};\\i\text{ is odd}%
+}}$ means $\sum_{i\in\left\{  j\in\mathbb{N}\ \mid\ j\text{ is odd}\right\}
+}$, that is, a sum over all odd elements of $\mathbb{N}$.)
+\end{convention}
+
+We can now define the $x$ that figured so prominently in our informal
+exploration of formal power series back in Section \ref{sec.gf.exas}:
+
+\begin{definition}
+\label{def.fps.x}Let $x$ denote the FPS $\left(  0,1,0,0,0,\ldots\right)  $.
+In other words, let $x$ denote the FPS with $\left[  x^{1}\right]  x=1$ and
+$\left[  x^{i}\right]  x=0$ for all $i\neq1$.
+\end{definition}
+
+The following simple lemma follows almost immediately from the definition of
+multiplication of FPSs:
+
+\begin{lemma}
+\label{lem.fps.xa}Let $\mathbf{a}=\left(  a_{0},a_{1},a_{2},\ldots\right)  $
+be an FPS. Then, $x\cdot\mathbf{a}=\left(  0,a_{0},a_{1},a_{2},\ldots\right)
+$.
+\end{lemma}
+
+In other words, multiplying an FPS $\mathbf{a}$ by $x$ is tantamount to
+inserting a $0$ at the front of $\mathbf{a}$ (and shifting all the previously
+existing entries of $\mathbf{a}$ to the right by one position).
+
+\begin{proof}
+[Proof of Lemma \ref{lem.fps.xa}.]If $n$ is a positive integer, then%
+\begin{align*}
+\left[  x^{n}\right]  \left(  x\cdot\mathbf{a}\right)   &  =\sum_{i=0}%
+^{n}\left[  x^{i}\right]  x\cdot\underbrace{\left[  x^{n-i}\right]
+\mathbf{a}}_{\substack{=a_{n-i}\\\text{(since }\mathbf{a}=\left(  a_{0}%
+,a_{1},a_{2},\ldots\right)  \text{)}}}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{by
+(\ref{pf.thm.fps.ring.xn(ab)=2}), applied to }x\text{ and }\mathbf{a}\text{
+instead of }\mathbf{a}\text{ and }\mathbf{b}\right) \\
+&  =\sum_{i=0}^{n}\left[  x^{i}\right]  x\cdot a_{n-i}=\underbrace{\left[
+x^{0}\right]  x}_{=0}\cdot\,a_{n-0}+\underbrace{\left[  x^{1}\right]  x}%
+_{=1}\cdot\,a_{n-1}+\sum_{i=2}^{n}\underbrace{\left[  x^{i}\right]
+x}_{\substack{=0\\\text{(since }i\geq2>1\text{)}}}\cdot\,a_{n-i}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have split off the addends}\\
+\text{for }i=0\text{ and }i=1\text{ from the sum}%
+\end{array}
+\right) \\
+&  =\underbrace{0\cdot a_{n-0}}_{=0}+\,1\cdot a_{n-1}+\underbrace{\sum
+_{i=2}^{n}0\cdot a_{n-i}}_{=0}=1\cdot a_{n-1}=a_{n-1}.
+\end{align*}
+A similar argument can be used for $n=0$ (except that now, the sum $\sum
+_{i=0}^{n}\left[  x^{i}\right]  x\cdot a_{n-i}$ has no $\left[  x^{1}\right]
+x\cdot a_{n-1}$ addend), and results in the conclusion that $\left[
+x^{n}\right]  \left(  x\cdot\mathbf{a}\right)  =0$ in this case. Thus, for
+each $n\in\mathbb{N}$, we have%
+\[
+\left[  x^{n}\right]  \left(  x\cdot\mathbf{a}\right)  =%
+\begin{cases}
+a_{n-1}, & \text{if }n>0;\\
+0, & \text{if }n=0.
+\end{cases}
+\]
+In other words, $x\cdot\mathbf{a}=\left(  0,a_{0},a_{1},a_{2},\ldots\right)
+$. This proves Lemma \ref{lem.fps.xa}.
+\end{proof}
+
+Recall that $x^{k}=\underbrace{xx\cdots x}_{k\text{ times}}$ for each
+$k\in\mathbb{N}$ (by the definition of powers in any commutative ring). In
+particular, $x^{0}=\underline{1}$ (since $\underline{1}$ is the unity of the
+ring $K\left[  \left[  x\right]  \right]  $). The following proposition
+describes $x^{k}$ explicitly for each $k\in\mathbb{N}$:
+
+\begin{proposition}
+\label{prop.fps.xk}We have%
+\[
+x^{k}=\left(  \underbrace{0,0,\ldots,0}_{k\text{ times}},1,0,0,0,\ldots
+\right)  \ \ \ \ \ \ \ \ \ \ \text{for each }k\in\mathbb{N}.
+\]
+
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.fps.xk}.]We induct on $k$.
+
+\textit{Induction base:} We have $x^{0}=\underline{1}=\left(  1,0,0,0,0,\ldots
+\right)  =\left(  \underbrace{0,0,\ldots,0}_{0\text{ times}},1,0,0,0,\ldots
+\right)  $. In other words, Proposition \ref{prop.fps.xk} holds for $k=0$.
+
+\textit{Induction step:} Let $m\in\mathbb{N}$. Assume that Proposition
+\ref{prop.fps.xk} holds for $k=m$. We must prove that Proposition
+\ref{prop.fps.xk} holds for $k=m+1$.
+
+We have $x^{m}=\left(  \underbrace{0,0,\ldots,0}_{m\text{ times}%
+},1,0,0,0,\ldots\right)  $ (since Proposition \ref{prop.fps.xk} holds for
+$k=m$). Thus, Lemma \ref{lem.fps.xa} (applied to $\mathbf{a}=x^{m}$ and
+\newline$\left(  a_{0},a_{1},a_{2},\ldots\right)  =\left(
+\underbrace{0,0,\ldots,0}_{m\text{ times}},1,0,0,0,\ldots\right)  $) yields%
+\[
+x\cdot x^{m}=\left(  0,\underbrace{0,0,\ldots,0}_{m\text{ times}%
+},1,0,0,0,\ldots\right)  =\left(  \underbrace{0,0,\ldots,0}_{m+1\text{ times}%
+},1,0,0,0,\ldots\right)  .
+\]
+In other words, $x^{m+1}=\left(  \underbrace{0,0,\ldots,0}_{m+1\text{ times}%
+},1,0,0,0,\ldots\right)  $ (since $x\cdot x^{m}=x^{m+1}$). In other words,
+Proposition \ref{prop.fps.xk} holds for $k=m+1$. This completes the induction
+step, thus proving Proposition \ref{prop.fps.xk}.
+\end{proof}
+
+Finally, the following corollary allows us to rewrite any FPS $\left(
+a_{0},a_{1},a_{2},\ldots\right)  $ in the familiar form $a_{0}+a_{1}%
+x+a_{2}x^{2}+a_{3}x^{3}+\cdots$:
+
+\begin{corollary}
+\label{cor.fps.sumakxk}Any FPS $\left(  a_{0},a_{1},a_{2},\ldots\right)  \in
+K\left[  \left[  x\right]  \right]  $ satisfies%
+\[
+\left(  a_{0},a_{1},a_{2},\ldots\right)  =a_{0}+a_{1}x+a_{2}x^{2}+a_{3}%
+x^{3}+\cdots=\sum_{n\in\mathbb{N}}a_{n}x^{n}.
+\]
+In particular, the right hand side here is well-defined, i.e., the family
+$\left(  a_{n}x^{n}\right)  _{n\in\mathbb{N}}$ is summable.
+\end{corollary}
+
+\begin{proof}
+[Proof of Corollary \ref{cor.fps.sumakxk} (sketched).](See \cite[Corollary
+7.2.16]{19s} for details.) By Proposition \ref{prop.fps.xk}, we have%
+\begin{align*}
+&  a_{0}+a_{1}x+a_{2}x^{2}+a_{3}x^{3}+\cdots\\
+&  =\ \ \ \ a_{0}\left(  1,0,0,0,\ldots\right) \\
+&  \ \ \ \ +a_{1}\left(  0,1,0,0,\ldots\right) \\
+&  \ \ \ \ +a_{2}\left(  0,0,1,0,\ldots\right) \\
+&  \ \ \ \ +a_{3}\left(  0,0,0,1,\ldots\right) \\
+&  \ \ \ \ +\cdots\\
+&  =\ \ \ \ \left(  a_{0},0,0,0,\ldots\right) \\
+&  \ \ \ \ +\left(  0,a_{1},0,0,\ldots\right) \\
+&  \ \ \ \ +\left(  0,0,a_{2},0,\ldots\right) \\
+&  \ \ \ \ +\left(  0,0,0,a_{3},\ldots\right) \\
+&  \ \ \ \ +\cdots\\
+&  =\left(  a_{0},a_{1},a_{2},a_{3},\ldots\right)  .
+\end{align*}
+This proves Corollary \ref{cor.fps.sumakxk} (since $a_{0}+a_{1}x+a_{2}%
+x^{2}+a_{3}x^{3}+\cdots=\sum_{n\in\mathbb{N}}a_{n}x^{n}$ holds for obvious reasons).
+\end{proof}
+
+So we have \textquotedblleft found\textquotedblright\ our $x$ and given a
+rigorous justification for writing $\left(  a_{0},a_{1},a_{2},\ldots\right)  $
+as $a_{0}+a_{1}x+a_{2}x^{2}+a_{3}x^{3}+\cdots$. Note that we did not use any
+analysis (real or complex) in the process; in particular, we did not have to
+worry about convergence (we did have to worry about summability, but this is
+much simpler than convergence). It is easy to come up with FPSs that don't
+converge when any nonzero real number is substituted for $x$ (for example,
+$\sum_{n\in\mathbb{N}}n!x^{n}=1+x+2x^{2}+6x^{3}+24x^{4}+\cdots$ is such an
+FPS); they are nevertheless completely legitimate FPSs.
+
+We can now also answer the question \textquotedblleft what is a generating
+function\textquotedblright, albeit the answer is somewhat anticlimactic:
+
+\begin{definition}
+Let $\left(  a_{0},a_{1},a_{2},\ldots\right)  $ be a sequence of elements of
+$K$. Then, the \emph{(ordinary) generating function} of $\left(  a_{0}%
+,a_{1},a_{2},\ldots\right)  $ will mean the FPS $\left(  a_{0},a_{1}%
+,a_{2},\ldots\right)  =a_{0}+a_{1}x+a_{2}x^{2}+a_{3}x^{3}+\cdots$.
+\end{definition}
+
+\subsubsection{\label{subsec.gf.defs.cvi}The Chu--Vandermonde identity}
+
+What we have done so far is sufficient to justify Example 3 from Section
+\ref{sec.gf.exas}. Thus, let us record the result of Example 3 as a proposition:
+
+\begin{proposition}
+\label{prop.binom.vandermonde.NN}Let $a,b\in\mathbb{N}$, and let
+$n\in\mathbb{N}$. Then,%
+\begin{equation}
+\dbinom{a+b}{n}=\sum_{k=0}^{n}\dbinom{a}{k}\dbinom{b}{n-k}.
+\label{eq.prop.binom.vandermonde.NN.eq}%
+\end{equation}
+
+\end{proposition}
+
+We have yet to justify Examples 1, 2 and 4; we shall do so later. First,
+however, let us generalize Proposition \ref{prop.binom.vandermonde.NN} to
+arbitrary numbers $a,b$ (as opposed to merely $a,b\in\mathbb{N}$). That is, we
+shall prove the following:
+
+\begin{theorem}
+[\emph{Vandermonde convolution identity}, aka \emph{Chu--Vandermonde
+identity}]\label{thm.binom.vandermonde.CC}Let $a,b\in\mathbb{C}$, and let
+$n\in\mathbb{N}$. Then,%
+\begin{equation}
+\dbinom{a+b}{n}=\sum_{k=0}^{n}\dbinom{a}{k}\dbinom{b}{n-k}.
+\label{eq.prop.binom.vandermonde.CC.eq}%
+\end{equation}
+
+\end{theorem}
+
+(Actually, the \textquotedblleft Let $a,b\in\mathbb{C}$\textquotedblright\ in
+Theorem \ref{thm.binom.vandermonde.CC} can be replaced by \textquotedblleft
+Let $a,b$ be any numbers\textquotedblright, where \textquotedblleft
+numbers\textquotedblright\ is understood appropriately\footnote{Namely, a
+\textquotedblleft number\textquotedblright\ should here be viewed as an
+element of a commutative $\mathbb{Q}$-algebra. This includes complex numbers,
+polynomials over complex numbers, power series over complex numbers and even
+commuting matrices with complex entries.}. We just wrote \textquotedblleft Let
+$a,b\in\mathbb{C}$\textquotedblright\ for simplicity.)
+
+To recall, back in Example 3, we proved Proposition
+\ref{prop.binom.vandermonde.NN} by multiplying out the identity $\left(
+1+x\right)  ^{a+b}=\left(  1+x\right)  ^{a}\left(  1+x\right)  ^{b}$ using the
+binomial formula. If we wanted to extend this argument to arbitrary
+$a,b\in\mathbb{C}$, then we would need to make sense of powers like $\left(
+1+x\right)  ^{-3}$ or $\left(  1+x\right)  ^{1/2}$ or $\left(  1+x\right)
+^{\pi}$. This is indeed possible (in fact, we will briefly outline this later
+on), but there is a much shorter way.
+
+In fact, there is a slick trick to automatically extend a claim like
+(\ref{eq.prop.binom.vandermonde.NN.eq}) from nonnegative integers to complex
+numbers. It is sometimes known as the \emph{polynomial identity trick}, and is
+used a lot in algebra. The proof of Theorem \ref{thm.binom.vandermonde.CC}
+that we shall sketch below should illustrate this trick; you can find more
+details and further examples in \cite[\S 7.5.3]{20f}.
+
+\begin{proof}
+[Proof of Theorem \ref{thm.binom.vandermonde.CC} (sketched).]Fix
+$n\in\mathbb{N}$ and $b\in\mathbb{N}$, but forget that $a$ was fixed. Then,
+Proposition \ref{prop.binom.vandermonde.NN} (which we have already proved)
+says that the equality%
+\begin{equation}
+\dbinom{a+b}{n}=\sum_{k=0}^{n}\dbinom{a}{k}\dbinom{b}{n-k}
+\label{pf.thm.binom.vandermonde.CC.1}%
+\end{equation}
+holds for each $a\in\mathbb{N}$. However, both sides of this equality are
+polynomials (more precisely, polynomial functions) in $a$: indeed,%
+\begin{align*}
+\dbinom{a+b}{n}  &  =\dfrac{\left(  a+b\right)  \left(  a+b-1\right)  \left(
+a+b-2\right)  \cdots\left(  a+b-n+1\right)  }{n!}%
+\ \ \ \ \ \ \ \ \ \ \text{and}\\
+\sum_{k=0}^{n}\dbinom{a}{k}\dbinom{b}{n-k}  &  =\sum_{k=0}^{n}\dfrac{a\left(
+a-1\right)  \cdots\left(  a-k+1\right)  }{k!}\dbinom{b}{n-k}.
+\end{align*}
+If two univariate polynomials $p$ and $q$ (with rational, real or complex
+coefficients) are equal for each $a\in\mathbb{N}$ (that is: if we have
+$p\left(  a\right)  =q\left(  a\right)  $ for each $a\in\mathbb{N}$), then
+they must be identical (because two univariate polynomials that are equal at
+infinitely many points must necessarily be identical\footnote{Quick reminder
+on why this is true: If $p$ and $q$ are two univariate polynomials (with
+rational, real or complex coefficients) that are equal at infinitely many
+points (i.e., if there exist infinitely many numbers $z$ satisfying $p\left(
+z\right)  =q\left(  z\right)  $), then $p=q$ (because the assumption entails
+that the difference $p-q$ has infinitely many roots, but this entails $p-q=0$
+and thus $p=q$). See \cite[Corollary 7.5.7]{20f} for this argument in more
+detail.}). Hence, the two sides of (\ref{pf.thm.binom.vandermonde.CC.1}) must
+be identical as polynomials in $a$. Thus, the equality
+(\ref{pf.thm.binom.vandermonde.CC.1}) holds not only for each $a\in\mathbb{N}%
+$, but also for each $a\in\mathbb{C}$.
+
+Now, forget that $b$ was fixed. Instead, let us fix $a\in\mathbb{C}$. As we
+just have proved, the equality (\ref{pf.thm.binom.vandermonde.CC.1}) holds for
+each $b\in\mathbb{N}$. We want to show that it holds for each $b\in\mathbb{C}%
+$. But this can be achieved by the same argument that we just used to extend
+it from $a\in\mathbb{N}$ to $a\in\mathbb{C}$: We view both sides of the
+equality as polynomials (but this time in $b$, not in $a$), and argue that
+these polynomials must be identical because they are equal at infinitely many
+points. The upshot is that the equality (\ref{pf.thm.binom.vandermonde.CC.1})
+holds for all $a,b\in\mathbb{C}$; thus, Theorem \ref{thm.binom.vandermonde.CC}
+is proven. (See \cite[proofs of Lemma 7.5.8 and Theorem 7.5.3]{20f} or
+\cite[\S 2.17.3]{19s} for this proof in more detail. Alternatively, see
+\cite[\S 3.3.2 and \S 3.3.3]{detnotes} for two other proofs.)
+\end{proof}
+
+\subsubsection{What next?}
+
+Let us now return to our quest of justifying Examples 1, 2 and 4 from Section
+\ref{sec.gf.exas}. In order to do so, we need to know
+
+\begin{itemize}
+\item what we can substitute into a FPS;
+
+\item when and why can we divide FPSs by FPSs;
+
+\item when and why can we take the square root of an FPS and solve a quadratic
+equation using the quadratic formula.
+\end{itemize}
+
+So we need to do more. The following sections are devoted to this.

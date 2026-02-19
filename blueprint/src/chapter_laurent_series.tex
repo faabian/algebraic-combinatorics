@@ -1,0 +1,818 @@
+\section{Laurent power series}
+
+\subsection{Motivation}
+
+Fix a commutative ring $K$.
+
+\begin{definition}
+\label{def.fps.laure.binary-rep}
+\lean{AlgebraicCombinatorics.FPS.Laurent.BinaryRepresentation}
+\leanhelper
+\leanok
+A \emph{binary representation} of an integer $n$ means an essentially finite
+sequence $\left(  b_{i}\right)  _{i\in\mathbb{N}}=\left(  b_{0},b_{1}%
+,b_{2},\ldots\right)  \in\left\{  0,1\right\}  ^{\mathbb{N}}$ such that%
+\[
+n=\sum_{i\in\mathbb{N}}b_{i}2^{i}.
+\]
+(Recall that ``essentially finite'' means
+``all but finitely many $i\in\mathbb{N}$ satisfy $b_{i}%
+=0$''.)
+\end{definition}
+
+\begin{theorem}
+\label{thm.fps.laure.binary-rep-uniq}
+\lean{AlgebraicCombinatorics.FPS.Laurent.binaryRepresentation_exists_unique, AlgebraicCombinatorics.binaryRepresentation_unique, AlgebraicCombinatorics.binaryRepresentation_exists}
+\leantarget
+\leanok
+Each $n\in\mathbb{N}$ has a unique binary representation.
+\end{theorem}
+
+\begin{proof}
+\leanok
+In the first formalization, the proof uses
+the canonical bit-index representation from Mathlib.
+In the second formalization, the proof proceeds
+by strong induction on $n$: the least significant bit is determined
+by $n \bmod 2$, and uniqueness of the remaining bits follows from
+the induction hypothesis applied to $n / 2$.
+\end{proof}
+
+\begin{definition}
+\label{def.fps.laure.balanced-tern}
+\lean{AlgebraicCombinatorics.BalancedTernaryRepresentation, AlgebraicCombinatorics.FPS.Laurent.BalancedTernaryRep}
+\leanhelper
+\leanok
+A \emph{balanced ternary representation} of an integer $n$ means an
+essentially finite sequence $\left(  b_{i}\right)  _{i\in\mathbb{N}}=\left(
+b_{0},b_{1},b_{2},\ldots\right)  \in\left\{  0,1,-1\right\}  ^{\mathbb{N}}$
+such that%
+\[
+n=\sum_{i\in\mathbb{N}}b_{i}3^{i}.
+\]
+\end{definition}
+
+\begin{theorem}
+\label{thm.fps.laure.balanced-tern-rep-uniq}
+\lean{AlgebraicCombinatorics.FPS.Laurent.balancedTernary_exists_unique, AlgebraicCombinatorics.balancedTernaryRepresentation_unique, AlgebraicCombinatorics.balancedTernaryRepresentation_exists}
+\leantarget
+\leanok
+Each integer $n$ has a unique balanced ternary representation.
+\end{theorem}
+
+\begin{proof}
+\leanok
+\textbf{Existence.}
+In the first formalization, existence is proved
+by finding $k$ large enough that $|n| \le M_k = 3^0 + 3^1 + \cdots + 3^k$,
+then using a cardinality/pigeonhole argument: the map from $k$-bounded
+representations (of which there are $3^{k+1}$) to the interval
+$\{m \in \mathbb{Z} : |m| \le M_k\}$ (which also has size $3^{k+1}$) is
+injective, hence surjective.
+In the second formalization, existence is proved
+by strong induction on $|n|$: the least significant digit is determined
+by $n \bmod 3$ (choosing from $\{-1,0,1\}$), and the remaining digits
+represent $(n - d) / 3$.
+
+\textbf{Uniqueness.}
+Both formalizations prove uniqueness by showing that if the difference
+$c_i = b_i - b_i'$ of two representations satisfies
+$\sum c_i \cdot 3^i = 0$ with $c_i \in \{-2,\ldots,2\}$ and all but
+finitely many $c_i = 0$, then all $c_i = 0$. This is proved by
+induction on the highest nonzero index: $c_0 \equiv 0 \pmod{3}$ forces
+$c_0 = 0$, then dividing by $3$ reduces to the induction hypothesis.
+\end{proof}
+
+\begin{lemma}[Key uniqueness lemma for base-3 digit sums]
+\label{lem.fps.laure.sum-powers-three-zero}
+\lean{AlgebraicCombinatorics.FPS.Laurent.btDigits_sum_unique, AlgebraicCombinatorics.sum_powers_of_three_eq_zero}
+\leanhelper
+\leanok
+Let $c : \mathbb{N} \to \mathbb{Z}$ be an essentially finite sequence
+with $c_i \in \{-2, \ldots, 2\}$ for all $i$.
+If $\sum_{i} c_i \cdot 3^i = 0$, then $c_i = 0$ for all $i$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By induction on the highest nonzero index $k$.
+Since $c_0 \equiv 0 \pmod{3}$ and $|c_0| \le 2$, we get $c_0 = 0$.
+Dividing the remaining sum by $3$ gives a shifted sequence satisfying the
+same hypotheses with a smaller bound, and the induction hypothesis applies.
+\end{proof}
+
+\begin{lemma}[$k$-bounded balanced ternary uniqueness]
+\label{lem.fps.laure.kbounded-unique}
+\lean{AlgebraicCombinatorics.FPS.Laurent.kBounded_unique, AlgebraicCombinatorics.balancedTernaryRepresentation_bounded_unique}
+\leanhelper
+\leanok
+Each integer $n$ with $|n| \le 3^0 + 3^1 + \cdots + 3^k$ has a unique
+$k$-bounded balanced ternary representation.
+\end{lemma}
+
+\begin{proof}
+\leanok
+In the first formalization, this uses a cardinality argument: the number
+of $k$-bounded representations is $3^{k+1}$, the target interval
+$\{m : |m| \le M_k\}$ also has size $3^{k+1}$, and the evaluation map
+is injective (by Lemma~\ref{lem.fps.laure.sum-powers-three-zero}), hence
+bijective.
+In the second formalization, uniqueness follows directly from
+Lemma~\ref{lem.fps.laure.sum-powers-three-zero} applied to the difference
+of two representations.
+\end{proof}
+
+\begin{lemma}[Balanced ternary digit type]
+\label{lem.fps.laure.bt-digit-type}
+\lean{AlgebraicCombinatorics.BalancedTernaryDigit, AlgebraicCombinatorics.BalancedTernaryDigit.toInt, AlgebraicCombinatorics.BalancedTernaryDigit.toInt_injective}
+\leanhelper
+\leanok
+A balanced ternary digit is one of $-1$, $0$, or $1$.
+There is an injection from the set of balanced ternary digits
+to $\mathbb{Z}$ sending each digit to its integer value.
+This injection is injective, and two digits are equal if and only if
+their integer values are congruent modulo $3$.
+\end{lemma}
+
+\begin{proof}
+Exhaustive case analysis on the three values of a balanced ternary digit.
+\end{proof}
+
+\begin{lemma}[Existence of balanced ternary representations by strong induction]
+\label{lem.fps.laure.bt-exists-inductive}
+\lean{AlgebraicCombinatorics.balancedTernaryRepresentation_exists}
+\leanhelper
+\leanok
+Every integer $n$ has a balanced ternary representation.
+The proof proceeds by strong induction on $|n|$:
+the least significant digit $d$ is chosen by $n \bmod 3$
+(from $\{-1, 0, 1\}$), and the remaining digits represent
+$(n - d)/3$, which satisfies $|(n-d)/3| < |n|$ for $n \ne 0$.
+\end{lemma}
+
+\begin{proof}
+Base case: $n = 0$ uses the zero representation (all digits zero).
+Inductive step: pick the digit $d$ such that $n \equiv d \pmod{3}$
+with $d \in \{-1, 0, 1\}$, form $m = (n - d)/3$, and prepend $d$
+to the representation of $m$ (obtained by the induction hypothesis
+since $|m| < |n|$).
+\end{proof}
+
+\begin{lemma}[Partial product formula for balanced ternary]
+\label{lem.fps.laure.partial-product}
+\lean{AlgebraicCombinatorics.balancedTernaryPartialProduct, AlgebraicCombinatorics.geom_sum_three}
+\leanhelper
+\leanok
+Define the partial product
+$P_k = \prod_{i=0}^{k} (1 + T(3^i) + T(-3^i))$ in $K[\xpm]$.
+The geometric sum identity
+$2 \sum_{i=0}^{k} 3^i = 3^{k+1} - 1$
+is used to establish that $P_k$ enumerates all integers
+in $[-M_k, M_k]$ where $M_k = (3^{k+1}-1)/2$.
+\end{lemma}
+
+\begin{proof}
+The geometric sum identity is proved by induction on $k$.
+\end{proof}
+
+\begin{lemma}[Cardinality identity: $2 M_k + 1 = 3^{k+1}$]
+\label{lem.fps.laure.maxBT-eq}
+\lean{AlgebraicCombinatorics.FPS.Laurent.maxBT_eq}
+\leanhelper
+\leanok
+For $M_k = \sum_{i=0}^{k} 3^i$, we have $2 M_k + 1 = 3^{k+1}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By induction on $k$.
+\end{proof}
+
+\begin{lemma}[$2 \sum_{i<k} 3^i < 3^k$]
+\label{lem.fps.laure.two-sum-lt}
+\lean{AlgebraicCombinatorics.FPS.Laurent.two_sum_lt_pow_three}
+\leanhelper
+\leanok
+For all $k \ge 0$, we have $2 \sum_{i=0}^{k-1} 3^i < 3^k$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By induction on $k$.
+\end{proof}
+
+\begin{lemma}[{Bounded representation values lie in $[-M_k, M_k]$}]
+\label{lem.fps.laure.kBoundedBTValue-mem}
+\lean{AlgebraicCombinatorics.FPS.Laurent.kBoundedBTValue_mem_Icc}
+\leanhelper
+\leanok
+The value $\sum_{i=0}^{k} f(i) \cdot 3^i$ of any $k$-bounded
+balanced ternary representation $f$ (with $f(i) \in \{-1, 0, 1\}$)
+lies in the interval $[-M_k, M_k]$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Each term $f(i) \cdot 3^i$ satisfies $-3^i \le f(i) \cdot 3^i \le 3^i$,
+so the total sum is bounded by $\pm \sum_{i=0}^{k} 3^i = \pm M_k$.
+\end{proof}
+
+\begin{lemma}[Injectivity of $k$-bounded evaluation]
+\label{lem.fps.laure.balanced-ternary-injective}
+If two $k$-bounded balanced ternary representations have the same value,
+they must be equal. The proof uses a mod-$3$ argument:
+the lowest digit is determined by the value modulo $3$, and dividing
+by $3$ reduces to the induction hypothesis.
+\end{lemma}
+
+\begin{proof}
+By strong induction on $k$. Base case ($k = 0$): the value equals
+$f(0)$, so equality of values gives equality of digits.
+Inductive step: the value modulo $3$ determines $f(0)$ (since
+$f(0) \in \{-1, 0, 1\}$), then dividing by $3$ gives a
+$(k-1)$-bounded problem.
+\end{proof}
+
+\begin{lemma}[Conversion between bounded and finitely supported representations]
+\label{lem.fps.laure.kBoundedToFinsupp}
+\lean{AlgebraicCombinatorics.FPS.Laurent.kBoundedToFinsupp, AlgebraicCombinatorics.FPS.Laurent.kBoundedToFinsupp_sum}
+\leanhelper
+\leanok
+A $k$-bounded representation $f : \{0, 1, \ldots, k\} \to \mathbb{Z}$
+can be converted to a finitely supported function
+$\mathbb{N} \to \mathbb{Z}$ by extending with zeros.
+The weighted sum of the resulting function equals the $k$-bounded value.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The finitely supported function is constructed by extending with zeros.
+The sum identity follows by reindexing.
+\end{proof}
+
+\subsection{The space $K\left[\left[\xpm\right]\right]$}
+
+\begin{definition}
+\label{def.fps.laure.double}
+\lean{AlgebraicCombinatorics.DoublyInfinitePowerSeries}
+\leantarget
+\leanok
+Let $K\left[  \left[  \xpm\right]  \right]  $
+be the $K$-module $K^{\mathbb{Z}}$ of all families $\left(  a_{n}\right)
+_{n\in\mathbb{Z}}=\left(  \ldots,a_{-2},a_{-1},a_{0},a_{1},a_{2}%
+,\ldots\right)  $ of elements of $K$. Its addition and its scaling are defined
+entrywise:%
+\begin{align*}
+\left(  a_{n}\right)  _{n\in\mathbb{Z}}+\left(  b_{n}\right)  _{n\in
+\mathbb{Z}}  &  =\left(  a_{n}+b_{n}\right)  _{n\in\mathbb{Z}};\\
+\lambda\left(  a_{n}\right)  _{n\in\mathbb{Z}}  &  =\left(  \lambda
+a_{n}\right)  _{n\in\mathbb{Z}}\ \ \ \ \ \ \ \ \ \ \text{for each }\lambda\in
+K.
+\end{align*}
+An element of $K\left[  \left[  \xpm\right]  \right]  $ will be called a
+\emph{doubly infinite power series}. We use the notation $\sum_{n\in\mathbb{Z}}a_{n}x^{n}$ for a family
+$\left(  a_{n}\right)  _{n\in\mathbb{Z}}\in K\left[  \left[  \xpm\right]
+\right]  $.
+\end{definition}
+
+\begin{lemma}[Single monomials in $K\llbracket \xpm \rrbracket$]
+\label{lem.fps.laure.double-single}
+\lean{AlgebraicCombinatorics.DoublyInfinitePowerSeries.single, AlgebraicCombinatorics.DoublyInfinitePowerSeries.coeff_single, AlgebraicCombinatorics.DoublyInfinitePowerSeries.smul_single}
+\leanhelper
+\leanok
+For $n \in \mathbb{Z}$, the monomial $x^n \in K\llbracket \xpm \rrbracket$
+is the family $(\delta_{m,n})_{m \in \mathbb{Z}}$.
+Its coefficient at $m$ is $\delta_{m,n}$.
+Scalar multiplication satisfies $\lambda \cdot x^n = (\lambda \delta_{m,n})_{m \in \mathbb{Z}}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Immediate from the definitions.
+\end{proof}
+
+\begin{lemma}[Coefficient decomposition of doubly infinite power series]
+\label{lem.fps.laure.double-decomp}
+\lean{AlgebraicCombinatorics.DoublyInfinitePowerSeries.eq_coeff_at_position, AlgebraicCombinatorics.DoublyInfinitePowerSeries.coeff_eq_single_contrib}
+\leanhelper
+\leanok
+For any $f = (a_n) \in K\llbracket \xpm \rrbracket$ and $m \in \mathbb{Z}$,
+$f$ evaluated at position $m$ gives $a_m$.
+Equivalently, the coefficient of $f$ at $m$ equals the scalar
+by which $f$ scales the $m$-th basis vector $(\delta_{n,m})_{n \in \mathbb{Z}}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Immediate from the definitions.
+\end{proof}
+
+\subsection{Laurent polynomials}
+
+\begin{definition}
+\label{def.fps.laure.laupol}
+\lean{AlgebraicCombinatorics.FPS.Laurent.LaurentPoly, AlgebraicCombinatorics.FPS.Laurent.laurentPoly_mul_coeff, AlgebraicCombinatorics.FPS.Laurent.laurentPoly_X, AlgebraicCombinatorics.laurentPolynomial_one_eq_T_zero}
+\leantarget
+\leanok
+Let $K\left[  \xpm\right]  $ be the
+$K$-submodule of $K\left[  \left[  \xpm\right]  \right]  $ consisting of
+all \textbf{essentially finite} families $\left(  a_{n}\right)  _{n\in
+\mathbb{Z}}$. The elements of $K\left[  \xpm\right]  $ are called \emph{Laurent
+polynomials} in the indeterminate $x$ over $K$.
+
+We define a multiplication on $K\left[  \xpm\right]  $ by setting%
+\[
+\left(  a_{n}\right)  _{n\in\mathbb{Z}}\cdot\left(  b_{n}\right)
+_{n\in\mathbb{Z}}=\left(  c_{n}\right)  _{n\in\mathbb{Z}}%
+,\ \ \ \ \ \ \ \ \ \ \text{where}\ \ \ \ \ \ \ \ \ \ c_{n}=\sum_{i\in
+\mathbb{Z}}a_{i}b_{n-i}.
+\]
+The sum $\sum_{i\in\mathbb{Z}}a_{i}b_{n-i}$ is well-defined
+because it is essentially finite.
+
+We define an element $x\in K\left[  \xpm\right]  $ by%
+\[
+x=\left(  \delta_{i,1}\right)  _{i\in\mathbb{Z}}.
+\]
+
+In Mathlib, Laurent polynomials are represented as
+finitely supported functions $\mathbb{Z} \to K$ (the group algebra
+of $\mathbb{Z}$ over $K$).
+\end{definition}
+
+\begin{theorem}
+\label{thm.fps.laure.laupol-ring}
+\lean{AlgebraicCombinatorics.FPS.Laurent.laurentPolynomial_commRing, AlgebraicCombinatorics.FPS.Laurent.laurentPolynomial_algebra, AlgebraicCombinatorics.FPS.Laurent.T_isUnit, AlgebraicCombinatorics.laurentPolynomial_commSemiring, AlgebraicCombinatorics.laurentPolynomial_algebra, AlgebraicCombinatorics.laurentPolynomial_T_isUnit}
+\leantarget
+\leanok
+The $K$-module $K\left[  \xpm\right]  $,
+equipped with the multiplication defined above, is a commutative
+$K$-algebra. Its unity is $\left(  \delta_{i,0}\right)  _{i\in\mathbb{Z}}$.
+The element $x$ is invertible in this $K$-algebra.
+\end{theorem}
+
+\begin{proof}
+\leanok
+The commutative ring and algebra structures are provided by Mathlib's
+group algebra structure.
+Invertibility of $x = T(1)$ is witnessed by $T(-1)$: we have
+$T(1) \cdot T(-1) = T(1 + (-1)) = T(0) = 1$ and similarly
+$T(-1) \cdot T(1) = 1$.
+\end{proof}
+
+\begin{lemma}[Unit structure of $T(n)$]
+\label{lem.fps.laure.T-inv}
+\lean{AlgebraicCombinatorics.laurentPolynomial_T_unit, AlgebraicCombinatorics.laurentPolynomial_T_isUnit', AlgebraicCombinatorics.laurentPolynomial_T_mul_T_neg, AlgebraicCombinatorics.laurentPolynomial_T_neg_mul_T}
+\leanhelper
+\leanok
+For every $n \in \mathbb{Z}$, $T(n)$ is a unit in $K[\xpm]$ with
+inverse $T(-n)$: we have $T(n) \cdot T(-n) = 1$ and $T(-n) \cdot T(n) = 1$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By $T(a) \cdot T(b) = T(a+b)$ and $T(0) = 1$.
+\end{proof}
+
+\begin{lemma}[Laurent polynomial decomposition]
+\label{lem.fps.laure.laupol-decomp}
+\lean{AlgebraicCombinatorics.laurentPolynomial_eq_sum, AlgebraicCombinatorics.laurentPolynomial_eq_groupAlgebra}
+\leanhelper
+\leanok
+Every Laurent polynomial $f \in K[\xpm]$ can be written as
+$f = \sum_{n \in \mathrm{supp}(f)} f(n) \cdot T(n)$.
+Moreover, $K[\xpm]$ is isomorphic to the group algebra
+$K[\mathbb{Z}]$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The decomposition follows from the fact that any finitely supported
+function equals the sum of its single-term components.
+The group algebra isomorphism is the identity on the
+underlying finitely supported functions $\mathbb{Z} \to K$.
+\end{proof}
+
+\begin{lemma}[Multiplication by $T$ shifts coefficients]
+\label{lem.fps.laure.xa}
+\lean{AlgebraicCombinatorics.FPS.Laurent.T_mul_coeff, AlgebraicCombinatorics.FPS.Laurent.T_neg_one_mul_coeff}
+\leantarget
+\leanok
+If $a = (a_n)_{n \in \mathbb{Z}}$ is a Laurent polynomial, then
+$T(1) \cdot a = (a_{n-1})_{n \in \mathbb{Z}}$ and
+$T(-1) \cdot a = (a_{n+1})_{n \in \mathbb{Z}}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Follows from the definition of multiplication: the convolution
+of a single-term function with $a$ shifts the coefficients.
+\end{proof}
+
+\begin{lemma}[Powers of $T$]
+\label{lem.fps.laure.xk}
+\lean{AlgebraicCombinatorics.FPS.Laurent.T_coeff_eq, AlgebraicCombinatorics.FPS.Laurent.T_one_zpow}
+\leanhelper
+\leanok
+For each $k \in \mathbb{Z}$, the Laurent polynomial $T(k)$ has coefficient
+$1$ at position $k$ and $0$ elsewhere:
+$T(k)_i = \delta_{i,k}$.
+Moreover, $T(1)^k = T(k)$ for all $k \in \mathbb{Z}$ (using integer powers
+via the unit structure).
+\end{lemma}
+
+\begin{proof}
+The coefficient characterization follows from the fact that $T(k)$ is
+the family with $1$ at position $k$ and $0$ elsewhere.
+The power identity $T(1)^k = T(k)$ is proved by induction on $k$
+(for $k \geq 0$, using $T(a) \cdot T(b) = T(a+b)$; for $k < 0$,
+using the inverse $T(-1)$).
+\end{proof}
+
+\begin{lemma}[Coefficient of $T(k)$ at position $n$]
+\label{lem.fps.laure.xk.coeff}
+\lean{AlgebraicCombinatorics.FPS.Laurent.coeff_powerSeriesToLaurent}
+\leanhelper
+\leanok
+For any $k \in \mathbb{Z}$ and $n \in \mathbb{Z}$, the coefficient
+$[x^n] T(k)$ equals $\delta_{n,k}$, i.e., $1$ if $n = k$ and $0$ otherwise.
+For power series embedded into Laurent series, the coefficient at
+non-negative index $n \in \mathbb{N}$ is preserved.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Follows from the fact that $T(k)$ is the family $(\delta_{n,k})_{n \in \mathbb{Z}}$
+and the definition of coefficients.
+\end{proof}
+
+\begin{lemma}[Right-multiplication by $T$ on Laurent series]
+\label{lem.fps.laure.xa.right}
+\lean{AlgebraicCombinatorics.FPS.Laurent.laurentSeries_eq_hsum_single}
+\leanhelper
+\leanok
+A Laurent series $f \in K((x))$ equals the summable-family sum of the
+monomials $f_n \cdot x^n$ (each being the family $(\delta_{m,n} \cdot f_n)_{m \in \mathbb{Z}}$).
+This constructs an explicit summable family whose sum recovers $f$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Construct the summable family by sending $n \in \mathbb{Z}$ to
+the monomial $f_n \cdot x^n$.
+The support at any given position is a singleton (or empty), hence finite.
+Checking coefficients: at position $m$, only the $m$-th monomial contributes.
+\end{proof}
+
+\begin{proposition}
+\label{prop.fps.laure.a=sumaixi}
+\lean{AlgebraicCombinatorics.FPS.Laurent.eq_sum_T, AlgebraicCombinatorics.FPS.Laurent.laurentSeries_eq_hsum_single, AlgebraicCombinatorics.laurentPolynomial_eq_sum}
+\leantarget
+\leanok
+Any doubly infinite power series $a=\left(
+a_{i}\right)  _{i\in\mathbb{Z}}\in K\left[  \left[  \xpm\right]  \right]  $
+satisfies%
+\[
+a=\sum_{i\in\mathbb{Z}}a_{i}x^{i}.
+\]
+Here, the powers $x^{i}$ are taken in the Laurent polynomial ring $K\left[
+\xpm\right]  $, but the infinite sum $\sum_{i\in\mathbb{Z}}a_{i}x^{i}$ is
+taken in the $K$-module $K\left[  \left[  \xpm\right]  \right]  $.
+
+For Laurent polynomials, the sum is finite and the identity holds in
+$K[\xpm]$ itself.
+For Laurent series, the identity is formalized using a summable family construction.
+\end{proposition}
+
+\begin{proof}
+For Laurent polynomials, this follows from the decomposition of
+a finitely supported function as a sum of its single-term components.
+For Laurent series, the proof constructs a summable family of
+monomials and shows that its sum equals the original
+series by checking coefficients: at each position $n$, only the $n$-th
+monomial contributes (using the coefficient characterization of $x^k$
+from Lemma~\ref{lem.fps.laure.xk} and Lemma~\ref{lem.fps.laure.xk.coeff}).
+\end{proof}
+
+\subsection{Laurent series}
+
+\begin{definition}
+\label{def.fps.laure.lauser}
+\lean{AlgebraicCombinatorics.DoublyInfinitePowerSeries.IsLaurentSeries, AlgebraicCombinatorics.FPS.Laurent.laurentSeries_commRing}
+\leantarget
+\leanok
+We let $K\left(  \left(  x\right)  \right)  $ be
+the subset of $K\left[  \left[  \xpm\right]  \right]  $ consisting of all
+families $\left(  a_{i}\right)  _{i\in\mathbb{Z}}\in K\left[  \left[  x^{\pm
+}\right]  \right]  $ such that the sequence $\left(  a_{-1},a_{-2}%
+,a_{-3},\ldots\right)  $ is essentially finite -- i.e., such that all
+sufficiently low $i\in\mathbb{Z}$ satisfy $a_{i}=0$.
+
+The elements of $K\left(  \left(  x\right)  \right)  $ are called
+\emph{Laurent series} in one indeterminate $x$ over $K$.
+
+In Mathlib, Laurent series are implemented as Hahn series
+over $\mathbb{Z}$ with coefficients in $K$,
+which are functions $\mathbb{Z} \to K$ whose support is well-founded
+(equivalently, bounded below). The formalization also provides
+a predicate on doubly infinite power series that captures
+this textbook definition.
+\end{definition}
+
+\begin{lemma}[Mathlib's Laurent series satisfy the textbook definition]
+\label{lem.fps.laure.mathlib-agrees}
+\lean{AlgebraicCombinatorics.DoublyInfinitePowerSeries.isLaurentSeries_ofLaurentSeries, AlgebraicCombinatorics.DoublyInfinitePowerSeries.toLaurentSeries_ofLaurentSeries, AlgebraicCombinatorics.DoublyInfinitePowerSeries.ofLaurentSeries_toLaurentSeries}
+\leanhelper
+\leanok
+Mathlib's Laurent series satisfy the textbook definition
+(the sequence of negative-indexed coefficients is essentially finite).
+Moreover, the conversions between doubly infinite power series
+satisfying this condition and Mathlib's Laurent series
+are inverse to each other.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The forward direction uses the well-foundedness of the support:
+a Hahn series has a minimum support element (if nonempty), and all
+indices below it have zero coefficient.
+The round-trip identities hold by direct computation on coefficients.
+\end{proof}
+
+\begin{lemma}[Bounded-below subsets of $\mathbb{Z}$ are partially well-ordered]
+\label{lem.fps.laure.isPWO-bddBelow}
+\lean{AlgebraicCombinatorics.DoublyInfinitePowerSeries.Int.isPWO_of_bddBelow}
+\leanhelper
+\leanok
+If $s \subseteq \mathbb{Z}$ is bounded below, then $s$ is partially
+well-ordered.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Given a sequence in $s$, shift it to $\mathbb{N}$ by subtracting the
+lower bound. By Ramsey's theorem (monotone subsequence in $\mathbb{N}$),
+extract a monotone subsequence. A strictly decreasing sequence in
+$\mathbb{N}$ is impossible, so the monotone case gives the result.
+\end{proof}
+
+\begin{theorem}
+\label{thm.fps.laure.lauser-ring}
+\lean{AlgebraicCombinatorics.FPS.Laurent.laurentSeries_commRing, AlgebraicCombinatorics.FPS.Laurent.laurentSeries_algebra, AlgebraicCombinatorics.FPS.Laurent.LaurentSeries_X_isUnit}
+\leantarget
+\leanok
+The subset $K\left(  \left(  x\right)  \right)  $
+is a $K$-submodule of $K\left[  \left[  \xpm\right]  \right]  $.
+It has a multiplication given by the same convolution rule as
+$K\left[  \xpm\right]  $: namely,%
+\[
+\left(  a_{n}\right)  _{n\in\mathbb{Z}}\cdot\left(  b_{n}\right)
+_{n\in\mathbb{Z}}=\left(  c_{n}\right)  _{n\in\mathbb{Z}}%
+,\ \ \ \ \ \ \ \ \ \ \text{where}\ \ \ \ \ \ \ \ \ \ c_{n}=\sum_{i\in
+\mathbb{Z}}a_{i}b_{n-i}.
+\]
+The sum $\sum_{i\in\mathbb{Z}}a_{i}b_{n-i}$ is well-defined because
+for sufficiently low $i$ we have $a_i = 0$, and for sufficiently high $i$
+we have $b_{n-i} = 0$.
+
+Equipped with this multiplication, $K\left(
+\left(  x\right)  \right)  $ is a commutative $K$-algebra with unity
+$\left(  \delta_{i,0}\right)  _{i\in\mathbb{Z}}$.
+The element $x$ is invertible in this algebra.
+\end{theorem}
+
+\begin{proof}
+The commutative ring and algebra structures follow from Mathlib's
+Laurent series ring structure, using the agreement between our definition
+and Mathlib's (Lemma~\ref{lem.fps.laure.mathlib-agrees}).
+Well-definedness of the product
+follows from the partial well-orderedness of the support
+and the order multiplicativity (Lemma~\ref{lem.fps.laure.order-mul}).
+
+The algebra structure extends the FPS algebra via
+the power series embedding (Lemma~\ref{lem.fps.laure.ps-embed}) and
+includes Laurent polynomials via the Laurent polynomial embedding
+(Lemma~\ref{lem.fps.laure.laupol-embed}).
+
+Invertibility of $x$: the element $x = x^1$ has inverse
+$x^{-1}$, since $x^1 \cdot x^{-1} = x^{1+(-1)} = x^0 = 1$.
+\end{proof}
+
+\begin{lemma}[Order of product]
+\label{lem.fps.laure.order-mul}
+\lean{AlgebraicCombinatorics.FPS.Laurent.order_mul_ge, AlgebraicCombinatorics.FPS.Laurent.coeff_mul_eq_zero_of_lt_order}
+\leanhelper
+\leanok
+If $f$ and $g$ are Laurent series, then
+$\operatorname{ord}(f) + \operatorname{ord}(g) \le \operatorname{ord}(f \cdot g)$.
+In particular, the coefficients of $f \cdot g$ vanish below
+$\operatorname{ord}(f) + \operatorname{ord}(g)$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+This is a standard property of Hahn series from Mathlib.
+\end{proof}
+
+\subsection{Embeddings}
+
+\begin{lemma}[Power series embed into Laurent series]
+\label{lem.fps.laure.ps-embed}
+\lean{AlgebraicCombinatorics.FPS.Laurent.powerSeriesToLaurent, AlgebraicCombinatorics.FPS.Laurent.powerSeriesToLaurent_injective}
+\leanhelper
+\leanok
+There is an injective ring homomorphism
+$K\left[\left[x\right]\right] \hookrightarrow K\left(\left(x\right)\right)$
+that preserves coefficients.
+\end{lemma}
+
+\begin{proof}
+\leanok
+This is provided by Mathlib's embedding of power series into
+Hahn series, which is injective.
+\end{proof}
+
+\begin{lemma}[Laurent polynomials embed into Laurent series]
+\label{lem.fps.laure.laupol-embed}
+\lean{AlgebraicCombinatorics.FPS.Laurent.laurentPolynomialToSeries, AlgebraicCombinatorics.FPS.Laurent.laurentPolynomialToSeries_mul, AlgebraicCombinatorics.laurentPolyToSeries, AlgebraicCombinatorics.laurentPolyToSeries_injective}
+\leanhelper
+\leanok
+There is an injective ring homomorphism
+$K\left[\xpm\right] \hookrightarrow K\left(\left(x\right)\right)$
+that preserves coefficients.
+\end{lemma}
+
+\begin{proof}
+\leanok
+In the first formalization, the map sends a finitely supported function
+$p : \mathbb{Z} \to K$ to the Laurent series with the same coefficient function
+(whose support, being finite, is automatically bounded below).
+Additivity and multiplicativity are checked by comparing coefficients.
+
+In the second formalization, the map is constructed as a ring homomorphism
+using the universal property of the group algebra, sending
+$n \in \mathbb{Z}$ to the monomial $x^n$ in $K((x))$.
+\end{proof}
+
+\begin{lemma}[Embedding preserves addition]
+\label{lem.fps.laure.laupol-embed-add}
+\lean{AlgebraicCombinatorics.FPS.Laurent.laurentPolynomialToSeries_add}
+\leanhelper
+\leanok
+The embedding $K[\xpm] \hookrightarrow K((x))$ preserves addition:
+for Laurent polynomials $p, q$, the image of $p + q$ equals
+the sum of their images.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By checking coefficients: both sides agree at every position $n \in \mathbb{Z}$.
+\end{proof}
+
+\begin{lemma}[Embedding preserves $0$ and $1$]
+\label{lem.fps.laure.laupol-embed-one}
+\lean{AlgebraicCombinatorics.FPS.Laurent.laurentPolynomialToSeries_zero, AlgebraicCombinatorics.FPS.Laurent.laurentPolynomialToSeries_one}
+\leanhelper
+\leanok
+The embedding sends $0 \in K[\xpm]$ to $0 \in K((x))$ and
+$1 \in K[\xpm]$ to $1 \in K((x))$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By checking coefficients at each position.
+\end{proof}
+
+\begin{lemma}[Embedding preserves coefficients]
+\label{lem.fps.laure.laupol-embed-coeff}
+\lean{AlgebraicCombinatorics.FPS.Laurent.laurentPolynomialToSeries_coeff, AlgebraicCombinatorics.laurentPolyToSeries_coeff, AlgebraicCombinatorics.laurentPolyToSeries_single}
+\leanhelper
+\leanok
+The embedding preserves coefficients: for any Laurent polynomial $p$
+and $n \in \mathbb{Z}$, the $n$-th coefficient of the image equals
+$p(n)$.
+Moreover, $T(n)$ maps to the monomial $x^n$ in $K((x))$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Immediate from the definition of the embedding.
+\end{proof}
+
+\subsection{The partial product formula}
+
+\begin{lemma}[Geometric identity for balanced ternary factors]
+\label{lem.fps.laure.one-plus-T}
+\lean{AlgebraicCombinatorics.one_plus_T_plus_Tinv_eq}
+\leanhelper
+\leanok
+In the Laurent polynomial ring,
+\[
+(1 + T(1) + T(-1)) \cdot (T(1) \cdot (1 - T(1))) = 1 - T(3).
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+By direct algebraic computation using $T(a) \cdot T(b) = T(a+b)$
+and the ring axioms.
+\end{proof}
+
+\begin{lemma}[Invertibility of $1 - x^i$ for $i > 0$]
+\label{lem.fps.laure.one-sub-xpow-unit}
+\lean{AlgebraicCombinatorics.one_sub_X_pow_isUnit}
+\leanhelper
+\leanok
+For any positive integer $i$, the power series $1 - x^i$ is invertible
+in $K\left[\left[x\right]\right]$ and hence also in
+$K\left(\left(x\right)\right)$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The constant coefficient of $1 - x^i$ is $1$, which is a unit.
+By the invertibility criterion for power series (a power series is
+invertible if and only if its constant coefficient is a unit),
+$1 - x^i$ is invertible.
+\end{proof}
+
+\subsection{Laurent polynomial action and torsion}
+
+\begin{lemma}[Laurent polynomial action on doubly infinite power series]
+\label{lem.fps.laure.laupol-smul}
+\lean{AlgebraicCombinatorics.laurentPolynomialSmul}
+\leanhelper
+\leanok
+A Laurent polynomial $p \in K[\xpm]$ acts on a doubly infinite
+power series $f \in K\llbracket \xpm \rrbracket$ by the
+convolution formula:
+\[
+(p \cdot f)_n = \sum_{m \in \mathrm{supp}(p)} p(m) \cdot f(n - m).
+\]
+\end{lemma}
+
+\begin{proof}
+Well-definedness follows from the finite support of $p$, which
+makes the sum finite.
+\end{proof}
+
+\begin{lemma}[Torsion example]
+\label{lem.fps.laure.torsion-example}
+\lean{AlgebraicCombinatorics.torsion_example}
+\leanhelper
+\leanok
+The constant series $\mathbf{1} = (1, 1, 1, \ldots) \in K\llbracket \xpm \rrbracket$
+satisfies $(1 - x) \cdot \mathbf{1} = 0$.
+This shows that the $K[\xpm]$-module $K\llbracket \xpm \rrbracket$
+has torsion: a nonzero module element is annihilated by a nonzero
+ring element.
+\end{lemma}
+
+\begin{proof}
+The coefficient at position $n$ of $(1 - x) \cdot \mathbf{1}$ is
+$1 \cdot 1 + (-1) \cdot 1 = 0$ (the contribution from position $n$
+minus the contribution from position $n - 1$, both equal to $1$).
+\end{proof}
+
+\subsection{Equivalence of balanced ternary formulations}
+
+\begin{lemma}[Equivalence between the two balanced ternary representations]
+\label{lem.fps.laure.bt-equiv}
+\lean{AlgebraicCombinatorics.FPS.Laurent.balancedTernary_equiv, AlgebraicCombinatorics.FPS.Laurent.BTRep.toFinsupp, AlgebraicCombinatorics.FPS.Laurent.BalancedTernaryRep.toInductive}
+\leanhelper
+\leanok
+The two formulations of balanced ternary representations
+(the finitely-supported-function formulation and
+the digit-sequence formulation) are equivalent:
+for each $n \in \mathbb{Z}$, the two types of balanced ternary
+representations of $n$ are in bijection.
+The conversions are mutual inverses (up to the digit representation).
+\end{lemma}
+
+\begin{proof}
+The forward direction converts a finitely supported function with values in
+$\{-1, 0, 1\}$ to a digit sequence $\mathbb{N} \to \{-1, 0, 1\}$
+via the natural identification.
+The backward direction converts a digit sequence
+to a finitely supported function via the integer embedding.
+Round-trip identities follow from the fact that the conversions between
+digits and integers are mutually inverse.
+\end{proof}
+
+\begin{lemma}[Bounded representation predicate and sum]
+\label{lem.fps.laure.bt-bounded-helpers}
+\lean{AlgebraicCombinatorics.BalancedTernaryRepresentation.isBounded, AlgebraicCombinatorics.bounded_sum_eq}
+\leanhelper
+\leanok
+A balanced ternary representation is \emph{$k$-bounded} if all digits
+at positions $> k$ are zero.
+For a $k$-bounded representation of $n$, the value equals the finite sum
+$\sum_{i=0}^{k} d_i \cdot 3^i$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The predicate is $\forall i > k,\; d_i = 0$. The sum identity
+follows from rewriting the infinite sum as a finite sum over
+$\{0, \ldots, k\}$ using the vanishing of higher digits.
+\end{proof}

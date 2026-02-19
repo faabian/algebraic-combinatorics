@@ -1,0 +1,3334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  MathJax = { 
+    tex: {
+		    inlineMath: [['$','$'], ['\\(','\\)']]
+	} }
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<meta name="generator" content="plasTeX" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>\(q\)-Binomial formulas</title>
+<link rel="next" href="sect0024.html" title="Permutations" />
+<link rel="prev" href="sect0022.html" title="q-Binomial Coefficients" />
+<link rel="up" href="sect0019.html" title="Integer Partitions" />
+<link rel="stylesheet" href="styles/theme-white.css" />
+<link rel="stylesheet" href="styles/amsthm.css" />
+<link rel="stylesheet" href="styles/showmore.css" />
+<link rel="stylesheet" href="styles/blueprint.css" />
+<link rel="stylesheet" href="styles/extra_styles.css" />
+</head>
+
+<body>
+<header>
+<svg  id="toc-toggle" class="icon icon-list-numbered "><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<h1 id="doc_title"><a href="index.html">Formalization Blueprint for “An Introduction to Algebraic Combinatorics” by Darij Grinberg</a></h1>
+</header>
+
+<div class="wrapper">
+<nav class="toc">
+<ul class="sub-toc-0">
+<li class="">
+  <a href="sect0001.html"><span class="toc_ref">1</span> <span class="toc_entry">Formal Power Series</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sect0002.html"><span class="toc_ref">1.1</span> <span class="toc_entry">Notations and elementary facts</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0002.html#a0000000053"><span class="toc_ref">1.1.1</span> <span class="toc_entry">Binomial coefficients</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html#a0000000075"><span class="toc_ref">1.1.2</span> <span class="toc_entry">Helpers for Lemma&#160;<a href="sect0002.html#lem.binom.2n-choose-n">1.4</a></span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html#a0000000078"><span class="toc_ref">1.1.3</span> <span class="toc_entry">The Fibonacci sequence (Example 1)</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html#a0000000083"><span class="toc_ref">1.1.4</span> <span class="toc_entry">Dyck words and Catalan numbers (Example 2)</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html#a0000000095"><span class="toc_ref">1.1.5</span> <span class="toc_entry">The Vandermonde convolution (Example 3)</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html#a0000000098"><span class="toc_ref">1.1.6</span> <span class="toc_entry">Solving a recurrence (Example 4)</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html#a0000000100"><span class="toc_ref">1.1.7</span> <span class="toc_entry">Auxiliary generating function results</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0003.html"><span class="toc_ref">1.2</span> <span class="toc_entry">Commutative rings and modules</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0003.html#a0000000106"><span class="toc_ref">1.2.1</span> <span class="toc_entry">Reminder: Commutative rings</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000107"><span class="toc_ref">1.2.2</span> <span class="toc_entry">Standard rules in commutative rings</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000108"><span class="toc_ref">1.2.3</span> <span class="toc_entry">Finite sums and products</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000109"><span class="toc_ref">1.2.4</span> <span class="toc_entry">\(K\)-modules</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000110"><span class="toc_ref">1.2.5</span> <span class="toc_entry">Additive inverses in modules</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000111"><span class="toc_ref">1.2.6</span> <span class="toc_entry">Inverses in commutative rings</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000112"><span class="toc_ref">1.2.7</span> <span class="toc_entry">Fractions and integer powers</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0004.html"><span class="toc_ref">1.3</span> <span class="toc_entry">Formal power series: definition and basic properties</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0004.html#a0000000113"><span class="toc_ref">1.3.1</span> <span class="toc_entry">Convention</span></a>
+ </li>
+<li class="">
+  <a href="sect0004.html#a0000000114"><span class="toc_ref">1.3.2</span> <span class="toc_entry">The definition of formal power series</span></a>
+ </li>
+<li class="">
+  <a href="sect0004.html#a0000000115"><span class="toc_ref">1.3.3</span> <span class="toc_entry">Essentially finite sums and summable families</span></a>
+ </li>
+<li class="">
+  <a href="sect0004.html#a0000000116"><span class="toc_ref">1.3.4</span> <span class="toc_entry">The indeterminate \(x\) and powers</span></a>
+ </li>
+<li class="">
+  <a href="sect0004.html#a0000000117"><span class="toc_ref">1.3.5</span> <span class="toc_entry">Helper lemmas from the formalization</span></a>
+ </li>
+<li class="">
+  <a href="sect0004.html#a0000000118"><span class="toc_ref">1.3.6</span> <span class="toc_entry">Generating functions</span></a>
+ </li>
+<li class="">
+  <a href="sect0004.html#a0000000119"><span class="toc_ref">1.3.7</span> <span class="toc_entry">The Chu–Vandermonde identity</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0005.html"><span class="toc_ref">1.4</span> <span class="toc_entry">Dividing FPSs</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0005.html#a0000000120"><span class="toc_ref">1.4.1</span> <span class="toc_entry">Inverses in commutative rings</span></a>
+ </li>
+<li class="">
+  <a href="sect0005.html#a0000000121"><span class="toc_ref">1.4.2</span> <span class="toc_entry">Inverses in \(K[[x]]\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0005.html#a0000000122"><span class="toc_ref">1.4.3</span> <span class="toc_entry">Coefficient formulas for inverses</span></a>
+ </li>
+<li class="">
+  <a href="sect0005.html#a0000000123"><span class="toc_ref">1.4.4</span> <span class="toc_entry">Newton’s binomial formula</span></a>
+ </li>
+<li class="">
+  <a href="sect0005.html#a0000000124"><span class="toc_ref">1.4.5</span> <span class="toc_entry">Dividing by \(x\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0005.html#a0000000125"><span class="toc_ref">1.4.6</span> <span class="toc_entry">A few lemmas</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0006.html"><span class="toc_ref">1.5</span> <span class="toc_entry">Polynomials</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0006.html#a0000000126"><span class="toc_ref">1.5.1</span> <span class="toc_entry">Definition</span></a>
+ </li>
+<li class="">
+  <a href="sect0006.html#a0000000127"><span class="toc_ref">1.5.2</span> <span class="toc_entry">Polynomials form a subring of power series</span></a>
+ </li>
+<li class="">
+  <a href="sect0006.html#a0000000128"><span class="toc_ref">1.5.3</span> <span class="toc_entry">Reminders on rings and \(K\)-algebras</span></a>
+ </li>
+<li class="">
+  <a href="sect0006.html#a0000000129"><span class="toc_ref">1.5.4</span> <span class="toc_entry">Evaluation aka substitution into polynomials</span></a>
+ </li>
+<li class="">
+  <a href="sect0006.html#a0000000130"><span class="toc_ref">1.5.5</span> <span class="toc_entry">Special evaluation results</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0007.html"><span class="toc_ref">1.6</span> <span class="toc_entry">Substitution and evaluation of power series</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0007.html#a0000000131"><span class="toc_ref">1.6.1</span> <span class="toc_entry">Defining substitution</span></a>
+ </li>
+<li class="">
+  <a href="sect0007.html#a0000000132"><span class="toc_ref">1.6.2</span> <span class="toc_entry">Well-definedness of substitution</span></a>
+ </li>
+<li class="">
+  <a href="sect0007.html#a0000000133"><span class="toc_ref">1.6.3</span> <span class="toc_entry">Lemma for first \(k\) coefficients</span></a>
+ </li>
+<li class="">
+  <a href="sect0007.html#a0000000134"><span class="toc_ref">1.6.4</span> <span class="toc_entry">Kronecker delta notation</span></a>
+ </li>
+<li class="">
+  <a href="sect0007.html#a0000000135"><span class="toc_ref">1.6.5</span> <span class="toc_entry">Laws of substitution</span></a>
+ </li>
+<li class="">
+  <a href="sect0007.html#a0000000136"><span class="toc_ref">1.6.6</span> <span class="toc_entry">Example: Fibonacci generating function</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0008.html"><span class="toc_ref">1.7</span> <span class="toc_entry">Derivatives of FPSs</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0008.html#a0000000137"><span class="toc_ref">1.7.1</span> <span class="toc_entry">Derivative rules</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0009.html"><span class="toc_ref">1.8</span> <span class="toc_entry">Exponentials and logarithms</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0009.html#a0000000138"><span class="toc_ref">1.8.1</span> <span class="toc_entry">Definitions</span></a>
+ </li>
+<li class="">
+  <a href="sect0009.html#a0000000139"><span class="toc_ref">1.8.2</span> <span class="toc_entry">Helpers for derivative computations</span></a>
+ </li>
+<li class="">
+  <a href="sect0009.html#a0000000140"><span class="toc_ref">1.8.3</span> <span class="toc_entry">The exponential and the logarithm are inverse</span></a>
+ </li>
+<li class="">
+  <a href="sect0009.html#a0000000141"><span class="toc_ref">1.8.4</span> <span class="toc_entry">Helpers for Theorem&#160;<a href="sect0009.html#thm.fps.exp-log-inv">1.221</a></span></a>
+ </li>
+<li class="">
+  <a href="sect0009.html#a0000000142"><span class="toc_ref">1.8.5</span> <span class="toc_entry">The exponential and the logarithm of an FPS</span></a>
+ </li>
+<li class="">
+  <a href="sect0009.html#a0000000143"><span class="toc_ref">1.8.6</span> <span class="toc_entry">Helpers for the group structure</span></a>
+ </li>
+<li class="">
+  <a href="sect0009.html#a0000000144"><span class="toc_ref">1.8.7</span> <span class="toc_entry">Addition to multiplication</span></a>
+ </li>
+<li class="">
+  <a href="sect0009.html#a0000000145"><span class="toc_ref">1.8.8</span> <span class="toc_entry">Helpers for the logarithmic derivative</span></a>
+ </li>
+<li class="">
+  <a href="sect0009.html#a0000000146"><span class="toc_ref">1.8.9</span> <span class="toc_entry">The logarithmic derivative</span></a>
+ </li>
+<li class="">
+  <a href="sect0009.html#a0000000147"><span class="toc_ref">1.8.10</span> <span class="toc_entry">Summable and multipliable families</span></a>
+ </li>
+<li class="">
+  <a href="sect0009.html#a0000000148"><span class="toc_ref">1.8.11</span> <span class="toc_entry">Exp and Log for infinite products and sums</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0010.html"><span class="toc_ref">1.9</span> <span class="toc_entry">Non-integer powers</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0010.html#a0000000149"><span class="toc_ref">1.9.1</span> <span class="toc_entry">Definition</span></a>
+ </li>
+<li class="">
+  <a href="sect0010.html#a0000000150"><span class="toc_ref">1.9.2</span> <span class="toc_entry">Rules of exponents</span></a>
+ </li>
+<li class="">
+  <a href="sect0010.html#a0000000151"><span class="toc_ref">1.9.3</span> <span class="toc_entry">The Newton binomial formula for arbitrary exponents</span></a>
+ </li>
+<li class="">
+  <a href="sect0010.html#a0000000152"><span class="toc_ref">1.9.4</span> <span class="toc_entry">Further rules of exponents</span></a>
+ </li>
+<li class="">
+  <a href="sect0010.html#a0000000153"><span class="toc_ref">1.9.5</span> <span class="toc_entry">Another application</span></a>
+ </li>
+<li class="">
+  <a href="sect0010.html#a0000000154"><span class="toc_ref">1.9.6</span> <span class="toc_entry">Helper lemmas from the formalization</span></a>
+ </li>
+<li class="">
+  <a href="sect0010.html#a0000000155"><span class="toc_ref">1.9.7</span> <span class="toc_entry">Helpers for Theorem&#160;<a href="sect0010.html#thm.fps.gen-newton">1.264</a></span></a>
+ </li>
+<li class="">
+  <a href="sect0010.html#a0000000156"><span class="toc_ref">1.9.8</span> <span class="toc_entry">Helpers for Proposition&#160;<a href="sect0010.html#prop.binom.nCk-2i-qedmo.CN">1.271</a></span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0011.html"><span class="toc_ref">1.10</span> <span class="toc_entry">Integer compositions</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0011.html#a0000000157"><span class="toc_ref">1.10.1</span> <span class="toc_entry">Compositions</span></a>
+ </li>
+<li class="">
+  <a href="sect0011.html#a0000000158"><span class="toc_ref">1.10.2</span> <span class="toc_entry">Helpers for Theorem&#160;<a href="sect0011.html#thm.fps.comps.num-comps-n-k">1.304</a></span></a>
+ </li>
+<li class="">
+  <a href="sect0011.html#a0000000159"><span class="toc_ref">1.10.3</span> <span class="toc_entry">Weak compositions</span></a>
+ </li>
+<li class="">
+  <a href="sect0011.html#a0000000160"><span class="toc_ref">1.10.4</span> <span class="toc_entry">Weak compositions with entries from \(\left\{  0,1,\ldots ,p-1\right\}  \)</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0012.html"><span class="toc_ref">1.11</span> <span class="toc_entry">\(x^{n}\)-equivalence</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0012.html#a0000000161"><span class="toc_ref">1.11.1</span> <span class="toc_entry">Helpers for the equivalence relation</span></a>
+ </li>
+<li class="">
+  <a href="sect0012.html#a0000000162"><span class="toc_ref">1.11.2</span> <span class="toc_entry">Helpers for inversion and division</span></a>
+ </li>
+<li class="">
+  <a href="sect0012.html#a0000000163"><span class="toc_ref">1.11.3</span> <span class="toc_entry">Divisibility characterization</span></a>
+ </li>
+<li class="">
+  <a href="sect0012.html#a0000000164"><span class="toc_ref">1.11.4</span> <span class="toc_entry">Composition</span></a>
+ </li>
+<li class="">
+  <a href="sect0012.html#a0000000165"><span class="toc_ref">1.11.5</span> <span class="toc_entry">Equality via \(x^n\)-equivalence</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0013.html"><span class="toc_ref">1.12</span> <span class="toc_entry">Infinite products of FPSs</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0013.html#a0000000166"><span class="toc_ref">1.12.1</span> <span class="toc_entry">Determining coefficients in products</span></a>
+ </li>
+<li class="">
+  <a href="sect0013.html#a0000000167"><span class="toc_ref">1.12.2</span> <span class="toc_entry">Multipliable families and infinite products</span></a>
+ </li>
+<li class="">
+  <a href="sect0013.html#a0000000168"><span class="toc_ref">1.12.3</span> <span class="toc_entry">Irrelevance lemmas</span></a>
+ </li>
+<li class="">
+  <a href="sect0013.html#a0000000169"><span class="toc_ref">1.12.4</span> <span class="toc_entry">Multipliability criterion</span></a>
+ </li>
+<li class="">
+  <a href="sect0013.html#a0000000170"><span class="toc_ref">1.12.5</span> <span class="toc_entry">Further multipliability results</span></a>
+ </li>
+<li class="">
+  <a href="sect0013.html#a0000000171"><span class="toc_ref">1.12.6</span> <span class="toc_entry">Binary product example</span></a>
+ </li>
+<li class="">
+  <a href="sect0013.html#a0000000172"><span class="toc_ref">1.12.7</span> <span class="toc_entry">\(x^n\)-approximators</span></a>
+ </li>
+<li class="">
+  <a href="sect0013.html#a0000000173"><span class="toc_ref">1.12.8</span> <span class="toc_entry">Properties of infinite products</span></a>
+ </li>
+<li class="">
+  <a href="sect0013.html#a0000000174"><span class="toc_ref">1.12.9</span> <span class="toc_entry">Subfamilies of multipliable families</span></a>
+ </li>
+<li class="">
+  <a href="sect0013.html#a0000000175"><span class="toc_ref">1.12.10</span> <span class="toc_entry">Reindexing</span></a>
+ </li>
+<li class="">
+  <a href="sect0013.html#a0000000176"><span class="toc_ref">1.12.11</span> <span class="toc_entry">Breaking products into subproducts</span></a>
+ </li>
+<li class="">
+  <a href="sect0013.html#a0000000177"><span class="toc_ref">1.12.12</span> <span class="toc_entry">Fubini rule for infinite products</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0014.html"><span class="toc_ref">1.13</span> <span class="toc_entry">Product rules (generalized distributive laws)</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0014.html#a0000000178"><span class="toc_ref"></span> <span class="toc_entry">Helpers for the finite product rule</span></a>
+ </li>
+<li class="">
+  <a href="sect0014.html#a0000000179"><span class="toc_ref">1.13.1</span> <span class="toc_entry">Helper lemmas for the infinite product rule</span></a>
+ </li>
+<li class="">
+  <a href="sect0014.html#a0000000180"><span class="toc_ref">1.13.2</span> <span class="toc_entry">Helper lemmas from the Lean formalization</span></a>
+ </li>
+<li class="">
+  <a href="sect0014.html#a0000000181"><span class="toc_ref">1.13.3</span> <span class="toc_entry">Binary product rule</span></a>
+ </li>
+<li class="">
+  <a href="sect0014.html#a0000000182"><span class="toc_ref">1.13.4</span> <span class="toc_entry">Another example</span></a>
+ </li>
+<li class="">
+  <a href="sect0014.html#a0000000183"><span class="toc_ref">1.13.5</span> <span class="toc_entry">Infinite products and substitution</span></a>
+ </li>
+<li class="">
+  <a href="sect0014.html#a0000000184"><span class="toc_ref">1.13.6</span> <span class="toc_entry">Exponentials, logarithms and infinite products</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0015.html"><span class="toc_ref">1.14</span> <span class="toc_entry">The generating function of a weighted set</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0015.html#a0000000185"><span class="toc_ref">1.14.1</span> <span class="toc_entry">The theory</span></a>
+ </li>
+<li class="">
+  <a href="sect0015.html#a0000000186"><span class="toc_ref">1.14.2</span> <span class="toc_entry">Domino tilings</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0016.html"><span class="toc_ref">1.15</span> <span class="toc_entry">Limits of FPSs</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0016.html#a0000000187"><span class="toc_ref">1.15.1</span> <span class="toc_entry">Stabilization of scalars</span></a>
+ </li>
+<li class="">
+  <a href="sect0016.html#a0000000188"><span class="toc_ref">1.15.2</span> <span class="toc_entry">Coefficientwise stabilization of FPSs</span></a>
+ </li>
+<li class="">
+  <a href="sect0016.html#a0000000189"><span class="toc_ref">1.15.3</span> <span class="toc_entry">Some properties of limits</span></a>
+ </li>
+<li class="">
+  <a href="sect0016.html#a0000000190"><span class="toc_ref">1.15.4</span> <span class="toc_entry">Infinite sums and products</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0017.html"><span class="toc_ref">1.16</span> <span class="toc_entry">Laurent power series</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0017.html#a0000000191"><span class="toc_ref">1.16.1</span> <span class="toc_entry">Motivation</span></a>
+ </li>
+<li class="">
+  <a href="sect0017.html#a0000000192"><span class="toc_ref">1.16.2</span> <span class="toc_entry">The space \(K\left[\left[x^{\pm }\right]\right]\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0017.html#a0000000193"><span class="toc_ref">1.16.3</span> <span class="toc_entry">Laurent polynomials</span></a>
+ </li>
+<li class="">
+  <a href="sect0017.html#a0000000194"><span class="toc_ref">1.16.4</span> <span class="toc_entry">Laurent series</span></a>
+ </li>
+<li class="">
+  <a href="sect0017.html#a0000000195"><span class="toc_ref">1.16.5</span> <span class="toc_entry">Embeddings</span></a>
+ </li>
+<li class="">
+  <a href="sect0017.html#a0000000196"><span class="toc_ref">1.16.6</span> <span class="toc_entry">The partial product formula</span></a>
+ </li>
+<li class="">
+  <a href="sect0017.html#a0000000197"><span class="toc_ref">1.16.7</span> <span class="toc_entry">Laurent polynomial action and torsion</span></a>
+ </li>
+<li class="">
+  <a href="sect0017.html#a0000000198"><span class="toc_ref">1.16.8</span> <span class="toc_entry">Equivalence of balanced ternary formulations</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0018.html"><span class="toc_ref">1.17</span> <span class="toc_entry">Multivariate formal power series</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0018.html#a0000000199"><span class="toc_ref">1.17.1</span> <span class="toc_entry">Embedding univariate power series into bivariate power series</span></a>
+ </li>
+<li class="">
+  <a href="sect0018.html#a0000000200"><span class="toc_ref">1.17.2</span> <span class="toc_entry">Comparing coefficients of \(y^k\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0018.html#a0000000201"><span class="toc_ref">1.17.3</span> <span class="toc_entry">Application: binomial generating function identity</span></a>
+ </li>
+<li class="">
+  <a href="sect0018.html#a0000000202"><span class="toc_ref">1.17.4</span> <span class="toc_entry">Helper lemmas from the formalization</span></a>
+ </li>
+<li class="">
+  <a href="sect0018.html#a0000000203"><span class="toc_ref">1.17.5</span> <span class="toc_entry">Partial derivatives</span></a>
+ </li>
+
+  </ul>
+ </li>
+
+  </ul>
+ </li>
+<li class=" active">
+  <a href="sect0019.html"><span class="toc_ref">2</span> <span class="toc_entry">Integer Partitions</span></a>
+  <span class="expand-toc">▼</span>
+  <ul class="sub-toc-1 active">
+     <li class="">
+  <a href="sect0020.html"><span class="toc_ref">2.1</span> <span class="toc_entry">Partition basics</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0020.html#a0000000204"><span class="toc_ref">2.1.1</span> <span class="toc_entry">Definitions</span></a>
+ </li>
+<li class="">
+  <a href="sect0020.html#a0000000205"><span class="toc_ref">2.1.2</span> <span class="toc_entry">Simple properties of partition numbers</span></a>
+ </li>
+<li class="">
+  <a href="sect0020.html#a0000000206"><span class="toc_ref">2.1.3</span> <span class="toc_entry">The generating function</span></a>
+ </li>
+<li class="">
+  <a href="sect0020.html#a0000000207"><span class="toc_ref">2.1.4</span> <span class="toc_entry">Odd parts and distinct parts</span></a>
+ </li>
+<li class="">
+  <a href="sect0020.html#a0000000208"><span class="toc_ref">2.1.5</span> <span class="toc_entry">Partitions with a given largest part</span></a>
+ </li>
+<li class="">
+  <a href="sect0020.html#a0000000209"><span class="toc_ref">2.1.6</span> <span class="toc_entry">Counting partitions by parts and largest part</span></a>
+ </li>
+<li class="">
+  <a href="sect0020.html#a0000000210"><span class="toc_ref">2.1.7</span> <span class="toc_entry">Partition number vs. sums of divisors</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0021.html"><span class="toc_ref">2.2</span> <span class="toc_entry">Euler’s pentagonal number theorem and Jacobi’s triple product identity</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0021.html#a0000000211"><span class="toc_ref">2.2.1</span> <span class="toc_entry">Euler’s pentagonal number theorem</span></a>
+ </li>
+<li class="">
+  <a href="sect0021.html#a0000000212"><span class="toc_ref">2.2.2</span> <span class="toc_entry">Jacobi’s triple product identity</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0022.html"><span class="toc_ref">2.3</span> <span class="toc_entry">\(q\)-Binomial Coefficients</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0022.html#a0000000213"><span class="toc_ref">2.3.1</span> <span class="toc_entry">Motivation</span></a>
+ </li>
+<li class="">
+  <a href="sect0022.html#a0000000214"><span class="toc_ref">2.3.2</span> <span class="toc_entry">Definition</span></a>
+ </li>
+<li class="">
+  <a href="sect0022.html#a0000000215"><span class="toc_ref">2.3.3</span> <span class="toc_entry">Basic properties</span></a>
+ </li>
+<li class="">
+  <a href="sect0022.html#a0000000216"><span class="toc_ref">2.3.4</span> <span class="toc_entry">Recurrence relations</span></a>
+ </li>
+<li class="">
+  <a href="sect0022.html#a0000000217"><span class="toc_ref">2.3.5</span> <span class="toc_entry">Product and quotient formulas</span></a>
+ </li>
+<li class="">
+  <a href="sect0022.html#a0000000218"><span class="toc_ref">2.3.6</span> <span class="toc_entry">\(q\)-integers and \(q\)-factorials</span></a>
+ </li>
+<li class="">
+  <a href="sect0022.html#a0000000219"><span class="toc_ref">2.3.7</span> <span class="toc_entry">Symmetry</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class=" active current">
+  <a href="sect0023.html"><span class="toc_ref">2.4</span> <span class="toc_entry">\(q\)-Binomial formulas</span></a>
+  <span class="expand-toc">▼</span>
+  <ul class="sub-toc-2 active">
+     <li class="">
+  <a href="sect0023.html#a0000000220"><span class="toc_ref">2.4.1</span> <span class="toc_entry">Combinatorial definition of \(q\)-binomial coefficients</span></a>
+ </li>
+<li class="">
+  <a href="sect0023.html#a0000000221"><span class="toc_ref">2.4.2</span> <span class="toc_entry">Alternative characterizations from the recurrence</span></a>
+ </li>
+<li class="">
+  <a href="sect0023.html#a0000000222"><span class="toc_ref">2.4.3</span> <span class="toc_entry">Product expansion rule</span></a>
+ </li>
+<li class="">
+  <a href="sect0023.html#a0000000223"><span class="toc_ref">2.4.4</span> <span class="toc_entry">First \(q\)-binomial theorem</span></a>
+ </li>
+<li class="">
+  <a href="sect0023.html#a0000000224"><span class="toc_ref">2.4.5</span> <span class="toc_entry">Second \(q\)-binomial theorem</span></a>
+ </li>
+<li class="">
+  <a href="sect0023.html#a0000000225"><span class="toc_ref">2.4.6</span> <span class="toc_entry">Counting subspaces of vector spaces</span></a>
+ </li>
+<li class="">
+  <a href="sect0023.html#a0000000226"><span class="toc_ref">2.4.7</span> <span class="toc_entry">Limits of \(q\)-binomial coefficients</span></a>
+ </li>
+
+  </ul>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0024.html"><span class="toc_ref">3</span> <span class="toc_entry">Permutations</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sect0025.html"><span class="toc_ref">3.1</span> <span class="toc_entry">Permutations: basic definitions</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0025.html#a0000000227"><span class="toc_ref">3.1.1</span> <span class="toc_entry">Basic definitions</span></a>
+ </li>
+<li class="">
+  <a href="sect0025.html#a0000000228"><span class="toc_ref">3.1.2</span> <span class="toc_entry">Transpositions, cycles and involutions</span></a>
+ </li>
+<li class="">
+  <a href="sect0025.html#a0000000229"><span class="toc_ref">3.1.3</span> <span class="toc_entry">Further properties of involutions</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0026.html"><span class="toc_ref">3.2</span> <span class="toc_entry">Inversions, length and Lehmer codes</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0026.html#a0000000230"><span class="toc_ref">3.2.1</span> <span class="toc_entry">Inversions and lengths</span></a>
+ </li>
+<li class="">
+  <a href="sect0026.html#a0000000231"><span class="toc_ref">3.2.2</span> <span class="toc_entry">Helpers for Proposition&#160;<a href="sect0026.html#prop.perm.lengths-k-small-k">3.37</a></span></a>
+ </li>
+<li class="">
+  <a href="sect0026.html#a0000000232"><span class="toc_ref">3.2.3</span> <span class="toc_entry">Lehmer codes</span></a>
+ </li>
+<li class="">
+  <a href="sect0026.html#a0000000233"><span class="toc_ref">3.2.4</span> <span class="toc_entry">Lexicographic order</span></a>
+ </li>
+<li class="">
+  <a href="sect0026.html#a0000000234"><span class="toc_ref">3.2.5</span> <span class="toc_entry">Generating function for lengths</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0027.html"><span class="toc_ref">3.3</span> <span class="toc_entry">More about lengths and simples</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0027.html#a0000000235"><span class="toc_ref">3.3.1</span> <span class="toc_entry">Helpers for Proposition&#160;<a href="sect0027.html#prop.perm.lisitij">3.59</a></span></a>
+ </li>
+<li class="">
+  <a href="sect0027.html#a0000000236"><span class="toc_ref">3.3.2</span> <span class="toc_entry">Rothe diagram and Lehmer entry properties</span></a>
+ </li>
+<li class="">
+  <a href="sect0027.html#a0000000237"><span class="toc_ref">3.3.3</span> <span class="toc_entry">The Lehmer code representation</span></a>
+ </li>
+<li class="">
+  <a href="sect0027.html#a0000000238"><span class="toc_ref">3.3.4</span> <span class="toc_entry">Helpers for Proposition&#160;<a href="sect0027.html#prop.perm.redword-lehmer">3.107</a></span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0028.html"><span class="toc_ref">3.4</span> <span class="toc_entry">Signs of permutations</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0028.html#a0000000239"><span class="toc_ref">3.4.1</span> <span class="toc_entry">Definition and basic properties</span></a>
+ </li>
+<li class="">
+  <a href="sect0028.html#a0000000240"><span class="toc_ref">3.4.2</span> <span class="toc_entry">The sign homomorphism</span></a>
+ </li>
+<li class="">
+  <a href="sect0028.html#a0000000241"><span class="toc_ref">3.4.3</span> <span class="toc_entry">Even and odd permutations</span></a>
+ </li>
+<li class="">
+  <a href="sect0028.html#a0000000242"><span class="toc_ref">3.4.4</span> <span class="toc_entry">The alternating group</span></a>
+ </li>
+<li class="">
+  <a href="sect0028.html#a0000000243"><span class="toc_ref">3.4.5</span> <span class="toc_entry">Counting even and odd permutations</span></a>
+ </li>
+<li class="">
+  <a href="sect0028.html#a0000000244"><span class="toc_ref">3.4.6</span> <span class="toc_entry">Sign for permutations of arbitrary finite sets</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0029.html"><span class="toc_ref">3.5</span> <span class="toc_entry">The cycle decomposition</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0029.html#a0000000245"><span class="toc_ref">3.5.1</span> <span class="toc_entry">Properties of the cycle decomposition</span></a>
+ </li>
+<li class="">
+  <a href="sect0029.html#a0000000246"><span class="toc_ref">3.5.2</span> <span class="toc_entry">Auxiliary lemmas on cycles</span></a>
+ </li>
+<li class="">
+  <a href="sect0029.html#a0000000247"><span class="toc_ref">3.5.3</span> <span class="toc_entry">Sign from cycle decomposition</span></a>
+ </li>
+<li class="">
+  <a href="sect0029.html#a0000000248"><span class="toc_ref">3.5.4</span> <span class="toc_entry">Canonical DCD construction helpers</span></a>
+ </li>
+
+  </ul>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0030.html"><span class="toc_ref">4</span> <span class="toc_entry">Signed Counting</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sect0031.html"><span class="toc_ref">4.1</span> <span class="toc_entry">Cancellations in alternating sums</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0031.html#a0000000249"><span class="toc_ref">4.1.1</span> <span class="toc_entry">Acceptable sets, partners, and signs</span></a>
+ </li>
+<li class="">
+  <a href="sect0031.html#a0000000250"><span class="toc_ref">4.1.2</span> <span class="toc_entry">Cancellation principles</span></a>
+ </li>
+<li class="">
+  <a href="sect0031.html#a0000000251"><span class="toc_ref">4.1.3</span> <span class="toc_entry">Switching operations and the \(q\)-binomial at \(q = -1\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0031.html#a0000000252"><span class="toc_ref">4.1.4</span> <span class="toc_entry">Roots of unity</span></a>
+ </li>
+<li class="">
+  <a href="sect0031.html#a0000000253"><span class="toc_ref">4.1.5</span> <span class="toc_entry">The \(q\)-Lucas theorem</span></a>
+ </li>
+<li class="">
+  <a href="sect0031.html#a0000000254"><span class="toc_ref">4.1.6</span> <span class="toc_entry">The \(q\)-binomial at \(q = -1\)</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0032.html"><span class="toc_ref">4.2</span> <span class="toc_entry">The principles of inclusion and exclusion</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0032.html#a0000000255"><span class="toc_ref">4.2.1</span> <span class="toc_entry">The size version</span></a>
+ </li>
+<li class="">
+  <a href="sect0032.html#a0000000256"><span class="toc_ref">4.2.2</span> <span class="toc_entry">Alternative formulations of the size version</span></a>
+ </li>
+<li class="">
+  <a href="sect0032.html#a0000000257"><span class="toc_ref">4.2.3</span> <span class="toc_entry">Counting surjections</span></a>
+ </li>
+<li class="">
+  <a href="sect0032.html#a0000000258"><span class="toc_ref">4.2.4</span> <span class="toc_entry">Consequences of the surjection formula</span></a>
+ </li>
+<li class="">
+  <a href="sect0032.html#a0000000259"><span class="toc_ref">4.2.5</span> <span class="toc_entry">Helpers for the divisibility proof</span></a>
+ </li>
+<li class="">
+  <a href="sect0032.html#a0000000260"><span class="toc_ref">4.2.6</span> <span class="toc_entry">Derangements</span></a>
+ </li>
+<li class="">
+  <a href="sect0032.html#a0000000261"><span class="toc_ref">4.2.7</span> <span class="toc_entry">Euler’s totient formula</span></a>
+ </li>
+<li class="">
+  <a href="sect0032.html#a0000000262"><span class="toc_ref">4.2.8</span> <span class="toc_entry">The weighted version</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0033.html"><span class="toc_ref">4.3</span> <span class="toc_entry">Boolean Möbius inversion</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0033.html#a0000000263"><span class="toc_ref">4.3.1</span> <span class="toc_entry">Alternating sums over supersets</span></a>
+ </li>
+<li class="">
+  <a href="sect0033.html#a0000000264"><span class="toc_ref">4.3.2</span> <span class="toc_entry">The Boolean Möbius inversion formula</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0034.html"><span class="toc_ref">4.4</span> <span class="toc_entry">More subtractive methods</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0034.html#a0000000265"><span class="toc_ref">4.4.1</span> <span class="toc_entry">Sums with varying signs</span></a>
+ </li>
+<li class="">
+  <a href="sect0034.html#a0000000266"><span class="toc_ref">4.4.2</span> <span class="toc_entry">Lemmas for the proof</span></a>
+ </li>
+<li class="">
+  <a href="sect0034.html#a0000000267"><span class="toc_ref">4.4.3</span> <span class="toc_entry">Involution argument for part (a)</span></a>
+ </li>
+<li class="">
+  <a href="sect0034.html#a0000000268"><span class="toc_ref">4.4.4</span> <span class="toc_entry">Computing the left-hand side</span></a>
+ </li>
+<li class="">
+  <a href="sect0034.html#a0000000269"><span class="toc_ref">4.4.5</span> <span class="toc_entry">Helper lemmas for toSign</span></a>
+ </li>
+<li class="">
+  <a href="sect0034.html#a0000000270"><span class="toc_ref">4.4.6</span> <span class="toc_entry">Corollaries of the counting formula</span></a>
+ </li>
+
+  </ul>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0035.html"><span class="toc_ref">5</span> <span class="toc_entry">Determinants</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sect0036.html"><span class="toc_ref">5.1</span> <span class="toc_entry">Determinants: Basic Properties</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0036.html#a0000000271"><span class="toc_ref">5.1.1</span> <span class="toc_entry">Conventions</span></a>
+ </li>
+<li class="">
+  <a href="sect0036.html#a0000000272"><span class="toc_ref">5.1.2</span> <span class="toc_entry">Definition</span></a>
+ </li>
+<li class="">
+  <a href="sect0036.html#a0000000273"><span class="toc_ref">5.1.3</span> <span class="toc_entry">Small determinants and basic API</span></a>
+ </li>
+<li class="">
+  <a href="sect0036.html#a0000000274"><span class="toc_ref">5.1.4</span> <span class="toc_entry">Helpers for Proposition&#160;<a href="sect0036.html#prop.det.xi+yj">5.17</a></span></a>
+ </li>
+<li class="">
+  <a href="sect0036.html#a0000000275"><span class="toc_ref">5.1.5</span> <span class="toc_entry">Basic properties</span></a>
+ </li>
+<li class="">
+  <a href="sect0036.html#a0000000276"><span class="toc_ref">5.1.6</span> <span class="toc_entry">Permutation images and submatrix determinants</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0037.html"><span class="toc_ref">5.2</span> <span class="toc_entry">Cauchy–Binet and related formulas</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0037.html#a0000000277"><span class="toc_ref">5.2.1</span> <span class="toc_entry">Submatrices and minors</span></a>
+ </li>
+<li class="">
+  <a href="sect0037.html#a0000000278"><span class="toc_ref">5.2.2</span> <span class="toc_entry">The Cauchy–Binet formula</span></a>
+ </li>
+<li class="">
+  <a href="sect0037.html#a0000000279"><span class="toc_ref">5.2.3</span> <span class="toc_entry">The formula for \(\det (A+B)\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0037.html#a0000000280"><span class="toc_ref">5.2.4</span> <span class="toc_entry">Minors of diagonal matrices</span></a>
+ </li>
+<li class="">
+  <a href="sect0037.html#a0000000281"><span class="toc_ref">5.2.5</span> <span class="toc_entry">Determinant of \(A+D\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0037.html#a0000000282"><span class="toc_ref">5.2.6</span> <span class="toc_entry">Determinant of \(x + D\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0037.html#a0000000283"><span class="toc_ref">5.2.7</span> <span class="toc_entry">Characteristic polynomial coefficients</span></a>
+ </li>
+<li class="">
+  <a href="sect0037.html#a0000000284"><span class="toc_ref">5.2.8</span> <span class="toc_entry">The Pascal matrix</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0038.html"><span class="toc_ref">5.3</span> <span class="toc_entry">Determinants: Factor Hunting, Laplace Expansion, and Desnanot–Jacobi</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0038.html#a0000000285"><span class="toc_ref">5.3.1</span> <span class="toc_entry">Factor hunting and the Vandermonde determinant</span></a>
+ </li>
+<li class="">
+  <a href="sect0038.html#a0000000286"><span class="toc_ref">5.3.2</span> <span class="toc_entry">Laplace expansion</span></a>
+ </li>
+<li class="">
+  <a href="sect0038.html#a0000000287"><span class="toc_ref">5.3.3</span> <span class="toc_entry">Laplace expansion along multiple rows</span></a>
+ </li>
+<li class="">
+  <a href="sect0038.html#a0000000288"><span class="toc_ref">5.3.4</span> <span class="toc_entry">Desnanot–Jacobi and Dodgson condensation</span></a>
+ </li>
+<li class="">
+  <a href="sect0038.html#a0000000289"><span class="toc_ref">5.3.5</span> <span class="toc_entry">Generalized Desnanot–Jacobi</span></a>
+ </li>
+<li class="">
+  <a href="sect0038.html#a0000000290"><span class="toc_ref">5.3.6</span> <span class="toc_entry">Jacobi’s complementary minor theorem</span></a>
+ </li>
+<li class="">
+  <a href="sect0038.html#a0000000291"><span class="toc_ref">5.3.7</span> <span class="toc_entry">Helpers for the Vandermonde determinant proof</span></a>
+ </li>
+<li class="">
+  <a href="sect0038.html#a0000000292"><span class="toc_ref">5.3.8</span> <span class="toc_entry">Helpers for the Desnanot–Jacobi proof</span></a>
+ </li>
+<li class="">
+  <a href="sect0038.html#a0000000293"><span class="toc_ref">5.3.9</span> <span class="toc_entry">Helpers for the generalized Desnanot–Jacobi proof</span></a>
+ </li>
+<li class="">
+  <a href="sect0038.html#a0000000294"><span class="toc_ref">5.3.10</span> <span class="toc_entry">Helpers for the adjugate and inverse relationship</span></a>
+ </li>
+<li class="">
+  <a href="sect0038.html#a0000000295"><span class="toc_ref">5.3.11</span> <span class="toc_entry">Helpers for block matrix decomposition</span></a>
+ </li>
+<li class="">
+  <a href="sect0038.html#a0000000296"><span class="toc_ref">5.3.12</span> <span class="toc_entry">Helpers for the complementary minor theorem proof</span></a>
+ </li>
+<li class="">
+  <a href="sect0038.html#a0000000297"><span class="toc_ref">5.3.13</span> <span class="toc_entry">Helpers for the Cauchy determinant proof (factor hunting)</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0039.html"><span class="toc_ref">5.4</span> <span class="toc_entry">The Lindström–Gessel–Viennot lemma</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0039.html#a0000000298"><span class="toc_ref">5.4.1</span> <span class="toc_entry">Definitions</span></a>
+ </li>
+<li class="">
+  <a href="sect0039.html#a0000000299"><span class="toc_ref">5.4.2</span> <span class="toc_entry">Helpers for lattice path infrastructure</span></a>
+ </li>
+<li class="">
+  <a href="sect0039.html#a0000000300"><span class="toc_ref">5.4.3</span> <span class="toc_entry">Counting paths from \((a,b)\) to \((c,d)\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0039.html#a0000000301"><span class="toc_ref">5.4.4</span> <span class="toc_entry">Path tuples, nipats and ipats</span></a>
+ </li>
+<li class="">
+  <a href="sect0039.html#a0000000302"><span class="toc_ref">5.4.5</span> <span class="toc_entry">Helpers for path tuple finiteness</span></a>
+ </li>
+<li class="">
+  <a href="sect0039.html#a0000000303"><span class="toc_ref">5.4.6</span> <span class="toc_entry">Crowded vertices and the minimum crowded path index</span></a>
+ </li>
+<li class="">
+  <a href="sect0039.html#a0000000304"><span class="toc_ref">5.4.7</span> <span class="toc_entry">The LGV lemma for two paths</span></a>
+ </li>
+<li class="">
+  <a href="sect0039.html#a0000000305"><span class="toc_ref">5.4.8</span> <span class="toc_entry">The baby Jordan curve theorem</span></a>
+ </li>
+<li class="">
+  <a href="sect0039.html#a0000000306"><span class="toc_ref">5.4.9</span> <span class="toc_entry">Log-concavity of binomial coefficients</span></a>
+ </li>
+<li class="">
+  <a href="sect0039.html#a0000000307"><span class="toc_ref">5.4.10</span> <span class="toc_entry">The LGV lemma for \(k\) paths</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0040.html"><span class="toc_ref">5.5</span> <span class="toc_entry">The LGV lemma: weighted and generalized versions</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0040.html#a0000000308"><span class="toc_ref">5.5.1</span> <span class="toc_entry">The weighted version</span></a>
+ </li>
+<li class="">
+  <a href="sect0040.html#a0000000309"><span class="toc_ref">5.5.2</span> <span class="toc_entry">Generalization to acyclic digraphs</span></a>
+ </li>
+<li class="">
+  <a href="sect0040.html#a0000000310"><span class="toc_ref">5.5.3</span> <span class="toc_entry">Helper lemmas for the sign-reversing involution</span></a>
+ </li>
+<li class="">
+  <a href="sect0040.html#a0000000311"><span class="toc_ref">5.5.4</span> <span class="toc_entry">Infrastructure for the LGV proof</span></a>
+ </li>
+<li class="">
+  <a href="sect0040.html#a0000000312"><span class="toc_ref">5.5.5</span> <span class="toc_entry">The nonpermutable case</span></a>
+ </li>
+<li class="">
+  <a href="sect0040.html#a0000000313"><span class="toc_ref">5.5.6</span> <span class="toc_entry">Applications</span></a>
+ </li>
+<li class="">
+  <a href="sect0040.html#a0000000314"><span class="toc_ref">5.5.7</span> <span class="toc_entry">Bridge between path representations</span></a>
+ </li>
+
+  </ul>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0041.html"><span class="toc_ref">6</span> <span class="toc_entry">Symmetric Functions</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sect0042.html"><span class="toc_ref">6.1</span> <span class="toc_entry">Definitions and examples of symmetric polynomials</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0042.html#a0000000315"><span class="toc_ref">6.1.1</span> <span class="toc_entry">Setup</span></a>
+ </li>
+<li class="">
+  <a href="sect0042.html#a0000000316"><span class="toc_ref">6.1.2</span> <span class="toc_entry">The polynomial ring and the symmetric group action</span></a>
+ </li>
+<li class="">
+  <a href="sect0042.html#a0000000317"><span class="toc_ref">6.1.3</span> <span class="toc_entry">The action is well-defined</span></a>
+ </li>
+<li class="">
+  <a href="sect0042.html#a0000000318"><span class="toc_ref">6.1.4</span> <span class="toc_entry">The action is by algebra automorphisms</span></a>
+ </li>
+<li class="">
+  <a href="sect0042.html#a0000000319"><span class="toc_ref">6.1.5</span> <span class="toc_entry">Symmetric polynomials form a subalgebra</span></a>
+ </li>
+<li class="">
+  <a href="sect0042.html#a0000000320"><span class="toc_ref">6.1.6</span> <span class="toc_entry">Monomials</span></a>
+ </li>
+<li class="">
+  <a href="sect0042.html#a0000000321"><span class="toc_ref">6.1.7</span> <span class="toc_entry">Elementary, complete homogeneous, and power sum symmetric polynomials</span></a>
+ </li>
+<li class="">
+  <a href="sect0042.html#a0000000322"><span class="toc_ref">6.1.8</span> <span class="toc_entry">Elementary symmetric polynomials vanish for large degree</span></a>
+ </li>
+<li class="">
+  <a href="sect0042.html#a0000000323"><span class="toc_ref">6.1.9</span> <span class="toc_entry">Generating function identities</span></a>
+ </li>
+<li class="">
+  <a href="sect0042.html#a0000000324"><span class="toc_ref">6.1.10</span> <span class="toc_entry">Newton–Girard formulas</span></a>
+ </li>
+<li class="">
+  <a href="sect0042.html#a0000000325"><span class="toc_ref">6.1.11</span> <span class="toc_entry">Fundamental Theorem of Symmetric Polynomials</span></a>
+ </li>
+<li class="">
+  <a href="sect0042.html#a0000000326"><span class="toc_ref">6.1.12</span> <span class="toc_entry">Simple transpositions suffice</span></a>
+ </li>
+<li class="">
+  <a href="sect0042.html#a0000000327"><span class="toc_ref">6.1.13</span> <span class="toc_entry">Helper lemmas from the Lean formalization</span></a>
+ </li>
+<li class="">
+  <a href="sect0042.html#a0000000328"><span class="toc_ref">6.1.14</span> <span class="toc_entry">Monomial API</span></a>
+ </li>
+<li class="">
+  <a href="sect0042.html#a0000000329"><span class="toc_ref">6.1.15</span> <span class="toc_entry">Basic values of \(e_n\), \(h_n\), \(p_n\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0042.html#a0000000330"><span class="toc_ref">6.1.16</span> <span class="toc_entry">Alternative characterizations of \(e_n\), \(h_n\), \(p_n\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0042.html#a0000000331"><span class="toc_ref">6.1.17</span> <span class="toc_entry">Integer-indexed versions</span></a>
+ </li>
+<li class="">
+  <a href="sect0042.html#a0000000332"><span class="toc_ref">6.1.18</span> <span class="toc_entry">Adding a variable recurrence</span></a>
+ </li>
+<li class="">
+  <a href="sect0042.html#a0000000333"><span class="toc_ref">6.1.19</span> <span class="toc_entry">Antisymmetric polynomials</span></a>
+ </li>
+<li class="">
+  <a href="sect0042.html#a0000000334"><span class="toc_ref">6.1.20</span> <span class="toc_entry">The sum of variables is symmetric</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0043.html"><span class="toc_ref">6.2</span> <span class="toc_entry">\(N\)-partitions and monomial symmetric polynomials</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0043.html#a0000000335"><span class="toc_ref">6.2.1</span> <span class="toc_entry">\(N\)-partitions</span></a>
+ </li>
+<li class="">
+  <a href="sect0043.html#a0000000336"><span class="toc_ref">6.2.2</span> <span class="toc_entry">Monomials and sorting</span></a>
+ </li>
+<li class="">
+  <a href="sect0043.html#a0000000337"><span class="toc_ref">6.2.3</span> <span class="toc_entry">Monomial symmetric polynomials</span></a>
+ </li>
+<li class="">
+  <a href="sect0043.html#a0000000338"><span class="toc_ref">6.2.4</span> <span class="toc_entry">Elementary, homogeneous, and power sum via monomial symmetric polynomials</span></a>
+ </li>
+<li class="">
+  <a href="sect0043.html#a0000000339"><span class="toc_ref">6.2.5</span> <span class="toc_entry">Permutation action on polynomial coefficients</span></a>
+ </li>
+<li class="">
+  <a href="sect0043.html#a0000000340"><span class="toc_ref">6.2.6</span> <span class="toc_entry">Basis theorem</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0044.html"><span class="toc_ref">6.3</span> <span class="toc_entry">Schur polynomials</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0044.html#a0000000341"><span class="toc_ref">6.3.1</span> <span class="toc_entry">Alternants</span></a>
+ </li>
+<li class="">
+  <a href="sect0044.html#a0000000342"><span class="toc_ref">6.3.2</span> <span class="toc_entry">Young diagrams and Schur polynomials</span></a>
+ </li>
+<li class="">
+  <a href="sect0044.html#a0000000343"><span class="toc_ref">6.3.3</span> <span class="toc_entry">Examples of Schur polynomials</span></a>
+ </li>
+<li class="">
+  <a href="sect0044.html#a0000000344"><span class="toc_ref">6.3.4</span> <span class="toc_entry">Symmetry of Schur polynomials</span></a>
+ </li>
+<li class="">
+  <a href="sect0044.html#a0000000345"><span class="toc_ref">6.3.5</span> <span class="toc_entry">Skew Young diagrams and skew Schur polynomials</span></a>
+ </li>
+<li class="">
+  <a href="sect0044.html#a0000000346"><span class="toc_ref">6.3.6</span> <span class="toc_entry">Filling infrastructure for Schur polynomials</span></a>
+ </li>
+<li class="">
+  <a href="sect0044.html#a0000000347"><span class="toc_ref">6.3.7</span> <span class="toc_entry">Bender–Knuth involutions (helper lemmas)</span></a>
+ </li>
+<li class="">
+  <a href="sect0044.html#a0000000348"><span class="toc_ref">6.3.8</span> <span class="toc_entry">Equivalences between Schur polynomial definitions</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0045.html"><span class="toc_ref">6.4</span> <span class="toc_entry">The Littlewood–Richardson rule</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0045.html#a0000000349"><span class="toc_ref">6.4.1</span> <span class="toc_entry">Tuple arithmetic</span></a>
+ </li>
+<li class="">
+  <a href="sect0045.html#a0000000350"><span class="toc_ref">6.4.2</span> <span class="toc_entry">Content of a tableau</span></a>
+ </li>
+<li class="">
+  <a href="sect0045.html#a0000000351"><span class="toc_ref">6.4.3</span> <span class="toc_entry">Column restriction of tableaux</span></a>
+ </li>
+<li class="">
+  <a href="sect0045.html#a0000000352"><span class="toc_ref">6.4.4</span> <span class="toc_entry">Yamanouchi tableaux</span></a>
+ </li>
+<li class="">
+  <a href="sect0045.html#a0000000353"><span class="toc_ref">6.4.5</span> <span class="toc_entry">Content and column restriction helpers</span></a>
+ </li>
+<li class="">
+  <a href="sect0045.html#a0000000354"><span class="toc_ref">6.4.6</span> <span class="toc_entry">Properties of alternants</span></a>
+ </li>
+<li class="">
+  <a href="sect0045.html#a0000000355"><span class="toc_ref">6.4.7</span> <span class="toc_entry">Regular elements and cancellation</span></a>
+ </li>
+<li class="">
+  <a href="sect0045.html#a0000000356"><span class="toc_ref">6.4.8</span> <span class="toc_entry">Bender–Knuth involution</span></a>
+ </li>
+<li class="">
+  <a href="sect0045.html#a0000000357"><span class="toc_ref">6.4.9</span> <span class="toc_entry">Symmetry of skew Schur polynomials</span></a>
+ </li>
+<li class="">
+  <a href="sect0045.html#a0000000358"><span class="toc_ref">6.4.10</span> <span class="toc_entry">Stembridge’s involution infrastructure</span></a>
+ </li>
+<li class="">
+  <a href="sect0045.html#a0000000359"><span class="toc_ref">6.4.11</span> <span class="toc_entry">Stembridge’s involution and sign-reversing property</span></a>
+ </li>
+<li class="">
+  <a href="sect0045.html#a0000000360"><span class="toc_ref">6.4.12</span> <span class="toc_entry">Stembridge’s Lemma</span></a>
+ </li>
+<li class="">
+  <a href="sect0045.html#a0000000361"><span class="toc_ref">6.4.13</span> <span class="toc_entry">Consequences of Stembridge’s Lemma</span></a>
+ </li>
+<li class="">
+  <a href="sect0045.html#a0000000362"><span class="toc_ref">6.4.14</span> <span class="toc_entry">The Littlewood–Richardson rule</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0046.html"><span class="toc_ref">6.5</span> <span class="toc_entry">The Pieri Rules and Jacobi–Trudi Identities</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0046.html#a0000000363"><span class="toc_ref">6.5.1</span> <span class="toc_entry">Strips and skew partitions</span></a>
+ </li>
+<li class="">
+  <a href="sect0046.html#a0000000364"><span class="toc_ref">6.5.2</span> <span class="toc_entry">Schur and skew Schur polynomials</span></a>
+ </li>
+<li class="">
+  <a href="sect0046.html#a0000000365"><span class="toc_ref">6.5.3</span> <span class="toc_entry">Symmetric polynomials as Schur polynomials</span></a>
+ </li>
+<li class="">
+  <a href="sect0046.html#a0000000366"><span class="toc_ref">6.5.4</span> <span class="toc_entry">The Pieri rules</span></a>
+ </li>
+<li class="">
+  <a href="sect0046.html#a0000000367"><span class="toc_ref">6.5.5</span> <span class="toc_entry">The Jacobi–Trudi identities</span></a>
+ </li>
+<li class="">
+  <a href="sect0046.html#a0000000368"><span class="toc_ref">6.5.6</span> <span class="toc_entry">Special cases</span></a>
+ </li>
+<li class="">
+  <a href="sect0046.html#a0000000369"><span class="toc_ref">6.5.7</span> <span class="toc_entry">Symmetry of Schur polynomials via Jacobi–Trudi</span></a>
+ </li>
+<li class="">
+  <a href="sect0046.html#a0000000370"><span class="toc_ref">6.5.8</span> <span class="toc_entry">The \(\omega \)-involution</span></a>
+ </li>
+
+  </ul>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0047.html"><span class="toc_ref">A</span> <span class="toc_entry">Details</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sec-details-gf-prod.html"><span class="toc_ref">A.1</span> <span class="toc_entry">Details: Infinite products (part 1)</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sec-details-gf-prod.html#a0000000371"><span class="toc_ref">A.1.1</span> <span class="toc_entry">Essentially finite families</span></a>
+ </li>
+<li class="">
+  <a href="sec-details-gf-prod.html#a0000000372"><span class="toc_ref">A.1.2</span> <span class="toc_entry">Existence of approximators</span></a>
+ </li>
+<li class="">
+  <a href="sec-details-gf-prod.html#a0000000373"><span class="toc_ref">A.1.3</span> <span class="toc_entry">Multipliability criteria</span></a>
+ </li>
+<li class="">
+  <a href="sec-details-gf-prod.html#a0000000374"><span class="toc_ref">A.1.4</span> <span class="toc_entry">Multipliable product and division rules (Lean formalization)</span></a>
+ </li>
+<li class="">
+  <a href="sec-details-gf-prod.html#a0000000375"><span class="toc_ref">A.1.5</span> <span class="toc_entry">Subfamily and reindexing lemmas</span></a>
+ </li>
+<li class="">
+  <a href="sec-details-gf-prod.html#a0000000376"><span class="toc_ref">A.1.6</span> <span class="toc_entry">Fiber product decomposition</span></a>
+ </li>
+<li class="">
+  <a href="sec-details-gf-prod.html#a0000000377"><span class="toc_ref">A.1.7</span> <span class="toc_entry">Fubini rules for infinite products</span></a>
+ </li>
+<li class="">
+  <a href="sec-details-gf-prod.html#a0000000378"><span class="toc_ref">A.1.8</span> <span class="toc_entry">Coefficient form of the generalized distributive law</span></a>
+ </li>
+<li class="">
+  <a href="sec-details-gf-prod.html#a0000000379"><span class="toc_ref">A.1.9</span> <span class="toc_entry">Congruence lemma for division</span></a>
+ </li>
+<li class="">
+  <a href="sec-details-gf-prod.html#a0000000380"><span class="toc_ref">A.1.10</span> <span class="toc_entry">Detailed proof of Proposition&#160;<a href="sect0013.html#prop.fps.div-mulable">1.367</a></span></a>
+ </li>
+<li class="">
+  <a href="sec-details-gf-prod.html#a0000000381"><span class="toc_ref">A.1.11</span> <span class="toc_entry">Approximator intersection lemma</span></a>
+ </li>
+<li class="">
+  <a href="sec-details-gf-prod.html#a0000000382"><span class="toc_ref">A.1.12</span> <span class="toc_entry">Detailed proof of Proposition&#160;<a href="sect0013.html#prop.fps.prods-mulable-subfams">1.369</a></span></a>
+ </li>
+<li class="">
+  <a href="sec-details-gf-prod.html#a0000000383"><span class="toc_ref">A.1.13</span> <span class="toc_entry">Finite products and \(x^n\)-equivalence</span></a>
+ </li>
+<li class="">
+  <a href="sec-details-gf-prod.html#a0000000384"><span class="toc_ref">A.1.14</span> <span class="toc_entry">Detailed proof of Proposition&#160;<a href="sect0013.html#prop.fps.prods-mulable-rules.SW1">1.372</a></span></a>
+ </li>
+<li class="">
+  <a href="sec-details-gf-prod.html#a0000000385"><span class="toc_ref">A.1.15</span> <span class="toc_entry">Detailed proof of Proposition&#160;<a href="sect0013.html#prop.fps.prod-mulable">1.366</a></span></a>
+ </li>
+<li class="">
+  <a href="sec-details-gf-prod.html#a0000000386"><span class="toc_ref">A.1.16</span> <span class="toc_entry">Product rule claims</span></a>
+ </li>
+<li class="">
+  <a href="sec-details-gf-prod.html#a0000000387"><span class="toc_ref">A.1.17</span> <span class="toc_entry">Composition rules for infinite products</span></a>
+ </li>
+<li class="">
+  <a href="sec-details-gf-prod.html#a0000000388"><span class="toc_ref">A.1.18</span> <span class="toc_entry">Additional supporting lemmas</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0048.html"><span class="toc_ref">A.2</span> <span class="toc_entry">Details: Infinite products (part 2) – Finite product composition rule</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0048.html#a0000000389"><span class="toc_ref">A.2.1</span> <span class="toc_entry">Detailed proof of Proposition&#160;<a href="sect0014.html#prop.fps.subs.rule-infprod">1.399</a></span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0049.html"><span class="toc_ref">A.3</span> <span class="toc_entry">Domino tilings of height-3 rectangles</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0049.html#a0000000390"><span class="toc_ref">A.3.1</span> <span class="toc_entry">The tilings \(A_n\), \(B_n\), and \(C\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0049.html#a0000000391"><span class="toc_ref">A.3.2</span> <span class="toc_entry">Properties of \(A_n\), \(B_n\), and \(C\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0049.html#a0000000392"><span class="toc_ref">A.3.3</span> <span class="toc_entry">Faultfreeness of \(A_n\), \(B_n\), and \(C\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0049.html#a0000000393"><span class="toc_ref">A.3.4</span> <span class="toc_entry">Reflection lemmas</span></a>
+ </li>
+<li class="">
+  <a href="sect0049.html#a0000000394"><span class="toc_ref">A.3.5</span> <span class="toc_entry">Auxiliary lemmas for the classification</span></a>
+ </li>
+<li class="">
+  <a href="sect0049.html#a0000000395"><span class="toc_ref">A.3.6</span> <span class="toc_entry">The classification</span></a>
+ </li>
+<li class="">
+  <a href="sect0049.html#a0000000396"><span class="toc_ref">A.3.7</span> <span class="toc_entry">Structural helpers for the classification</span></a>
+ </li>
+<li class="">
+  <a href="sect0049.html#a0000000397"><span class="toc_ref">A.3.8</span> <span class="toc_entry">Height-\(2\) Fibonacci recurrence</span></a>
+ </li>
+<li class="">
+  <a href="sect0049.html#a0000000398"><span class="toc_ref">A.3.9</span> <span class="toc_entry">Bridge between \(\mathbb {N}\)-based and \(\mathbb {Z}\)-based domino tilings</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0050.html"><span class="toc_ref">A.4</span> <span class="toc_entry">Details: Limits of FPSs</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0050.html#a0000000399"><span class="toc_ref">A.4.1</span> <span class="toc_entry">Detailed proof of Lemma&#160;<a href="sect0016.html#lem.fps.lim.xn-equiv">1.462</a></span></a>
+ </li>
+<li class="">
+  <a href="sect0050.html#a0000000400"><span class="toc_ref">A.4.2</span> <span class="toc_entry">Detailed proof of Proposition&#160;<a href="sect0016.html#prop.fps.lim.sum-prod">1.463</a></span></a>
+ </li>
+<li class="">
+  <a href="sect0050.html#a0000000401"><span class="toc_ref">A.4.3</span> <span class="toc_entry">Helpers for Proposition&#160;<a href="sect0016.html#prop.fps.lim.sum-quot">1.468</a></span></a>
+ </li>
+<li class="">
+  <a href="sect0050.html#a0000000402"><span class="toc_ref">A.4.4</span> <span class="toc_entry">Detailed proof of Proposition&#160;<a href="sect0016.html#prop.fps.lim.sum-quot">1.468</a></span></a>
+ </li>
+<li class="">
+  <a href="sect0050.html#a0000000403"><span class="toc_ref">A.4.5</span> <span class="toc_entry">Detailed proof of Theorem&#160;<a href="sect0016.html#thm.fps.lim.sum-lim">1.475</a></span></a>
+ </li>
+<li class="">
+  <a href="sect0050.html#a0000000404"><span class="toc_ref">A.4.6</span> <span class="toc_entry">Helpers for Theorem&#160;<a href="sect0016.html#thm.fps.lim.prod-lim">1.476</a></span></a>
+ </li>
+<li class="">
+  <a href="sect0050.html#a0000000405"><span class="toc_ref">A.4.7</span> <span class="toc_entry">Detailed proof of Theorem&#160;<a href="sect0016.html#thm.fps.lim.prod-lim">1.476</a></span></a>
+ </li>
+<li class="">
+  <a href="sect0050.html#a0000000406"><span class="toc_ref">A.4.8</span> <span class="toc_entry">Detailed proofs of Corollary&#160;<a href="sect0016.html#cor.fps.lim.fps-as-pol">1.477</a></span></a>
+ </li>
+<li class="">
+  <a href="sect0050.html#a0000000407"><span class="toc_ref">A.4.9</span> <span class="toc_entry">Detailed proof of Theorem&#160;<a href="sect0016.html#thm.fps.lim.sum-lim-conv">1.478</a></span></a>
+ </li>
+<li class="">
+  <a href="sect0050.html#a0000000408"><span class="toc_ref">A.4.10</span> <span class="toc_entry">Helpers for Theorem&#160;<a href="sect0016.html#thm.fps.lim.prod-lim-conv">1.479</a></span></a>
+ </li>
+<li class="">
+  <a href="sect0050.html#a0000000409"><span class="toc_ref">A.4.11</span> <span class="toc_entry">Detailed proof of Theorem&#160;<a href="sect0016.html#thm.fps.lim.prod-lim-conv">1.479</a></span></a>
+ </li>
+<li class="">
+  <a href="sect0050.html#a0000000410"><span class="toc_ref">A.4.12</span> <span class="toc_entry">Helper lemmas from the Lean formalization</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0051.html"><span class="toc_ref">A.5</span> <span class="toc_entry">Details on Laurent power series</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-2">
+     <li class="">
+  <a href="sect0051.html#a0000000411"><span class="toc_ref">A.5.1</span> <span class="toc_entry">Proof of Theorem&#160;<a href="sect0017.html#thm.fps.laure.laupol-ring">1.498</a> (sketched)</span></a>
+ </li>
+<li class="">
+  <a href="sect0051.html#a0000000412"><span class="toc_ref">A.5.2</span> <span class="toc_entry">Helpers for Theorem&#160;<a href="sect0017.html#thm.fps.laure.laupol-ring">1.498</a></span></a>
+ </li>
+<li class="">
+  <a href="sect0051.html#a0000000413"><span class="toc_ref">A.5.3</span> <span class="toc_entry">Multiplication by \(x\) shifts coefficients</span></a>
+ </li>
+<li class="">
+  <a href="sect0051.html#a0000000414"><span class="toc_ref">A.5.4</span> <span class="toc_entry">Powers of \(x\)</span></a>
+ </li>
+<li class="">
+  <a href="sect0051.html#a0000000415"><span class="toc_ref">A.5.5</span> <span class="toc_entry">Proof of Proposition&#160;<a href="sect0017.html#prop.fps.laure.a=sumaixi">1.505</a> (sketched)</span></a>
+ </li>
+<li class="">
+  <a href="sect0051.html#a0000000416"><span class="toc_ref">A.5.6</span> <span class="toc_entry">Proof of Theorem&#160;<a href="sect0017.html#thm.fps.laure.lauser-ring">1.509</a> (sketched)</span></a>
+ </li>
+<li class="">
+  <a href="sect0051.html#a0000000417"><span class="toc_ref">A.5.7</span> <span class="toc_entry">Helpers for the embeddings</span></a>
+ </li>
+<li class="">
+  <a href="sect0051.html#a0000000418"><span class="toc_ref">A.5.8</span> <span class="toc_entry">Helpers for Theorem&#160;<a href="sect0017.html#thm.fps.laure.balanced-tern-rep-uniq">1.483</a></span></a>
+ </li>
+
+  </ul>
+ </li>
+
+  </ul>
+ </li>
+<li ><a href="dep_graph_document.html">Dependency graph</a></li>
+</ul>
+</nav>
+
+<div class="content">
+<div class="content-wrapper">
+
+
+<div class="main-text">
+<h1 id="a0000000024">2.4 \(q\)-Binomial formulas</h1>
+<h2 id="a0000000220">2.4.1 Combinatorial definition of \(q\)-binomial coefficients</h2>
+<p>This section formalizes Definition&#160;<a href="sect0022.html#def.pars.qbinom.qbinom">2.136</a> from the combinatorial side: the \(q\)-binomial as a sum over partitions, and proves that this agrees with the recurrence-based definition from the previous chapter. </p>
+<div class="definition_thmwrapper theorem-style-definition" id="def.qbinomial-formulas.qbinom-poly">
+  <div class="definition_thmmain">
+    <div class="definition_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">2.157</span>
+      <div class="thm_header_extras">
+
+    
+    ✓
+          </div>
+      <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0023.html#def.qbinomial-formulas.qbinom-poly">#</a>
+    
+    
+          </div>
+    </div>
+    <div class="definition_thmcontent">
+    <p>  The \(q\)-binomial coefficient as a polynomial in \(\mathbb {Z}[q]\) via the partition sum: </p>
+<div class="displaymath" id="a0000001401">
+  \[  \binom {n}{k}_q = \sum _{s=0}^{k(n-k)} c(s, k, n-k) \cdot q^s  \]
+</div>
+<p> where \(c(s,k,m)\) is the number of partitions of \(s\) fitting in a \(k \times m\) box. The evaluation \(\binom {n}{k}_a\) is obtained by substituting \(a\) for \(q\). </p>
+
+    </div>
+  </div>
+  <div class="thm_side_panel">
+
+
+
+
+
+
+
+
+
+<div class="lean-side-panel lean-helper">
+  
+  
+  <div class="lean-entry">
+    
+    <div class="lean-decl-box">
+      <div class="lean-decl-links">
+        <a href="https://vigilant-adventure-pgkl54k.pages.github.io/AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.qBinomialPolyDef" class="lean-doc-link" title="View documentation">docs</a>
+        <a href="https://github.com/fairinternal/algcomb/blob/summary/AlgebraicCombinatorics/Partitions/QBinomialFormulas.lean" class="lean-src-link" title="View source">source</a>
+      </div>
+      <div class="decl_header"><span class="decl_kind">noncomputable def</span>
+<span class="decl_name"><a href="sect0023.html#def.qbinomial-formulas.qbinom-poly" class="blueprint-link" title="View in blueprint"><span class="name">AlgebraicCombinatorics</span>.<span class="name">QBinomialRec</span>.<span class="name">qBinomialPolyDef</span></a></span><span class="decl_args">
+<span class="fn">(<span class="fn">n </span><span class="fn">k</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Nat" title="View in docs">ℕ</a>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Algebra/Polynomial/Basic.html#Polynomial" title="View in docs">Polynomial</a> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Data/Int/Basic.html#Int" title="View in docs">ℤ</a></span></div></div>
+      
+      
+      <ul class="equations lean-equations"><li class="equation">One or more equations did not get rendered due to their size.</li></ul>
+      
+    </div>
+    
+  </div>
+  
+  
+  
+  <div class="lean-entry">
+    
+    <div class="lean-decl-box">
+      <div class="lean-decl-links">
+        <a href="https://vigilant-adventure-pgkl54k.pages.github.io/AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.qBinomialEval" class="lean-doc-link" title="View documentation">docs</a>
+        <a href="https://github.com/fairinternal/algcomb/blob/summary/AlgebraicCombinatorics/Partitions/QBinomialFormulas.lean" class="lean-src-link" title="View source">source</a>
+      </div>
+      <div class="decl_header"><span class="decl_kind">noncomputable def</span>
+<span class="decl_name"><a href="sect0023.html#def.qbinomial-formulas.qbinom-poly" class="blueprint-link" title="View in blueprint"><span class="name">AlgebraicCombinatorics</span>.<span class="name">QBinomialRec</span>.<span class="name">qBinomialEval</span></a></span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">R</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./foundational_types.html" title="View in docs">Type</a> u_1}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Algebra/Ring/Defs.html#CommRing" title="View in docs">CommRing</a> <span class="fn">R</span></span>]</span></span>
+</span><span class="decl_args">
+<span class="fn">(<span class="fn">n </span><span class="fn">k</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Nat" title="View in docs">ℕ</a>)</span></span>
+<span class="decl_args">
+<span class="fn">(<span class="fn">a</span> : <span class="fn">R</span>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn">R</span></div></div>
+      
+      
+      <ul class="equations lean-equations"><li class="equation"><span class="fn"><a href="sect0023.html#def.qbinomial-formulas.qbinom-poly" class="blueprint-link" title="View in blueprint">AlgebraicCombinatorics.QBinomialRec.qBinomialEval</a> <span class="fn">n</span> <span class="fn">k</span> <span class="fn">a</span></span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Eq" title="View in docs">=</a>   <span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Algebra/Polynomial/Eval/Defs.html#Polynomial.eval₂" title="View in docs">Polynomial.eval₂</a> <span class="fn">(<a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Data/Int/Cast/Lemmas.html#Int.castRingHom" title="View in docs">Int.castRingHom</a> <span class="fn">R</span>)</span> <span class="fn">a</span> <span class="fn">(<a href="sect0023.html#def.qbinomial-formulas.qbinom-poly" class="blueprint-link" title="View in blueprint">AlgebraicCombinatorics.QBinomialRec.qBinomialPolyDef</a> <span class="fn">n</span> <span class="fn">k</span>)</span></span></li></ul>
+      
+    </div>
+    
+  </div>
+  
+  
+</div>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem.qbinomial-formulas.pascal-poly">
+  <div class="lemma_thmmain">
+    <div class="lemma_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">2.158</span>
+      <div class="thm_header_extras">
+
+    
+    ✓
+          </div>
+      <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0023.html#lem.qbinomial-formulas.pascal-poly">#</a>
+    
+    <a class="icon proof" href="sect0023.html#a0000001402"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+          </div>
+    </div>
+    <div class="lemma_thmcontent">
+    <p>  The combinatorial \(q\)-binomial satisfies the \(q\)-Pascal identity as polynomials: </p>
+<div class="displaymath" id="a0000001403">
+  \[  \binom {n+1}{k+1}_q = \binom {n}{k}_q + q^{k+1} \cdot \binom {n}{k+1}_q.  \]
+</div>
+<p> This is the polynomial version; the evaluated version follows by evaluation. </p>
+
+    </div>
+  </div>
+  <div class="thm_side_panel">
+
+
+
+
+
+
+
+<div class="lean-side-panel lean-helper">
+  
+  
+  <div class="lean-entry">
+    
+    <div class="lean-decl-box">
+      <div class="lean-decl-links">
+        <a href="https://vigilant-adventure-pgkl54k.pages.github.io/AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.qBinomialPolyDef_pascal" class="lean-doc-link" title="View documentation">docs</a>
+        <a href="https://github.com/fairinternal/algcomb/blob/summary/AlgebraicCombinatorics/Partitions/QBinomialFormulas.lean" class="lean-src-link" title="View source">source</a>
+      </div>
+      <div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a href="sect0023.html#lem.qbinomial-formulas.pascal-poly" class="blueprint-link" title="View in blueprint"><span class="name">AlgebraicCombinatorics</span>.<span class="name">QBinomialRec</span>.<span class="name">qBinomialPolyDef_pascal</span></a></span><span class="decl_args">
+<span class="fn">(<span class="fn">n </span><span class="fn">k</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Nat" title="View in docs">ℕ</a>)</span></span>
+<span class="decl_args">
+<span class="fn">(<span class="fn">hk</span> : <span class="fn">k</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HAdd.hAdd" title="View in docs">+</a> <span class="fn">1</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#LE.le" title="View in docs">≤</a> <span class="fn">n</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HAdd.hAdd" title="View in docs">+</a> <span class="fn">1</span>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn"><a href="sect0023.html#def.qbinomial-formulas.qbinom-poly" class="blueprint-link" title="View in blueprint">qBinomialPolyDef</a> (<span class="fn">n</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HAdd.hAdd" title="View in docs">+</a> <span class="fn">1</span>) (<span class="fn">k</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HAdd.hAdd" title="View in docs">+</a> <span class="fn">1</span>)</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Eq" title="View in docs">=</a> <span class="fn"><a href="sect0023.html#def.qbinomial-formulas.qbinom-poly" class="blueprint-link" title="View in blueprint">qBinomialPolyDef</a> <span class="fn">n</span> <span class="fn">k</span></span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HAdd.hAdd" title="View in docs">+</a> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Algebra/Polynomial/Basic.html#Polynomial.X" title="View in docs">Polynomial.X</a> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HPow.hPow" title="View in docs">^</a> (<span class="fn">k</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HAdd.hAdd" title="View in docs">+</a> <span class="fn">1</span>) <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HMul.hMul" title="View in docs">*</a> <span class="fn"><a href="sect0023.html#def.qbinomial-formulas.qbinom-poly" class="blueprint-link" title="View in blueprint">qBinomialPolyDef</a> <span class="fn">n</span> (<span class="fn">k</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HAdd.hAdd" title="View in docs">+</a> <span class="fn">1</span>)</span></div></div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000001402">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Partitions in a \((k{+}1) \times (n{-}k)\) box split into those with \(\le k\) parts and those with exactly \(k{+}1\) parts. The latter biject with partitions in a \((k{+}1) \times (n{-}k{-}1)\) box via “removing a column” (subtracting 1 from each of the \(k{+}1\) parts), with size decreased by \(k{+}1\) (giving the factor \(q^{k+1}\)). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem.qbinomial-formulas.exact-parts-bij">
+  <div class="lemma_thmmain">
+    <div class="lemma_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">2.159</span>
+      <div class="thm_header_extras">
+
+    
+    ✓
+          </div>
+      <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0023.html#lem.qbinomial-formulas.exact-parts-bij">#</a>
+    
+    <a class="icon proof" href="sect0023.html#a0000001404"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+          </div>
+    </div>
+    <div class="lemma_thmcontent">
+    <p>  For \(m \ge 1\) and \(s \ge k+1\), the number of partitions of \(s\) with exactly \(k+1\) parts, each \(\le m\), equals the number of partitions of \(s - (k+1)\) fitting in a \((k+1) \times (m-1)\) box: </p>
+<div class="displaymath" id="a0000001405">
+  \[  |\mathrm{partitionsInBoxExact}(s, k{+}1, m)| = c(s{-}(k{+}1), k{+}1, m{-}1).  \]
+</div>
+
+    </div>
+  </div>
+  <div class="thm_side_panel">
+
+
+
+
+
+
+
+<div class="lean-side-panel lean-helper">
+  
+  
+  <div class="lean-entry">
+    
+    <div class="lean-decl-box">
+      <div class="lean-decl-links">
+        <a href="https://vigilant-adventure-pgkl54k.pages.github.io/AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.partitionsInBoxExact_card_eq" class="lean-doc-link" title="View documentation">docs</a>
+        <a href="https://github.com/fairinternal/algcomb/blob/summary/AlgebraicCombinatorics/Partitions/QBinomialFormulas.lean" class="lean-src-link" title="View source">source</a>
+      </div>
+      <div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a href="sect0023.html#lem.qbinomial-formulas.exact-parts-bij" class="blueprint-link" title="View in blueprint"><span class="name">AlgebraicCombinatorics</span>.<span class="name">QBinomialRec</span>.<span class="name">partitionsInBoxExact_card_eq</span></a></span><span class="decl_args">
+<span class="fn">(<span class="fn">s </span><span class="fn">k </span><span class="fn">m</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Nat" title="View in docs">ℕ</a>)</span></span>
+<span class="decl_args">
+<span class="fn">(<span class="fn">hm</span> : <span class="fn">m</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#GE.ge" title="View in docs">≥</a> <span class="fn">1</span>)</span></span>
+<span class="decl_args">
+<span class="fn">(<span class="fn">hs</span> : <span class="fn">s</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#GE.ge" title="View in docs">≥</a> <span class="fn">k</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HAdd.hAdd" title="View in docs">+</a> <span class="fn">1</span>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn"><span class="fn">(<a href="https://vigilant-adventure-pgkl54k.pages.github.io/./AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.partitionsInBoxExact" title="View in docs">partitionsInBoxExact</a> <span class="fn">s</span> (<span class="fn">k</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HAdd.hAdd" title="View in docs">+</a> <span class="fn">1</span>) <span class="fn">m</span>)</span>.<a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Data/Finset/Card.html#Finset.card" title="View in docs">card</a></span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Eq" title="View in docs">=</a> <span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.countPartitionsInBox" title="View in docs">countPartitionsInBox</a> (<span class="fn">s</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HSub.hSub" title="View in docs">-</a> (<span class="fn">k</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HAdd.hAdd" title="View in docs">+</a> <span class="fn">1</span>)) (<span class="fn">k</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HAdd.hAdd" title="View in docs">+</a> <span class="fn">1</span>) (<span class="fn">m</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HSub.hSub" title="View in docs">-</a> <span class="fn">1</span>)</span></div></div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000001404">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>The forward bijection subtracts 1 from each of the \(k{+}1\) parts (and filters zeros); the inverse adds 1 to each part and pads with 1s to reach exactly \(k{+}1\) parts. Injectivity follows from the recovery lemma for filtered multiset subtraction; surjectivity is verified directly. </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm.qbinomial-formulas.eval-eq-qbinomial">
+  <div class="theorem_thmmain">
+    <div class="theorem_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">2.160</span>
+      <div class="thm_header_extras">
+
+    
+    ✓
+          </div>
+      <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0023.html#thm.qbinomial-formulas.eval-eq-qbinomial">#</a>
+    
+    <a class="icon proof" href="sect0023.html#a0000001406"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+          </div>
+    </div>
+    <div class="theorem_thmcontent">
+    <p>  The combinatorial definition (sum over partitions) agrees with the recurrence-based definition from Definition&#160;<a href="sect0022.html#def.pars.qbinom.qbinom">2.136</a>: for all \(n, k \in \mathbb {N}\) and ring element \(q\), </p>
+<div class="displaymath" id="a0000001407">
+  \[  \mathrm{qBinomialEval}(n, k, q) = \binom {n}{k}_q.  \]
+</div>
+
+    </div>
+  </div>
+  <div class="thm_side_panel">
+
+
+
+
+
+
+
+<div class="lean-side-panel lean-helper">
+  
+  
+  <div class="lean-entry">
+    
+    <div class="lean-decl-box">
+      <div class="lean-decl-links">
+        <a href="https://vigilant-adventure-pgkl54k.pages.github.io/AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.qBinomialEval_eq_qBinomial" class="lean-doc-link" title="View documentation">docs</a>
+        <a href="https://github.com/fairinternal/algcomb/blob/summary/AlgebraicCombinatorics/Partitions/QBinomialFormulas.lean" class="lean-src-link" title="View source">source</a>
+      </div>
+      <div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a href="sect0023.html#thm.qbinomial-formulas.eval-eq-qbinomial" class="blueprint-link" title="View in blueprint"><span class="name">AlgebraicCombinatorics</span>.<span class="name">QBinomialRec</span>.<span class="name">qBinomialEval_eq_qBinomial</span></a></span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">R</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./foundational_types.html" title="View in docs">Type</a> u_1}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Algebra/Ring/Defs.html#CommRing" title="View in docs">CommRing</a> <span class="fn">R</span></span>]</span></span>
+</span><span class="decl_args">
+<span class="fn">(<span class="fn">n </span><span class="fn">k</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Nat" title="View in docs">ℕ</a>)</span></span>
+<span class="decl_args">
+<span class="fn">(<span class="fn">q</span> : <span class="fn">R</span>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn"><a href="sect0023.html#def.qbinomial-formulas.qbinom-poly" class="blueprint-link" title="View in blueprint">qBinomialEval</a> <span class="fn">n</span> <span class="fn">k</span> <span class="fn">q</span></span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Eq" title="View in docs">=</a> <span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.qBinomial" title="View in docs">qBinomial</a> <span class="fn">q</span> <span class="fn">n</span> <span class="fn">k</span></span></div></div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000001406">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Both definitions satisfy the same boundary conditions (\(\binom {n}{0}_q = 1\), \(\binom {n}{k}_q = 0\) for \(k {\gt} n\)) and the same \(q\)-Pascal recurrence. By strong induction on \(n\) with case analysis on \(k\), the two definitions agree. </p>
+
+  </div>
+</div>
+<h2 id="a0000000221">2.4.2 Alternative characterizations from the recurrence</h2>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem.qbinomial-formulas.sum-monotone">
+  <div class="lemma_thmmain">
+    <div class="lemma_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">2.161</span>
+      <div class="thm_header_extras">
+
+    
+    ✓
+          </div>
+      <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0023.html#lem.qbinomial-formulas.sum-monotone">#</a>
+    
+    <a class="icon proof" href="sect0023.html#a0000001408"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+          </div>
+    </div>
+    <div class="lemma_thmcontent">
+    <p>  For \(k \le n\), the recurrence-based \(q\)-binomial equals the sum over monotone functions: </p>
+<div class="displaymath" id="a0000001409">
+  \[  \binom {n}{k}_q = \sum _{f \in \mathrm{monotoneFunctions}(k, n{-}k)} q^{\mathrm{sumValues}(f)}.  \]
+</div>
+
+    </div>
+  </div>
+  <div class="thm_side_panel">
+
+
+
+
+
+
+
+<div class="lean-side-panel lean-helper">
+  
+  
+  <div class="lean-entry">
+    
+    <div class="lean-decl-box">
+      <div class="lean-decl-links">
+        <a href="https://vigilant-adventure-pgkl54k.pages.github.io/AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.qBinomial_eq_sum_monotone" class="lean-doc-link" title="View documentation">docs</a>
+        <a href="https://github.com/fairinternal/algcomb/blob/summary/AlgebraicCombinatorics/Partitions/QBinomialFormulas.lean" class="lean-src-link" title="View source">source</a>
+      </div>
+      <div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a href="sect0023.html#lem.qbinomial-formulas.sum-monotone" class="blueprint-link" title="View in blueprint"><span class="name">AlgebraicCombinatorics</span>.<span class="name">QBinomialRec</span>.<span class="name">qBinomial_eq_sum_monotone</span></a></span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">R</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./foundational_types.html" title="View in docs">Type</a> u_1}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Algebra/Ring/Defs.html#CommRing" title="View in docs">CommRing</a> <span class="fn">R</span></span>]</span></span>
+</span><span class="decl_args">
+<span class="fn">(<span class="fn">q</span> : <span class="fn">R</span>)</span></span>
+<span class="decl_args">
+<span class="fn">(<span class="fn">n </span><span class="fn">k</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Nat" title="View in docs">ℕ</a>)</span></span>
+<span class="decl_args">
+<span class="fn">(<span class="fn">hk</span> : <span class="fn">k</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#LE.le" title="View in docs">≤</a> <span class="fn">n</span>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.qBinomial" title="View in docs">qBinomial</a> <span class="fn">q</span> <span class="fn">n</span> <span class="fn">k</span></span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Eq" title="View in docs">=</a> <span class="fn">∑ <span class="fn">f</span> ∈ <span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.monotoneFunctions" title="View in docs">monotoneFunctions</a> <span class="fn">k</span> (<span class="fn">n</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HSub.hSub" title="View in docs">-</a> <span class="fn">k</span>)</span>, <span class="fn">q</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HPow.hPow" title="View in docs">^</a> <span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.sumValues" title="View in docs">sumValues</a> <span class="fn">k</span> (<span class="fn">n</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HSub.hSub" title="View in docs">-</a> <span class="fn">k</span>) <span class="fn">f</span></span></span></div></div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000001408">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>By induction on \(n\), splitting the monotone functions into those starting at 0 and those starting at a positive value, using the bijections \(\mathrm{dropFirst}\)/\(\mathrm{prependZero}\) and \(\mathrm{shiftDown}\)/\(\mathrm{shiftUp}\). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem.qbinomial-formulas.sum-subsets">
+  <div class="lemma_thmmain">
+    <div class="lemma_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">2.162</span>
+      <div class="thm_header_extras">
+
+    
+    ✓
+          </div>
+      <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0023.html#lem.qbinomial-formulas.sum-subsets">#</a>
+    
+    <a class="icon proof" href="sect0023.html#a0000001410"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+          </div>
+    </div>
+    <div class="lemma_thmcontent">
+    <p>  For all \(n, k\): </p>
+<div class="displaymath" id="a0000001411">
+  \[  \binom {n}{k}_q = \sum _{\substack{[S,  , \subseteq , \{ , 1, ,, \ldots , ,, n, \} ,  , \\ ,  , |, S, |, =, k]}} q^{\mathrm{sum}(S) - (1+2+\cdots +k)}.  \]
+</div>
+
+    </div>
+  </div>
+  <div class="thm_side_panel">
+
+
+
+
+
+
+
+<div class="lean-side-panel lean-helper">
+  
+  
+  <div class="lean-entry">
+    
+    <div class="lean-decl-box">
+      <div class="lean-decl-links">
+        <a href="https://vigilant-adventure-pgkl54k.pages.github.io/AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.qBinomial_eq_sum_subsets" class="lean-doc-link" title="View documentation">docs</a>
+        <a href="https://github.com/fairinternal/algcomb/blob/summary/AlgebraicCombinatorics/Partitions/QBinomialFormulas.lean" class="lean-src-link" title="View source">source</a>
+      </div>
+      <div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a href="sect0023.html#lem.qbinomial-formulas.sum-subsets" class="blueprint-link" title="View in blueprint"><span class="name">AlgebraicCombinatorics</span>.<span class="name">QBinomialRec</span>.<span class="name">qBinomial_eq_sum_subsets</span></a></span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">R</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./foundational_types.html" title="View in docs">Type</a> u_1}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Algebra/Ring/Defs.html#CommRing" title="View in docs">CommRing</a> <span class="fn">R</span></span>]</span></span>
+</span><span class="decl_args">
+<span class="fn">(<span class="fn">q</span> : <span class="fn">R</span>)</span></span>
+<span class="decl_args">
+<span class="fn">(<span class="fn">n </span><span class="fn">k</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Nat" title="View in docs">ℕ</a>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.qBinomial" title="View in docs">qBinomial</a> <span class="fn">q</span> <span class="fn">n</span> <span class="fn">k</span></span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Eq" title="View in docs">=</a> <span class="fn">∑ <span class="fn">S</span> ∈ <span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.kSubsetsOfIcc" title="View in docs">kSubsetsOfIcc</a> <span class="fn">n</span> <span class="fn">k</span></span>, <span class="fn">q</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HPow.hPow" title="View in docs">^</a> (<span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.finsetSumNat" title="View in docs">finsetSumNat</a> <span class="fn">S</span></span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HSub.hSub" title="View in docs">-</a> <span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.triangular" title="View in docs">triangular</a> <span class="fn">k</span></span>)</span></div></div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000001410">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Via the bijection from monotone \(k\)-tuples in \(\{ 0,\ldots ,n{-}k\} \) to \(k\)-element subsets of \(\{ 1,\ldots ,n\} \): \((i_1,\ldots ,i_k) \mapsto \{ i_1{+}1, i_2{+}2, \ldots , i_k{+}k\} \). For \(k {\gt} n\), both sides are 0. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem.qbinomial-formulas.prod-div">
+  <div class="lemma_thmmain">
+    <div class="lemma_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">2.163</span>
+      <div class="thm_header_extras">
+
+    
+    ✓
+          </div>
+      <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0023.html#lem.qbinomial-formulas.prod-div">#</a>
+    
+    <a class="icon proof" href="sect0023.html#a0000001412"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+          </div>
+    </div>
+    <div class="lemma_thmcontent">
+    <p>  Over a field, when \([i{+}1]_q \ne 0\) for \(i = 0, \ldots , k{-}1\): </p>
+<div class="displaymath" id="a0000001413">
+  \[  \binom {n}{k}_q = \prod _{i=0}^{k-1} \frac{[n-i]_q}{[i+1]_q}.  \]
+</div>
+
+    </div>
+  </div>
+  <div class="thm_side_panel">
+
+
+
+
+
+
+
+<div class="lean-side-panel lean-helper">
+  
+  
+  <div class="lean-entry">
+    
+    <div class="lean-decl-box">
+      <div class="lean-decl-links">
+        <a href="https://vigilant-adventure-pgkl54k.pages.github.io/AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.qBinomial_eq_prod_div" class="lean-doc-link" title="View documentation">docs</a>
+        <a href="https://github.com/fairinternal/algcomb/blob/summary/AlgebraicCombinatorics/Partitions/QBinomialFormulas.lean" class="lean-src-link" title="View source">source</a>
+      </div>
+      <div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a href="sect0023.html#lem.qbinomial-formulas.prod-div" class="blueprint-link" title="View in blueprint"><span class="name">AlgebraicCombinatorics</span>.<span class="name">QBinomialRec</span>.<span class="name">qBinomial_eq_prod_div</span></a></span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">F</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./foundational_types.html" title="View in docs">Type</a> u_2}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Algebra/Field/Defs.html#Field" title="View in docs">Field</a> <span class="fn">F</span></span>]</span></span>
+</span><span class="decl_args">
+<span class="fn">(<span class="fn">q</span> : <span class="fn">F</span>)</span></span>
+<span class="decl_args">
+<span class="fn">(<span class="fn">n </span><span class="fn">k</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Nat" title="View in docs">ℕ</a>)</span></span>
+<span class="decl_args">
+<span class="fn">(<span class="fn">hk</span> : <span class="fn">k</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#LE.le" title="View in docs">≤</a> <span class="fn">n</span>)</span></span>
+<span class="decl_args">
+<span class="fn">(<span class="fn">hq</span> : <span class="fn">∀ <span class="fn">i</span> &lt; <span class="fn">k</span>, <span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.qNat" title="View in docs">qNat</a> <span class="fn">q</span> (<span class="fn">i</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HAdd.hAdd" title="View in docs">+</a> <span class="fn">1</span>)</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Core.html#Ne" title="View in docs">≠</a> <span class="fn">0</span></span>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.qBinomial" title="View in docs">qBinomial</a> <span class="fn">q</span> <span class="fn">n</span> <span class="fn">k</span></span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Eq" title="View in docs">=</a> <span class="fn">∏ <span class="fn">i</span> ∈ <span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Data/Finset/Range.html#Finset.range" title="View in docs">Finset.range</a> <span class="fn">k</span></span>, <span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.qNat" title="View in docs">qNat</a> <span class="fn">q</span> (<span class="fn">n</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HSub.hSub" title="View in docs">-</a> <span class="fn">i</span>)</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HDiv.hDiv" title="View in docs">/</a> <span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.qNat" title="View in docs">qNat</a> <span class="fn">q</span> (<span class="fn">i</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HAdd.hAdd" title="View in docs">+</a> <span class="fn">1</span>)</span></span></div></div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000001412">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>By strong induction on \(n\), using the \(q\)-Pascal recurrence and the splitting identity \([n{+}1]_q = [k{+}1]_q + q^{k+1} [n{-}k]_q\). </p>
+
+  </div>
+</div>
+<h2 id="a0000000222">2.4.3 Product expansion rule</h2>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem.prodrule.sum-ai-plus-bi">
+  <div class="lemma_thmmain">
+    <div class="lemma_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">2.164</span>
+      <div class="thm_header_extras">
+
+    
+    ✓
+          </div>
+      <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0023.html#lem.prodrule.sum-ai-plus-bi">#</a>
+    
+    <a class="icon proof" href="sect0023.html#a0000001414"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+          </div>
+    </div>
+    <div class="lemma_thmcontent">
+    <p>  Let \(L\) be a commutative ring. Let \(n\in \mathbb {N}\). Let \(\left[ n\right] \) denote the set \(\left\{  1,2,\ldots ,n\right\}  \). Let \(a_{1},a_{2},\ldots ,a_{n}\) be \(n\) elements of \(L\). Let \(b_{1},b_{2},\ldots ,b_{n}\) be \(n\) further elements of \(L\). Then, </p>
+<div class="equation" id="eq.lem.prodrule.sum-ai-plus-bi.eq">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \prod _{i=1}^{n}\left( a_{i}+b_{i}\right) =\sum _{S\subseteq \left[ n\right] }\left( \prod _{i\in S}a_{i}\right) \left( \prod _{i\in \left[ n\right] \setminus S}b_{i}\right) . \label{eq.lem.prodrule.sum-ai-plus-bi.eq} \end{equation}
+  </div>
+  <span class="equation_label">12</span>
+</p>
+</div>
+
+    </div>
+  </div>
+  <div class="thm_side_panel">
+
+
+
+
+
+
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000001414">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>When expanding the product \(\prod _{i=1}^{n}\left( a_{i}+b_{i}\right) =\left( a_{1}+b_{1}\right) \left( a_{2}+b_{2}\right) \cdots \left( a_{n}+b_{n}\right) \), you obtain a sum of \(2^{n}\) terms, each of which is a product of one addend chosen from each of the \(n\) sums \(a_{1}+b_{1},a_{2}+b_{2},\ldots ,a_{n}+b_{n}\). This is precisely what the right hand side of <a href="sect0023.html#eq.lem.prodrule.sum-ai-plus-bi.eq" class="eqref">12</a> is. A rigorous proof can be found in <span class="cite">
+	[
+	<a href="sect0051.html#detnotes" >Grinbe15</a>
+	, 
+	Exercise 6.1 
+	(a)
+	]
+</span>. The formal proof follows by induction on \(n\), using the distributive law at each step. </p>
+
+  </div>
+</div>
+<h2 id="a0000000223">2.4.4 First \(q\)-binomial theorem</h2>
+<h3 id="a0000001415">Helpers for Theorem&#160;<a href="sect0023.html#thm.pars.qbinom.binom1">2.167</a></h3>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem.qbinomial-formulas.subset-sum-formula">
+  <div class="lemma_thmmain">
+    <div class="lemma_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">2.165</span>
+      <div class="thm_header_extras">
+
+    
+    ✓
+          </div>
+      <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0023.html#lem.qbinomial-formulas.subset-sum-formula">#</a>
+    
+    <a class="icon proof" href="sect0023.html#a0000001416"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+          </div>
+    </div>
+    <div class="lemma_thmcontent">
+    <p>  For all \(n, k \in \mathbb {N}\): </p>
+<div class="displaymath" id="a0000001417">
+  \[  \sum _{\substack{[S,  , \subseteq , \{ , 0, ,, 1, ,, \ldots , ,, n, -, 1, \} ,  , \\ ,  , |, S, |, =, k]}} q^{\sum _{i \in S} i} = q^{k(k-1)/2} \cdot \binom {n}{k}_q.  \]
+</div>
+<p> This relates the subset sum over \(\{ 0,1,\ldots ,n-1\} \) to the \(q\)-binomial coefficient. </p>
+
+    </div>
+  </div>
+  <div class="thm_side_panel">
+
+
+
+
+
+
+
+<div class="lean-side-panel lean-helper">
+  
+  
+  <div class="lean-entry">
+    
+    <div class="lean-decl-box">
+      <div class="lean-decl-links">
+        <a href="https://vigilant-adventure-pgkl54k.pages.github.io/AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.qBinomial_sum_subsets" class="lean-doc-link" title="View documentation">docs</a>
+        <a href="https://github.com/fairinternal/algcomb/blob/summary/AlgebraicCombinatorics/Partitions/QBinomialFormulas.lean" class="lean-src-link" title="View source">source</a>
+      </div>
+      <div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a href="sect0023.html#lem.qbinomial-formulas.subset-sum-formula" class="blueprint-link" title="View in blueprint"><span class="name">AlgebraicCombinatorics</span>.<span class="name">QBinomialRec</span>.<span class="name">qBinomial_sum_subsets</span></a></span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">K</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./foundational_types.html" title="View in docs">Type</a> u_1}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Algebra/Ring/Defs.html#CommRing" title="View in docs">CommRing</a> <span class="fn">K</span></span>]</span></span>
+</span><span class="decl_args">
+<span class="fn">(<span class="fn">q</span> : <span class="fn">K</span>)</span></span>
+<span class="decl_args">
+<span class="fn">(<span class="fn">n </span><span class="fn">k</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Nat" title="View in docs">ℕ</a>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn">∑ <span class="fn">S</span> ∈ <span class="fn"><span class="fn">(<a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Data/Finset/Range.html#Finset.range" title="View in docs">Finset.range</a> <span class="fn">n</span>)</span>.<a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Data/Finset/Powerset.html#Finset.powerset" title="View in docs">powerset</a></span> with <span class="fn"><span class="fn">S</span>.<a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Data/Finset/Card.html#Finset.card" title="View in docs">card</a></span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Eq" title="View in docs">=</a> <span class="fn">k</span>, <span class="fn">q</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HPow.hPow" title="View in docs">^</a> <span class="fn">∑ <span class="fn">i</span> ∈ <span class="fn">S</span>, <span class="fn">i</span></span></span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Eq" title="View in docs">=</a> <span class="fn">q</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HPow.hPow" title="View in docs">^</a> (<span class="fn">k</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HMul.hMul" title="View in docs">*</a> (<span class="fn">k</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HSub.hSub" title="View in docs">-</a> <span class="fn">1</span>) <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HDiv.hDiv" title="View in docs">/</a> <span class="fn">2</span>) <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HMul.hMul" title="View in docs">*</a> <span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.qBinomial" title="View in docs">qBinomial</a> <span class="fn">q</span> <span class="fn">n</span> <span class="fn">k</span></span></div></div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000001416">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>By induction on \(n\), using the \(q\)-Pascal recurrence. The subsets of \(\{ 0,\ldots ,n\} \) of size \(k{+}1\) split into those containing \(n\) and those not containing \(n\). The key algebraic identity is \(q^k \binom {n}{k+1}_q + q^n \binom {n}{k}_q = q^k \binom {n}{k}_q + q^{k+1} \cdot q^k \binom {n}{k+1}_q\), which is proved by induction using algebraic manipulation. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem.qbinomial-formulas.qbinom-induction-identity">
+  <div class="lemma_thmmain">
+    <div class="lemma_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">2.166</span>
+      <div class="thm_header_extras">
+
+    
+    ✓
+          </div>
+      <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0023.html#lem.qbinomial-formulas.qbinom-induction-identity">#</a>
+    
+    <a class="icon proof" href="sect0023.html#a0000001418"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+          </div>
+    </div>
+    <div class="lemma_thmcontent">
+    <p>  For all \(n, k \in \mathbb {N}\): </p>
+<div class="displaymath" id="a0000001419">
+  \[  q^k \binom {n}{k+1}_q + q^n \binom {n}{k}_q = q^k \binom {n}{k}_q + q^{k+1} \cdot q^k \binom {n}{k+1}_q.  \]
+</div>
+
+    </div>
+  </div>
+  <div class="thm_side_panel">
+
+
+
+
+
+
+
+<div class="lean-side-panel lean-helper">
+  
+  
+  <div class="lean-entry">
+    
+    <div class="lean-decl-box">
+      <div class="lean-decl-links">
+        <a href="https://vigilant-adventure-pgkl54k.pages.github.io/AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.qBinomial_induction_identity" class="lean-doc-link" title="View documentation">docs</a>
+        <a href="https://github.com/fairinternal/algcomb/blob/summary/AlgebraicCombinatorics/Partitions/QBinomialFormulas.lean" class="lean-src-link" title="View source">source</a>
+      </div>
+      <div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a href="sect0023.html#lem.qbinomial-formulas.qbinom-induction-identity" class="blueprint-link" title="View in blueprint"><span class="name">AlgebraicCombinatorics</span>.<span class="name">QBinomialRec</span>.<span class="name">qBinomial_induction_identity</span></a></span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">K</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./foundational_types.html" title="View in docs">Type</a> u_1}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Algebra/Ring/Defs.html#CommRing" title="View in docs">CommRing</a> <span class="fn">K</span></span>]</span></span>
+</span><span class="decl_args">
+<span class="fn">(<span class="fn">q</span> : <span class="fn">K</span>)</span></span>
+<span class="decl_args">
+<span class="fn">(<span class="fn">n </span><span class="fn">k</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Nat" title="View in docs">ℕ</a>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn">q</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HPow.hPow" title="View in docs">^</a> <span class="fn">k</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HMul.hMul" title="View in docs">*</a> <span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.qBinomial" title="View in docs">qBinomial</a> <span class="fn">q</span> <span class="fn">n</span> (<span class="fn">k</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HAdd.hAdd" title="View in docs">+</a> <span class="fn">1</span>)</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HAdd.hAdd" title="View in docs">+</a> <span class="fn">q</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HPow.hPow" title="View in docs">^</a> <span class="fn">n</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HMul.hMul" title="View in docs">*</a> <span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.qBinomial" title="View in docs">qBinomial</a> <span class="fn">q</span> <span class="fn">n</span> <span class="fn">k</span></span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Eq" title="View in docs">=</a>   <span class="fn">q</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HPow.hPow" title="View in docs">^</a> <span class="fn">k</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HMul.hMul" title="View in docs">*</a> <span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.qBinomial" title="View in docs">qBinomial</a> <span class="fn">q</span> <span class="fn">n</span> <span class="fn">k</span></span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HAdd.hAdd" title="View in docs">+</a> <span class="fn">q</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HPow.hPow" title="View in docs">^</a> (<span class="fn">k</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HAdd.hAdd" title="View in docs">+</a> <span class="fn">1</span>) <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HMul.hMul" title="View in docs">*</a> <span class="fn">q</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HPow.hPow" title="View in docs">^</a> <span class="fn">k</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HMul.hMul" title="View in docs">*</a> <span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.qBinomial" title="View in docs">qBinomial</a> <span class="fn">q</span> <span class="fn">n</span> (<span class="fn">k</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HAdd.hAdd" title="View in docs">+</a> <span class="fn">1</span>)</span></div></div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000001418">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>By induction on \(n\), using the \(q\)-Pascal recurrence and algebraic manipulation. </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm.pars.qbinom.binom1">
+  <div class="theorem_thmmain">
+    <div class="theorem_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">2.167</span>
+      <span class="theorem_thmtitle">1st \(q\)-binomial theorem</span>
+      <div class="thm_header_extras">
+
+    
+    ✓
+          </div>
+      <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0023.html#thm.pars.qbinom.binom1">#</a>
+    
+    <a class="icon proof" href="sect0023.html#a0000001420"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+          </div>
+    </div>
+    <div class="theorem_thmcontent">
+    <p>   Let \(K\) be a commutative ring. Let \(a,b\in K\) and \(n\in \mathbb {N}\). In the polynomial ring \(K\left[ q\right] \), we have </p>
+<div class="displaymath" id="a0000001421">
+  \[  \left( aq^{0}+b\right) \left( aq^{1}+b\right) \cdots \left( aq^{n-1}+b\right) =\sum _{k=0}^{n}q^{k\left( k-1\right) /2}\binom {n}{k}_{q}a^{k}b^{n-k}.  \]
+</div>
+
+    </div>
+  </div>
+  <div class="thm_side_panel">
+
+
+
+
+
+
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000001420">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Let \(\left[ n\right] \) denote the set \(\left\{  1,2,\ldots ,n\right\}  \). We have </p>
+<div class="displaymath" id="a0000001422">
+  \begin{align*} &  \left( aq^{0}+b\right) \left( aq^{1}+b\right) \cdots \left( aq^{n-1}+b\right) =\prod _{i=1}^{n}\left( aq^{i-1}+b\right) \\ &  =\sum _{S\subseteq \left[ n\right] }\left( \prod _{i\in S}\left( aq^{i-1}\right) \right) \left( \prod _{i\in \left[ n\right] \setminus S}b\right) \end{align*}
+</div>
+<p> by Lemma&#160;<a href="sect0023.html#lem.prodrule.sum-ai-plus-bi">2.164</a>, applied to \(L=K\left[ q\right]\), \(a_{i}=aq^{i-1}\) and \(b_{i}=b\). Now, </p>
+<div class="displaymath" id="a0000001423">
+  \begin{align*} &  =\sum _{S\subseteq \left[ n\right] } a^{\left\vert S\right\vert } \left( \prod _{i\in S}q^{i-1}\right) b^{\left\vert \left[ n\right] \setminus S\right\vert } =\sum _{k=0}^{n}\  \  \sum _{\substack{[S, \subseteq , \left , [,  , n, \right , ],  , ;, \\ , \left , \vert , S, \right , \vert , =, k]}} a^{k} q^{\operatorname {sum}S-k} b^{n-k} \end{align*}
+</div>
+<p> (since \(\prod _{i\in S}q^{i-1} = q^{\operatorname {sum}S - |S|}\) and \(|[n]\setminus S| = n - k\)). Using \(q^{\operatorname {sum}S-k} = q^{\operatorname {sum}S-(1+2+\cdots +k)} \cdot q^{k(k-1)/2}\) (since \(1+2+\cdots +(k-1) = k(k-1)/2\)), we obtain </p>
+<div class="displaymath" id="a0000001424">
+  \begin{align*} &  =\sum _{k=0}^{n}q^{k\left( k-1\right) /2}\underbrace{\left( \sum \limits _{\substack{[S, \subseteq , \left , [,  , n, \right , ],  , ;, \\ , \left , \vert , S, \right , \vert , =, k]}}q^{\operatorname {sum}S-\left( 1+2+\cdots +k\right) }\right) }_{=\binom {n}{k}_{q}}a^{k}b^{n-k} =\sum _{k=0}^{n}q^{k\left( k-1\right) /2}\binom {n}{k}_{q}a^{k}b^{n-k}. \end{align*}
+</div>
+<p> (Here, the underbrace equality follows from Proposition <a href="sect0022.html#prop.pars.qbinom.alt-defs">2.140</a> <b class="bfseries">(b)</b>.) This proves Theorem&#160;<a href="sect0023.html#thm.pars.qbinom.binom1">2.167</a>. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem.qbinomial-formulas.binom1-at-one">
+  <div class="lemma_thmmain">
+    <div class="lemma_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">2.168</span>
+      <div class="thm_header_extras">
+
+    
+    ✓
+          </div>
+      <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0023.html#lem.qbinomial-formulas.binom1-at-one">#</a>
+    
+    <a class="icon proof" href="sect0023.html#a0000001425"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+          </div>
+    </div>
+    <div class="lemma_thmcontent">
+    <p>  The first \(q\)-binomial theorem at \(q = 1\) recovers the ordinary binomial formula: </p>
+<div class="displaymath" id="a0000001426">
+  \[  (a+b)^n = \sum _{k=0}^{n} \binom {n}{k} a^k b^{n-k}.  \]
+</div>
+
+    </div>
+  </div>
+  <div class="thm_side_panel">
+
+
+
+
+
+
+
+<div class="lean-side-panel lean-helper">
+  
+  
+  <div class="lean-entry">
+    
+    <div class="lean-decl-box">
+      <div class="lean-decl-links">
+        <a href="https://vigilant-adventure-pgkl54k.pages.github.io/AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.qBinomial_first_theorem_at_one" class="lean-doc-link" title="View documentation">docs</a>
+        <a href="https://github.com/fairinternal/algcomb/blob/summary/AlgebraicCombinatorics/Partitions/QBinomialFormulas.lean" class="lean-src-link" title="View source">source</a>
+      </div>
+      <div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a href="sect0023.html#lem.qbinomial-formulas.binom1-at-one" class="blueprint-link" title="View in blueprint"><span class="name">AlgebraicCombinatorics</span>.<span class="name">QBinomialRec</span>.<span class="name">qBinomial_first_theorem_at_one</span></a></span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">K</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./foundational_types.html" title="View in docs">Type</a> u_1}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Algebra/Ring/Defs.html#CommRing" title="View in docs">CommRing</a> <span class="fn">K</span></span>]</span></span>
+</span><span class="decl_args">
+<span class="fn">(<span class="fn">a </span><span class="fn">b</span> : <span class="fn">K</span>)</span></span>
+<span class="decl_args">
+<span class="fn">(<span class="fn">n</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Nat" title="View in docs">ℕ</a>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn">∏ <span class="fn">_i</span> ∈ <span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Data/Finset/Range.html#Finset.range" title="View in docs">Finset.range</a> <span class="fn">n</span></span>, (<span class="fn">a</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HAdd.hAdd" title="View in docs">+</a> <span class="fn">b</span>)</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Eq" title="View in docs">=</a> <span class="fn">∑ <span class="fn">k</span> ∈ <span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Data/Finset/Range.html#Finset.range" title="View in docs">Finset.range</a> (<span class="fn">n</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HAdd.hAdd" title="View in docs">+</a> <span class="fn">1</span>)</span>, <span class="fn">↑<span class="fn">(<span class="fn"><span class="fn">n</span>.<a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Data/Nat/Choose/Basic.html#Nat.choose" title="View in docs">choose</a></span> <span class="fn">k</span>)</span></span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HMul.hMul" title="View in docs">*</a> <span class="fn">a</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HPow.hPow" title="View in docs">^</a> <span class="fn">k</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HMul.hMul" title="View in docs">*</a> <span class="fn">b</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HPow.hPow" title="View in docs">^</a> (<span class="fn">n</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HSub.hSub" title="View in docs">-</a> <span class="fn">k</span>)</span></div></div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000001425">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Specializing Theorem&#160;<a href="sect0023.html#thm.pars.qbinom.binom1">2.167</a> at \(q = 1\): the LHS becomes \((a+b)^n\) and each \(\binom {n}{k}_1 = \binom {n}{k}\). </p>
+
+  </div>
+</div>
+<h2 id="a0000000224">2.4.5 Second \(q\)-binomial theorem</h2>
+<h3 id="a0000001427">Helpers for Theorem&#160;<a href="sect0023.html#thm.pars.qbinom.binom2">2.170</a></h3>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem.qbinomial-formulas.b-mul-pow-a">
+  <div class="lemma_thmmain">
+    <div class="lemma_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">2.169</span>
+      <div class="thm_header_extras">
+
+    
+    ✓
+          </div>
+      <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0023.html#lem.qbinomial-formulas.b-mul-pow-a">#</a>
+    
+    <a class="icon proof" href="sect0023.html#a0000001428"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+          </div>
+    </div>
+    <div class="lemma_thmcontent">
+    <p>  Let \(A\) be an \(L\)-algebra, let \(\omega \in L\), and let \(a, b \in A\) satisfy \(ba = \omega \cdot ab\). Then for all \(k \in \mathbb {N}\): </p>
+<div class="displaymath" id="a0000001429">
+  \[  b \cdot a^k = \omega ^k \cdot (a^k \cdot b).  \]
+</div>
+
+    </div>
+  </div>
+  <div class="thm_side_panel">
+
+
+
+
+
+
+
+<div class="lean-side-panel lean-helper">
+  
+  
+  <div class="lean-entry">
+    
+    <div class="lean-decl-box">
+      <div class="lean-decl-links">
+        <a href="https://vigilant-adventure-pgkl54k.pages.github.io/AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.b_mul_pow_a" class="lean-doc-link" title="View documentation">docs</a>
+        <a href="https://github.com/fairinternal/algcomb/blob/summary/AlgebraicCombinatorics/Partitions/QBinomialFormulas.lean" class="lean-src-link" title="View source">source</a>
+      </div>
+      <div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a href="sect0023.html#lem.qbinomial-formulas.b-mul-pow-a" class="blueprint-link" title="View in blueprint"><span class="name">AlgebraicCombinatorics</span>.<span class="name">QBinomialRec</span>.<span class="name">b_mul_pow_a</span></a></span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">L</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./foundational_types.html" title="View in docs">Type</a> u_1}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Algebra/Ring/Defs.html#CommRing" title="View in docs">CommRing</a> <span class="fn">L</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">A</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./foundational_types.html" title="View in docs">Type</a> u_2}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Algebra/Ring/Defs.html#Ring" title="View in docs">Ring</a> <span class="fn">A</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Algebra/Algebra/Defs.html#Algebra" title="View in docs">Algebra</a> <span class="fn">L</span> <span class="fn">A</span></span>]</span></span>
+</span><span class="decl_args">
+<span class="fn">(<span class="fn">ω</span> : <span class="fn">L</span>)</span></span>
+<span class="decl_args">
+<span class="fn">(<span class="fn">a </span><span class="fn">b</span> : <span class="fn">A</span>)</span></span>
+<span class="decl_args">
+<span class="fn">(<span class="fn">hab</span> : <span class="fn">b</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HMul.hMul" title="View in docs">*</a> <span class="fn">a</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Eq" title="View in docs">=</a> <span class="fn">ω</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HSMul.hSMul" title="View in docs">•</a> (<span class="fn">a</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HMul.hMul" title="View in docs">*</a> <span class="fn">b</span>))</span></span>
+<span class="decl_args">
+<span class="fn">(<span class="fn">k</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Nat" title="View in docs">ℕ</a>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn">b</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HMul.hMul" title="View in docs">*</a> <span class="fn">a</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HPow.hPow" title="View in docs">^</a> <span class="fn">k</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Eq" title="View in docs">=</a> <span class="fn">ω</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HPow.hPow" title="View in docs">^</a> <span class="fn">k</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HSMul.hSMul" title="View in docs">•</a> (<span class="fn">a</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HPow.hPow" title="View in docs">^</a> <span class="fn">k</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HMul.hMul" title="View in docs">*</a> <span class="fn">b</span>)</div></div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000001428">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>By induction on \(k\). The base case is trivial. For the inductive step: \(b \cdot a^{k+1} = b \cdot a^k \cdot a = \omega ^k (a^k b) \cdot a = \omega ^k \cdot a^k \cdot (ba) = \omega ^k \cdot a^k \cdot \omega (ab) = \omega ^{k+1}(a^{k+1} b)\). </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm.pars.qbinom.binom2">
+  <div class="theorem_thmmain">
+    <div class="theorem_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">2.170</span>
+      <span class="theorem_thmtitle">2nd \(q\)-binomial theorem, aka Potter’s binomial theorem</span>
+      <div class="thm_header_extras">
+
+    
+    ✓
+          </div>
+      <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0023.html#thm.pars.qbinom.binom2">#</a>
+    
+    <a class="icon proof" href="sect0023.html#a0000001430"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+          </div>
+    </div>
+    <div class="theorem_thmcontent">
+    <p>   Let \(L\) be a commutative ring. Let \(\omega \in L\). Let \(A\) be a noncommutative \(L\)-algebra. Let \(a,b\in A\) be such that \(ba=\omega ab\). Then, </p>
+<div class="displaymath" id="a0000001431">
+  \[  \left( a+b\right) ^{n}=\sum _{k=0}^{n}\binom {n}{k}_{\omega }a^{k}b^{n-k}.  \]
+</div>
+
+    </div>
+  </div>
+  <div class="thm_side_panel">
+
+
+
+
+
+
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000001430">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>By induction on \(n\). The base case \(n=0\) is trivial. For the inductive step, write \((a+b)^{n+1} = (a+b) \cdot (a+b)^n\) and apply the induction hypothesis to \((a+b)^n\). Distribute \((a+b)\) over the sum. The key step is the relation \(b \cdot a^k = \omega ^k \cdot a^k \cdot b\), which follows from \(ba = \omega ab\) by induction on \(k\) (proved in Lemma&#160;<a href="sect0023.html#lem.qbinomial-formulas.b-mul-pow-a">2.169</a>). After reindexing and combining terms, the coefficients match via the \(q\)-Pascal recurrence \(\binom {n+1}{k+1}_\omega = \binom {n}{k}_\omega + \omega ^{k+1}\binom {n}{k+1}_\omega \). </p>
+
+  </div>
+</div>
+<h2 id="a0000000225">2.4.6 Counting subspaces of vector spaces</h2>
+<h3 id="a0000001432">Helpers for Theorem&#160;<a href="sect0023.html#thm.pars.qbinom.subsp-count">2.176</a></h3>
+<div class="definition_thmwrapper theorem-style-definition" id="def.qbinomial-formulas.span-map">
+  <div class="definition_thmmain">
+    <div class="definition_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">2.171</span>
+      <div class="thm_header_extras">
+
+    
+    ✓
+          </div>
+      <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0023.html#def.qbinomial-formulas.span-map">#</a>
+    
+    
+          </div>
+    </div>
+    <div class="definition_thmcontent">
+    <p>  The <em>span map</em> sends a linearly independent \(k\)-tuple \((v_1, \ldots , v_k)\) in \(V\) to its span \(\mathrm{span}(v_1, \ldots , v_k)\), viewed as a \(k\)-dimensional subspace. </p>
+
+    </div>
+  </div>
+  <div class="thm_side_panel">
+
+
+
+
+
+
+
+<div class="lean-side-panel lean-helper">
+  
+  
+  <div class="lean-entry">
+    
+    <div class="lean-decl-box">
+      <div class="lean-decl-links">
+        <a href="https://vigilant-adventure-pgkl54k.pages.github.io/AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.spanMap" class="lean-doc-link" title="View documentation">docs</a>
+        <a href="https://github.com/fairinternal/algcomb/blob/summary/AlgebraicCombinatorics/Partitions/QBinomialFormulas.lean" class="lean-src-link" title="View source">source</a>
+      </div>
+      <div class="decl_header"><span class="decl_kind">noncomputable def</span>
+<span class="decl_name"><a href="sect0023.html#def.qbinomial-formulas.span-map" class="blueprint-link" title="View in blueprint"><span class="name">AlgebraicCombinatorics</span>.<span class="name">QBinomialRec</span>.<span class="name">spanMap</span></a></span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">F</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./foundational_types.html" title="View in docs">Type</a> u_1}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Algebra/Field/Defs.html#Field" title="View in docs">Field</a> <span class="fn">F</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">V</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./foundational_types.html" title="View in docs">Type</a> u_2}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Algebra/Group/Defs.html#AddCommGroup" title="View in docs">AddCommGroup</a> <span class="fn">V</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Algebra/Module/Defs.html#Module" title="View in docs">Module</a> <span class="fn">F</span> <span class="fn">V</span></span>]</span></span>
+</span><span class="decl_args">
+<span class="fn">(<span class="fn">k</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Nat" title="View in docs">ℕ</a>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Subtype" title="View in docs">{</a> <span class="fn">v</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Subtype" title="View in docs">:</a> <span class="fn"><span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Fin" title="View in docs">Fin</a> <span class="fn">k</span></span> → <span class="fn">V</span></span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Subtype" title="View in docs">//</a> <span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/LinearAlgebra/LinearIndependent/Defs.html#LinearIndependent" title="View in docs">LinearIndependent</a> <span class="fn">F</span> <span class="fn">v</span></span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Subtype" title="View in docs">}</a> → <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Subtype" title="View in docs">{</a> <span class="fn">W</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Subtype" title="View in docs">:</a> <span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Algebra/Module/Submodule/Defs.html#Submodule" title="View in docs">Submodule</a> <span class="fn">F</span> <span class="fn">V</span></span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Subtype" title="View in docs">//</a> <span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/LinearAlgebra/Dimension/Finrank.html#Module.finrank" title="View in docs">Module.finrank</a> <span class="fn">F</span> <span class="fn">↥<span class="fn">W</span></span></span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Eq" title="View in docs">=</a> <span class="fn">k</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Subtype" title="View in docs">}</a></span></div></div>
+      
+      
+      <ul class="equations lean-equations"><li class="equation"><span class="fn"><a href="sect0023.html#def.qbinomial-formulas.span-map" class="blueprint-link" title="View in blueprint">AlgebraicCombinatorics.QBinomialRec.spanMap</a> <span class="fn">k</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Subtype.mk" title="View in docs">⟨</a><span class="fn">v</span>, <span class="fn">hv</span><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Subtype.mk" title="View in docs">⟩</a></span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Eq" title="View in docs">=</a> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Subtype.mk" title="View in docs">⟨</a><span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/LinearAlgebra/Span/Defs.html#Submodule.span" title="View in docs">Submodule.span</a> <span class="fn">F</span> <span class="fn">(<a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Data/Set/Operations.html#Set.range" title="View in docs">Set.range</a> <span class="fn">v</span>)</span></span>, <span class="fn">⋯</span><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Subtype.mk" title="View in docs">⟩</a></li></ul>
+      
+    </div>
+    
+  </div>
+  
+  
+</div>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem.qbinomial-formulas.span-fiber-card">
+  <div class="lemma_thmmain">
+    <div class="lemma_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">2.172</span>
+      <div class="thm_header_extras">
+
+    
+    ✓
+          </div>
+      <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0023.html#lem.qbinomial-formulas.span-fiber-card">#</a>
+    
+    <a class="icon proof" href="sect0023.html#a0000001433"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+          </div>
+    </div>
+    <div class="lemma_thmcontent">
+    <p>  Each \(k\)-dimensional subspace \(W\) has exactly \(\prod _{i=0}^{k-1} (|F|^k - |F|^i)\) preimages under the span map. These are precisely the ordered bases of \(W\): the linearly independent \(k\)-tuples in \(W\) that automatically span \(W\) by dimension count. </p>
+
+    </div>
+  </div>
+  <div class="thm_side_panel">
+
+
+
+
+
+
+
+<div class="lean-side-panel lean-helper">
+  
+  
+  <div class="lean-entry">
+    
+    <div class="lean-decl-box">
+      <div class="lean-decl-links">
+        <a href="https://vigilant-adventure-pgkl54k.pages.github.io/AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.spanMap_fiber_card" class="lean-doc-link" title="View documentation">docs</a>
+        <a href="https://github.com/fairinternal/algcomb/blob/summary/AlgebraicCombinatorics/Partitions/QBinomialFormulas.lean" class="lean-src-link" title="View source">source</a>
+      </div>
+      <div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a href="sect0023.html#lem.qbinomial-formulas.span-fiber-card" class="blueprint-link" title="View in blueprint"><span class="name">AlgebraicCombinatorics</span>.<span class="name">QBinomialRec</span>.<span class="name">spanMap_fiber_card</span></a></span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">F</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./foundational_types.html" title="View in docs">Type</a> u_1}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Algebra/Field/Defs.html#Field" title="View in docs">Field</a> <span class="fn">F</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Data/Fintype/Defs.html#Fintype" title="View in docs">Fintype</a> <span class="fn">F</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">V</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./foundational_types.html" title="View in docs">Type</a> u_2}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Algebra/Group/Defs.html#AddCommGroup" title="View in docs">AddCommGroup</a> <span class="fn">V</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Algebra/Module/Defs.html#Module" title="View in docs">Module</a> <span class="fn">F</span> <span class="fn">V</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/RingTheory/Finiteness/Defs.html#Module.Finite" title="View in docs">Module.Finite</a> <span class="fn">F</span> <span class="fn">V</span></span>]</span></span>
+</span><span class="decl_args">
+<span class="fn">(<span class="fn">k</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Nat" title="View in docs">ℕ</a>)</span></span>
+<span class="decl_args">
+<span class="fn">(<span class="fn">W</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Subtype" title="View in docs">{</a> <span class="fn">W</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Subtype" title="View in docs">:</a> <span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Algebra/Module/Submodule/Defs.html#Submodule" title="View in docs">Submodule</a> <span class="fn">F</span> <span class="fn">V</span></span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Subtype" title="View in docs">//</a> <span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/LinearAlgebra/Dimension/Finrank.html#Module.finrank" title="View in docs">Module.finrank</a> <span class="fn">F</span> <span class="fn">↥<span class="fn">W</span></span></span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Eq" title="View in docs">=</a> <span class="fn">k</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Subtype" title="View in docs">}</a>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/SetTheory/Cardinal/Finite.html#Nat.card" title="View in docs">Nat.card</a> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Subtype" title="View in docs">{</a> <span class="fn">v</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Subtype" title="View in docs">:</a> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Subtype" title="View in docs">{</a> <span class="fn">v</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Subtype" title="View in docs">:</a> <span class="fn"><span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Fin" title="View in docs">Fin</a> <span class="fn">k</span></span> → <span class="fn">V</span></span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Subtype" title="View in docs">//</a> <span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/LinearAlgebra/LinearIndependent/Defs.html#LinearIndependent" title="View in docs">LinearIndependent</a> <span class="fn">F</span> <span class="fn">v</span></span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Subtype" title="View in docs">}</a> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Subtype" title="View in docs">//</a> <span class="fn"><a href="sect0023.html#def.qbinomial-formulas.span-map" class="blueprint-link" title="View in blueprint">spanMap</a> <span class="fn">k</span> <span class="fn">v</span></span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Eq" title="View in docs">=</a> <span class="fn">W</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Subtype" title="View in docs">}</a></span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Eq" title="View in docs">=</a>   <span class="fn">∏ <span class="fn">i</span> ∈ <span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Data/Finset/Range.html#Finset.range" title="View in docs">Finset.range</a> <span class="fn">k</span></span>, (<span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Data/Fintype/Card.html#Fintype.card" title="View in docs">Fintype.card</a> <span class="fn">F</span></span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HPow.hPow" title="View in docs">^</a> <span class="fn">k</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HSub.hSub" title="View in docs">-</a> <span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Data/Fintype/Card.html#Fintype.card" title="View in docs">Fintype.card</a> <span class="fn">F</span></span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HPow.hPow" title="View in docs">^</a> <span class="fn">i</span>)</span></div></div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000001433">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>The fiber over \(W\) is in bijection with the set of linearly independent \(k\)-tuples in \(W\). Since \(W\) is \(k\)-dimensional, applying Lemma&#160;<a href="sect0023.html#lem.pars.qbinom.lin-ind-count">2.174</a> (with \(W\) in place of \(V\), and \(k\) in place of \(n\)) gives the count \(\prod _{i=0}^{k-1}(|F|^k - |F|^i)\). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem.linalg.lin-ind-via-span">
+  <div class="lemma_thmmain">
+    <div class="lemma_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">2.173</span>
+      <div class="thm_header_extras">
+
+    
+    ✓
+          </div>
+      <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0023.html#lem.linalg.lin-ind-via-span">#</a>
+    
+    <a class="icon proof" href="sect0023.html#a0000001434"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+          </div>
+    </div>
+    <div class="lemma_thmcontent">
+    <p>  Let \(F\) be a field. Let \(V\) be an \(F\)-vector space. Let \(\left( v_{1},v_{2},\ldots ,v_{k}\right) \) be a \(k\)-tuple of vectors in \(V\). Then, \(\left( v_{1},v_{2},\ldots ,v_{k}\right) \) is linearly independent if and only if each \(i\in \left\{  1,2,\ldots ,k\right\}  \) satisfies \(v_{i}\notin \operatorname {span}\left( v_{1},v_{2},\ldots ,v_{i-1}\right) \) (where the span \(\operatorname {span}\left( {}\right) \) of an empty list is understood to be the set \(\left\{  \mathbf{0}\right\}  \) consisting only of the zero vector \(\mathbf{0}\)). In other words, \(\left( v_{1},v_{2},\ldots ,v_{k}\right) \) is linearly independent if and only if we have </p>
+<div class="displaymath" id="a0000001435">
+  \begin{align*}  v_{1} &  \notin \underbrace{\operatorname {span}\left( {}\right) }_{=\left\{  \mathbf{0}\right\}  }\  \  \  \  \  \  \  \  \  \  \text{and}\\ v_{2} &  \notin \operatorname {span}\left( v_{1}\right) \  \  \  \  \  \  \  \  \  \  \text{and}\\ v_{3} &  \notin \operatorname {span}\left( v_{1},v_{2}\right) \  \  \  \  \  \  \  \  \  \  \text{and}\\ &  \cdots \  \  \  \  \  \  \  \  \  \  \text{and}\\ v_{k} &  \notin \operatorname {span}\left( v_{1},v_{2},\ldots ,v_{k-1}\right) . \end{align*}
+</div>
+
+    </div>
+  </div>
+  <div class="thm_side_panel">
+
+
+
+
+
+
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000001434">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>We prove both directions: </p>
+<p>\(\Longrightarrow :\) Assume that the \(k\)-tuple \(\left( v_{1},v_{2},\ldots ,v_{k}\right) \) is linearly independent. Let \(i\in \left\{  1,2,\ldots ,k\right\}  \). If we had \(v_{i}\in \operatorname {span}\left( v_{1},v_{2},\ldots ,v_{i-1}\right) \), then we could write \(v_{i}\) in the form \(v_{i}=\alpha _{1}v_{1}+\alpha _{2}v_{2}+\cdots +\alpha _{i-1}v_{i-1}\) for some coefficients \(\alpha _{1},\alpha _{2},\ldots ,\alpha _{i-1}\in F\), and therefore \(\alpha _{1}v_{1}+\cdots +\alpha _{i-1}v_{i-1}+(-1)v_{i}+0v_{i+1}+\cdots +0v_{k}=\mathbf{0}\), which would be a nontrivial linear dependence relation (since \(v_{i}\) appears with the nonzero coefficient \(-1\)); this would contradict the linear independence of \(\left( v_{1},v_{2},\ldots ,v_{k}\right) \). Hence, \(v_{i}\notin \operatorname {span}\left( v_{1},v_{2},\ldots ,v_{i-1}\right)\). </p>
+<p>\(\Longleftarrow :\) Assume that each \(i\in \left\{  1,2,\ldots ,k\right\}  \) satisfies \(v_{i}\notin \operatorname {span}\left( v_{1},v_{2},\ldots ,v_{i-1}\right) \). Assume for contradiction that the \(k\)-tuple \(\left( v_{1},v_{2},\ldots ,v_{k}\right) \) is linearly dependent. Thus, there exist coefficients \(\beta _{1},\beta _{2},\ldots ,\beta _{k}\in F\) that satisfy \(\beta _{1}v_{1}+\beta _{2}v_{2}+\cdots +\beta _{k}v_{k}=\mathbf{0}\) and that are not all zero. Pick the <b class="bfseries">largest</b> \(i\) with \(\beta _{i}\neq 0\). Then \(\beta _{i+1}=\beta _{i+2}=\cdots =\beta _{k}=0\), so \(\beta _{i}v_{i} = -\left( \beta _{1}v_{1}+\beta _{2}v_{2}+\cdots +\beta _{i-1}v_{i-1}\right) \in \operatorname {span}\left( v_{1},v_{2},\ldots ,v_{i-1}\right)\). Since \(\beta _{i}\neq 0\), we obtain \(v_{i}\in \operatorname {span}\left( v_{1},v_{2},\ldots ,v_{i-1}\right) \), contradicting our assumption. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem.pars.qbinom.lin-ind-count">
+  <div class="lemma_thmmain">
+    <div class="lemma_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">2.174</span>
+      <div class="thm_header_extras">
+
+    
+    ✓
+          </div>
+      <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0023.html#lem.pars.qbinom.lin-ind-count">#</a>
+    
+    <a class="icon proof" href="sect0023.html#a0000001436"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+          </div>
+    </div>
+    <div class="lemma_thmcontent">
+    <p>  Let \(F\) be a finite field. Let \(n,k\in \mathbb {N}\). Let \(V\) be an \(n\)-dimensional \(F\)-vector space. Then, </p>
+<div class="displaymath" id="a0000001437">
+  \begin{align*} &  \left( \text{\#  of linearly independent }k\text{-tuples of vectors in }V\right) \\ &  =\left( \left\vert F\right\vert ^{n}-\left\vert F\right\vert ^{0}\right) \left( \left\vert F\right\vert ^{n}-\left\vert F\right\vert ^{1}\right) \cdots \left( \left\vert F\right\vert ^{n}-\left\vert F\right\vert ^{k-1}\right) =\prod _{i=0}^{k-1}\left( \left\vert F\right\vert ^{n}-\left\vert F\right\vert ^{i}\right) . \end{align*}
+</div>
+
+    </div>
+  </div>
+  <div class="thm_side_panel">
+
+
+
+
+
+
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000001436">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>We have \(\left\vert V\right\vert =\left\vert F\right\vert ^{n}\) (since \(V\) is an \(n\)-dimensional \(F\)-vector space). </p>
+<p>By Lemma&#160;<a href="sect0023.html#lem.linalg.lin-ind-via-span">2.173</a>, a \(k\)-tuple \(\left( v_{1},v_{2},\ldots ,v_{k}\right) \) of vectors in \(V\) is linearly independent if and only if each \(v_i \notin \operatorname {span}(v_1, \ldots , v_{i-1})\). </p>
+<p>We construct such a tuple entry by entry: </p>
+<ul class="itemize">
+  <li><p>First, we choose \(v_{1} \in V\setminus \left\{  \mathbf{0}\right\} \); thus, there are \(\left\vert V\right\vert - 1\) options. Once \(v_{1}\) has been chosen, \(\operatorname {span}\left( v_{1}\right) \) has dimension \(1\) and thus size \(\left\vert F\right\vert ^{1}\). </p>
+</li>
+  <li><p>Next, we choose \(v_{2} \in V\setminus \operatorname {span}\left( v_{1}\right)\); thus, there are \(\left\vert V\right\vert -\left\vert F\right\vert ^{1}\) options. Once \(v_{2}\) has been chosen, \(\operatorname {span}\left( v_{1},v_{2}\right) \) has dimension \(2\) and thus size \(\left\vert F\right\vert ^{2}\). </p>
+</li>
+  <li><p>And so on, until the last vector \(v_{k}\) has been chosen. </p>
+</li>
+</ul>
+<p>The total count is \(\prod _{i=0}^{k-1}\left( \left\vert V\right\vert -\left\vert F\right\vert ^{i}\right) =\prod _{i=0}^{k-1}\left( \left\vert F\right\vert ^{n}-\left\vert F\right\vert ^{i}\right)\) (since \(\left\vert V\right\vert =\left\vert F\right\vert ^{n}\)). When \(k {\gt} n\), both sides are \(0\) since there are no linearly independent \(k\)-tuples in an \(n\)-dimensional space. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem.count.multijection">
+  <div class="lemma_thmmain">
+    <div class="lemma_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">2.175</span>
+      <span class="lemma_thmtitle">Multijection principle</span>
+      <div class="thm_header_extras">
+
+    
+    ✓
+          </div>
+      <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0023.html#lem.count.multijection">#</a>
+    
+    <a class="icon proof" href="sect0023.html#a0000001438"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+          </div>
+    </div>
+    <div class="lemma_thmcontent">
+    <p>   Let \(A\) and \(B\) be two finite sets. Let \(m\in \mathbb {N}\). Let \(f:A\rightarrow B\) be any map. Assume that each \(b\in B\) has exactly \(m\) preimages under \(f\) (that is, for each \(b\in B\), there are exactly \(m\) many elements \(a\in A\) such that \(f\left( a\right) =b\)). Then, </p>
+<div class="displaymath" id="a0000001439">
+  \[  \left\vert A\right\vert =m\cdot \left\vert B\right\vert .  \]
+</div>
+
+    </div>
+  </div>
+  <div class="thm_side_panel">
+
+
+
+
+
+
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000001438">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>By the fiber decomposition: \(|A| = \sum _{b \in B} |f^{-1}(b)|\), where each fiber has cardinality \(m\) by assumption. Hence \(|A| = \sum _{b \in B} m = m \cdot |B|\). </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm.pars.qbinom.subsp-count">
+  <div class="theorem_thmmain">
+    <div class="theorem_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">2.176</span>
+      <div class="thm_header_extras">
+
+    
+    ✓
+          </div>
+      <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0023.html#thm.pars.qbinom.subsp-count">#</a>
+    
+    <a class="icon proof" href="sect0023.html#a0000001440"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+          </div>
+    </div>
+    <div class="theorem_thmcontent">
+    <p>  Let \(F\) be a finite field. Let \(n,k\in \mathbb {N}\). Let \(V\) be an \(n\)-dimensional \(F\)-vector space. Then, </p>
+<div class="displaymath" id="a0000001441">
+  \[  \binom {n}{k}_{\left\vert F\right\vert }=\left( \text{\#  of }k\text{-dimensional vector subspaces of }V\right) .  \]
+</div>
+
+    </div>
+  </div>
+  <div class="thm_side_panel">
+
+
+
+
+
+
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000001440">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>If \(k{\gt}n\), then \(\binom {n}{k}_{\left\vert F\right\vert }=0\) (by Proposition&#160;<a href="sect0022.html#prop.pars.qbinom.0">2.141</a>) and \(\left( \text{\#  of }k\text{-dimensional vector subspaces of }V\right) =0\) (since the dimension of a subspace of \(V\) is never larger than the dimension of \(V\)). Hence, for the rest of this proof, we WLOG assume that \(k\leq n\). </p>
+<p>Define a map </p>
+<div class="displaymath" id="a0000001442">
+  \begin{align*}  f:\left\{  \text{linind }k\text{-tuples of vectors in }V\right\}  &  \rightarrow \left\{  k\text{-dimensional vector subspaces of }V\right\}  ,\\ \left( v_{1},v_{2},\ldots ,v_{k}\right) &  \mapsto \operatorname {span}\left( v_{1},v_{2},\ldots ,v_{k}\right) . \end{align*}
+</div>
+<p><b class="bfseries">Observation 1:</b> Each \(k\)-dimensional vector subspace of \(V\) has exactly \(\left( \left\vert F\right\vert ^{k}-\left\vert F\right\vert ^{0}\right) \left( \left\vert F\right\vert ^{k}-\left\vert F\right\vert ^{1}\right) \cdots \left( \left\vert F\right\vert ^{k}-\left\vert F\right\vert ^{k-1}\right)\) preimages under \(f\). </p>
+<p>Indeed, let \(W\) be a \(k\)-dimensional vector subspace of \(V\). A preimage of \(W\) under \(f\) is a linind \(k\)-tuple of vectors in \(W\) that spans \(W\). Since \(W\) is \(k\)-dimensional, a \(k\)-tuple of vectors in \(W\) spans \(W\) if and only if it is linind. Hence, the number of preimages is the number of linind \(k\)-tuples in \(W\), which equals \(\prod _{i=0}^{k-1}(|F|^k - |F|^i)\) by Lemma&#160;<a href="sect0023.html#lem.pars.qbinom.lin-ind-count">2.174</a> (applied to \(W\) and \(k\) instead of \(V\) and \(n\)). </p>
+<p>By the multijection principle (Lemma&#160;<a href="sect0023.html#lem.count.multijection">2.175</a>): </p>
+<div class="displaymath" id="a0000001443">
+  \begin{align*} &  \left( \left\vert F\right\vert ^{k}-\left\vert F\right\vert ^{0}\right) \left( \left\vert F\right\vert ^{k}-\left\vert F\right\vert ^{1}\right) \cdots \left( \left\vert F\right\vert ^{k}-\left\vert F\right\vert ^{k-1}\right) \\ &  \qquad \cdot \left( \text{\#  of }k\text{-dimensional vector subspaces of }V\right) \\ &  =\left( \left\vert F\right\vert ^{n}-\left\vert F\right\vert ^{0}\right) \left( \left\vert F\right\vert ^{n}-\left\vert F\right\vert ^{1}\right) \cdots \left( \left\vert F\right\vert ^{n}-\left\vert F\right\vert ^{k-1}\right) \end{align*}
+</div>
+<p> (where the right hand side comes from Lemma&#160;<a href="sect0023.html#lem.pars.qbinom.lin-ind-count">2.174</a>). Therefore, </p>
+<div class="displaymath" id="a0000001444">
+  \begin{align*} &  \left( \text{\#  of }k\text{-dimensional vector subspaces of }V\right) \\ &  =\frac{\prod _{i=0}^{k-1}\left( \left\vert F\right\vert ^{n}-\left\vert F\right\vert ^{i}\right) }{\prod _{i=0}^{k-1}\left( \left\vert F\right\vert ^{k}-\left\vert F\right\vert ^{i}\right) } =\prod _{i=0}^{k-1} \frac{\left\vert F\right\vert ^{n-i}-1}{\left\vert F\right\vert ^{k-i}-1} =\frac{\left( 1-\left\vert F\right\vert ^{n}\right) \left( 1-\left\vert F\right\vert ^{n-1}\right) \cdots \left( 1-\left\vert F\right\vert ^{n-k+1}\right) }{\left( 1-\left\vert F\right\vert ^{k}\right) \left( 1-\left\vert F\right\vert ^{k-1}\right) \cdots \left( 1-\left\vert F\right\vert ^{1}\right) }\\ &  =\binom {n}{k}_{\left\vert F\right\vert } \end{align*}
+</div>
+<p> (by Theorem&#160;<a href="sect0022.html#thm.pars.qbinom.quot1">2.147</a> <b class="bfseries">(b)</b>). </p>
+
+  </div>
+</div>
+<h2 id="a0000000226">2.4.7 Limits of \(q\)-binomial coefficients</h2>
+<h3 id="a0000001445">Helpers for Proposition&#160;<a href="sect0023.html#prop.pars.qbinom.lim1">2.182</a></h3>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem.qbinomial-formulas.coeff-stability">
+  <div class="lemma_thmmain">
+    <div class="lemma_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">2.177</span>
+      <div class="thm_header_extras">
+
+    
+    ✓
+          </div>
+      <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0023.html#lem.qbinomial-formulas.coeff-stability">#</a>
+    
+    <a class="icon proof" href="sect0023.html#a0000001446"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+          </div>
+    </div>
+    <div class="lemma_thmcontent">
+    <p>  For all \(d, k, n, m \in \mathbb {N}\) with \(n \ge d + k\) and \(m \ge d + k\), the \(d\)-th coefficient of \(\binom {n}{k}_q\) equals the \(d\)-th coefficient of \(\binom {m}{k}_q\) (as power series). In other words, the coefficient \([q^d]\binom {n}{k}_q\) stabilizes for \(n \ge d+k\). </p>
+
+    </div>
+  </div>
+  <div class="thm_side_panel">
+
+
+
+
+
+
+
+<div class="lean-side-panel lean-helper">
+  
+  
+  <div class="lean-entry">
+    
+    <div class="lean-decl-box">
+      <div class="lean-decl-links">
+        <a href="https://vigilant-adventure-pgkl54k.pages.github.io/AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.qBinomial_coeff_eq" class="lean-doc-link" title="View documentation">docs</a>
+        <a href="https://github.com/fairinternal/algcomb/blob/summary/AlgebraicCombinatorics/Partitions/QBinomialFormulas.lean" class="lean-src-link" title="View source">source</a>
+      </div>
+      <div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a href="sect0023.html#lem.qbinomial-formulas.coeff-stability" class="blueprint-link" title="View in blueprint"><span class="name">AlgebraicCombinatorics</span>.<span class="name">QBinomialRec</span>.<span class="name">qBinomial_coeff_eq</span></a></span><span class="decl_args">
+<span class="fn">(<span class="fn">d </span><span class="fn">k </span><span class="fn">n </span><span class="fn">m</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Nat" title="View in docs">ℕ</a>)</span></span>
+<span class="decl_args">
+<span class="fn">(<span class="fn">hn</span> : <span class="fn">n</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#GE.ge" title="View in docs">≥</a> <span class="fn">d</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HAdd.hAdd" title="View in docs">+</a> <span class="fn">k</span>)</span></span>
+<span class="decl_args">
+<span class="fn">(<span class="fn">hm</span> : <span class="fn">m</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#GE.ge" title="View in docs">≥</a> <span class="fn">d</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HAdd.hAdd" title="View in docs">+</a> <span class="fn">k</span>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn"><span class="fn">(<a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/RingTheory/PowerSeries/Basic.html#PowerSeries.coeff" title="View in docs">PowerSeries.coeff</a> <span class="fn">d</span>)</span> <span class="fn">(<a href="https://vigilant-adventure-pgkl54k.pages.github.io/./AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.qBinomial" title="View in docs">qBinomial</a> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/RingTheory/PowerSeries/Basic.html#PowerSeries.X" title="View in docs">PowerSeries.X</a> <span class="fn">n</span> <span class="fn">k</span>)</span></span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Eq" title="View in docs">=</a> <span class="fn"><span class="fn">(<a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/RingTheory/PowerSeries/Basic.html#PowerSeries.coeff" title="View in docs">PowerSeries.coeff</a> <span class="fn">d</span>)</span> <span class="fn">(<a href="https://vigilant-adventure-pgkl54k.pages.github.io/./AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.qBinomial" title="View in docs">qBinomial</a> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/RingTheory/PowerSeries/Basic.html#PowerSeries.X" title="View in docs">PowerSeries.X</a> <span class="fn">m</span> <span class="fn">k</span>)</span></span></div></div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000001446">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>By strong induction on \(d + k\), using the \(q\)-Pascal recurrence to relate coefficients of \(\binom {n}{k}_q\) and \(\binom {m}{k}_q\) through \(\binom {n-1}{\cdot }_q\) and \(\binom {m-1}{\cdot }_q\) at lower coefficients. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem.qbinomial-formulas.stable-eq-prod">
+  <div class="lemma_thmmain">
+    <div class="lemma_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">2.178</span>
+      <div class="thm_header_extras">
+
+    
+    ✓
+          </div>
+      <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0023.html#lem.qbinomial-formulas.stable-eq-prod">#</a>
+    
+    <a class="icon proof" href="sect0023.html#a0000001447"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+          </div>
+    </div>
+    <div class="lemma_thmcontent">
+    <p>  The stable value of the \(d\)-th coefficient equals the \(d\)-th coefficient of the product formula: </p>
+<div class="displaymath" id="a0000001448">
+  \[  [q^d]\binom {d+k}{k}_q = [q^d]\prod _{i=1}^{k} \frac{1}{1 - q^i}.  \]
+</div>
+
+    </div>
+  </div>
+  <div class="thm_side_panel">
+
+
+
+
+
+
+
+<div class="lean-side-panel lean-helper">
+  
+  
+  <div class="lean-entry">
+    
+    <div class="lean-decl-box">
+      <div class="lean-decl-links">
+        <a href="https://vigilant-adventure-pgkl54k.pages.github.io/AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.qBinomial_stable_eq_prod" class="lean-doc-link" title="View documentation">docs</a>
+        <a href="https://github.com/fairinternal/algcomb/blob/summary/AlgebraicCombinatorics/Partitions/QBinomialFormulas.lean" class="lean-src-link" title="View source">source</a>
+      </div>
+      <div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a href="sect0023.html#lem.qbinomial-formulas.stable-eq-prod" class="blueprint-link" title="View in blueprint"><span class="name">AlgebraicCombinatorics</span>.<span class="name">QBinomialRec</span>.<span class="name">qBinomial_stable_eq_prod</span></a></span><span class="decl_args">
+<span class="fn">(<span class="fn">d </span><span class="fn">k</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Nat" title="View in docs">ℕ</a>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn"><span class="fn">(<a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/RingTheory/PowerSeries/Basic.html#PowerSeries.coeff" title="View in docs">PowerSeries.coeff</a> <span class="fn">d</span>)</span> <span class="fn">(<a href="https://vigilant-adventure-pgkl54k.pages.github.io/./AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.qBinomial" title="View in docs">qBinomial</a> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/RingTheory/PowerSeries/Basic.html#PowerSeries.X" title="View in docs">PowerSeries.X</a> (<span class="fn">d</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HAdd.hAdd" title="View in docs">+</a> <span class="fn">k</span>) <span class="fn">k</span>)</span></span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Eq" title="View in docs">=</a>   <span class="fn"><span class="fn">(<a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/RingTheory/PowerSeries/Basic.html#PowerSeries.coeff" title="View in docs">PowerSeries.coeff</a> <span class="fn">d</span>)</span> <span class="fn">(∏ <span class="fn">i</span> ∈ <span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Data/Finset/Range.html#Finset.range" title="View in docs">Finset.range</a> <span class="fn">k</span></span>, (<span class="fn">1</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HSub.hSub" title="View in docs">-</a> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/RingTheory/PowerSeries/Basic.html#PowerSeries.X" title="View in docs">PowerSeries.X</a> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HPow.hPow" title="View in docs">^</a> (<span class="fn">i</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HAdd.hAdd" title="View in docs">+</a> <span class="fn">1</span>))<a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Inv.inv" title="View in docs">⁻¹</a>)</span></span></div></div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000001447">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>By induction on \(d + k\). The product formula satisfies a recurrence matching the \(q\)-Pascal identity: extracting the last factor \((1 - q^{k+1})^{-1}\) gives \(\prod _{i=1}^{k+1}(1-q^i)^{-1} = \prod _{i=1}^{k}(1-q^i)^{-1} + q^{k+1} \cdot \prod _{i=1}^{k+1}(1-q^i)^{-1}\). Comparing coefficients and applying the inductive hypothesis completes the proof. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem.qbinomial-formulas.conjugation-involution">
+  <div class="lemma_thmmain">
+    <div class="lemma_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">2.179</span>
+      <div class="thm_header_extras">
+
+    
+    ✓
+          </div>
+      <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0023.html#lem.qbinomial-formulas.conjugation-involution">#</a>
+    
+    <a class="icon proof" href="sect0023.html#a0000001449"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+          </div>
+    </div>
+    <div class="lemma_thmcontent">
+    <p>  Young diagram conjugation (transposition) is an involution on partitions of \(n\) that interchanges “all parts \(\le k\)” with “at most \(k\) parts”. Specifically, if \(p\) is a partition of \(n\) with all parts \(\le k\), then its conjugate has at most \(k\) parts, and vice versa. Moreover, conjugating twice recovers the original partition. </p>
+
+    </div>
+  </div>
+  <div class="thm_side_panel">
+
+
+
+
+
+
+
+<div class="lean-side-panel lean-helper">
+  
+  
+  <div class="lean-entry">
+    
+    <div class="lean-decl-box">
+      <div class="lean-decl-links">
+        <a href="https://vigilant-adventure-pgkl54k.pages.github.io/AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.conjugatePartition_involution'" class="lean-doc-link" title="View documentation">docs</a>
+        <a href="https://github.com/fairinternal/algcomb/blob/summary/AlgebraicCombinatorics/Partitions/QBinomialFormulas.lean" class="lean-src-link" title="View source">source</a>
+      </div>
+      <div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a href="sect0023.html#lem.qbinomial-formulas.conjugation-involution" class="blueprint-link" title="View in blueprint"><span class="name">AlgebraicCombinatorics</span>.<span class="name">QBinomialRec</span>.<span class="name">conjugatePartition_involution'</span></a></span><span class="decl_args">
+<span class="fn">(<span class="fn">m</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Nat" title="View in docs">ℕ</a>)</span></span>
+<span class="decl_args">
+<span class="fn">(<span class="fn">p</span> : <span class="fn"><span class="fn">m</span>.<a href="sect0020.html#def.pars.parts" class="blueprint-link" title="View in blueprint">Partition</a></span>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#_private.AlgebraicCombinatorics.Partitions.QBinomialFormulas.0.AlgebraicCombinatorics.QBinomialRec.conjugatePartition'" title="View in docs">AlgebraicCombinatorics.QBinomialRec.conjugatePartition'✝</a> <span class="fn">m</span>
+    <span class="fn">(<a href="https://vigilant-adventure-pgkl54k.pages.github.io/./AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#_private.AlgebraicCombinatorics.Partitions.QBinomialFormulas.0.AlgebraicCombinatorics.QBinomialRec.conjugatePartition'" title="View in docs">AlgebraicCombinatorics.QBinomialRec.conjugatePartition'✝¹</a> <span class="fn">m</span> <span class="fn">p</span>)</span></span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Eq" title="View in docs">=</a>   <span class="fn">p</span></div></div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000001449">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>The conjugate is constructed using Young diagram transposition. The involution property follows from the fact that transposing twice recovers the original diagram. The interchange of “max part” and “number of parts” follows from the relationship between row lengths and column lengths under transposition. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem.qbinomial-formulas.restricted-eq-atmost">
+  <div class="lemma_thmmain">
+    <div class="lemma_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">2.180</span>
+      <div class="thm_header_extras">
+
+    
+    ✓
+          </div>
+      <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0023.html#lem.qbinomial-formulas.restricted-eq-atmost">#</a>
+    
+    <a class="icon proof" href="sect0023.html#a0000001450"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+          </div>
+    </div>
+    <div class="lemma_thmcontent">
+    <p>  The number of partitions of \(n\) with all parts \(\le k\) equals the number of partitions of \(n\) with at most \(k\) parts: </p>
+<div class="displaymath" id="a0000001451">
+  \[  |\{ p \vdash n : \text{all parts} \le k\} | = |\{ p \vdash n : \text{at most } k \text{ parts}\} |.  \]
+</div>
+
+    </div>
+  </div>
+  <div class="thm_side_panel">
+
+
+
+
+
+
+
+<div class="lean-side-panel lean-helper">
+  
+  
+  <div class="lean-entry">
+    
+    <div class="lean-decl-box">
+      <div class="lean-decl-links">
+        <a href="https://vigilant-adventure-pgkl54k.pages.github.io/AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.restricted_card_eq_atMostKParts" class="lean-doc-link" title="View documentation">docs</a>
+        <a href="https://github.com/fairinternal/algcomb/blob/summary/AlgebraicCombinatorics/Partitions/QBinomialFormulas.lean" class="lean-src-link" title="View source">source</a>
+      </div>
+      <div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a href="sect0023.html#lem.qbinomial-formulas.restricted-eq-atmost" class="blueprint-link" title="View in blueprint"><span class="name">AlgebraicCombinatorics</span>.<span class="name">QBinomialRec</span>.<span class="name">restricted_card_eq_atMostKParts</span></a></span><span class="decl_args">
+<span class="fn">(<span class="fn">n </span><span class="fn">k</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Nat" title="View in docs">ℕ</a>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn"><span class="fn">(<a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Combinatorics/Enumerative/Partition/Basic.html#Nat.Partition.restricted" title="View in docs">Nat.Partition.restricted</a> <span class="fn">n</span> <span class="fn">fun (<span class="fn">x</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Nat" title="View in docs">ℕ</a>) =&gt; <span class="fn">x</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#LE.le" title="View in docs">≤</a> <span class="fn">k</span></span>)</span>.<a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Data/Finset/Card.html#Finset.card" title="View in docs">card</a></span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Eq" title="View in docs">=</a> <span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.partitionCountAtMostKParts" title="View in docs">partitionCountAtMostKParts</a> <span class="fn">n</span> <span class="fn">k</span></span></div></div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000001450">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Young diagram conjugation provides a bijection between these two sets (Lemma&#160;<a href="sect0023.html#lem.qbinomial-formulas.conjugation-involution">2.179</a>). </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm.qbinomial-formulas.limit-eq-partition-gf">
+  <div class="theorem_thmmain">
+    <div class="theorem_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">2.181</span>
+      <div class="thm_header_extras">
+
+    
+    ✓
+          </div>
+      <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0023.html#thm.qbinomial-formulas.limit-eq-partition-gf">#</a>
+    
+    <a class="icon proof" href="sect0023.html#a0000001452"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+          </div>
+    </div>
+    <div class="theorem_thmcontent">
+    <p>  The product formula equals the generating function for partitions with at most \(k\) parts: </p>
+<div class="displaymath" id="a0000001453">
+  \[  \prod _{i=1}^{k} \frac{1}{1-q^i} = \sum _{n=0}^{\infty } |\{ p \vdash n : \text{at most } k \text{ parts}\} | \cdot q^n.  \]
+</div>
+
+    </div>
+  </div>
+  <div class="thm_side_panel">
+
+
+
+
+
+
+
+<div class="lean-side-panel lean-helper">
+  
+  
+  <div class="lean-entry">
+    
+    <div class="lean-decl-box">
+      <div class="lean-decl-links">
+        <a href="https://vigilant-adventure-pgkl54k.pages.github.io/AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.qBinomial_limit_eq_partition_gf" class="lean-doc-link" title="View documentation">docs</a>
+        <a href="https://github.com/fairinternal/algcomb/blob/summary/AlgebraicCombinatorics/Partitions/QBinomialFormulas.lean" class="lean-src-link" title="View source">source</a>
+      </div>
+      <div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a href="sect0023.html#thm.qbinomial-formulas.limit-eq-partition-gf" class="blueprint-link" title="View in blueprint"><span class="name">AlgebraicCombinatorics</span>.<span class="name">QBinomialRec</span>.<span class="name">qBinomial_limit_eq_partition_gf</span></a></span><span class="decl_args">
+<span class="fn">(<span class="fn">k</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Nat" title="View in docs">ℕ</a>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn">∏ <span class="fn">i</span> ∈ <span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/Data/Finset/Range.html#Finset.range" title="View in docs">Finset.range</a> <span class="fn">k</span></span>, (<span class="fn">1</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HSub.hSub" title="View in docs">-</a> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/RingTheory/PowerSeries/Basic.html#PowerSeries.X" title="View in docs">PowerSeries.X</a> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HPow.hPow" title="View in docs">^</a> (<span class="fn">i</span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#HAdd.hAdd" title="View in docs">+</a> <span class="fn">1</span>))<a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Inv.inv" title="View in docs">⁻¹</a></span> <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Eq" title="View in docs">=</a> <span class="fn"><a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Mathlib/RingTheory/PowerSeries/Basic.html#PowerSeries.mk" title="View in docs">PowerSeries.mk</a> <span class="fn">fun (<span class="fn">n</span> : <a href="https://vigilant-adventure-pgkl54k.pages.github.io/./Init/Prelude.html#Nat" title="View in docs">ℕ</a>) =&gt; <span class="fn">↑<span class="fn">(<a href="https://vigilant-adventure-pgkl54k.pages.github.io/./AlgebraicCombinatorics/Partitions/QBinomialFormulas.html#AlgebraicCombinatorics.QBinomialRec.partitionCountAtMostKParts" title="View in docs">partitionCountAtMostKParts</a> <span class="fn">n</span> <span class="fn">k</span>)</span></span></span></span></div></div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000001452">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>The product \(\prod _{i=1}^{k}(1-q^i)^{-1}\) equals the generating function \(\sum _n |\{ \text{partitions of } n \text{ with all parts } \le k\} | \cdot q^n\) by the theorem on the product form of restricted partition generating functions. Applying Lemma&#160;<a href="sect0023.html#lem.qbinomial-formulas.restricted-eq-atmost">2.180</a> converts the restricted partition count to the count of partitions with at most \(k\) parts. </p>
+
+  </div>
+</div>
+<div class="proposition_thmwrapper theorem-style-plain" id="prop.pars.qbinom.lim1">
+  <div class="proposition_thmmain">
+    <div class="proposition_thmheading">
+      <span class="proposition_thmcaption">
+      Proposition
+      </span>
+      <span class="proposition_thmlabel">2.182</span>
+      <div class="thm_header_extras">
+
+    
+    ✓
+          </div>
+      <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0023.html#prop.pars.qbinom.lim1">#</a>
+    
+    <a class="icon proof" href="sect0023.html#a0000001454"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+          </div>
+    </div>
+    <div class="proposition_thmcontent">
+    <p>  Let \(k\in \mathbb {N}\) be fixed. Then, </p>
+<div class="displaymath" id="a0000001455">
+  \[  \lim _{n\rightarrow \infty }\binom {n}{k}_{q}=\sum _{n\in \mathbb {N}}\left( p_{0}\left( n\right) +p_{1}\left( n\right) +\cdots +p_{k}\left( n\right) \right) q^{n}=\prod _{i=1}^{k}\frac{1}{1-q^{i}}.  \]
+</div>
+<p> (See Definition&#160;<a href="sect0020.html#def.pars.pn-pkn">2.10</a> <b class="bfseries">(a)</b> for the meaning of \(p_{i}\left( n\right) \).) </p>
+
+    </div>
+  </div>
+  <div class="thm_side_panel">
+
+
+
+
+
+
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000001454">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    First proof (sketched)
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p> For each integer \(n\geq k\), we have </p>
+<div class="displaymath" id="a0000001456">
+  \begin{align*}  \binom {n}{k}_{q} &  =\frac{\left( 1-q^{n}\right) \left( 1-q^{n-1}\right) \cdots \left( 1-q^{n-k+1}\right) }{\left( 1-q^{k}\right) \left( 1-q^{k-1}\right) \cdots \left( 1-q^{1}\right) } \\ &  =\frac{1}{\prod _{i=1}^{k}\left( 1-q^{i}\right) }\cdot \prod _{i=1}^{k}\left( 1-q^{n-k+i}\right) . \end{align*}
+</div>
+<p> (Here, the first equality holds by Theorem&#160;<a href="sect0022.html#thm.pars.qbinom.quot1">2.147</a> <b class="bfseries">(b)</b>.) Since \(\lim _{n\to \infty } q^n = 0\) (coefficientwise), for each \(i \in \{ 1,\ldots ,k\} \) we have \(\lim _{n\to \infty }(1-q^{n-k+i}) = 1\). Hence, by Corollary&#160;<a href="sect0016.html#cor.fps.lim.sum-prod-k">1.466</a>, </p>
+<div class="displaymath" id="a0000001457">
+  \[  \lim _{n\to \infty }\binom {n}{k}_q = \frac{1}{\prod _{i=1}^k(1-q^i)} \cdot 1 = \prod _{i=1}^k \frac{1}{1-q^i}.  \]
+</div>
+<p> The equality \(\sum _{n\in \mathbb {N}}(p_0(n)+p_1(n)+\cdots +p_k(n))\, q^n = \prod _{i=1}^k \frac{1}{1-q^i}\) follows from Theorem&#160;<a href="sect0020.html#thm.pars.main-gf-0n">2.49</a> (with the letters \(x\), \(m\) and \(k\) renamed as \(q\), \(k\) and \(i\)). </p>
+<p>The proof establishes coefficientwise stabilization via Lemma&#160;<a href="sect0023.html#lem.qbinomial-formulas.coeff-stability">2.177</a> (showing that for \(n \ge d + k\), the \(d\)-th coefficient of \(\binom {n}{k}_q\) is constant) and Lemma&#160;<a href="sect0023.html#lem.qbinomial-formulas.stable-eq-prod">2.178</a> (identifying the stable value with the product formula). The equality with the partition generating function is proved in Theorem&#160;<a href="sect0023.html#thm.qbinomial-formulas.limit-eq-partition-gf">2.181</a> using Young diagram conjugation to biject partitions with parts \(\le k\) and partitions with \(\le k\) parts. </p>
+
+  </div>
+</div>
+
+</div> <!--main-text -->
+</div> <!-- content-wrapper -->
+</div> <!-- content -->
+</div> <!-- wrapper -->
+
+<nav class="prev_up_next">
+  <svg  id="showmore-minus" class="icon icon-eye-minus showmore"><use xlink:href="symbol-defs.svg#icon-eye-minus"></use></svg>
+
+  <svg  id="showmore-plus" class="icon icon-eye-plus showmore"><use xlink:href="symbol-defs.svg#icon-eye-plus"></use></svg>
+
+  <a href="sect0022.html" title="\(q\)-Binomial Coefficients"><svg  class="icon icon-arrow-left "><use xlink:href="symbol-defs.svg#icon-arrow-left"></use></svg>
+</a>
+  <a href="sect0019.html" title="Integer Partitions"><svg  class="icon icon-arrow-up "><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg>
+</a>
+  <a href="sect0024.html" title="Permutations"><svg  class="icon icon-arrow-right "><use xlink:href="symbol-defs.svg#icon-arrow-right"></use></svg>
+</a>
+</nav>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/plastex.js"></script>
+<script type="text/javascript" src="js/svgxuse.js"></script>
+<script type="text/javascript" src="js/js.cookie.min.js"></script>
+<script type="text/javascript" src="js/showmore.js"></script>
+</body>
+</html>

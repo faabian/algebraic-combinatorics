@@ -1,0 +1,578 @@
+\section{Permutations: basic definitions}
+
+\subsection{Basic definitions}
+
+\begin{convention}
+In the Lean formalization, we use $\operatorname{Fin} n = \{0, 1, \ldots, n-1\}$
+instead of the textbook's $[n] = \{1, 2, \ldots, n\}$.  Both are $n$-element sets,
+so their symmetric groups are isomorphic.  Permutations are represented by
+the type of bijections $X \to X$ (denoted $\operatorname{Equiv.Perm}\, X$ in Lean), which is a
+group under composition.  Composition $\alpha\beta$ is the group
+multiplication $\alpha * \beta$, sending $x$ to $\alpha(\beta(x))$.
+\end{convention}
+
+\begin{definition}
+\label{def.perm.perm}
+\lean{AlgebraicCombinatorics.Permutation, AlgebraicCombinatorics.SymmetricGroup, AlgebraicCombinatorics.symmetricGroup_card, AlgebraicCombinatorics.perm_mul_apply, AlgebraicCombinatorics.perm_pow_apply, AlgebraicCombinatorics.perm_zpow_neg_one}
+\leantarget
+\leanok
+Let $X$ be a set.
+
+\textbf{(a)} A \emph{permutation} of $X$ means a bijection from $X$ to $X$.
+
+\textbf{(b)} It is known that the set of all permutations of $X$ is a group
+under composition. This group is called the \emph{symmetric group} of $X$, and
+is denoted by $S_X$. Its neutral element is the identity map
+$\operatorname{id}_X : X \to X$. Its size is $|X|!$ when $X$ is finite.
+
+\textbf{(c)} As usual in group theory, we will write $\alpha\beta$ for the
+composition $\alpha \circ \beta$ when $\alpha, \beta \in S_X$. This is the map
+that sends each $x \in X$ to $\alpha(\beta(x))$.
+
+\textbf{(d)} If $\alpha \in S_X$ and $i \in \mathbb{Z}$, then $\alpha^i$
+shall denote the $i$-th power of $\alpha$ in the group $S_X$. Note that
+$\alpha^i = \underbrace{\alpha \circ \alpha \circ \cdots \circ \alpha}_{i\text{
+times}}$ if $i \ge 0$. Also, $\alpha^0 = \operatorname{id}_X$.
+Also, $\alpha^{-1}$ is the inverse of $\alpha$ in the group $S_X$, that is,
+the inverse of the map $\alpha$.
+\end{definition}
+
+\begin{definition}
+\label{def.perm.Sn-iven}
+\lean{AlgebraicCombinatorics.bracketN, AlgebraicCombinatorics.Sn, AlgebraicCombinatorics.sn_card}
+\leantarget
+\leanok
+Let $n \in \mathbb{Z}$. Then, $[n]$ shall mean the set $\{1, 2, \ldots, n\}$.
+This is an $n$-element set if $n \ge 0$, and is an empty set if $n \le 0$.
+
+The symmetric group $S_{[n]}$ (consisting of all permutations of $[n]$) will
+be denoted $S_n$ and called the $n$\emph{-th symmetric group}. Its size is
+$n!$ (when $n \ge 0$).
+\end{definition}
+
+\begin{proposition}
+\label{prop.perm.Sf}
+\lean{AlgebraicCombinatorics.symmetricGroup_conj_iso, AlgebraicCombinatorics.symmetricGroup_iso_of_equiv}
+\leantarget
+\leanok
+Let $X$ and $Y$ be two sets, and let $f : X \to Y$ be a bijection.
+Then, for each permutation $\sigma$ of $X$, the map
+$f \circ \sigma \circ f^{-1} : Y \to Y$ is a permutation of $Y$.
+Furthermore, the map
+\begin{align*}
+S_f : S_X &\to S_Y, \\
+\sigma &\mapsto f \circ \sigma \circ f^{-1}
+\end{align*}
+is a group isomorphism; thus, we obtain $S_X \cong S_Y$.
+\end{proposition}
+
+\begin{proof}
+Easy and LTTR.
+\end{proof}
+
+\begin{definition}
+\label{def.perm.notations}
+\lean{AlgebraicCombinatorics.twoLineNotation, AlgebraicCombinatorics.oneLineNotation, AlgebraicCombinatorics.cycleDigraph}
+\leantarget
+\leanok
+Let $n \in \mathbb{N}$ and $\sigma \in S_n$. We introduce three notations
+for $\sigma$:
+
+\textbf{(a)} A \emph{two-line notation} of $\sigma$ means a $2 \times n$-array
+\[
+\begin{pmatrix}
+p_1 & p_2 & \cdots & p_n \\
+\sigma(p_1) & \sigma(p_2) & \cdots & \sigma(p_n)
+\end{pmatrix},
+\]
+where the entries $p_1, p_2, \ldots, p_n$ of the top row are the $n$
+elements of $[n]$ in some order. Commonly, we pick $p_i = i$.
+
+\textbf{(b)} The \emph{one-line notation} (short, \emph{OLN}) of $\sigma$
+means the $n$-tuple $(\sigma(1), \sigma(2), \ldots, \sigma(n))$.
+
+\textbf{(c)} The \emph{cycle digraph} of $\sigma$ is the
+directed graph with vertices $1, 2, \ldots, n$ and arcs $i \to
+\sigma(i)$ for all $i \in [n]$.
+\end{definition}
+
+\begin{lemma}
+\label{lem.perm.cycleDigraph.reachable}
+\lean{AlgebraicCombinatorics.cycleDigraph_connected_iff}
+\leanhelper
+\leanok
+Two vertices $i$ and $j$ are in the same connected component of the cycle
+digraph of $\sigma$ if and only if there exists $k \in \mathbb{Z}$ with
+$\sigma^k(i) = j$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By induction on reachability paths: each step corresponds to applying
+$\sigma$ or $\sigma^{-1}$, so the integer exponent $k$ accumulates
+additively.  Conversely, for any integer $k$, the sequence
+$i, \sigma(i), \sigma^2(i), \ldots$ (or the reverse via $\sigma^{-1}$)
+gives a path in the cycle digraph.
+\end{proof}
+
+\subsection{Transpositions, cycles and involutions}
+
+\subsubsection{Transpositions}
+
+\begin{definition}
+\label{def.perm.tij}
+\lean{AlgebraicCombinatorics.transposition, AlgebraicCombinatorics.transposition_apply_left, AlgebraicCombinatorics.transposition_apply_right, AlgebraicCombinatorics.transposition_apply_of_ne_of_ne}
+\leantarget
+\leanok
+Let $i$ and $j$ be two distinct elements of a set $X$.
+
+Then, the \emph{transposition} $t_{i,j}$ is the permutation of $X$ that sends
+$i$ to $j$, sends $j$ to $i$, and leaves all other elements of $X$ unchanged.
+\end{definition}
+
+\begin{lemma}
+\label{lem.perm.tij.symm}
+\lean{AlgebraicCombinatorics.transposition_symm}
+\leanhelper
+\leanok
+For any two distinct elements $i, j$ of a set $X$, we have $t_{i,j} = t_{j,i}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Immediate from the definitions: both $t_{i,j}$ and $t_{j,i}$ swap $i$ and $j$ and fix all other elements.
+\end{proof}
+
+\begin{lemma}
+\label{lem.perm.tij.sq}
+\lean{AlgebraicCombinatorics.transposition_sq_eq_one}
+\leanhelper
+\leanok
+Every transposition is an involution: $t_{i,j}^2 = \operatorname{id}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Case-split on each element $x$: if $x = i$, then $t_{i,j}(t_{i,j}(i)) = t_{i,j}(j) = i$; similarly for $x = j$; otherwise $t_{i,j}$ fixes $x$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.perm.tij.inv}
+\lean{AlgebraicCombinatorics.transposition_inv}
+\leanhelper
+\leanok
+A transposition is its own inverse: $t_{i,j}^{-1} = t_{i,j}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Immediate from $t_{i,j}^2 = \operatorname{id}$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.num_transpositions}
+\lean{AlgebraicCombinatorics.num_transpositions}
+\leanhelper
+\leanok
+The number of transpositions in $S_X$ (for a finite set $X$)
+is $\binom{|X|}{2}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Each $2$-element subset $\{i,j\} \subseteq X$ gives rise to exactly one
+transposition $t_{i,j}$.  The bijection between swaps and non-diagonal elements
+of $\mathrm{Sym}^2(X)$ establishes the count.
+\end{proof}
+
+\begin{definition}
+\label{def.perm.si}
+\lean{AlgebraicCombinatorics.simpleTransposition, AlgebraicCombinatorics.simpleTransposition_eq_transposition, AlgebraicCombinatorics.simpleTransposition_apply_self, AlgebraicCombinatorics.simpleTransposition_apply_succ, AlgebraicCombinatorics.simpleTransposition_apply_of_ne}
+\leantarget
+\leanok
+Let $n \in \mathbb{N}$ and $i \in [n-1]$. Then, the \emph{simple transposition}
+$s_i$ is defined by
+\[
+s_i := t_{i, i+1} \in S_n.
+\]
+\end{definition}
+
+\begin{lemma}
+\label{lem.perm.si.isSwap}
+\lean{AlgebraicCombinatorics.simpleTransposition_isSwap}
+\leanhelper
+\leanok
+Every simple transposition $s_i$ is a swap (i.e., a $2$-cycle).
+\end{lemma}
+
+\begin{proof}
+\leanok
+Witness the pair $(i, i+1)$ with $i \ne i+1$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.perm.si.isCycle}
+\lean{AlgebraicCombinatorics.simpleTransposition_isCycle}
+\leanhelper
+\leanok
+Every simple transposition $s_i$ is a cycle (specifically, a $2$-cycle).
+\end{lemma}
+
+\begin{proof}
+\leanok
+A swap is always a cycle: any permutation that exchanges exactly two distinct elements is a $2$-cycle.
+\end{proof}
+
+\begin{lemma}
+\label{lem.perm.si.support}
+\lean{AlgebraicCombinatorics.simpleTransposition_support, AlgebraicCombinatorics.simpleTransposition_support_card}
+\leanhelper
+\leanok
+The support of $s_i$ is exactly $\{i, i+1\}$, and has cardinality~$2$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The support of a swap of two distinct elements is exactly $\{i, i+1\}$, since $i \ne i+1$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.perm.si.ne_one}
+\lean{AlgebraicCombinatorics.simpleTransposition_ne_one}
+\leanhelper
+\leanok
+For $n \ge 2$ and $i \in [n-1]$, we have $s_i \ne \operatorname{id}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The support of $s_i$ has cardinality $2$, but the identity has empty support.
+\end{proof}
+
+\begin{proposition}
+\label{prop.perm.si.rules}
+\lean{AlgebraicCombinatorics.simpleTransposition_sq_eq_one, AlgebraicCombinatorics.simpleTransposition_comm, AlgebraicCombinatorics.simpleTransposition_braid}
+\leantarget
+\leanok
+Let $n \in \mathbb{N}$.
+
+\textbf{(a)} We have $s_i^2 = \operatorname{id}$ for all $i \in [n-1]$.
+In other words, we have $s_i = s_i^{-1}$ for all $i \in [n-1]$.
+
+\textbf{(b)} We have $s_i s_j = s_j s_i$ for any $i, j \in [n-1]$ with
+$|i - j| > 1$.
+
+\textbf{(c)} We have $s_i s_{i+1} s_i = s_{i+1} s_i s_{i+1}$ for any
+$i \in [n-2]$.
+\end{proposition}
+
+\begin{proof}
+To prove that two permutations $\alpha$ and $\beta$ of $[n]$ are identical,
+it suffices to show that $\alpha(k) = \beta(k)$ for each $k \in [n]$.
+Using this strategy, we can prove all three parts
+straightforwardly (distinguishing cases corresponding to the relative
+positions of $k$, $i$, $i+1$, $j$ and $j+1$). This is done in detail for
+part \textbf{(c)} in \cite[solution to
+Exercise 5.1 \textbf{(a)}]{detnotes}; the proofs of parts \textbf{(a)} and
+\textbf{(b)} are easier and LTTR.
+\end{proof}
+
+\subsubsection{Cycles}
+
+\begin{definition}
+\label{def.perm.cycs}
+\lean{AlgebraicCombinatorics.cyc, AlgebraicCombinatorics.cyc_apply_getElem, AlgebraicCombinatorics.cyc_apply_of_not_mem}
+\leantarget
+\leanok
+Let $X$ be a set. Let $i_1, i_2, \ldots, i_k$ be $k$ distinct elements of $X$.
+Then,
+\[
+\operatorname{cyc}_{i_1, i_2, \ldots, i_k}
+\]
+means the permutation of $X$ that sends
+\begin{align*}
+&i_1 \text{ to } i_2, \\
+&i_2 \text{ to } i_3, \\
+&\ldots, \\
+&i_{k-1} \text{ to } i_k, \\
+&i_k \text{ to } i_1
+\end{align*}
+and leaves all other elements of $X$ unchanged. In other words,
+$\operatorname{cyc}_{i_1, i_2, \ldots, i_k}$ means the
+permutation of $X$ that satisfies
+\[
+\operatorname{cyc}_{i_1, \ldots, i_k}(p)
+= \begin{cases}
+i_{j+1}, & \text{if } p = i_j \text{ for some } j \in \{1, 2, \ldots, k\};\\
+p, & \text{otherwise}
+\end{cases}
+\]
+for every $p \in X$,
+where $i_{k+1}$ means $i_1$.
+
+This permutation is called a $k$\emph{-cycle}.
+\end{definition}
+
+\begin{lemma}
+\label{lem.perm.cycs.pair}
+\lean{AlgebraicCombinatorics.cyc_pair}
+\leanhelper
+\leanok
+A $2$-cycle is exactly a transposition: $\operatorname{cyc}_{i,j} = t_{i,j}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Immediate from the definitions: both sides send $i$ to $j$, send $j$ to $i$, and fix all other elements.
+\end{proof}
+
+\begin{lemma}
+\label{lem.perm.cycs.isCycle}
+\lean{AlgebraicCombinatorics.cyc_isCycle}
+\leanhelper
+\leanok
+If the list $[i_1, \ldots, i_k]$ has no duplicates and $k \ge 2$, then
+$\operatorname{cyc}_{i_1, \ldots, i_k}$ is a cycle (i.e., it has exactly one
+nontrivial orbit).
+\end{lemma}
+
+\begin{proof}
+\leanok
+The cycle permutation of a list with no duplicates and length $\ge 2$
+acts with exactly one nontrivial orbit, hence is a cycle.
+\end{proof}
+
+\begin{lemma}
+\label{lem.perm.cycs.rotate}
+\lean{AlgebraicCombinatorics.cyc_rotate}
+\leanhelper
+\leanok
+Cyclic rotation of the list does not change the cycle:
+$\operatorname{cyc}_{i_1, i_2, \ldots, i_k} = \operatorname{cyc}_{i_2, i_3, \ldots, i_k, i_1} = \cdots = \operatorname{cyc}_{i_k, i_1, \ldots, i_{k-1}}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+A $k$-cycle constructed from a list is invariant under cyclic rotation of that list.
+\end{proof}
+
+\begin{lemma}
+\label{lem.perm.cycs.next}
+\lean{AlgebraicCombinatorics.cyc_apply_eq_next}
+\leanhelper
+\leanok
+For a nodup list $l = [i_1, \ldots, i_k]$ and $x \in l$, we have
+$\operatorname{cyc}(l)(x)$ equal to the next element after $x$ in $l$ (wrapping
+around at the end).
+\end{lemma}
+
+\begin{proof}
+\leanok
+This is a standard property of cycle permutations constructed from lists.
+\end{proof}
+
+\begin{lemma}
+\label{lem.perm.cycs.support}
+\lean{AlgebraicCombinatorics.cyc_support_eq_toFinset}
+\leanhelper
+\leanok
+For a nodup list of length $\ge 2$, the support of $\operatorname{cyc}_{i_1, \ldots, i_k}$
+equals $\{i_1, \ldots, i_k\}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The support of a cycle is exactly the set of elements in the list.
+\end{proof}
+
+\begin{lemma}
+\label{lem.perm.cycs.eq_iff}
+\lean{AlgebraicCombinatorics.cyc_eq_cyc_iff_isRotated}
+\leanhelper
+\leanok
+For nodup lists $l, l'$ of length $\ge 2$,
+$\operatorname{cyc}(l) = \operatorname{cyc}(l')$ if and only if $l$ and $l'$
+are cyclic rotations of each other.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Two cycle permutations constructed from nodup lists of length $\ge 2$ are equal if and only if the lists are cyclic rotations of each other.
+\end{proof}
+
+\begin{lemma}
+\label{lem.perm.cycs.2cycle_is_transposition}
+\lean{AlgebraicCombinatorics.cycle_eq_transposition}
+\leanhelper
+\leanok
+If $\sigma$ is a cycle with $|\mathrm{support}(\sigma)| = 2$, then
+$\sigma$ is a transposition: there exist distinct $i, j$ with
+$\sigma = t_{i,j}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Since $\sigma$ is a cycle with support of size $2$, its order is $2$, so
+$\sigma^2 = 1$.  Then $\sigma(\sigma(x)) = x$ for all $x$.
+A cycle of order $2$ must be a swap of two elements, giving the result.
+\end{proof}
+
+\begin{exercise}
+\label{exe.perm.cyc.how-many-kcyc}
+\lean{AlgebraicCombinatorics.num_kCycles_formula}
+\leanok
+Let $n \in \mathbb{N}$ and let $k \in [n]$. Let $X$ be an
+$n$-element set. How many $k$-cycles exist in $S_X$?
+\end{exercise}
+
+\begin{proof}
+\leanok
+First, we note that there is exactly one $1$-cycle in $S_X$ (for $n > 0$),
+since a $1$-cycle is just the identity map. This should be viewed as a
+degenerate case; thus, we WLOG assume that $k > 1$.
+
+For any $k$ distinct elements $i_1, i_2, \ldots, i_k$ of $X$, we have
+$\operatorname{cyc}_{i_1, i_2, \ldots, i_k} =
+\operatorname{cyc}_{i_2, i_3, \ldots, i_k, i_1} = \cdots =
+\operatorname{cyc}_{i_k, i_1, i_2, \ldots, i_{k-1}}$.
+That is, $\operatorname{cyc}_{i_1, i_2, \ldots, i_k}$ does not change if we
+cyclically rotate the list $(i_1, i_2, \ldots, i_k)$.
+
+Any $k$-cycle $\operatorname{cyc}_{i_1, i_2, \ldots, i_k}$ uniquely determines
+the elements $i_1, i_2, \ldots, i_k$ up to cyclic rotation (since $k > 1$).
+Therefore, if $\sigma \in S_X$ is a $k$-cycle, then there are precisely $k$
+lists $(i_1, i_2, \ldots, i_k)$ for which
+$\sigma = \operatorname{cyc}_{i_1, i_2, \ldots, i_k}$.
+
+Hence, the map
+\begin{align*}
+f : \{k\text{-tuples of distinct elements of } X\} &\to \{k\text{-cycles in } S_X\}, \\
+(i_1, i_2, \ldots, i_k) &\mapsto \operatorname{cyc}_{i_1, i_2, \ldots, i_k}
+\end{align*}
+is a $k$-to-$1$ map. Therefore,
+\begin{align*}
+(\text{\# of } k\text{-cycles in } S_X)
+&= \frac{1}{k} \cdot n(n-1)(n-2) \cdots (n-k+1) \\
+&= \binom{n}{k} \cdot (k-1)!.
+\end{align*}
+\end{proof}
+
+\subsubsection{Involutions}
+
+\begin{definition}
+\label{def.perm.invol}
+\lean{AlgebraicCombinatorics.IsInvolution, AlgebraicCombinatorics.isInvolution_iff_eq_inv, AlgebraicCombinatorics.isInvolution_iff_involutive, AlgebraicCombinatorics.isInvolution_iff_forall}
+\leantarget
+\leanok
+Let $X$ be a set. An \emph{involution} of $X$ means a map $f : X \to X$ that
+satisfies $f \circ f = \operatorname{id}$. Clearly, an involution is always a
+permutation, and equals its own inverse.
+\end{definition}
+
+\begin{lemma}
+\label{lem.perm.invol.transposition}
+\lean{AlgebraicCombinatorics.isInvolution_transposition}
+\leanhelper
+\leanok
+Any transposition $t_{i,j}$ is an involution.
+\end{lemma}
+
+\begin{proof}
+\leanok
+This is exactly $t_{i,j}^2 = \operatorname{id}$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.perm.invol.cycle_structure}
+\lean{AlgebraicCombinatorics.involution_cycle_structure}
+\leanhelper
+\leanok
+The cycle digraph of an involution of a finite set consists of $1$-cycles and
+$2$-cycles only.  That is, every cycle factor of an involution has support of
+size at most~$2$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Let $c$ be a cycle factor of the involution $\sigma$.
+Since $c$ agrees with $\sigma$ on its support and $\sigma^2 = 1$,
+we get $c^2 = 1$ (by checking on both the support and its complement).
+For a cycle, $\operatorname{orderOf}(c) = |{\operatorname{supp}(c)}|$,
+so $|{\operatorname{supp}(c)}| \mid 2$, giving
+$|{\operatorname{supp}(c)}| \le 2$.
+\end{proof}
+
+\subsection{Further properties of involutions}
+
+\begin{lemma}
+\label{lem.perm.invol.orderOf_dvd_two}
+\lean{AlgebraicCombinatorics.IsInvolution.orderOf_dvd_two}
+\leanhelper
+\leanok
+The order of an involution divides $2$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+From $\sigma^2 = 1$, we get $\operatorname{orderOf}(\sigma) \mid 2$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.perm.invol.orderOf_eq_two}
+\lean{AlgebraicCombinatorics.IsInvolution.orderOf_eq_two_of_ne_one}
+\leanhelper
+\leanok
+A nontrivial involution (i.e., $\sigma \ne \operatorname{id}$) has order exactly $2$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Since $\operatorname{orderOf}(\sigma) \mid 2$ and $2$ is prime,
+$\operatorname{orderOf}(\sigma) \in \{1, 2\}$.
+The case $\operatorname{orderOf}(\sigma) = 1$ gives $\sigma = 1$, contradicting $\sigma \ne 1$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.perm.invol.not_cycle_gt_two}
+\lean{AlgebraicCombinatorics.not_isInvolution_of_cycle_gt_two}
+\leanhelper
+\leanok
+A $k$-cycle with $k > 2$ is never an involution.
+\end{lemma}
+
+\begin{proof}
+\leanok
+If $\sigma$ is a $k$-cycle, then $\operatorname{orderOf}(\sigma) = k$.
+If $\sigma$ were an involution, then $k \mid 2$, so $k \leq 2$,
+contradicting $k > 2$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.perm.invol.disjoint_transpositions}
+\lean{AlgebraicCombinatorics.isInvolution_of_disjoint_transpositions}
+\leanhelper
+\leanok
+A product of pairwise disjoint transpositions is an involution.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Let $\sigma = t_1 t_2 \cdots t_m$ where the $t_i$ are pairwise disjoint transpositions.
+Since disjoint permutations commute, $\sigma^2 = t_1^2 t_2^2 \cdots t_m^2 = 1$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.perm.invol.is_product_of_disjoint_transpositions}
+\lean{AlgebraicCombinatorics.involution_is_product_of_disjoint_transpositions}
+\leanhelper
+\leanok
+Every involution of a finite set is a product of pairwise disjoint transpositions.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By Lemma~\ref{lem.perm.invol.cycle_structure}, every cycle factor of $\sigma$ has
+support of size at most $2$.  The cycle factorization of $\sigma$ only contains
+cycles of length $\geq 2$, so each cycle factor is a transposition.
+The cycle factors are pairwise disjoint, and their product equals $\sigma$.
+\end{proof}

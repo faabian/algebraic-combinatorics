@@ -1,0 +1,751 @@
+\section{Limits of FPSs}
+
+\subsection{Stabilization of scalars}
+
+\begin{definition}
+\label{def.fps.lim.stab}
+\lean{Seq.StabilizesTo}
+\leantarget
+\leanok
+Let $\left(  a_{i}\right)  _{i\in\mathbb{N}}=\left(
+a_{0},a_{1},a_{2},\ldots\right)  \in K^{\mathbb{N}}$ be a sequence of elements
+of $K$. Let $a\in K$.
+
+We say that the sequence $\left(  a_{i}\right)  _{i\in\mathbb{N}}$
+\emph{stabilizes to }$a$ if there exists some $N\in\mathbb{N}$ such that%
+\[
+\text{all integers }i\geq N\text{ satisfy }a_{i}=a.
+\]
+
+If $a_{i}$ stabilizes to $a$ as $i\rightarrow\infty$, then we write
+$\lim\limits_{i\rightarrow\infty}a_{i}=a$ and say that $a$ is the \emph{limit}
+(or \emph{eventual value}) of $\left(  a_{i}\right)  _{i\in\mathbb{N}}$.
+This is legitimate, since $a$ is uniquely determined by the sequence
+$\left(  a_{i}\right)  _{i\in\mathbb{N}}$.
+\end{definition}
+
+\begin{lemma}
+\label{lem.fps.lim.stab-unique}
+\lean{Seq.stabilizesTo_unique}
+\leanhelper
+\leanok
+If $\left(  a_{i}\right)$ stabilizes to both $\ell_{1}$ and $\ell_{2}$,
+then $\ell_{1}=\ell_{2}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Let $N_{1}$ and $N_{2}$ be as in the definition for $\ell_{1}$ and $\ell_{2}$
+respectively. Then $a_{\max(N_{1},N_{2})}=\ell_{1}$ and
+$a_{\max(N_{1},N_{2})}=\ell_{2}$, so $\ell_{1}=\ell_{2}$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.lim.stab-const}
+\lean{Seq.stabilizesTo_const}
+\leanhelper
+\leanok
+Any constant sequence $\left(  c,c,c,\ldots\right)  \in K^{\mathbb{N}}$
+stabilizes to $c$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Take $N=0$. Then all $i\geq 0$ satisfy $a_{i}=c$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.lim.stab-eventually-eq}
+\lean{Seq.stabilizesTo_of_eventually_eq}
+\leanhelper
+\leanok
+If a sequence $(a_i)$ stabilizes to $\ell$, and a sequence $(b_i)$ is
+eventually equal to $(a_i)$ (i.e., there exists $N$ such that $a_i = b_i$
+for all $i \geq N$), then $(b_i)$ also stabilizes to $\ell$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Let $N_1$ witness stabilization of $(a_i)$ to $\ell$ and $N_2$ witness the
+eventual equality. Then for all $i \geq \max(N_1, N_2)$, we have
+$b_i = a_i = \ell$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.lim.stab-add}
+\lean{Seq.stabilizesTo_add}
+\leanhelper
+\leanok
+If $(a_i)$ stabilizes to $\ell_a$ and $(b_i)$ stabilizes to $\ell_b$, then
+$(a_i + b_i)$ stabilizes to $\ell_a + \ell_b$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Let $N_a$ and $N_b$ witness the two stabilizations. For $i \geq \max(N_a, N_b)$,
+we have $a_i + b_i = \ell_a + \ell_b$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.lim.stab-mul}
+\lean{Seq.stabilizesTo_mul}
+\leanhelper
+\leanok
+If $(a_i)$ stabilizes to $\ell_a$ and $(b_i)$ stabilizes to $\ell_b$, then
+$(a_i \cdot b_i)$ stabilizes to $\ell_a \cdot \ell_b$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Let $N_a$ and $N_b$ witness the two stabilizations. For $i \geq \max(N_a, N_b)$,
+we have $a_i \cdot b_i = \ell_a \cdot \ell_b$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.lim.stab-neg}
+\lean{Seq.stabilizesTo_neg}
+\leanhelper
+\leanok
+If $(a_i)$ stabilizes to $\ell$, then $(-a_i)$ stabilizes to $-\ell$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Let $N$ witness the stabilization. For $i \geq N$,
+we have $-a_i = -\ell$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.lim.stab-finset-sum}
+\lean{Seq.stabilizesTo_finset_sum}
+\leanhelper
+\leanok
+Let $S$ be a finite set, and for each $s \in S$, let $(a_{s,i})_{i \in \mathbb{N}}$
+be a sequence stabilizing to $\ell_s$. Then the sequence
+$\left(\sum_{s \in S} a_{s,i}\right)_{i \in \mathbb{N}}$ stabilizes to
+$\sum_{s \in S} \ell_s$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By induction on $|S|$, using Lemma~\ref{lem.fps.lim.stab-add} for the induction step.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.lim.stab-pow-nilpotent}
+\lean{Seq.stabilizesTo_pow_of_nilpotent}
+\leanhelper
+\leanok
+If $s \in K$ satisfies $s^k = 0$ for some $k \in \mathbb{N}$ (i.e., $s$ is nilpotent),
+then the sequence $(s^i)_{i \in \mathbb{N}}$ stabilizes to $0$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+For $i \geq k$, we have $s^i = s^k \cdot s^{i-k} = 0 \cdot s^{i-k} = 0$.
+\end{proof}
+
+\subsection{Coefficientwise stabilization of FPSs}
+
+\begin{definition}
+\label{def.fps.lim.coeff-stab}
+\lean{PowerSeries.CoeffStabilizesTo}
+\leantarget
+\leanok
+Let $\left(  f_{i}\right)  _{i\in\mathbb{N}}\in
+K\left[  \left[  x\right]  \right]  ^{\mathbb{N}}$ be a sequence of FPSs over
+$K$. Let $f\in K\left[  \left[  x\right]  \right]  $ be an FPS.
+
+We say that $\left(  f_{i}\right)  _{i\in\mathbb{N}}$ \emph{coefficientwise
+stabilizes to }$f$ if for each $n\in\mathbb{N}$,%
+\[
+\text{the sequence }\left(  \left[  x^{n}\right]  f_{i}\right)  _{i\in
+\mathbb{N}}\text{ stabilizes to }\left[  x^{n}\right]  f.
+\]
+
+If $f_{i}$ coefficientwise stabilizes to $f$ as $i\rightarrow\infty$, then we
+write $\lim\limits_{i\rightarrow\infty}f_{i}=f$ and say that $f$ is the
+\emph{limit} of $\left(  f_{i}\right)  _{i\in\mathbb{N}}$.
+This is legitimate, because $f$ is
+uniquely determined by the sequence $\left(  f_{i}\right)  _{i\in\mathbb{N}}$.
+\end{definition}
+
+\begin{lemma}
+\label{lem.fps.lim.coeff-stab-unique}
+\lean{PowerSeries.coeffStabilizesTo_unique}
+\leanhelper
+\leanok
+If a sequence $(f_i)$ of FPSs coefficientwise stabilizes to both $\ell_1$ and
+$\ell_2$, then $\ell_1 = \ell_2$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By extensionality (Lemma~\ref{lem.fps.ext}): for each $n$, the $n$-th coefficient of $\ell_1$ equals
+that of $\ell_2$ by Lemma~\ref{lem.fps.lim.stab-unique}.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.lim.coeff-stab-const}
+\lean{PowerSeries.coeffStabilizesTo_const}
+\leanhelper
+\leanok
+A constant sequence $(g, g, g, \ldots)$ of FPSs coefficientwise stabilizes to $g$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+For each $n$, the sequence $([x^n]g, [x^n]g, \ldots)$ is constant and stabilizes
+to $[x^n]g$ by Lemma~\ref{lem.fps.lim.stab-const}.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.lim.X-pow}
+\lean{PowerSeries.coeffStabilizesTo_X_pow}
+\leanhelper
+\leanok
+The sequence $(x^i)_{i \in \mathbb{N}}$ of FPSs coefficientwise stabilizes to $0$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+For each $n \in \mathbb{N}$, the sequence $([x^n](x^i))_{i \in \mathbb{N}}$
+consists of a single $1$ (at $i = n$) and $0$s elsewhere. For $i \geq n+1$,
+$[x^n](x^i) = 0$, so the sequence stabilizes to $0 = [x^n]0$.
+\end{proof}
+
+\subsection{Some properties of limits}
+
+\subsubsection{Helpers for $x^n$-equivalence and composition}
+
+\begin{lemma}
+\label{lem.fps.lim.coeff-pow-zero}
+\lean{PowerSeries.coeff_pow_eq_zero_of_constantCoeff_zero}
+\leanhelper
+\leanok
+Let $g \in K[[x]]$ with $[x^0]g = 0$. Then for any $n, d \in \mathbb{N}$ with $d > n$,
+we have $[x^n](g^d) = 0$. This follows from $\operatorname{ord}(g) \geq 1$ implying
+$\operatorname{ord}(g^d) \geq d > n$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Since $[x^0]g = 0$, we have $\operatorname{ord}(g) \geq 1$, so
+$\operatorname{ord}(g^d) \geq d > n$, and therefore $[x^n](g^d) = 0$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.lim.coeff-subst-finite}
+\lean{PowerSeries.coeff_subst_eq_finite_sum}
+\leanhelper
+\leanok
+Let $f, g \in K[[x]]$ with $[x^0]g = 0$. Then
+\[
+[x^n](f \circ g) = \sum_{d=0}^{n} [x^d]f \cdot [x^n](g^d).
+\]
+In other words, only the first $n+1$ coefficients of $f$ contribute to $[x^n](f \circ g)$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+For $d > n$, we have $[x^n](g^d) = 0$ by Lemma~\ref{lem.fps.lim.coeff-pow-zero},
+so those terms vanish from the infinite sum.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.lim.xnEquiv-invOfUnit}
+\lean{PowerSeries.xnEquiv_invOfUnit}
+\leanhelper
+\leanok
+The relation $\overset{x^n}{\equiv}$ is compatible with taking inverses. If $f \overset{x^n}{\equiv} g$
+and $u$ is a unit in $K$ such that $[x^0]f = u = [x^0]g$, then $f^{-1} \overset{x^n}{\equiv} g^{-1}$
+(where $f^{-1}$ denotes the inverse of $f$ as an invertible FPS with constant term $u$).
+\end{lemma}
+
+\begin{proof}
+\leanok
+By strong induction on the coefficient index $k$.
+For $k = 0$, both inverse coefficients equal $u^{-1}$.
+For $k > 0$, the recursive formula for inverse coefficients involves only
+lower-degree coefficients of the inverse (handled by the IH) and
+coefficients of $f$, $g$ that agree by $x^n$-equivalence.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.lim.xnEquiv-subst}
+\lean{PowerSeries.xnEquiv_subst}
+\leanhelper
+\leanok
+The relation $\overset{x^n}{\equiv}$ is compatible with composition. If
+$f_1 \overset{x^n}{\equiv} f_2$ and $g_1 \overset{x^n}{\equiv} g_2$,
+with $[x^0]g_1 = [x^0]g_2 = 0$, then
+$f_1 \circ g_1 \overset{x^n}{\equiv} f_2 \circ g_2$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By Lemma~\ref{lem.fps.lim.coeff-subst-finite}, $[x^m](f \circ g)$ depends only on
+the first $m+1$ coefficients of $f$ and on powers $g^d$ for $d \leq m$.
+Since $f_1 \overset{x^n}{\equiv} f_2$ gives $[x^d]f_1 = [x^d]f_2$ for $d \leq m \leq n$,
+and $g_1 \overset{x^n}{\equiv} g_2$ implies $g_1^d \overset{x^n}{\equiv} g_2^d$
+(by compatibility of $\overset{x^n}{\equiv}$ with powers), the result follows.
+\end{proof}
+
+\begin{theorem}
+\label{thm.fps.lim.lim-crit}
+\lean{PowerSeries.coeffStabilizesTo_of_forall_coeff_stabilizes}
+\leantarget
+\leanok
+Let $\left(  f_{i}\right)  _{i\in\mathbb{N}}\in
+K\left[  \left[  x\right]  \right]  ^{\mathbb{N}}$ be a sequence of FPSs.
+Assume that for each $n\in\mathbb{N}$, there exists some $g_{n}\in K$ such
+that the sequence $\left(  \left[  x^{n}\right]  f_{i}\right)  _{i\in
+\mathbb{N}}$ stabilizes to $g_{n}$. Then, the sequence $\left(  f_{i}\right)
+_{i\in\mathbb{N}}$ coefficientwise stabilizes to $\sum_{n\in\mathbb{N}}%
+g_{n}x^{n}$. (That is, $\lim\limits_{i\rightarrow\infty}f_{i}=\sum
+_{n\in\mathbb{N}}g_{n}x^{n}$.)
+\end{theorem}
+
+\begin{proof}
+\leanok
+We need to show that for each $n$, the sequence $([x^n] f_i)$ stabilizes to
+$[x^n](\sum_{m \in \mathbb{N}} g_m x^m) = g_n$. But this is exactly the
+hypothesis applied to $n$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.lim.xn-equiv}
+\lean{PowerSeries.exists_xnEquiv_of_coeffStabilizesTo}
+\leantarget
+\leanok
+Assume that $\left(  f_{i}\right)  _{i\in
+\mathbb{N}}$ is a sequence of FPSs, and that $f$ is an FPS such that
+$\lim\limits_{i\rightarrow\infty}f_{i}=f$. Then, for each $n\in\mathbb{N}$,
+there exists some integer $N\in\mathbb{N}$ such that
+\[
+\text{all integers }i\geq N\text{ satisfy }f_{i}\overset{x^{n}}{\equiv}f.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+Let $n\in\mathbb{N}$.
+For each $k\in\left\{  0,1,\ldots,n\right\}  $, we pick an $N_{k}\in
+\mathbb{N}$ such that all $i\geq N_{k}$ satisfy $\left[  x^{k}\right]
+f_{i}=\left[  x^{k}\right]  f$ (such an $N_{k}$ exists, since $\lim
+\limits_{i\rightarrow\infty}f_{i}=f$). Then, all integers $i\geq\max\left\{
+N_{0},N_{1},\ldots,N_{n}\right\}  $ satisfy $f_{i}\overset{x^{n}}{\equiv}f$.
+\end{proof}
+
+\begin{proposition}
+\label{prop.fps.lim.sum-prod}
+\lean{PowerSeries.coeffStabilizesTo_add, PowerSeries.coeffStabilizesTo_mul}
+\leantarget
+\leanok
+Assume that $\left(  f_{i}\right)  _{i\in
+\mathbb{N}}$ and $\left(  g_{i}\right)  _{i\in\mathbb{N}}$ are two sequences
+of FPSs, and that $f$ and $g$ are two FPSs such that%
+\[
+\lim\limits_{i\rightarrow\infty}f_{i}=f\ \ \ \ \ \ \ \ \ \ \text{and}%
+\ \ \ \ \ \ \ \ \ \ \lim\limits_{i\rightarrow\infty}g_{i}=g.
+\]
+Then,
+\[
+\lim\limits_{i\rightarrow\infty}\left(  f_{i}+g_{i}\right)
+=f+g\ \ \ \ \ \ \ \ \ \ \text{and}\ \ \ \ \ \ \ \ \ \ \lim
+\limits_{i\rightarrow\infty}\left(  f_{i}g_{i}\right)  =fg.
+\]
+\end{proposition}
+
+\begin{proof}
+\leanok
+Let $n\in\mathbb{N}$.
+
+\textbf{Addition.} The $n$-th coefficient of $f_i + g_i$ is
+$[x^n]f_i + [x^n]g_i$. Since $([x^n]f_i)$ stabilizes to $[x^n]f$ and
+$([x^n]g_i)$ stabilizes to $[x^n]g$, Lemma~\ref{lem.fps.lim.stab-add}
+shows that $([x^n]f_i + [x^n]g_i)$ stabilizes to $[x^n]f + [x^n]g = [x^n](f+g)$.
+
+\textbf{Multiplication.} The $n$-th coefficient of $f_i g_i$ is
+$[x^n](f_i g_i) = \sum_{(a,b) \in \mathrm{antidiag}(n)} [x^a]f_i \cdot [x^b]g_i$.
+Each term $[x^a]f_i \cdot [x^b]g_i$ is a product of two stabilizing sequences
+(by Lemma~\ref{lem.fps.lim.stab-mul}), and a finite sum of stabilizing
+sequences stabilizes (by Lemma~\ref{lem.fps.lim.stab-finset-sum}). Thus the
+sequence stabilizes to $\sum_{(a,b)} [x^a]f \cdot [x^b]g = [x^n](fg)$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.lim.neg}
+\lean{PowerSeries.coeffStabilizesTo_neg}
+\leanhelper
+\leanok
+If $(f_i)$ coefficientwise stabilizes to $f$, then $(-f_i)$ coefficientwise
+stabilizes to $-f$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+For each $n$, $([x^n](-f_i)) = (-[x^n]f_i)$ stabilizes to $-[x^n]f = [x^n](-f)$
+by Lemma~\ref{lem.fps.lim.stab-neg}.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.lim.sub}
+\lean{PowerSeries.coeffStabilizesTo_sub}
+\leanhelper
+\leanok
+If $(f_i)$ coefficientwise stabilizes to $f$ and $(g_i)$ coefficientwise
+stabilizes to $g$, then $(f_i - g_i)$ coefficientwise stabilizes to $f - g$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Write $f_i - g_i = f_i + (-g_i)$ and apply Proposition~\ref{prop.fps.lim.sum-prod}
+(addition) and Lemma~\ref{lem.fps.lim.neg}.
+\end{proof}
+
+\begin{corollary}
+\label{cor.fps.lim.sum-prod-k}
+\lean{PowerSeries.coeffStabilizesTo_finset_sum, PowerSeries.coeffStabilizesTo_finset_prod}
+\leantarget
+\leanok
+Let $k\in\mathbb{N}$. For each $i\in\left\{
+1,2,\ldots,k\right\}  $, let $f_{i}$ be an FPS, and let $\left(
+f_{i,n}\right)  _{n\in\mathbb{N}}$ be a sequence of FPSs such that%
+\[
+\lim\limits_{n\rightarrow\infty}\left(  f_{i,n}\right)  =f_{i}%
+\]
+(note that it is $n$, not $i$, that goes to $\infty$ here!). Then,%
+\[
+\lim\limits_{n\rightarrow\infty}\sum_{i=1}^{k}f_{i,n}=\sum_{i=1}^{k}%
+f_{i}\ \ \ \ \ \ \ \ \ \ \text{and}\ \ \ \ \ \ \ \ \ \ \lim
+\limits_{n\rightarrow\infty}\prod_{i=1}^{k}f_{i,n}=\prod_{i=1}^{k}f_{i}.
+\]
+\end{corollary}
+
+\begin{proof}
+\leanok
+Follows by induction on $k$, using Proposition \ref{prop.fps.lim.sum-prod}.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.lim.isUnit-constantCoeff}
+\lean{PowerSeries.isUnit_constantCoeff_of_coeffStabilizesTo}
+\leanhelper
+\leanok
+Assume that $(g_i)$ coefficientwise stabilizes to $g$, and that each $g_i$ is
+invertible (i.e., its constant coefficient is a unit). Then $g$ is also
+invertible (i.e., the constant coefficient of $g$ is a unit).
+\end{lemma}
+
+\begin{proof}
+\leanok
+The $0$-th coefficient of $g_i$ stabilizes to the $0$-th coefficient of $g$.
+For sufficiently large $i$, $[x^0]g_i = [x^0]g$. Since $[x^0]g_i$ is a unit,
+so is $[x^0]g$.
+\end{proof}
+
+\begin{proposition}
+\label{prop.fps.lim.sum-quot}
+\lean{PowerSeries.coeffStabilizesTo_mul_inv}
+\leantarget
+\leanok
+Assume that $\left(  f_{i}\right)  _{i\in
+\mathbb{N}}$ and $\left(  g_{i}\right)  _{i\in\mathbb{N}}$ are two sequences
+of FPSs, and that $f$ and $g$ are two FPSs such that%
+\[
+\lim\limits_{i\rightarrow\infty}f_{i}=f\ \ \ \ \ \ \ \ \ \ \text{and}%
+\ \ \ \ \ \ \ \ \ \ \lim\limits_{i\rightarrow\infty}g_{i}=g.
+\]
+Assume that each FPS $g_{i}$ is invertible. Then, $g$ is also invertible, and
+we have%
+\[
+\lim\limits_{i\rightarrow\infty}\dfrac{f_{i}}{g_{i}}=\dfrac{f}{g}.
+\]
+\end{proposition}
+
+\begin{proof}
+\leanok
+The invertibility of $g$ follows from Lemma~\ref{lem.fps.lim.isUnit-constantCoeff}.
+For the limit equality, we write $f_i / g_i = f_i \cdot g_i^{-1}$ and show
+that the coefficients of $g_i^{-1}$ stabilize to those of $g^{-1}$.
+
+The key step is showing that the inverse coefficients stabilize. This is done
+by strong induction on the coefficient index $n$.
+
+\textbf{Base case} ($n = 0$): The $0$-th coefficient of $g_i^{-1}$ is
+$([x^0]g_i)^{-1}$. Since $[x^0]g_i$ stabilizes to $[x^0]g$, the inverse
+stabilizes as well.
+
+\textbf{Induction step} ($n > 0$): The $n$-th coefficient of $g_i^{-1}$
+is determined by the recursive formula
+\[
+[x^n](g_i^{-1}) = -([x^0]g_i)^{-1} \sum_{\substack{(a,b) \in \mathrm{antidiag}(n) \\ b < n}}
+[x^a]g_i \cdot [x^b](g_i^{-1}).
+\]
+By the induction hypothesis, each $[x^b](g_i^{-1})$ with $b < n$ stabilizes.
+Combined with stabilization of $[x^a]g_i$ and $([x^0]g_i)^{-1}$, the
+products and sums stabilize by Lemmas~\ref{lem.fps.lim.stab-mul}
+and~\ref{lem.fps.lim.stab-finset-sum}.
+
+Once we know $g_i^{-1}$ coefficientwise stabilizes to $g^{-1}$, the result
+$\lim f_i g_i^{-1} = f g^{-1}$ follows from
+Proposition~\ref{prop.fps.lim.sum-prod} (multiplication).
+\end{proof}
+
+\begin{proposition}
+\label{prop.fps.lim.comp}
+\lean{PowerSeries.coeffStabilizesTo_subst}
+\leantarget
+\leanok
+Assume that $\left(  f_{i}\right)  _{i\in\mathbb{N}}$
+and $\left(  g_{i}\right)  _{i\in\mathbb{N}}$ are two sequences of FPSs, and
+that $f$ and $g$ are two FPSs such that%
+\[
+\lim\limits_{i\rightarrow\infty}f_{i}=f\ \ \ \ \ \ \ \ \ \ \text{and}%
+\ \ \ \ \ \ \ \ \ \ \lim\limits_{i\rightarrow\infty}g_{i}=g.
+\]
+Assume that $\left[  x^{0}\right]  g_{i}=0$ for each $i\in\mathbb{N}$. Then,
+$\left[  x^{0}\right]  g=0$ and%
+\[
+\lim\limits_{i\rightarrow\infty}\left(  f_{i}\circ g_{i}\right)  =f\circ g.
+\]
+\end{proposition}
+
+\begin{proof}
+\leanok
+First, $[x^0]g = 0$ since $[x^0]g_i = 0$ for all $i$ and the $0$-th
+coefficient stabilizes.
+
+For each $n \in \mathbb{N}$, by Lemma~\ref{lem.fps.lim.xn-equiv} we can find
+$N_f$ and $N_g$ such that for $i \geq \max(N_f, N_g)$, $f_i \overset{x^n}{\equiv} f$
+and $g_i \overset{x^n}{\equiv} g$. By Proposition~\ref{prop.fps.xneq.comp}
+(compatibility of $x^n$-equivalence with composition),
+$f_i \circ g_i \overset{x^n}{\equiv} f \circ g$, so in particular
+$[x^n](f_i \circ g_i) = [x^n](f \circ g)$.
+\end{proof}
+
+\begin{proposition}
+\label{prop.fps.lim.deriv-lim}
+\lean{PowerSeries.coeffStabilizesTo_derivativeFun}
+\leantarget
+\leanok
+Let $\left(  f_{n}\right)  _{n\in\mathbb{N}}$ be
+a sequence of FPSs, and let $f$ be an FPS such that%
+\[
+\lim\limits_{i\rightarrow\infty}f_{i}=f.
+\]
+Then,%
+\[
+\lim\limits_{i\rightarrow\infty}f_{i}^{\prime}=f^{\prime}.
+\]
+\end{proposition}
+
+\begin{proof}
+\leanok
+For each $n$, $[x^n](f_i') = (n+1) \cdot [x^{n+1}]f_i$. Since $([x^{n+1}]f_i)$
+stabilizes to $[x^{n+1}]f$, multiplying by the constant $(n+1)$ preserves
+stabilization (by Lemma~\ref{lem.fps.lim.stab-mul} with the constant sequence
+$(n+1)$). Thus the sequence stabilizes to $(n+1) \cdot [x^{n+1}]f = [x^n](f')$.
+\end{proof}
+
+\subsection{Infinite sums and products}
+
+\begin{definition}
+\label{def.fps.lim.isSummable}
+\lean{PowerSeries.IsSummable}
+\leanhelper
+\leanok
+A family $(f_n)_{n \in \mathbb{N}}$ of FPSs is \emph{summable} if for each
+$n \in \mathbb{N}$, the set $\{i \in \mathbb{N} : [x^n] f_i \neq 0\}$ is finite.
+\end{definition}
+
+\begin{definition}
+\label{def.fps.lim.tsum}
+\lean{PowerSeries.tsum'}
+\leanhelper
+\leanok
+The \emph{infinite sum} of a summable family $(f_n)_{n \in \mathbb{N}}$ is the FPS
+$\sum_{n \in \mathbb{N}} f_n$ whose $n$-th coefficient is
+$\sum_{i \in S_n} [x^n] f_i$, where $S_n = \{i : [x^n] f_i \neq 0\}$.
+\end{definition}
+
+\begin{definition}
+\label{def.fps.lim.isMultipliable}
+\lean{PowerSeries.IsMultipliable}
+\leanhelper
+\leanok
+A family $(f_n)_{n \in \mathbb{N}}$ of FPSs is \emph{multipliable} if
+(1) $[x^0]f_i = 1$ for all $i$, and
+(2) for each $n \in \mathbb{N}$, there exists $N$ such that for all $i \geq N$
+and all $k \leq n$, $[x^k]f_i = \delta_{k,0}$
+(i.e., eventually all $f_i$ are $\equiv 1 \pmod{x^{n+1}}$).
+\end{definition}
+
+\begin{definition}
+\label{def.fps.lim.tprod}
+\lean{PowerSeries.tprod'}
+\leanhelper
+\leanok
+The \emph{infinite product} of a multipliable family $(f_n)_{n \in \mathbb{N}}$
+is the FPS $\prod_{n \in \mathbb{N}} f_n$ whose $n$-th coefficient equals
+$[x^n](\prod_{j=0}^{N} f_j)$ for any sufficiently large $N$.
+\end{definition}
+
+\begin{theorem}
+\label{thm.fps.lim.sum-lim}
+\lean{PowerSeries.coeffStabilizesTo_partial_sum}
+\leantarget
+\leanok
+Let $\left(  f_{n}\right)  _{n\in\mathbb{N}}$ be a
+summable sequence of FPSs. Then,%
+\[
+\lim\limits_{i\rightarrow\infty}\sum_{n=0}^{i}f_{n}=\sum_{n\in\mathbb{N}}%
+f_{n}.
+\]
+In other words, the infinite sum $\sum_{n\in\mathbb{N}}f_{n}$ is the limit of
+the finite partial sums $\sum_{n=0}^{i}f_{n}$.
+\end{theorem}
+
+\begin{proof}
+\leanok
+For each coefficient index $n$, only finitely many $f_j$ have nonzero $n$-th
+coefficient (by summability). Let $S$ be the finite set of such indices, and
+let $N$ be the maximum element of $S$ (or $0$ if $S$ is empty). For $i \geq N+1$,
+the partial sum $\sum_{j=0}^{i} [x^n]f_j$ includes all nonzero contributors,
+so it equals the infinite sum $\sum_{j \in \mathbb{N}} [x^n]f_j$. Hence the
+$n$-th coefficient stabilizes.
+\end{proof}
+
+\begin{theorem}
+\label{thm.fps.lim.prod-lim}
+\lean{PowerSeries.coeffStabilizesTo_partial_prod}
+\leantarget
+\leanok
+Let $\left(  f_{n}\right)  _{n\in\mathbb{N}}$ be a
+multipliable sequence of FPSs. Then,%
+\[
+\lim\limits_{i\rightarrow\infty}\prod_{n=0}^{i}f_{n}=\prod_{n\in\mathbb{N}%
+}f_{n}.
+\]
+In other words, the infinite product $\prod_{n\in\mathbb{N}}f_{n}$ is the
+limit of the finite partial products $\prod_{n=0}^{i}f_{n}$.
+\end{theorem}
+
+\begin{proof}
+\leanok
+By the multipliability condition, for each $n$ there exists $N$ such that
+for all $j \geq N$, $f_j \equiv 1 \pmod{x^{n+1}}$ (i.e., $[x^k]f_j = \delta_{k,0}$
+for $k \leq n$). Once $i$ exceeds $N$, multiplying the partial product by $f_{i+1}$
+does not change the first $n+1$ coefficients, since $f_{i+1}$ acts as $1$
+on those coefficients. Hence the $n$-th coefficient of the partial product
+stabilizes to the $n$-th coefficient of the infinite product.
+\end{proof}
+
+\begin{corollary}
+\label{cor.fps.lim.fps-as-pol}
+\lean{PowerSeries.coeffStabilizesTo_trunc}
+\leantarget
+\leanok
+Each FPS is a limit of a sequence of
+polynomials. Indeed, if $a=\sum_{n\in\mathbb{N}}a_{n}x^{n}$ (with $a_{n}\in
+K$), then%
+\[
+a=\lim\limits_{i\rightarrow\infty}\sum_{n=0}^{i}a_{n}x^{n}.
+\]
+More precisely, the sequence of truncations $(\operatorname{trunc}_{i+1}(a))_{i \in \mathbb{N}}$
+coefficientwise stabilizes to $a$.
+\end{corollary}
+
+\begin{proof}
+\leanok
+For each $n$, once $i \geq n$, the truncation $\operatorname{trunc}_{i+1}(a)$
+has $[x^n](\operatorname{trunc}_{i+1}(a)) = [x^n]a$ (since $n < i + 1$).
+\end{proof}
+
+\begin{theorem}
+\label{thm.fps.lim.sum-lim-conv}
+\lean{PowerSeries.isSummable_of_coeffStabilizesTo_partial_sum, PowerSeries.tsum'_eq_of_coeffStabilizesTo_partial_sum}
+\leantarget
+\leanok
+Let $\left(  f_{0},f_{1},f_{2},\ldots\right)
+$ be a sequence of FPSs such that $\lim\limits_{i\rightarrow\infty}\sum
+_{n=0}^{i}f_{n}$ exists. Then, the family $\left(  f_{n}\right)
+_{n\in\mathbb{N}}$ is summable, and satisfies%
+\[
+\sum_{n\in\mathbb{N}}f_{n}=\lim\limits_{i\rightarrow\infty}\sum_{n=0}^{i}%
+f_{n}.
+\]
+\end{theorem}
+
+\begin{proof}
+\leanok
+\textbf{Summability.} Fix a coefficient index $n$. Let $N$ be such that
+$[x^n](\sum_{j=0}^{i} f_j) = [x^n]\ell$ for all $i \geq N$ (where $\ell$
+is the limit). Suppose for contradiction that $i \geq N+1$ and $[x^n]f_i \neq 0$.
+Then
+\[
+[x^n]\ell = [x^n]\sum_{j=0}^{i} f_j = [x^n]\sum_{j=0}^{i-1} f_j + [x^n]f_i
+= [x^n]\ell + [x^n]f_i,
+\]
+which gives $[x^n]f_i = 0$, a contradiction. So the set
+$\{i : [x^n]f_i \neq 0\} \subseteq \{0, 1, \ldots, N\}$ is finite.
+
+\textbf{Equality.} Once summability is established, Theorem~\ref{thm.fps.lim.sum-lim}
+gives $\lim_{i \to \infty} \sum_{n=0}^{i} f_n = \sum_{n \in \mathbb{N}} f_n$.
+By uniqueness of limits, $\sum_{n \in \mathbb{N}} f_n = \ell$.
+\end{proof}
+
+\begin{theorem}
+\label{thm.fps.lim.prod-lim-conv}
+\lean{PowerSeries.isMultipliable_of_coeffStabilizesTo_partial_prod, PowerSeries.tprod'_eq_of_coeffStabilizesTo_partial_prod}
+\leantarget
+\leanok
+Let $\left(  f_{0},f_{1},f_{2},\ldots\right)
+$ be a sequence of FPSs such that $\lim\limits_{i\rightarrow\infty}\prod
+_{n=0}^{i}f_{n}$ exists. Then, the family $\left(  f_{n}\right)
+_{n\in\mathbb{N}}$ is multipliable, and satisfies%
+\[
+\prod_{n\in\mathbb{N}}f_{n}=\lim\limits_{i\rightarrow\infty}\prod_{n=0}%
+^{i}f_{n}.
+\]
+\end{theorem}
+
+\begin{proof}
+\leanok
+\textbf{Multipliability.} We first show that $[x^0]f_i = 1$ for all $i$.
+Since the $0$-th coefficient of $\prod_{j=0}^{i} f_j$ stabilizes to
+$[x^0]\ell$, and $[x^0](\prod_{j=0}^{i} f_j) = \prod_{j=0}^{i} [x^0]f_j$,
+the product of the constant coefficients stabilizes; this forces $[x^0]f_i = 1$
+for all sufficiently large $i$, and since the constant coefficients are units
+whose product stabilizes, we get $[x^0]f_i = 1$ for all $i$.
+
+Next, we need to show that for each $n$, eventually $f_i \equiv 1 \pmod{x^{n+1}}$
+(i.e., $[x^k]f_i = \delta_{k,0}$ for all $k \leq n$).
+
+We prove this by strong induction on $k$: for $0 < k \leq n$ and sufficiently
+large $i$, $[x^k]f_i = 0$.
+
+Let $P_i = \prod_{j=0}^{i-1} f_j$ denote the partial product (so that the
+partial product up to $i$ is $P_i \cdot f_i$). By hypothesis, the $k$-th
+coefficient of both $P_{i+1} = P_i \cdot f_i$ and $P_i$ eventually stabilizes
+to $[x^k]\ell$. Hence eventually
+$[x^k](P_i \cdot f_i) = [x^k]P_i$.
+
+Expanding $[x^k](P_i \cdot f_i)$ via the convolution formula and using
+$[x^0]f_i = 1$, we get
+\[
+[x^k]P_i + \sum_{\substack{(a,b) \in \mathrm{antidiag}(k) \\ b \neq 0, b \neq k}}
+[x^a]P_i \cdot [x^b]f_i + [x^0]P_i \cdot [x^k]f_i = [x^k]P_i.
+\]
+Since $[x^0]P_i = 1$ (as a product of FPSs with constant term $1$), the last
+term equals $[x^k]f_i$. By the induction hypothesis, the middle sum vanishes
+(since $0 < b < k$ and $[x^b]f_i = 0$ for large $i$). Thus $[x^k]f_i = 0$.
+
+Note: the formalization adds $[x^0]f_i = 1$ as an explicit hypothesis
+rather than deriving it from the existence of the limit.
+
+\textbf{Equality.} Once multipliability is established, Theorem~\ref{thm.fps.lim.prod-lim}
+gives $\lim \prod_{n=0}^{i} f_n = \prod_{n \in \mathbb{N}} f_n$, and
+uniqueness of limits gives the result.
+\end{proof}

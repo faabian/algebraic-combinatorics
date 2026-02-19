@@ -1,0 +1,494 @@
+\subsection{\label{sec.gf.lim}Limits of FPSs}
+
+Much of what we have been doing with FPSs has been an analogue (a mockery, as
+some might say) of analysis, particularly of complex analysis. We have defined
+FPSs, derivatives, infinite sums and products, exponentials and various
+related concepts, all by mimicking the respective analytic notions but
+avoiding any reference to real numbers or any other peculiarities that our
+base ring $K$ may or may not have.
+
+Let me introduce yet another such formal analogue of a classical concept from
+analysis: that of a limit. Specifically, I will define (coefficientwise)
+limits of sequences of FPSs. The exposition will follow \cite[\S 7.5]%
+{Loehr-BC}. These limits are very easy to define, yet quite useful. (In
+particular, they can be used to give a simpler definition of infinite
+products, although a less natural one.)
+
+\subsubsection{Stabilization of scalars}
+
+We start with the most trivial kind of limit whatsoever: the limit of an
+eventually constant sequence. Its main advantage is its generality and the
+simplicity of its definition:
+
+\begin{definition}
+\label{def.fps.lim.stab}Let $\left(  a_{i}\right)  _{i\in\mathbb{N}}=\left(
+a_{0},a_{1},a_{2},\ldots\right)  \in K^{\mathbb{N}}$ be a sequence of elements
+of $K$. Let $a\in K$.
+
+We say that the sequence $\left(  a_{i}\right)  _{i\in\mathbb{N}}$
+\emph{stabilizes to }$a$ if there exists some $N\in\mathbb{N}$ such that%
+\[
+\text{all integers }i\geq N\text{ satisfy }a_{i}=a.
+\]
+
+
+Instead of saying \textquotedblleft$\left(  a_{i}\right)  _{i\in\mathbb{N}}$
+stabilizes to $a$\textquotedblright, we can also say \textquotedblleft$a_{i}$
+stabilizes to $a$ as $i\rightarrow\infty$\textquotedblright. (The words
+\textquotedblleft as $i\rightarrow\infty$\textquotedblright\ here signify that
+we are talking not about a single term $a_{i}$ but about the entire sequence
+$\left(  a_{i}\right)  _{i\in\mathbb{N}}$.)
+
+If $a_{i}$ stabilizes to $a$ as $i\rightarrow\infty$, then we write
+$\lim\limits_{i\rightarrow\infty}a_{i}=a$ and say that $a$ is the \emph{limit}
+(or \emph{eventual value}) of $\left(  a_{i}\right)  _{i\in\mathbb{N}}$ (or,
+less precisely, that $a$ is the limit of the $a_{i}$). This is legitimate,
+since $a$ is uniquely determined by the sequence $\left(  a_{i}\right)
+_{i\in\mathbb{N}}$.
+
+We can replace $\mathbb{N}$ by $\mathbb{Z}_{\geq q}=\left\{  q,q+1,q+2,\ldots
+\right\}  $ in this definition, where $q$ is any integer. That is, everything
+we said applies not just to sequences of the form $\left(  a_{i}\right)
+_{i\in\mathbb{N}}=\left(  a_{0},a_{1},a_{2},\ldots\right)  $, but also to
+sequences of the form $\left(  a_{i}\right)  _{i\geq q}=\left(  a_{q}%
+,a_{q+1},a_{q+2},\ldots\right)  $.
+\end{definition}
+
+Here are some examples and non-examples of stabilization:
+
+\begin{itemize}
+\item The sequence%
+\[
+\left(  \left\lfloor \dfrac{5}{i}\right\rfloor \right)  _{i\geq1}=\left(
+\left\lfloor \dfrac{5}{1}\right\rfloor ,\left\lfloor \dfrac{5}{2}\right\rfloor
+,\left\lfloor \dfrac{5}{3}\right\rfloor ,\ldots\right)  =\left(
+5,2,1,1,1,0,0,0,0,\ldots\right)  \in\mathbb{Z}^{\mathbb{N}}%
+\]
+stabilizes to $0$, since all integers $i\geq6$ satisfy $\left\lfloor \dfrac
+{5}{i}\right\rfloor =0$.
+
+\item On the other hand, the sequence $\left(  \dfrac{5}{i}\right)  _{i\geq
+1}\in\mathbb{Z}^{\mathbb{N}}$ does not stabilize to anything. (It does
+converge to $0$ in the sense of real analysis, but this is a weaker statement
+than stabilization.)
+
+\item Any constant sequence $\left(  a,a,a,\ldots\right)  \in K^{\mathbb{N}}$
+stabilizes to $a$.
+
+\item A well-known (if non-constructive) fact says that every weakly
+decreasing sequence of nonnegative integers stabilizes to some nonnegative
+integer (since it cannot decrease infinitely often).
+
+\item If $s$ is a nilpotent element of a ring $K$ (that is, an element
+satisfying $s^{k}=0$ for some $k\geq0$), then the sequence $\left(
+s^{i}\right)  _{i\in\mathbb{N}}=\left(  s^{0},s^{1},s^{2},\ldots\right)  $
+stabilizes to $0\in K$. For example, the element $\overline{2}$ of the ring
+$\mathbb{Z}/8\mathbb{Z}$ is nilpotent (with $\overline{2}^{3}=\overline{0}$),
+so that the sequence $\left(  \overline{2}^{i}\right)  _{i\in\mathbb{N}%
+}=\left(  \overline{2},\overline{4},\overline{0},\overline{0},\overline
+{0},\ldots\right)  $ stabilizes to $\overline{0}$.
+
+\item If $s$ is an idempotent element of a ring $K$ (that is, an element
+satisfying $s^{2}=s$), then the sequence $\left(  s^{i}\right)  _{i\in
+\mathbb{N}}=\left(  s^{0},s^{1},s^{2},\ldots\right)  $ stabilizes to $s$ (in
+fact, $s^{1}=s^{2}=s^{3}=\cdots=s$).
+\end{itemize}
+
+\begin{remark}
+If you are familiar with point-set topology, then you will recognize
+Definition \ref{def.fps.lim.stab} as an instance of topological convergence:
+Namely, a sequence $\left(  a_{i}\right)  _{i\in\mathbb{N}}$ stabilizes to
+some $a\in K$ if and only if $\left(  a_{i}\right)  _{i\in\mathbb{N}}$
+converges to $a$ in the discrete topology.
+\end{remark}
+
+\subsubsection{Coefficientwise stabilization of FPSs}
+
+Now we define a somewhat subtler notion of limits, one specific to FPSs (as
+opposed to elements of an arbitrary commutative ring). This is the notion that
+we will use in what follows:
+
+\begin{definition}
+\label{def.fps.lim.coeff-stab}Let $\left(  f_{i}\right)  _{i\in\mathbb{N}}\in
+K\left[  \left[  x\right]  \right]  ^{\mathbb{N}}$ be a sequence of FPSs over
+$K$. Let $f\in K\left[  \left[  x\right]  \right]  $ be an FPS.
+
+We say that $\left(  f_{i}\right)  _{i\in\mathbb{N}}$ \emph{coefficientwise
+stabilizes to }$f$ if for each $n\in\mathbb{N}$,%
+\[
+\text{the sequence }\left(  \left[  x^{n}\right]  f_{i}\right)  _{i\in
+\mathbb{N}}\text{ stabilizes to }\left[  x^{n}\right]  f.
+\]
+
+
+Instead of saying \textquotedblleft$\left(  f_{i}\right)  _{i\in\mathbb{N}}$
+coefficientwise stabilizes to $f$\textquotedblright, we can also say
+\textquotedblleft$f_{i}$ coefficientwise stabilizes to $f$ as $i\rightarrow
+\infty$\textquotedblright\ or write \textquotedblleft$f_{i}\rightarrow f$ as
+$i\rightarrow\infty$\textquotedblright.
+
+If $f_{i}$ coefficientwise stabilizes to $f$ as $i\rightarrow\infty$, then we
+write $\lim\limits_{i\rightarrow\infty}f_{i}=f$ and say that $f$ is the
+\emph{limit} of $\left(  f_{i}\right)  _{i\in\mathbb{N}}$ (or, less precisely,
+that $f$ is the limit of the $f_{i}$). This is legitimate, because $f$ is
+uniquely determined by the sequence $\left(  f_{i}\right)  _{i\in\mathbb{N}}$.
+
+Again, we can replace $\mathbb{N}$ by $\mathbb{Z}_{\geq q}=\left\{
+q,q+1,q+2,\ldots\right\}  $ in this definition, where $q$ is any integer.
+\end{definition}
+
+\begin{example}
+\textbf{(a)} The sequence $\left(  x^{i}\right)  _{i\in\mathbb{N}}$ of FPSs
+coefficientwise stabilizes to the FPS $0$. (Indeed, for each $n\in\mathbb{N}$,
+the sequence $\left(  \left[  x^{n}\right]  \left(  x^{i}\right)  \right)
+_{i\in\mathbb{N}}$ consists of a single $1$ and infinitely many $0$s; thus,
+this sequence stabilizes to $0$.) In other words, we have $\lim
+\limits_{i\rightarrow\infty}x^{i}=0$. \medskip
+
+\textbf{(b)} The sequence $\left(  \dfrac{1}{i}x\right)  _{i\geq1}$ of FPSs
+does not stabilize (since the $x^{1}$-coefficients of these FPSs $\dfrac{1}%
+{i}x$ never stabilize). Thus, $\lim\limits_{i\rightarrow\infty}\left(
+\dfrac{1}{i}x\right)  $ does not exist. \medskip
+
+\textbf{(c)} We have%
+\[
+\lim\limits_{i\rightarrow\infty}\left(  \left(  1+x^{1}\right)  \left(
+1+x^{2}\right)  \cdots\left(  1+x^{i}\right)  \right)  =\prod_{k=1}^{\infty
+}\left(  1+x^{k}\right)  .
+\]
+Indeed, the $x^{n}$-coefficient of the product $\left(  1+x^{1}\right)
+\left(  1+x^{2}\right)  \cdots\left(  1+x^{i}\right)  $ depends only on those
+factors in which the exponent is $\leq n$, and thus stops changing after $i$
+surpasses $n$; therefore, it stabilizes to the $x^{n}$-coefficient of the
+infinite product $\prod_{k=1}^{\infty}\left(  1+x^{k}\right)  $. \medskip
+
+\textbf{(d)} It would be nice to have $\lim\limits_{n\rightarrow\infty}\left(
+1+\dfrac{x}{n}\right)  ^{n}=\exp$, as in real analysis. Unfortunately, this is
+not the case. In fact, the binomial formula yields
+\[
+\left(  1+\dfrac{x}{n}\right)  ^{n}=1+\underbrace{n\cdot\dfrac{x}{n}}%
+_{=x}+\,\dbinom{n}{2}\cdot\left(  \dfrac{x}{n}\right)  ^{2}+\cdots
+=1+x+\dfrac{\dbinom{n}{2}}{n^{2}}x^{2}+\cdots.
+\]
+This shows that the $x^{0}$-coefficient and the $x^{1}$-coefficient stabilize
+of $\left(  1+\dfrac{x}{n}\right)  ^{n}$ as $n\rightarrow\infty$, but the
+$x^{2}$-coefficient does not. Thus, $\lim\limits_{n\rightarrow\infty}\left(
+1+\dfrac{x}{n}\right)  ^{n}$ does not exist (according to our definition of
+limit). \medskip
+
+\textbf{(e)} Coefficientwise stabilization is weaker than stabilization: If a
+sequence $\left(  f_{0},f_{1},f_{2},\ldots\right)  $ of FPSs stabilizes to an
+FPS $f$ (meaning that $f_{i}=f$ for all sufficiently high $i\in\mathbb{N}$),
+then it coefficientwise stabilizes to $f$ as well. In particular, any constant
+sequence $\left(  f,f,f,\ldots\right)  $ of FPSs stabilizes to $f$.
+\end{example}
+
+\begin{remark}
+If you are familiar with point-set topology, then you will again recognize
+Definition \ref{def.fps.lim.coeff-stab} as an instance of topological
+convergence: Namely, we recall that each FPS is an infinite sequence of
+elements of $K$ (its coefficients). Thus, the set $K\left[  \left[  x\right]
+\right]  $ is the infinite Cartesian product $K\times K\times K\times\cdots$.
+If we equip each factor $K$ in this product with the discrete topology, then
+the entire product $K\left[  \left[  x\right]  \right]  $ becomes a product
+space equipped with the product topology. Now, a sequence $\left(
+f_{i}\right)  _{i\in\mathbb{N}}$ of FPSs in $K\left[  \left[  x\right]
+\right]  $ coefficientwise stabilizes to some FPS $f\in K\left[  \left[
+x\right]  \right]  $ if and only if $\left(  f_{i}\right)  _{i\in\mathbb{N}}$
+converges to $f$ in this product topology. (This is not surprising: After all,
+the product topology is also known as the \textquotedblleft topology of
+pointwise convergence\textquotedblright, and in our case \textquotedblleft
+pointwise\textquotedblright\ means \textquotedblleft
+coefficientwise\textquotedblright.)
+\end{remark}
+
+\subsubsection{Some properties of limits}
+
+We shall now state some basic properties of limits of FPSs. All the proofs are
+simple and therefore omitted; some can be found in the Appendix (Section
+\ref{sec.details.gf.lim}).
+
+\begin{theorem}
+\label{thm.fps.lim.lim-crit}Let $\left(  f_{i}\right)  _{i\in\mathbb{N}}\in
+K\left[  \left[  x\right]  \right]  ^{\mathbb{N}}$ be a sequence of FPSs.
+Assume that for each $n\in\mathbb{N}$, there exists some $g_{n}\in K$ such
+that the sequence $\left(  \left[  x^{n}\right]  f_{i}\right)  _{i\in
+\mathbb{N}}$ stabilizes to $g_{n}$. Then, the sequence $\left(  f_{i}\right)
+_{i\in\mathbb{N}}$ coefficientwise stabilizes to $\sum_{n\in\mathbb{N}}%
+g_{n}x^{n}$. (That is, $\lim\limits_{i\rightarrow\infty}f_{i}=\sum
+_{n\in\mathbb{N}}g_{n}x^{n}$.)
+\end{theorem}
+
+\begin{proof}
+Obvious.
+\end{proof}
+
+The following easy lemma connects limits with the notion of $x^{n}%
+$-equivalence (as introduced in Definition \ref{def.fps.xneq}):
+
+\begin{lemma}
+\label{lem.fps.lim.xn-equiv}Assume that $\left(  f_{i}\right)  _{i\in
+\mathbb{N}}$ is a sequence of FPSs, and that $f$ is an FPS such that
+$\lim\limits_{i\rightarrow\infty}f_{i}=f$. Then, for each $n\in\mathbb{N}$,
+there exists some integer $N\in\mathbb{N}$ such that
+\[
+\text{all integers }i\geq N\text{ satisfy }f_{i}\overset{x^{n}}{\equiv}f.
+\]
+
+\end{lemma}
+
+\begin{proof}
+[Proof of Lemma \ref{lem.fps.lim.xn-equiv} (sketched).]Let $n\in\mathbb{N}$.
+For each $k\in\left\{  0,1,\ldots,n\right\}  $, we pick an $N_{k}\in
+\mathbb{N}$ such that all $i\geq N_{k}$ satisfy $\left[  x^{k}\right]
+f_{i}=\left[  x^{k}\right]  f$ (such an $N_{k}$ exists, since $\lim
+\limits_{i\rightarrow\infty}f_{i}=f$). Then, all integers $i\geq\max\left\{
+N_{0},N_{1},\ldots,N_{n}\right\}  $ satisfy $f_{i}\overset{x^{n}}{\equiv}f$.
+See Section \ref{sec.details.gf.lim} for the details of this proof.
+\end{proof}
+
+The following proposition is an analogue of the classical \textquotedblleft
+limits respect sums and products\textquotedblright\ theorem from real analysis:
+
+\begin{proposition}
+\label{prop.fps.lim.sum-prod}Assume that $\left(  f_{i}\right)  _{i\in
+\mathbb{N}}$ and $\left(  g_{i}\right)  _{i\in\mathbb{N}}$ are two sequences
+of FPSs, and that $f$ and $g$ are two FPSs such that%
+\[
+\lim\limits_{i\rightarrow\infty}f_{i}=f\ \ \ \ \ \ \ \ \ \ \text{and}%
+\ \ \ \ \ \ \ \ \ \ \lim\limits_{i\rightarrow\infty}g_{i}=g.
+\]
+
+
+Then,
+\[
+\lim\limits_{i\rightarrow\infty}\left(  f_{i}+g_{i}\right)
+=f+g\ \ \ \ \ \ \ \ \ \ \text{and}\ \ \ \ \ \ \ \ \ \ \lim
+\limits_{i\rightarrow\infty}\left(  f_{i}g_{i}\right)  =fg.
+\]
+(In other words, the sequences $\left(  f_{i}+g_{i}\right)  _{i\in\mathbb{N}}$
+and $\left(  f_{i}g_{i}\right)  _{i\in\mathbb{N}}$ coefficientwise stabilize
+to $f+g$ and $fg$, respectively.)
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.fps.lim.sum-prod} (sketched).]Let
+$n\in\mathbb{N}$. Then, Lemma \ref{lem.fps.lim.xn-equiv} shows that there
+exists some integer $N\in\mathbb{N}$ such that
+\[
+\text{all integers }i\geq N\text{ satisfy }f_{i}\overset{x^{n}}{\equiv}f.
+\]
+Similarly, there exists some integer $M\in\mathbb{N}$ such that%
+\[
+\text{all integers }i\geq M\text{ satisfy }g_{i}\overset{x^{n}}{\equiv}g.
+\]
+Pick such integers $N$ and $M$, and set $P:=\max\left\{  N,M\right\}  $. Then,
+all integers $i\geq P$ satisfy both $f_{i}\overset{x^{n}}{\equiv}f$ and
+$g_{i}\overset{x^{n}}{\equiv}g$, and therefore $f_{i}g_{i}\overset{x^{n}%
+}{\equiv}fg$ (by (\ref{eq.thm.fps.xneq.props.b.*})), and thus $\left[
+x^{n}\right]  \left(  f_{i}g_{i}\right)  =\left[  x^{n}\right]  \left(
+fg\right)  $. This shows that the sequence $\left(  \left[  x^{n}\right]
+\left(  f_{i}g_{i}\right)  \right)  _{i\in\mathbb{N}}$ stabilizes to $\left[
+x^{n}\right]  \left(  fg\right)  $. Since this holds for each $n\in\mathbb{N}%
+$, we conclude that $\lim\limits_{i\rightarrow\infty}\left(  f_{i}%
+g_{i}\right)  =fg$. The proof of $\lim\limits_{i\rightarrow\infty}\left(
+f_{i}+g_{i}\right)  =f+g$ is analogous.
+
+See Section \ref{sec.details.gf.lim} for the details of this proof.
+\end{proof}
+
+\begin{corollary}
+\label{cor.fps.lim.sum-prod-k}Let $k\in\mathbb{N}$. For each $i\in\left\{
+1,2,\ldots,k\right\}  $, let $f_{i}$ be an FPS, and let $\left(
+f_{i,n}\right)  _{n\in\mathbb{N}}$ be a sequence of FPSs such that%
+\[
+\lim\limits_{n\rightarrow\infty}\left(  f_{i,n}\right)  =f_{i}%
+\]
+(note that it is $n$, not $i$, that goes to $\infty$ here!). Then,%
+\[
+\lim\limits_{n\rightarrow\infty}\sum_{i=1}^{k}f_{i,n}=\sum_{i=1}^{k}%
+f_{i}\ \ \ \ \ \ \ \ \ \ \text{and}\ \ \ \ \ \ \ \ \ \ \lim
+\limits_{n\rightarrow\infty}\prod_{i=1}^{k}f_{i,n}=\prod_{i=1}^{k}f_{i}.
+\]
+
+\end{corollary}
+
+\begin{proof}
+Follows by induction on $k$, using Proposition \ref{prop.fps.lim.sum-prod}.
+\end{proof}
+
+\begin{remark}
+The analogue of Corollary \ref{cor.fps.lim.sum-prod-k} for infinite sums (or
+products) is not true without further requirements. For instance, for each
+$i\in\mathbb{N}$, we can define a constant FPS $f_{i,n}=\delta_{i,n}$ (using
+Definition \ref{def.kron-delta}). Then, we have $\lim\limits_{n\rightarrow
+\infty}f_{i,n}=0$ for any fixed $i\in\mathbb{N}$, but $\lim
+\limits_{n\rightarrow\infty}\underbrace{\sum_{i=0}^{\infty}f_{i,n}}_{=1}%
+=\lim\limits_{n\rightarrow\infty}1=1$.
+\end{remark}
+
+The following proposition says that limits respect quotients:
+
+\begin{proposition}
+\label{prop.fps.lim.sum-quot}Assume that $\left(  f_{i}\right)  _{i\in
+\mathbb{N}}$ and $\left(  g_{i}\right)  _{i\in\mathbb{N}}$ are two sequences
+of FPSs, and that $f$ and $g$ are two FPSs such that%
+\[
+\lim\limits_{i\rightarrow\infty}f_{i}=f\ \ \ \ \ \ \ \ \ \ \text{and}%
+\ \ \ \ \ \ \ \ \ \ \lim\limits_{i\rightarrow\infty}g_{i}=g.
+\]
+Assume that each FPS $g_{i}$ is invertible. Then, $g$ is also invertible, and
+we have%
+\[
+\lim\limits_{i\rightarrow\infty}\dfrac{f_{i}}{g_{i}}=\dfrac{f}{g}.
+\]
+
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.fps.lim.sum-quot} (sketched).]First use
+Proposition \ref{prop.fps.invertible} to show that $g$ is invertible; then use
+Theorem \ref{thm.fps.xneq.props} \textbf{(e)} to prove $\lim
+\limits_{i\rightarrow\infty}\dfrac{f_{i}}{g_{i}}=\dfrac{f}{g}$. A detailed
+proof can be found in Section \ref{sec.details.gf.lim}.
+\end{proof}
+
+Limits of FPSs furthermore respect composition:
+
+\begin{proposition}
+\label{prop.fps.lim.comp}Assume that $\left(  f_{i}\right)  _{i\in\mathbb{N}}$
+and $\left(  g_{i}\right)  _{i\in\mathbb{N}}$ are two sequences of FPSs, and
+that $f$ and $g$ are two FPSs such that%
+\[
+\lim\limits_{i\rightarrow\infty}f_{i}=f\ \ \ \ \ \ \ \ \ \ \text{and}%
+\ \ \ \ \ \ \ \ \ \ \lim\limits_{i\rightarrow\infty}g_{i}=g.
+\]
+Assume that $\left[  x^{0}\right]  g_{i}=0$ for each $i\in\mathbb{N}$. Then,
+$\left[  x^{0}\right]  g=0$ and%
+\[
+\lim\limits_{i\rightarrow\infty}\left(  f_{i}\circ g_{i}\right)  =f\circ g.
+\]
+
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.fps.lim.comp} (sketched).]Similar to
+Proposition \ref{prop.fps.lim.sum-quot}, but now using Proposition
+\ref{prop.fps.xneq.comp}. See Exercise \ref{exe.fps.lim.sum-prod-quot}
+\textbf{(b)} for details.
+\end{proof}
+
+Limits of FPSs also respect derivatives (unlike in real analysis, where this
+\href{https://en.wikipedia.org/wiki/Uniform_convergence#To_differentiability}{holds
+only under subtle additional conditions}):
+
+\begin{proposition}
+\label{prop.fps.lim.deriv-lim}Let $\left(  f_{n}\right)  _{n\in\mathbb{N}}$ be
+a sequence of FPSs, and let $f$ be an FPS such that%
+\[
+\lim\limits_{i\rightarrow\infty}f_{i}=f.
+\]
+Then,%
+\[
+\lim\limits_{i\rightarrow\infty}f_{i}^{\prime}=f^{\prime}.
+\]
+
+\end{proposition}
+
+\begin{proof}
+This is nearly trivial (see Exercise \ref{exe.fps.lim.sum-prod-quot}
+\textbf{(a)}).
+\end{proof}
+
+Next, let us see how infinite sums and infinite products can be written as
+limits of finite sums and products, at least as long as they are indexed by
+$\mathbb{N}$. The following two theorems and one corollary are easy to prove;
+detailed proofs can be found in Section \ref{sec.details.gf.lim}.
+
+\begin{theorem}
+\label{thm.fps.lim.sum-lim}Let $\left(  f_{n}\right)  _{n\in\mathbb{N}}$ be a
+summable sequence of FPSs. Then,%
+\[
+\lim\limits_{i\rightarrow\infty}\sum_{n=0}^{i}f_{n}=\sum_{n\in\mathbb{N}}%
+f_{n}.
+\]
+In other words, the infinite sum $\sum_{n\in\mathbb{N}}f_{n}$ is the limit of
+the finite partial sums $\sum_{n=0}^{i}f_{n}$.
+\end{theorem}
+
+\begin{theorem}
+\label{thm.fps.lim.prod-lim}Let $\left(  f_{n}\right)  _{n\in\mathbb{N}}$ be a
+multipliable sequence of FPSs. Then,%
+\[
+\lim\limits_{i\rightarrow\infty}\prod_{n=0}^{i}f_{n}=\prod_{n\in\mathbb{N}%
+}f_{n}.
+\]
+In other words, the infinite product $\prod_{n\in\mathbb{N}}f_{n}$ is the
+limit of the finite partial products $\prod_{n=0}^{i}f_{n}$.
+\end{theorem}
+
+\begin{corollary}
+\label{cor.fps.lim.fps-as-pol}Each FPS is a limit of a sequence of
+polynomials. Indeed, if $a=\sum_{n\in\mathbb{N}}a_{n}x^{n}$ (with $a_{n}\in
+K$), then%
+\[
+a=\lim\limits_{i\rightarrow\infty}\sum_{n=0}^{i}a_{n}x^{n}.
+\]
+
+\end{corollary}
+
+This corollary can be restated as \textquotedblleft the polynomials are dense
+in the FPSs\textquotedblright\ (more formally: $K\left[  x\right]  $ is dense
+in $K\left[  \left[  x\right]  \right]  $). This fact is useful, as it allows
+you to restrict yourself to polynomials when proving some properties of FPSs.
+For example, if you want to prove that some identity (such as the Leibniz rule
+$\left(  fg\right)  ^{\prime}=f^{\prime}g+fg^{\prime}$) holds for all FPSs, it
+suffices to prove it for polynomials, and then conclude the general case using
+a limiting argument.
+
+Both Theorem \ref{thm.fps.lim.sum-lim} and Theorem \ref{thm.fps.lim.prod-lim}
+have converses (which are somewhat harder to prove):
+
+\begin{theorem}
+\label{thm.fps.lim.sum-lim-conv}Let $\left(  f_{0},f_{1},f_{2},\ldots\right)
+$ be a sequence of FPSs such that $\lim\limits_{i\rightarrow\infty}\sum
+_{n=0}^{i}f_{n}$ exists. Then, the family $\left(  f_{n}\right)
+_{n\in\mathbb{N}}$ is summable, and satisfies%
+\[
+\sum_{n\in\mathbb{N}}f_{n}=\lim\limits_{i\rightarrow\infty}\sum_{n=0}^{i}%
+f_{n}.
+\]
+
+\end{theorem}
+
+\begin{theorem}
+\label{thm.fps.lim.prod-lim-conv}Let $\left(  f_{0},f_{1},f_{2},\ldots\right)
+$ be a sequence of FPSs such that $\lim\limits_{i\rightarrow\infty}\prod
+_{n=0}^{i}f_{n}$ exists. Then, the family $\left(  f_{n}\right)
+_{n\in\mathbb{N}}$ is multipliable, and satisfies%
+\[
+\prod_{n\in\mathbb{N}}f_{n}=\lim\limits_{i\rightarrow\infty}\prod_{n=0}%
+^{i}f_{n}.
+\]
+
+\end{theorem}
+
+We refer to Section \ref{sec.details.gf.lim} for the proofs of these two theorems.
+
+Theorem \ref{thm.fps.lim.sum-lim} and Theorem \ref{thm.fps.lim.sum-lim-conv}
+combined show that we could have just as well defined infinite sums of FPSs as
+limits of finite partial sums, as long as we were happy with sums of the form
+$\sum_{n\in\mathbb{N}}f_{n}$ (as opposed to sums of the form $\sum_{\left(
+n,m\right)  \in\mathbb{N}\times\mathbb{N}}$ or other kinds). Likewise, Theorem
+\ref{thm.fps.lim.prod-lim} and Theorem \ref{thm.fps.lim.prod-lim-conv} show
+the same for products. However, I consider my original definitions to be more
+natural. \medskip
+
+It should be clear that all the above-stated properties of limits remain true
+if the sequences involved are no longer indexed by $\mathbb{N}$ but rather
+indexed by $\mathbb{Z}_{\geq q}=\left\{  q,q+1,q+2,\ldots\right\}  $ for some
+integer $q$. Even better: The limit of a sequence $\left(  f_{n}\right)
+_{n\geq q}$ does not depend on any chosen finite piece of this sequence, so it
+is simultaneously the limit of the sequence $\left(  f_{n}\right)  _{n\geq r}$
+for any integer $r$ (as long as $f_{n}$ is well-defined for all $n\geq r$). In
+this regard, limits behave exactly as in real analysis.

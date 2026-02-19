@@ -1,0 +1,999 @@
+\section{The LGV lemma: weighted and generalized versions}
+
+\subsection{The weighted version}
+
+\begin{theorem}[LGV lemma, lattice weight version]
+\label{thm.lgv.kpaths.wt}
+\lean{LGV.lgv_weighted_lattice}
+\leantarget
+\leanok
+Let $K$ be a commutative ring.
+
+For each arc $a$ of the digraph $\mathbb{Z}^{2}$, let $w(a)$ be
+an element of $K$. We call $w(a)$ the \emph{weight} of $a$.
+
+For each path $p$ of $\mathbb{Z}^{2}$, define the \emph{weight} $w(p)$
+of $p$ by
+\[
+  w(p) := \prod_{a \text{ is an arc of } p} w(a).
+\]
+
+For each path tuple $\mathbf{p} = (p_1, p_2, \ldots, p_k)$, define the
+\emph{weight} $w(\mathbf{p})$ of $\mathbf{p}$ by
+\[
+  w(\mathbf{p}) := w(p_1)\, w(p_2) \cdots w(p_k).
+\]
+
+Let $k \in \mathbb{N}$.  Let
+$\mathbf{A} = (A_1, A_2, \ldots, A_k)$ and
+$\mathbf{B} = (B_1, B_2, \ldots, B_k)$ be two $k$-vertices.  Then,
+\[
+  \det\!\left(\left(\sum_{p : A_i \to B_j} w(p)\right)_{1 \le i \le k,\; 1 \le j \le k}\right)
+  = \sum_{\sigma \in S_k} (-1)^{\sigma}
+    \sum_{\substack{\mathbf{p} \text{ is a nipat} \\ \text{from } \mathbf{A} \text{ to } \sigma(\mathbf{B})}}
+    w(\mathbf{p}).
+\]
+Here, ``$p : A_i \to B_j$'' means ``$p$ is a path from $A_i$ to $B_j$''.
+\end{theorem}
+
+\begin{proof}
+This is the special case of Theorem~\ref{thm.lgv.kpaths.wt-dg} for the
+integer lattice $\mathbb{Z}^2$, which is a path-finite acyclic digraph.
+\end{proof}
+
+\subsection{Generalization to acyclic digraphs}
+
+\begin{theorem}[LGV lemma, digraph weight version]
+\label{thm.lgv.kpaths.wt-dg}
+\lean{LGV.lgv_weighted_digraph}
+\leantarget
+\leanok
+Let $K$ be a commutative ring.
+
+Let $D$ be a path-finite (but possibly infinite) acyclic digraph.
+
+For each arc $a$ of $D$, let $w(a) \in K$. For each path $p$ of $D$,
+define $w(p) := \prod_{a \text{ is an arc of } p} w(a)$.
+For each path tuple $\mathbf{p} = (p_1, \ldots, p_k)$, define
+$w(\mathbf{p}) := w(p_1) \cdots w(p_k)$.
+
+Let $k \in \mathbb{N}$.  Let
+$\mathbf{A} = (A_1, \ldots, A_k)$ and
+$\mathbf{B} = (B_1, \ldots, B_k)$ be two $k$-tuples of vertices of $D$.
+Then,
+\[
+  \det\!\left(\left(\sum_{p : A_i \to B_j} w(p)\right)_{1 \le i \le k,\; 1 \le j \le k}\right)
+  = \sum_{\sigma \in S_k} (-1)^{\sigma}
+    \sum_{\substack{\mathbf{p} \text{ is a nipat} \\ \text{from } \mathbf{A} \text{ to } \sigma(\mathbf{B})}}
+    w(\mathbf{p}).
+\]
+\end{theorem}
+
+\begin{proof}
+The same argument as for
+Proposition~\ref{prop.lgv.kpaths.count} can be used here; just replace
+$\operatorname{sign}(\sigma, \mathbf{p}) := (-1)^{\sigma}$ by
+$\operatorname{sign}(\sigma, \mathbf{p}) = (-1)^{\sigma} \cdot w(\mathbf{p})$.
+The only new observation required is that when we exchange the tails of
+two paths in our path tuple, the weight of the path tuple does not change.
+This is clear: the weight of a path tuple is the product of the weights of
+all arcs in all paths of the tuple; when we exchange the tails of two paths,
+some arcs get moved from one path to the other, but the total product stays
+unchanged.
+
+More precisely, the proof expands the determinant via the Leibniz formula.
+Each summand $(-1)^\sigma \prod_i M_{i,\sigma(i)}$ expands (by
+distributivity) into a sum over all path tuples from $\mathbf{A}$ to
+$\sigma(\mathbf{B})$, weighted by $(-1)^\sigma \, w(\mathbf{p})$.  Split
+the sum into non-intersecting and intersecting path tuples.
+
+For the intersecting path tuples, a sign-reversing involution
+$\varphi$ (Lemma~\ref{lem.lgv.signReversing.involutive}) is defined as
+follows: given an intersecting path tuple paired with a permutation
+$(\sigma, \mathbf{p})$, find the canonical first intersection point,
+exchange the tails of the two relevant paths at that point, and compose
+$\sigma$ with the corresponding transposition.  This involution
+reverses the sign factor $(-1)^\sigma$ (Lemma~\ref{lem.lgv.signReversing.sign})
+while preserving the weight $w(\mathbf{p})$
+(Lemma~\ref{lem.lgv.signReversing.weight}), and has no fixed points
+among intersecting path tuples
+(Lemma~\ref{lem.lgv.signReversing.noFixedPoints}).  Therefore the
+contributions of intersecting path tuples cancel in pairs, leaving only
+the non-intersecting ones.
+\end{proof}
+
+\subsection{Helper lemmas for the sign-reversing involution}
+
+\begin{lemma}[Vertices are distinct in acyclic digraphs]
+\label{lem.lgv.path-vertices-nodup}
+\lean{LGV.SimpleDigraph.Path.vertices_nodup_of_acyclic}
+\leanhelper
+\leanok
+In an acyclic digraph $D$, all vertices on a path are distinct.
+\end{lemma}
+
+\begin{proof}
+\leanok
+If a vertex appeared twice at positions $i < j$, we could extract the
+subpath from $i$ to $j$, which forms a cycle.  By acyclicity,
+this subpath has length $1$, so $i = j$.
+\end{proof}
+
+\begin{lemma}[Exchange of tails preserves weight]
+\label{lem.lgv.exchangeTails.weight}
+\lean{LGV.exchangeTails_weight}
+\leanhelper
+\leanok
+Let $D$ be an acyclic digraph with arc weight function $w$.
+Let $p$ and $q$ be two paths sharing a vertex $v$.  Let $(p', q')$
+be the result of exchanging the tails of $p$ and $q$ at $v$
+(i.e., $p'$ takes the head of $p$ up to $v$ followed by the tail of $q$
+from $v$, and symmetrically for $q'$).  Then
+$w(p) \cdot w(q) = w(p') \cdot w(q')$.
+\end{lemma}
+
+\begin{proof}
+The weight of a path is the product of the weights of its arcs.
+When we exchange tails at $v$, arcs are redistributed between the two
+paths, but the total multiset of arcs is preserved.  Hence the product
+is unchanged.
+\end{proof}
+
+\begin{lemma}[Exchange of tails is an involution]
+\label{lem.lgv.exchangeTails.involutive}
+\lean{LGV.exchangeTails_involutive}
+\leanhelper
+\leanok
+Let $D$ be an acyclic digraph, and let $p, q$ be paths sharing a
+vertex $v$.  Let $(p', q')$ be the result of exchanging the tails of $p$ and $q$ at $v$.
+Then exchanging the tails of $p'$ and $q'$ at $v$ returns $(p, q)$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Exchanging tails at $v$ twice returns each path to its original form,
+since the head and tail of each path at $v$ are restored.
+\end{proof}
+
+\begin{lemma}[Sign-reversing map preserves intersection]
+\label{lem.lgv.signReversing.isIntersecting}
+\lean{LGV.signReversing_isIntersecting}
+\leanhelper
+\leanok
+Let $D$ be a path-finite acyclic digraph.  If $(\sigma, \mathbf{p})$
+is an intersecting path tuple with permutation, then
+$\varphi(\sigma, \mathbf{p})$ is also intersecting.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By Lemma~\ref{lem.lgv.exchangeTails.involutive}, exchanging tails
+is an involution.  If the result were non-intersecting, applying
+$\varphi$ again would give a non-intersecting tuple equal to the
+original (contradicting the hypothesis that it is intersecting).
+\end{proof}
+
+\begin{lemma}[Canonical intersection data is invariant]
+\label{lem.lgv.signReversing.canonical-eq}
+Let $D$ be an acyclic digraph and $(\sigma, \mathbf{p})$ an
+intersecting path tuple with canonical intersection data $(i, j, v)$.
+After applying the sign-reversing map, the canonical intersection data
+of the resulting tuple $\varphi(\sigma, \mathbf{p})$ is still $(i, j, v)$.
+\end{lemma}
+
+\begin{proof}
+The head of path $i$ (vertices before $v$, inclusive) is unchanged by
+the tail exchange, so $v$ remains the first crowded vertex on path $i$.
+Furthermore, $i$ is still the smallest crowded path index (indices
+below $i$ have unchanged paths), and $j$ is still the largest index
+sharing vertex $v$ with $i$ (the set of path indices containing $v$
+is preserved).
+\end{proof}
+
+\begin{lemma}[Sign-reversing involution is an involution]
+\label{lem.lgv.signReversing.involutive}
+\lean{LGV.signReversing_involutive}
+\leanhelper
+\leanok
+Let $D$ be a path-finite acyclic digraph.  Let $(\sigma, \mathbf{p})$
+be an intersecting path tuple with permutation.  Then the sign-reversing
+map $\varphi$ satisfies: if $\varphi(\sigma, \mathbf{p})$ is
+intersecting, then $\varphi(\varphi(\sigma, \mathbf{p})) = (\sigma, \mathbf{p})$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+After applying $\varphi$, the canonical intersection data $(i, j, v)$ is
+preserved (Lemma~\ref{lem.lgv.signReversing.canonical-eq}).
+Applying $\varphi$ again thus uses
+the same $(i, j, v)$, and the paths and permutation are restored by
+Lemma~\ref{lem.lgv.exchangeTails.involutive} and the identity
+$(\sigma \cdot (i\; j)) \cdot (i\; j) = \sigma$.
+\end{proof}
+
+\begin{lemma}[Sign-reversing involution reverses sign]
+\label{lem.lgv.signReversing.sign}
+\lean{LGV.signReversing_sign}
+\leanhelper
+\leanok
+The sign-reversing map $\varphi$ satisfies: if
+$\varphi(\sigma,\mathbf{p}) = (\sigma', \mathbf{p}')$, then
+$(-1)^{\sigma'} = -(-1)^{\sigma}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The permutation component of $\varphi(\sigma, \mathbf{p})$ is
+$\sigma \cdot (i\; j)$ for distinct $i \ne j$
+(Lemma~\ref{lem.lgv.signReversing.perm}).  Since transpositions
+have sign $-1$, the sign of the new permutation is $-(-1)^\sigma$.
+\end{proof}
+
+\begin{lemma}[Sign-reversing involution preserves weight]
+\label{lem.lgv.signReversing.weight}
+\lean{LGV.signReversing_weight}
+\leanhelper
+\leanok
+The sign-reversing map $\varphi$ satisfies: if
+$\varphi(\sigma, \mathbf{p}) = (\sigma', \mathbf{p}')$, then
+$w(\mathbf{p}') = w(\mathbf{p})$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Only paths $i$ and $j$ are modified (their tails are exchanged), and
+the remaining paths are unchanged
+(Lemma~\ref{lem.lgv.signReversing.paths}).  By
+Lemma~\ref{lem.lgv.exchangeTails.weight}, the product of the weights of
+paths $i$ and $j$ is preserved.  Hence the total weight
+$w(\mathbf{p}) = \prod_l w(p_l)$ is unchanged.
+\end{proof}
+
+\begin{lemma}[Sign-reversing involution has no fixed points]
+\label{lem.lgv.signReversing.noFixedPoints}
+\lean{LGV.signReversing_no_fixed_points}
+\leanhelper
+\leanok
+The sign-reversing map $\varphi$ has no fixed points among
+intersecting path tuples: if $\mathbf{p}$ is intersecting, then
+$\varphi(\sigma, \mathbf{p}) \ne (\sigma, \mathbf{p})$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The permutation component changes by a non-trivial transposition, so it
+cannot equal $\sigma$.
+\end{proof}
+
+\begin{lemma}[Permutation of sign-reversing map]
+\label{lem.lgv.signReversing.perm}
+\lean{LGV.signReversing_perm}
+\leanhelper
+\leanok
+The sign-reversing map $\varphi$ applied to $(\sigma, \mathbf{p})$
+produces a permutation $\sigma' = \sigma \cdot (i\; j)$ for some
+distinct indices $i \ne j$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By definition: the canonical intersection data selects indices $i$ and $j$,
+and $\varphi$ composes $\sigma$ with the transposition $(i\; j)$.
+\end{proof}
+
+\begin{lemma}[Paths of sign-reversing map]
+\label{lem.lgv.signReversing.paths}
+\lean{LGV.signReversing_paths}
+\leanhelper
+\leanok
+The sign-reversing map $\varphi$ applied to $(\sigma, \mathbf{p})$
+produces paths $\mathbf{p}'$ such that: paths at indices $i$ and $j$
+have their tails exchanged at the crowded vertex $v$, while all other
+paths remain unchanged.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By definition: $\varphi$ selects the canonical intersection data
+$(i, j, v)$ and exchanges the tails of paths
+$i$ and $j$ at $v$, leaving all other paths untouched.
+\end{proof}
+
+\subsection{Infrastructure for the LGV proof}
+
+\begin{lemma}[Signed sum over intersecting path tuples is zero]
+\label{lem.lgv.sum-ipat-zero}
+\lean{LGV.sum_ipatWithPerm_signed_weight_eq_zero}
+\leanhelper
+\leanok
+For any path-finite acyclic digraph $D$ with arc weights $w$,
+\[
+  \sum_{\substack{(\sigma, \mathbf{p}) \\ \mathbf{p} \text{ intersecting}}}
+  (-1)^\sigma \, w(\mathbf{p}) = 0.
+\]
+\end{lemma}
+
+\begin{proof}
+Apply the sign-reversing involution $\varphi$ as a fixed-point-free involution.
+Each pair $\{(\sigma, \mathbf{p}),\; \varphi(\sigma, \mathbf{p})\}$
+contributes $(-1)^\sigma w(\mathbf{p}) + (-(-1)^\sigma) w(\mathbf{p}) = 0$.
+\end{proof}
+
+\begin{lemma}[Determinant equals sum over all path tuples with permutation]
+\label{lem.lgv.det-eq-sum-all}
+\lean{LGV.det_eq_sum_allPathTupleWithPerm}
+\leanhelper
+\leanok
+For any path-finite digraph $D$ with arc weights $w$,
+\[
+  \det(M) = \sum_{(\sigma, \mathbf{p})} (-1)^\sigma \, w(\mathbf{p}),
+\]
+where the sum ranges over all pairs of a permutation $\sigma$ and a
+path tuple $\mathbf{p}$ from $\mathbf{A}$ to $\sigma(\mathbf{B})$.
+\end{lemma}
+
+\begin{proof}
+Expand $\det(M)$ by the Leibniz formula.  Each summand
+$(-1)^\sigma \prod_i M_{i,\sigma(i)}$ expands (using the definition
+$M_{i,j} = \sum_{p : A_i \to B_j} w(p)$ and distributivity) into
+a sum over all path tuples from $\mathbf{A}$ to $\sigma(\mathbf{B})$.
+Combine over all $\sigma$ to obtain the sum over
+all pairs $(\sigma, \mathbf{p})$.
+\end{proof}
+
+\begin{lemma}[Nipat sum over permutations equals weighted nipat sum]
+\label{lem.lgv.sum-nipat-eq}
+\lean{LGV.sum_nipatWithPerm_eq_sum_nipatWeightSum}
+\leanhelper
+\leanok
+The sum over non-intersecting path tuples with permutation equals
+\[
+  \sum_{\sigma \in S_k} (-1)^\sigma
+  \sum_{\substack{\mathbf{p} \text{ is a nipat} \\ \text{from } \mathbf{A} \text{ to } \sigma(\mathbf{B})}}
+  w(\mathbf{p}).
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+Decompose the set of non-intersecting path tuples with permutation as a disjoint union over
+permutations $\sigma$ and nipats from $\mathbf{A}$ to $\sigma(\mathbf{B})$,
+then factor out $(-1)^\sigma$ from each inner sum.
+\end{proof}
+
+\begin{lemma}[Product of path weight sums equals sum over path tuples]
+\label{lem.lgv.prod-pathWeightSum}
+\lean{LGV.prod_pathWeightSum_eq_sum_pathTupleWeight}
+\leanhelper
+\leanok
+For a path-finite digraph $D$ with arc weights $w$,
+\[
+  \prod_{j=1}^{k} \biggl(\sum_{p : A_j \to B_j} w(p)\biggr)
+  = \sum_{\substack{\mathbf{p} \text{ is a path tuple} \\ \text{from } \mathbf{A} \text{ to } \mathbf{B}}}
+    w(\mathbf{p}).
+\]
+\end{lemma}
+
+\begin{proof}
+Expand the finite product of finite sums using distributivity.
+The resulting index set bijects with all path tuples (choosing one
+path for each component).
+\end{proof}
+
+\subsection{The nonpermutable case}
+
+\begin{lemma}[Discrete intermediate value theorem]
+\label{lem.lgv.discrete-ivt}
+\lean{LGV.discrete_ivt}
+\leanhelper
+\leanok
+Let $f : \mathbb{Z} \to \mathbb{Z}$ satisfy $|f(n+1) - f(n)| \le 1$
+for all $n \in [a, b)$.  If $f(a) \ge 0$ and $f(b) \le 0$, then
+there exists $c \in [a, b]$ with $f(c) = 0$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By induction on $b - a$.  If $f(a) = 0$, take $c = a$.  Otherwise,
+$f(a) > 0$ and the step bound gives $f(a+1) \ge 0$.  If $f(a+1) \le 0$,
+take $c = a + 1$; otherwise apply the induction hypothesis to $[a+1, b]$.
+\end{proof}
+
+\begin{lemma}[Baby Jordan curve theorem for lattice paths]
+\label{lem.lgv.baby-jordan}
+\lean{LGV.baby_jordan}
+\leanhelper
+\leanok
+Let $A, A', B, B' \in \mathbb{Z}^2$ with
+$\operatorname{x}(A') \le \operatorname{x}(A)$,
+$\operatorname{y}(A) \le \operatorname{y}(A')$,
+$\operatorname{x}(B') \le \operatorname{x}(B)$, and
+$\operatorname{y}(B) \le \operatorname{y}(B')$.
+If $p$ is a path from $A$ to $B'$ and $p'$ is a path from $A'$ to $B$,
+then $p$ and $p'$ share a vertex.
+\end{lemma}
+
+\begin{proof}
+Consider the ``coordinate sum'' $s = x + y$ along each path.
+The range of $s$-values for $p$ is $[A_x + A_y,\; B'_x + B'_y]$,
+and for $p'$ it is $[A'_x + A'_y,\; B_x + B_y]$.
+These ranges overlap.  At the low end of the overlap, the
+$x$-coordinate of $p$ is $\ge$ that of $p'$; at the high end, it is
+$\le$.  Since the $x$-coordinate changes by at most $1$ per step,
+a discrete intermediate value argument
+(Lemma~\ref{lem.lgv.discrete-ivt}) yields a value of $s$ where
+$p$ and $p'$ have the same $x$-coordinate.  Since they also have the
+same coordinate sum $s$, the $y$-coordinates agree as well, so they
+share that vertex.
+\end{proof}
+
+\begin{lemma}[Monotone permutation is identity]
+\label{lem.lgv.monotone-perm-eq-id}
+\lean{LGV.monotone_perm_eq_id}
+\leanhelper
+\leanok
+If $\sigma \in S_k$ satisfies $\sigma(i) \le \sigma(j)$ whenever $i < j$,
+then $\sigma = \operatorname{id}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By strong induction.  If $\sigma$ is monotone, then for the smallest
+element $i$ we have $\sigma(i) \ge i$ (otherwise injectivity is violated)
+and $\sigma(i) \le i$ (otherwise the preimage of $i$ would have to be
+smaller, violating monotonicity).  Hence $\sigma(i) = i$, and the claim
+follows by induction.
+\end{proof}
+
+\begin{lemma}[No nipats for non-identity permutations under sorting]
+\label{lem.lgv.no-nipats-nonid}
+\lean{LGV.no_nipats_nonidentity}
+\leanhelper
+\leanok
+Under the sorting conditions of Corollary~\ref{cor.lgv.kpaths.wt-np},
+if $\sigma \in S_k$ is not the identity permutation, then there are no
+non-intersecting path tuples from $\mathbf{A}$ to $\sigma(\mathbf{B})$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Since $\sigma \ne \operatorname{id}$, by
+Lemma~\ref{lem.lgv.monotone-perm-eq-id} there exists $i \in [k-1]$
+with $\sigma(i) > \sigma(i+1)$.  The sorting conditions then satisfy
+the hypotheses of Lemma~\ref{lem.lgv.baby-jordan} for paths
+$p_i : A_i \to B_{\sigma(i+1)}$ and $p_{i+1} : A_{i+1} \to B_{\sigma(i)}$,
+so these two paths must intersect.  Hence no nipat exists.
+\end{proof}
+
+\begin{corollary}[LGV lemma, nonpermutable lattice weight version]
+\label{cor.lgv.kpaths.wt-np}
+\lean{LGV.lgv_nonpermutable}
+\leantarget
+\leanok
+Consider the setting of Theorem~\ref{thm.lgv.kpaths.wt}, but
+additionally assume that
+\begin{align}
+  \operatorname{x}(A_1) &\ge \operatorname{x}(A_2) \ge \cdots \ge \operatorname{x}(A_k);
+    \label{eq.cor.lgv.kpaths.wt-np.xA} \\
+  \operatorname{y}(A_1) &\le \operatorname{y}(A_2) \le \cdots \le \operatorname{y}(A_k);
+    \label{eq.cor.lgv.kpaths.wt-np.yA} \\
+  \operatorname{x}(B_1) &\ge \operatorname{x}(B_2) \ge \cdots \ge \operatorname{x}(B_k);
+    \label{eq.cor.lgv.kpaths.wt-np.xB} \\
+  \operatorname{y}(B_1) &\le \operatorname{y}(B_2) \le \cdots \le \operatorname{y}(B_k).
+    \label{eq.cor.lgv.kpaths.wt-np.yB}
+\end{align}
+Here, $\operatorname{x}(P)$ and $\operatorname{y}(P)$ denote the two
+coordinates of any point $P \in \mathbb{Z}^2$.
+
+Then, there are no nipats from $\mathbf{A}$ to $\sigma(\mathbf{B})$
+when $\sigma \in S_k$ is not the identity permutation
+$\operatorname{id} \in S_k$.  Therefore, the claim of
+Theorem~\ref{thm.lgv.kpaths.wt} simplifies to
+\begin{equation}
+  \det\!\left(\left(\sum_{p : A_i \to B_j} w(p)\right)_{1 \le i \le k,\; 1 \le j \le k}\right)
+  = \sum_{\substack{\mathbf{p} \text{ is a nipat} \\ \text{from } \mathbf{A} \text{ to } \mathbf{B}}}
+    w(\mathbf{p}).
+  \label{eq.cor.lgv.kpaths.wt-np.claim}
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+Let $\sigma \in S_k$ be a permutation that is not the identity
+permutation $\operatorname{id} \in S_k$.
+By Lemma~\ref{lem.lgv.no-nipats-nonid}, there are no nipats from
+$\mathbf{A}$ to $\sigma(\mathbf{B})$, so
+\[
+  \sum_{\substack{\mathbf{p} \text{ is a nipat} \\ \text{from } \mathbf{A} \text{ to } \sigma(\mathbf{B})}}
+    w(\mathbf{p}) = 0.
+\]
+Now, Theorem~\ref{thm.lgv.kpaths.wt} yields
+\begin{align*}
+  &\det\!\left(\left(\sum_{p : A_i \to B_j} w(p)\right)_{1 \le i \le k,\; 1 \le j \le k}\right) \\
+  &= \sum_{\sigma \in S_k} (-1)^{\sigma}
+    \sum_{\substack{\mathbf{p} \text{ is a nipat} \\ \text{from } \mathbf{A} \text{ to } \sigma(\mathbf{B})}}
+    w(\mathbf{p}) \\
+  &= \underbrace{(-1)^{\operatorname{id}}}_{=1}
+    \sum_{\substack{\mathbf{p} \text{ is a nipat} \\ \text{from } \mathbf{A} \text{ to } \mathbf{B}}}
+    w(\mathbf{p})
+    + \sum_{\substack{\sigma \in S_k \\ \sigma \ne \operatorname{id}}} (-1)^{\sigma}
+      \underbrace{\sum_{\substack{\mathbf{p} \text{ is a nipat} \\ \text{from } \mathbf{A} \text{ to } \sigma(\mathbf{B})}}
+        w(\mathbf{p})}_{= 0} \\
+  &= \sum_{\substack{\mathbf{p} \text{ is a nipat} \\ \text{from } \mathbf{A} \text{ to } \mathbf{B}}}
+    w(\mathbf{p}).
+\end{align*}
+\end{proof}
+
+\subsection{Applications}
+
+\subsubsection{Nonnegativity of binomial coefficient determinants}
+
+\begin{lemma}[FKG inequality for binomial coefficients]
+\label{lem.lgv.binom-fkg}
+\lean{LGV.binom_2x2_ineq}
+\leanhelper
+\leanok
+Let $a, b, c, d$ be nonnegative integers with $a \ge b$ and $c \ge d$.  Then
+\[
+  \binom{a}{d} \binom{b}{c} \le \binom{a}{c} \binom{b}{d}.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+By induction on $c - d$.  The base case $c = d$ is trivial.
+For the inductive step, use the identity
+$\binom{n}{m+1}(m+1) = \binom{n}{m}(n - m)$ to reduce the $(c+1)$
+case to the $c$ case, together with the inequality $b - m \le a - m$
+(from $b \le a$).
+\end{proof}
+
+\begin{lemma}[Lattice path count equals binomial coefficient]
+\label{lem.lgv.paths-count-eq-choose}
+\lean{LGV.paths_count_eq_choose}
+\leanhelper
+\leanok
+The number of lattice paths in $\mathbb{Z}^2$ from $(0, -a)$ to
+$(b, -b)$ equals $\binom{a}{b}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+A path from $(0,-a)$ to $(b,-b)$ has exactly $a$ steps (the coordinate
+sum $x+y$ increases from $-a$ to $0$), of which exactly $b$ are
+east-steps (the $x$-coordinate increases from $0$ to $b$).  Choosing
+which $b$ of the $a$ steps are east-steps gives a bijection with
+$b$-element subsets of $[a]$, so the count is $\binom{a}{b}$.
+\end{proof}
+
+\begin{lemma}[Lattice paths biject to subsets]
+\label{lem.lgv.paths-equiv-powersetCard}
+\lean{LGV.paths_count_eq_choose, LGV.paths_equiv_powersetCard}
+\leanhelper
+\leanok
+There is a bijection between paths from $(0, -a)$ to $(b, -b)$ in the
+integer lattice and $b$-element subsets of $\{1, \ldots, a\}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+A path is uniquely determined by the positions of its east-steps among
+all $a$ steps.  This gives a bijection to $b$-element subsets of
+$\{1, \ldots, a\}$.
+\end{proof}
+
+\subsubsection{Helpers for Corollary~\ref{cor.lgv.binom-det-nonneg}}
+
+\begin{lemma}[Binomial matrix equals path weight matrix]
+\label{lem.lgv.binom-matrix-eq}
+\lean{LGV.binom_matrix_eq_pathWeightMatrix}
+\leanhelper
+\leanok
+With $A_i = (0, -a_i)$, $B_j = (b_j, -b_j)$, and unit arc weights, the
+path weight matrix equals the matrix $\bigl(\binom{a_i}{b_j}\bigr)$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The $(i,j)$ entry of the path weight matrix (with unit weights) is
+the number of paths from $A_i$ to $B_j$, which by
+Lemma~\ref{lem.lgv.paths-count-eq-choose} equals $\binom{a_i}{b_j}$.
+\end{proof}
+
+\begin{lemma}[Signed ipat count is zero (unit weight case)]
+\label{lem.lgv.sum-signed-ipat-card-zero}
+\lean{LGV.sum_signed_ipatFinset_card_eq_zero}
+\leanhelper
+\leanok
+With unit arc weights on the integer lattice,
+\[
+  \sum_{\sigma \in S_k} (-1)^\sigma \,
+  \bigl|\{\mathbf{p} \text{ ipat from } \mathbf{A} \text{ to } \sigma(\mathbf{B})\}\bigr| = 0.
+\]
+\end{lemma}
+
+\begin{proof}
+This is the specialization of the signed ipat cancellation
+(Lemma~\ref{lem.lgv.sum-ipat-zero}) to unit weights, where the weight of
+each path tuple is $1$ and the sum reduces to a signed cardinality count.
+\end{proof}
+
+\begin{corollary}
+\label{cor.lgv.binom-det-nonneg}
+\lean{LGV.binom_det_nonneg}
+\leantarget
+\leanok
+Let $k \in \mathbb{N}$.  Let $a_1, a_2, \ldots, a_k$ and
+$b_1, b_2, \ldots, b_k$ be nonnegative integers such that
+\[
+  a_1 \ge a_2 \ge \cdots \ge a_k
+  \qquad \text{and} \qquad
+  b_1 \ge b_2 \ge \cdots \ge b_k.
+\]
+Then,
+\[
+  \det\!\left(\left(\binom{a_i}{b_j}\right)_{1 \le i \le k,\; 1 \le j \le k}\right) \ge 0.
+\]
+\end{corollary}
+
+\begin{proof}
+Set $K = \mathbb{Z}$ and $w(a) := 1$ for each arc $a$ of $\mathbb{Z}^2$.
+Define the lattice points
+\[
+  A_i := (0, -a_i) \qquad \text{and} \qquad B_i := (b_i, -b_i)
+\]
+for all $i \in [k]$.  These lattice points satisfy the assumptions
+of Corollary~\ref{cor.lgv.kpaths.wt-np}.  Hence,
+\eqref{eq.cor.lgv.kpaths.wt-np.claim} entails
+\[
+  \det\!\left(\left(\text{\# of paths from } A_i \text{ to } B_j\right)_{1 \le i \le k,\; 1 \le j \le k}\right)
+  = \text{\# of nipats from } \mathbf{A} \text{ to } \mathbf{B}.
+\]
+Using Proposition~\ref{prop.lgv.1-paths.ct}, the matrix on the left
+hand side is
+$\bigl(\binom{a_i}{b_j}\bigr)_{1 \le i \le k,\; 1 \le j \le k}$.
+The right hand side is $\ge 0$, so the determinant is $\ge 0$.
+
+In Lean, the cases $k = 0$ and $k = 1$ are proved directly (empty and
+$1\times 1$ determinants), $k = 2$ uses the FKG inequality
+(Lemma~\ref{lem.lgv.binom-fkg}), and $k \ge 3$ uses the full LGV
+machinery.
+\end{proof}
+
+\subsubsection{Catalan Hankel determinant}
+
+\begin{lemma}[Dyck digraph is acyclic]
+\label{lem.lgv.dyck-acyclic}
+\lean{LGV.dyckDigraph_acyclic}
+\leanhelper
+\leanok
+The Dyck digraph (with vertex set $\mathbb{Z} \times \mathbb{N}$ and arcs
+$(i,j) \to (i+1, j+1)$ and $(i,j) \to (i+1, j-1)$ for $j > 0$) is acyclic.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Every arc increases the first coordinate by $1$, so any path is strictly
+increasing in the first coordinate.  Hence there can be no cycle.
+\end{proof}
+
+\begin{lemma}[Dyck digraph is path-finite]
+\label{lem.lgv.dyck-pathfinite}
+\lean{LGV.dyckDigraph_pathFinite}
+\leanhelper
+\leanok
+The Dyck digraph is path-finite.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Since the first coordinate increases by exactly $1$ on each arc, a path of
+length $n$ visits vertices whose first coordinates form a consecutive
+sequence.  The second coordinate is bounded by the first coordinate
+difference, so there are only finitely many possible vertex sequences.
+\end{proof}
+
+\begin{lemma}[Dyck paths count equals Catalan number]
+\label{lem.lgv.dyck-paths-eq-catalan}
+\lean{LGV.dyck_paths_eq_catalan}
+\leanhelper
+\leanok
+The number of paths from $(0, 0)$ to $(2n, 0)$ in the Dyck digraph
+equals the Catalan number $c_n$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+A path from $(0,0)$ to $(2n, 0)$ in the Dyck digraph consists of $2n$
+steps, each going either up-right or down-right, and never going below
+the $x$-axis.  Such a path is exactly a Dyck path of semilength~$n$.
+The bijection with Dyck words (Lemma~\ref{lem.lgv.dyck-path-bijection})
+establishes the correspondence with the Catalan number.
+\end{proof}
+
+\subsubsection{Helpers for the Dyck path--DyckWord bijection}
+
+\begin{lemma}[Dyck path to DyckWord bijection]
+\label{lem.lgv.dyck-path-bijection}
+\lean{LGV.dyckPathToWord, LGV.dyckWordToPath}
+\leanhelper
+\leanok
+There is a bijection between paths from $(0, 0)$ to $(2n, 0)$ in
+the Dyck digraph and Dyck words of semilength $n$.
+The forward direction converts each arc into an up or down step;
+the backward direction constructs a vertex list from a Dyck word.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The forward map sends each arc $(x, y) \to (x+1, y+1)$ to an up-step
+and each arc $(x, y) \to (x+1, y-1)$ to a down-step, verifying that
+the resulting list of steps forms a well-formed Dyck word.  The backward
+map constructs vertices by scanning the Dyck word and accumulating
+$y$-coordinates.  Round-trip equalities (the two maps are mutual inverses)
+are verified by induction on the step list.
+\end{proof}
+
+\begin{lemma}[Shifted Dyck paths count equals Catalan number]
+\label{lem.lgv.dyck-paths-shifted}
+\lean{LGV.dyck_paths_shifted_eq_catalan}
+\leanhelper
+\leanok
+The number of paths from $(-2i, 0)$ to $(2j, 0)$ in the Dyck digraph
+equals $c_{i+j}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By translation invariance
+(Lemma~\ref{lem.lgv.translatePath-bijection}), the set of paths
+from $(-2i, 0)$ to $(2j, 0)$ bijects with paths from $(0, 0)$
+to $(2(i+j), 0)$, which has cardinality $c_{i+j}$ by
+Lemma~\ref{lem.lgv.dyck-paths-eq-catalan}.
+\end{proof}
+
+\begin{lemma}[Translation is a bijection on Dyck paths]
+\label{lem.lgv.translatePath-bijection}
+For any integer $d$, translation by $(d, 0)$ is a bijection on paths
+in the Dyck digraph: if $p$ is a path from $A$ to $B$, then translating
+each vertex by $(d, 0)$ gives a path from $A + (d, 0)$ to $B + (d, 0)$.
+The map is injective and surjective (the inverse translates by $(-d, 0)$).
+\end{lemma}
+
+\begin{proof}
+Each arc $(x, y) \to (x+1, y \pm 1)$ is preserved by horizontal translation,
+so the translated vertex list forms a valid path.  Injectivity follows
+from injectivity of the translation map on vertices.
+Surjectivity follows from the inverse translation.
+\end{proof}
+
+\begin{lemma}[Catalan Hankel matrix equals path weight matrix]
+\label{lem.lgv.catalan-hankel-eq-pwm}
+\lean{LGV.catalanHankelMatrix_eq_pathWeightMatrix}
+\leanhelper
+\leanok
+The Catalan Hankel matrix $(c_{i+j})_{0 \le i,j < k}$ equals the
+path weight matrix of the Dyck digraph with unit arc weights and
+$k$-vertices $A_i = (-2i, 0)$, $B_j = (2j, 0)$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The $(i,j)$ entry of the path weight matrix (with unit weights) counts
+paths from $(-2i, 0)$ to $(2j, 0)$, which equals $c_{i+j}$ by
+Lemma~\ref{lem.lgv.dyck-paths-shifted}.
+\end{proof}
+
+\subsubsection{Helpers for the unique nipat (Catalan case)}
+
+\begin{lemma}[Nested Dyck path construction]
+\label{lem.lgv.nestedDyckPath}
+\lean{LGV.nestedDyckPath, LGV.nestedDyckPath_start, LGV.nestedDyckPath_finish}
+\leanhelper
+\leanok
+For each $i \in \mathbb{N}$, define the \emph{nested Dyck path}
+$\gamma_i$ as the path in the Dyck digraph from $(-2i, 0)$ to $(2i, 0)$
+that goes straight up (northeast) from $(-2i, 0)$ to $(0, 2i)$ and
+then straight down (southeast) from $(0, 2i)$ to $(2i, 0)$.
+This path has $4i$ arcs and visits the vertices
+$(j - 2i,\; \min(j,\; 4i - j))$ for $j = 0, 1, \ldots, 4i$.
+\end{lemma}
+
+\begin{proof}
+The vertex list is constructed explicitly.
+The start and finish are verified by evaluating the vertex list at positions
+$0$ and $4i$.  Each consecutive pair of vertices forms a valid Dyck arc
+(either up-right or down-right, with $y \ge 0$).
+\end{proof}
+
+\begin{lemma}[Nested Dyck paths are disjoint]
+\label{lem.lgv.nestedDyckPath-disjoint}
+\lean{LGV.nestedDyckPath_disjoint}
+\leanhelper
+\leanok
+For $i \ne j$, the nested Dyck paths $\gamma_i$ and $\gamma_j$
+share no vertices.
+\end{lemma}
+
+\begin{proof}
+\leanok
+A vertex on $\gamma_i$ at position $m$ has
+$y = \min(m, 4i - m)$.  At any shared $x$-coordinate,
+the corresponding positions yield different $y$-coordinates
+when $i \ne j$, because the maximum height $2i$ differs.
+\end{proof}
+
+\begin{lemma}[Dyck path parity constraint]
+\label{lem.lgv.dyck-path-parity}
+For any path $p$ in the Dyck digraph, the $y$-coordinate at step $m$
+has the same parity as $y_{\mathrm{start}} + m$, where $y_{\mathrm{start}}$ is the
+$y$-coordinate of the starting vertex.  (Each arc changes $y$
+by $\pm 1$, so the parity alternates.)
+\end{lemma}
+
+\begin{proof}
+By induction on $m$.  Each arc changes $y$ by $\pm 1$, flipping
+the parity.
+\end{proof}
+
+\begin{lemma}[Dyck path height upper bound]
+\label{lem.lgv.dyck-path-y-bound}
+For a path $p$ in the Dyck digraph from $(-2i, 0)$ to $(2i, 0)$,
+the $y$-coordinate at step $m$ satisfies
+$y_m \le \min(m,\; 4i - m)$.
+\end{lemma}
+
+\begin{proof}
+Each step changes $y$ by at most $+1$, so $y_m \le m$.
+Symmetrically, $y$ must return to $0$ in $4i - m$ remaining steps,
+so $y_m \le 4i - m$.
+\end{proof}
+
+\begin{lemma}[Nested Dyck paths form the unique nipat]
+\label{lem.lgv.catalan-unique-nipat}
+\lean{LGV.catalan_unique_nipat}
+\leanhelper
+\leanok
+Define $k$-vertices
+$A_i := (-2(i-1), 0)$ and $B_i := (2(i-1), 0)$ for $i \in [k]$.
+There is exactly one non-intersecting path tuple from $\mathbf{A}$ to
+$\mathbf{B}$ in the Dyck digraph: the \emph{nested} Dyck paths, where
+path $i$ goes from $(-2i, 0)$ up to $(0, 2i)$ and back down to $(2i, 0)$.
+\end{lemma}
+
+\begin{proof}
+\textbf{Existence and non-intersection:}
+The nested Dyck path for index $i$ visits only vertices $(x, y)$
+with $|x| \le 2i$ and $y \le 2i$, and at the midpoint $x = 0$ it
+reaches height exactly $2i$.  Two nested paths for indices $i \ne j$
+are disjoint because they reach different maximum heights
+(Lemma~\ref{lem.lgv.nestedDyckPath-disjoint}).
+
+\textbf{Uniqueness:}
+Any nipat must equal the nested one.  At the midpoint of path $i$
+(step $2i$), the $y$-coordinate must be exactly $2i$: it is at most
+$2i$ (by Lemma~\ref{lem.lgv.dyck-path-y-bound}), has the correct
+parity (by Lemma~\ref{lem.lgv.dyck-path-parity}), and cannot equal
+$2m$ for any $m < i$ because
+that would force a shared vertex with the (inductively determined)
+path $m$.  Once the midpoint heights are fixed, the entire path is
+forced (it must go straight up, then straight down) by parity and the
+non-intersection constraint.
+
+For $k \ge 2$, the full proof uses strong induction on the path index.
+\end{proof}
+
+\begin{corollary}
+\label{cor.lgv.catalan-hankel-det-0}
+\lean{LGV.catalan_hankel_det}
+\leantarget
+\leanok
+Let $k \in \mathbb{N}$.  Recall the Catalan numbers
+$c_n = \frac{1}{n+1}\binom{2n}{n}$ for all $n \in \mathbb{N}$.  Then,
+\[
+  \det\!\left(\left(c_{i+j-2}\right)_{1 \le i \le k,\; 1 \le j \le k}\right)
+  = \det\!\begin{pmatrix}
+    c_0    & c_1    & \cdots & c_{k-1} \\
+    c_1    & c_2    & \cdots & c_k     \\
+    \vdots & \vdots & \ddots & \vdots  \\
+    c_{k-1}& c_k    & \cdots & c_{2k-2}
+  \end{pmatrix}
+  = 1.
+\]
+\end{corollary}
+
+\begin{proof}
+We use not the lattice $\mathbb{Z}^2$, but a different digraph: the
+simple digraph with vertex set $\mathbb{Z} \times \mathbb{N}$ and arcs
+$(i,j) \to (i+1, j+1)$ for all $(i,j) \in \mathbb{Z} \times \mathbb{N}$
+and $(i,j) \to (i+1, j-1)$ for all $(i,j) \in \mathbb{Z} \times \mathbb{P}$.
+It is easy to see that this digraph is acyclic and path-finite.
+
+Set $K = \mathbb{Z}$ and $w(a) = 1$ for each arc $a$.  Define
+$A_i := (-2(i-1), 0)$ and $B_i := (2(i-1), 0)$ for $i \in [k]$.
+
+The Catalan number $c_n$ counts the paths from $(0,0)$ to $(2n,0)$ on
+this digraph (Dyck paths).  Hence $c_n$ also counts the paths from
+$(i,0)$ to $(2n+i, 0)$ for any $i \in \mathbb{N}$.  By
+Lemma~\ref{lem.lgv.dyck-paths-eq-catalan}, the number of paths from
+$A_i$ to $B_j$ is $c_{i+j-2}$.  Hence the path weight matrix is the
+Catalan Hankel matrix
+(Lemma~\ref{lem.lgv.catalan-hankel-eq-pwm}).
+
+It is not hard to show (Lemma~\ref{lem.lgv.catalan-unique-nipat}) that
+there is only one nipat from $\mathbf{A}$ to $\mathbf{B}$.  Moreover,
+there are no nipats from $\mathbf{A}$ to $\sigma(\mathbf{B})$ for
+$\sigma \ne \operatorname{id}$ (by an argument analogous to
+Corollary~\ref{cor.lgv.kpaths.wt-np}).  Hence, by
+Theorem~\ref{thm.lgv.kpaths.wt-dg}, the determinant equals $1$.
+\end{proof}
+
+\subsection{Bridge between path representations}
+
+\begin{lemma}[Lattice path conversion is a bijection]
+\label{lem.lgv.latticePath-equiv}
+\lean{LGV.latticePath'Equiv}
+\leanhelper
+\leanok
+There is a bijection between step-based lattice paths
+(lists of east/north steps starting at a given
+point) and vertex-based digraph paths
+in $\mathbb{Z}^2$ starting at that point.
+The forward direction computes the list of visited vertices; the
+backward direction recovers the step sequence from consecutive vertex pairs.
+\end{lemma}
+
+\begin{proof}
+The forward map is injective
+(Lemma~\ref{lem.lgv.toPath-injective}) and surjective
+(Lemma~\ref{lem.lgv.toPath-surjective}), establishing the equivalence.
+\end{proof}
+
+\begin{lemma}[Step-to-vertex map is injective]
+\label{lem.lgv.toPath-injective}
+\lean{LGV.LatticePath'.toPath_injective}
+\leanhelper
+\leanok
+Different step sequences starting from the same point produce
+different vertex-based paths.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By induction on the path length.  If two step sequences produce the
+same vertex list, the second vertices must agree.  Since each step
+(east or north) produces a distinct target from the same source,
+the first steps must be equal.  Apply the induction hypothesis to the tails.
+\end{proof}
+
+\begin{lemma}[Step-to-vertex map is surjective]
+\label{lem.lgv.toPath-surjective}
+\lean{LGV.LatticePath'.toPath_surjective}
+\leanhelper
+\leanok
+Every vertex-based path in the integer lattice starting at a
+given point is the image of some step sequence.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Convert the path's vertex list to a step list by recovering each step from consecutive
+vertex pairs: if the $x$-coordinate increases by $1$, the step is east; otherwise it is north.
+The round-trip identity follows by construction.
+\end{proof}
+
+\begin{lemma}[Path tuple bijection preserves intersection]
+\label{lem.lgv.latticePath-tuple-intersecting}
+\lean{LGV.latticePath'Tuple_isIntersecting_iff}
+\leanhelper
+\leanok
+A step-based lattice path tuple is intersecting if and only if
+the corresponding vertex-based path tuple is intersecting.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Both representations check whether any two paths share a vertex.
+Since the step-to-vertex map preserves the vertex list, a vertex $v$
+appears in two step-based paths if and only if it appears in the
+corresponding vertex-based paths.
+\end{proof}

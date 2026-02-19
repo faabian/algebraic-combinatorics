@@ -1,0 +1,256 @@
+\subsection{\label{sec.sf.m}$N$-partitions and monomial symmetric polynomials}
+
+Recall that an \emph{(integer) partition} means a weakly decreasing finite
+tuple of positive integers -- such as $\left(  5,3,3,2,1\right)  $.
+
+Let us define a variant of this notion:
+
+\begin{definition}
+\label{def.sf.Npar}An $N$\emph{-partition} will mean a weakly decreasing
+$N$-tuple of nonnegative integers. In other words, an $N$-partition means an
+$N$-tuple $\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{N}\right)
+\in\mathbb{N}^{N}$ with $\lambda_{1}\geq\lambda_{2}\geq\cdots\geq\lambda_{N}$.
+\end{definition}
+
+For example, $\left(  5,3,3,2,1,0,0\right)  $ is a $7$-partition.
+
+Per se, an $N$-partition can contain zeroes and thus is not always a
+partition. However, the $N$-partitions are \textquotedblleft more or less the
+same\textquotedblright\ as the partitions of length $\leq N$. Indeed:
+
+\begin{proposition}
+\label{prop.sf.Npar-as-par}There is a bijection%
+\begin{align*}
+\left\{  \text{partitions of length }\leq N\right\}   &  \rightarrow\left\{
+N\text{-partitions}\right\}  ,\\
+\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{\ell}\right)   &
+\mapsto\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{\ell}%
+,\underbrace{0,0,\ldots,0}_{N-\ell\text{ zeroes}}\right)  .
+\end{align*}
+
+\end{proposition}
+
+\begin{proof}
+Straightforward. (We essentially did this back in our proof of Proposition
+\ref{prop.pars.qbinom.alt-defs} \textbf{(a)}, although we used the letter $k$
+instead of $N$ back then.)
+\end{proof}
+
+The $N$-partitions turn out to be closely connected to the ring $\mathcal{S}$.
+Indeed, we will soon see various bases of the $K$-module $\mathcal{S}$, all of
+which are indexed by the $N$-partitions. We shall construct the simplest one
+in a moment. First, we define some auxiliary notations:
+
+\begin{definition}
+\label{def.sf.sort}Let $a=\left(  a_{1},a_{2},\ldots,a_{N}\right)
+\in\mathbb{N}^{N}$. Then: \medskip
+
+\textbf{(a)} We let $x^{a}$ denote the monomial $x_{1}^{a_{1}}x_{2}^{a_{2}%
+}\cdots x_{N}^{a_{N}}$. \medskip
+
+\textbf{(b)} We let $\operatorname*{sort}a$ mean the $N$-partition obtained
+from $a$ by sorting the entries of $a$ in weakly decreasing order.
+\end{definition}
+
+For example, if $N=5$, then $x^{\left(  1,5,0,4,4\right)  }=x_{1}^{1}x_{2}%
+^{5}x_{3}^{0}x_{4}^{4}x_{5}^{4}=x_{1}x_{2}^{5}x_{4}^{4}x_{5}^{4}$ and
+\newline$\operatorname*{sort}\left(  1,5,0,4,4\right)  =\left(
+5,4,4,1,0\right)  $.
+
+\begin{definition}
+\label{def.sf.m}Let $\lambda$ be any $N$-partition. Then, we define a
+symmetric polynomial $m_{\lambda}\in\mathcal{S}$ by%
+\[
+m_{\lambda}:=\sum_{\substack{a\in\mathbb{N}^{N};\\\operatorname*{sort}%
+a=\lambda}}x^{a}.
+\]
+This is called the \emph{monomial symmetric polynomial corresponding to
+}$\lambda$.
+\end{definition}
+
+\begin{example}
+Let $N=3$. Then,%
+\begin{align*}
+m_{\left(  2,1,0\right)  }  &  =\sum_{\substack{a\in\mathbb{N}^{3}%
+;\\\operatorname*{sort}a=\left(  2,1,0\right)  }}x^{a}=x^{\left(
+2,1,0\right)  }+x^{\left(  2,0,1\right)  }+x^{\left(  1,2,0\right)
+}+x^{\left(  1,0,2\right)  }+x^{\left(  0,2,1\right)  }+x^{\left(
+0,1,2\right)  }\\
+&  =x_{1}^{2}x_{2}+x_{1}^{2}x_{3}+x_{1}x_{2}^{2}+x_{1}x_{3}^{2}+x_{2}^{2}%
+x_{3}+x_{2}x_{3}^{2}%
+\end{align*}
+and%
+\begin{align*}
+m_{\left(  3,2,1\right)  }  &  =\sum_{\substack{a\in\mathbb{N}^{3}%
+;\\\operatorname*{sort}a=\left(  3,2,1\right)  }}x^{a}=x^{\left(
+3,2,1\right)  }+x^{\left(  3,1,2\right)  }+x^{\left(  2,3,1\right)
+}+x^{\left(  2,1,3\right)  }+x^{\left(  1,3,2\right)  }+x^{\left(
+1,2,3\right)  }\\
+&  =x_{1}^{3}x_{2}^{2}x_{3}+x_{1}^{3}x_{2}x_{3}^{2}+x_{1}^{2}x_{2}^{3}%
+x_{3}+x_{1}^{2}x_{2}x_{3}^{3}+x_{1}x_{2}^{3}x_{3}^{2}+x_{1}x_{2}^{2}x_{3}%
+^{3}\\
+&  =x_{1}^{3}x_{2}^{2}x_{3}+\left(  \text{all other }5\text{ permutations of
+this monomial}\right)
+\end{align*}
+and%
+\begin{align*}
+m_{\left(  2,2,1\right)  }  &  =\sum_{\substack{a\in\mathbb{N}^{3}%
+;\\\operatorname*{sort}a=\left(  2,2,1\right)  }}x^{a}=x^{\left(
+2,2,1\right)  }+x^{\left(  2,1,2\right)  }+x^{\left(  1,2,2\right)  }\\
+&  =x_{1}^{2}x_{2}^{2}x_{3}+x_{1}^{2}x_{2}x_{3}^{2}+x_{1}x_{2}^{2}x_{3}^{2}%
+\end{align*}
+and%
+\[
+m_{\left(  2,2,2\right)  }=\sum_{\substack{a\in\mathbb{N}^{3}%
+;\\\operatorname*{sort}a=\left(  2,2,2\right)  }}x^{a}=x_{1}^{2}x_{2}^{2}%
+x_{3}^{2}.
+\]
+
+\end{example}
+
+Our symmetric polynomials $e_{n}$, $h_{n}$ and $p_{n}$ so far can be easily
+expressed in terms of monomial symmetric polynomials:
+
+\begin{proposition}
+\label{prop.sf.ehp-through-m}\textbf{(a)} For each $n\in\left\{
+0,1,\ldots,N\right\}  $, we have%
+\[
+e_{n}=m_{\left(  1,1,\ldots,1,0,0,\ldots,0\right)  },
+\]
+where $\left(  1,1,\ldots,1,0,0,\ldots,0\right)  $ is the $N$-tuple that
+begins with $n$ many $1$'s and ends with $N-n$ many $0$'s. \medskip
+
+\textbf{(b)} For each $n\in\mathbb{N}$, we have%
+\[
+h_{n}=\sum_{\substack{\lambda\text{ is an }N\text{-partition;}\\\left\vert
+\lambda\right\vert =n}}m_{\lambda},
+\]
+where the \emph{size} $\left\vert \lambda\right\vert $ of an $N$-partition
+$\lambda$ is defined to be the sum of its entries (i.e., if $\lambda=\left(
+\lambda_{1},\lambda_{2},\ldots,\lambda_{N}\right)  $, then $\left\vert
+\lambda\right\vert :=\lambda_{1}+\lambda_{2}+\cdots+\lambda_{N}$). \medskip
+
+\textbf{(c)} Assume that $N>0$. For each $n\in\mathbb{N}$, we have%
+\[
+p_{n}=m_{\left(  n,0,0,\ldots,0\right)  },
+\]
+where $\left(  n,0,0,\ldots,0\right)  $ is the $N$-tuple that begins with an
+$n$ and ends with $N-1$ zeroes.
+\end{proposition}
+
+\begin{proof}
+Easy and LTTR.
+\end{proof}
+
+The monomial symmetric polynomials $m_{\lambda}$ are the \textquotedblleft
+building blocks\textquotedblright\ of symmetric polynomials, in the same way
+as the monomials are the \textquotedblleft building blocks\textquotedblright%
+\ of polynomials. Here is a way to make this precise:
+
+\begin{theorem}
+\label{thm.sf.m-basis}\textbf{(a)} The family $\left(  m_{\lambda}\right)
+_{\lambda\text{ is an }N\text{-partition}}$ is a basis of the $K$-module
+$\mathcal{S}$. \medskip
+
+\textbf{(b)} Each symmetric polynomial $f\in\mathcal{S}$ satisfies%
+\[
+f=\sum_{\substack{\lambda=\left(  \lambda_{1},\lambda_{2},\ldots,\lambda
+_{N}\right)  \\\text{is an }N\text{-partition}}}\left(  \left[  x_{1}%
+^{\lambda_{1}}x_{2}^{\lambda_{2}}\cdots x_{N}^{\lambda_{N}}\right]  f\right)
+m_{\lambda}.
+\]
+
+
+\textbf{(c)} Let $n\in\mathbb{N}$. Let%
+\[
+\mathcal{S}_{n}:=\left\{  \text{homogeneous symmetric polynomials }%
+f\in\mathcal{P}\text{ of degree }n\right\}
+\]
+(where we understand the zero polynomial $0\in\mathcal{P}$ to be homogeneous
+of every degree). Then, $\mathcal{S}_{n}$ is a $K$-submodule of $\mathcal{S}$.
+\medskip
+
+\textbf{(d)} Define the \emph{size} of any $N$-partition $\lambda=\left(
+\lambda_{1},\lambda_{2},\ldots,\lambda_{N}\right)  $ to be the number
+$\lambda_{1}+\lambda_{2}+\cdots+\lambda_{N}\in\mathbb{N}$. Then, the family
+$\left(  m_{\lambda}\right)  _{\lambda\text{ is an }N\text{-partition of size
+}n}$ is a basis of the $K$-module $\mathcal{S}_{n}$.
+\end{theorem}
+
+\begin{example}
+\label{exa.sf.m-basis.1}Let $N=3$, and let us rename the indeterminates
+$x_{1},x_{2},x_{3}$ as $x,y,z$. The polynomial $\left(  x+y\right)  \left(
+y+z\right)  \left(  z+x\right)  $ is symmetric, thus belongs to $\mathcal{S}$.
+Expanding it, we find%
+\begin{align*}
+\left(  x+y\right)  \left(  y+z\right)  \left(  z+x\right)   &
+=\underbrace{x^{2}y+x^{2}z+y^{2}x+y^{2}z+z^{2}x+z^{2}y}_{=m_{\left(
+2,1,0\right)  }}+\,2\underbrace{xyz}_{=m_{\left(  1,1,1\right)  }}\\
+&  =m_{\left(  2,1,0\right)  }+2m_{\left(  1,1,1\right)  }.
+\end{align*}
+Thus, we have written $\left(  x+y\right)  \left(  y+z\right)  \left(
+z+x\right)  $ as a $K$-linear combination of $m_{\lambda}$'s for various
+$N$-partitions $\lambda$. The same procedure (i.e., expanding, and then
+collecting monomials that differ only in the order of their exponents, such as
+the monomials $x^{2}y,x^{2}z,y^{2}x,y^{2}z,z^{2}x,z^{2}y$ in our example) can
+be applied to any symmetric polynomial $f\in\mathcal{S}$, and always results
+in a representation of $f$ as a $K$-linear combination of $m_{\lambda}$'s
+(because the symmetry of $f$ ensures that monomials that differ only in the
+order of their exponents appear in $f$ with equal coefficients).
+\end{example}
+
+The proof of Theorem \ref{thm.sf.m-basis} will rely on a simple proposition
+that expresses how a permutation $\sigma\in S_{N}$ transforms the coefficients
+of a polynomial $f\in\mathcal{P}$ (guess what: it permutes these coefficients):
+
+\begin{proposition}
+\label{prop.sf.sigma-pol-coeff}Let $\sigma\in S_{N}$ and $f\in\mathcal{P}$.
+Then,%
+\[
+\left[  x_{1}^{a_{1}}x_{2}^{a_{2}}\cdots x_{N}^{a_{N}}\right]  \left(
+\sigma\cdot f\right)  =\left[  x_{1}^{a_{\sigma\left(  1\right)  }}%
+x_{2}^{a_{\sigma\left(  2\right)  }}\cdots x_{N}^{a_{\sigma\left(  N\right)
+}}\right]  f
+\]
+for any $\left(  a_{1},a_{2},\ldots,a_{N}\right)  \in\mathbb{N}^{N}$.
+\end{proposition}
+
+Here, as in Section \ref{sec.gf.multivar}, we are using the notation $\left[
+x_{1}^{a_{1}}x_{2}^{a_{2}}\cdots x_{N}^{a_{N}}\right]  g$ for the coefficient
+of a monomial $x_{1}^{a_{1}}x_{2}^{a_{2}}\cdots x_{N}^{a_{N}}$ in a polynomial
+$g\in\mathcal{P}$.
+
+The proof of Proposition \ref{prop.sf.sigma-pol-coeff} is quite easy and can
+be found in Section \ref{sec.details.sf.m}.
+
+\begin{proof}
+[Proof of Theorem \ref{thm.sf.m-basis} (sketched).]Here is a rough outline of
+the proof; we leave the details to the reader. \medskip
+
+\textbf{(a)} The method shown in Example \ref{exa.sf.m-basis.1} shows that
+each $f\in\mathcal{S}$ is a $K$-linear combination of the family $\left(
+m_{\lambda}\right)  _{\lambda\text{ is an }N\text{-partition}}$. Thus, this
+family spans $\mathcal{S}$. It remains to show that this family is
+$K$-linearly independent.
+
+To show this, we observe the following: If you expand a linear combination
+$\sum\limits_{\lambda\text{ is an }N\text{-partition}}a_{\lambda}m_{\lambda}$
+(where $a_{\lambda}\in K$) as a sum of monomials, then none of the addends can
+cancel (since no two $m_{\lambda}$'s have any monomial in common\footnote{and
+since each $m_{\lambda}$ contains at least one monomial (trivial observation,
+but should not be forgotten)}); thus, the linear combination cannot be $0$
+unless all the $a_{\lambda}$'s are $0$. This proves the $K$-linear
+independence of the family $\left(  m_{\lambda}\right)  _{\lambda\text{ is an
+}N\text{-partition}}$. Thus, the proof of Theorem \ref{thm.sf.m-basis}
+\textbf{(a)} is complete. \medskip
+
+\textbf{(b)} This should be clear from Example \ref{exa.sf.m-basis.1} as well.
+\medskip
+
+\textbf{(c)} This is rather obvious: Any $K$-linear combination of homogeneous
+polynomials of degree $n$ is again homogeneous of degree $n$. \medskip
+
+\textbf{(d)} This follows by the same argument as part \textbf{(a)}, except
+that we now need to observe that homogeneous polynomials of degree $n$ are
+$K$-linear combinations of degree-$n$ monomials (rather than arbitrary monomials).
+\end{proof}

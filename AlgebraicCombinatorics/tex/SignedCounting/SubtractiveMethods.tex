@@ -1,0 +1,469 @@
+\subsection{\label{sec.cancel.moresub}More subtractive methods}
+
+\subsubsection{\label{subsec.cancel.moresub.all-even}Sums with varying signs}
+
+The ideas of subtraction and cancellation have several other applications in
+combinatorics. One way to achieve a lot of cancellation is by summing the same
+sums but with varying signs. For instance, when $P\left(  x\right)  $ is a
+univariate polynomial, the sum $P\left(  x\right)  +P\left(  -x\right)  $
+contains no odd powers of $x$, since all these odd powers cancel out (for
+instance, $\left(  1+x\right)  ^{3}+\left(  1-x\right)  ^{3}=6x^{2}+2$).
+Meanwhile, all even powers of $x$ that appear in $P\left(  x\right)  $ will
+appear in $P\left(  x\right)  +P\left(  -x\right)  $ with their coefficients
+doubled. Likewise, for a polynomial $P\left(  x,y\right)  $ in two variables,
+we can \textquotedblleft disable\textquotedblright\ all odd powers of $x$ by
+taking $P\left(  x,y\right)  +P\left(  -x,y\right)  $; moreover, by taking the
+sum $P\left(  x,y\right)  +P\left(  -x,y\right)  +P\left(  x,-y\right)
++P\left(  -x,-y\right)  $, we can \textquotedblleft disable\textquotedblright%
+\ all monomials $x^{i}y^{j}$ for which at least one of $i$ and $j$ is odd,
+leaving only the monomials $x^{i}y^{j}$ with $i\equiv j\equiv
+0\operatorname{mod}2$ intact.
+
+An impressive example of how this trick can be used is the proof of the
+following enumerative result:
+
+\begin{theorem}
+\label{thm.cancel.all-even}Let $n\in\mathbb{N}$ and $d\in\mathbb{N}$. An
+$n$-tuple $\left(  x_{1},x_{2},\ldots,x_{n}\right)  \in\left[  d\right]  ^{n}$
+is said to be \emph{all-even} if each element of $\left[  d\right]  $ occurs
+an even number of times in this $n$-tuple (i.e., if for each $k\in\left[
+d\right]  $, the number of all $i\in\left[  n\right]  $ satisfying $x_{i}=k$
+is even). For example, the $4$-tuple $\left(  1,4,4,1\right)  $ and the
+$6$-tuples $\left(  1,3,3,5,1,5\right)  $ and $\left(  2,4,2,4,3,3\right)  $
+are all-even, while the $4$-tuples $\left(  1,2,2,4\right)  $ and $\left(
+2,4,6,4\right)  $ are not.
+
+Then, the number of all all-even $n$-tuples $\left(  x_{1},x_{2},\ldots
+,x_{n}\right)  \in\left[  d\right]  ^{n}$ is
+\[
+\dfrac{1}{2^{d}}\sum_{k=0}^{d}\dbinom{d}{k}\left(  d-2k\right)  ^{n}.
+\]
+
+\end{theorem}
+
+This formula entails that the sum $\sum_{k=0}^{d}\dbinom{d}{k}\left(
+d-2k\right)  ^{n}$ is nonnegative and divisible by $2^{d}$. This would not be
+obvious without the theorem! The presence of addends with different signs (at
+least for $n$ odd) appears to make a direct combinatorial proof impossible. We
+will instead use the cancellation trick we mentioned above. (Our proof is
+taken from \cite[solution to Exercise 7]{18f-hw4s}.)
+
+As an introductory example, let us take a look at the case $n=4$ and $d=2$.
+Then, Theorem \ref{thm.cancel.all-even} is saying that the number of all
+all-even $4$-tuples $\left(  x_{1},x_{2},x_{3},x_{4}\right)  \in\left[
+2\right]  ^{4}$ is
+\begin{align*}
+\dfrac{1}{2^{2}}\sum_{k=0}^{2}\dbinom{2}{k}\left(  2-2k\right)  ^{4}  &
+=\dfrac{1}{4}\left(  \dbinom{2}{0}\cdot2^{4}+\dbinom{2}{1}\cdot0^{4}%
++\dbinom{2}{2}\cdot\left(  -2\right)  ^{4}\right) \\
+&  =\dfrac{1}{4}\left(  2^{4}+2\cdot0^{4}+\left(  -2\right)  ^{4}\right)  .
+\end{align*}
+We claim that this can be seen as follows: For any integers $e_{1},e_{2}$, the
+distributive law yields%
+\begin{align*}
+\left(  e_{1}+e_{2}\right)  ^{4}  &  =e_{1}e_{1}e_{1}e_{1}+e_{1}e_{1}%
+e_{1}e_{2}+e_{1}e_{1}e_{2}e_{1}+\cdots\ \ \ \ \ \ \ \ \ \ \left(  \text{a
+total of }16\text{ addends}\right) \\
+&  =\sum_{\left(  x_{1},x_{2},x_{3},x_{4}\right)  \in\left[  2\right]  ^{4}%
+}e_{x_{1}}e_{x_{2}}e_{x_{3}}e_{x_{4}}.
+\end{align*}
+Summing this over all four pairs $\left(  e_{1},e_{2}\right)  \in\left\{
+1,-1\right\}  ^{2}$, we find%
+\begin{align}
+&  \sum_{\left(  e_{1},e_{2}\right)  \in\left\{  1,-1\right\}  ^{2}}\left(
+e_{1}+e_{2}\right)  ^{4}\nonumber\\
+&  =\sum_{\left(  e_{1},e_{2}\right)  \in\left\{  1,-1\right\}  ^{2}}%
+\ \ \sum_{\left(  x_{1},x_{2},x_{3},x_{4}\right)  \in\left[  2\right]  ^{4}%
+}e_{x_{1}}e_{x_{2}}e_{x_{3}}e_{x_{4}}\nonumber\\
+&  =\sum_{\left(  x_{1},x_{2},x_{3},x_{4}\right)  \in\left[  2\right]  ^{4}%
+}\ \ \sum_{\left(  e_{1},e_{2}\right)  \in\left\{  1,-1\right\}  ^{2}}%
+e_{x_{1}}e_{x_{2}}e_{x_{3}}e_{x_{4}} \label{eq.thm.cancel.all-even.ex1}%
+\end{align}
+(here, we interchanged the summation signs). But now we can simplify the inner
+sum $\sum_{\left(  e_{1},e_{2}\right)  \in\left\{  1,-1\right\}  ^{2}}%
+e_{x_{1}}e_{x_{2}}e_{x_{3}}e_{x_{4}}$ rather conveniently:
+
+\begin{itemize}
+\item If the $4$-tuple $\left(  x_{1},x_{2},x_{3},x_{4}\right)  $ is all-even,
+then all addends of this sum are $1$ (for example, if $\left(  x_{1}%
+,x_{2},x_{3},x_{4}\right)  =\left(  1,2,2,1\right)  $, then $e_{x_{1}}%
+e_{x_{2}}e_{x_{3}}e_{x_{4}}=e_{1}e_{2}e_{2}e_{1}=e_{1}^{2}e_{2}^{2}=1$ for all
+$\left(  e_{1},e_{2}\right)  \in\left\{  1,-1\right\}  ^{2}$), and thus the
+sum is equal to $4$.
+
+\item If the $4$-tuple $\left(  x_{1},x_{2},x_{3},x_{4}\right)  $ is not
+all-even, then the addends of this sum cancel out entirely (for example, if
+$\left(  x_{1},x_{2},x_{3},x_{4}\right)  =\left(  1,2,1,1\right)  $, then
+$e_{x_{1}}e_{x_{2}}e_{x_{3}}e_{x_{4}}=e_{1}e_{2}e_{1}e_{1}=e_{1}^{3}e_{2}$
+changes sign whenever we flip the sign of $e_{1}$, so that the addends with
+$e_{1}=1$ cancel out the addends with $e_{1}=-1$), and thus the sum is just
+$0$.
+\end{itemize}
+
+Altogether, we thus see that each $\left(  x_{1},x_{2},x_{3},x_{4}\right)
+\in\left[  2\right]  ^{4}$ satisfies
+\[
+\sum_{\left(  e_{1},e_{2}\right)  \in\left\{  1,-1\right\}  ^{2}}e_{x_{1}%
+}e_{x_{2}}e_{x_{3}}e_{x_{4}}=%
+\begin{cases}
+4, & \text{if }\left(  x_{1},x_{2},x_{3},x_{4}\right)  \text{ is all-even};\\
+0, & \text{if not.}%
+\end{cases}
+\]
+Hence, (\ref{eq.thm.cancel.all-even.ex1}) simplifies to%
+\begin{align*}
+\sum_{\left(  e_{1},e_{2}\right)  \in\left\{  1,-1\right\}  ^{2}}\left(
+e_{1}+e_{2}\right)  ^{4}  &  =\sum_{\left(  x_{1},x_{2},x_{3},x_{4}\right)
+\in\left[  2\right]  ^{4}}%
+\begin{cases}
+4, & \text{if }\left(  x_{1},x_{2},x_{3},x_{4}\right)  \text{ is all-even};\\
+0, & \text{if not}%
+\end{cases}
+\\
+&  =4\cdot\left(  \text{\# of all all-even }4\text{-tuples }\left(
+x_{1},x_{2},x_{3},x_{4}\right)  \in\left[  2\right]  ^{4}\right)  .
+\end{align*}
+We thus conclude that%
+\begin{align*}
+\left(  \text{\# of all all-even }4\text{-tuples }\left(  x_{1},x_{2}%
+,x_{3},x_{4}\right)  \in\left[  2\right]  ^{4}\right)   &  =\dfrac{1}{4}%
+\sum_{\left(  e_{1},e_{2}\right)  \in\left\{  1,-1\right\}  ^{2}}\left(
+e_{1}+e_{2}\right)  ^{4}\\
+&  =\dfrac{1}{4}\left(  2^{4}+2\cdot0^{4}+\left(  -2\right)  ^{4}\right)
+\end{align*}
+(since the sum $\sum_{\left(  e_{1},e_{2}\right)  \in\left\{  1,-1\right\}
+^{2}}\left(  e_{1}+e_{2}\right)  ^{4}$ contains one addend with $e_{1}%
++e_{2}=2$, two addends with $e_{1}+e_{2}=0$, and one addend with $e_{1}%
++e_{2}=-2$). This is precisely the answer that Theorem
+\ref{thm.cancel.all-even} gives us.
+
+We shall now prove Theorem \ref{thm.cancel.all-even} by formalizing and
+generalizing this argument. We begin with the obvious generalization of
+(\ref{eq.thm.cancel.all-even.ex1}):
+
+\begin{lemma}
+\label{lem.cancel.all-even.l1}Let $n,d\in\mathbb{N}$. Then,%
+\begin{align*}
+&  \sum_{\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}
+^{d}}\left(  e_{1}+e_{2}+\cdots+e_{d}\right)  ^{n}\\
+&  =\sum_{\left(  x_{1},x_{2},\ldots,x_{n}\right)  \in\left[  d\right]  ^{n}%
+}\ \ \sum_{\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}
+^{d}}e_{x_{1}}e_{x_{2}}\cdots e_{x_{n}}.
+\end{align*}
+
+\end{lemma}
+
+\begin{proof}
+For each $\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}
+^{d}$, we have $e_{1}+e_{2}+\cdots+e_{d}=\sum_{k=1}^{d}e_{k}$ and thus%
+\begin{align*}
+&  \left(  e_{1}+e_{2}+\cdots+e_{d}\right)  ^{n}\\
+&  =\left(  \sum_{k=1}^{d}e_{k}\right)  ^{n}=\prod_{i=1}^{n}\ \ \sum_{k=1}%
+^{d}e_{k}=\underbrace{\sum_{\left(  k_{1},k_{2},\ldots,k_{n}\right)
+\in\left[  d\right]  \times\left[  d\right]  \times\cdots\times\left[
+d\right]  }}_{=\sum_{\left(  k_{1},k_{2},\ldots,k_{n}\right)  \in\left[
+d\right]  ^{n}}}\ \ \underbrace{\prod_{i=1}^{n}e_{k_{i}}}_{=e_{k_{1}}e_{k_{2}%
+}\cdots e_{k_{n}}}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{by the product rule
+(\ref{eq.lem.fps.prodrule-fin-fin.eq}), applied to }m_{i}=d\text{ and }%
+p_{i,k}=e_{k}\right) \\
+&  =\sum_{\left(  k_{1},k_{2},\ldots,k_{n}\right)  \in\left[  d\right]  ^{n}%
+}e_{k_{1}}e_{k_{2}}\cdots e_{k_{n}}=\sum_{\left(  x_{1},x_{2},\ldots
+,x_{n}\right)  \in\left[  d\right]  ^{n}}e_{x_{1}}e_{x_{2}}\cdots e_{x_{n}}%
+\end{align*}
+(here, we have renamed the summation index). Summing this over all $\left(
+e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}  ^{d}$, we find%
+\begin{align*}
+&  \sum_{\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}
+^{d}}\left(  e_{1}+e_{2}+\cdots+e_{d}\right)  ^{n}\\
+&  =\sum_{\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}
+^{d}}\ \ \sum_{\left(  x_{1},x_{2},\ldots,x_{n}\right)  \in\left[  d\right]
+^{n}}e_{x_{1}}e_{x_{2}}\cdots e_{x_{n}}\\
+&  =\sum_{\left(  x_{1},x_{2},\ldots,x_{n}\right)  \in\left[  d\right]  ^{n}%
+}\ \ \sum_{\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}
+^{d}}e_{x_{1}}e_{x_{2}}\cdots e_{x_{n}}%
+\end{align*}
+(here, we have interchanged the summation signs). This proves Lemma
+\ref{lem.cancel.all-even.l1}.
+\end{proof}
+
+Now we shall compute the inner sums on the right hand side of Lemma
+\ref{lem.cancel.all-even.l1}:
+
+\begin{lemma}
+\label{lem.cancel.all-even.l2}Let $n,d\in\mathbb{N}$. Let $\left(  x_{1}%
+,x_{2},\ldots,x_{n}\right)  \in\left[  d\right]  ^{n}$. Then: \medskip
+
+\textbf{(a)} If the $n$-tuple $\left(  x_{1},x_{2},\ldots,x_{n}\right)  $ is
+not all-even\footnotemark, then%
+\[
+\sum_{\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}  ^{d}%
+}e_{x_{1}}e_{x_{2}}\cdots e_{x_{n}}=0.
+\]
+
+
+\textbf{(b)} If the $n$-tuple $\left(  x_{1},x_{2},\ldots,x_{n}\right)  $ is
+all-even, then%
+\[
+\sum_{\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}  ^{d}%
+}e_{x_{1}}e_{x_{2}}\cdots e_{x_{n}}=2^{d}.
+\]
+
+\end{lemma}
+
+\footnotetext{See Theorem \ref{thm.cancel.all-even} for the definition of
+\textquotedblleft all-even\textquotedblright.}
+
+\begin{proof}
+For each $k\in\left[  d\right]  $, let $m_{k}$ be the number of all
+$i\in\left[  n\right]  $ satisfying $x_{i}=k$. Then, the $n$-tuple $\left(
+x_{1},x_{2},\ldots,x_{n}\right)  $ is all-even if and only if all these
+numbers $m_{1},m_{2},\ldots,m_{d}$ are even (by the definition of
+\textquotedblleft all-even\textquotedblright).
+
+On the other hand, every $d$-tuple $\left(  e_{1},e_{2},\ldots,e_{d}\right)
+\in\mathbb{Z}^{d}$ satisfies%
+\begin{equation}
+e_{x_{1}}e_{x_{2}}\cdots e_{x_{n}}=e_{1}^{m_{1}}e_{2}^{m_{2}}\cdots
+e_{d}^{m_{d}}. \label{pf.lem.cancel.all-even.l2.e=e}%
+\end{equation}
+
+
+\begin{proof}
+[Proof of (\ref{pf.lem.cancel.all-even.l2.e=e}):]Let $\left(  e_{1}%
+,e_{2},\ldots,e_{d}\right)  \in\mathbb{Z}^{d}$ be any $d$-tuple. Then, each
+factor of the product $e_{x_{1}}e_{x_{2}}\cdots e_{x_{n}}$ is one of the $d$
+entries $e_{1},e_{2},\ldots,e_{d}$ of this $d$-tuple. Moreover, each given
+entry $e_{k}$ appears exactly $m_{k}$ times in the product $e_{x_{1}}e_{x_{2}%
+}\cdots e_{x_{n}}$, because $k$ appears exactly $m_{k}$ times among the
+subscripts $x_{1},x_{2},\ldots,x_{n}$ (since $m_{k}$ is defined as the number
+of all $i\in\left[  n\right]  $ satisfying $x_{i}=k$). Thus, in total, the
+product $e_{x_{1}}e_{x_{2}}\cdots e_{x_{n}}$ contains the factor $e_{1}$
+exactly $m_{1}$ times, the factor $e_{2}$ exactly $m_{2}$ times, and so on;
+therefore, it equals $e_{1}^{m_{1}}e_{2}^{m_{2}}\cdots e_{d}^{m_{d}}$. This
+proves (\ref{pf.lem.cancel.all-even.l2.e=e}).
+\end{proof}
+
+\textbf{(a)} Assume that the $n$-tuple $\left(  x_{1},x_{2},\ldots
+,x_{n}\right)  $ is not all-even. Thus, not all of the numbers $m_{1}%
+,m_{2},\ldots,m_{d}$ are even (because the $n$-tuple $\left(  x_{1}%
+,x_{2},\ldots,x_{n}\right)  $ is all-even if and only if all these numbers
+$m_{1},m_{2},\ldots,m_{d}$ are even). In other words, there exists some
+$k\in\left[  d\right]  $ such that $m_{k}$ is odd. Consider this $k$. Hence,
+$\left(  -1\right)  ^{m_{k}}=-1$ (since $m_{k}$ is odd).
+
+For each $n$-tuple $\overrightarrow{e}=\left(  e_{1},e_{2},\ldots
+,e_{d}\right)  \in\left\{  1,-1\right\}  ^{d}$, we define an integer
+\[
+\operatorname*{sign}\overrightarrow{e}:=e_{1}^{m_{1}}e_{2}^{m_{2}}\cdots
+e_{d}^{m_{d}}.
+\]
+
+
+Let $f:\left\{  1,-1\right\}  ^{d}\rightarrow\left\{  1,-1\right\}  ^{d}$ be
+the map that sends each $d$-tuple $\left(  e_{1},e_{2},\ldots,e_{d}\right)  $
+to $\left(  e_{1},e_{2},\ldots,e_{k-1},-e_{k},e_{k+1},e_{k+2},\ldots
+,e_{d}\right)  $ (in other words, $f$ flips the sign of the $k$-th entry of
+the $d$-tuple). This map $f$ is an involution (since flipping the sign of the
+$k$-th entry twice results in the restoration of the original sign), and has
+no fixed points (since our $d$-tuples $\left(  e_{1},e_{2},\ldots
+,e_{d}\right)  $ come from $\left\{  1,-1\right\}  ^{d}$ and thus contain no
+zeroes, so that they cannot remain unchanged when we flip the sign of an
+entry). Moreover, we have%
+\[
+\operatorname*{sign}\left(  f\left(  \overrightarrow{e}\right)  \right)
+=-\operatorname*{sign}\overrightarrow{e}\ \ \ \ \ \ \ \ \ \ \text{for all
+}\overrightarrow{e}\in\left\{  1,-1\right\}  ^{d},
+\]
+because when we flip the sign of the $k$-th entry $e_{k}$ of a $d$-tuple
+$\overrightarrow{e}=\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{
+1,-1\right\}  ^{d}$, the integer $\operatorname*{sign}\overrightarrow{e}%
+=e_{1}^{m_{1}}e_{2}^{m_{2}}\cdots e_{d}^{m_{d}}$ is multiplied by $\left(
+-1\right)  ^{m_{k}}=-1$. Renaming the variable $\overrightarrow{e}$ as $I$ in
+this claim, we can rewrite it as follows:%
+\[
+\operatorname*{sign}\left(  f\left(  I\right)  \right)  =-\operatorname*{sign}%
+I\ \ \ \ \ \ \ \ \ \ \text{for all }I\in\left\{  1,-1\right\}  ^{d}.
+\]
+
+
+Hence, Lemma \ref{lem.sign.cancel2} (applied to $\mathcal{A}=\left\{
+1,-1\right\}  ^{d}$ and $\mathcal{X}=\left\{  1,-1\right\}  ^{d}$) yields%
+\[
+\sum_{I\in\left\{  1,-1\right\}  ^{d}}\operatorname*{sign}I=\sum_{I\in\left\{
+1,-1\right\}  ^{d}\setminus\left\{  1,-1\right\}  ^{d}}\operatorname*{sign}%
+I=\left(  \text{empty sum}\right)  =0.
+\]
+But%
+\begin{align*}
+\sum_{I\in\left\{  1,-1\right\}  ^{d}}\operatorname*{sign}I  &  =\sum_{\left(
+e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}  ^{d}}%
+\underbrace{\operatorname*{sign}\left(  e_{1},e_{2},\ldots,e_{d}\right)
+}_{\substack{=e_{1}^{m_{1}}e_{2}^{m_{2}}\cdots e_{d}^{m_{d}}\\\text{(by the
+definition of }\operatorname*{sign}\overrightarrow{e}\text{)}}}\\
+&  =\sum_{\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}
+^{d}}\ \ \underbrace{e_{1}^{m_{1}}e_{2}^{m_{2}}\cdots e_{d}^{m_{d}}%
+}_{\substack{=e_{x_{1}}e_{x_{2}}\cdots e_{x_{n}}\\\text{(by
+(\ref{pf.lem.cancel.all-even.l2.e=e}))}}}\\
+&  =\sum_{\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}
+^{d}}e_{x_{1}}e_{x_{2}}\cdots e_{x_{n}}.
+\end{align*}
+Comparing these two equalities, we find
+\[
+\sum_{\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}  ^{d}%
+}e_{x_{1}}e_{x_{2}}\cdots e_{x_{n}}=0.
+\]
+This proves Lemma \ref{lem.cancel.all-even.l2} \textbf{(a)}. \medskip
+
+\textbf{(b)} Assume that the $n$-tuple $\left(  x_{1},x_{2},\ldots
+,x_{n}\right)  $ is all-even. Thus, all the numbers $m_{1},m_{2},\ldots,m_{d}$
+are even (because the $n$-tuple $\left(  x_{1},x_{2},\ldots,x_{n}\right)  $ is
+all-even if and only if all these numbers $m_{1},m_{2},\ldots,m_{d}$ are even).
+
+Now, let $\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}
+^{d}$ be any $d$-tuple consisting of $1$'s and $-1$'s. Then, for each
+$k\in\left[  d\right]  $, we have $e_{k}\in\left\{  1,-1\right\}  $ whereas
+$m_{k}$ is even (because all the numbers $m_{1},m_{2},\ldots,m_{d}$ are even);
+thus we obtain%
+\begin{equation}
+e_{k}^{m_{k}}=1 \label{pf.lem.cancel.all-even.l2.b.1}%
+\end{equation}
+(since an even power of $1$ or of $-1$ is always even). Therefore, all the $d$
+factors of the product $e_{1}^{m_{1}}e_{2}^{m_{2}}\cdots e_{d}^{m_{d}}$ equal
+$1$. Hence, this whole product is a product of $1$'s and thus equals $1$. In
+other words, $e_{1}^{m_{1}}e_{2}^{m_{2}}\cdots e_{d}^{m_{d}}=1$. In view of
+(\ref{pf.lem.cancel.all-even.l2.e=e}), this rewrites as $e_{x_{1}}e_{x_{2}%
+}\cdots e_{x_{n}}=1$.
+
+Forget that we fixed $\left(  e_{1},e_{2},\ldots,e_{d}\right)  $. We thus have
+shown that each $\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{
+1,-1\right\}  ^{d}$ satisfies $e_{x_{1}}e_{x_{2}}\cdots e_{x_{n}}=1$.
+Therefore,%
+\begin{align*}
+\sum_{\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}  ^{d}%
+}\underbrace{e_{x_{1}}e_{x_{2}}\cdots e_{x_{n}}}_{=1}  &  =\sum_{\left(
+e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}  ^{d}}1=\left\vert
+\left\{  1,-1\right\}  ^{d}\right\vert \cdot1\\
+&  =\left\vert \left\{  1,-1\right\}  ^{d}\right\vert =\left\vert \left\{
+1,-1\right\}  \right\vert ^{d}=2^{d}.
+\end{align*}
+This proves Lemma \ref{lem.cancel.all-even.l2} \textbf{(b)}.
+\end{proof}
+
+We are now ready to prove Theorem \ref{thm.cancel.all-even}:
+
+\begin{proof}
+[Proof of Theorem \ref{thm.cancel.all-even}.]Lemma
+\ref{lem.cancel.all-even.l1} yields%
+\begin{align}
+&  \sum_{\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}
+^{d}}\left(  e_{1}+e_{2}+\cdots+e_{d}\right)  ^{n}\nonumber\\
+&  =\sum_{\left(  x_{1},x_{2},\ldots,x_{n}\right)  \in\left[  d\right]  ^{n}%
+}\ \ \sum_{\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}
+^{d}}e_{x_{1}}e_{x_{2}}\cdots e_{x_{n}}\nonumber\\
+&  =\sum_{\substack{\left(  x_{1},x_{2},\ldots,x_{n}\right)  \in\left[
+d\right]  ^{n};\\\left(  x_{1},x_{2},\ldots,x_{n}\right)  \text{ is all-even}%
+}}\ \ \underbrace{\sum_{\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{
+1,-1\right\}  ^{d}}e_{x_{1}}e_{x_{2}}\cdots e_{x_{n}}}_{\substack{=2^{d}%
+\\\text{(by Lemma \ref{lem.cancel.all-even.l2} \textbf{(b)})}}}\nonumber\\
+&  \qquad+\sum_{\substack{\left(  x_{1},x_{2},\ldots,x_{n}\right)  \in\left[
+d\right]  ^{n};\\\left(  x_{1},x_{2},\ldots,x_{n}\right)  \text{ is not
+all-even}}}\ \ \underbrace{\sum_{\left(  e_{1},e_{2},\ldots,e_{d}\right)
+\in\left\{  1,-1\right\}  ^{d}}e_{x_{1}}e_{x_{2}}\cdots e_{x_{n}}%
+}_{\substack{=0\\\text{(by Lemma \ref{lem.cancel.all-even.l2} \textbf{(a)})}%
+}}\nonumber\\
+&  =\sum_{\substack{\left(  x_{1},x_{2},\ldots,x_{n}\right)  \in\left[
+d\right]  ^{n};\\\left(  x_{1},x_{2},\ldots,x_{n}\right)  \text{ is all-even}%
+}}2^{d}+\underbrace{\sum_{\substack{\left(  x_{1},x_{2},\ldots,x_{n}\right)
+\in\left[  d\right]  ^{n};\\\left(  x_{1},x_{2},\ldots,x_{n}\right)  \text{ is
+not all-even}}}0}_{=0}=\sum_{\substack{\left(  x_{1},x_{2},\ldots
+,x_{n}\right)  \in\left[  d\right]  ^{n};\\\left(  x_{1},x_{2},\ldots
+,x_{n}\right)  \text{ is all-even}}}2^{d}\nonumber\\
+&  =\left(  \text{\# of all all-even }\left(  x_{1},x_{2},\ldots,x_{n}\right)
+\in\left[  d\right]  ^{n}\right)  \cdot2^{d}.
+\label{sol.count.all-even-tups.c1.pf.b.lhs}%
+\end{align}
+
+
+Now, we shall compute the left hand side of this equality in a different way.
+Clearly, a $d$-tuple $\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{
+1,-1\right\}  ^{d}$ is uniquely determined by the set of all its positions
+occupied by $-1$'s (that is, by the set $\left\{  i\in\left[  d\right]
+\ \mid\ e_{i}=-1\right\}  $). Conversely, for each subset $S$ of $\left[
+d\right]  $, there exists a $d$-tuple $\left(  e_{1},e_{2},\ldots
+,e_{d}\right)  \in\left\{  1,-1\right\}  ^{d}$ whose set $\left\{  i\in\left[
+d\right]  \ \mid\ e_{i}=-1\right\}  $ is $S$. Thus, the map
+\begin{align*}
+\Phi:\left\{  1,-1\right\}  ^{d}  &  \rightarrow\left\{  \text{subsets of
+}\left[  d\right]  \right\}  ,\\
+\left(  e_{1},e_{2},\ldots,e_{d}\right)   &  \mapsto\left\{  i\in\left[
+d\right]  \ \mid\ e_{i}=-1\right\}
+\end{align*}
+is a bijection. Moreover, if this bijection $\Phi$ sends a $d$-tuple $\left(
+e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}  ^{d}$ to some
+subset $S$ of $\left[  d\right]  $, then%
+\[
+e_{1}+e_{2}+\cdots+e_{d}=d-2\cdot\left\vert S\right\vert
+\]
+(in fact, each entry $e_{i}$ of the $d$-tuple $\left(  e_{1},e_{2}%
+,\ldots,e_{d}\right)  $ equals $-1$ if $i\in S$ and equals $1$ if $i\notin S$;
+thus, the sum $e_{1}+e_{2}+\cdots+e_{d}$ has $\left\vert S\right\vert $ many
+addends equal to $-1$ while its remaining $d-\left\vert S\right\vert $ addends
+are equal to $1$; therefore, this sum totals to $\left\vert S\right\vert
+\cdot\left(  -1\right)  +\left(  d-\left\vert S\right\vert \right)
+\cdot1=-\left\vert S\right\vert +\left(  d-\left\vert S\right\vert \right)
+=d-2\cdot\left\vert S\right\vert $). Thus,%
+\[
+\sum_{\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}  ^{d}%
+}\left(  e_{1}+e_{2}+\cdots+e_{d}\right)  ^{n}=\sum_{S\subseteq\left[
+d\right]  }\left(  d-2\cdot\left\vert S\right\vert \right)  ^{n}%
+\]
+(since the sum on the left hand side is obtained from the sum on the right
+hand side by substituting $\Phi\left(  e_{1},e_{2},\ldots,e_{d}\right)  $ for
+$S$). In view of%
+\begin{align*}
+&  \sum_{S\subseteq\left[  d\right]  }\left(  d-2\cdot\left\vert S\right\vert
+\right)  ^{n}\\
+&  =\sum_{k=0}^{d}\ \ \sum_{\substack{S\subseteq\left[  d\right]
+;\\\left\vert S\right\vert =k}}\left(  d-2\cdot\underbrace{\left\vert
+S\right\vert }_{=k}\right)  ^{n}\ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have split the sum}\\
+\text{according to the value }\left\vert S\right\vert
+\end{array}
+\right) \\
+&  =\sum_{k=0}^{d}\ \ \underbrace{\sum_{\substack{S\subseteq\left[  d\right]
+;\\\left\vert S\right\vert =k}}\left(  d-2k\right)  ^{n}}_{=\left(  \text{\#
+of all }S\subseteq\left[  d\right]  \text{ satisfying }\left\vert S\right\vert
+=k\right)  \cdot\left(  d-2k\right)  ^{n}}\\
+&  =\sum_{k=0}^{d}\underbrace{\left(  \text{\# of all }S\subseteq\left[
+d\right]  \text{ satisfying }\left\vert S\right\vert =k\right)  }_{=\left(
+\text{\# of all }k\text{-element subsets of }\left[  d\right]  \right)
+=\dbinom{d}{k}}\cdot\left(  d-2k\right)  ^{n}\\
+&  =\sum_{k=0}^{d}\dbinom{d}{k}\left(  d-2k\right)  ^{n},
+\end{align*}
+we can rewrite this as%
+\[
+\sum_{\left(  e_{1},e_{2},\ldots,e_{d}\right)  \in\left\{  1,-1\right\}  ^{d}%
+}\left(  e_{1}+e_{2}+\cdots+e_{d}\right)  ^{n}=\sum_{k=0}^{d}\dbinom{d}%
+{k}\left(  d-2k\right)  ^{n}.
+\]
+Comparing this with \eqref{sol.count.all-even-tups.c1.pf.b.lhs}, we obtain%
+\[
+\left(  \text{\# of all all-even }\left(  x_{1},x_{2},\ldots,x_{n}\right)
+\in\left[  d\right]  ^{n}\right)  \cdot2^{d}=\sum_{k=0}^{d}\dbinom{d}%
+{k}\left(  d-2k\right)  ^{n}.
+\]
+Dividing this equality by $2^{d}$, we obtain%
+\[
+\left(  \text{\# of all all-even }\left(  x_{1},x_{2},\ldots,x_{n}\right)
+\in\left[  d\right]  ^{n}\right)  =\dfrac{1}{2^{d}}\sum_{k=0}^{d}\dbinom{d}%
+{k}\left(  d-2k\right)  ^{n}.
+\]
+This proves Theorem \ref{thm.cancel.all-even}.
+\end{proof}
+
+\begin{noncompile}
+Compare with \cite[Corollary 2.5]{Stanle18}.
+\end{noncompile}

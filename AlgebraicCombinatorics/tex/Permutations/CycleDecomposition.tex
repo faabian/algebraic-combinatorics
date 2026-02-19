@@ -1,0 +1,506 @@
+\subsection{The cycle decomposition}
+
+Next, we shall discuss the \emph{cycle decomposition} (or \emph{disjoint cycle
+decomposition}) of a permutation. Again, this is a fairly well-known and
+elementary tool, so we will restrict ourselves to the basic properties and
+omit the details.
+
+We begin with an introductory example:
+
+\begin{example}
+\label{exa.perm.dcd.1}Let $\sigma\in S_{9}$ be the permutation with one-line
+notation $461352987$. Here is its cycle digraph:%
+\[%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\qquad\qquad%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\qquad%
+%TCIMACRO{\TeXButton{tikz cycle 5}{\raisebox{8ex}{
+%% [tikz figure removed]
+%}}}%
+%BeginExpansion
+\raisebox{8ex}{
+% [tikz figure removed]
+}%
+%EndExpansion
+\qquad%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\qquad%
+%TCIMACRO{\TeXButton{tikz cycle 8}{\raisebox{8ex}{
+%% [tikz figure removed]
+%}}}%
+%BeginExpansion
+\raisebox{8ex}{
+% [tikz figure removed]
+}%
+%EndExpansion
+\]
+(where we have strategically arranged the cycles apart horizontally). This
+digraph consists of five node-disjoint cycles (i.e., cycles that share no
+nodes); thus, we can view the permutation $\sigma$ as acting on the five
+subsets $\left\{  1,4,3\right\}  $, $\left\{  2,6\right\}  $, $\left\{
+5\right\}  $, $\left\{  7,9\right\}  $ and $\left\{  8\right\}  $ of $\left[
+9\right]  $ separately. On the first of these five subsets, $\sigma$ acts as
+the $3$-cycle $\operatorname*{cyc}\nolimits_{1,4,3}$ (in the sense that
+$\sigma\left(  k\right)  =\operatorname*{cyc}\nolimits_{1,4,3}\left(
+k\right)  $ for each $k\in\left\{  1,4,3\right\}  $). On the second, it acts
+as the $2$-cycle $\operatorname*{cyc}\nolimits_{2,6}$. On the third, it acts
+as the $1$-cycle $\operatorname*{cyc}\nolimits_{5}$ (which, of course, is the
+identity map). On the fourth, it acts as the $2$-cycle $\operatorname*{cyc}%
+\nolimits_{7,9}$. On the fifth, it acts as the $1$-cycle $\operatorname*{cyc}%
+\nolimits_{8}$ (which, again, is just the identity map). Combining these
+observations, we conclude that%
+\[
+\sigma\left(  k\right)  =\left(  \operatorname*{cyc}\nolimits_{1,4,3}%
+\circ\operatorname*{cyc}\nolimits_{2,6}\circ\operatorname*{cyc}\nolimits_{5}%
+\circ\operatorname*{cyc}\nolimits_{7,9}\circ\operatorname*{cyc}\nolimits_{8}%
+\right)  \left(  k\right)  \ \ \ \ \ \ \ \ \ \ \text{for each }k\in\left[
+9\right]
+\]
+(because, when we apply the composed permutation $\operatorname*{cyc}%
+\nolimits_{1,4,3}\circ\operatorname*{cyc}\nolimits_{2,6}\circ
+\operatorname*{cyc}\nolimits_{5}\circ\operatorname*{cyc}\nolimits_{7,9}%
+\circ\operatorname*{cyc}\nolimits_{8}$ to an element of $\left[  9\right]  $,
+then four of the five cycles $\operatorname*{cyc}\nolimits_{1,4,3}%
+,\operatorname*{cyc}\nolimits_{2,6},\operatorname*{cyc}\nolimits_{5}%
+,\operatorname*{cyc}\nolimits_{7,9},\operatorname*{cyc}\nolimits_{8}$ will
+leave this element unchanged, whereas the remaining one will move it one step
+forward along the appropriate cycle of the above digraph -- which is precisely
+what the permutation $\sigma$ does to our element). This entails that%
+\begin{equation}
+\sigma=\operatorname*{cyc}\nolimits_{1,4,3}\circ\operatorname*{cyc}%
+\nolimits_{2,6}\circ\operatorname*{cyc}\nolimits_{5}\circ\operatorname*{cyc}%
+\nolimits_{7,9}\circ\operatorname*{cyc}\nolimits_{8}.
+\label{eq.exa.perm.dcd.1.1}%
+\end{equation}
+
+\end{example}
+
+In Example \ref{exa.perm.dcd.1}, we have represented our permutation
+$\sigma\in S_{9}$ as a composition of five cycles with the property that each
+element of $\left[  9\right]  $ appears in exactly one of these cycles. This
+is not specific to the permutation $\sigma$ chosen in Example
+\ref{exa.perm.dcd.1}. Indeed, for any finite set $X$, any permutation
+$\sigma\in S_{X}$ can be written as a composition of finitely many cycles
+$\operatorname*{cyc}\nolimits_{i_{1},i_{2},\ldots,i_{k}}$ with the property
+that each element of $X$ appears in exactly one of these cycles. Moreover,
+this representation of $\sigma$ is unique up to
+
+\begin{itemize}
+\item swapping the cycles (for example, we could have replaced
+$\operatorname*{cyc}\nolimits_{1,4,3}\circ\operatorname*{cyc}\nolimits_{2,6}$
+by $\operatorname*{cyc}\nolimits_{2,6}\circ\operatorname*{cyc}%
+\nolimits_{1,4,3}$ in (\ref{eq.exa.perm.dcd.1.1})), and
+
+\item rotating each cycle (for example, we could have replaced
+$\operatorname*{cyc}\nolimits_{1,4,3}$ by $\operatorname*{cyc}%
+\nolimits_{4,3,1}$ or by $\operatorname*{cyc}\nolimits_{3,1,4}$ in
+(\ref{eq.exa.perm.dcd.1.1})).
+\end{itemize}
+
+Let us state this in a more rigorous fashion:
+
+\begin{theorem}
+[disjoint cycle decomposition of permutations]\label{thm.perm.dcd.main}Let $X$
+be a finite set. Let $\sigma$ be a permutation of $X$. Then: \medskip
+
+\textbf{(a)} There is a list%
+\begin{align*}
+&  \Big(\left(  a_{1,1},a_{1,2},\ldots,a_{1,n_{1}}\right)  ,\\
+&  \ \ \ \left(  a_{2,1},a_{2,2},\ldots,a_{2,n_{2}}\right)  ,\\
+&  \ \ \ \ldots,\\
+&  \ \ \ \left(  a_{k,1},a_{k,2},\ldots,a_{k,n_{k}}\right)  \Big)
+\end{align*}
+of nonempty lists of elements of $X$ such that:
+
+\begin{itemize}
+\item each element of $X$ appears exactly once in the composite list%
+\begin{align*}
+&  (a_{1,1},a_{1,2},\ldots,a_{1,n_{1}},\\
+&  \ \ \ a_{2,1},a_{2,2},\ldots,a_{2,n_{2}},\\
+&  \ \ \ \ldots,\\
+&  \ \ \ a_{k,1},a_{k,2},\ldots,a_{k,n_{k}}),
+\end{align*}
+and
+
+\item we have%
+\[
+\sigma=\operatorname*{cyc}\nolimits_{a_{1,1},a_{1,2},\ldots,a_{1,n_{1}}}%
+\circ\operatorname*{cyc}\nolimits_{a_{2,1},a_{2,2},\ldots,a_{2,n_{2}}}%
+\circ\cdots\circ\operatorname*{cyc}\nolimits_{a_{k,1},a_{k,2},\ldots
+,a_{k,n_{k}}}.
+\]
+
+\end{itemize}
+
+Such a list is called a \emph{disjoint cycle decomposition} (or short
+\emph{DCD}) of $\sigma$. Its entries (which themselves are lists of elements
+of $X$) are called the \emph{cycles} of $\sigma$. \medskip
+
+\textbf{(b)} Any two DCDs of $\sigma$ can be obtained from each other by
+(repeatedly) swapping the cycles with each other, and rotating each cycle
+(i.e., replacing $\left(  a_{i,1},a_{i,2},\ldots,a_{i,n_{i}}\right)  $ by
+$\left(  a_{i,2},a_{i,3},\ldots,a_{i,n_{i}},a_{i,1}\right)  $). \medskip
+
+\textbf{(c)} Now assume that $X$ is a set of integers (or, more generally, any
+totally ordered finite set). Then, there is a unique DCD
+\begin{align*}
+&  \Big(\left(  a_{1,1},a_{1,2},\ldots,a_{1,n_{1}}\right)  ,\\
+&  \ \ \ \left(  a_{2,1},a_{2,2},\ldots,a_{2,n_{2}}\right)  ,\\
+&  \ \ \ \ldots,\\
+&  \ \ \ \left(  a_{k,1},a_{k,2},\ldots,a_{k,n_{k}}\right)  \Big)
+\end{align*}
+of $\sigma$ that satisfies the additional requirements that
+
+\begin{itemize}
+\item we have $a_{i,1}\leq a_{i,p}$ for each $i\in\left[  k\right]  $ and each
+$p\in\left[  n_{i}\right]  $ (that is, each cycle in this DCD is written with
+its smallest entry first), and
+
+\item we have $a_{1,1}>a_{2,1}>\cdots>a_{k,1}$ (that is, the cycles appear in
+this DCD in the order of decreasing first entries).
+\end{itemize}
+\end{theorem}
+
+\begin{example}
+Let $\sigma\in S_{9}$ be the permutation from Example \ref{exa.perm.dcd.1}.
+Then, the representation (\ref{eq.exa.perm.dcd.1.1}) shows that%
+\[
+\Big(\left(  1,4,3\right)  ,\ \left(  2,6\right)  ,\ \left(  5\right)
+,\ \left(  7,9\right)  ,\ \left(  8\right)  \Big)
+\]
+is a DCD of $\sigma$. By swapping the five cycles of this DCD, and by rotating
+each cycle, we can produce various other DCDs of $\sigma$, such as
+\[
+\Big(\left(  7,9\right)  ,\ \left(  6,2\right)  ,\ \left(  3,1,4\right)
+,\ \left(  8\right)  ,\ \left(  5\right)  \Big).
+\]
+The unique DCD of $\sigma$ that satisfies the two additional requirements of
+Theorem \ref{thm.perm.dcd.main} \textbf{(c)} is
+\[
+\Big(\left(  8\right)  ,\ \left(  7,9\right)  ,\ \left(  5\right)  ,\ \left(
+2,6\right)  ,\ \left(  1,4,3\right)  \Big).
+\]
+
+\end{example}
+
+\begin{proof}
+[Proof of Theorem \ref{thm.perm.dcd.main} (sketched).]This is a classical
+result with an easy proof; sadly, this easy proof does not present well in
+writing. I will try to be as clear as the situation allows. Some familiarity
+with digraphs (= directed graphs) is recommended\footnote{See, e.g.,
+\cite[\S 5.11]{Guicha20} or \cite[\S 3.5]{Loehr-BC} for brief introductions to
+digraphs.}. \medskip
+
+\textbf{(a)} Let $\mathcal{D}$ be the cycle digraph of $\sigma$, as in Example
+\ref{exa.perm.dcd.1}. This cycle digraph $\mathcal{D}$ has the following two properties:
+
+\begin{itemize}
+\item \textit{Outbound uniqueness:} For each node $i$, there is exactly one
+arc outgoing from $i$. (Indeed, this is the arc from $i$ to $\sigma\left(
+i\right)  $, as should be clear from the construction of $\mathcal{D}$.)
+
+\item \textit{Inbound uniqueness:} For each node $i$, there is exactly one arc
+incoming into $i$. (Indeed, this is the arc from $\sigma^{-1}\left(  i\right)
+$ to $i$, since $\sigma$ is a permutation and therefore invertible.)
+\end{itemize}
+
+Using these two properties, we will now show that the cycle digraph
+$\mathcal{D}$ consists of several node-disjoint cycles (i.e., several cycles
+that pairwise share no nodes).
+
+Indeed, let us first observe the following: If two cycles $C$ and $D$ of
+$\mathcal{D}$ have a node in common, then they are identical\footnote{Here, we
+identify any cycle with its cyclic rotations. For example, if $a\rightarrow
+b\rightarrow c\rightarrow a$ is a cycle, then we consider $b\rightarrow
+c\rightarrow a\rightarrow b$ to be the same cycle.} (because the outbound
+uniqueness property prevents these cycles from ever separating after meeting
+at the common node). In other words, any two cycles $C$ and $D$ of
+$\mathcal{D}$ are either identical or node-disjoint (i.e., share no nodes with
+each other).
+
+Now, let $i$ be any node of $\mathcal{D}$. Then, if we start at $i$ and follow
+the outgoing arcs, then we obtain an infinite walk%
+\[
+\sigma^{0}\left(  i\right)  \rightarrow\sigma^{1}\left(  i\right)
+\rightarrow\sigma^{2}\left(  i\right)  \rightarrow\sigma^{3}\left(  i\right)
+\rightarrow\cdots
+\]
+along our digraph $\mathcal{D}$. Since $X$ is finite, the Pigeonhole Principle
+guarantees that this walk will eventually revisit a node it has already been
+to; i.e., there exist two integers $u,v\in\mathbb{N}$ with $u<v$ and
+$\sigma^{u}\left(  i\right)  =\sigma^{v}\left(  i\right)  $. Let us pick two
+such integers $u,v$ with the \textbf{smallest} possible $v$. Thus,
+\begin{equation}
+\text{the }v\text{ nodes }\sigma^{0}\left(  i\right)  ,\sigma^{1}\left(
+i\right)  ,\ldots,\sigma^{v-1}\left(  i\right)  \text{ are distinct}
+\label{pf.thm.perm.dcd.main.a.dist}%
+\end{equation}
+(since otherwise, $v$ would not be smallest possible). Now, $\sigma$ is a
+permutation and thus has an inverse $\sigma^{-1}$. Applying the map
+$\sigma^{-1}$ to both sides of the equality $\sigma^{u}\left(  i\right)
+=\sigma^{v}\left(  i\right)  $, we obtain $\sigma^{u-1}\left(  i\right)
+=\sigma^{v-1}\left(  i\right)  $. However, if we had $u\geq1$, then
+(\ref{pf.thm.perm.dcd.main.a.dist}) would entail $\sigma^{u-1}\left(
+i\right)  \neq\sigma^{v-1}\left(  i\right)  $ (because $0\leq\underbrace{u}%
+_{<v}-\,1<v-1$), which would contradict $\sigma^{u-1}\left(  i\right)
+=\sigma^{v-1}\left(  i\right)  $. Thus, we cannot have $u\geq1$. Hence, $u<1$,
+so that $u=0$. Therefore, $\sigma^{u}\left(  i\right)  =\sigma^{0}\left(
+i\right)  $, so that $\sigma^{0}\left(  i\right)  =\sigma^{u}\left(  i\right)
+=\sigma^{v}\left(  i\right)  $. This shows that our walk $\sigma^{0}\left(
+i\right)  \rightarrow\sigma^{1}\left(  i\right)  \rightarrow\sigma^{2}\left(
+i\right)  \rightarrow\sigma^{3}\left(  i\right)  \rightarrow\cdots$ is
+circular: it comes back to its starting node $\sigma^{0}\left(  i\right)  =i$
+after $v$ steps. We have thus found a cycle in our digraph $\mathcal{D}$:%
+\[
+\sigma^{0}\left(  i\right)  \rightarrow\sigma^{1}\left(  i\right)
+\rightarrow\sigma^{2}\left(  i\right)  \rightarrow\cdots\rightarrow\sigma
+^{v}\left(  i\right)  =\sigma^{0}\left(  i\right)  .
+\]
+(This is indeed a cycle, since (\ref{pf.thm.perm.dcd.main.a.dist}) shows that
+its first $v$ nodes are distinct.) This shows that the node $i$ lies on a
+cycle $C_{i}$ of $\mathcal{D}$ (namely, the cycle that we just found).
+
+Now, forget that we fixed $i$. We thus have shown that each node $i$ of
+$\mathcal{D}$ lies on a cycle $C_{i}$. The cycles $C_{i}$ for all nodes $i\in
+X$ will be called the \emph{chosen cycles}.
+
+Any arc of our digraph $\mathcal{D}$ must belong to one of these chosen
+cycles. Indeed, if $a$ is an arc from a node $i$ to a node $j$, then $a$ must
+be the only arc outgoing from $i$ (by the outbound uniqueness property); but
+this means that this arc $a$ belongs to the chosen cycle $C_{i}$.
+
+Now, let us look back at what we have shown:
+
+\begin{itemize}
+\item Any node $i$ of $\mathcal{D}$ lies on one of our chosen cycles (namely,
+on $C_{i}$).
+
+\item Some of the chosen cycles may be identical, but apart from that, the
+chosen cycles are pairwise node-disjoint (since any two cycles of
+$\mathcal{D}$ are either identical or node-disjoint).
+
+\item Any arc of $\mathcal{D}$ must belong to one of these chosen cycles.
+\end{itemize}
+
+Combining these facts, we conclude that $\mathcal{D}$ consists of several
+node-disjoint cycles. Let us label these cycles as%
+\begin{align*}
+&  \left(  a_{1,1}\rightarrow a_{1,2}\rightarrow\cdots\rightarrow a_{1,n_{1}%
+}\rightarrow a_{1,1}\right)  ,\\
+&  \left(  a_{2,1}\rightarrow a_{2,2}\rightarrow\cdots\rightarrow a_{2,n_{2}%
+}\rightarrow a_{2,1}\right)  ,\\
+&  \ldots,\\
+&  \left(  a_{k,1}\rightarrow a_{k,2}\rightarrow\cdots\rightarrow a_{k,n_{k}%
+}\rightarrow a_{k,1}\right)
+\end{align*}
+(making sure to label each cycle only once). Then, each element of $X$ appears
+exactly once in the composite list%
+\begin{align*}
+&  (a_{1,1},a_{1,2},\ldots,a_{1,n_{1}},\\
+&  \ \ \ a_{2,1},a_{2,2},\ldots,a_{2,n_{2}},\\
+&  \ \ \ \ldots,\\
+&  \ \ \ a_{k,1},a_{k,2},\ldots,a_{k,n_{k}}),
+\end{align*}
+and we have%
+\[
+\sigma=\operatorname*{cyc}\nolimits_{a_{1,1},a_{1,2},\ldots,a_{1,n_{1}}}%
+\circ\operatorname*{cyc}\nolimits_{a_{2,1},a_{2,2},\ldots,a_{2,n_{2}}}%
+\circ\cdots\circ\operatorname*{cyc}\nolimits_{a_{k,1},a_{k,2},\ldots
+,a_{k,n_{k}}}%
+\]
+(since $\sigma$ moves any node $i\in X$ one step forward along its chosen
+cycle). This proves Theorem \ref{thm.perm.dcd.main} \textbf{(a)}.
+
+Alternative proofs of Theorem \ref{thm.perm.dcd.main} \textbf{(a)} can be
+found (e.g.) in \cite[Theorem 1.5.3]{Goodman} or in \cite[\S I.4, Proposition
+1.21]{Knapp16} or in \cite[Chapter I, \S 5.7, Proposition 7]{Bourba74} or in
+\cite[\S 1.9, proof of Theorem 1.5.1]{Sagan19} (this is essentially our proof)
+or in
+\url{https://proofwiki.org/wiki/Existence_and_Uniqueness_of_Cycle_Decomposition}
+(see also \cite[Exercise 7 \textbf{(e)} and \textbf{(d)}]{17f-hw7s} for a
+rather formalized proof). Note that some of these sources work with a slightly
+modified concept of a DCD, in which they throw away the $1$-cycles (i.e., they
+replace \textquotedblleft appears exactly once\textquotedblright\ by
+\textquotedblleft appears at most once\textquotedblright, and require all
+cycle lengths $n_{1},n_{2},\ldots,n_{k}$ to be $>1$). For instance, the DCD
+(\ref{eq.exa.perm.dcd.1.1}) becomes%
+\[
+\sigma=\operatorname*{cyc}\nolimits_{1,4,3}\circ\operatorname*{cyc}%
+\nolimits_{2,6}\circ\operatorname*{cyc}\nolimits_{7,9}%
+\]
+if we use this modified notion of a DCD. \medskip
+
+\textbf{(b)} See \cite[Theorem 1.5.3]{Goodman} or \cite[Chapter I, \S 5.7,
+Proposition 7]{Bourba74}. The idea is fairly simple: Let%
+\begin{align*}
+&  \Big(\left(  a_{1,1},a_{1,2},\ldots,a_{1,n_{1}}\right)  ,\\
+&  \ \ \ \left(  a_{2,1},a_{2,2},\ldots,a_{2,n_{2}}\right)  ,\\
+&  \ \ \ \ldots,\\
+&  \ \ \ \left(  a_{k,1},a_{k,2},\ldots,a_{k,n_{k}}\right)  \Big)
+\end{align*}
+be a DCD of $\sigma$. Then, for each $i\in X$, the cycle of this DCD that
+contains $i$ is uniquely determined by $\sigma$ and $i$ up to cyclic rotation
+(indeed, it is a rotated version of the list $\left(  i,\sigma\left(
+i\right)  ,\sigma^{2}\left(  i\right)  ,\ldots,\sigma^{r-1}\left(  i\right)
+\right)  $, where $r$ is the smallest positive integer satisfying $\sigma
+^{r}\left(  i\right)  =i$). Therefore, all cycles of this DCD are uniquely
+determined by $\sigma$ up to cyclic rotation and up to the relative order in
+which these cycles appear in the DCD. But this is precisely the claim of
+Theorem \ref{thm.perm.dcd.main} \textbf{(b)}. \medskip
+
+\textbf{(c)} In order to obtain a DCD of $\sigma$ that satisfies these two
+requirements, it suffices to
+
+\begin{itemize}
+\item start with an arbitrary DCD of $\sigma$,
+
+\item then rotate each cycle of this DCD so that it begins with its smallest
+entry, and
+
+\item then repeatedly swap these cycles so they appear in the order of
+decreasing first entries.
+\end{itemize}
+
+It is clear that the result of this procedure is uniquely determined (a
+consequence of Theorem \ref{thm.perm.dcd.main} \textbf{(b)}). Thus, Theorem
+\ref{thm.perm.dcd.main} \textbf{(c)} is proven.
+\end{proof}
+
+\begin{definition}
+\label{def.perm.cycs.cycs}Let $X$ be a finite set. Let $\sigma$ be a
+permutation of $X$. \medskip
+
+\textbf{(a)} The \emph{cycles} of $\sigma$ are defined to be the cycles in the
+DCD of $\sigma$ (as defined in Theorem \ref{thm.perm.dcd.main} \textbf{(a)}).
+(This includes $1$-cycles, if there are any in the DCD of $\sigma$.)
+
+We shall equate a cycle of $\sigma$ with any of its cyclic rotations; thus,
+for example, $\left(  3,1,4\right)  $ and $\left(  1,4,3\right)  $ shall be
+regarded as being the same cycle (but $\left(  3,1,4\right)  $ and $\left(
+3,4,1\right)  $ shall not). \medskip
+
+\textbf{(b)} The \emph{cycle lengths partition} of $\sigma$ shall denote the
+partition of $\left\vert X\right\vert $ obtained by writing down the lengths
+of the cycles of $\sigma$ in weakly decreasing order.
+\end{definition}
+
+\begin{example}
+Let $\sigma\in S_{9}$ be the permutation from Example \ref{exa.perm.dcd.1}.
+Then, the cycles of $\sigma$ are%
+\[
+\left(  1,4,3\right)  ,\ \left(  2,6\right)  ,\ \left(  5\right)  ,\ \left(
+7,9\right)  ,\ \left(  8\right)  .
+\]
+Their lengths are $3,2,1,2,1$. Hence, the cycle lengths partition of $\sigma$
+is $\left(  3,2,2,1,1\right)  $.
+\end{example}
+
+The following is obvious:
+
+\begin{proposition}
+\label{prop.perm.cycs.same}Let $X$ be a finite set. Let $i,j\in X$. Let
+$\sigma$ be a permutation of $X$. Then, we have the following chain of
+equivalences:%
+\begin{align*}
+\  &  \left(  i\text{ and }j\text{ belong to the same cycle of }\sigma\right)
+\\
+\Longleftrightarrow\  &  \left(  i=\sigma^{p}\left(  j\right)  \text{ for some
+}p\in\mathbb{N}\right) \\
+\Longleftrightarrow\  &  \left(  j=\sigma^{p}\left(  i\right)  \text{ for some
+}p\in\mathbb{N}\right)  .
+\end{align*}
+
+\end{proposition}
+
+The number of cycles of a permutation determines its sign. Let us state this
+for permutations of $\left[  n\right]  $ in particular (the reader can easily
+extend this to the general case using Proposition \ref{prop.perm.sign.X}):
+
+\begin{proposition}
+\label{prop.perm.cycs.sign}Let $n\in\mathbb{N}$. Let $\sigma\in S_{n}$. Let
+$k\in\mathbb{N}$ be such that $\sigma$ has exactly $k$ cycles (including the
+$1$-cycles). Then, $\left(  -1\right)  ^{\sigma}=\left(  -1\right)  ^{n-k}$.
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.perm.cycs.sign} (sketched).]Let
+\begin{align*}
+&  \left(  a_{1,1},a_{1,2},\ldots,a_{1,n_{1}}\right)  ,\\
+&  \left(  a_{2,1},a_{2,2},\ldots,a_{2,n_{2}}\right)  ,\\
+&  \ldots,\\
+&  \left(  a_{k,1},a_{k,2},\ldots,a_{k,n_{k}}\right)
+\end{align*}
+be the $k$ cycles of $\sigma$. Thus,
+\begin{align}
+&  \Big(\left(  a_{1,1},a_{1,2},\ldots,a_{1,n_{1}}\right)  ,\nonumber\\
+&  \ \ \ \left(  a_{2,1},a_{2,2},\ldots,a_{2,n_{2}}\right)  ,\nonumber\\
+&  \ \ \ \ldots,\nonumber\\
+&  \ \ \ \left(  a_{k,1},a_{k,2},\ldots,a_{k,n_{k}}\right)
+\Big) \label{pf.prop.perm.cycs.sign.3}%
+\end{align}
+is the DCD of $\sigma$. Therefore,
+\begin{align*}
+\sigma &  =\operatorname*{cyc}\nolimits_{a_{1,1},a_{1,2},\ldots,a_{1,n_{1}}%
+}\circ\operatorname*{cyc}\nolimits_{a_{2,1},a_{2,2},\ldots,a_{2,n_{2}}}%
+\circ\cdots\circ\operatorname*{cyc}\nolimits_{a_{k,1},a_{k,2},\ldots
+,a_{k,n_{k}}}\\
+&  =\left(  \text{an }n_{1}\text{-cycle}\right)  \circ\left(  \text{an }%
+n_{2}\text{-cycle}\right)  \circ\cdots\circ\left(  \text{an }n_{k}%
+\text{-cycle}\right)  ,
+\end{align*}
+so that%
+\begin{align}
+\left(  -1\right)  ^{\sigma}  &  =\left(  -1\right)  ^{\left(  \text{an }%
+n_{1}\text{-cycle}\right)  \circ\left(  \text{an }n_{2}\text{-cycle}\right)
+\circ\cdots\circ\left(  \text{an }n_{k}\text{-cycle}\right)  }\nonumber\\
+&  =\left(  -1\right)  ^{\left(  \text{an }n_{1}\text{-cycle}\right)  }%
+\cdot\left(  -1\right)  ^{\left(  \text{an }n_{2}\text{-cycle}\right)  }%
+\cdot\cdots\cdot\left(  -1\right)  ^{\left(  \text{an }n_{k}\text{-cycle}%
+\right)  }\nonumber\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{by Proposition
+\ref{prop.perm.sign.props} \textbf{(e)}}\right) \nonumber\\
+&  =\left(  -1\right)  ^{n_{1}-1}\cdot\left(  -1\right)  ^{n_{2}-1}\cdot
+\cdots\cdot\left(  -1\right)  ^{n_{k}-1}\nonumber\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{since Proposition \ref{prop.perm.sign.props} \textbf{(c)} yields
+}\left(  -1\right)  ^{\left(  \text{a }p\text{-cycle}\right)  }=\left(
+-1\right)  ^{p-1}\\
+\text{for any }p>0
+\end{array}
+\right) \nonumber\\
+&  =\left(  -1\right)  ^{\left(  n_{1}-1\right)  +\left(  n_{2}-1\right)
++\cdots+\left(  n_{k}-1\right)  }. \label{pf.prop.perm.cycs.sign.5}%
+\end{align}
+However, recall that (\ref{pf.prop.perm.cycs.sign.3}) is a DCD of $\sigma$.
+Thus, each element of $\left[  n\right]  $ appears exactly once in the
+composite list%
+\begin{align*}
+&  (a_{1,1},a_{1,2},\ldots,a_{1,n_{1}},\\
+&  \ \ \ a_{2,1},a_{2,2},\ldots,a_{2,n_{2}},\\
+&  \ \ \ \ldots,\\
+&  \ \ \ a_{k,1},a_{k,2},\ldots,a_{k,n_{k}}).
+\end{align*}
+Therefore, the length $n_{1}+n_{2}+\cdots+n_{k}$ of this composite list equals
+the size $\left\vert \left[  n\right]  \right\vert =n$ of the set $\left[
+n\right]  $. In other words, $n_{1}+n_{2}+\cdots+n_{k}=n$. Hence,%
+\[
+\left(  n_{1}-1\right)  +\left(  n_{2}-1\right)  +\cdots+\left(
+n_{k}-1\right)  =\underbrace{\left(  n_{1}+n_{2}+\cdots+n_{k}\right)  }%
+_{=n}-\,k=n-k.
+\]
+Thus, (\ref{pf.prop.perm.cycs.sign.5}) rewrites as $\left(  -1\right)
+^{\sigma}=\left(  -1\right)  ^{n-k}$. This proves Proposition
+\ref{prop.perm.cycs.sign}.
+\end{proof}

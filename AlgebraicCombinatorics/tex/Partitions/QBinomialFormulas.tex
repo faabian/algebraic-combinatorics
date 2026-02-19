@@ -1,0 +1,825 @@
+\subsubsection{$q$-binomial formulas}
+
+The properties we have seen so far are suggesting that $q$-binomial
+coefficients not only generalize binomial coefficients, but also share most of
+their properties in a somewhat modified form. In other words, we start
+expecting most properties of binomial coefficients to generalize to
+$q$-binomial coefficients, often in several ways (e.g., the recurrence of the
+binomial coefficients generalized in two ways).
+
+Let us see how this expectation holds up for the most famous property of
+binomial coefficients: the binomial formula%
+\[
+\left(  a+b\right)  ^{n}=\sum_{k=0}^{n}\dbinom{n}{k}a^{k}b^{n-k}.
+\]
+This formula holds whenever $a$ and $b$ are two elements of a commutative
+ring, or even more generally, whenever $a$ and $b$ are two commuting elements
+of an arbitrary ring. If we want to integrate a $q$ into this formula, we need to
+
+\begin{itemize}
+\item either change the structure of the formula,
+
+\item or modify the commutativity assumption.
+\end{itemize}
+
+This gives rise to two different \textquotedblleft$q$%
+-analogues\textquotedblright\ of the binomial formula. Both are important (one
+for the theory of partitions, and another for the theory of
+\href{https://www.ams.org/notices/200601/what-is.pdf}{quantum groups}). Here
+is the first one:
+
+\begin{theorem}
+[1st $q$-binomial theorem]\label{thm.pars.qbinom.binom1}Let $K$ be a
+commutative ring. Let $a,b\in K$ and $n\in\mathbb{N}$. In the polynomial ring
+$K\left[  q\right]  $, we have%
+\[
+\left(  aq^{0}+b\right)  \left(  aq^{1}+b\right)  \cdots\left(  aq^{n-1}%
++b\right)  =\sum_{k=0}^{n}q^{k\left(  k-1\right)  /2}\dbinom{n}{k}_{q}%
+a^{k}b^{n-k}.
+\]
+
+\end{theorem}
+
+Note that setting $q=1$ in Theorem \ref{thm.pars.qbinom.binom1} (i.e.,
+substituting $1$ for $q$) recovers the good old binomial formula, since all
+the $n$ factors on the left hand side become $a+b$.
+
+There is a straightforward way to prove Theorem \ref{thm.pars.qbinom.binom1}
+by induction on $n$ (see Exercise \ref{exe.pars.qbinom.qbinom} \textbf{(a)}).
+Let us instead give a nicer argument. This argument will rely on the following
+general fact:
+
+\begin{lemma}
+\label{lem.prodrule.sum-ai-plus-bi}Let $L$ be a commutative ring. Let
+$n\in\mathbb{N}$. Let $\left[  n\right]  $ denote the set $\left\{
+1,2,\ldots,n\right\}  $. Let $a_{1},a_{2},\ldots,a_{n}$ be $n$ elements of
+$L$. Let $b_{1},b_{2},\ldots,b_{n}$ be $n$ further elements of $L$. Then,%
+\begin{equation}
+\prod_{i=1}^{n}\left(  a_{i}+b_{i}\right)  =\sum_{S\subseteq\left[  n\right]
+}\left(  \prod_{i\in S}a_{i}\right)  \left(  \prod_{i\in\left[  n\right]
+\setminus S}b_{i}\right)  . \label{eq.lem.prodrule.sum-ai-plus-bi.eq}%
+\end{equation}
+
+\end{lemma}
+
+Lemma \ref{lem.prodrule.sum-ai-plus-bi} is well-known and intuitively clear:
+When expanding the product $\prod_{i=1}^{n}\left(  a_{i}+b_{i}\right)
+=\left(  a_{1}+b_{1}\right)  \left(  a_{2}+b_{2}\right)  \cdots\left(
+a_{n}+b_{n}\right)  $, you obtain a sum of $2^{n}$ terms, each of which is a
+product of one addend chosen from each of the $n$ sums $a_{1}+b_{1}%
+,a_{2}+b_{2},\ldots,a_{n}+b_{n}$. This is precisely what the right hand side
+of (\ref{eq.lem.prodrule.sum-ai-plus-bi.eq}) is. A rigorous proof of Lemma
+\ref{lem.prodrule.sum-ai-plus-bi} can be found in \cite[Exercise 6.1
+\textbf{(a)}]{detnotes}.
+
+\begin{proof}
+[Proof of Theorem \ref{thm.pars.qbinom.binom1}.]Let $\left[  n\right]  $
+denote the set $\left\{  1,2,\ldots,n\right\}  $. We have%
+\begin{align*}
+&  \left(  aq^{0}+b\right)  \left(  aq^{1}+b\right)  \cdots\left(
+aq^{n-1}+b\right)  =\prod_{i=1}^{n}\left(  aq^{i-1}+b\right) \\
+&  =\sum_{S\subseteq\left[  n\right]  }\underbrace{\left(  \prod_{i\in
+S}\left(  aq^{i-1}\right)  \right)  }_{=a^{\left\vert S\right\vert }%
+\prod_{i\in S}q^{i-1}}\underbrace{\left(  \prod_{i\in\left[  n\right]
+\setminus S}b\right)  }_{=b^{\left\vert \left[  n\right]  \setminus
+S\right\vert }}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{by Lemma
+\ref{lem.prodrule.sum-ai-plus-bi}, applied to }L=K\left[  q\right]  \text{,
+}a_{i}=aq^{i-1}\text{ and }b_{i}=b\right) \\
+&  =\underbrace{\sum_{S\subseteq\left[  n\right]  }}_{=\sum\limits_{k=0}%
+^{n}\ \ \sum\limits_{\substack{S\subseteq\left[  n\right]  ;\\\left\vert
+S\right\vert =k}}}a^{\left\vert S\right\vert }\underbrace{\left(  \prod_{i\in
+S}q^{i-1}\right)  }_{\substack{=q^{\operatorname*{sum}S-\left\vert
+S\right\vert }\\\text{(since the sum of the exponents }i-1\\\text{over all
+}i\in S\text{ is precisely }\operatorname*{sum}S-\left\vert S\right\vert
+\text{)}}}b^{\left\vert \left[  n\right]  \setminus S\right\vert }\\
+&  =\sum_{k=0}^{n}\ \ \sum_{\substack{S\subseteq\left[  n\right]
+;\\\left\vert S\right\vert =k}}\ \ \underbrace{a^{\left\vert S\right\vert }%
+}_{\substack{=a^{k}\\\text{(since }\left\vert S\right\vert =k\text{)}%
+}}\ \ \underbrace{q^{\operatorname*{sum}S-\left\vert S\right\vert }%
+}_{\substack{=q^{\operatorname*{sum}S-k}\\\text{(since }\left\vert
+S\right\vert =k\text{)}}}\ \ \underbrace{b^{\left\vert \left[  n\right]
+\setminus S\right\vert }}_{\substack{=b^{n-k}\\\text{(since }S\text{ is a
+}k\text{-element}\\\text{subset of the }n\text{-element}\\\text{set }\left[
+n\right]  \text{, and thus we}\\\text{have }\left\vert \left[  n\right]
+\setminus S\right\vert =n-k\text{)}}}\\
+&  =\sum_{k=0}^{n}\ \ \sum_{\substack{S\subseteq\left[  n\right]
+;\\\left\vert S\right\vert =k}}a^{k}\underbrace{q^{\operatorname*{sum}S-k}%
+}_{\substack{=q^{\operatorname*{sum}S-\left(  1+2+\cdots+k\right)
+}q^{1+2+\cdots+\left(  k-1\right)  }\\=q^{\operatorname*{sum}S-\left(
+1+2+\cdots+k\right)  }q^{k\left(  k-1\right)  /2}\\\text{(since }%
+1+2+\cdots+\left(  k-1\right)  =k\left(  k-1\right)  /2\text{)}}}b^{n-k}\\
+&  =\sum_{k=0}^{n}\ \ \sum_{\substack{S\subseteq\left[  n\right]
+;\\\left\vert S\right\vert =k}}a^{k}q^{\operatorname*{sum}S-\left(
+1+2+\cdots+k\right)  }q^{k\left(  k-1\right)  /2}b^{n-k}\\
+&  =\sum_{k=0}^{n}q^{k\left(  k-1\right)  /2}\underbrace{\left(
+\sum\limits_{\substack{S\subseteq\left[  n\right]  ;\\\left\vert S\right\vert
+=k}}q^{\operatorname*{sum}S-\left(  1+2+\cdots+k\right)  }\right)
+}_{\substack{=\dbinom{n}{k}_{q}\\\text{(by Proposition
+\ref{prop.pars.qbinom.alt-defs} \textbf{(b)},}\\\text{since }\left[  n\right]
+=\left\{  1,2,\ldots,n\right\}  \text{)}}}a^{k}b^{n-k}=\sum_{k=0}%
+^{n}q^{k\left(  k-1\right)  /2}\dbinom{n}{k}_{q}a^{k}b^{n-k}.
+\end{align*}
+This proves Theorem \ref{thm.pars.qbinom.binom1}.
+\end{proof}
+
+The 2nd $q$-binomial theorem grows out of noncommutativity:
+
+\begin{theorem}
+[2nd $q$-binomial theorem, aka Potter's binomial theorem]%
+\label{thm.pars.qbinom.binom2}Let $L$ be a commutative ring. Let $\omega\in
+L$. Let $A$ be a noncommutative $L$-algebra. Let $a,b\in A$ be such that
+$ba=\omega ab$. Then,%
+\[
+\left(  a+b\right)  ^{n}=\sum_{k=0}^{n}\dbinom{n}{k}_{\omega}a^{k}b^{n-k}.
+\]
+
+\end{theorem}
+
+The condition $ba=\omega ab$ looks somewhat artificial -- do such elements
+$a,b$ actually exist in the wild? Indeed they do, as the following examples show:
+
+\begin{example}
+Let $L=\mathbb{Z}$ and $\omega=-1$ and $A=\mathbb{Z}^{2\times2}$ (the ring of
+$2\times2$-matrices with integer entries). Let%
+\[
+a=\left(
+\begin{array}
+[c]{cc}%
+0 & 1\\
+1 & 0
+\end{array}
+\right)  \ \ \ \ \ \ \ \ \ \ \text{and}\ \ \ \ \ \ \ \ \ \ b=\left(
+\begin{array}
+[c]{cc}%
+1 & 0\\
+0 & -1
+\end{array}
+\right)  .
+\]
+It is easy to check that these two matrices satisfy $ba=-ab$, that is,
+$ba=\omega ab$. Thus, Theorem \ref{thm.pars.qbinom.binom2} predicts that%
+\[
+\left(  a+b\right)  ^{n}=\sum_{k=0}^{n}\dbinom{n}{k}_{\omega}a^{k}b^{n-k}.
+\]
+And this is indeed true (check it for $n=3$).
+\end{example}
+
+\begin{example}
+Let $L=\mathbb{R}$. Let $A$ be the ring of $\mathbb{R}$-linear operators on
+$C^{\infty}\left(  \mathbb{R}\right)  =\left\{  \text{smooth functions from
+}\mathbb{R}\text{ to }\mathbb{R}\right\}  $. Let $\omega$ be any real number.
+
+Let $b\in A$ be the differentiation operator (sending each $f\in C^{\infty
+}\left(  \mathbb{R}\right)  $ to $f^{\prime}$).
+
+Let $a\in A$ be the operator that substitutes $\omega x$ for $x$ in the
+function (in other words, it shrinks the plot of the function by $\omega$ in
+the $x$-direction).
+
+Then, you can check that $ba=\omega ab$. (Indeed, $\left(  f\left(  \omega
+x\right)  \right)  ^{\prime}=\omega f^{\prime}\left(  \omega x\right)  $.)
+\end{example}
+
+The proof of Theorem \ref{thm.pars.qbinom.binom2} is again a homework exercise
+(Exercise \ref{exe.pars.qbinom.qbinom} \textbf{(b)}).
+
+The two $q$-binomial theorems are not entirely unrelated: Theorem
+\ref{thm.pars.qbinom.binom1} can be obtained from Theorem
+\ref{thm.pars.qbinom.binom2}. (See Exercise \ref{exe.pars.qbinom.2to1} for the details.)
+
+\subsubsection{Counting subspaces of vector spaces}
+
+We have introduced the $q$-binomial coefficient $\dbinom{n}{k}_{q}$ as a
+generating function for a certain sort of partitions -- i.e., a
+\textquotedblleft weighted number\textquotedblright\ of partitions, where each
+partition $\lambda$ has weight $q^{\left\vert \lambda\right\vert }$. However,
+for certain integers $a$, the number $\dbinom{n}{k}_{a}$ has other
+interpretations, too. A particularly striking one can be found when $a$ is the
+size of a finite field.
+
+Let us recall a few things about finite fields (see, e.g., \cite[Chapter
+5]{23wa} or \cite[Theorem 15.7.3]{Artin}):
+
+\begin{itemize}
+\item For any prime power $p^{k}$, there is a finite field of size $p^{k}$; it
+is unique up to isomorphism, and is therefore often called the
+\textquotedblleft Galois field of size $p^{k}$\textquotedblright\ and denoted
+by $\mathbb{F}_{p^{k}}$. The finite fields $\mathbb{F}_{p^{1}}$ are easiest to
+construct -- they are just the quotient rings $\mathbb{Z}/p\mathbb{Z}%
+=\mathbb{Z}/p$ (that is, the rings of integers modulo $p$). Higher prime
+powers are more complicated. For example, the finite field $\mathbb{F}_{p^{2}%
+}$ can be obtained by starting with $\mathbb{Z}/p$ and adjoining a square root
+of an element that is not a square. It is not $\mathbb{Z}/p^{2}$, since
+$\mathbb{Z}/p^{2}$ is not a field!
+
+\item Linear algebra (i.e., the notions of vector spaces, subspaces, linear
+independence, bases, matrices, Gaussian elimination, etc.) can be done over
+any field. In fact, many of its concepts can be defined over any commutative
+ring, but only over fields do they behave as nicely as they do over the real
+numbers. Thus, much of the linear algebra that you have learned over the real
+numbers remains valid over any field. (Exceptions are some properties that
+rely on positivity or on characteristic $0$.)
+\end{itemize}
+
+Thus, it makes sense to talk about finite-dimensional vector spaces over
+finite fields. Such spaces are finite as sets, and thus can be viewed as
+combinatorial objects. An $n$-dimensional vector space over a finite field $F$
+has size $\left\vert F\right\vert ^{n}$.
+
+Now, we might wonder how many $k$-dimensional subspaces such an $n$%
+-dimensional vector space has. The answer is given by the following theorem:
+
+\begin{theorem}
+\label{thm.pars.qbinom.subsp-count}Let $F$ be a finite field. Let
+$n,k\in\mathbb{N}$. Let $V$ be an $n$-dimensional $F$-vector space. Then,%
+\[
+\dbinom{n}{k}_{\left\vert F\right\vert }=\left(  \text{\# of }%
+k\text{-dimensional vector subspaces of }V\right)  .
+\]
+
+\end{theorem}
+
+Compare this with the classical fact that if $S$ is an $n$-element set, then%
+\[
+\dbinom{n}{k}=\left(  \text{\# of }k\text{-element subsets of }S\right)  .
+\]
+This hints at an analogy between finite sets and finite-dimensional vector
+spaces. Such an analogy does indeed exist; the expository paper \cite{Cohn04}
+gives a great overview over its reach.
+
+The easiest proof of Theorem \ref{thm.pars.qbinom.subsp-count} uses three
+lemmas. The first one is a classical fact from linear algebra, which holds for
+any vector space (not necessarily finite-dimensional) over any field (not
+necessarily finite):
+
+\begin{lemma}
+\label{lem.linalg.lin-ind-via-span}Let $F$ be a field. Let $V$ be an
+$F$-vector space. Let $\left(  v_{1},v_{2},\ldots,v_{k}\right)  $ be a
+$k$-tuple of vectors in $V$. Then, $\left(  v_{1},v_{2},\ldots,v_{k}\right)  $
+is linearly independent if and only if each $i\in\left\{  1,2,\ldots
+,k\right\}  $ satisfies $v_{i}\notin\operatorname*{span}\left(  v_{1}%
+,v_{2},\ldots,v_{i-1}\right)  $ (where the span $\operatorname*{span}\left(
+{}\right)  $ of an empty list is understood to be the set $\left\{
+\mathbf{0}\right\}  $ consisting only of the zero vector $\mathbf{0}$). In
+other words, $\left(  v_{1},v_{2},\ldots,v_{k}\right)  $ is linearly
+independent if and only if we have%
+\begin{align*}
+v_{1}  &  \notin\underbrace{\operatorname*{span}\left(  {}\right)
+}_{=\left\{  \mathbf{0}\right\}  }\ \ \ \ \ \ \ \ \ \ \text{and}\\
+v_{2}  &  \notin\operatorname*{span}\left(  v_{1}\right)
+\ \ \ \ \ \ \ \ \ \ \text{and}\\
+v_{3}  &  \notin\operatorname*{span}\left(  v_{1},v_{2}\right)
+\ \ \ \ \ \ \ \ \ \ \text{and}\\
+&  \cdots\ \ \ \ \ \ \ \ \ \ \text{and}\\
+v_{k}  &  \notin\operatorname*{span}\left(  v_{1},v_{2},\ldots,v_{k-1}\right)
+.
+\end{align*}
+
+\end{lemma}
+
+\begin{proof}
+[Proof of Lemma \ref{lem.linalg.lin-ind-via-span}.]We must prove that $\left(
+v_{1},v_{2},\ldots,v_{k}\right)  $ is linearly independent if and only if each
+$i\in\left\{  1,2,\ldots,k\right\}  $ satisfies $v_{i}\notin%
+\operatorname*{span}\left(  v_{1},v_{2},\ldots,v_{i-1}\right)  $. This is an
+\textquotedblleft if and only if\textquotedblright\ statement; we shall prove
+its \textquotedblleft only if\textquotedblright\ (i.e., \textquotedblleft%
+$\Longrightarrow$\textquotedblright) and \textquotedblleft
+if\textquotedblright\ (i.e., \textquotedblleft$\Longleftarrow$%
+\textquotedblright) directions separately:
+
+\begin{enumerate}
+\item[$\Longrightarrow:$] Assume that the $k$-tuple $\left(  v_{1}%
+,v_{2},\ldots,v_{k}\right)  $ is linearly independent. Let $i\in\left\{
+1,2,\ldots,k\right\}  $. If we had $v_{i}\in\operatorname*{span}\left(
+v_{1},v_{2},\ldots,v_{i-1}\right)  $, then we could write $v_{i}$ in the form
+$v_{i}=\alpha_{1}v_{1}+\alpha_{2}v_{2}+\cdots+\alpha_{i-1}v_{i-1}$ for some
+coefficients $\alpha_{1},\alpha_{2},\ldots,\alpha_{i-1}\in F$, and therefore
+these coefficients $\alpha_{1},\alpha_{2},\ldots,\alpha_{i-1}$ would satisfy
+\begin{align*}
+&  \underbrace{\alpha_{1}v_{1}+\alpha_{2}v_{2}+\cdots+\alpha_{i-1}v_{i-1}%
+}_{=v_{i}}+\underbrace{\left(  -1\right)  v_{i}}_{=-v_{i}}%
++\underbrace{0v_{i+1}+0v_{i+2}+\cdots+0v_{k}}_{=\mathbf{0}}\\
+&  =v_{i}+\left(  -v_{i}\right)  +\mathbf{0}=\mathbf{0},
+\end{align*}
+which would be a nontrivial linear dependence relation between $\left(
+v_{1},v_{2},\ldots,v_{k}\right)  $ (nontrivial because $v_{i}$ appears in it
+with the nonzero coefficient $-1$); this would contradict the linear
+independence of $\left(  v_{1},v_{2},\ldots,v_{k}\right)  $. Hence, we cannot
+have $v_{i}\in\operatorname*{span}\left(  v_{1},v_{2},\ldots,v_{i-1}\right)
+$. In other words, we have $v_{i}\notin\operatorname*{span}\left(  v_{1}%
+,v_{2},\ldots,v_{i-1}\right)  $.
+
+Forget that we fixed $i$. We thus have shown that each $i\in\left\{
+1,2,\ldots,k\right\}  $ satisfies $v_{i}\notin\operatorname*{span}\left(
+v_{1},v_{2},\ldots,v_{i-1}\right)  $. This proves the \textquotedblleft%
+$\Longrightarrow$\textquotedblright\ direction of our claim.
+
+\item[$\Longleftarrow:$] Assume that each $i\in\left\{  1,2,\ldots,k\right\}
+$ satisfies $v_{i}\notin\operatorname*{span}\left(  v_{1},v_{2},\ldots
+,v_{i-1}\right)  $. We must prove that the $k$-tuple $\left(  v_{1}%
+,v_{2},\ldots,v_{k}\right)  $ is linearly independent. Indeed, assume the
+contrary. Thus, this $k$-tuple is linearly dependent. In other words, there
+exist coefficients $\beta_{1},\beta_{2},\ldots,\beta_{k}\in F$ that satisfy
+$\beta_{1}v_{1}+\beta_{2}v_{2}+\cdots+\beta_{k}v_{k}=\mathbf{0}$ and that are
+not all zero. Consider these $\beta_{1},\beta_{2},\ldots,\beta_{k}$. At least
+one $i\in\left\{  1,2,\ldots,k\right\}  $ satisfies $\beta_{i}\neq0$ (since
+the coefficients $\beta_{1},\beta_{2},\ldots,\beta_{k}$ are not all zero).
+Pick the \textbf{largest} such $i$. Thus, $\beta_{i}\neq0$ but $\beta
+_{i+1}=\beta_{i+2}=\cdots=\beta_{k}=0$. Hence,
+\begin{align*}
+&  \beta_{1}v_{1}+\beta_{2}v_{2}+\cdots+\beta_{k}v_{k}\\
+&  =\left(  \beta_{1}v_{1}+\beta_{2}v_{2}+\cdots+\beta_{i-1}v_{i-1}\right)
++\beta_{i}v_{i}+\underbrace{\left(  \beta_{i+1}v_{i+1}+\beta_{i+2}%
+v_{i+2}+\cdots+\beta_{k}v_{k}\right)  }_{\substack{=0v_{i+1}+0v_{i+2}%
++\cdots+0v_{k}\\=\mathbf{0}}}\\
+&  =\left(  \beta_{1}v_{1}+\beta_{2}v_{2}+\cdots+\beta_{i-1}v_{i-1}\right)
++\beta_{i}v_{i},
+\end{align*}
+so that%
+\begin{align*}
+\beta_{i}v_{i}  &  =\underbrace{\left(  \beta_{1}v_{1}+\beta_{2}v_{2}%
++\cdots+\beta_{k}v_{k}\right)  }_{=\mathbf{0}}-\left(  \beta_{1}v_{1}%
++\beta_{2}v_{2}+\cdots+\beta_{i-1}v_{i-1}\right) \\
+&  =-\left(  \beta_{1}v_{1}+\beta_{2}v_{2}+\cdots+\beta_{i-1}v_{i-1}\right) \\
+&  =\left(  -\beta_{1}\right)  v_{1}+\left(  -\beta_{2}\right)  v_{2}%
++\cdots+\left(  -\beta_{i-1}\right)  v_{i-1}\\
+&  \in\operatorname*{span}\left(  v_{1},v_{2},\ldots,v_{i-1}\right)  .
+\end{align*}
+Since $\beta_{i}\neq0$, we thus obtain $v_{i}\in\operatorname*{span}\left(
+v_{1},v_{2},\ldots,v_{i-1}\right)  $ (since the set $\operatorname*{span}%
+\left(  v_{1},v_{2},\ldots,v_{i-1}\right)  $ is an $F$-vector subspace of $V$
+and thus preserved under scaling). This contradicts our assumption that
+$v_{i}\notin\operatorname*{span}\left(  v_{1},v_{2},\ldots,v_{i-1}\right)  $.
+This contradiction shows that our assumption was wrong, and thus completes our
+proof of the \textquotedblleft$\Longleftarrow$\textquotedblright\ direction of
+our claim.
+\end{enumerate}
+
+Thus, both directions of our claim are proved. This concludes the proof of
+Lemma \ref{lem.linalg.lin-ind-via-span}.
+\end{proof}
+
+The next lemma we are going to use is itself an answer to a rather natural
+counting problem. Indeed, it is well-known that (see, e.g., \cite[Proposition
+2.7.2]{19fco}) if $X$ is an $n$-element set, and if $k\in\mathbb{N}$, then
+the
+\begin{align}
+&  \left(  \text{\# of }k\text{-tuples of distinct elements of }X\right)
+\nonumber\\
+&  =n\left(  n-1\right)  \left(  n-2\right)  \cdots\left(  n-k+1\right)
+=\prod_{i=0}^{k-1}\left(  n-i\right)  . \label{eq.count.k-tups-dist-elts}%
+\end{align}
+The following lemma is a \textquotedblleft linear analogue\textquotedblright%
+\ of this combinatorial fact: The $n$-element set $X$ is replaced by an
+$n$-dimensional vector space $V$, and \textquotedblleft distinct
+elements\textquotedblright\ are replaced by \textquotedblleft linearly
+independent vectors\textquotedblright. The answer is rather similar:
+
+\begin{lemma}
+\label{lem.pars.qbinom.lin-ind-count}Let $F$ be a finite field. Let
+$n,k\in\mathbb{N}$. Let $V$ be an $n$-dimensional $F$-vector space. Then,%
+\begin{align*}
+&  \left(  \text{\# of linearly independent }k\text{-tuples of vectors in
+}V\right) \\
+&  =\left(  \left\vert F\right\vert ^{n}-\left\vert F\right\vert ^{0}\right)
+\left(  \left\vert F\right\vert ^{n}-\left\vert F\right\vert ^{1}\right)
+\cdots\left(  \left\vert F\right\vert ^{n}-\left\vert F\right\vert
+^{k-1}\right)  =\prod_{i=0}^{k-1}\left(  \left\vert F\right\vert
+^{n}-\left\vert F\right\vert ^{i}\right)  .
+\end{align*}
+
+\end{lemma}
+
+\begin{proof}
+[Proof of Lemma \ref{lem.pars.qbinom.lin-ind-count}.]We have $\left\vert
+V\right\vert =\left\vert F\right\vert ^{n}$ (since $V$ is an $n$-dimensional
+$F$-vector space).
+
+Lemma \ref{lem.linalg.lin-ind-via-span} says that a $k$-tuple $\left(
+v_{1},v_{2},\ldots,v_{k}\right)  $ of vectors in $V$ is linearly independent
+if and only if it satisfies%
+\begin{align*}
+v_{1}  &  \notin\underbrace{\operatorname*{span}\left(  {}\right)
+}_{=\left\{  \mathbf{0}\right\}  }\ \ \ \ \ \ \ \ \ \ \text{and}\\
+v_{2}  &  \notin\operatorname*{span}\left(  v_{1}\right)
+\ \ \ \ \ \ \ \ \ \ \text{and}\\
+v_{3}  &  \notin\operatorname*{span}\left(  v_{1},v_{2}\right)
+\ \ \ \ \ \ \ \ \ \ \text{and}\\
+&  \cdots\ \ \ \ \ \ \ \ \ \ \text{and}\\
+v_{k}  &  \notin\operatorname*{span}\left(  v_{1},v_{2},\ldots,v_{k-1}\right)
+.
+\end{align*}
+
+
+Thus, we can construct a linearly independent $k$-tuple $\left(  v_{1}%
+,v_{2},\ldots,v_{k}\right)  $ of vectors in $V$ as follows, proceeding entry
+by entry:
+
+\begin{itemize}
+\item First, we choose $v_{1}$. This has to be a vector in $V\setminus
+\underbrace{\operatorname*{span}\left(  {}\right)  }_{=\left\{  \mathbf{0}%
+\right\}  }$ (because it has to satisfy $v_{1}\notin\operatorname*{span}%
+\left(  {}\right)  $); thus, there are $\left\vert V\setminus
+\operatorname*{span}\left(  {}\right)  \right\vert =\left\vert V\right\vert
+-\underbrace{\left\vert \operatorname*{span}\left(  {}\right)  \right\vert
+}_{=1}=\left\vert V\right\vert -1$ options for it.
+
+Once $v_{1}$ has been chosen, we have obtained a linearly independent
+singleton list $\left(  v_{1}\right)  $. Hence, its span $\operatorname*{span}%
+\left(  v_{1}\right)  $ has dimension $1$ (as an $F$-vector space) and thus
+size $\left\vert F\right\vert ^{1}$. In other words, $\left\vert
+\operatorname*{span}\left(  v_{1}\right)  \right\vert =\left\vert F\right\vert
+^{1}$.
+
+\item Next, we choose $v_{2}$. This has to be a vector in $V\setminus
+\operatorname*{span}\left(  v_{1}\right)  $ (because it has to satisfy
+$v_{2}\notin\operatorname*{span}\left(  v_{1}\right)  $); thus, there are
+$\left\vert V\right\vert -\underbrace{\left\vert \operatorname*{span}\left(
+v_{1}\right)  \right\vert }_{=\left\vert F\right\vert ^{1}}=\left\vert
+V\right\vert -\left\vert F\right\vert ^{1}$ options for it.
+
+Once $v_{2}$ has been chosen, we have obtained a linearly independent list
+$\left(  v_{1},v_{2}\right)  $. Hence, its span $\operatorname*{span}\left(
+v_{1},v_{2}\right)  $ has dimension $2$ (as an $F$-vector space) and thus size
+$\left\vert F\right\vert ^{2}$. In other words, $\left\vert
+\operatorname*{span}\left(  v_{1},v_{2}\right)  \right\vert =\left\vert
+F\right\vert ^{2}$.
+
+\item Next, we choose $v_{3}$. This has to be a vector in $V\setminus
+\operatorname*{span}\left(  v_{1},v_{2}\right)  $ (because it has to satisfy
+$v_{3}\notin\operatorname*{span}\left(  v_{1},v_{2}\right)  $); thus, there
+are $\left\vert V\right\vert -\underbrace{\left\vert \operatorname*{span}%
+\left(  v_{1},v_{2}\right)  \right\vert }_{=\left\vert F\right\vert ^{2}%
+}=\left\vert V\right\vert -\left\vert F\right\vert ^{2}$ options for it.
+
+Once $v_{3}$ has been chosen, we have obtained a linearly independent list
+$\left(  v_{1},v_{2},v_{3}\right)  $. Hence, its span $\operatorname*{span}%
+\left(  v_{1},v_{2},v_{3}\right)  $ has dimension $3$ (as an $F$-vector space)
+and thus size $\left\vert F\right\vert ^{3}$. In other words, $\left\vert
+\operatorname*{span}\left(  v_{1},v_{2},v_{3}\right)  \right\vert =\left\vert
+F\right\vert ^{3}$.
+
+\item And so on, until the last vector $v_{k}$ in our list has been chosen.
+\end{itemize}
+
+The total \# of ways to perform this construction is%
+\[
+\left(  \left\vert V\right\vert -1\right)  \left(  \left\vert V\right\vert
+-\left\vert F\right\vert ^{1}\right)  \left(  \left\vert V\right\vert
+-\left\vert F\right\vert ^{2}\right)  \cdots\left(  \left\vert V\right\vert
+-\left\vert F\right\vert ^{k-1}\right)  .
+\]
+
+
+Hence,
+\begin{align*}
+&  \left(  \text{\# of linearly independent }k\text{-tuples of vectors in
+}V\right) \\
+&  =\left(  \left\vert V\right\vert -1\right)  \left(  \left\vert V\right\vert
+-\left\vert F\right\vert ^{1}\right)  \left(  \left\vert V\right\vert
+-\left\vert F\right\vert ^{2}\right)  \cdots\left(  \left\vert V\right\vert
+-\left\vert F\right\vert ^{k-1}\right) \\
+&  =\prod_{i=0}^{k-1}\left(  \left\vert V\right\vert -\left\vert F\right\vert
+^{i}\right)  =\prod_{i=0}^{k-1}\left(  \left\vert F\right\vert ^{n}-\left\vert
+F\right\vert ^{i}\right)
+\end{align*}
+(since $\left\vert V\right\vert =\left\vert F\right\vert ^{n}$). This proves
+Lemma \ref{lem.pars.qbinom.lin-ind-count}.
+\end{proof}
+
+Another lemma we will need is a basic combinatorial principle (often
+illustrated by the saying \textquotedblleft to count a flock of sheep, count
+the legs and divide by $4$\textquotedblright):
+
+\begin{lemma}
+[Multijection principle]\label{lem.count.multijection}Let $A$ and $B$ be two
+finite sets. Let $m\in\mathbb{N}$. Let $f:A\rightarrow B$ be any map. Assume
+that each $b\in B$ has exactly $m$ preimages under $f$ (that is, for each
+$b\in B$, there are exactly $m$ many elements $a\in A$ such that $f\left(
+a\right)  =b$). Then,%
+\[
+\left\vert A\right\vert =m\cdot\left\vert B\right\vert .
+\]
+
+\end{lemma}
+
+\begin{proof}
+Easy and LTTR.
+\end{proof}
+
+We note that a map $f:A\rightarrow B$ satisfying the assumption of Lemma
+\ref{lem.count.multijection} is often called an $m$\emph{-to-}$1$\emph{ map}.
+
+\begin{proof}
+[Proof of Theorem \ref{thm.pars.qbinom.subsp-count}.]First of all, we notice
+that if $k>n$, then $\dbinom{n}{k}_{\left\vert F\right\vert }=0$ (by
+Proposition \ref{prop.pars.qbinom.0}) and $\left(  \text{\# of }%
+k\text{-dimensional vector subspaces of }V\right)  =0$ (since the dimension of
+a subspace of $V$ is never larger than the dimension of $V$). Thus, Theorem
+\ref{thm.pars.qbinom.subsp-count} is true when $k>n$. Hence, for the rest of
+this proof, we WLOG assume that $k\leq n$.
+
+We will use the shorthand \textquotedblleft linind\textquotedblright\ for the
+words \textquotedblleft linearly independent\textquotedblright.
+
+If $\left(  v_{1},v_{2},\ldots,v_{k}\right)  $ is a linind $k$-tuple of
+vectors in $V$, then $\operatorname*{span}\left(  v_{1},v_{2},\ldots
+,v_{k}\right)  $ is a $k$-dimensional vector subspace of $V$. Hence, we can
+define a map%
+\begin{align*}
+f:\left\{  \text{linind }k\text{-tuples of vectors in }V\right\}   &
+\rightarrow\left\{  k\text{-dimensional vector subspaces of }V\right\}  ,\\
+\left(  v_{1},v_{2},\ldots,v_{k}\right)   &  \mapsto\operatorname*{span}%
+\left(  v_{1},v_{2},\ldots,v_{k}\right)  .
+\end{align*}
+Consider this map $f$. We claim the following:
+
+\begin{statement}
+\textit{Observation 1:} Each $k$-dimensional vector subspace of $V$ has
+exactly%
+\[
+\left(  \left\vert F\right\vert ^{k}-\left\vert F\right\vert ^{0}\right)
+\left(  \left\vert F\right\vert ^{k}-\left\vert F\right\vert ^{1}\right)
+\cdots\left(  \left\vert F\right\vert ^{k}-\left\vert F\right\vert
+^{k-1}\right)
+\]
+preimages under $f$.
+\end{statement}
+
+[\textit{Proof of Observation 1:} Let $W$ be a $k$-dimensional vector subspace
+of $V$. We must prove that
+\[
+\left(  \text{\# of preimages of }W\text{ under }f\right)  =\left(  \left\vert
+F\right\vert ^{k}-\left\vert F\right\vert ^{0}\right)  \left(  \left\vert
+F\right\vert ^{k}-\left\vert F\right\vert ^{1}\right)  \cdots\left(
+\left\vert F\right\vert ^{k}-\left\vert F\right\vert ^{k-1}\right)  .
+\]
+
+
+A preimage of $W$ under $f$ is a $k$-tuple of vectors in $V$ that spans $W$
+(by the very definition of $f$). Obviously, all the $k$ vectors in such a
+$k$-tuple must belong to $W$. Thus, a preimage of $W$ under $f$ is a $k$-tuple
+of vectors in $W$ that spans $W$. However, the vector space $W$ is
+$k$-dimensional. Thus, a $k$-tuple of vectors in $W$ spans $W$ if and only if
+this $k$-tuple is linind\footnote{Again, we are using a simple fact from
+linear algebra here, which is true over any field (not necessarily finite): A
+$k$-tuple of vectors in a $k$-dimensional vector space spans the space if and
+only if it is linind.}. Therefore, a preimage of $W$ under $f$ is a linind
+$k$-tuple of vectors in $W$. Hence,%
+\begin{align*}
+&  \left(  \text{\# of preimages of }W\text{ under }f\right) \\
+&  =\left(  \text{\# of linearly independent }k\text{-tuples of vectors in
+}W\right) \\
+&  =\left(  \left\vert F\right\vert ^{k}-\left\vert F\right\vert ^{0}\right)
+\left(  \left\vert F\right\vert ^{k}-\left\vert F\right\vert ^{1}\right)
+\cdots\left(  \left\vert F\right\vert ^{k}-\left\vert F\right\vert
+^{k-1}\right)
+\end{align*}
+(by Lemma \ref{lem.pars.qbinom.lin-ind-count}, applied to $W$ and $k$ instead
+of $V$ and $n$). This proves Observation 1.]
+
+Now, Observation 1 shows that each $k$-dimensional vector subspace of $V$ has
+exactly $\left(  \left\vert F\right\vert ^{k}-\left\vert F\right\vert
+^{0}\right)  \left(  \left\vert F\right\vert ^{k}-\left\vert F\right\vert
+^{1}\right)  \cdots\left(  \left\vert F\right\vert ^{k}-\left\vert
+F\right\vert ^{k-1}\right)  $ preimages under $f$. Hence, Lemma
+\ref{lem.count.multijection} (applied to $A=\left\{  \text{linind
+}k\text{-tuples of vectors in }V\right\}  $ and $B=\left\{
+k\text{-dimensional vector subspaces of }V\right\}  $ and \newline$m=\left(
+\left\vert F\right\vert ^{k}-\left\vert F\right\vert ^{0}\right)  \left(
+\left\vert F\right\vert ^{k}-\left\vert F\right\vert ^{1}\right)
+\cdots\left(  \left\vert F\right\vert ^{k}-\left\vert F\right\vert
+^{k-1}\right)  $) shows that%
+\begin{align*}
+&  \left(  \text{\# of linind }k\text{-tuples of vectors in }V\right) \\
+&  =\left(  \left\vert F\right\vert ^{k}-\left\vert F\right\vert ^{0}\right)
+\left(  \left\vert F\right\vert ^{k}-\left\vert F\right\vert ^{1}\right)
+\cdots\left(  \left\vert F\right\vert ^{k}-\left\vert F\right\vert
+^{k-1}\right) \\
+&  \ \ \ \ \ \ \ \ \ \ \cdot\left(  \text{\# of }k\text{-dimensional vector
+subspaces of }V\right)  .
+\end{align*}
+However, Lemma \ref{lem.pars.qbinom.lin-ind-count} yields%
+\begin{align*}
+&  \left(  \text{\# of linind }k\text{-tuples of vectors in }V\right) \\
+&  =\left(  \left\vert F\right\vert ^{n}-\left\vert F\right\vert ^{0}\right)
+\left(  \left\vert F\right\vert ^{n}-\left\vert F\right\vert ^{1}\right)
+\cdots\left(  \left\vert F\right\vert ^{n}-\left\vert F\right\vert
+^{k-1}\right)  .
+\end{align*}
+Comparing these two equalities, we obtain%
+\begin{align*}
+&  \left(  \left\vert F\right\vert ^{k}-\left\vert F\right\vert ^{0}\right)
+\left(  \left\vert F\right\vert ^{k}-\left\vert F\right\vert ^{1}\right)
+\cdots\left(  \left\vert F\right\vert ^{k}-\left\vert F\right\vert
+^{k-1}\right) \\
+&  \ \ \ \ \ \ \ \ \ \ \cdot\left(  \text{\# of }k\text{-dimensional vector
+subspaces of }V\right) \\
+&  =\left(  \left\vert F\right\vert ^{n}-\left\vert F\right\vert ^{0}\right)
+\left(  \left\vert F\right\vert ^{n}-\left\vert F\right\vert ^{1}\right)
+\cdots\left(  \left\vert F\right\vert ^{n}-\left\vert F\right\vert
+^{k-1}\right)  .
+\end{align*}
+Therefore,%
+\begin{align*}
+&  \left(  \text{\# of }k\text{-dimensional vector subspaces of }V\right) \\
+&  =\dfrac{\left(  \left\vert F\right\vert ^{n}-\left\vert F\right\vert
+^{0}\right)  \left(  \left\vert F\right\vert ^{n}-\left\vert F\right\vert
+^{1}\right)  \cdots\left(  \left\vert F\right\vert ^{n}-\left\vert
+F\right\vert ^{k-1}\right)  }{\left(  \left\vert F\right\vert ^{k}-\left\vert
+F\right\vert ^{0}\right)  \left(  \left\vert F\right\vert ^{k}-\left\vert
+F\right\vert ^{1}\right)  \cdots\left(  \left\vert F\right\vert ^{k}%
+-\left\vert F\right\vert ^{k-1}\right)  }\\
+&  =\dfrac{\prod_{i=0}^{k-1}\left(  \left\vert F\right\vert ^{n}-\left\vert
+F\right\vert ^{i}\right)  }{\prod_{i=0}^{k-1}\left(  \left\vert F\right\vert
+^{k}-\left\vert F\right\vert ^{i}\right)  }=\prod_{i=0}^{k-1}%
+\underbrace{\dfrac{\left\vert F\right\vert ^{n}-\left\vert F\right\vert ^{i}%
+}{\left\vert F\right\vert ^{k}-\left\vert F\right\vert ^{i}}}%
+_{\substack{=\dfrac{\left\vert F\right\vert ^{i}\left(  \left\vert
+F\right\vert ^{n-i}-1\right)  }{\left\vert F\right\vert ^{i}\left(  \left\vert
+F\right\vert ^{k-i}-1\right)  }=\dfrac{\left\vert F\right\vert ^{n-i}%
+-1}{\left\vert F\right\vert ^{k-i}-1}\\=\dfrac{1-\left\vert F\right\vert
+^{n-i}}{1-\left\vert F\right\vert ^{k-i}}}}=\prod_{i=0}^{k-1}\dfrac
+{1-\left\vert F\right\vert ^{n-i}}{1-\left\vert F\right\vert ^{k-i}}\\
+&  =\dfrac{\prod_{i=0}^{k-1}\left(  1-\left\vert F\right\vert ^{n-i}\right)
+}{\prod_{i=0}^{k-1}\left(  1-\left\vert F\right\vert ^{k-i}\right)  }%
+=\dfrac{\left(  1-\left\vert F\right\vert ^{n}\right)  \left(  1-\left\vert
+F\right\vert ^{n-1}\right)  \cdots\left(  1-\left\vert F\right\vert
+^{n-k+1}\right)  }{\left(  1-\left\vert F\right\vert ^{k}\right)  \left(
+1-\left\vert F\right\vert ^{k-1}\right)  \cdots\left(  1-\left\vert
+F\right\vert ^{1}\right)  }\\
+&  =\dbinom{n}{k}_{\left\vert F\right\vert }%
+\end{align*}
+(since substituting $\left\vert F\right\vert $ for $q$ in Theorem
+\ref{thm.pars.qbinom.quot1} \textbf{(b)} yields \newline$\dbinom{n}%
+{k}_{\left\vert F\right\vert }=\dfrac{\left(  1-\left\vert F\right\vert
+^{n}\right)  \left(  1-\left\vert F\right\vert ^{n-1}\right)  \cdots\left(
+1-\left\vert F\right\vert ^{n-k+1}\right)  }{\left(  1-\left\vert F\right\vert
+^{k}\right)  \left(  1-\left\vert F\right\vert ^{k-1}\right)  \cdots\left(
+1-\left\vert F\right\vert ^{1}\right)  }$). This proves Theorem
+\ref{thm.pars.qbinom.subsp-count}.
+\end{proof}
+
+\subsubsection{Limits of $q$-binomial coefficients}
+
+There is much more to say about $q$-binomial coefficients, but let us just
+briefly focus on their limiting behavior. This is not analogous to anything
+known from usual binomial coefficients; indeed, the limit $\lim
+\limits_{n\rightarrow\infty}\dbinom{n}{k}$ does not exist for any positive
+integer $k$. However, $q$-binomial coefficients behave much better in this regard.
+
+Indeed, consider the $q$-binomial coefficients $\dbinom{n}{2}_{q}$ for various
+values of $n$:%
+\begin{align*}
+\dbinom{0}{2}_{q}  &  =0,\\
+\dbinom{1}{2}_{q}  &  =0,\\
+\dbinom{2}{2}_{q}  &  =1,\\
+\dbinom{3}{2}_{q}  &  =1+q+q^{2},\\
+\dbinom{4}{2}_{q}  &  =1+q+2q^{2}+q^{3}+q^{4},\\
+\dbinom{5}{2}_{q}  &  =1+q+2q^{2}+2q^{3}+2q^{4}+q^{5}+q^{6},\\
+\dbinom{6}{2}_{q}  &  =1+q+2q^{2}+2q^{3}+3q^{4}+2q^{5}+2q^{6}+q^{7}+q^{8}.
+\end{align*}
+It appears from these examples that the sequence $\left(  \dbinom{n}{2}%
+_{q}\right)  _{n\in\mathbb{N}}$ coefficientwise stabilizes\footnote{Recall
+Definition \ref{def.fps.lim.coeff-stab} for the notion of \textquotedblleft
+coefficientwise stabilizing\textquotedblright.} to%
+\[
+1+q+2q^{2}+2q^{3}+3q^{4}+3q^{5}+\cdots=\sum_{n\in\mathbb{N}}\left(
+1+\left\lfloor \dfrac{n}{2}\right\rfloor \right)  q^{n}.
+\]
+And this is indeed the case:
+
+\begin{proposition}
+\label{prop.pars.qbinom.lim1}Let $k\in\mathbb{N}$ be fixed. Then,%
+\[
+\lim\limits_{n\rightarrow\infty}\dbinom{n}{k}_{q}=\sum_{n\in\mathbb{N}}\left(
+p_{0}\left(  n\right)  +p_{1}\left(  n\right)  +\cdots+p_{k}\left(  n\right)
+\right)  q^{n}=\prod_{i=1}^{k}\dfrac{1}{1-q^{i}}.
+\]
+(See Definition \ref{def.pars.pn-pkn} \textbf{(a)} for the meaning of
+$p_{i}\left(  n\right)  $.)
+\end{proposition}
+
+\begin{proof}
+[First proof of Proposition \ref{prop.pars.qbinom.lim1} (sketched).]For each
+integer $n\geq k$, we have%
+\begin{align*}
+\dbinom{n}{k}_{q}  &  =\dfrac{\left(  1-q^{n}\right)  \left(  1-q^{n-1}%
+\right)  \cdots\left(  1-q^{n-k+1}\right)  }{\left(  1-q^{k}\right)  \left(
+1-q^{k-1}\right)  \cdots\left(  1-q^{1}\right)  }\ \ \ \ \ \ \ \ \ \ \left(
+\text{by Theorem \ref{thm.pars.qbinom.quot1} \textbf{(b)}}\right) \\
+&  =\dfrac{\left(  1-q^{n-k+1}\right)  \left(  1-q^{n-k+2}\right)
+\cdots\left(  1-q^{n}\right)  }{\left(  1-q^{1}\right)  \left(  1-q^{2}%
+\right)  \cdots\left(  1-q^{k}\right)  }\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{here, we have turned
+both products upside down}\right) \\
+&  =\dfrac{\prod_{i=1}^{k}\left(  1-q^{n-k+i}\right)  }{\prod_{i=1}^{k}\left(
+1-q^{i}\right)  }=\dfrac{1}{\prod_{i=1}^{k}\left(  1-q^{i}\right)  }\cdot
+\prod_{i=1}^{k}\left(  1-q^{n-k+i}\right)  .
+\end{align*}
+
+
+However, we have $\lim\limits_{n\rightarrow\infty}q^{n}=0$ (check
+this!\footnote{This is a matter of understanding Definition
+\ref{def.fps.lim.coeff-stab}.}). Thus, for each $i\in\left\{  1,2,\ldots
+,k\right\}  $, we have%
+\[
+\lim\limits_{n\rightarrow\infty}q^{n-k+i}=0
+\]
+(since the family $\left(  q^{n-k+i}\right)  _{n\geq k-i}$ is just a
+reindexing of the family $\left(  q^{n}\right)  _{n\geq0}$), and therefore%
+\[
+\lim\limits_{n\rightarrow\infty}\left(  1-q^{n-k+i}\right)  =1.
+\]
+Hence, Corollary \ref{cor.fps.lim.sum-prod-k} (applied to $f_{i,n}%
+=1-q^{n-k+i}$ and $f_{i}=1$) yields that%
+\[
+\lim\limits_{n\rightarrow\infty}\sum_{i=1}^{k}\left(  1-q^{n-k+i}\right)
+=\sum_{i=1}^{k}1\ \ \ \ \ \ \ \ \ \ \text{and}\ \ \ \ \ \ \ \ \ \ \lim
+\limits_{n\rightarrow\infty}\prod_{i=1}^{k}\left(  1-q^{n-k+i}\right)
+=\prod_{i=1}^{k}1.
+\]
+Thus, in particular,%
+\[
+\lim\limits_{n\rightarrow\infty}\prod_{i=1}^{k}\left(  1-q^{n-k+i}\right)
+=\prod_{i=1}^{k}1=1.
+\]
+
+
+Now, recall that each integer $n\geq k$ satisfies%
+\[
+\dbinom{n}{k}_{q}=\dfrac{1}{\prod_{i=1}^{k}\left(  1-q^{i}\right)  }\cdot
+\prod_{i=1}^{k}\left(  1-q^{n-k+i}\right)  .
+\]
+Hence,%
+\begin{align}
+\lim\limits_{n\rightarrow\infty}\dbinom{n}{k}_{q}  &  =\lim
+\limits_{n\rightarrow\infty}\left(  \dfrac{1}{\prod_{i=1}^{k}\left(
+1-q^{i}\right)  }\cdot\prod_{i=1}^{k}\left(  1-q^{n-k+i}\right)  \right)
+\nonumber\\
+&  =\dfrac{1}{\prod_{i=1}^{k}\left(  1-q^{i}\right)  }\cdot\underbrace{\lim
+\limits_{n\rightarrow\infty}\prod_{i=1}^{k}\left(  1-q^{n-k+i}\right)  }%
+_{=1}=\dfrac{1}{\prod_{i=1}^{k}\left(  1-q^{i}\right)  }\nonumber\\
+&  =\prod_{i=1}^{k}\dfrac{1}{1-q^{i}}. \label{pf.prop.pars.qbinom.lim1.rhs1}%
+\end{align}
+
+
+Finally, Theorem \ref{thm.pars.main-gf-0n} (with the letters $x$, $m$ and $k$
+renamed as $q$, $k$ and $i$) says that%
+\[
+\sum_{n\in\mathbb{N}}\left(  p_{0}\left(  n\right)  +p_{1}\left(  n\right)
++\cdots+p_{k}\left(  n\right)  \right)  q^{n}=\prod_{i=1}^{k}\dfrac{1}%
+{1-q^{i}}.
+\]
+Combining this with (\ref{pf.prop.pars.qbinom.lim1.rhs1}), we obtain%
+\[
+\lim\limits_{n\rightarrow\infty}\dbinom{n}{k}_{q}=\sum_{n\in\mathbb{N}}\left(
+p_{0}\left(  n\right)  +p_{1}\left(  n\right)  +\cdots+p_{k}\left(  n\right)
+\right)  q^{n}=\prod_{i=1}^{k}\dfrac{1}{1-q^{i}}.
+\]
+This proves Proposition \ref{prop.pars.qbinom.lim1}.
+\end{proof}
+
+\begin{proof}
+[Second proof of Proposition \ref{prop.pars.qbinom.lim1} (sketched).]For each
+$n\in\mathbb{N}$, we have%
+\begin{equation}
+\dbinom{n}{k}_{q}=\sum_{\substack{\lambda\text{ is a partition}\\\text{with
+largest part }\leq n-k\\\text{and length }\leq k}}q^{\left\vert \lambda
+\right\vert } \label{pf.prop.pars.qbinom.lim1.2nd.1}%
+\end{equation}
+(by the definition of $\dbinom{n}{k}_{q}$).
+
+However, for each $n\in\mathbb{N}$, the sum $\sum_{\substack{\lambda\text{ is
+a partition}\\\text{with largest part }\leq n-k\\\text{and length }\leq
+k}}q^{\left\vert \lambda\right\vert }$ is a partial sum of the sum
+$\sum_{\substack{\lambda\text{ is a partition}\\\text{with length }\leq
+k}}q^{\left\vert \lambda\right\vert }$, and this partial sum grows by more and
+more addends as $n$ increases; each addend of the sum $\sum_{\substack{\lambda
+\text{ is a partition}\\\text{with length }\leq k}}q^{\left\vert
+\lambda\right\vert }$ gets eventually included in this partial sum (for
+sufficiently large $n$). From these observations, it is easy to obtain that%
+\[
+\lim\limits_{n\rightarrow\infty}\sum_{\substack{\lambda\text{ is a
+partition}\\\text{with largest part }\leq n-k\\\text{and length }\leq
+k}}q^{\left\vert \lambda\right\vert }=\sum_{\substack{\lambda\text{ is a
+partition}\\\text{with length }\leq k}}q^{\left\vert \lambda\right\vert }.
+\]
+In view of (\ref{pf.prop.pars.qbinom.lim1.2nd.1}), this rewrites as%
+\begin{align*}
+\lim\limits_{n\rightarrow\infty}\dbinom{n}{k}_{q}  &  =\sum_{\substack{\lambda
+\text{ is a partition}\\\text{with length }\leq k}}q^{\left\vert
+\lambda\right\vert }=\sum_{n\in\mathbb{N}}\underbrace{\left(  \text{\# of
+partitions of }n\text{ having length }\leq k\right)  }_{\substack{=p_{0}%
+\left(  n\right)  +p_{1}\left(  n\right)  +\cdots+p_{k}\left(  n\right)
+\\\text{(by Definition \ref{def.pars.pn-pkn} \textbf{(a)})}}}q^{n}\\
+&  =\sum_{n\in\mathbb{N}}\left(  p_{0}\left(  n\right)  +p_{1}\left(
+n\right)  +\cdots+p_{k}\left(  n\right)  \right)  q^{n}=\prod_{i=1}^{k}%
+\dfrac{1}{1-q^{i}}%
+\end{align*}
+(by Theorem \ref{thm.pars.main-gf-0n}, with the letters $x$, $m$ and $k$
+renamed as $q$, $k$ and $i$). Thus, Proposition \ref{prop.pars.qbinom.lim1} is
+proved again.
+\end{proof}

@@ -1,0 +1,702 @@
+
+
+The family $\left(  p_{i,k}\right)  _{\left(  i,k\right)  \in\overline{S}}$ is
+summable (by assumption). In other words, for any $m\in\mathbb{N}$, all but
+finitely many $\left(  i,k\right)  \in\overline{S}$ satisfy $\left[
+x^{m}\right]  p_{i,k}=0$. In other words, for any $m\in\mathbb{N}$, there
+exists a finite subset $T_{m}$ of $\overline{S}$ such that
+\begin{equation}
+\text{all }\left(  i,k\right)  \in\overline{S}\setminus T_{m}\text{ satisfy
+}\left[  x^{m}\right]  p_{i,k}=0. \label{pf.prop.fps.prodrule-fin-inf.Tm-def}%
+\end{equation}
+Consider these finite subsets $T_{m}$.
+
+For each $n\in\mathbb{N}$, we let $T_{n}^{\prime}$ be the subset $T_{0}\cup
+T_{1}\cup\cdots\cup T_{n}$ of $\overline{S}$. This subset $T_{n}^{\prime}$ is
+finite (since $T_{0},T_{1},\ldots,T_{n}$ are finite).
+
+For each $n\in\mathbb{N}$, we let $I_{n}$ be the subset
+\[
+\left\{  i\ \mid\ \left(  i,k\right)  \in T_{n}^{\prime}\right\}
+\]
+of $I$, and we let $K_{n}$ be the set%
+\[
+\left\{  k\ \mid\ \left(  i,k\right)  \in T_{n}^{\prime}\right\}  .
+\]
+These two sets $I_{n}$ and $K_{n}$ are finite (since $T_{n}^{\prime}$ is finite).
+
+The definition of $T_{n}^{\prime}$ shows the following:
+
+\begin{statement}
+\textit{Claim 3:} Let $n\in\mathbb{N}$ and $\left(  i,k\right)  \in
+\overline{S}\setminus T_{n}^{\prime}$. Then, we have%
+\[
+\left[  x^{m}\right]  p_{i,k}=0\ \ \ \ \ \ \ \ \ \ \text{for each }%
+m\in\left\{  0,1,\ldots,n\right\}  .
+\]
+
+\end{statement}
+
+[\textit{Proof of Claim 3:} Let $m\in\left\{  0,1,\ldots,n\right\}  $. Then,
+$T_{m}\subseteq T_{n}^{\prime}$ (since $T_{n}^{\prime}$ is defined as the
+union $T_{0}\cup T_{1}\cup\cdots\cup T_{n}$, whereas $T_{m}$ is one of the
+$n+1$ sets appearing in this union). Hence, $T_{n}^{\prime}\supseteq T_{m}$,
+so that $\overline{S}\setminus\underbrace{T_{n}^{\prime}}_{\supseteq T_{m}%
+}\subseteq\overline{S}\setminus T_{m}$. Now, $\left(  i,k\right)  \in
+\overline{S}\setminus T_{n}^{\prime}\subseteq\overline{S}\setminus T_{m}$.
+Therefore, (\ref{pf.prop.fps.prodrule-fin-inf.Tm-def}) shows that $\left[
+x^{m}\right]  p_{i,k}=0$. This proves Claim 3.]\medskip
+
+The following is easy to see:
+
+\begin{statement}
+\textit{Claim 4:} If $\left(  k_{i}\right)  _{i\in I}\in
+S_{\operatorname*{fin}}^{I}$, then the family $\left(  p_{i,k_{i}}\right)
+_{i\in I}$ is multipliable.
+\end{statement}
+
+[\textit{Proof of Claim 4:} Let $\left(  k_{i}\right)  _{i\in I}\in
+S_{\operatorname*{fin}}^{I}$. Thus, $\left(  k_{i}\right)  _{i\in I}$ is an
+essentially finite family in $S^{I}$. Now, all but finitely many $i\in I$
+satisfy $k_{i}=0$ (since $\left(  k_{i}\right)  _{i\in I}$ is essentially
+finite) and thus $p_{i,k_{i}}=p_{i,0}=1$ (by
+(\ref{eq.prop.fps.prodrule-inf-inf.pi0=1})). Hence, all but finitely many
+entries of the family $\left(  p_{i,k_{i}}\right)  _{i\in I}$ equal $1$. Thus,
+this family is multipliable (by Proposition \ref{prop.fps.1-mulable}). This
+proves Claim 4.]
+
+Claim 4 shows that the product $\prod_{i\in I}p_{i,k_{i}}$ is well-defined
+whenever $\left(  k_{i}\right)  _{i\in I}\in S_{\operatorname*{fin}}^{I}$.
+Next, we claim the following:
+
+\begin{statement}
+\textit{Claim 5:} Let $n\in\mathbb{N}$. Let $\left(  k_{i}\right)  _{i\in
+I}\in S_{\operatorname*{fin}}^{I}$. Assume that some $j\in I$ satisfies
+$\left(  j,k_{j}\right)  \in\overline{S}\setminus T_{n}^{\prime}$. Then,
+$\left[  x^{n}\right]  \left(  \prod_{i\in I}p_{i,k_{i}}\right)  =0$.
+\end{statement}
+
+[\textit{Proof of Claim 5:} We have assumed that some $j\in I$ satisfies
+$\left(  j,k_{j}\right)  \in\overline{S}\setminus T_{n}^{\prime}$. Consider
+this $j$. Then, the product $\prod_{i\in I}p_{i,k_{i}}$ is a multiple of
+$p_{j,k_{j}}$ (since $p_{j,k_{j}}$ is one of the factors of this product).
+Moreover, we have $\left[  x^{m}\right]  p_{j,k_{j}}=0$ for each $m\in\left\{
+0,1,\ldots,n\right\}  $ (by Claim 3, applied to $\left(  i,k\right)  =\left(
+j,k_{j}\right)  $). Hence, Lemma \ref{lem.fps.prod.irlv.mul} (applied to
+$u=p_{j,k_{j}}$ and $v=\prod_{i\in I}p_{i,k_{i}}$) shows that we have $\left[
+x^{m}\right]  \left(  \prod_{i\in I}p_{i,k_{i}}\right)  =0$ for each
+$m\in\left\{  0,1,\ldots,n\right\}  $ (since $\prod_{i\in I}p_{i,k_{i}}$ is a
+multiple of $p_{j,k_{j}}$). Applying this to $m=n$, we obtain $\left[
+x^{n}\right]  \left(  \prod_{i\in I}p_{i,k_{i}}\right)  =0$. This proves Claim 5.]
+
+\begin{statement}
+\textit{Claim 6:} Let $n\in\mathbb{N}$. Let $\left(  k_{i}\right)  _{i\in
+I}\in S_{\operatorname*{fin}}^{I}\setminus S_{I_{n}}^{I}$. Then, $\left[
+x^{n}\right]  \left(  \prod_{i\in I}p_{i,k_{i}}\right)  =0$.
+\end{statement}
+
+[\textit{Proof of Claim 6:} We have $\left(  k_{i}\right)  _{i\in I}\in
+S_{\operatorname*{fin}}^{I}\setminus S_{I_{n}}^{I}$. In other words, we have
+$\left(  k_{i}\right)  _{i\in I}\in S_{\operatorname*{fin}}^{I}$ but $\left(
+k_{i}\right)  _{i\in I}\notin S_{I_{n}}^{I}$. From $\left(  k_{i}\right)
+_{i\in I}\notin S_{I_{n}}^{I}$, we see that there exists some $j\in I\setminus
+I_{n}$ satisfying $k_{j}\neq0$. Consider this $j$. We have $k_{j}\in S_{j}$
+(since $\left(  k_{i}\right)  _{i\in I}\in S_{\operatorname*{fin}}%
+^{I}\subseteq S^{I}$) and $j\notin I_{n}$ (since $j\in I\setminus I_{n}$). We
+have $\left(  j,k_{j}\right)  \in\overline{S}$ (since $k_{j}\in S_{j}$ and
+$k_{j}\neq0$) and $\left(  j,k_{j}\right)  \notin T_{n}^{\prime}$ (because if
+we had $\left(  j,k_{j}\right)  \in T_{n}^{\prime}$, then we would have $j\in
+I_{n}$ by the definition of $I_{n}$; but this would contradict $j\notin I_{n}%
+$). Hence, we have $\left(  j,k_{j}\right)  \in\overline{S}\setminus
+T_{n}^{\prime}$. Therefore, Claim 5 yields $\left[  x^{n}\right]  \left(
+\prod_{i\in I}p_{i,k_{i}}\right)  =0$. This proves Claim 6.]
+
+\begin{statement}
+\textit{Claim 7:} The family $\left(  \prod_{i\in I}p_{i,k_{i}}\right)
+_{\left(  k_{i}\right)  _{i\in I}\in S_{\operatorname*{fin}}^{I}}$ is summable.
+\end{statement}
+
+[\textit{Proof of Claim 7:} Let $n\in\mathbb{N}$. We shall show that all but
+finitely many families $\left(  k_{i}\right)  _{i\in I}\in
+S_{\operatorname*{fin}}^{I}$ satisfy
+\[
+\left[  x^{n}\right]  \left(  \prod_{i\in I}p_{i,k_{i}}\right)  =0.
+\]
+
+
+Indeed, let $\left(  k_{i}\right)  _{i\in I}\in S_{\operatorname*{fin}}^{I}$
+be a family such that
+\begin{equation}
+\left[  x^{n}\right]  \left(  \prod_{i\in I}p_{i,k_{i}}\right)  \neq0.
+\label{pf.prop.fps.prodrule-fin-inf.c7.pf.ass}%
+\end{equation}
+We are going to show that $\left(  k_{i}\right)  _{i\in I}$ satisfies the
+following two properties:
+
+\begin{itemize}
+\item \textit{Property 1:} All $i\in I\setminus I_{n}$ satisfy $k_{i}=0$.
+
+\item \textit{Property 2:} All $i\in I_{n}$ satisfy $k_{i}\in K_{n}%
+\cup\left\{  0\right\}  $.
+\end{itemize}
+
+\noindent These two properties together will restrict the family $\left(
+k_{i}\right)  _{i\in I}$ to finitely many possibilities (since the sets
+$I_{n}$ and $K_{n}$ are finite).
+
+If we had $\left(  k_{i}\right)  _{i\in I}\notin S_{I_{n}}^{I}$, then we would
+have $\left(  k_{i}\right)  _{i\in I}\in S_{\operatorname*{fin}}^{I}\setminus
+S_{I_{n}}^{I}$ (since $\left(  k_{i}\right)  _{i\in I}\in
+S_{\operatorname*{fin}}^{I}$) and thus $\left[  x^{n}\right]  \left(
+\prod_{i\in I}p_{i,k_{i}}\right)  =0$ (by Claim 6), which would contradict
+(\ref{pf.prop.fps.prodrule-fin-inf.c7.pf.ass}). Hence, we cannot have $\left(
+k_{i}\right)  _{i\in I}\notin S_{I_{n}}^{I}$. Thus, we have $\left(
+k_{i}\right)  _{i\in I}\in S_{I_{n}}^{I}$. In other words, all $i\in
+I\setminus I_{n}$ satisfy $k_{i}=0$. This proves Property 1.
+
+If there was some $j\in I_{n}$ that satisfies $k_{j}\notin K_{n}\cup\left\{
+0\right\}  $, then this $k_{j}$ would satisfy $\left(  j,k_{j}\right)
+\in\overline{S}\setminus T_{n}^{\prime}$\ \ \ \ \footnote{\textit{Proof.} Let
+$j\in I_{n}$ be such that $k_{j}\notin K_{n}\cup\left\{  0\right\}  $. We must
+show that $\left(  j,k_{j}\right)  \in\overline{S}\setminus T_{n}^{\prime}$.
+\par
+Indeed, we have $k_{j}\notin K_{n}\cup\left\{  0\right\}  $; thus,
+$k_{j}\notin K_{n}$ and $k_{j}\neq0$. However, $j\in I_{n}\subseteq I$ and
+$k_{j}\in S_{j}$ (since $\left(  k_{i}\right)  _{i\in I}\in
+S_{\operatorname*{fin}}^{I}\subseteq S^{I}$) and therefore $\left(
+j,k_{j}\right)  \in\overline{S}$ (by the definition of $\overline{S}$, since
+$k_{j}\neq0$). If we had $\left(  j,k_{j}\right)  \in T_{n}^{\prime}$, then we
+would have $k_{j}\in K_{n}$ (by the definition of $K_{n}$), which would
+contradict $k_{j}\notin K_{n}$. Thus, we have $\left(  j,k_{j}\right)  \notin
+T_{n}^{\prime}$. Combining this with $\left(  j,k_{j}\right)  \in\overline{S}%
+$, we obtain $\left(  j,k_{j}\right)  \in\overline{S}\setminus T_{n}^{\prime}%
+$. This completes our proof.}, and therefore we would have $\left[
+x^{n}\right]  \left(  \prod_{i\in I}p_{i,k_{i}}\right)  =0$ (by Claim 5, since
+$j\in I_{n}\subseteq I$); but this would contradict
+(\ref{pf.prop.fps.prodrule-fin-inf.c7.pf.ass}). Hence, there exists no $j\in
+I_{n}$ that satisfies $k_{j}\notin K_{n}\cup\left\{  0\right\}  $. In other
+words, all $i\in I_{n}$ satisfy $k_{i}\in K_{n}\cup\left\{  0\right\}  $. This
+proves Property 2.
+
+Now, we have shown that our family $\left(  k_{i}\right)  _{i\in I}$ satisfies
+Property 1 and Property 2.
+
+Forget that we fixed $\left(  k_{i}\right)  _{i\in I}$. We thus have shown
+that any family $\left(  k_{i}\right)  _{i\in I}\in S_{\operatorname*{fin}%
+}^{I}$ that satisfies $\left[  x^{n}\right]  \left(  \prod_{i\in I}p_{i,k_{i}%
+}\right)  \neq0$ must satisfy Property 1 and Property 2. In other words, any
+such family must belong to the set of all families $\left(  k_{i}\right)
+_{i\in I}\in S_{\operatorname*{fin}}^{I}$ that satisfy Property 1 and Property
+2. However, the latter set is finite\footnote{\textit{Proof.} We must show
+that Property 1 and Property 2 leave only finitely many options for the family
+$\left(  k_{i}\right)  _{i\in I}$. Indeed, Property 1 shows that all entries
+$k_{i}$ with $i\in I\setminus I_{n}$ are uniquely determined; meanwhile,
+Property 2 ensures that the remaining entries (of which there are only
+finitely many, since the set $I_{n}$ is finite) must belong to the finite set
+$K_{n}\cup\left\{  0\right\}  $ (this set is finite, since $K_{n}$ is finite).
+Therefore, a family $\left(  k_{i}\right)  _{i\in I}$ that satisfies Property
+1 and Property 2 is uniquely determined by finitely many of its entries
+(namely, by its entries $k_{i}$ with $i\in I_{n}$), and there are finitely
+many choices for each of them (since they must belong to the finite set
+$K_{n}\cup\left\{  0\right\}  $). Hence, there are only finitely many such
+families (namely, at most $\left\vert K_{n}\cup\left\{  0\right\}  \right\vert
+^{\left\vert I_{n}\right\vert }$ many options). In other words, the set of all
+families $\left(  k_{i}\right)  _{i\in I}\in S_{\operatorname*{fin}}^{I}$ that
+satisfy Property 1 and Property 2 is finite.}. Hence, there are only finitely
+many families $\left(  k_{i}\right)  _{i\in I}\in S_{\operatorname*{fin}}^{I}$
+that satisfy $\left[  x^{n}\right]  \left(  \prod_{i\in I}p_{i,k_{i}}\right)
+\neq0$ (since we have shown that any such family must belong to the finite set
+of all families $\left(  k_{i}\right)  _{i\in I}\in S_{\operatorname*{fin}%
+}^{I}$ that satisfy Property 1 and Property 2). In other words, all but
+finitely many families $\left(  k_{i}\right)  _{i\in I}\in
+S_{\operatorname*{fin}}^{I}$ satisfy $\left[  x^{n}\right]  \left(
+\prod_{i\in I}p_{i,k_{i}}\right)  =0$.
+
+Forget that we fixed $n$. We thus have shown that for each $n\in\mathbb{N}$,
+all but finitely many families $\left(  k_{i}\right)  _{i\in I}\in
+S_{\operatorname*{fin}}^{I}$ satisfy $\left[  x^{n}\right]  \left(
+\prod_{i\in I}p_{i,k_{i}}\right)  =0$. In other words, the family $\left(
+\prod_{i\in I}p_{i,k_{i}}\right)  _{\left(  k_{i}\right)  _{i\in I}\in
+S_{\operatorname*{fin}}^{I}}$ is summable. This proves Claim 7.]
+
+Claim 7 shows that the sum $\sum_{\left(  k_{i}\right)  _{i\in I}\in
+S_{\operatorname*{fin}}^{I}}\ \ \prod_{i\in I}p_{i,k_{i}}$ is well-defined. We
+shall next focus on proving (\ref{eq.prop.fps.prodrule-inf-inf.eq}).
+
+\begin{statement}
+\textit{Claim 8:} Let $n\in\mathbb{N}$. Then,
+\[
+\left[  x^{n}\right]  \left(  \sum_{\left(  k_{i}\right)  _{i\in I}\in
+S_{\operatorname*{fin}}^{I}}\ \ \prod_{i\in I}p_{i,k_{i}}\right)  =\left[
+x^{n}\right]  \left(  \sum_{\left(  k_{i}\right)  _{i\in I_{n}}\in S^{I_{n}}%
+}\ \ \prod_{i\in I_{n}}p_{i,k_{i}}\right)  .
+\]
+
+\end{statement}
+
+[\textit{Proof of Claim 8:} The set $I_{n}$ is finite (as we know). Thus,
+$S_{I_{n}}^{I}\subseteq S_{\operatorname*{fin}}^{I}$%
+\ \ \ \ \footnote{\textit{Proof.} Let $\left(  k_{i}\right)  _{i\in I}\in
+S_{I_{n}}^{I}$. Thus, $\left(  k_{i}\right)  _{i\in I}$ is a family in $S^{I}$
+that satisfies $k_{i}=0$ for all $i\in I\setminus I_{n}$ (by the definition of
+$S_{I_{n}}^{I}$). However, $I_{n}$ is finite. Thus, $k_{i}=0$ for all but
+finitely many $i\in I$ (since $k_{i}=0$ for all $i\in I\setminus I_{n}$). In
+other words, the family $\left(  k_{i}\right)  _{i\in I}$ is essentially
+finite. In other words, $\left(  k_{i}\right)  _{i\in I}\in
+S_{\operatorname*{fin}}^{I}$ (by the definition of $S_{\operatorname*{fin}%
+}^{I}$).
+\par
+Forget that we fixed $\left(  k_{i}\right)  _{i\in I}$. We thus have shown
+that $\left(  k_{i}\right)  _{i\in I}\in S_{\operatorname*{fin}}^{I}$ for each
+$\left(  k_{i}\right)  _{i\in I}\in S_{I_{n}}^{I}$. In other words, $S_{I_{n}%
+}^{I}\subseteq S_{\operatorname*{fin}}^{I}$.}. Hence, the set
+$S_{\operatorname*{fin}}^{I}$ is the union of its two disjoint subsets
+$S_{I_{n}}^{I}$ and $S_{\operatorname*{fin}}^{I}\setminus S_{I_{n}}^{I}$.
+
+Furthermore, for each $\left(  k_{i}\right)  _{i\in I_{n}}\in S_{I_{n}}^{I}$,
+we have%
+\[
+k_{i}=0\ \ \ \ \ \ \ \ \ \ \text{for all }i\in I\setminus I_{n}%
+\]
+(by the definition of $S_{I_{n}}^{I}$) and therefore%
+\[
+p_{i,k_{i}}=p_{i,0}=1\ \ \ \ \ \ \ \ \ \ \text{for all }i\in I\setminus I_{n}%
+\]
+(by (\ref{eq.prop.fps.prodrule-inf-inf.pi0=1})) and thus%
+\[
+\prod_{i\in I\setminus I_{n}}\underbrace{p_{i,k_{i}}}_{=1}=\prod_{i\in
+I\setminus I_{n}}1=1
+\]
+and therefore%
+\begin{align}
+\prod_{i\in I}p_{i,k_{i}}  &  =\left(  \prod_{i\in I_{n}}p_{i,k_{i}}\right)
+\underbrace{\left(  \prod_{i\in I\setminus I_{n}}p_{i,k_{i}}\right)  }%
+_{=1}\nonumber\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have split the product into two}\\
+\text{parts, since the set }I_{n}\text{ is a subset of }I
+\end{array}
+\right) \nonumber\\
+&  =\prod_{i\in I_{n}}p_{i,k_{i}}.
+\label{pf.prop.fps.prodrule-fin-inf.c8.pf.1}%
+\end{align}
+
+
+Now,%
+\begin{align*}
+&  \left[  x^{n}\right]  \left(  \sum_{\left(  k_{i}\right)  _{i\in I}\in
+S_{\operatorname*{fin}}^{I}}\ \ \prod_{i\in I}p_{i,k_{i}}\right) \\
+&  =\sum_{\left(  k_{i}\right)  _{i\in I}\in S_{\operatorname*{fin}}^{I}%
+}\left[  x^{n}\right]  \left(  \prod_{i\in I}p_{i,k_{i}}\right) \\
+&  =\sum_{\left(  k_{i}\right)  _{i\in I}\in S_{I_{n}}^{I}}\left[
+x^{n}\right]  \underbrace{\left(  \prod_{i\in I}p_{i,k_{i}}\right)
+}_{\substack{=\prod_{i\in I_{n}}p_{i,k_{i}}\\\text{(by
+(\ref{pf.prop.fps.prodrule-fin-inf.c8.pf.1}))}}}+\sum_{\left(  k_{i}\right)
+_{i\in I}\in S_{\operatorname*{fin}}^{I}\setminus S_{I_{n}}^{I}}%
+\underbrace{\left[  x^{n}\right]  \left(  \prod_{i\in I}p_{i,k_{i}}\right)
+}_{\substack{=0\\\text{(by Claim 6)}}}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have split the sum, since the set }S_{\operatorname*{fin}}%
+^{I}\text{ is}\\
+\text{the union of its two disjoint subsets }S_{I_{n}}^{I}\text{ and
+}S_{\operatorname*{fin}}^{I}\setminus S_{I_{n}}^{I}%
+\end{array}
+\right) \\
+&  =\sum_{\left(  k_{i}\right)  _{i\in I}\in S_{I_{n}}^{I}}\left[
+x^{n}\right]  \left(  \prod_{i\in I_{n}}p_{i,k_{i}}\right)  +\underbrace{\sum
+_{\left(  k_{i}\right)  _{i\in I}\in S_{\operatorname*{fin}}^{I}\setminus
+S_{I_{n}}^{I}}0}_{=0}\\
+&  =\sum_{\left(  k_{i}\right)  _{i\in I}\in S_{I_{n}}^{I}}\left[
+x^{n}\right]  \left(  \prod_{i\in I_{n}}p_{i,k_{i}}\right)  =\sum_{\left(
+k_{i}\right)  _{i\in I_{n}}\in S^{I_{n}}}\left[  x^{n}\right]  \left(
+\prod_{i\in I_{n}}p_{i,k_{i}}\right) \\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have substituted }\left(  k_{i}\right)  _{i\in I_{n}}\text{ for
+}\left(  k_{i}\right)  _{i\in I_{n}}\text{ in the}\\
+\text{sum, since the map }S_{I_{n}}^{I}\rightarrow S^{I_{n}},\ \left(
+k_{i}\right)  _{i\in I}\mapsto\left(  k_{i}\right)  _{i\in I_{n}}\\
+\text{is a bijection (indeed, this map is the map}\\
+\text{we have called }\operatorname*{reduce}\nolimits_{I_{n}}\text{)}%
+\end{array}
+\right) \\
+&  =\left[  x^{n}\right]  \left(  \sum_{\left(  k_{i}\right)  _{i\in I_{n}}\in
+S^{I_{n}}}\ \ \prod_{i\in I_{n}}p_{i,k_{i}}\right)  .
+\end{align*}
+This proves Claim 8.]
+
+\begin{statement}
+\textit{Claim 9:} Let $n\in\mathbb{N}$. Let $i\in I\setminus I_{n}$. Then,
+\[
+\left[  x^{m}\right]  \left(  \sum_{k\in S_{i}\setminus\left\{  0\right\}
+}p_{i,k}\right)  =0\ \ \ \ \ \ \ \ \ \ \text{for each }m\in\left\{
+0,1,\ldots,n\right\}  .
+\]
+
+\end{statement}
+
+[\textit{Proof of Claim 9:} We have $i\in I\setminus I_{n}$. In other words,
+$i\in I$ and $i\notin I_{n}$.
+
+Let $m\in\left\{  0,1,\ldots,n\right\}  $.
+
+Let $k\in S_{i}\setminus\left\{  0\right\}  $. Thus, by the definition of
+$\overline{S}$, we have $\left(  i,k\right)  \in\overline{S}$ (since $k\in
+S_{i}\setminus\left\{  0\right\}  $ entails $k\in S_{i}$ and $k\neq0$). On the
+other hand, $\left(  i,k\right)  \notin T_{n}^{\prime}$ (since otherwise, we
+would have $\left(  i,k\right)  \in T_{n}^{\prime}$ and thus $i\in I_{n}$ (by
+the definition of $I_{n}$), which would contradict $i\notin I_{n}$). Combining
+$\left(  i,k\right)  \in\overline{S}$ with $\left(  i,k\right)  \notin
+T_{n}^{\prime}$, we obtain $\left(  i,k\right)  \in\overline{S}\setminus
+T_{n}^{\prime}$. Therefore, Claim 3 yields $\left[  x^{m}\right]  p_{i,k}=0$.
+
+Now, forget that we fixed $k$. We thus have shown that
+\begin{equation}
+\left[  x^{m}\right]  p_{i,k}=0\ \ \ \ \ \ \ \ \ \ \text{for each }k\in
+S_{i}\setminus\left\{  0\right\}  .
+\label{pf.prop.fps.prodrule-fin-inf.c9.pf.1}%
+\end{equation}
+Now,%
+\[
+\left[  x^{m}\right]  \left(  \sum_{k\in S_{i}\setminus\left\{  0\right\}
+}p_{i,k}\right)  =\sum_{k\in S_{i}\setminus\left\{  0\right\}  }%
+\underbrace{\left[  x^{m}\right]  p_{i,k}}_{\substack{=0\\\text{(by
+(\ref{pf.prop.fps.prodrule-fin-inf.c9.pf.1}))}}}=\sum_{k\in S_{i}%
+\setminus\left\{  0\right\}  }0=0.
+\]
+This proves Claim 9.]
+
+\begin{statement}
+\textit{Claim 10:} Let $n\in\mathbb{N}$. Then,%
+\[
+\left[  x^{n}\right]  \left(  \prod_{i\in I}\ \ \sum_{k\in S_{i}}%
+p_{i,k}\right)  =\left[  x^{n}\right]  \left(  \prod_{i\in I_{n}}%
+\ \ \sum_{k\in S_{i}}p_{i,k}\right)  .
+\]
+
+\end{statement}
+
+[\textit{Proof of Claim 10:} The set $I_{n}$ is a subset of $I$. Hence, the
+set $I$ is the union of its two disjoint subsets $I_{n}$ and $I\setminus
+I_{n}$. Thus, we can split the product $\prod_{i\in I}\ \ \sum_{k\in S_{i}%
+}p_{i,k}$ as follows:\footnote{Here, we are tacitly using the fact that any
+subfamily of the family $\left(  \sum_{k\in S_{i}}p_{i,k}\right)  _{i\in I}$
+is multipliable. But this can be proved in the exact same way as we proved
+Claim 2.}%
+\begin{align}
+\prod_{i\in I}\ \ \sum_{k\in S_{i}}p_{i,k}  &  =\left(  \prod_{i\in I_{n}%
+}\ \ \sum_{k\in S_{i}}p_{i,k}\right)  \left(  \prod_{i\in I\setminus I_{n}%
+}\ \ \underbrace{\sum_{k\in S_{i}}p_{i,k}}_{\substack{=1+\sum_{k\in
+S_{i}\setminus\left\{  0\right\}  }p_{i,k}\\\text{(by
+(\ref{pf.prop.fps.prodrule-fin-inf.sum-no-1}))}}}\right) \nonumber\\
+&  =\left(  \prod_{i\in I_{n}}\ \ \sum_{k\in S_{i}}p_{i,k}\right)  \left(
+\prod_{i\in I\setminus I_{n}}\left(  1+\sum_{k\in S_{i}\setminus\left\{
+0\right\}  }p_{i,k}\right)  \right)  .
+\label{pf.prop.fps.prodrule-fin-inf.c10.pf.1}%
+\end{align}
+
+
+However, the family $\left(  \sum_{k\in S_{i}\setminus\left\{  0\right\}
+}p_{i,k}\right)  _{i\in I}$ is summable (as we have seen in the proof of Claim
+2). Hence, its subfamily $\left(  \sum_{k\in S_{i}\setminus\left\{  0\right\}
+}p_{i,k}\right)  _{i\in I\setminus I_{n}}$ is summable as well (since a
+subfamily of a summable family is always summable). Moreover, Claim 9 shows
+that each $i\in I\setminus I_{n}$ satisfies $\left[  x^{m}\right]  \left(
+\sum_{k\in S_{i}\setminus\left\{  0\right\}  }p_{i,k}\right)  =0$ for each
+$m\in\left\{  0,1,\ldots,n\right\}  $. Hence, Lemma
+\ref{lem.fps.prod.irlv.inf} (applied to $a=\prod_{i\in I_{n}}\ \ \sum_{k\in
+S_{i}}p_{i,k}$ and $J=I\setminus I_{n}$ and $f_{i}=\sum_{k\in S_{i}%
+\setminus\left\{  0\right\}  }p_{i,k}$) yields that%
+\begin{align*}
+&  \left[  x^{m}\right]  \left(  \left(  \prod_{i\in I_{n}}\ \ \sum_{k\in
+S_{i}}p_{i,k}\right)  \left(  \prod_{i\in I\setminus I_{n}}\left(
+1+\sum_{k\in S_{i}\setminus\left\{  0\right\}  }p_{i,k}\right)  \right)
+\right) \\
+&  =\left[  x^{m}\right]  \left(  \prod_{i\in I_{n}}\ \ \sum_{k\in S_{i}%
+}p_{i,k}\right)  \ \ \ \ \ \ \ \ \ \ \text{for each }m\in\left\{
+0,1,\ldots,n\right\}  .
+\end{align*}
+Applying this to $m=n$, we find%
+\[
+\left[  x^{n}\right]  \left(  \left(  \prod_{i\in I_{n}}\ \ \sum_{k\in S_{i}%
+}p_{i,k}\right)  \left(  \prod_{i\in I\setminus I_{n}}\left(  1+\sum_{k\in
+S_{i}\setminus\left\{  0\right\}  }p_{i,k}\right)  \right)  \right)  =\left[
+x^{n}\right]  \left(  \prod_{i\in I_{n}}\ \ \sum_{k\in S_{i}}p_{i,k}\right)
+.
+\]
+In view of (\ref{pf.prop.fps.prodrule-fin-inf.c10.pf.1}), this rewrites as%
+\[
+\left[  x^{n}\right]  \left(  \prod_{i\in I}\ \ \sum_{k\in S_{i}}%
+p_{i,k}\right)  =\left[  x^{n}\right]  \left(  \prod_{i\in I_{n}}%
+\ \ \sum_{k\in S_{i}}p_{i,k}\right)  .
+\]
+This proves Claim 10.]
+
+\begin{statement}
+\textit{Claim 11:} Let $i\in\mathbb{N}$. Then,%
+\[
+\prod_{i\in I_{n}}\ \ \sum_{k\in S_{i}}p_{i,k}=\sum_{\left(  k_{i}\right)
+_{i\in I_{n}}\in S^{I_{n}}}\ \ \prod_{i\in I_{n}}p_{i,k_{i}}.
+\]
+
+\end{statement}
+
+[\textit{Proof of Claim 11:} The set $I_{n}$ is finite. For any $i\in I_{n}$,
+the family $\left(  p_{i,k}\right)  _{k\in S_{i}}$ is summable (by Claim 1).
+Hence, Proposition \ref{prop.fps.prodrule-fin-infJ} (applied to $N=I_{n}$)
+yields
+\[
+\prod_{i\in I_{n}}\ \ \sum_{k\in S_{i}}p_{i,k}=\sum_{\left(  k_{i}\right)
+_{i\in I_{n}}\in\prod_{i\in I_{n}}S_{i}}\ \ \prod_{i\in I_{n}}p_{i,k_{i}}%
+=\sum_{\left(  k_{i}\right)  _{i\in I_{n}}\in S^{I_{n}}}\ \ \prod_{i\in I_{n}%
+}p_{i,k_{i}}%
+\]
+(since $\prod_{i\in I_{n}}S_{i}=S^{I_{n}}$). This proves Claim 11.]\medskip
+
+Now, for each $n\in\mathbb{N}$, we have%
+\begin{align*}
+&  \left[  x^{n}\right]  \left(  \prod_{i\in I}\ \ \sum_{k\in S_{i}}%
+p_{i,k}\right) \\
+&  =\left[  x^{n}\right]  \left(  \prod_{i\in I_{n}}\ \ \sum_{k\in S_{i}%
+}p_{i,k}\right)  \ \ \ \ \ \ \ \ \ \ \left(  \text{by Claim 10}\right) \\
+&  =\left[  x^{n}\right]  \left(  \sum_{\left(  k_{i}\right)  _{i\in I_{n}}\in
+S^{I_{n}}}\ \ \prod_{i\in I_{n}}p_{i,k_{i}}\right) \\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{since Claim 11 yields
+}\prod_{i\in I_{n}}\ \ \sum_{k\in S_{i}}p_{i,k}=\sum_{\left(  k_{i}\right)
+_{i\in I_{n}}\in S^{I_{n}}}\ \ \prod_{i\in I_{n}}p_{i,k_{i}}\right) \\
+&  =\left[  x^{n}\right]  \left(  \sum_{\left(  k_{i}\right)  _{i\in I}\in
+S_{\operatorname*{fin}}^{I}}\ \ \prod_{i\in I}p_{i,k_{i}}\right)
+\ \ \ \ \ \ \ \ \ \ \left(  \text{by Claim 8}\right)  .
+\end{align*}
+That is, any coefficient of the FPS $\prod_{i\in I}\ \ \sum_{k\in S_{i}%
+}p_{i,k}$ equals the corresponding coefficient of $\sum_{\left(  k_{i}\right)
+_{i\in I}\in S_{\operatorname*{fin}}^{I}}\ \ \prod_{i\in I}p_{i,k_{i}}$.
+Hence,%
+\[
+\prod_{i\in I}\ \ \sum_{k\in S_{i}}p_{i,k}=\sum_{\left(  k_{i}\right)  _{i\in
+I}\in S_{\operatorname*{fin}}^{I}}\ \ \prod_{i\in I}p_{i,k_{i}}=\sum
+_{\substack{\left(  k_{i}\right)  _{i\in I}\in\prod_{i\in I}S_{i}\\\text{is
+essentially finite}}}\ \ \prod_{i\in I}p_{i,k_{i}}%
+\]
+(since $S_{\operatorname*{fin}}^{I}$ is the set of all essentially finite
+families $\left(  k_{i}\right)  _{i\in I}\in\prod_{i\in I}S_{i}$). In
+particular, the family $\left(  \prod_{i\in I}p_{i,k_{i}}\right)  _{\left(
+k_{i}\right)  _{i\in I}\in\prod_{i\in I}S_{i}\text{ is essentially finite}}$
+is summable. This proves Proposition \ref{prop.fps.prodrule-inf-inf}.
+\end{proof}
+\end{fineprint}
+
+\begin{fineprint}
+Our proof of Proposition \ref{prop.fps.subs.rule-infprod} will use the
+\textbf{finite} analogue of Proposition \ref{prop.fps.subs.rule-infprod},
+which is easy:
+
+\begin{lemma}
+\label{lem.fps.subs.rule-infprod-fin}Let $I$ be a \textbf{finite} set. If
+$\left(  f_{i}\right)  _{i\in I}\in K\left[  \left[  x\right]  \right]  ^{I}$
+is a family of FPSs, and if $g\in K\left[  \left[  x\right]  \right]  $ is an
+FPS satisfying $\left[  x^{0}\right]  g=0$, then $\left(  \prod_{i\in I}%
+f_{i}\right)  \circ g=\prod_{i\in I}\left(  f_{i}\circ g\right)  $.
+\end{lemma}
+
+\begin{proof}
+[Proof of Lemma \ref{lem.fps.subs.rule-infprod-fin}.]This follows by a
+straightforward induction on $\left\vert I\right\vert $. (The base case is the
+case when $\left\vert I\right\vert =0$, and relies on the fact that
+$\underline{1}\circ g=\underline{1}$ for any $g\in K\left[  \left[  x\right]
+\right]  $. The induction step relies on Proposition \ref{prop.fps.subs.rules}
+\textbf{(b)}. The details are left to the reader, who must have seen dozens of
+such proofs by now.)
+\end{proof}
+
+\begin{proof}
+[Detailed proof of Proposition \ref{prop.fps.subs.rule-infprod}.]Let $\left(
+f_{i}\right)  _{i\in I}\in K\left[  \left[  x\right]  \right]  ^{I}$ be a
+multipliable family of FPSs. Let $g\in K\left[  \left[  x\right]  \right]  $
+be an FPS satisfying $\left[  x^{0}\right]  g=0$.
+
+We shall first show the following auxiliary claim:
+
+\begin{statement}
+\textit{Claim 1:} Let $M$ be an $x^{n}$-approximator for $\left(
+f_{i}\right)  _{i\in I}$. Then, the set $M$ determines the $x^{n}$-coefficient
+in the product of $\left(  f_{i}\circ g\right)  _{i\in I}$.
+\end{statement}
+
+[\textit{Proof of Claim 1:} The set $M$ is an $x^{n}$-approximator for
+$\left(  f_{i}\right)  _{i\in I}$. In other words, $M$ is a finite subset of
+$I$ that determines the first $n+1$ coefficients in the product of $\left(
+f_{i}\right)  _{i\in I}$ (by the definition of \textquotedblleft$x^{n}%
+$-approximator\textquotedblright).
+
+Let $J$ be a finite subset of $I$ satisfying $M\subseteq J\subseteq I$. Then,
+Lemma \ref{lem.fps.subs.rule-infprod-fin} (applied to $J$ instead of $I$)
+yields%
+\begin{equation}
+\left(  \prod_{i\in J}f_{i}\right)  \circ g=\prod_{i\in J}\left(  f_{i}\circ
+g\right)  . \label{pf.prop.fps.subs.rule-infprod.3}%
+\end{equation}
+Also, Lemma \ref{lem.fps.subs.rule-infprod-fin} (applied to $M$ instead of
+$I$) yields%
+\begin{equation}
+\left(  \prod_{i\in M}f_{i}\right)  \circ g=\prod_{i\in M}\left(  f_{i}\circ
+g\right)  . \label{pf.prop.fps.subs.rule-infprod.4}%
+\end{equation}
+However, Proposition \ref{prop.fps.infprod-approx-xneq} \textbf{(a)} (applied
+to $\mathbf{a}_{i}=f_{i}$) yields%
+\[
+\prod_{i\in J}f_{i}\overset{x^{n}}{\equiv}\prod_{i\in M}f_{i}.
+\]
+We also have $g\overset{x^{n}}{\equiv}g$ (since the relation $\overset{x^{n}%
+}{\equiv}$ is an equivalence relation). Hence, Proposition
+\ref{prop.fps.xneq.comp} (applied to $a=\prod_{i\in J}f_{i}$ and
+$b=\prod_{i\in M}f_{i}$ and $c=g$ and $d=g$) yields%
+\[
+\left(  \prod_{i\in J}f_{i}\right)  \circ g\overset{x^{n}}{\equiv}\left(
+\prod_{i\in M}f_{i}\right)  \circ g.
+\]
+In view of (\ref{pf.prop.fps.subs.rule-infprod.3}) and
+(\ref{pf.prop.fps.subs.rule-infprod.4}), this rewrites as%
+\[
+\prod_{i\in J}\left(  f_{i}\circ g\right)  \overset{x^{n}}{\equiv}\prod_{i\in
+M}\left(  f_{i}\circ g\right)  .
+\]
+In other words,
+\[
+\text{each }m\in\left\{  0,1,\ldots,n\right\}  \text{ satisfies }\left[
+x^{m}\right]  \left(  \prod_{i\in J}\left(  f_{i}\circ g\right)  \right)
+=\left[  x^{m}\right]  \left(  \prod_{i\in M}\left(  f_{i}\circ g\right)
+\right)
+\]
+(by the definition of the relation $\overset{x^{n}}{\equiv}$). Applying this
+to $m=n$, we obtain%
+\[
+\left[  x^{n}\right]  \left(  \prod_{i\in J}\left(  f_{i}\circ g\right)
+\right)  =\left[  x^{n}\right]  \left(  \prod_{i\in M}\left(  f_{i}\circ
+g\right)  \right)  .
+\]
+
+
+Forget that we fixed $J$. We thus have shown that every finite subset $J$ of
+$I$ satisfying $M\subseteq J\subseteq I$ satisfies%
+\[
+\left[  x^{n}\right]  \left(  \prod_{i\in J}\left(  f_{i}\circ g\right)
+\right)  =\left[  x^{n}\right]  \left(  \prod_{i\in M}\left(  f_{i}\circ
+g\right)  \right)  .
+\]
+In other words, the set $M$ determines the $x^{n}$-coefficient in the product
+of $\left(  f_{i}\circ g\right)  _{i\in I}$ (by the definition of what it
+means to \textquotedblleft determine the $x^{n}$-coefficient in the product of
+$\left(  f_{i}\circ g\right)  _{i\in I}$\textquotedblright). This proves Claim
+1.] \medskip
+
+Now, let $n\in\mathbb{N}$. Lemma \ref{lem.fps.mulable.approx} (applied to
+$\mathbf{a}_{i}=f_{i}$) shows that there exists an $x^{n}$-approximator for
+$\left(  f_{i}\right)  _{i\in I}$. Consider this $x^{n}$-approximator for
+$\left(  f_{i}\right)  _{i\in I}$, and denote it by $M$. Thus, $M$ is an
+$x^{n}$-approximator for $\left(  f_{i}\right)  _{i\in I}$; in other words,
+$M$ is a finite subset of $I$ that determines the first $n+1$ coefficients in
+the product of $\left(  f_{i}\right)  _{i\in I}$ (by the definition of
+\textquotedblleft$x^{n}$-approximator\textquotedblright). Claim 1 shows that
+the set $M$ determines the $x^{n}$-coefficient in the product of $\left(
+f_{i}\circ g\right)  _{i\in I}$. Hence, there is a finite subset of $I$ that
+determines the $x^{n}$-coefficient in the product of $\left(  f_{i}\circ
+g\right)  _{i\in I}$ (namely, $M$). In other words, the $x^{n}$-coefficient in
+the product of $\left(  f_{i}\circ g\right)  _{i\in I}$ is finitely determined.
+
+Forget that we fixed $n$. We thus have shown that for each $n\in\mathbb{N}$,
+the $x^{n}$-coefficient in the product of $\left(  f_{i}\circ g\right)  _{i\in
+I}$ is finitely determined. In other words, each coefficient in the product of
+$\left(  f_{i}\circ g\right)  _{i\in I}$ is finitely determined. In other
+words, the family $\left(  f_{i}\circ g\right)  _{i\in I}$ is multipliable (by
+the definition of \textquotedblleft multipliable\textquotedblright). \medskip
+
+It remains to prove that $\left(  \prod_{i\in I}f_{i}\right)  \circ
+g=\prod_{i\in I}\left(  f_{i}\circ g\right)  $.
+
+In order to do so, we again fix $n\in\mathbb{N}$. Lemma
+\ref{lem.fps.mulable.approx} (applied to $\mathbf{a}_{i}=f_{i}$) shows that
+there exists an $x^{n}$-approximator for $\left(  f_{i}\right)  _{i\in I}$.
+Consider this $x^{n}$-approximator for $\left(  f_{i}\right)  _{i\in I}$, and
+denote it by $M$. Thus, $M$ is an $x^{n}$-approximator for $\left(
+f_{i}\right)  _{i\in I}$; in other words, $M$ is a finite subset of $I$ that
+determines the first $n+1$ coefficients in the product of $\left(
+f_{i}\right)  _{i\in I}$ (by the definition of \textquotedblleft$x^{n}%
+$-approximator\textquotedblright). Moreover, Proposition
+\ref{prop.fps.infprod-approx-xneq} \textbf{(b)} (applied to $\mathbf{a}%
+_{i}=f_{i}$) yields%
+\begin{equation}
+\prod_{i\in I}f_{i}\overset{x^{n}}{\equiv}\prod_{i\in M}f_{i}.
+\label{pf.prop.fps.subs.rule-infprod.1}%
+\end{equation}
+We also have $g\overset{x^{n}}{\equiv}g$ (since the relation $\overset{x^{n}%
+}{\equiv}$ is an equivalence relation). Hence, Proposition
+\ref{prop.fps.xneq.comp} (applied to $a=\prod_{i\in I}f_{i}$ and
+$b=\prod_{i\in M}f_{i}$ and $c=g$ and $d=g$) yields%
+\begin{equation}
+\left(  \prod_{i\in I}f_{i}\right)  \circ g\overset{x^{n}}{\equiv}\left(
+\prod_{i\in M}f_{i}\right)  \circ g. \label{pf.prop.fps.subs.rule-infprod.2}%
+\end{equation}
+However, Lemma \ref{lem.fps.subs.rule-infprod-fin} (applied to $M$ instead of
+$I$) yields%
+\[
+\left(  \prod_{i\in M}f_{i}\right)  \circ g=\prod_{i\in M}\left(  f_{i}\circ
+g\right)  .
+\]
+In view of this, we can rewrite (\ref{pf.prop.fps.subs.rule-infprod.2}) as
+\[
+\left(  \prod_{i\in I}f_{i}\right)  \circ g\overset{x^{n}}{\equiv}\prod_{i\in
+M}\left(  f_{i}\circ g\right)  .
+\]
+In other words,
+\[
+\text{each }m\in\left\{  0,1,\ldots,n\right\}  \text{ satisfies }\left[
+x^{m}\right]  \left(  \left(  \prod_{i\in I}f_{i}\right)  \circ g\right)
+=\left[  x^{m}\right]  \left(  \prod_{i\in M}\left(  f_{i}\circ g\right)
+\right)
+\]
+(by the definition of the relation $\overset{x^{n}}{\equiv}$). Applying this
+to $m=n$, we obtain%
+\begin{equation}
+\left[  x^{n}\right]  \left(  \left(  \prod_{i\in I}f_{i}\right)  \circ
+g\right)  =\left[  x^{n}\right]  \left(  \prod_{i\in M}\left(  f_{i}\circ
+g\right)  \right)  . \label{pf.prop.fps.subs.rule-infprod.6}%
+\end{equation}
+
+
+However, Claim 1 shows that the set $M$ determines the $x^{n}$-coefficient in
+the product of $\left(  f_{i}\circ g\right)  _{i\in I}$. Hence, the definition
+of the infinite product $\prod_{i\in I}\left(  f_{i}\circ g\right)  $
+(specifically, Definition \ref{def.fps.multipliable} \textbf{(b)}) yields%
+\[
+\left[  x^{n}\right]  \left(  \prod_{i\in I}\left(  f_{i}\circ g\right)
+\right)  =\left[  x^{n}\right]  \left(  \prod_{i\in M}\left(  f_{i}\circ
+g\right)  \right)  .
+\]
+Comparing this with (\ref{pf.prop.fps.subs.rule-infprod.6}), we obtain%
+\[
+\left[  x^{n}\right]  \left(  \left(  \prod_{i\in I}f_{i}\right)  \circ
+g\right)  =\left[  x^{n}\right]  \left(  \prod_{i\in I}\left(  f_{i}\circ
+g\right)  \right)  .
+\]
+
+
+Forget that we fixed $n$. We thus have shown that each $n\in\mathbb{N}$
+satisfies%
+\[
+\left[  x^{n}\right]  \left(  \left(  \prod_{i\in I}f_{i}\right)  \circ
+g\right)  =\left[  x^{n}\right]  \left(  \prod_{i\in I}\left(  f_{i}\circ
+g\right)  \right)  .
+\]
+In other words, the FPSs $\left(  \prod_{i\in I}f_{i}\right)  \circ g$ and
+$\prod_{i\in I}\left(  f_{i}\circ g\right)  $ agree in all their coefficients.
+Hence, $\left(  \prod_{i\in I}f_{i}\right)  \circ g=\prod_{i\in I}\left(
+f_{i}\circ g\right)  $. This completes our proof of Proposition
+\ref{prop.fps.subs.rule-infprod}.
+\end{proof}
+\end{fineprint}

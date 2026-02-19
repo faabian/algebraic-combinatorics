@@ -1,0 +1,544 @@
+\subsubsection{The weighted version}
+
+So far we have just been counting paths; but we can easily introduce weights
+to obtain a more general result:
+
+\begin{theorem}
+[LGV lemma, lattice weight version]\label{thm.lgv.kpaths.wt}Let $K$ be a
+commutative ring.
+
+For each arc $a$ of the digraph $\mathbb{Z}^{2}$, let $w\left(  a\right)  $ be
+an element of $K$. We call this element $w\left(  a\right)  $ the
+\emph{weight} of $a$.
+
+For each path $p$ of $\mathbb{Z}^{2}$, define the \emph{weight} $w\left(
+p\right)  $ of $p$ by%
+\[
+w\left(  p\right)  :=\prod_{a\text{ is an arc of }p}w\left(  a\right)  .
+\]
+
+
+For each path tuple $\mathbf{p}=\left(  p_{1},p_{2},\ldots,p_{k}\right)  $,
+define the \emph{weight} $w\left(  \mathbf{p}\right)  $ of $\mathbf{p}$ by%
+\[
+w\left(  \mathbf{p}\right)  :=w\left(  p_{1}\right)  w\left(  p_{2}\right)
+\cdots w\left(  p_{k}\right)  .
+\]
+
+
+Let $k\in\mathbb{N}$. Let $\mathbf{A}=\left(  A_{1},A_{2},\ldots,A_{k}\right)
+$ and $\mathbf{B}=\left(  B_{1},B_{2},\ldots,B_{k}\right)  $ be two
+$k$-vertices. Then,%
+\[
+\det\left(  \left(  \sum_{p:A_{i}\rightarrow B_{j}}w\left(  p\right)  \right)
+_{1\leq i\leq k,\ 1\leq j\leq k}\right)  =\sum_{\sigma\in S_{k}}\left(
+-1\right)  ^{\sigma}\sum_{\substack{\mathbf{p}\text{ is a nipat}\\\text{from
+}\mathbf{A}\text{ to }\sigma\left(  \mathbf{B}\right)  }}w\left(
+\mathbf{p}\right)  .
+\]
+Here, \textquotedblleft$p:A_{i}\rightarrow B_{j}$\textquotedblright\ means
+\textquotedblleft$p$ is a path from $A_{i}$ to $B_{j}$\textquotedblright.
+\end{theorem}
+
+Clearly, Proposition \ref{prop.lgv.kpaths.count} is the particular case of
+Theorem \ref{thm.lgv.kpaths.wt} when $K=\mathbb{Z}$ and $w\left(  a\right)
+=1$ for all arcs $a$ (because in this case, all the weights $w\left(
+p\right)  $ and $w\left(  \mathbf{p}\right)  $ of paths and path tuples equal
+$1$, and therefore the sums over paths or nipats become the \#s of paths or nipats).
+
+\begin{proof}
+[Proof of Theorem \ref{thm.lgv.kpaths.wt}.]The same argument as for
+Proposition \ref{prop.lgv.kpaths.count} can be used here; just replace
+$\operatorname*{sign}\left(  \sigma,\mathbf{p}\right)  :=\left(  -1\right)
+^{\sigma}$ by $\operatorname*{sign}\left(  \sigma,\mathbf{p}\right)  =\left(
+-1\right)  ^{\sigma}\cdot w\left(  \mathbf{p}\right)  $. (The only new
+observation required is that when we exchange the tails of two paths in our
+path tuple, the weight of the path tuple does not change. This is rather
+clear: The weight of a path tuple is the product of the weights of all arcs in
+all paths of the tuple\footnote{An arc will appear multiple times in the
+product if it appears in multiple paths.}. When we exchange the tails of two
+paths, some arcs get moved from one path to the other, but the total product
+stays unchanged.)
+\end{proof}
+
+\subsubsection{Generalization to acyclic digraphs}
+
+We can generalize Theorem \ref{thm.lgv.kpaths.wt} further. Indeed, we have
+barely used anything specific to $\mathbb{Z}^{2}$ in our proofs; all we used
+is that $\mathbb{Z}^{2}$ is a path-finite acyclic digraph. Thus, Theorem
+\ref{thm.lgv.kpaths.wt} remains true if we replace $\mathbb{Z}^{2}$ by an
+arbitrary such digraph. We thus obtain the following more general result:
+
+\begin{theorem}
+[LGV lemma, digraph weight version]\label{thm.lgv.kpaths.wt-dg}Let $K$ be a
+commutative ring.
+
+Let $D$ be a path-finite (but possibly infinite) acyclic digraph. We extend
+Definition \ref{def.lgv.path-tups} to $D$ instead of $\mathbb{Z}^{2}$ (with
+the obvious changes: \textquotedblleft lattice points\textquotedblright%
+\ becomes \textquotedblleft vertices of $D$\textquotedblright).
+
+For each arc $a$ of the digraph $D$, let $w\left(  a\right)  $ be an element
+of $K$. We call this element $w\left(  a\right)  $ the \emph{weight} of $a$.
+
+For each path $p$ of $D$, define the \emph{weight} $w\left(  p\right)  $ of
+$p$ by%
+\[
+w\left(  p\right)  :=\prod_{a\text{ is an arc of }p}w\left(  a\right)  .
+\]
+
+
+For each path tuple $\mathbf{p}=\left(  p_{1},p_{2},\ldots,p_{k}\right)  $,
+define the \emph{weight} $w\left(  \mathbf{p}\right)  $ of $\mathbf{p}$ by%
+\[
+w\left(  \mathbf{p}\right)  :=w\left(  p_{1}\right)  w\left(  p_{2}\right)
+\cdots w\left(  p_{k}\right)  .
+\]
+
+
+Let $k\in\mathbb{N}$. Let $\mathbf{A}=\left(  A_{1},A_{2},\ldots,A_{k}\right)
+$ and $\mathbf{B}=\left(  B_{1},B_{2},\ldots,B_{k}\right)  $ be two
+$k$-vertices (i.e., two $k$-tuples of vertices of $D$). Then,%
+\[
+\det\left(  \left(  \sum_{p:A_{i}\rightarrow B_{j}}w\left(  p\right)  \right)
+_{1\leq i\leq k,\ 1\leq j\leq k}\right)  =\sum_{\sigma\in S_{k}}\left(
+-1\right)  ^{\sigma}\sum_{\substack{\mathbf{p}\text{ is a nipat}\\\text{from
+}\mathbf{A}\text{ to }\sigma\left(  \mathbf{B}\right)  }}w\left(
+\mathbf{p}\right)  .
+\]
+Here, \textquotedblleft$p:A_{i}\rightarrow B_{j}$\textquotedblright\ means
+\textquotedblleft$p$ is a path from $A_{i}$ to $B_{j}$\textquotedblright.
+\end{theorem}
+
+\begin{proof}
+Completely analogous to the proof of Theorem \ref{thm.lgv.kpaths.wt}.
+\end{proof}
+
+\subsubsection{The nonpermutable case}
+
+One nice thing about the digraph $\mathbb{Z}^{2}$, however, is that in many
+cases, the sum%
+\[
+\sum_{\sigma\in S_{k}}\left(  -1\right)  ^{\sigma}\sum_{\substack{\mathbf{p}%
+\text{ is a nipat}\\\text{from }\mathbf{A}\text{ to }\sigma\left(
+\mathbf{B}\right)  }}w\left(  \mathbf{p}\right)
+\]
+has only one nonzero addend. We have already seen this happen often in the
+$k=2$ case (thanks to Proposition \ref{prop.lgv.jordan-2}). Here is the
+analogous statement for general $k$:
+
+\begin{corollary}
+[LGV lemma, nonpermutable lattice weight version]\label{cor.lgv.kpaths.wt-np}%
+Consider the setting of Theorem \ref{thm.lgv.kpaths.wt}, but additionally
+assume that%
+\begin{align}
+\operatorname*{x}\left(  A_{1}\right)   &  \geq\operatorname*{x}\left(
+A_{2}\right)  \geq\cdots\geq\operatorname*{x}\left(  A_{k}\right)
+;\label{eq.cor.lgv.kpaths.wt-np.xA}\\
+\operatorname*{y}\left(  A_{1}\right)   &  \leq\operatorname*{y}\left(
+A_{2}\right)  \leq\cdots\leq\operatorname*{y}\left(  A_{k}\right)
+;\label{eq.cor.lgv.kpaths.wt-np.yA}\\
+\operatorname*{x}\left(  B_{1}\right)   &  \geq\operatorname*{x}\left(
+B_{2}\right)  \geq\cdots\geq\operatorname*{x}\left(  B_{k}\right)
+;\label{eq.cor.lgv.kpaths.wt-np.xB}\\
+\operatorname*{y}\left(  B_{1}\right)   &  \leq\operatorname*{y}\left(
+B_{2}\right)  \leq\cdots\leq\operatorname*{y}\left(  B_{k}\right)  .
+\label{eq.cor.lgv.kpaths.wt-np.yB}%
+\end{align}
+Here, $\operatorname*{x}\left(  P\right)  $ and $\operatorname*{y}\left(
+P\right)  $ denote the two coordinates of any point $P\in\mathbb{Z}^{2}$.
+
+Then, there are no nipats from $\mathbf{A}$ to $\sigma\left(  \mathbf{B}%
+\right)  $ when $\sigma\in S_{k}$ is not the identity permutation
+$\operatorname*{id}\in S_{k}$. Therefore, the claim of Theorem
+\ref{thm.lgv.kpaths.wt} simplifies to
+\begin{align}
+&  \det\left(  \left(  \sum_{p:A_{i}\rightarrow B_{j}}w\left(  p\right)
+\right)  _{1\leq i\leq k,\ 1\leq j\leq k}\right) \nonumber\\
+&  =\sum_{\substack{\mathbf{p}\text{ is a nipat}\\\text{from }\mathbf{A}\text{
+to }\mathbf{B}}}w\left(  \mathbf{p}\right)  .
+\label{eq.cor.lgv.kpaths.wt-np.claim}%
+\end{align}
+
+\end{corollary}
+
+\begin{proof}
+[Proof of Corollary \ref{cor.lgv.kpaths.wt-np} (sketched).]This is easy using
+Proposition \ref{prop.lgv.jordan-2}. Here are the details: \medskip
+
+\begin{fineprint}
+Let $\sigma\in S_{k}$ be a permutation that is not the identity permutation
+$\operatorname*{id}\in S_{k}$. Then, we don't have $\sigma\left(  1\right)
+\leq\sigma\left(  2\right)  \leq\cdots\leq\sigma\left(  k\right)  $ (since
+$\sigma$ is not $\operatorname*{id}$). In other words, there exists some
+$i\in\left[  k-1\right]  $ such that $\sigma\left(  i\right)  >\sigma\left(
+i+1\right)  $. Consider this $i$.
+
+Now, let $\mathbf{p}$ be a nipat from $\mathbf{A}$ to $\sigma\left(
+\mathbf{B}\right)  $. Write $\mathbf{p}$ in the form $\mathbf{p}=\left(
+p_{1},p_{2},\ldots,p_{k}\right)  $. Thus, $p_{i}$ is a path from $A_{i}$ to
+$B_{\sigma\left(  i\right)  }$, whereas $p_{i+1}$ is a path from $A_{i+1}$ to
+$B_{\sigma\left(  i+1\right)  }$. Moreover, $p_{i}$ and $p_{i+1}$ have no
+vertex in common (since $\mathbf{p}$ is a nipat).
+
+The sequence $\left(  \operatorname*{x}\left(  B_{1}\right)
+,\operatorname*{x}\left(  B_{2}\right)  ,\ldots,\operatorname*{x}\left(
+B_{k}\right)  \right)  $ is weakly decreasing (by
+(\ref{eq.cor.lgv.kpaths.wt-np.xB})). In other words, if $m$ and $n$ are two
+elements of $\left[  k\right]  $ satisfying $m>n$, then $\operatorname*{x}%
+\left(  B_{m}\right)  \leq\operatorname*{x}\left(  B_{n}\right)  $. Applying
+this to $m=\sigma\left(  i\right)  $ and $n=\sigma\left(  i+1\right)  $, we
+obtain $\operatorname*{x}\left(  B_{\sigma\left(  i\right)  }\right)
+\leq\operatorname*{x}\left(  B_{\sigma\left(  i+1\right)  }\right)  $ (since
+$\sigma\left(  i\right)  >\sigma\left(  i+1\right)  $). Likewise, using
+(\ref{eq.cor.lgv.kpaths.wt-np.yB}), we can obtain $\operatorname*{y}\left(
+B_{\sigma\left(  i\right)  }\right)  \geq\operatorname*{y}\left(
+B_{\sigma\left(  i+1\right)  }\right)  $. However,
+(\ref{eq.cor.lgv.kpaths.wt-np.xA}) shows that $\operatorname*{x}\left(
+A_{i}\right)  \geq\operatorname*{x}\left(  A_{i+1}\right)  $. In other words,
+$\operatorname*{x}\left(  A_{i+1}\right)  \leq\operatorname*{x}\left(
+A_{i}\right)  $. Furthermore, (\ref{eq.cor.lgv.kpaths.wt-np.yA}) shows that
+$\operatorname*{y}\left(  A_{i}\right)  \leq\operatorname*{y}\left(
+A_{i+1}\right)  $. In other words, $\operatorname*{y}\left(  A_{i+1}\right)
+\geq\operatorname*{y}\left(  A_{i}\right)  $.
+
+Hence, Proposition \ref{prop.lgv.jordan-2} (applied to $A=A_{i}$,
+$B=B_{\sigma\left(  i+1\right)  }$, $A^{\prime}=A_{i+1}$, $B^{\prime
+}=B_{\sigma\left(  i\right)  }$, $p=p_{i}$ and $p^{\prime}=p_{i+1}$) yields
+that $p_{i}$ and $p_{i+1}$ have a vertex in common. This contradicts the fact
+that $p_{i}$ and $p_{i+1}$ have no vertex in common.
+
+Forget that we fixed $\mathbf{p}$. We thus have found a contradiction for each
+nipat $\mathbf{p}$ from $\mathbf{A}$ to $\sigma\left(  \mathbf{B}\right)  $.
+Hence, there are no nipats from $\mathbf{A}$ to $\sigma\left(  \mathbf{B}%
+\right)  $.
+
+Forget that we fixed $\sigma$. We thus have proved that there are no nipats
+from $\mathbf{A}$ to $\sigma\left(  \mathbf{B}\right)  $ when $\sigma\in
+S_{k}$ is not the identity permutation $\operatorname*{id}\in S_{k}$. Hence,
+if $\sigma\in S_{k}$ is not the identity permutation $\operatorname*{id}\in
+S_{k}$, then%
+\begin{equation}
+\sum_{\substack{\mathbf{p}\text{ is a nipat}\\\text{from }\mathbf{A}\text{ to
+}\sigma\left(  \mathbf{B}\right)  }}w\left(  \mathbf{p}\right)  =\left(
+\text{empty sum}\right)  =0. \label{pf.cor.lgv.kpaths.wt-np.at}%
+\end{equation}
+
+
+Now, Theorem \ref{thm.lgv.kpaths.wt} yields%
+\begin{align*}
+&  \det\left(  \left(  \sum_{p:A_{i}\rightarrow B_{j}}w\left(  p\right)
+\right)  _{1\leq i\leq k,\ 1\leq j\leq k}\right) \\
+&  =\sum_{\sigma\in S_{k}}\left(  -1\right)  ^{\sigma}\sum
+_{\substack{\mathbf{p}\text{ is a nipat}\\\text{from }\mathbf{A}\text{ to
+}\sigma\left(  \mathbf{B}\right)  }}w\left(  \mathbf{p}\right) \\
+&  =\underbrace{\left(  -1\right)  ^{\operatorname*{id}}}_{=1}\sum
+_{\substack{\mathbf{p}\text{ is a nipat}\\\text{from }\mathbf{A}\text{ to
+}\operatorname*{id}\left(  \mathbf{B}\right)  }}w\left(  \mathbf{p}\right)
++\sum_{\substack{\sigma\in S_{k};\\\sigma\neq\operatorname*{id}}}\left(
+-1\right)  ^{\sigma}\underbrace{\sum_{\substack{\mathbf{p}\text{ is a
+nipat}\\\text{from }\mathbf{A}\text{ to }\sigma\left(  \mathbf{B}\right)
+}}w\left(  \mathbf{p}\right)  }_{\substack{=0\\\text{(by
+(\ref{pf.cor.lgv.kpaths.wt-np.at}))}}}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{here, we have split
+off the addend for }\sigma=\operatorname*{id}\text{ from the sum}\right) \\
+&  =\sum_{\substack{\mathbf{p}\text{ is a nipat}\\\text{from }\mathbf{A}\text{
+to }\operatorname*{id}\left(  \mathbf{B}\right)  }}w\left(  \mathbf{p}\right)
++\underbrace{\sum_{\substack{\sigma\in S_{k};\\\sigma\neq\operatorname*{id}%
+}}\left(  -1\right)  ^{\sigma}0}_{=0}=\sum_{\substack{\mathbf{p}\text{ is a
+nipat}\\\text{from }\mathbf{A}\text{ to }\operatorname*{id}\left(
+\mathbf{B}\right)  }}w\left(  \mathbf{p}\right)  =\sum_{\substack{\mathbf{p}%
+\text{ is a nipat}\\\text{from }\mathbf{A}\text{ to }\mathbf{B}}}w\left(
+\mathbf{p}\right)
+\end{align*}
+(since $\operatorname*{id}\left(  \mathbf{B}\right)  =\mathbf{B}$). The proof
+of Corollary \ref{cor.lgv.kpaths.wt-np} is now complete.
+\end{fineprint}
+\end{proof}
+
+\begin{corollary}
+\label{cor.lgv.binom-det-nonneg}Let $k\in\mathbb{N}$. Let $a_{1},a_{2}%
+,\ldots,a_{k}$ and $b_{1},b_{2},\ldots,b_{k}$ be nonnegative integers such
+that
+\[
+a_{1}\geq a_{2}\geq\cdots\geq a_{k}\ \ \ \ \ \ \ \ \ \ \text{and}%
+\ \ \ \ \ \ \ \ \ \ b_{1}\geq b_{2}\geq\cdots\geq b_{k}.
+\]
+Then,%
+\[
+\det\left(  \left(  \dbinom{a_{i}}{b_{j}}\right)  _{1\leq i\leq k,\ 1\leq
+j\leq k}\right)  \geq0.
+\]
+
+\end{corollary}
+
+For example, if $a_{1}\geq a_{2}\geq a_{3}\geq0$ and $b_{1}\geq b_{2}\geq
+b_{3}\geq0$, then%
+\[
+\det\left(
+\begin{array}
+[c]{ccc}%
+\dbinom{a_{1}}{b_{1}} & \dbinom{a_{1}}{b_{2}} & \dbinom{a_{1}}{b_{3}}\\
+\dbinom{a_{2}}{b_{1}} & \dbinom{a_{2}}{b_{2}} & \dbinom{a_{2}}{b_{3}}\\
+\dbinom{a_{3}}{b_{1}} & \dbinom{a_{3}}{b_{2}} & \dbinom{a_{3}}{b_{3}}%
+\end{array}
+\right)  \geq0.
+\]
+
+
+\begin{proof}
+[Proof of Corollary \ref{cor.lgv.binom-det-nonneg} (sketched).]Set
+$K=\mathbb{Z}$, and set $w\left(  a\right)  :=1$ for each arc $a$ of
+$\mathbb{Z}^{2}$. Define the lattice points%
+\[
+A_{i}:=\left(  0,-a_{i}\right)  \ \ \ \ \ \ \ \ \ \ \text{and}%
+\ \ \ \ \ \ \ \ \ \ B_{i}:=\left(  b_{i},-b_{i}\right)
+\]
+for all $i\in\left[  k\right]  $. These lattice points satisfy the assumptions
+of Corollary \ref{cor.lgv.kpaths.wt-np}. Hence,
+(\ref{eq.cor.lgv.kpaths.wt-np.claim}) entails%
+\begin{equation}
+\det\left(  \left(  \sum_{p:A_{i}\rightarrow B_{j}}w\left(  p\right)  \right)
+_{1\leq i\leq k,\ 1\leq j\leq k}\right)  =\sum_{\substack{\mathbf{p}\text{ is
+a nipat}\\\text{from }\mathbf{A}\text{ to }\mathbf{B}}}w\left(  \mathbf{p}%
+\right)  .\nonumber
+\end{equation}
+Since all the weights $w\left(  p\right)  $ and $w\left(  \mathbf{p}\right)  $
+are $1$ in our situation, we can rewrite this as%
+\begin{equation}
+\det\left(  \left(  \text{\# of paths from }A_{i}\text{ to }B_{j}\right)
+_{1\leq i\leq k,\ 1\leq j\leq k}\right)  =\left(  \text{\# of nipats from
+}\mathbf{A}\text{ to }\mathbf{B}\right)  .\nonumber
+\end{equation}
+
+
+Using Proposition \ref{prop.lgv.1-paths.ct}, we can easily see that the matrix
+on the left hand side of this equality is $\left(  \dbinom{a_{i}}{b_{j}%
+}\right)  _{1\leq i\leq k,\ 1\leq j\leq k}$. Thus, this equality rewrites as%
+\begin{equation}
+\det\left(  \left(  \dbinom{a_{i}}{b_{j}}\right)  _{1\leq i\leq k,\ 1\leq
+j\leq k}\right)  =\left(  \text{\# of nipats from }\mathbf{A}\text{ to
+}\mathbf{B}\right)  .\nonumber
+\end{equation}
+Its left hand side is therefore $\geq0$ (since its right hand side is $\geq
+0$). This proves Corollary \ref{cor.lgv.binom-det-nonneg}.
+\end{proof}
+
+\begin{corollary}
+\label{cor.lgv.catalan-hankel-det-0}Let $k\in\mathbb{N}$. Recall the Catalan
+numbers $c_{n}=\dfrac{1}{n+1}\dbinom{2n}{n}$ for all $n\in\mathbb{N}$. Then,%
+\[
+\det\left(  \left(  c_{i+j-2}\right)  _{1\leq i\leq k,\ 1\leq j\leq k}\right)
+=\det\left(
+\begin{array}
+[c]{cccc}%
+c_{0} & c_{1} & \cdots & c_{k-1}\\
+c_{1} & c_{2} & \cdots & c_{k}\\
+\vdots & \vdots & \ddots & \vdots\\
+c_{k-1} & c_{k} & \cdots & c_{2k-2}%
+\end{array}
+\right)  =1.
+\]
+
+\end{corollary}
+
+\begin{proof}
+[Proof of Corollary \ref{cor.lgv.catalan-hankel-det-0} (sketched).]We will use
+not the lattice $\mathbb{Z}^{2}$, but a different digraph. Namely, we use the
+simple digraph with vertex set $\mathbb{Z}\times\mathbb{N}$ (that is, the
+vertices are the lattice points that lie on the x-axis or above it) and arcs%
+\[
+\left(  i,j\right)  \rightarrow\left(  i+1,\ j+1\right)
+\ \ \ \ \ \ \ \ \ \ \text{for all }\left(  i,j\right)  \in\mathbb{Z}%
+\times\mathbb{N}%
+\]
+and%
+\[
+\left(  i,j\right)  \rightarrow\left(  i+1,\ j-1\right)
+\ \ \ \ \ \ \ \ \ \ \text{for all }\left(  i,j\right)  \in\mathbb{Z}%
+\times\mathbb{P},
+\]
+where $\mathbb{P}:=\left\{  1,2,3,\ldots\right\}  $. Here is a picture of a
+small part of this digraph:%
+\[%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\ \ .
+\]
+As we know, the Catalan number $c_{n}$ counts the paths from $\left(
+0,0\right)  $ to $\left(  2n,0\right)  $ on this digraph (indeed, these are
+just the Dyck paths\footnote{See Example 2 in Section \ref{sec.gf.exas} for
+the definition of a Dyck path.}). Hence, $c_{n}$ also counts the paths from
+$\left(  i,0\right)  $ to $\left(  2n+i,0\right)  $ whenever $i\in\mathbb{N}$
+(because these are just the Dyck paths shifted by $i$ in the x-direction). It
+is easy to see that this digraph is acyclic and path-finite.
+
+Now, define two $k$-vertices $\mathbf{A}=\left(  A_{1},A_{2},\ldots
+,A_{k}\right)  $ and $\mathbf{B}=\left(  B_{1},B_{2},\ldots,B_{k}\right)  $ by
+setting%
+\[
+A_{i}:=\left(  -2\left(  i-1\right)  ,0\right)  \ \ \ \ \ \ \ \ \ \ \text{and}%
+\ \ \ \ \ \ \ \ \ \ B_{i}:=\left(  2\left(  i-1\right)  ,0\right)
+\]
+for all $i\in\left[  k\right]  $. It is not hard to show (see Exercise
+\ref{exe.lgv.catalan-hankel-det-0} \textbf{(a)}) that there is only one nipat
+from $\mathbf{A}$ to $\mathbf{B}$, which is shown in the case $k=4$ on the
+following picture:\footnote{In this picture, we are drawing only
+\textquotedblleft half\textquotedblright\ of the grid. Indeed, the vertices
+$\left(  i,j\right)  $ of our digraph $\mathbb{Z}\times\mathbb{N}$ can be
+classified into \emph{even vertices} (i.e., the ones for which $i+j$ is even)
+and \emph{odd vertices} (i.e., the ones for which $i+j$ is odd). Any arc
+either connects two even vertices or connects two odd vertices. Hence, a path
+starting at an even vertex cannot contain any odd vertex (and vice versa).
+Since all our vertices $A_{1},A_{2},\ldots,A_{k}$ and $B_{1},B_{2}%
+,\ldots,B_{k}$ are even, we thus don't have to bother even drawing the odd
+vertices (as they have no chance to appear in any paths between our vertices).
+As a consequence, we are drawing only the grid lines containing the even
+vertices.}%
+\[%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\]
+(the point $A_{1}$ coincides with $B_{1}$, and the path from $A_{1}$ to
+$B_{1}$ is invisible, since it has no arcs). Moreover, it can be shown (see
+Exercise \ref{exe.lgv.catalan-hankel-det-0} \textbf{(b)}) that there are no
+nipats from $\mathbf{A}$ to $\sigma\left(  \mathbf{B}\right)  $ when
+$\sigma\in S_{k}$ is not the identity permutation $\operatorname*{id}\in
+S_{k}$. (This is analogous to Corollary \ref{cor.lgv.kpaths.wt-np}.) Hence, if
+we set $K=\mathbb{Z}$ and $w\left(  a\right)  =1$ for each arc $a$ of our
+digraph, then (\ref{eq.cor.lgv.kpaths.wt-np.claim}) entails%
+\begin{equation}
+\det\left(  \left(  \sum_{p:A_{i}\rightarrow B_{j}}w\left(  p\right)  \right)
+_{1\leq i\leq k,\ 1\leq j\leq k}\right)  =\sum_{\substack{\mathbf{p}\text{ is
+a nipat}\\\text{from }\mathbf{A}\text{ to }\mathbf{B}}}w\left(  \mathbf{p}%
+\right) \nonumber
+\end{equation}
+(by the same reasoning as in the proof of Corollary \ref{cor.lgv.kpaths.wt-np}%
+). The right hand side of this equality is $1$ (since there is only one nipat
+from $\mathbf{A}$ to $\mathbf{B}$), while the matrix on the left hand side is
+easily seen to be $\left(  c_{i+j-2}\right)  _{1\leq i\leq k,\ 1\leq j\leq k}$
+(since the \# of paths from $A_{i}$ to $B_{j}$ is the Catalan number
+$c_{i+j-2}$). This yields the claim of Corollary
+\ref{cor.lgv.catalan-hankel-det-0}. The details are LTTR.
+\end{proof}
+
+The LGV lemma in all its variants is one major place in which combinatorial
+questions reduce to the computation of determinants. Other such places are the
+\emph{matrix-tree theorem} (see, e.g., \cite[\S 4]{Zeilbe}, \cite[\S 3.17]%
+{Loehr-BC}, \cite[Theorems 9.8 and 10.4]{Stanle18}, \cite[\S 5.14]{23s}) and
+the enumeration of perfect matchings or domino tilings (see, e.g.,
+\cite{Stucky15}, \cite[\S 12.12--\S 12.13]{Loehr-BC}, \cite[\S 10.1]%
+{Aigner07}). Soon, we will also encounter determinants in the study of
+symmetric functions.
+
+See also \cite{BruRys91} for a selection of other intersections between
+combinatorics and linear algebra.
+
+\begin{noncompile}
+TODO: Cover the matrix-tree theorem (OH8).
+\end{noncompile}
+
+\section{\label{chap.sf}Symmetric functions}
+
+This final chapter is devoted to the theory of \emph{symmetric functions}.
+Specifically, we will restrict ourselves to \emph{symmetric polynomials} (the
+\textquotedblleft functions\textquotedblright\ part is a technical tweak that
+makes the theory neater but we won't have time to introduce). Serious
+treatments of the subject can be found in \cite{Wildon20}, \cite[Chapters
+10--11]{Loehr-BC}, \cite{Egge19}, \cite{MenRem15}, \cite{Macdon95},
+\cite[Chapter 8]{Aigner07}, \cite[Chapter 7]{Stanley-EC2}, \cite[Chapter
+7]{Sagan19}, \cite[Chapter 4]{Sagan01}, \cite{Krishn86}, \cite[Chapters
+14--19]{FoaHan04}, \cite{Savage22}, \cite{SmiTut24}, \cite[Chapter 2]{GriRei}
+and \cite{LLPT95}.
+
+We begin with some oversimplified historical motivation.
+
+Symmetric polynomials first(?) appeared in the study of roots of polynomials.
+Consider a monic univariate polynomial%
+\[
+f=x^{n}+a_{1}x^{n-1}+a_{2}x^{n-2}+\cdots+a_{n}x^{0}\in\mathbb{C}\left[
+x\right]
+\]
+(note the nonstandard labeling of coefficients). Let $r_{1},r_{2},\ldots
+,r_{n}\in\mathbb{C}$ be the roots of this polynomial (listed with
+multiplicities). Then, Fran\c{c}ois Vi\`{e}te (aka Franciscus Vieta) noticed
+that%
+\[
+f=\left(  x-r_{1}\right)  \left(  x-r_{2}\right)  \cdots\left(  x-r_{n}%
+\right)  ,
+\]
+so that (by comparing coefficients) we see that%
+\begin{align*}
+r_{1}+r_{2}+\cdots+r_{n}  &  =-a_{1};\\
+\sum_{i<j}r_{i}r_{j}  &  =a_{2};\\
+\sum_{i<j<k}r_{i}r_{j}r_{k}  &  =-a_{3};\\
+&  \ldots;\\
+r_{1}r_{2}\cdots r_{n}  &  =\left(  -1\right)  ^{n}a_{n}.
+\end{align*}
+These equalities are now known as \emph{Viete's formulas}. They allow
+computing certain expressions in the $r_{i}$'s without having to compute the
+$r_{i}$'s themselves. For instance, we can compute $r_{1}^{2}+r_{2}^{2}%
++\cdots+r_{n}^{2}$ (that is, the sum of the squares of all roots of $f$) by
+observing that%
+\[
+\left(  r_{1}+r_{2}+\cdots+r_{n}\right)  ^{2}=\left(  r_{1}^{2}+r_{2}%
+^{2}+\cdots+r_{n}^{2}\right)  +2\sum_{i<j}r_{i}r_{j},
+\]
+so that%
+\[
+r_{1}^{2}+r_{2}^{2}+\cdots+r_{n}^{2}=\left(  \underbrace{r_{1}+r_{2}%
++\cdots+r_{n}}_{=-a_{1}}\right)  ^{2}-2\underbrace{\sum_{i<j}r_{i}r_{j}%
+}_{=a_{2}}=a_{1}^{2}-2a_{2}.
+\]
+This shows, among other things, that $r_{1}^{2}+r_{2}^{2}+\cdots+r_{n}^{2}$ is
+an integer if the coefficients of $f$ are integers. Newton and others found
+similar formulas for $r_{1}^{3}+r_{2}^{3}+\cdots+r_{n}^{3}$ and other such
+polynomials. (These formulas are now known as the \emph{Newton--Girard
+identities} -- see Theorem \ref{thm.sf.NG} below.) Gauss extended this to
+arbitrary symmetric polynomials in $r_{1},r_{2},\ldots,r_{n}$ (by
+algorithmically expressing them as polynomials in $a_{1},a_{2},\ldots,a_{n}$),
+and used it in one of his proofs of the Fundamental Theorem of Algebra
+\cite{Gauss16}; Galois used this to build what is now known as Galois theory
+(even though modern treatments of Galois theory often avoid symmetric
+polynomials); some harbingers of this can be seen in Cardano's solution of the
+cubic equation. See \cite{Tignol16} and \cite{Armstrong-561fa18sp19} for the
+real history.
+
+Here is a simple modern application of the same ideas: Let $A\in
+\mathbb{C}^{n\times n}$ be a matrix with eigenvalues $\lambda_{1},\lambda
+_{2},\ldots,\lambda_{n}$ (listed with algebraic multiplicities). Let
+$f\in\mathbb{C}\left[  x\right]  $ be a univariate polynomial. The
+\emph{spectral mapping theorem} says that the eigenvalues of the matrix
+$f\left[  A\right]  $ are $f\left[  \lambda_{1}\right]  ,f\left[  \lambda
+_{2}\right]  ,\ldots,f\left[  \lambda_{n}\right]  $ (here, I am using the
+notation $f\left[  a\right]  $ for the value of $f$ at some element $a$; this
+is usually written $f\left(  a\right)  $). Thus, the characteristic polynomial
+of $f\left[  A\right]  $ is
+\begin{align*}
+\chi_{f\left[  A\right]  }  &  =\left(  x-f\left[  \lambda_{1}\right]
+\right)  \left(  x-f\left[  \lambda_{2}\right]  \right)  \cdots\left(
+x-f\left[  \lambda_{n}\right]  \right) \\
+&  =x^{n}-\left(  f\left[  \lambda_{1}\right]  +f\left[  \lambda_{2}\right]
++\cdots+f\left[  \lambda_{n}\right]  \right)  x^{n-1}+\left(  \sum
+_{i<j}f\left[  \lambda_{i}\right]  f\left[  \lambda_{j}\right]  \right)
+x^{n-2}\pm\cdots.
+\end{align*}
+Hence, all coefficients of $\chi_{f\left[  A\right]  }$ are symmetric
+polynomials in the $\lambda_{i}$s that depend only on $f$ (not on $A$). In
+particular, this shows that $\chi_{f\left[  A\right]  }$ is uniquely
+determined by $f$ and $\chi_{A}$. But can you compute $\chi_{f\left[
+A\right]  }$ exactly in terms of $f$ and $\chi_{A}$ without computing the
+roots $\lambda_{1},\lambda_{2},\ldots,\lambda_{n}$ ? Yes, if you know how to
+express \textbf{any} symmetric polynomial in the $\lambda_{i}$s in terms of
+the coefficients of $\chi_{A}$. This is the same problem that Gauss solved
+with his algorithm for expressing an arbitrary symmetric polynomial in the
+roots of a polynomial in terms of the coefficients of the polynomial.
+Incidentally, this algorithm also becomes helpful when one tries to generalize
+the spectral mapping theorem to matrices over arbitrary commutative rings.
+Here, eigenvalues don't always exist (let alone $n$ of them), so it becomes
+necessary to restate the theorem in a language that does not rely on them.
+Again, symmetric polynomials provide the way to do this.

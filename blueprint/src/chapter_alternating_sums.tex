@@ -1,0 +1,873 @@
+\section{Cancellations in alternating sums}
+
+\subsection{Acceptable sets, partners, and signs}
+
+\begin{definition}
+\label{def.acceptableSets}
+\lean{AlgebraicCombinatorics.SignedCounting.acceptableSets}
+\leanhelper
+\leanok
+The \emph{acceptable sets} for parameters $n, m \in \mathbb{N}$ are the
+subsets of $\{0, 1, \ldots, n-1\}$ with cardinality at most $m$:
+\[
+\mathcal{A}(n, m) := \bigl\{I \subseteq \{0, \ldots, n-1\} : |I| \leq m\bigr\}.
+\]
+\end{definition}
+
+\begin{definition}
+\label{def.partner}
+\lean{AlgebraicCombinatorics.SignedCounting.partner}
+\leanhelper
+\leanok
+The \emph{partner} of a finite set $I$ of natural numbers is the
+symmetric difference $I' := I \bigtriangleup \{0\}$.
+If $0 \in I$, then $I' = I \setminus \{0\}$;
+if $0 \notin I$, then $I' = I \cup \{0\}$.
+\end{definition}
+
+\begin{definition}
+\label{def.setSign}
+\lean{AlgebraicCombinatorics.SignedCounting.setSign}
+\leanhelper
+\leanok
+The \emph{sign} of a finite set $I$ of natural numbers is
+$\operatorname{sign}(I) := (-1)^{|I|}$.
+\end{definition}
+
+\begin{lemma}
+\label{lem.partner_partner}
+\lean{AlgebraicCombinatorics.SignedCounting.partner_partner}
+\leanhelper
+\leanok
+The partner operation is an involution:
+$(I')' = I$ for all finite sets $I$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By the self-cancellation property of symmetric difference:
+$(I \bigtriangleup \{0\}) \bigtriangleup \{0\} = I$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.partner_sign}
+\lean{AlgebraicCombinatorics.SignedCounting.partner_sign}
+\leanhelper
+\leanok
+The partner reverses the sign:
+$\operatorname{sign}(I') = -\operatorname{sign}(I)$ for all finite
+sets $I$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+If $0 \in I$, then $|I'| = |I| - 1$; if $0 \notin I$, then
+$|I'| = |I| + 1$. In either case,
+$(-1)^{|I'|} = -(-1)^{|I|}$.
+\end{proof}
+
+\begin{proposition}
+[Negative hockey-stick identity]
+\label{prop.binom.nhs}
+\lean{AlgebraicCombinatorics.SignedCounting.negHockeyStick}
+\leantarget
+\leanok
+Let $n\in\mathbb{C}$ and
+$m\in\mathbb{N}$. Then,
+\[
+\sum_{k=0}^{m} (-1)^{k} \binom{n}{k}
+= (-1)^{m} \binom{n-1}{m}.
+\]
+\end{proposition}
+
+\begin{proof}
+The Lean proof delegates to
+\texttt{Int.alternating\_sum\_range\_choose\_eq\_choose} from Mathlib.
+
+The source gives a combinatorial proof using sign-reversing involutions.
+Both sides of the equality are polynomial functions in $n$, so we
+can WLOG assume that $n$ is a positive integer (by the polynomial
+identity trick). Set $[n] := \{1, 2, \ldots, n\}$.
+Define an \emph{acceptable set} to be a subset of $[n]$ that has
+size $\leq m$. Define the \emph{sign} of a finite set $I$ to be
+$(-1)^{|I|}$. Then
+\[
+\bigl(\text{the sum of the signs of all acceptable sets}\bigr)
+= \sum_{k=0}^{m} (-1)^k \binom{n}{k}.
+\]
+
+For each finite set $I$, define the \emph{partner} of $I$ to be the set
+$I' := I \bigtriangleup \{1\}$,
+where $\bigtriangleup$ denotes symmetric difference.
+Each finite set $I$ satisfies $I'' = I$ and
+$|I'| = |I| \pm 1$, so that
+$(-1)^{|I'|} = -(-1)^{|I|}$. If both $I$ and $I'$ are acceptable
+sets, then their contributions to the sum cancel each other.
+
+\textit{Claim 1:} Let $I$ be an acceptable set. Then, the partner
+$I'$ of $I$ is non-acceptable if and only if
+$(1 \notin I \text{ and } |I| = m)$.
+
+[\textit{Proof of Claim 1:} If $1 \notin I$ and $|I| = m$, then
+$I' = I \cup \{1\}$ has size $|I| + 1 > m$, so it is non-acceptable.
+Conversely, if $I'$ is non-acceptable, then $1 \notin I$ (otherwise
+$I' = I \setminus \{1\} \subseteq I$ would be acceptable) and
+$|I| = m$ (otherwise $|I| \leq m - 1$ would give
+$|I'| = |I| + 1 \leq m$, making $I'$ acceptable).]
+
+The acceptable sets with non-acceptable partners are precisely the
+$m$-element subsets of $[n]$ that do not contain $1$, i.e., the
+$m$-element subsets of $[n] \setminus \{1\}$. There are
+$\binom{n-1}{m}$ such subsets, each with sign $(-1)^m$.
+Hence,
+\[
+\sum_{k=0}^{m} (-1)^{k} \binom{n}{k} = (-1)^{m} \binom{n-1}{m}.
+\]
+This proves Proposition~\ref{prop.binom.nhs}.
+\end{proof}
+
+\begin{theorem}
+\label{thm.acceptable_nonAcceptablePartner_iff}
+\lean{AlgebraicCombinatorics.SignedCounting.acceptable_nonAcceptablePartner_iff}
+\leanhelper
+\leanok
+Let $n \geq 1$, $m \in \mathbb{N}$, and let $I$ be an acceptable set
+(i.e., $I \subseteq \{0, \ldots, n-1\}$ with $|I| \leq m$). Then the
+partner $I'$ of $I$ is non-acceptable if and only if $0 \notin I$
+and $|I| = m$.
+\end{theorem}
+
+\begin{proof}
+\leanok
+By case analysis on whether $0 \in I$ and the
+cardinality of $I$, as outlined in Claim~1 in the proof of
+Proposition~\ref{prop.binom.nhs}.
+\end{proof}
+
+\begin{theorem}
+\label{thm.sum_signs_acceptable}
+\lean{AlgebraicCombinatorics.SignedCounting.sum_signs_acceptable}
+\leanhelper
+\leanok
+For $n \geq 1$ and $m \in \mathbb{N}$,
+\[
+\sum_{I \in \mathcal{A}} \operatorname{sign}(I)
+= (-1)^m \binom{n-1}{m},
+\]
+where $\mathcal{A} = \mathcal{A}(n, m)$ is the set of acceptable sets
+(subsets of $\{0, \ldots, n-1\}$ with size $\leq m$) and
+$\operatorname{sign}(I) = (-1)^{|I|}$.
+\end{theorem}
+
+\begin{proof}
+Partition $\mathcal{A}$ into ``moving'' sets (those whose partner is
+also acceptable) and ``fixed'' sets (those whose partner is
+non-acceptable). The sum over moving sets is $0$ by a sign-reversing
+involution argument: the partner pairs them up with opposite signs.
+The sum over fixed sets equals $(-1)^m \binom{n-1}{m}$, since by
+Theorem~\ref{thm.acceptable_nonAcceptablePartner_iff}, the fixed sets
+are precisely the $m$-element subsets of $[n] \setminus \{0\}$, each
+contributing $(-1)^m$.
+\end{proof}
+
+\subsection{Cancellation principles}
+
+\begin{lemma}
+[Cancellation principle, take 1]
+\label{lem.sign.cancel1}
+\lean{AlgebraicCombinatorics.SignedCounting.sign_cancel1}
+\leantarget
+\leanok
+Let $\mathcal{A}$ be a finite set. Let $\mathcal{X}$ be a subset of
+$\mathcal{A}$.
+
+For each $I \in \mathcal{A}$, let $\operatorname{sign} I$ be an element
+of an additive abelian group $R$ with no $2$-torsion (i.e., $2a = 0$
+implies $a = 0$). Let $f : \mathcal{X} \to \mathcal{X}$ be a bijection
+with the property that
+\[
+\operatorname{sign}(f(I)) = -\operatorname{sign} I
+\qquad \text{for all } I \in \mathcal{X}.
+\]
+(Such a bijection $f$ is called \emph{sign-reversing}.) Then,
+\[
+\sum_{I \in \mathcal{A}} \operatorname{sign} I
+= \sum_{I \in \mathcal{A} \setminus \mathcal{X}} \operatorname{sign} I.
+\]
+\end{lemma}
+
+\begin{proof}
+We have
+\begin{align*}
+\sum_{I \in \mathcal{X}} \operatorname{sign} I
+&= \sum_{I \in \mathcal{X}} \underbrace{\operatorname{sign}(f(I))}_{
+= -\operatorname{sign} I}
+\qquad \text{(substituting $f(I)$ for $I$, since $f$ is a bijection)} \\
+&= \sum_{I \in \mathcal{X}} (-\operatorname{sign} I)
+= -\sum_{I \in \mathcal{X}} \operatorname{sign} I.
+\end{align*}
+Adding $\sum_{I \in \mathcal{X}} \operatorname{sign} I$ to both sides,
+we obtain $2 \cdot \sum_{I \in \mathcal{X}} \operatorname{sign} I = 0$.
+Since $R$ has no $2$-torsion, $\sum_{I \in \mathcal{X}} \operatorname{sign} I = 0$.
+
+Now, $\mathcal{X} \subseteq \mathcal{A}$; hence,
+\[
+\sum_{I \in \mathcal{A}} \operatorname{sign} I
+= \underbrace{\sum_{I \in \mathcal{X}} \operatorname{sign} I}_{= 0}
++ \sum_{I \in \mathcal{A} \setminus \mathcal{X}} \operatorname{sign} I
+= \sum_{I \in \mathcal{A} \setminus \mathcal{X}} \operatorname{sign} I.
+\]
+\end{proof}
+
+\begin{lemma}
+[Cancellation principle, take 2]
+\label{lem.sign.cancel2}
+\lean{AlgebraicCombinatorics.SignedCounting.sign_cancel2}
+\leantarget
+\leanok
+Let $\mathcal{A}$ be a finite set. Let $\mathcal{X}$ be a subset of
+$\mathcal{A}$.
+
+For each $I \in \mathcal{A}$, let $\operatorname{sign} I$ be an element
+of some additive abelian group. Let
+$f : \mathcal{X} \to \mathcal{X}$ be an involution (i.e., a map
+satisfying $f \circ f = \operatorname{id}$) that has no fixed points.
+Assume that
+\[
+\operatorname{sign}(f(I)) = -\operatorname{sign} I
+\qquad \text{for all } I \in \mathcal{X}.
+\]
+Then,
+\[
+\sum_{I \in \mathcal{A}} \operatorname{sign} I
+= \sum_{I \in \mathcal{A} \setminus \mathcal{X}} \operatorname{sign} I.
+\]
+\end{lemma}
+
+\begin{proof}
+All addends corresponding to the $I \in \mathcal{X}$ cancel out from
+the sum $\sum_{I \in \mathcal{A}} \operatorname{sign} I$ (because they
+come in pairs of addends with opposite signs). The Lean proof uses
+Mathlib's \texttt{Finset.sum\_involution}.
+\end{proof}
+
+\begin{lemma}
+[Cancellation principle, take 3]
+\label{lem.sign.cancel3}
+\lean{AlgebraicCombinatorics.SignedCounting.sign_cancel3}
+\leantarget
+\leanok
+Let $\mathcal{A}$ be a finite set. Let $\mathcal{X}$ be a subset of
+$\mathcal{A}$.
+
+For each $I \in \mathcal{A}$, let $\operatorname{sign} I$ be an element
+of some additive abelian group. Let
+$f : \mathcal{X} \to \mathcal{X}$ be an involution (i.e., a map
+satisfying $f \circ f = \operatorname{id}$). Assume that
+\[
+\operatorname{sign}(f(I)) = -\operatorname{sign} I
+\qquad \text{for all } I \in \mathcal{X}.
+\]
+Assume furthermore that
+\[
+\operatorname{sign} I = 0
+\qquad \text{for all } I \in \mathcal{X} \text{ satisfying } f(I) = I.
+\]
+Then,
+\[
+\sum_{I \in \mathcal{A}} \operatorname{sign} I
+= \sum_{I \in \mathcal{A} \setminus \mathcal{X}} \operatorname{sign} I.
+\]
+\end{lemma}
+
+\begin{proof}
+This is similar to Lemma~\ref{lem.sign.cancel2}, except that the
+addends corresponding to the $I \in \mathcal{X}$ satisfying $f(I) = I$
+don't cancel (but are already zero and thus can be removed right away).
+The Lean proof uses Mathlib's \texttt{Finset.sum\_involution}, which
+handles both the pairing and the fixed-point condition.
+\end{proof}
+
+\subsection{Switching operations and the \texorpdfstring{$q$}{q}-binomial at \texorpdfstring{$q = -1$}{q = -1}}
+
+\begin{definition}
+\label{def.switch}
+\lean{AlgebraicCombinatorics.SignedCounting.switch}
+\leanhelper
+\leanok
+For $i \in \mathbb{N}$, define the \emph{switch operation}
+$\operatorname{switch}_i$ on finite subsets $S$ of $\mathbb{N}$ by
+\[
+\operatorname{switch}_i(S) :=
+\begin{cases}
+S \bigtriangleup \{i, i+1\}, & \text{if } |S \cap \{i, i+1\}| = 1; \\
+S, & \text{otherwise.}
+\end{cases}
+\]
+In other words, if exactly one of $i$ and $i+1$ belongs to $S$,
+then we replace it by the other; otherwise we leave $S$ unchanged.
+\end{definition}
+
+\begin{lemma}
+\label{lem.switch_involution}
+\lean{AlgebraicCombinatorics.SignedCounting.switch_switch}
+\leanhelper
+\leanok
+The switch operation $\operatorname{switch}_i$ is an involution, i.e.,
+$\operatorname{switch}_i(\operatorname{switch}_i(S)) = S$ for all
+finite sets $S$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By case analysis: if exactly one of $\{i, i+1\}$ is in $S$, then the
+symmetric difference $S \bigtriangleup \{i, i+1\}$ restores $S$ after
+two applications. Otherwise the operation is the identity.
+\end{proof}
+
+\begin{lemma}
+\label{lem.switch_card}
+\lean{AlgebraicCombinatorics.SignedCounting.switch_card}
+\leanhelper
+\leanok
+The switch operation preserves cardinality:
+$|\operatorname{switch}_i(S)| = |S|$ for all finite sets $S$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+When $|S \cap \{i, i+1\}| = 1$, the symmetric difference removes one
+element and adds another. Otherwise the set is unchanged.
+\end{proof}
+
+\subsection{Roots of unity}
+
+\begin{definition}
+\label{def.root-of-unity.prim}
+\lean{AlgebraicCombinatorics.SignedCounting.IsRootOfUnity, IsPrimitiveRoot}
+\leantarget
+\leanok
+Let $K$ be a field. Let $d$ be a positive integer.
+
+\textbf{(a)} A \emph{$d$-th root of unity} in $K$ means an element
+$\omega$ of $K$ satisfying $\omega^d = 1$.
+
+\textbf{(b)} A \emph{primitive $d$-th root of unity} in $K$ means an
+element $\omega$ of $K$ satisfying $\omega^d = 1$ but
+$\omega^i \neq 1$ for each $i \in \{1, 2, \ldots, d-1\}$.
+In other words, a primitive $d$-th root of unity in $K$ means an element
+of the multiplicative group $K^{\times}$ whose order is $d$.
+\end{definition}
+
+\begin{lemma}
+\label{lem.neg_one_isPrimitiveRoot_two}
+\lean{AlgebraicCombinatorics.SignedCounting.neg_one_isPrimitiveRoot_two}
+\leanhelper
+\leanok
+In any integral domain where $-1 \neq 1$, the element $-1$ is a
+primitive $2$nd root of unity.
+\end{lemma}
+
+\begin{proof}
+\leanok
+We have $(-1)^2 = 1$ and $(-1)^1 = -1 \neq 1$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.primitiveRoot_geom_sum}
+\lean{AlgebraicCombinatorics.SignedCounting.primitiveRoot_geom_sum_eq_zero}
+\leanhelper
+\leanok
+If $\omega$ is a primitive $d$-th root of unity with $d > 1$, then
+\[
+1 + \omega + \omega^2 + \cdots + \omega^{d-1} = 0.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+This is \texttt{IsPrimitiveRoot.geom\_sum\_eq\_zero} from Mathlib.
+\end{proof}
+
+\subsection{The \texorpdfstring{$q$}{q}-Lucas theorem}
+
+\begin{definition}
+\label{def.qBinomial}
+\lean{AlgebraicCombinatorics.SignedCounting.qBinomial}
+\leanhelper
+\leanok
+The \emph{$q$-binomial coefficient} $\binom{n}{k}_q$ is the polynomial
+in $\mathbb{Z}[q]$ defined by
+\[
+\binom{n}{k}_q := \sum_{\substack{S \subseteq \{0,\ldots,n-1\} \\ |S| = k}}
+q^{\,\operatorname{sum}(S) - (0 + 1 + \cdots + (k-1))},
+\]
+where $\operatorname{sum}(S) = \sum_{x \in S} x$.
+This is the local definition used in the formalization; it agrees with
+Mathlib's $q$-binomial coefficient (see
+Lemma~\ref{lem.qBinomial_eq_canonical}).
+\end{definition}
+
+\begin{lemma}
+\label{lem.qBinomial_eq_canonical}
+\lean{AlgebraicCombinatorics.SignedCounting.qBinomial_eq_canonical}
+\leanhelper
+\leanok
+The local $q$-binomial coefficient
+$\binom{n}{k}_q$ (Definition~\ref{def.qBinomial}) equals
+Mathlib's $q$-binomial coefficient $\binom{n}{k}_q$ (as a polynomial
+in $\mathbb{Z}[q]$).
+\end{lemma}
+
+\begin{proof}
+\leanok
+Both definitions agree: they are sums over $k$-element subsets of
+$\{0,\ldots,n-1\}$, with monomials
+$q^{(\operatorname{sum}(S) - k(k-1)/2)}$.
+The proof establishes the identity by showing the exponents coincide
+using the order embedding of $S$ into $\{0,\ldots,n-1\}$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.qBinomial_eval_one}
+\lean{AlgebraicCombinatorics.SignedCounting.qBinomial_eval_one}
+\leanhelper
+\leanok
+For $n, k \in \mathbb{N}$,
+$\binom{n}{k}_q \big|_{q=1} = \binom{n}{k}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Each term evaluates to $1$ at $q = 1$, so the sum counts the number of
+$k$-element subsets of $[n]$, which is $\binom{n}{k}$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.qBinomial_eq_zero_of_lt}
+\lean{AlgebraicCombinatorics.SignedCounting.qBinomial_eq_zero_of_lt}
+\leanhelper
+\leanok
+For $n < k$, $\binom{n}{k}_q = 0$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+There are no $k$-element subsets of $[n]$ when $n < k$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.qBinomial_zero_right}
+\lean{AlgebraicCombinatorics.SignedCounting.qBinomial_zero_right}
+\leanhelper
+\leanok
+For all $n \in \mathbb{N}$, $\binom{n}{0}_q = 1$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The only $0$-element subset is $\varnothing$, contributing
+$q^0 = 1$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.qBinomial_self}
+\lean{AlgebraicCombinatorics.SignedCounting.qBinomial_self}
+\leanhelper
+\leanok
+For all $n \in \mathbb{N}$, $\binom{n}{n}_q = 1$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The only $n$-element subset of $[n]$ is $[n]$ itself, contributing
+$q^0 = 1$.
+\end{proof}
+
+\begin{definition}
+\label{def.IsDBlocky}
+\lean{AlgebraicCombinatorics.SignedCounting.IsDBlocky}
+\leanhelper
+\leanok
+A subset $S \subseteq \{0, \ldots, n-1\}$ is \emph{$d$-blocky} if
+$S \subseteq \{0, \ldots, n-1\}$ and for each block index
+$i \in \{0, \ldots, \lfloor n/d \rfloor - 1\}$, either all elements of
+$\{id, id+1, \ldots, id+d-1\}$ are in $S$ or none are.
+\end{definition}
+
+\begin{definition}
+\label{def.kSubsets}
+\lean{AlgebraicCombinatorics.SignedCounting.kSubsets}
+\leanhelper
+\leanok
+The set $\binom{[n]}{k}$ of $k$-element subsets of
+$\{0, \ldots, n-1\}$:
+\[
+\binom{[n]}{k} := \bigl\{S \subseteq \{0,\ldots,n-1\} : |S| = k\bigr\}.
+\]
+\end{definition}
+
+\begin{definition}
+\label{def.blockySubsets}
+\lean{AlgebraicCombinatorics.SignedCounting.blockySubsets}
+\leanhelper
+\leanok
+The set of $d$-blocky $k$-element subsets of $\{0, \ldots, n-1\}$:
+\[
+\mathcal{B}(d, n, k) :=
+\bigl\{S \in \binom{[n]}{k} : S \text{ is } d\text{-blocky}\bigr\}.
+\]
+\end{definition}
+
+\begin{lemma}
+\label{lem.blocky_subsets_count}
+\lean{AlgebraicCombinatorics.SignedCounting.blocky_subsets_count}
+\leanhelper
+\leanok
+For $d > 0$, the number of $d$-blocky $k$-element subsets of
+$\{0, \ldots, n-1\}$ is
+\[
+|\mathcal{B}(d, n, k)|
+= \begin{cases}
+\binom{n/d}{k/d} \cdot \binom{n \bmod d}{k \bmod d},
+  & \text{if } k \bmod d \leq n \bmod d; \\
+0, & \text{otherwise.}
+\end{cases}
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+A $d$-blocky $k$-element subset is uniquely determined by the pair
+$(B, P)$ where $B \subseteq \{0, \ldots, n/d - 1\}$ selects which
+complete $d$-blocks are fully included (giving $|B| \cdot d$ elements)
+and $P \subseteq \{0, \ldots, n \bmod d - 1\}$ selects which elements
+of the partial block are included (giving $|P|$ elements).
+The constraint $|S| = k$ forces $|B| = k / d$ and $|P| = k \bmod d$.
+If $k \bmod d > n \bmod d$, no valid $P$ exists.
+\end{proof}
+
+\begin{theorem}
+[$q$-Lucas theorem]
+\label{thm.sign.q-lucas}
+\lean{AlgebraicCombinatorics.SignedCounting.qLucas}
+\leantarget
+\leanok
+Let $K$ be a field. Let $d$ be a positive integer. Let $\omega$ be a
+primitive $d$-th root of unity in $K$. Let $n, k \in \mathbb{N}$. Let
+$q$ and $u$ be the quotients obtained when dividing $n$ and $k$ by $d$
+with remainder, and let $r$ and $v$ be the respective remainders. Then,
+\[
+\binom{n}{k}_{\omega}
+= \binom{q}{u} \cdot \binom{r}{v}_{\omega}.
+\]
+\end{theorem}
+
+\begin{proof}
+The proof splits into cases:
+
+\textbf{Case $d = 1$:} Then $\omega = 1$, and both sides reduce to
+$\binom{n}{k}$ by Lemma~\ref{lem.qBinomial_eval_one}.
+
+\textbf{Case $k > n$:} Both sides are $0$.
+
+\textbf{Case $n < d$:} Then $n / d = 0$, $n \bmod d = n$, and the
+formula reduces to $\binom{n}{k}_\omega = \binom{0}{k/d} \cdot
+\binom{n}{k \bmod d}_\omega$.
+
+\textbf{Main case ($d \geq 2$, $k \leq n$, $n \geq d$):}
+The proof has three steps:
+\begin{enumerate}
+\item Rewrite $\binom{n}{k}_\omega$ as $\sum_{S \in \mathcal{A}}
+\omega^{(\operatorname{sum}(S) - \text{baseline})}$ where $\mathcal{A}$
+is the set of $k$-element subsets of $[n]$.
+\item Split the sum into contributions from \emph{$d$-blocky} subsets
+(those that consist of entire $d$-blocks) and non-$d$-blocky subsets.
+\item Show that non-blocky contributions cancel
+(Lemma~\ref{lem.nonBlocky_contributions_cancel}) and that the blocky
+contributions give the product formula
+(Lemma~\ref{lem.blocky_sum_eq}).
+\end{enumerate}
+A subset $S$ of $[n]$ is \emph{$d$-blocky} if for each complete
+$d$-block $\{id, id+1, \ldots, id+d-1\}$ contained in $[n]$, either
+all elements of the block are in $S$ or none are.
+\end{proof}
+
+\begin{lemma}
+\label{lem.nonBlocky_contributions_cancel}
+\lean{AlgebraicCombinatorics.SignedCounting.nonBlocky_contributions_cancel}
+\leanhelper
+\leanok
+Let $K$ be a field, $d \geq 2$, and $\omega$ a primitive $d$-th root
+of unity. For $n, k \in \mathbb{N}$,
+\[
+\sum_{\substack{S \subseteq [n],\; |S| = k,\\ S \text{ not $d$-blocky}}}
+\omega^{\operatorname{sum}(S)} = 0.
+\]
+\end{lemma}
+
+\begin{proof}
+For each non-$d$-blocky set $S$, there exists a ``split block''
+$i$: a block index where $S$ contains some but not all elements
+of $\{id, id+1, \ldots, id+d-1\}$. Define the rotation operation
+that cyclically permutes elements within block $i$ (replacing each
+element $x$ in the block by $id + (x - id + 1) \bmod d$).
+
+The non-blocky sets are partitioned into orbits under rotation in
+the smallest split block. Each orbit has size
+$m = d / \gcd(d, j)$ where $j = |S \cap \text{block}_i|$, and
+$m > 1$ since $0 < j < d$. The sum over each orbit is $0$ by
+Lemma~\ref{lem.orbit_sum_eq_zero}. Therefore the total sum is $0$.
+
+The Lean proof applies Lemma~\ref{lem.sum_nonBlocky_subset_eq_zero}
+to the full set of non-blocky subsets, verifying orbit-closure
+(rotation preserves membership via
+Lemmas~\ref{lem.rotateSetInBlockK_card} and
+\ref{lem.rotateSetInBlockK_subset}).
+\end{proof}
+
+\begin{lemma}
+\label{lem.orbit_sum_eq_zero}
+Let $K$ be a field, $d \geq 2$, and $\omega$ a primitive $d$-th root
+of unity. For $0 < j < d$ and any $b \in \mathbb{N}$, let
+$m = d / \gcd(d, j)$. Then
+\[
+\sum_{k=0}^{m-1} \omega^{b + k \cdot j} = 0.
+\]
+\end{lemma}
+
+\begin{proof}
+Factor out $\omega^b$:
+$\sum_{k=0}^{m-1} \omega^{b + kj} = \omega^b \sum_{k=0}^{m-1} (\omega^j)^k$.
+Since $0 < j < d$, we have $\omega^j \neq 1$ and $(\omega^j)^m = 1$.
+The sum $\sum_{k=0}^{m-1} (\omega^j)^k$ can be evaluated using the
+geometric series formula
+$\frac{(\omega^j)^m - 1}{\omega^j - 1} = 0$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.blocky_sum_eq}
+\lean{AlgebraicCombinatorics.SignedCounting.blocky_sum_eq}
+\leanhelper
+\leanok
+Let $K$ be a field, $d$ a positive integer, and $\omega$ a primitive
+$d$-th root of unity. For $n, k \in \mathbb{N}$,
+\[
+\sum_{\substack{S \subseteq [n],\; |S| = k,\\ S \text{ is $d$-blocky}}}
+\omega^{\operatorname{sum}(S) - (0 + 1 + \cdots + (k-1))}
+= \binom{n/d}{k/d} \cdot
+\binom{n \bmod d}{k \bmod d}_{\omega}.
+\]
+\end{lemma}
+
+\begin{proof}
+A $d$-blocky $k$-element subset of $[n]$ decomposes into two
+independent parts: which complete $d$-blocks to include (choosing
+$k/d$ blocks from $n/d$ available) and which elements of the partial
+block $\{(n/d) \cdot d, \ldots, n-1\}$ to include (choosing
+$k \bmod d$ elements from $n \bmod d$ available).
+
+The complete-block part contributes a factor of $1$ (since
+$\omega^d = 1$) and the partial-block part contributes
+$\omega^{(\text{sum of partial part})}$. The number of
+complete-block configurations is $\binom{n/d}{k/d}$, and the
+partial-block sum gives
+$\binom{n \bmod d}{k \bmod d}_{\omega}$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.rotateInBlock_injective}
+The rotation function within block $i$ is injective (for $d > 0$).
+\end{lemma}
+
+\begin{proof}
+By case analysis on whether $x$ and $y$ are in block $i$, and using
+injectivity of the modular arithmetic operation.
+\end{proof}
+
+\begin{lemma}
+\label{lem.rotateInBlock_iterate_d}
+Rotating $d$ times within block $i$ returns to the identity:
+$(\operatorname{rotate}_i)^d(x) = x$ for all $x$.
+\end{lemma}
+
+\begin{proof}
+For $x$ in block $i$, after $k$ rotations the offset becomes
+$(x - id + k) \bmod d$. After $d$ rotations, the offset returns to
+its original value. For $x$ outside block $i$, the rotation is the
+identity.
+\end{proof}
+
+\begin{lemma}
+\label{lem.rotateSetInBlockK_sum_pow}
+For a primitive $d$-th root of unity $\omega$,
+\[
+\omega^{\operatorname{sum}(\operatorname{rotate}_i^k(S))}
+= \omega^{\operatorname{sum}(S) + k \cdot |\text{blockOffsets}(d, i, S)|}.
+\]
+\end{lemma}
+
+\begin{proof}
+The rotation changes $\operatorname{sum}(S)$ by
+$|\text{blockOffsets}(d, i, S)| \pmod{d}$ per iteration. Since
+$\omega^d = 1$, the congruence modulo $d$ suffices.
+\end{proof}
+
+\begin{lemma}
+\label{lem.rotateSetInBlockK_injective}
+For $0 < j < d$ where $j = |\text{blockOffsets}(d, i, S)|$ and
+$m = d / \gcd(d, j)$, the map
+$k \mapsto \operatorname{rotate}_i^k(S)$ is injective on
+$\{0, 1, \ldots, m-1\}$.
+\end{lemma}
+
+\begin{proof}
+If $\operatorname{rotate}_i^{k_1}(S) = \operatorname{rotate}_i^{k_2}(S)$
+with $k_1 < k_2 < m$, then $k_1 \cdot j \equiv k_2 \cdot j \pmod{d}$.
+By modular arithmetic cancellation, $m \mid (k_2 - k_1)$, contradicting
+$0 < k_2 - k_1 < m$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.rotateSetInBlockK_card}
+Rotation preserves cardinality: for $d > 0$,
+$|\operatorname{rotate}_i^k(S)| = |S|$.
+\end{lemma}
+
+\begin{proof}
+The rotation function $\operatorname{rotate}_i$ is injective
+(Lemma~\ref{lem.rotateInBlock_injective}), so the image of $S$
+under $\operatorname{rotate}_i$ has the same cardinality.
+The result follows by induction on $k$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.rotateSetInBlockK_subset}
+Rotation preserves the ambient set: for $d > 0$ and $i < n/d$,
+if $S \subseteq \{0, \ldots, n-1\}$ then
+$\operatorname{rotate}_i^k(S) \subseteq \{0, \ldots, n-1\}$.
+\end{lemma}
+
+\begin{proof}
+Elements outside block $i$ are unchanged. Elements inside block $i$
+stay within $\{id, \ldots, id+d-1\} \subseteq \{0, \ldots, n-1\}$
+by the modular arithmetic of the rotation.
+\end{proof}
+
+\begin{lemma}
+\label{lem.rotateSetInBlockK_d}
+Rotating $d$ times is the identity on sets:
+$\operatorname{rotate}_i^d(S) = S$ for all sets $S$.
+\end{lemma}
+
+\begin{proof}
+Since $(\operatorname{rotate}_i)^d = \operatorname{id}$ on elements
+(Lemma~\ref{lem.rotateInBlock_iterate_d}), the image of $S$ after $d$
+rotations equals $S$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.orbit_sum_full_eq_zero}
+Let $\omega$ be a primitive $d$-th root of unity with $d \geq 2$.
+For $0 < j < d$ and any $b \in \mathbb{N}$,
+\[
+\sum_{k=0}^{d-1} \omega^{b + k \cdot j} = 0.
+\]
+\end{lemma}
+
+\begin{proof}
+Since $m = d / \gcd(d, j)$ divides $d$, the sum over the full range
+$\{0, \ldots, d-1\}$ is a sum of $d/m$ copies of the orbit sum
+$\sum_{k=0}^{m-1} \omega^{b + kj}$, which is $0$ by
+Lemma~\ref{lem.orbit_sum_eq_zero}.
+\end{proof}
+
+\begin{lemma}
+\label{lem.rotateSetInBlockK_fiber_card_uniform}
+For $d > 0$ and any set $S$, the fibers of the map
+$k \mapsto \operatorname{rotate}_i^k(S)$ on $\{0, \ldots, d-1\}$ all
+have the same cardinality. That is, there exists $c$ such that for
+every set $T$ in the image, the number of $k \in \{0, \ldots, d-1\}$
+with $\operatorname{rotate}_i^k(S) = T$ is exactly $c$, and $c \mid d$.
+\end{lemma}
+
+\begin{proof}
+By the orbit-stabilizer theorem for the cyclic group $\mathbb{Z}/d$
+acting on sets via rotation. The stabilizer of $S$ consists of those
+$k$ with $\operatorname{rotate}_i^k(S) = S$; all fibers have the same
+size as the stabilizer. The result follows from
+$|\operatorname{orbit}| \cdot |\operatorname{stab}| = d$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sum_nonBlocky_subset_eq_zero}
+For any orbit-closed subset $A$ of the non-blocky $k$-element subsets
+of $[n]$,
+\[
+\sum_{S \in A} \omega^{\operatorname{sum}(S)} = 0.
+\]
+Here ``orbit-closed'' means that $A$ is closed under rotation in the
+smallest split block of each element: for each $S \in A$, the entire
+orbit of $S$ under rotation in its smallest split block is contained
+in $A$.
+\end{lemma}
+
+\begin{proof}
+By strong induction on $|A|$. If $A$ is empty, the sum is $0$.
+Otherwise, pick $S_0 \in A$, let $i_0$ be its smallest split block
+index, and let $O$ be the orbit of $S_0$ under rotation in block
+$i_0$ (all $d$ rotations). Since $A$ is orbit-closed, $O \subseteq A$.
+The sum over $O$ is $0$ by
+Lemma~\ref{lem.orbit_sum_full_eq_zero} and
+Lemma~\ref{lem.rotateSetInBlockK_fiber_card_uniform}
+(the sum over the image equals a constant times the sum over the
+fibers, which is zero). Then
+$\sum_{S \in A} \omega^{\operatorname{sum}(S)} = \sum_{S \in O}(\cdots) + \sum_{S \in A \setminus O}(\cdots) = 0 + 0$
+by the inductive hypothesis on $A \setminus O$ (which is orbit-closed
+and has strictly smaller cardinality).
+\end{proof}
+
+\subsection{The \texorpdfstring{$q$}{q}-binomial at \texorpdfstring{$q = -1$}{q = -1}}
+
+\begin{theorem}
+\label{thm.qBinom_neg_one}
+\lean{AlgebraicCombinatorics.SignedCounting.qBinom_neg_one}
+\leanhelper
+\leanok
+Let $n, k \in \mathbb{N}$. Then:
+\[
+\binom{n}{k}_{-1} =
+\begin{cases}
+0, & \text{if } n \text{ is even and } k \text{ is odd;} \\
+\binom{\lfloor n/2 \rfloor}{\lfloor k/2 \rfloor}, & \text{otherwise.}
+\end{cases}
+\]
+\end{theorem}
+
+\begin{proof}
+By Theorem~\ref{thm.sign.q-lucas} with $d = 2$ and $\omega = -1$
+(which is a primitive $2$nd root of unity by
+Lemma~\ref{lem.neg_one_isPrimitiveRoot_two}):
+\[
+\binom{n}{k}_{-1}
+= \binom{n/2}{k/2} \cdot \binom{n \bmod 2}{k \bmod 2}_{-1}.
+\]
+The only possible remainders upon division by $2$ are $0$ and $1$, and
+the base-case $(-1)$-binomial coefficients are:
+\[
+\binom{0}{0}_{-1} = 1, \quad
+\binom{0}{1}_{-1} = 0, \quad
+\binom{1}{0}_{-1} = 1, \quad
+\binom{1}{1}_{-1} = 1.
+\]
+If $n$ is even and $k$ is odd, then $n \bmod 2 = 0$ and
+$k \bmod 2 = 1$, so $\binom{n \bmod 2}{k \bmod 2}_{-1} = 0$ and
+the result is $0$. Otherwise,
+$\binom{n \bmod 2}{k \bmod 2}_{-1} = 1$ and the result is
+$\binom{\lfloor n/2 \rfloor}{\lfloor k/2 \rfloor}$.
+
+The Lean proof applies the $q$-Lucas theorem (Theorem~\ref{thm.sign.q-lucas})
+with $d = 2$ over $\mathbb{Q}$, then uses injectivity of
+$\mathbb{Z} \hookrightarrow \mathbb{Q}$ to transfer the result back
+to $\mathbb{Z}$.
+\end{proof}

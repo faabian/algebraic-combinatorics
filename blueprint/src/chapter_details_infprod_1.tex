@@ -1,0 +1,1259 @@
+\section{Details: Infinite products (part 1)}
+\label{sec.details.gf.prod}
+
+Fix a commutative ring $K$.
+
+\subsection{Essentially finite families}
+
+\begin{definition}
+\label{def.fps.infprod.essFinite}
+\lean{PowerSeries.EssentiallyFinite}
+\leanhelper
+\leanok
+A family $(k_i)_{i \in I}$ of natural numbers is \emph{essentially finite}
+if all but finitely many entries equal $0$, i.e., the set $\{i \in I : k_i \neq 0\}$
+is finite. This corresponds to $S^I_{\mathrm{fin}}$ in the source.
+\end{definition}
+
+\begin{definition}
+\label{def.fps.infprod.coeffSupportSet}
+\lean{PowerSeries.CoeffSupportSet}
+\leanhelper
+\leanok
+For a family $(p_{i,k})$ of FPSs, the \emph{coefficient support set} $T_m$ at degree $m$
+is the set $\{(i,k) : k \neq 0 \text{ and } [x^m] p_{i,k} \neq 0\}$.
+\end{definition}
+
+\begin{definition}
+\label{def.fps.infprod.coeffSupportSetUnion}
+\lean{PowerSeries.CoeffSupportSetUnion}
+\leanhelper
+\leanok
+The \emph{coefficient support union} $T'_n = T_0 \cup T_1 \cup \cdots \cup T_n$
+is the union of coefficient support sets up to degree $n$.
+\end{definition}
+
+\begin{definition}
+\label{def.fps.infprod.indexSetIn}
+\lean{PowerSeries.IndexSetIn}
+\leanhelper
+\leanok
+The \emph{index set} $I_n$ is the set of first components appearing in $T'_n$:
+$I_n = \{i \in I : \exists k,\; (i,k) \in T'_n\}$.
+\end{definition}
+
+\begin{definition}
+\label{def.fps.infprod.valueSetKn}
+\lean{PowerSeries.ValueSetKn}
+\leanhelper
+\leanok
+The \emph{value set} $K_n$ is the set of second components appearing in $T'_n$:
+$K_n = \{k \in \mathbb{N} : \exists i,\; (i,k) \in T'_n\}$.
+\end{definition}
+
+\begin{definition}
+\label{def.fps.infprod.SfinI}
+\lean{PowerSeries.SfinI}
+\leanhelper
+\leanok
+The set $S^I_{\mathrm{fin}}$ of \emph{essentially finite families} in $\prod_{i \in I} S_i$
+is the set of all families $(k_i)_{i \in I}$ such that $k_i \in S_i$ for all $i$ and
+the family $(k_i)$ is essentially finite.
+\end{definition}
+
+\begin{definition}
+\label{def.fps.infprod.extendFromFinset}
+\lean{PowerSeries.extendFromFinset}
+\leanhelper
+\leanok
+Given a finite subset $I_n \subseteq I$ and a function $f : I_n \to \mathbb{N}$,
+\emph{extend from finset} produces a function $I \to \mathbb{N}$ by setting
+$f(i)$ for $i \in I_n$ and $0$ otherwise. This is used in the bijection between
+essentially finite families supported on $I_n$ and functions $I_n \to S$.
+\end{definition}
+
+\begin{definition}
+\label{def.fps.infprod.restrictToFinset}
+\lean{PowerSeries.restrictToFinset}
+\leanhelper
+\leanok
+Given a finite subset $I_n \subseteq I$ and a function $k : I \to \mathbb{N}$,
+\emph{restrict to finset} produces the restriction $k|_{I_n} : I_n \to \mathbb{N}$.
+This is the inverse direction of the bijection used in Claim~8.
+\end{definition}
+
+\subsection{Existence of approximators}
+
+\begin{lemma}
+\label{lem.fps.mulable.approx.lean}
+\lean{PowerSeries.exists_xn_approximator}
+\leanhelper
+\leanok
+For a multipliable family $(\mathbf{a}_i)_{i \in I}$ and any $n \in \mathbb{N}$,
+there exists an $x^n$-approximator $M$ for $(\mathbf{a}_i)_{i \in I}$.
+The proof takes the union of finite sets $M_0, M_1, \ldots, M_n$ where each $M_k$
+determines the $x^k$-coefficient.
+\end{lemma}
+
+\subsection{Multipliability criteria}
+
+\begin{theorem}
+\label{thm.fps.1+f-mulable.lean}
+\lean{PowerSeries.multipliable_one_add_of_summable}
+\leanhelper
+\leanok
+If $(f_i)_{i \in I}$ is a family of FPSs such that for each $n$,
+the set $\{i \in I : [x^n] f_i \neq 0\}$ is finite (i.e., the family is
+coefficient-wise summable), then the family $(1 + f_i)_{i \in I}$ is multipliable.
+
+The proof constructs an approximator $M$ as the union of the finite sets
+$\{i : [x^m] f_i \neq 0\}$ for $m = 0, 1, \ldots, n$, and shows that
+multiplying by $(1 + f_i)$ for $i \notin M$ does not change coefficients up to degree $n$.
+\end{theorem}
+
+\begin{theorem}
+\label{thm.fps.1-mulable.lean}
+\lean{PowerSeries.multipliable_of_finite_ne_one}
+\leanhelper
+\leanok
+If $(a_i)_{i \in I}$ is a family of FPSs such that
+$\{i \in I : a_i \neq 1\}$ is finite, then the family is multipliable.
+The finite support set itself serves as a determining set for every coefficient.
+\end{theorem}
+
+\begin{theorem}
+\label{thm.fps.union-mulable.lean}
+\lean{PowerSeries.multipliable_of_union}
+\leanhelper
+\leanok
+If $J \subseteq I$ and both the subfamily $(a_i)_{i \in J}$ and the subfamily
+$(a_i)_{i \in I \setminus J}$ are multipliable, then the full family $(a_i)_{i \in I}$
+is multipliable. The proof combines $x^n$-approximators for the two subfamilies.
+\end{theorem}
+
+\subsection{Multipliable product and division rules (Lean formalization)}
+
+\begin{theorem}
+\label{thm.fps.prod-mulable.lean}
+\lean{PowerSeries.multipliable_mul}
+\leanhelper
+\leanok
+If $(\mathbf{a}_i)_{i \in I}$ and $(\mathbf{b}_i)_{i \in I}$ are both multipliable,
+then the pointwise product family $(\mathbf{a}_i \cdot \mathbf{b}_i)_{i \in I}$ is multipliable.
+The proof takes $M = U \cup V$ where $U$ and $V$ are $x^n$-approximators for the two families.
+\end{theorem}
+
+\begin{theorem}
+\label{thm.fps.prod-mulable-eq.lean}
+\lean{PowerSeries.tprod_mul_eq_mul_tprod}
+\leanhelper
+\leanok
+Under the hypotheses of Theorem~\ref{thm.fps.prod-mulable.lean}, the infinite product
+of the pointwise product equals the product of the two infinite products:
+\[
+\prod_{i \in I} (\mathbf{a}_i \cdot \mathbf{b}_i)
+= \Bigl(\prod_{i \in I} \mathbf{a}_i\Bigr) \cdot \Bigl(\prod_{i \in I} \mathbf{b}_i\Bigr).
+\]
+\end{theorem}
+
+\begin{theorem}
+\label{thm.fps.div-mulable.lean}
+\lean{PowerSeries.multipliable_div}
+\leanhelper
+\leanok
+If $(\mathbf{a}_i)_{i \in I}$ and $(\mathbf{b}_i)_{i \in I}$ are multipliable and
+each $\mathbf{b}_i$ has invertible constant term, then the family
+$(\mathbf{a}_i \cdot \mathbf{b}_i^{-1})_{i \in I}$ is multipliable.
+\end{theorem}
+
+\begin{theorem}
+\label{thm.fps.div-mulable-eq.lean}
+\lean{PowerSeries.tprod_div_eq_div_tprod}
+\leanhelper
+\leanok
+Under the hypotheses of Theorem~\ref{thm.fps.div-mulable.lean},
+\[
+\prod_{i \in I} \frac{\mathbf{a}_i}{\mathbf{b}_i}
+= \frac{\prod_{i \in I} \mathbf{a}_i}{\prod_{i \in I} \mathbf{b}_i}.
+\]
+\end{theorem}
+
+\subsection{Subfamily and reindexing lemmas}
+
+\begin{lemma}
+\label{lem.fps.infprod.approx-inter-subfamily}
+\lean{PowerSeries.isXnApproximator_inter_subfamily}
+\leanhelper
+\leanok
+If $U$ is an $x^n$-approximator for a family $(\mathbf{a}_i)_{i \in I}$ of
+invertible FPSs and $J \subseteq I$, then $U \cap J$ (as a preimage under the
+subtype embedding) is an $x^n$-approximator for the subfamily
+$(\mathbf{a}_i)_{i \in J}$.
+This is the Lean formalization of Lemma~\ref{lem.fps.prods-mulable-subfams-appr},
+using the invertibility hypothesis to cancel factors outside $J$.
+\end{lemma}
+
+\begin{theorem}
+\label{thm.fps.prods-mulable-subfams.lean}
+\lean{PowerSeries.multipliable_subfamily}
+\leanhelper
+\leanok
+If $(\mathbf{a}_i)_{i \in I}$ is multipliable and each $\mathbf{a}_i$ has invertible
+constant term, then for any $J \subseteq I$, the subfamily $(\mathbf{a}_i)_{i \in J}$
+is multipliable.
+\end{theorem}
+
+\begin{theorem}
+\label{thm.fps.prods-mulable-reindex.lean}
+\lean{PowerSeries.multipliable_reindex}
+\leanhelper
+\leanok
+If $f : S \to T$ is a bijection and $(\mathbf{a}_t)_{t \in T}$ is multipliable,
+then $(\mathbf{a}_{f(s)})_{s \in S}$ is multipliable.
+\end{theorem}
+
+\begin{theorem}
+\label{thm.fps.prods-mulable-reindex-eq.lean}
+\lean{PowerSeries.tprod_reindex}
+\leanhelper
+\leanok
+Under the hypotheses of Theorem~\ref{thm.fps.prods-mulable-reindex.lean},
+the reindexed infinite product equals the original:
+$\prod_{s \in S} \mathbf{a}_{f(s)} = \prod_{t \in T} \mathbf{a}_t$.
+\end{theorem}
+
+\subsection{Fiber product decomposition}
+
+\begin{theorem}
+\label{thm.fps.prods-mulable-fibers.lean}
+\lean{PowerSeries.multipliable_prod_fibers}
+\leanhelper
+\leanok
+Let $f : S \to W$ be a map, and $(\mathbf{a}_s)_{s \in S}$ a multipliable family.
+Suppose that for each $w \in W$, the fiber subfamily
+$(\mathbf{a}_s)_{s \in f^{-1}(w)}$ is multipliable.
+Then the family of fiber products
+$\bigl(\prod_{s \in f^{-1}(w)} \mathbf{a}_s\bigr)_{w \in W}$ is multipliable.
+The proof uses $f(U)$ (the image of an $x^n$-approximator $U$) as the approximator
+for the outer product.
+\end{theorem}
+
+\begin{theorem}
+\label{thm.fps.prods-mulable-fibers-eq.lean}
+\lean{PowerSeries.tprod_eq_tprod_fibers}
+\leanhelper
+\leanok
+Under the hypotheses of Theorem~\ref{thm.fps.prods-mulable-fibers.lean},
+\[
+\prod_{s \in S} \mathbf{a}_s
+= \prod_{w \in W} \Bigl(\prod_{s \in f^{-1}(w)} \mathbf{a}_s\Bigr).
+\]
+This is the Lean formalization of Proposition~\ref{prop.fps.prods-mulable-rules.SW1}
+(parts \textbf{(a)} and \textbf{(b)}).
+\end{theorem}
+
+\subsection{Fubini rules for infinite products}
+
+\begin{theorem}
+\label{thm.fps.fubini-mulable.lean}
+\lean{PowerSeries.multipliable_tprod_fubini}
+\leanhelper
+\leanok
+Let $(\mathbf{a}_{(i,j)})_{(i,j) \in I \times J}$ be a multipliable family.
+Suppose that for each $i \in I$, the row family $(\mathbf{a}_{(i,j)})_{j \in J}$
+is multipliable. Then the family of row products
+$\bigl(\prod_{j \in J} \mathbf{a}_{(i,j)}\bigr)_{i \in I}$ is multipliable.
+\end{theorem}
+
+\begin{theorem}
+\label{thm.fps.fubini.lean}
+\lean{PowerSeries.tprod_fubini}
+\leanhelper
+\leanok
+Under the hypotheses of Theorem~\ref{thm.fps.fubini-mulable.lean},
+\[
+\prod_{(i,j) \in I \times J} \mathbf{a}_{(i,j)}
+= \prod_{i \in I} \Bigl(\prod_{j \in J} \mathbf{a}_{(i,j)}\Bigr).
+\]
+This is the Fubini rule for infinite products of FPSs.
+\end{theorem}
+
+\begin{theorem}
+\label{thm.fps.fubini-inv.lean}
+\lean{PowerSeries.fubini_prod_invertible}
+\leanhelper
+\leanok
+If $(\mathbf{a}_{(i,j)})_{(i,j) \in I \times J}$ is a multipliable family
+of invertible FPSs (each has unit constant term), then both the row families
+$(\mathbf{a}_{(i,j)})_{j \in J}$ for each $i$ and the column families
+$(\mathbf{a}_{(i,j)})_{i \in I}$ for each $j$ are multipliable. No additional
+multipliability hypotheses are needed in the invertible case, because
+subfamilies of invertible multipliable families are automatically multipliable.
+\end{theorem}
+
+\subsection{Coefficient form of the generalized distributive law}
+
+\begin{lemma}
+\label{lem.fps.prodrule-inf-inf-coeff}
+\lean{PowerSeries.prodRule_infInf_coeff}
+\leanhelper
+\leanok
+For any finite set $M \subseteq I$ and finite value sets $(S_i)_{i \in M}$,
+\[
+[x^n]\Bigl(\prod_{i \in M} \sum_{k \in S_i} p_{i,k}\Bigr)
+= [x^n]\Bigl(\sum_{(k_i) \in \prod_{i \in M} S_i} \prod_{i \in M} p_{i,k_i}\Bigr).
+\]
+This is a direct corollary of Claim~11 (finite product-sum interchange).
+\end{lemma}
+
+\subsection{Congruence lemma for division}
+
+\begin{lemma}
+\label{lem.fps.prod.irlv.cong-div}
+\lean{AlgebraicCombinatorics.FPS.xnEquiv_div}
+\leantarget
+\leanok
+Let $a, b, c, d \in K\left[\left[x\right]\right]$ be four FPSs such that
+$c$ and $d$ are invertible. Let $n \in \mathbb{N}$. Assume that
+\[
+\left[x^{m}\right] a = \left[x^{m}\right] b
+\qquad \text{for each } m \in \left\{0, 1, \ldots, n\right\}.
+\]
+Assume further that
+\[
+\left[x^{m}\right] c = \left[x^{m}\right] d
+\qquad \text{for each } m \in \left\{0, 1, \ldots, n\right\}.
+\]
+Then,
+\[
+\left[x^{m}\right] \dfrac{a}{c} = \left[x^{m}\right] \dfrac{b}{d}
+\qquad \text{for each } m \in \left\{0, 1, \ldots, n\right\}.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+We have assumed that
+\[
+\left[x^{m}\right] a = \left[x^{m}\right] b
+\qquad \text{for each } m \in \left\{0, 1, \ldots, n\right\}.
+\]
+In other words, $a \overset{x^n}{\equiv} b$ (by the definition of the
+relation $\overset{x^n}{\equiv}$). Similarly,
+$c \overset{x^n}{\equiv} d$. Hence, by the compatibility of
+$\overset{x^n}{\equiv}$ with division
+(Theorem~\ref{thm.fps.xneq.props}~\textbf{(e)}), we obtain
+$\dfrac{a}{c} \overset{x^n}{\equiv} \dfrac{b}{d}$. In other words,
+\[
+\left[x^{m}\right] \dfrac{a}{c} = \left[x^{m}\right] \dfrac{b}{d}
+\qquad \text{for each } m \in \left\{0, 1, \ldots, n\right\}
+\]
+(by the definition of the relation $\overset{x^n}{\equiv}$).
+This proves Lemma~\ref{lem.fps.prod.irlv.cong-div}.
+\end{proof}
+
+\subsection{Detailed proof of Proposition~\ref{prop.fps.div-mulable}}
+
+\begin{proof}[Detailed proof of Proposition~\ref{prop.fps.div-mulable}]
+\proves{prop.fps.div-mulable}
+\leanok
+This can be proved similarly to Proposition~\ref{prop.fps.prod-mulable},
+with the obvious changes (replacing multiplication by division, and
+requiring each $\mathbf{b}_i$ to be invertible). Of course, instead of
+Lemma~\ref{lem.fps.prod.irlv.cong-mul}, we need to use
+Lemma~\ref{lem.fps.prod.irlv.cong-div}.
+\end{proof}
+
+\subsection{Approximator intersection lemma}
+
+\begin{lemma}
+\label{lem.fps.prods-mulable-subfams-appr}
+\lean{AlgebraicCombinatorics.FPS.xnApproximator_inter}
+\leantarget
+\leanok
+Let $\left(\mathbf{a}_{i}\right)_{i \in I} \in
+K\left[\left[x\right]\right]^{I}$ be a family of invertible FPSs.
+Let $J$ be a subset of $I$. Let $n \in \mathbb{N}$. Let $U$ be an
+$x^n$-approximator for $\left(\mathbf{a}_{i}\right)_{i \in I}$.
+Then, $U \cap J$ is an $x^n$-approximator for
+$\left(\mathbf{a}_{i}\right)_{i \in J}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The set $U$ is an $x^n$-approximator for
+$\left(\mathbf{a}_{i}\right)_{i \in I}$. In other words, $U$ is a
+finite subset of $I$ that determines the first $n+1$ coefficients in the
+product of $\left(\mathbf{a}_{i}\right)_{i \in I}$ (by the definition
+of an $x^n$-approximator). Hence, in particular, $U$ is finite.
+Moreover, $U \subseteq I$ (since $U$ is a subset of $I$).
+
+Let $M = U \cap J$. Thus, $M = U \cap J \subseteq U$, so that the set
+$M$ is finite (since $U$ is finite). Moreover, $M$ is a subset of $J$
+(since $M = U \cap J \subseteq J$).
+
+Now, let $N$ be a finite subset of $J$ satisfying
+$M \subseteq N \subseteq J$. We shall show that
+\[
+\prod_{i \in N} \mathbf{a}_{i} \overset{x^n}{\equiv}
+\prod_{i \in M} \mathbf{a}_{i}.
+\]
+
+Indeed, the set $N \cup U$ is finite (since $N$ and $U$ are finite) and
+is a subset of $I$ (since $N \subseteq J \subseteq I$ and
+$U \subseteq I$); it also satisfies $U \subseteq N \cup U \subseteq I$.
+Now, we recall that $U$ is an $x^n$-approximator for
+$\left(\mathbf{a}_{i}\right)_{i \in I}$. Hence,
+Proposition~\ref{prop.fps.infprod-approx-xneq}~\textbf{(a)} (applied to
+$U$ and $N \cup U$ instead of $M$ and $J$) yields
+\[
+\prod_{i \in N \cup U} \mathbf{a}_{i} \overset{x^n}{\equiv}
+\prod_{i \in U} \mathbf{a}_{i}
+\]
+(since $N \cup U$ is a finite subset of $I$ satisfying
+$U \subseteq N \cup U \subseteq I$).
+
+On the other hand, we have assumed that
+$\left(\mathbf{a}_{i}\right)_{i \in I}$ is a family of invertible FPSs.
+Thus, for each $i \in I$, the FPS $\mathbf{a}_{i}$ is invertible, so
+that its inverse $\mathbf{a}_{i}^{-1}$ is well-defined. We obviously
+have
+\[
+\prod_{i \in U \setminus J} \mathbf{a}_{i}^{-1}
+\overset{x^n}{\equiv}
+\prod_{i \in U \setminus J} \mathbf{a}_{i}^{-1}
+\]
+(since the relation $\overset{x^n}{\equiv}$ is reflexive).
+
+Hence, by the compatibility of $\overset{x^n}{\equiv}$ with
+multiplication
+(Theorem~\ref{thm.fps.xneq.props}~\textbf{(b)}), applied to
+$a = \prod_{i \in N \cup U} \mathbf{a}_{i}$ and
+$b = \prod_{i \in U} \mathbf{a}_{i}$ and
+$c = \prod_{i \in U \setminus J} \mathbf{a}_{i}^{-1}$ and
+$d = \prod_{i \in U \setminus J} \mathbf{a}_{i}^{-1}$, we obtain
+\[
+\left(\prod_{i \in N \cup U} \mathbf{a}_{i}\right)
+\left(\prod_{i \in U \setminus J} \mathbf{a}_{i}^{-1}\right)
+\overset{x^n}{\equiv}
+\left(\prod_{i \in U} \mathbf{a}_{i}\right)
+\left(\prod_{i \in U \setminus J} \mathbf{a}_{i}^{-1}\right).
+\]
+
+On the other hand, the sets $N$ and $U \setminus J$ are disjoint
+(since $N \subseteq J$ and $U \setminus J \subseteq J^c$), and their
+union is $N \cup (U \setminus J) = N \cup U$
+(since $U = (U \cap J) \cup (U \setminus J)$ and
+$U \cap J = M \subseteq N$). Hence, the set $N \cup U$ is the union of
+its two disjoint subsets $N$ and $U \setminus J$. Thus, we can split the
+product $\prod_{i \in N \cup U} \mathbf{a}_{i}$ as follows:
+\[
+\prod_{i \in N \cup U} \mathbf{a}_{i}
+= \left(\prod_{i \in N} \mathbf{a}_{i}\right)
+  \left(\prod_{i \in U \setminus J} \mathbf{a}_{i}\right).
+\]
+Multiplying both sides of this equality by
+$\prod_{i \in U \setminus J} \mathbf{a}_{i}^{-1}$, we obtain
+\begin{align*}
+\left(\prod_{i \in N \cup U} \mathbf{a}_{i}\right)
+\left(\prod_{i \in U \setminus J} \mathbf{a}_{i}^{-1}\right)
+&= \left(\prod_{i \in N} \mathbf{a}_{i}\right)
+   \underbrace{
+     \left(\prod_{i \in U \setminus J} \mathbf{a}_{i}\right)
+     \left(\prod_{i \in U \setminus J} \mathbf{a}_{i}^{-1}\right)
+   }_{= \prod_{i \in U \setminus J}
+     \left(\mathbf{a}_{i} \mathbf{a}_{i}^{-1}\right)} \\
+&= \left(\prod_{i \in N} \mathbf{a}_{i}\right)
+   \left(\prod_{i \in U \setminus J}
+     \underbrace{\left(\mathbf{a}_{i} \mathbf{a}_{i}^{-1}\right)}_{= 1}\right)
+ = \left(\prod_{i \in N} \mathbf{a}_{i}\right)
+   \underbrace{\left(\prod_{i \in U \setminus J} 1\right)}_{= 1} \\
+&= \prod_{i \in N} \mathbf{a}_{i}.
+\end{align*}
+
+However, the set $U$ is the union of its two disjoint subsets $U \cap J$
+and $U \setminus J$. Thus, we can split the product
+$\prod_{i \in U} \mathbf{a}_{i}$ as follows:
+\[
+\prod_{i \in U} \mathbf{a}_{i}
+= \left(\prod_{i \in U \cap J} \mathbf{a}_{i}\right)
+  \left(\prod_{i \in U \setminus J} \mathbf{a}_{i}\right).
+\]
+Multiplying both sides by
+$\prod_{i \in U \setminus J} \mathbf{a}_{i}^{-1}$, we obtain
+\begin{align*}
+\left(\prod_{i \in U} \mathbf{a}_{i}\right)
+\left(\prod_{i \in U \setminus J} \mathbf{a}_{i}^{-1}\right)
+&= \underbrace{\left(\prod_{i \in U \cap J} \mathbf{a}_{i}\right)}_{
+     = \prod_{i \in M} \mathbf{a}_{i}
+     \text{ (since } U \cap J = M \text{)}}
+   \underbrace{
+     \left(\prod_{i \in U \setminus J} \mathbf{a}_{i}\right)
+     \left(\prod_{i \in U \setminus J} \mathbf{a}_{i}^{-1}\right)
+   }_{= \prod_{i \in U \setminus J}
+     \left(\mathbf{a}_{i} \mathbf{a}_{i}^{-1}\right)} \\
+&= \left(\prod_{i \in M} \mathbf{a}_{i}\right)
+   \left(\prod_{i \in U \setminus J}
+     \underbrace{\left(\mathbf{a}_{i} \mathbf{a}_{i}^{-1}\right)}_{= 1}\right)
+ = \left(\prod_{i \in M} \mathbf{a}_{i}\right)
+   \underbrace{\left(\prod_{i \in U \setminus J} 1\right)}_{= 1} \\
+&= \prod_{i \in M} \mathbf{a}_{i}.
+\end{align*}
+
+Substituting these two simplifications into the
+$x^n$-equivalence above, we obtain
+\[
+\prod_{i \in N} \mathbf{a}_{i} \overset{x^n}{\equiv}
+\prod_{i \in M} \mathbf{a}_{i}.
+\]
+In other words, each $m \in \left\{0, 1, \ldots, n\right\}$ satisfies
+\[
+\left[x^{m}\right] \left(\prod_{i \in N} \mathbf{a}_{i}\right)
+= \left[x^{m}\right] \left(\prod_{i \in M} \mathbf{a}_{i}\right)
+\]
+(by the definition of $\overset{x^n}{\equiv}$).
+
+Forget that we fixed $N$. We have thus shown that every finite subset
+$N$ of $J$ satisfying $M \subseteq N \subseteq J$ satisfies the above
+equality for each $m \in \left\{0, 1, \ldots, n\right\}$.
+
+Now, let $m \in \left\{0, 1, \ldots, n\right\}$. Then, every finite
+subset $N$ of $J$ satisfying $M \subseteq N \subseteq J$ satisfies
+\[
+\left[x^{m}\right] \left(\prod_{i \in N} \mathbf{a}_{i}\right)
+= \left[x^{m}\right] \left(\prod_{i \in M} \mathbf{a}_{i}\right).
+\]
+In other words, the set $M$ determines the $x^m$-coefficient in the
+product of $\left(\mathbf{a}_{i}\right)_{i \in J}$ (by the definition
+of ``determining the $x^m$-coefficient in a product'').
+
+Forget that we fixed $m$. We thus have shown that $M$ determines the
+$x^m$-coefficient in the product of
+$\left(\mathbf{a}_{i}\right)_{i \in J}$ for each
+$m \in \left\{0, 1, \ldots, n\right\}$. In other words, $M$ determines
+the first $n+1$ coefficients in the product of
+$\left(\mathbf{a}_{i}\right)_{i \in J}$. In other words, $M$ is an
+$x^n$-approximator for $\left(\mathbf{a}_{i}\right)_{i \in J}$ (by the
+definition of an ``$x^n$-approximator'', since $M$ is a finite subset
+of $J$). In other words, $U \cap J$ is an $x^n$-approximator for
+$\left(\mathbf{a}_{i}\right)_{i \in J}$ (since $M = U \cap J$).
+This proves Lemma~\ref{lem.fps.prods-mulable-subfams-appr}.
+\end{proof}
+
+\subsection{Detailed proof of Proposition~\ref{prop.fps.prods-mulable-subfams}}
+
+\begin{proof}[Detailed proof of Proposition~\ref{prop.fps.prods-mulable-subfams}]
+\proves{prop.fps.prods-mulable-subfams}
+\leanok
+Let $J$ be a subset of $I$. We shall show that the family
+$\left(\mathbf{a}_{i}\right)_{i \in J}$ is multipliable.
+
+Fix $n \in \mathbb{N}$. We know that the family
+$\left(\mathbf{a}_{i}\right)_{i \in I}$ is multipliable. Hence, there
+exists an $x^n$-approximator $U$ for
+$\left(\mathbf{a}_{i}\right)_{i \in I}$ (by
+Lemma~\ref{lem.fps.mulable.approx}). Consider this $U$.
+
+Set $M = U \cap J$. Lemma~\ref{lem.fps.prods-mulable-subfams-appr}
+yields that $U \cap J$ is an $x^n$-approximator for
+$\left(\mathbf{a}_{i}\right)_{i \in J}$. In other words, $M$ is an
+$x^n$-approximator for $\left(\mathbf{a}_{i}\right)_{i \in J}$ (since
+$M = U \cap J$). In other words, $M$ is a finite subset of $J$ that
+determines the first $n+1$ coefficients in the product of
+$\left(\mathbf{a}_{i}\right)_{i \in J}$ (by the definition of an
+$x^n$-approximator). Thus, the set $M$ determines the first $n+1$
+coefficients in the product of
+$\left(\mathbf{a}_{i}\right)_{i \in J}$. Hence, in particular, this set
+$M$ determines the $x^n$-coefficient in the product of
+$\left(\mathbf{a}_{i}\right)_{i \in J}$. Therefore, the
+$x^n$-coefficient in the product of
+$\left(\mathbf{a}_{i}\right)_{i \in J}$ is finitely determined (by the
+definition of ``finitely determined'', since $M$ is a finite subset
+of $J$).
+
+Forget that we fixed $n$. We thus have proved that for each
+$n \in \mathbb{N}$, the $x^n$-coefficient in the product of
+$\left(\mathbf{a}_{i}\right)_{i \in J}$ is finitely determined. In
+other words, each coefficient in the product of
+$\left(\mathbf{a}_{i}\right)_{i \in J}$ is finitely determined. In
+other words, the family $\left(\mathbf{a}_{i}\right)_{i \in J}$ is
+multipliable (by the definition of ``multipliable'').
+
+Forget that we fixed $J$. We thus have shown that the family
+$\left(\mathbf{a}_{i}\right)_{i \in J}$ is multipliable whenever $J$ is
+a subset of $I$. In other words, any subfamily of
+$\left(\mathbf{a}_{i}\right)_{i \in I}$ is multipliable.
+This proves Proposition~\ref{prop.fps.prods-mulable-subfams}.
+\end{proof}
+
+\subsection{Finite products and $x^n$-equivalence}
+
+\begin{lemma}
+\label{lem.fps.prods-mulable-rules.SW1.lem1}
+\lean{AlgebraicCombinatorics.FPS.xnEquiv_finprod}
+\leantarget
+\leanok
+Let $n \in \mathbb{N}$. Let $V$ be a finite set. Let
+$\left(c_{w}\right)_{w \in V} \in K\left[\left[x\right]\right]^{V}$ and
+$\left(d_{w}\right)_{w \in V} \in K\left[\left[x\right]\right]^{V}$ be
+two families of FPSs such that
+\[
+\text{each } w \in V \text{ satisfies }
+c_{w} \overset{x^n}{\equiv} d_{w}.
+\]
+Then, we have
+\[
+\prod_{w \in V} c_{w} \overset{x^n}{\equiv}
+\prod_{w \in V} d_{w}.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+This is just Theorem~\ref{thm.fps.xneq.props}~\textbf{(f)} (the
+part about products), with the letters $S$, $s$, $a_s$, and $b_s$
+renamed as $V$, $w$, $c_w$, and $d_w$.
+\end{proof}
+
+\subsection{Detailed proof of Proposition~\ref{prop.fps.prods-mulable-rules.SW1}}
+
+\begin{proof}[Detailed proof of Proposition~\ref{prop.fps.prods-mulable-rules.SW1}]
+\proves{prop.fps.prods-mulable-rules.SW1}
+\leanok
+We shall subdivide our proof into several claims.
+
+\emph{Claim 1:} Let $w \in W$. Then, the family
+$\left(\mathbf{a}_{s}\right)_{s \in S,\; f(s) = w}$ is multipliable.
+
+[\emph{Proof of Claim 1:} This was an assumption of
+Proposition~\ref{prop.fps.prods-mulable-rules.SW1}.]
+
+Let us set
+\[
+\mathbf{b}_{w} := \prod_{\substack{s \in S;\\ f(s) = w}}
+\mathbf{a}_{s}
+\qquad \text{for each } w \in W.
+\]
+This is well-defined, because for each $w \in W$, the product
+$\prod_{\substack{s \in S;\\ f(s) = w}} \mathbf{a}_{s}$ is well-defined
+(since Claim~1 shows that the family
+$\left(\mathbf{a}_{s}\right)_{s \in S,\; f(s) = w}$ is multipliable).
+
+Now, let $n \in \mathbb{N}$. By Lemma~\ref{lem.fps.mulable.approx}
+(applied to $S$ and $\left(\mathbf{a}_{s}\right)_{s \in S}$ instead of
+$I$ and $\left(\mathbf{a}_{i}\right)_{i \in I}$), there exists an
+$x^n$-approximator for $\left(\mathbf{a}_{s}\right)_{s \in S}$. Pick
+such an $x^n$-approximator, and call it $U$. Then, $U$ is an
+$x^n$-approximator for $\left(\mathbf{a}_{s}\right)_{s \in S}$; in
+other words, $U$ is a finite subset of $S$ that determines the first
+$n+1$ coefficients in the product of
+$\left(\mathbf{a}_{s}\right)_{s \in S}$ (by the definition of an
+$x^n$-approximator).
+
+The set $U$ is finite. Thus, its image
+$f(U) = \left\{f(u) \mid u \in U\right\}$ is finite as well. Now, we
+claim the following:
+
+\emph{Claim 2:} For each $w \in W$, we have
+\[
+\mathbf{b}_{w} \overset{x^n}{\equiv}
+\prod_{\substack{s \in U;\\ f(s) = w}} \mathbf{a}_{s}.
+\]
+
+[\emph{Proof of Claim 2:} Let $w \in W$. Let $J$ be the subset
+$\left\{s \in S \mid f(s) = w\right\}$ of $S$. Then, the family
+$\left(\mathbf{a}_{s}\right)_{s \in J}$ is just the family
+$\left(\mathbf{a}_{s}\right)_{s \in S,\; f(s) = w}$, and thus is
+multipliable (by Claim~1). Furthermore,
+Lemma~\ref{lem.fps.prods-mulable-subfams-appr} (applied to $S$ and
+$\left(\mathbf{a}_{s}\right)_{s \in S}$ instead of $I$ and
+$\left(\mathbf{a}_{i}\right)_{i \in I}$) yields that $U \cap J$ is an
+$x^n$-approximator for $\left(\mathbf{a}_{s}\right)_{s \in J}$ (since
+$U$ is an $x^n$-approximator for
+$\left(\mathbf{a}_{s}\right)_{s \in S}$). Hence,
+Proposition~\ref{prop.fps.infprod-approx-xneq}~\textbf{(b)} (applied to
+$J$, $\left(\mathbf{a}_{s}\right)_{s \in J}$ and $U \cap J$ instead of
+$I$, $\left(\mathbf{a}_{i}\right)_{i \in I}$ and $M$) yields
+\[
+\prod_{s \in J} \mathbf{a}_{s} \overset{x^n}{\equiv}
+\prod_{s \in U \cap J} \mathbf{a}_{s}.
+\]
+However, we have $J = \left\{s \in S \mid f(s) = w\right\}$. Thus,
+$\prod_{s \in J} \mathbf{a}_{s}
+= \prod_{\substack{s \in S;\\ f(s) = w}} \mathbf{a}_{s} = \mathbf{b}_w$
+and $U \cap J = \left\{s \in U \mid f(s) = w\right\}$. So the product
+sign ``$\prod_{s \in U \cap J}$'' is equivalent to
+``$\prod_{\substack{s \in U;\\ f(s) = w}}$''. Thus,
+\[
+\mathbf{b}_{w} \overset{x^n}{\equiv}
+\prod_{\substack{s \in U;\\ f(s) = w}} \mathbf{a}_{s}.
+\]
+This proves Claim~2.]
+
+\emph{Claim 3:} The set $f(U)$ determines the $x^n$-coefficient in the
+product of $\left(\mathbf{b}_{w}\right)_{w \in W}$.
+
+[\emph{Proof of Claim 3:} Let $T$ be a finite subset of $W$ satisfying
+$f(U) \subseteq T$. We must show that
+$\left[x^n\right] \left(\prod_{w \in T} \mathbf{b}_w\right)
+= \left[x^n\right] \left(\prod_{w \in f(U)} \mathbf{b}_w\right)$.
+
+By Claim~2, for each $w \in W$ we have
+$\mathbf{b}_{w} \overset{x^n}{\equiv}
+\prod_{\substack{s \in U;\\ f(s) = w}} \mathbf{a}_{s}$.
+Hence, by Lemma~\ref{lem.fps.prods-mulable-rules.SW1.lem1}, we get
+\[
+\prod_{w \in T} \mathbf{b}_w \overset{x^n}{\equiv}
+\prod_{w \in T} \prod_{\substack{s \in U;\\ f(s) = w}} \mathbf{a}_{s}
+\]
+and similarly
+\[
+\prod_{w \in f(U)} \mathbf{b}_w \overset{x^n}{\equiv}
+\prod_{w \in f(U)} \prod_{\substack{s \in U;\\ f(s) = w}} \mathbf{a}_{s}.
+\]
+Now, for $w \notin f(U)$, there are no $s \in U$ with $f(s) = w$, so
+the inner product is $1$ (the empty product). Hence, for any finite set
+$V \supseteq f(U)$,
+\[
+\prod_{w \in V} \prod_{\substack{s \in U;\\ f(s) = w}} \mathbf{a}_{s}
+= \prod_{s \in U} \mathbf{a}_{s}
+\]
+(by the standard fiberwise reindexing of finite products). Applying this
+to both $V = T$ and $V = f(U)$, we conclude that both products equal
+$\prod_{s \in U} \mathbf{a}_{s}$. Therefore,
+\[
+\left[x^n\right] \left(\prod_{w \in T} \mathbf{b}_w\right)
+= \left[x^n\right] \left(\prod_{s \in U} \mathbf{a}_s\right)
+= \left[x^n\right] \left(\prod_{w \in f(U)} \mathbf{b}_w\right).
+\]
+This proves Claim~3.]
+
+From Claim~3, the $x^n$-coefficient in the product of
+$\left(\mathbf{b}_w\right)_{w \in W}$ is finitely determined (since
+$f(U)$ is a finite subset of $W$). Since this holds for each
+$n \in \mathbb{N}$, the family
+$\left(\mathbf{b}_w\right)_{w \in W}$ is multipliable. This proves
+part~\textbf{(a)} of Proposition~\ref{prop.fps.prods-mulable-rules.SW1}.
+
+For part~\textbf{(b)}, we observe that by
+Proposition~\ref{prop.fps.infprod-approx-xneq}~\textbf{(b)}, the
+infinite product $\prod_{s \in S} \mathbf{a}_s$ is $x^n$-equivalent to
+$\prod_{s \in U} \mathbf{a}_s$. By the computation above, the infinite
+product $\prod_{w \in W} \mathbf{b}_w$ is also $x^n$-equivalent to
+$\prod_{s \in U} \mathbf{a}_s$. Since this holds for all $n$, the two
+infinite products are equal.
+\end{proof}
+
+\subsection{Detailed proof of Proposition~\ref{prop.fps.prod-mulable}}
+
+\begin{proof}[Detailed proof of Proposition~\ref{prop.fps.prod-mulable}]
+\proves{prop.fps.prod-mulable}
+\leanok
+\textbf{(a)} Fix $n \in \mathbb{N}$. We know that the family
+$\left(\mathbf{a}_{i}\right)_{i \in I}$ is multipliable. Hence, there
+exists an $x^n$-approximator $U$ for
+$\left(\mathbf{a}_{i}\right)_{i \in I}$ (by
+Lemma~\ref{lem.fps.mulable.approx}). Consider this $U$.
+
+We also know that the family $\left(\mathbf{b}_{i}\right)_{i \in I}$ is
+multipliable. Hence, there exists an $x^n$-approximator $V$ for
+$\left(\mathbf{b}_{i}\right)_{i \in I}$ (by
+Lemma~\ref{lem.fps.mulable.approx}, applied to $\mathbf{b}_{i}$ instead
+of $\mathbf{a}_{i}$). Consider this $V$.
+
+We know that $U$ is an $x^n$-approximator for
+$\left(\mathbf{a}_{i}\right)_{i \in I}$. In other words, $U$ is a
+finite subset of $I$ that determines the first $n+1$ coefficients in the
+product of $\left(\mathbf{a}_{i}\right)_{i \in I}$ (by the definition
+of an $x^n$-approximator). Hence, in particular, $U$ is finite.
+Similarly, $V$ is finite. Moreover, $U \subseteq I$; similarly,
+$V \subseteq I$.
+
+Let $M = U \cup V$. This set $M$ is finite (since $U$ and $V$ are
+finite). Moreover, $M = U \cup V \subseteq I \cup I = I$. Hence, $M$ is
+a finite subset of $I$.
+
+Now, let $N$ be a finite subset of $I$ satisfying
+$M \subseteq N \subseteq I$. We shall show that
+\[
+\left[x^{n}\right] \left(\prod_{i \in N}
+  \left(\mathbf{a}_{i} \mathbf{b}_{i}\right)\right)
+= \left[x^{n}\right] \left(\prod_{i \in M}
+  \left(\mathbf{a}_{i} \mathbf{b}_{i}\right)\right).
+\]
+
+Indeed, let $m \in \left\{0, 1, \ldots, n\right\}$. We have
+$U \subseteq U \cup V = M \subseteq N$. The set $N$ is a finite subset
+of $I$ and satisfies $U \subseteq N$. Now, recall that $U$ determines
+the first $n+1$ coefficients in the product of
+$\left(\mathbf{a}_{i}\right)_{i \in I}$. Hence, $U$ determines the
+$x^m$-coefficient in the product of
+$\left(\mathbf{a}_{i}\right)_{i \in I}$ (since
+$m \in \left\{0, 1, \ldots, n\right\}$). In other words, every finite
+subset $T$ of $I$ satisfying $U \subseteq T \subseteq I$ satisfies
+\[
+\left[x^{m}\right] \left(\prod_{i \in T} \mathbf{a}_{i}\right)
+= \left[x^{m}\right] \left(\prod_{i \in U} \mathbf{a}_{i}\right).
+\]
+We can apply this to $T = N$ (since $N$ is a finite subset of $I$
+satisfying $U \subseteq N \subseteq I$), and thus obtain
+\[
+\left[x^{m}\right] \left(\prod_{i \in N} \mathbf{a}_{i}\right)
+= \left[x^{m}\right] \left(\prod_{i \in U} \mathbf{a}_{i}\right).
+\]
+However, we can also apply it to $T = M$ (since $M$ is a finite subset
+of $I$ satisfying $U \subseteq M \subseteq I$), and thus obtain
+\[
+\left[x^{m}\right] \left(\prod_{i \in M} \mathbf{a}_{i}\right)
+= \left[x^{m}\right] \left(\prod_{i \in U} \mathbf{a}_{i}\right).
+\]
+Comparing these two equalities, we obtain
+\[
+\left[x^{m}\right] \left(\prod_{i \in N} \mathbf{a}_{i}\right)
+= \left[x^{m}\right] \left(\prod_{i \in M} \mathbf{a}_{i}\right).
+\]
+The same argument (applied to $\mathbf{b}_{i}$ and $V$ instead of
+$\mathbf{a}_{i}$ and $U$) yields
+\[
+\left[x^{m}\right] \left(\prod_{i \in N} \mathbf{b}_{i}\right)
+= \left[x^{m}\right] \left(\prod_{i \in M} \mathbf{b}_{i}\right).
+\]
+
+Forget that we fixed $m$. We thus have proved these equalities for each
+$m \in \left\{0, 1, \ldots, n\right\}$. Hence,
+Lemma~\ref{lem.fps.prod.irlv.cong-mul} (applied to
+$a = \prod_{i \in N} \mathbf{a}_{i}$ and
+$b = \prod_{i \in M} \mathbf{a}_{i}$ and
+$c = \prod_{i \in N} \mathbf{b}_{i}$ and
+$d = \prod_{i \in M} \mathbf{b}_{i}$) yields that
+\[
+\left[x^{m}\right] \left(
+  \left(\prod_{i \in N} \mathbf{a}_{i}\right)
+  \left(\prod_{i \in N} \mathbf{b}_{i}\right)\right)
+= \left[x^{m}\right] \left(
+  \left(\prod_{i \in M} \mathbf{a}_{i}\right)
+  \left(\prod_{i \in M} \mathbf{b}_{i}\right)\right)
+\]
+for each $m \in \left\{0, 1, \ldots, n\right\}$. Applying this to
+$m = n$, we obtain
+\[
+\left[x^{n}\right] \left(
+  \left(\prod_{i \in N} \mathbf{a}_{i}\right)
+  \left(\prod_{i \in N} \mathbf{b}_{i}\right)\right)
+= \left[x^{n}\right] \left(
+  \left(\prod_{i \in M} \mathbf{a}_{i}\right)
+  \left(\prod_{i \in M} \mathbf{b}_{i}\right)\right).
+\]
+In view of
+\[
+\prod_{i \in N} \left(\mathbf{a}_{i} \mathbf{b}_{i}\right)
+= \left(\prod_{i \in N} \mathbf{a}_{i}\right)
+  \left(\prod_{i \in N} \mathbf{b}_{i}\right)
+\qquad \text{and} \qquad
+\prod_{i \in M} \left(\mathbf{a}_{i} \mathbf{b}_{i}\right)
+= \left(\prod_{i \in M} \mathbf{a}_{i}\right)
+  \left(\prod_{i \in M} \mathbf{b}_{i}\right),
+\]
+this rewrites as
+\[
+\left[x^{n}\right] \left(\prod_{i \in N}
+  \left(\mathbf{a}_{i} \mathbf{b}_{i}\right)\right)
+= \left[x^{n}\right] \left(\prod_{i \in M}
+  \left(\mathbf{a}_{i} \mathbf{b}_{i}\right)\right).
+\]
+
+Forget that we fixed $N$. We thus have shown that every finite subset
+$N$ of $I$ satisfying $M \subseteq N \subseteq I$ satisfies the above
+equality. In other words, $M$ determines the $x^n$-coefficient in the
+product of $\left(\mathbf{a}_{i} \mathbf{b}_{i}\right)_{i \in I}$ (by
+the definition of ``determining the $x^n$-coefficient''). Hence, the
+$x^n$-coefficient in the product of
+$\left(\mathbf{a}_{i} \mathbf{b}_{i}\right)_{i \in I}$ is finitely
+determined (since $M$ is a finite subset of $I$).
+
+Forget that we fixed $n$. We thus have proved that for each
+$n \in \mathbb{N}$, the $x^n$-coefficient in the product of
+$\left(\mathbf{a}_{i} \mathbf{b}_{i}\right)_{i \in I}$ is finitely
+determined. In other words, the family
+$\left(\mathbf{a}_{i} \mathbf{b}_{i}\right)_{i \in I}$ is multipliable.
+This proves Proposition~\ref{prop.fps.prod-mulable}~\textbf{(a)}.
+
+\medskip
+
+\textbf{(b)} Proposition~\ref{prop.fps.prod-mulable}~\textbf{(a)} shows
+that the family
+$\left(\mathbf{a}_{i} \mathbf{b}_{i}\right)_{i \in I}$ is multipliable.
+
+Let $n \in \mathbb{N}$. In our above proof of
+Proposition~\ref{prop.fps.prod-mulable}~\textbf{(a)}, we have seen the
+following:
+\begin{itemize}
+\item There exists an $x^n$-approximator $U$ for
+  $\left(\mathbf{a}_{i}\right)_{i \in I}$.
+\item There exists an $x^n$-approximator $V$ for
+  $\left(\mathbf{b}_{i}\right)_{i \in I}$.
+\end{itemize}
+Consider these $U$ and $V$. Let $M = U \cup V$. Thus,
+$M = U \cup V \supseteq U$ and $M = U \cup V \supseteq V$. In our above
+proof, we have seen that $M$ is a finite subset of $I$ and $M$
+determines the $x^n$-coefficient in the product of
+$\left(\mathbf{a}_{i} \mathbf{b}_{i}\right)_{i \in I}$.
+
+We recall that the relation $\overset{x^n}{\equiv}$ is an equivalence
+relation (by Theorem~\ref{thm.fps.xneq.props}~\textbf{(a)}).
+
+Now, the definition of the infinite product
+$\prod_{i \in I} \left(\mathbf{a}_{i} \mathbf{b}_{i}\right)$ (namely,
+Definition~\ref{def.fps.multipliable}~\textbf{(b)}) yields that
+\[
+\left[x^{n}\right] \left(\prod_{i \in I}
+  \left(\mathbf{a}_{i} \mathbf{b}_{i}\right)\right)
+= \left[x^{n}\right] \left(\prod_{i \in M}
+  \left(\mathbf{a}_{i} \mathbf{b}_{i}\right)\right)
+\]
+(since $M$ is a finite subset of $I$ that determines the
+$x^n$-coefficient in the product of
+$\left(\mathbf{a}_{i} \mathbf{b}_{i}\right)_{i \in I}$). On the other
+hand, the set $U$ is an $x^n$-approximator for
+$\left(\mathbf{a}_{i}\right)_{i \in I}$. Thus,
+Proposition~\ref{prop.fps.infprod-approx-xneq}~\textbf{(b)} (applied to
+$U$ instead of $M$) yields
+\[
+\prod_{i \in I} \mathbf{a}_{i} \overset{x^n}{\equiv}
+\prod_{i \in U} \mathbf{a}_{i}.
+\]
+Since the relation $\overset{x^n}{\equiv}$ is symmetric, we thus obtain
+$\prod_{i \in U} \mathbf{a}_{i} \overset{x^n}{\equiv}
+\prod_{i \in I} \mathbf{a}_{i}$.
+Moreover, $M$ is a finite subset of $I$ satisfying $U \subseteq M$;
+hence, Proposition~\ref{prop.fps.infprod-approx-xneq}~\textbf{(a)}
+yields
+\[
+\prod_{i \in M} \mathbf{a}_{i} \overset{x^n}{\equiv}
+\prod_{i \in U} \mathbf{a}_{i} \overset{x^n}{\equiv}
+\prod_{i \in I} \mathbf{a}_{i}.
+\]
+Hence,
+$\prod_{i \in M} \mathbf{a}_{i} \overset{x^n}{\equiv}
+\prod_{i \in I} \mathbf{a}_{i}$
+(since the relation $\overset{x^n}{\equiv}$ is transitive). The same
+argument (applied to $\left(\mathbf{b}_{i}\right)_{i \in I}$ and $V$
+instead of $\left(\mathbf{a}_{i}\right)_{i \in I}$ and $U$) yields
+$\prod_{i \in M} \mathbf{b}_{i} \overset{x^n}{\equiv}
+\prod_{i \in I} \mathbf{b}_{i}$.
+From these two $x^n$-equivalences, we obtain
+\[
+\left(\prod_{i \in M} \mathbf{a}_{i}\right)
+\left(\prod_{i \in M} \mathbf{b}_{i}\right)
+\overset{x^n}{\equiv}
+\left(\prod_{i \in I} \mathbf{a}_{i}\right)
+\left(\prod_{i \in I} \mathbf{b}_{i}\right)
+\]
+(by Theorem~\ref{thm.fps.xneq.props}~\textbf{(b)}). In view of
+\[
+\left(\prod_{i \in M} \mathbf{a}_{i}\right)
+\left(\prod_{i \in M} \mathbf{b}_{i}\right)
+= \prod_{i \in M}
+  \left(\mathbf{a}_{i} \mathbf{b}_{i}\right),
+\]
+this rewrites as
+\[
+\prod_{i \in M} \left(\mathbf{a}_{i} \mathbf{b}_{i}\right)
+\overset{x^n}{\equiv}
+\left(\prod_{i \in I} \mathbf{a}_{i}\right)
+\left(\prod_{i \in I} \mathbf{b}_{i}\right).
+\]
+In other words,
+\[
+\text{each } m \in \left\{0, 1, \ldots, n\right\} \text{ satisfies }
+\left[x^{m}\right] \left(\prod_{i \in M}
+  \left(\mathbf{a}_{i} \mathbf{b}_{i}\right)\right)
+= \left[x^{m}\right] \left(
+  \left(\prod_{i \in I} \mathbf{a}_{i}\right)
+  \left(\prod_{i \in I} \mathbf{b}_{i}\right)\right).
+\]
+Applying this to $m = n$, we obtain
+\[
+\left[x^{n}\right] \left(\prod_{i \in M}
+  \left(\mathbf{a}_{i} \mathbf{b}_{i}\right)\right)
+= \left[x^{n}\right] \left(
+  \left(\prod_{i \in I} \mathbf{a}_{i}\right)
+  \left(\prod_{i \in I} \mathbf{b}_{i}\right)\right).
+\]
+In view of
+$\left[x^{n}\right] \left(\prod_{i \in I}
+  \left(\mathbf{a}_{i} \mathbf{b}_{i}\right)\right)
+= \left[x^{n}\right] \left(\prod_{i \in M}
+  \left(\mathbf{a}_{i} \mathbf{b}_{i}\right)\right)$,
+this rewrites as
+\[
+\left[x^{n}\right] \left(\prod_{i \in I}
+  \left(\mathbf{a}_{i} \mathbf{b}_{i}\right)\right)
+= \left[x^{n}\right] \left(
+  \left(\prod_{i \in I} \mathbf{a}_{i}\right)
+  \left(\prod_{i \in I} \mathbf{b}_{i}\right)\right).
+\]
+
+Now, forget that we fixed $n$. We thus have proved that each
+$n \in \mathbb{N}$ satisfies the above equality. In other words, each
+coefficient of the FPS
+$\prod_{i \in I} \left(\mathbf{a}_{i} \mathbf{b}_{i}\right)$ equals the
+corresponding coefficient of
+$\left(\prod_{i \in I} \mathbf{a}_{i}\right)
+\left(\prod_{i \in I} \mathbf{b}_{i}\right)$.
+Hence, we have
+\[
+\prod_{i \in I} \left(\mathbf{a}_{i} \mathbf{b}_{i}\right)
+= \left(\prod_{i \in I} \mathbf{a}_{i}\right)
+  \cdot \left(\prod_{i \in I} \mathbf{b}_{i}\right).
+\]
+This proves Proposition~\ref{prop.fps.prod-mulable}~\textbf{(b)}.
+\end{proof}
+
+\subsection{Product rule claims}
+
+\begin{lemma}
+\label{lem.fps.infprod.claim3}
+\lean{PowerSeries.prodRule_claim3}
+\leanhelper
+\leanok
+\textbf{(Claim 3.)}
+If $(i,k) \notin T'_n$ (the coefficient support union up to $n$) and $k \neq 0$,
+then $[x^m] p_{i,k} = 0$ for all $m \in \{0,1,\ldots,n\}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+If $[x^m] p_{i,k} \neq 0$ for some $m \leq n$, then $(i,k) \in T_m \subseteq T'_n$,
+contradicting the hypothesis.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.infprod.claim4}
+\lean{PowerSeries.prodRule_claim4}
+\leanhelper
+\leanok
+\textbf{(Claim 4.)}
+If $(k_i)_{i \in I}$ is essentially finite and $p_{i,0} = 1$ for all $i$,
+then the family $(p_{i,k_i})_{i \in I}$ is multipliable.
+\end{lemma}
+
+\begin{proof}
+\leanok
+All but finitely many $i \in I$ satisfy $k_i = 0$ (since $(k_i)_{i \in I}$
+is essentially finite) and thus $p_{i,k_i} = p_{i,0} = 1$.
+Hence, all but finitely many entries of the family $(p_{i,k_i})_{i \in I}$
+equal $1$. Thus, this family is multipliable (by
+Proposition~\ref{prop.fps.1-mulable}).
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.infprod.claim5}
+\lean{PowerSeries.prodRule_claim5}
+\leanhelper
+\leanok
+\textbf{(Claim 5.)}
+If some $j \in I$ satisfies $k_j \neq 0$ and $(j, k_j) \notin T'_n$, then
+$[x^n](\prod_{i \in s} p_{i,k_i}) = 0$ for any finite $s \ni j$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The product $\prod_{i \in s} p_{i,k_i}$ is a multiple of $p_{j,k_j}$
+(since $p_{j,k_j}$ is one of the factors of this product).
+Moreover, by Claim~3, we have $[x^m] p_{j,k_j} = 0$ for each
+$m \in \{0,1,\ldots,n\}$.
+Hence, Lemma~\ref{lem.fps.prod.irlv.mul-dvd} (applied to $u = p_{j,k_j}$
+and $v = \prod_{i \in s} p_{i,k_i}$) shows that
+$[x^m](\prod_{i \in s} p_{i,k_i}) = 0$ for each $m \in \{0,1,\ldots,n\}$.
+Applying this to $m = n$ yields the claim.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.infprod.claim6}
+\lean{PowerSeries.prodRule_claim6}
+\leanhelper
+\leanok
+\textbf{(Claim 6.)}
+If $j \notin I_n$ and $k_j \neq 0$, then
+$[x^n](\prod_{i \in s} p_{i,k_i}) = 0$ for any finite $s \ni j$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+We have $k_j \in S_j$ and $k_j \neq 0$, so $(j, k_j) \in \overline{S}$.
+Moreover, $(j, k_j) \notin T'_n$ (because if we had
+$(j, k_j) \in T'_n$, then we would have $j \in I_n$ by the
+definition of $I_n$; but this would contradict $j \notin I_n$).
+Hence, $(j, k_j) \in \overline{S} \setminus T'_n$.
+Therefore, Claim~5 yields $[x^n](\prod_{i \in s} p_{i,k_i}) = 0$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.infprod.claim7}
+\lean{PowerSeries.prodRule_claim7}
+\leanhelper
+\leanok
+\textbf{(Claim 7.)}
+The family $(\prod_{i \in I_n} p_{i,k_i})$ indexed by essentially finite
+families $(k_i)$ supported on $I_n$ is summable: for each $n$, only finitely
+many such families yield $[x^n](\prod_{i \in I_n} p_{i,k_i}) \neq 0$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Let $(k_i)_{i \in I} \in S^I_{\mathrm{fin}}$ satisfy
+$[x^n](\prod_{i \in I} p_{i,k_i}) \neq 0$.
+Then it must satisfy two properties:
+(1)~all $i \in I \setminus I_n$ satisfy $k_i = 0$
+(otherwise Claim~6 would give a contradiction);
+(2)~all $i \in I_n$ satisfy $k_i \in K_n \cup \{0\}$
+(otherwise $(j, k_j) \in \overline{S} \setminus T'_n$ for some
+$j \in I_n$, and Claim~5 would give a contradiction).
+These two properties together restrict $(k_i)$ to finitely many
+possibilities (since the sets $I_n$ and $K_n \cup \{0\}$ are finite).
+Hence, all but finitely many families yield
+$[x^n](\prod_{i \in I} p_{i,k_i}) = 0$, proving summability.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.infprod.claim9}
+\lean{PowerSeries.prodRule_claim9}
+\leanhelper
+\leanok
+\textbf{(Claim 9.)}
+For $i \notin I_n$, we have $[x^m](\sum_{k \in S_i \setminus \{0\}} p_{i,k}) = 0$
+for each $m \in \{0,1,\ldots,n\}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Each term $p_{i,k}$ with $k \neq 0$ has $[x^m] p_{i,k} = 0$ by Claim~3
+(since $(i,k) \notin T'_n$ because $i \notin I_n$).
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.infprod.claim10}
+\lean{PowerSeries.prodRule_claim10}
+\leanhelper
+\leanok
+\textbf{(Claim 10.)}
+For any finite set $J \supseteq I_n$,
+$[x^n](\prod_{i \in J} \sum_{k \in S_i} p_{i,k}) = [x^n](\prod_{i \in I_n} \sum_{k \in S_i} p_{i,k})$.
+The product stabilizes at $I_n$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+For $i \in J \setminus I_n$, we have $\sum_{k \in S_i} p_{i,k} = 1 + \sum_{k \in S_i \setminus \{0\}} p_{i,k}$.
+By Claim~9, the remainder has zero coefficients up to degree $n$, so multiplying by it
+does not change the coefficient at degree $n$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.infprod.claim11}
+\lean{PowerSeries.prodRule_claim11}
+\leanhelper
+\leanok
+\textbf{(Claim 11.)} For a finite index set $I_n$,
+\[
+\prod_{i \in I_n} \sum_{k \in S_i} p_{i,k} =
+\sum_{(k_i) \in S^{I_n}} \prod_{i \in I_n} p_{i,k_i}.
+\]
+This is the standard finite distributive law (product of sums equals sum of products).
+\end{lemma}
+
+\begin{proof}
+\leanok
+This is the standard finite distributive law
+(product of sums equals sum of products over all choice functions).
+See Proposition~\ref{prop.fps.prodrule-fin-infJ}.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.infprod.claim8}
+\lean{PowerSeries.prodRule_claim8}
+\leanhelper
+\leanok
+\textbf{(Claim 8.)}
+The coefficient of the sum over essentially finite families equals the coefficient
+of the sum restricted to the finite index set $I_n$:
+\[
+[x^n]\Bigl(\sum_{\substack{(k_i) \in S^I_{\mathrm{fin}}}} \prod_{i \in I_n} p_{i,k_i}\Bigr)
+= [x^n]\Bigl(\sum_{(k_i) \in S^{I_n}} \prod_{i \in I_n} p_{i,k_i}\Bigr).
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+The proof establishes a bijection between essentially finite families supported on $I_n$
+and functions $I_n \to S$, via restriction and extension by $0$.
+\end{proof}
+
+\subsection{Composition rules for infinite products}
+
+\begin{lemma}
+\label{lem.fps.infprod.xnEquiv-comp}
+\lean{PowerSeries.xnEquiv_comp}
+\leanhelper
+\leanok
+If $f_1 \overset{x^n}{\equiv} f_2$ and $[x^0]g = 0$, then
+$f_1 \circ g \overset{x^n}{\equiv} f_2 \circ g$.
+That is, $x^n$-equivalence is preserved under composition with a fixed inner series.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The coefficient $[x^k](f \circ g)$ involves a sum over $d$ of $[x^d]f \cdot [x^k](g^d)$.
+For $d > k$, $[x^k](g^d) = 0$ since $\operatorname{ord}(g^d) \geq d > k$.
+For $d \leq k \leq n$, $[x^d]f_1 = [x^d]f_2$ by $x^n$-equivalence.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.infprod.comp-approx}
+\lean{PowerSeries.comp_prod_approx_determines}
+\leanhelper
+\leanok
+If $M$ is an $x^n$-approximator for $(f_i)_{i \in I}$ (i.e., for all $k \leq n$
+and $J \supseteq M$, $[x^k](\prod_{i \in J} f_i) = [x^k](\prod_{i \in M} f_i)$),
+and $[x^0]g = 0$, then for all $J \supseteq M$,
+$[x^n](\prod_{i \in J} (f_i \circ g)) = [x^n](\prod_{i \in M} (f_i \circ g))$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By Lemma~\ref{lem.fps.subs.rule-infprod-fin}, $\prod_{i \in J} (f_i \circ g) = (\prod_{i \in J} f_i) \circ g$.
+The approximator condition gives $\prod_{i \in J} f_i \overset{x^n}{\equiv} \prod_{i \in M} f_i$.
+By Lemma~\ref{lem.fps.infprod.xnEquiv-comp}, composing with $g$ preserves the equivalence.
+\end{proof}
+
+\begin{proposition}
+\label{prop.fps.subs.rule-infprod-mulable}
+\lean{PowerSeries.comp_prod_multipliable}
+\leanhelper
+\leanok
+If $(f_i)_{i \in I}$ is multipliable and $[x^0]g = 0$, then $(f_i \circ g)_{i \in I}$
+is multipliable.
+\end{proposition}
+
+\begin{proof}
+\leanok
+For each $n$, combine the approximators for degrees $0, 1, \ldots, n$ into a single
+approximator $M$ (their union), then apply Lemma~\ref{lem.fps.infprod.comp-approx}.
+\end{proof}
+
+\subsection{Additional supporting lemmas}
+
+\begin{lemma}
+\label{lem.fps.prod.irlv.mul-dvd}
+\lean{PowerSeries.coeff_zero_of_dvd}
+\leanhelper
+\leanok
+If $u \mid v$ and $[x^m] u = 0$ for all $m \leq n$, then $[x^m] v = 0$ for all $m \leq n$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Write $v = u \cdot w$. Then $[x^m] v = \sum_{(i,j) \in \mathrm{antidiag}(m)} [x^i] u \cdot [x^j] w$.
+Since $i \leq m \leq n$, we have $[x^i] u = 0$, so each term vanishes.
+\end{proof}

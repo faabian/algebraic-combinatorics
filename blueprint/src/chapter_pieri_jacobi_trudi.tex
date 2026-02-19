@@ -1,0 +1,1431 @@
+\section{The Pieri Rules and Jacobi--Trudi Identities}
+
+\subsection{Strips and skew partitions}
+
+\begin{definition}
+\label{def.sf.strips}
+\lean{SymmetricFunctions.SkewPartition, SymmetricFunctions.SkewPartition.isHorizontalStrip, SymmetricFunctions.SkewPartition.isVerticalStrip, SymmetricFunctions.SkewPartition.isHorizontalNStrip, SymmetricFunctions.SkewPartition.isVerticalNStrip}
+\leantarget
+\leanok
+Let $\lambda$ and $\mu$ be two $N$-partitions.
+
+\textbf{(a)} We write $\lambda/\mu$ for the pair $\left(  \mu,\lambda\right)
+$. Such a pair is called a \emph{skew partition}.
+
+\textbf{(b)} We say that $\lambda/\mu$ is a \emph{horizontal strip} if we have
+$\mu\subseteq\lambda$ and the Young diagram $Y\left(  \lambda/\mu\right)  $
+has no two boxes lying in the same column.
+
+\textbf{(c)} We say that $\lambda/\mu$ is a \emph{vertical strip} if we have
+$\mu\subseteq\lambda$ and the Young diagram $Y\left(  \lambda/\mu\right)  $
+has no two boxes lying in the same row.
+
+Now, let $n\in\mathbb{N}$.
+
+\textbf{(d)} We say that $\lambda/\mu$ is a \emph{horizontal }$n$\emph{-strip}
+if $\lambda/\mu$ is a horizontal strip and satisfies $\left\vert Y\left(
+\lambda/\mu\right)  \right\vert =n$.
+
+\textbf{(e)} We say that $\lambda/\mu$ is a \emph{vertical }$n$\emph{-strip}
+if $\lambda/\mu$ is a vertical strip and satisfies $\left\vert Y\left(
+\lambda/\mu\right)  \right\vert =n$.
+\end{definition}
+
+\begin{proposition}
+\label{prop.sf.strips.entries}
+\lean{SymmetricFunctions.SkewPartition.horizontalStrip_iff_entries, SymmetricFunctions.SkewPartition.verticalStrip_iff_entries}
+\leantarget
+\leanok
+Let $\lambda=\left(  \lambda_{1},\lambda
+_{2},\ldots,\lambda_{N}\right)  $ and $\mu=\left(  \mu_{1},\mu_{2},\ldots
+,\mu_{N}\right)  $ be two $N$-partitions.
+
+\textbf{(a)} The skew partition $\lambda/\mu$ is a horizontal strip if and
+only if we have%
+\[
+\lambda_{1}\geq\mu_{1}\geq\lambda_{2}\geq\mu_{2}\geq\cdots\geq\lambda_{N}%
+\geq\mu_{N}.
+\]
+
+
+\textbf{(b)} The skew partition $\lambda/\mu$ is a vertical strip if and only
+if we have%
+\[
+\mu_{i}\leq\lambda_{i}\leq\mu_{i}+1\ \ \ \ \ \ \ \ \ \ \text{for each }%
+i\in\left[  N\right]  .
+\]
+\end{proposition}
+
+\begin{proof}
+\textbf{(a)} ($\Rightarrow$): A horizontal strip satisfies
+$\mu_i \geq \lambda_{i+1}$ for all valid $i$ by definition,
+and $\lambda_i \geq \mu_i$ follows from the containment condition
+$\mu \subseteq \lambda$.
+($\Leftarrow$): The interlacing condition
+$\mu_i \geq \lambda_{i+1}$ is exactly the horizontal strip condition.
+
+\textbf{(b)} ($\Rightarrow$): A vertical strip satisfies
+$\lambda_i \leq \mu_i + 1$ by definition,
+and $\mu_i \leq \lambda_i$ follows from containment.
+($\Leftarrow$): The condition $\lambda_i \leq \mu_i + 1$ is exactly
+the vertical strip condition.
+\end{proof}
+
+\subsubsection{Strip characterization helpers}
+
+\begin{lemma}
+\label{lem.sf.horizontal-strip-iff-fun}
+\lean{SymmetricFunctions.SkewPartition.isHorizontalStrip_iff_isHorizontalStripFun}
+\leanhelper
+\leanok
+The definition of horizontal strip from Definition~\ref{def.sf.strips}
+is equivalent to the entry-wise characterization used in the
+enumeration of strip partitions.
+\end{lemma}
+
+\begin{proof}
+Immediate from the definitions.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.vertical-strip-iff-fun}
+\lean{SymmetricFunctions.SkewPartition.isVerticalStrip_iff_isVerticalStripFun}
+\leanhelper
+\leanok
+The definition of vertical strip from Definition~\ref{def.sf.strips}
+is equivalent to the entry-wise characterization used in the
+enumeration of strip partitions.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Immediate from the definitions.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.mem-horizontal-of-isHorizontalNStrip}
+\lean{SymmetricFunctions.mem_horizontalNStripPartitions_of_isHorizontalNStrip}
+\leanhelper
+\leanok
+If $\mu \subseteq \lambda$, $\lambda/\mu$ is a horizontal $n$-strip,
+and $\lambda$ satisfies the
+upper bound constraints, then $\lambda$ belongs to the finite set of
+horizontal $n$-strip partitions of $\mu$.
+This provides a simplified membership criterion bridging the definition
+of horizontal $n$-strip with the finite set of strip partitions.
+\end{lemma}
+
+\begin{proof}
+Combine the horizontal $n$-strip hypothesis with the size-difference computation
+and apply the membership characterization.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.mem-vertical-of-isVerticalNStrip}
+\lean{SymmetricFunctions.mem_verticalNStripPartitions_of_isVerticalNStrip}
+\leanhelper
+\leanok
+If $\mu \subseteq \lambda$ and $\lambda/\mu$ is a vertical $n$-strip,
+then $\lambda$ belongs to the finite set of vertical $n$-strip partitions of $\mu$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Combine the vertical $n$-strip hypothesis with the size-difference computation
+and apply the membership characterization.
+\end{proof}
+
+\subsubsection{Partition transpose}
+
+\begin{definition}
+\label{def.sf.npartition-transpose}
+\lean{SymmetricFunctions.NPartition.transpose}
+\leanhelper
+\leanok
+The \emph{transpose} (or \emph{conjugate}) of an $N$-partition $\lambda$
+is the partition $\lambda^t$ whose $i$-th part equals
+$|\{j : j < N,\; \lambda_j > i\}|$,
+i.e., the number of parts of $\lambda$ that exceed $i$.
+Requires $N > 0$; the result is a partition of length $\lambda_1$.
+\end{definition}
+
+\begin{definition}
+\label{def.sf.is-transpose}
+\lean{SymmetricFunctions.NPartition.IsTranspose}
+\leanhelper
+\leanok
+Two functions $\lambda : \mathrm{Fin}\,N \to \mathbb{N}$ and
+$\lambda^t : \mathrm{Fin}\,M \to \mathbb{N}$ are \emph{transposes} of each other
+if for all $i < N$ and $j < M$:
+\[
+\lambda_i > j \iff \lambda^t_j > i.
+\]
+This is the symmetric characterization of the transpose relation
+between Young diagrams.
+\end{definition}
+
+\begin{lemma}
+\label{lem.sf.transpose-box-equiv}
+\lean{SymmetricFunctions.NPartition.IsTranspose.box_equiv}
+\leanhelper
+\leanok
+If $\lambda$ and $\lambda^t$ are transposes, then there is a bijection
+between the boxes of the Young diagram of $\lambda$ (pairs $(i,j)$
+with $j < \lambda_i$) and those of $\lambda^t$ (pairs $(j,i)$ with
+$i < \lambda^t_j$), given by swapping coordinates.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The bijection maps $(i, j)$ to $(j, i)$.
+The transpose condition $\lambda_i > j \iff \lambda^t_j > i$ guarantees
+that this map is well-defined and bijective.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.transpose-sum-eq}
+\lean{SymmetricFunctions.NPartition.IsTranspose.sum_eq}
+\leanhelper
+\leanok
+If $\lambda$ and $\lambda^t$ are transposes, then
+$\sum_i \lambda_i = \sum_j \lambda^t_j$.
+That is, the total number of boxes is preserved by transposition.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Both sums count the cardinality of the respective Young diagram box sets.
+The bijection from Lemma~\ref{lem.sf.transpose-box-equiv} shows these
+sets have the same cardinality.
+\end{proof}
+
+\subsection{Schur and skew Schur polynomials}
+
+\begin{definition}
+\label{def.sf.schur-local}
+\lean{SymmetricFunctions.schur}
+\leanhelper
+\leanok
+The \emph{Schur polynomial} $s_\lambda$ is defined as
+$s_\lambda = \sum_{T \in \mathrm{SSYT}(\lambda)} x_T$,
+where the sum is over all semistandard Young tableaux of shape $\lambda$
+with entries in $[N]$.
+\end{definition}
+
+\begin{lemma}
+\label{lem.sf.schur-zero}
+\lean{SymmetricFunctions.schur_zero}
+\leanhelper
+\leanok
+The Schur polynomial of the zero partition is $1$:
+$s_0 = 1$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The only SSYT of shape $0$ is the empty tableau, whose monomial is $1$.
+\end{proof}
+
+\begin{definition}
+\label{def.sf.skew-schur-local}
+\lean{SymmetricFunctions.skewSchur}
+\leanhelper
+\leanok
+The \emph{skew Schur polynomial} $s_{\lambda/\mu}$ is defined as
+$s_{\lambda/\mu} = \sum_{T \in \mathrm{SSYT}(\lambda/\mu)} x_T$,
+where the sum is over all semistandard Young tableaux of skew shape $\lambda/\mu$.
+\end{definition}
+
+\begin{lemma}
+\label{lem.sf.skew-schur-zero}
+\lean{SymmetricFunctions.skewSchur_zero_eq_schur}
+\leanhelper
+\leanok
+For any $N$-partition $\lambda$, the skew Schur polynomial $s_{\lambda/0}$
+equals the Schur polynomial $s_\lambda$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+A skew partition $\lambda/0$ is just the partition $\lambda$,
+so $\mathrm{SSYT}(\lambda)$ and $\mathrm{SSYT}(\lambda/0)$ are in
+natural bijection preserving monomials.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.schur-eq-skewschur-zero}
+\lean{SymmetricFunctions.schur_eq_skewSchur_zero}
+\leanhelper
+\leanok
+For any $N$-partition $\lambda$,
+$s_\lambda = s_{\lambda/0}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+This is the reverse direction of Lemma~\ref{lem.sf.skew-schur-zero}.
+\end{proof}
+
+\subsection{Symmetric polynomials as Schur polynomials}
+
+\begin{definition}
+\label{def.sf.row-partition}
+\lean{SymmetricFunctions.NPartition.rowPartition}
+\leanhelper
+\leanok
+The \emph{row partition} $(n, 0, 0, \ldots, 0)$ with $n$ boxes in
+the first row. This is the partition corresponding to $h_n$.
+Requires $N > 0$.
+\end{definition}
+
+\begin{definition}
+\label{def.sf.col-partition}
+\lean{SymmetricFunctions.NPartition.colPartition}
+\leanhelper
+\leanok
+The \emph{column partition} $(1, 1, \ldots, 1, 0, \ldots, 0)$ with $n$
+ones (i.e., $n$ boxes in the first column). This is the partition
+corresponding to $e_n$. Requires $n \leq N$.
+\end{definition}
+
+\begin{theorem}
+\label{thm.sf.hsymm-eq-schur-row}
+\lean{SymmetricFunctions.hsymm_eq_schur_rowPartition}
+\leanhelper
+\leanok
+For $N > 0$, the complete homogeneous symmetric polynomial $h_n$ equals
+the Schur polynomial indexed by the row partition:
+\[
+h_n = s_{(n, 0, \ldots, 0)}.
+\]
+\end{theorem}
+
+\begin{proof}
+Both sides are sums of monomials: $h_n$ sums over multisets of size $n$ from $\mathrm{Fin}\,N$,
+while $s_{(n,0,\ldots,0)}$ sums over SSYT of row partition shape.
+There is a natural bijection identifying a multiset of size $n$ with
+the unique SSYT whose only nonempty row (row~$0$) contains the sorted
+multiset entries.
+Weight preservation follows from the fact that both sides compute the
+product of $x_j$ over the entries.
+\end{proof}
+
+\begin{theorem}
+\label{thm.sf.esymm-eq-schur-col}
+\lean{SymmetricFunctions.esymm_eq_schur_colPartition}
+\leanhelper
+\leanok
+For $n \leq N$, the elementary symmetric polynomial $e_n$ equals
+the Schur polynomial indexed by the column partition:
+\[
+e_n = s_{(1^n, 0^{N-n})}.
+\]
+\end{theorem}
+
+\begin{proof}
+Both sides are sums of monomials: $e_n$ sums over subsets of
+$\mathrm{Fin}\,N$ of size~$n$, while $s_{(1^n,0^{N-n})}$ sums over
+SSYT of column partition shape (single-column tableaux with $n$ rows).
+There is a natural bijection identifying a size-$n$ subset
+with the SSYT whose column entries are the sorted elements of the subset.
+Injectivity, surjectivity, and weight preservation are verified explicitly.
+\end{proof}
+
+\subsubsection{Yamanouchi tableaux infrastructure for Pieri rules}
+
+\begin{definition}
+\label{def.sf.all-entries-zero}
+\lean{SymmetricFunctions.allEntriesZero}
+\leanhelper
+\leanok
+A skew tableau $T$ of shape $\lambda/\mu$ has \emph{all entries zero} if
+every cell $(i, j) \in Y(\lambda/\mu)$ satisfies $T(i, j) = 0$.
+This is the key property characterizing Yamanouchi tableaux for the
+row partition $\nu = (n, 0, \ldots, 0)$.
+\end{definition}
+
+\begin{theorem}
+\label{thm.sf.all-entries-zero-yamanouchi}
+\lean{SymmetricFunctions.allEntriesZero_implies_isYamanouchi_rowPartition}
+\leanhelper
+\leanok
+If $T$ is a semistandard tableau with all entries equal to $0$, then
+$T$ is $\nu$-Yamanouchi for the row partition $\nu = (n, 0, \ldots, 0)$
+for every $n$.
+
+This is the reverse direction of the Yamanouchi characterization for row
+partitions: the content at any position $k > 0$ vanishes when all entries
+are $0$, so $\nu + \mathrm{cont}_{\geq j}(T)$ is automatically weakly
+decreasing.
+\end{theorem}
+
+\begin{proof}
+When all entries are $0$, the content $\mathrm{cont}_{\geq j}(T)$ at any
+position $k > 0$ is $0$ (no cell has entry $k$). Therefore
+$\nu + \mathrm{cont}_{\geq j}(T) = (n + c_0, 0, \ldots, 0)$ for some
+$c_0 \geq 0$, which is weakly decreasing.
+\end{proof}
+
+\begin{definition}
+\label{def.sf.sym-to-row-ssyt}
+\lean{SymmetricFunctions.symToRowSSYT}
+\leanhelper
+\leanok
+Convert a multiset $s \in \mathrm{Sym}(\mathrm{Fin}\,N, n)$ to an SSYT of
+row partition shape $(n, 0, \ldots, 0)$: row $0$ contains the sorted entries
+of $s$, and all other rows are empty.
+\end{definition}
+
+\begin{definition}
+\label{def.sf.row-ssyt-to-sym}
+\lean{SymmetricFunctions.rowSSYTToSym}
+\leanhelper
+\leanok
+Convert an SSYT of row partition shape $(n, 0, \ldots, 0)$ back to a
+multiset: extract the entries of row $0$ (which form a weakly increasing
+sequence of length $n$).
+\end{definition}
+
+\begin{lemma}
+\label{lem.sf.row-ssyt-roundtrip}
+\lean{SymmetricFunctions.rowSSYTToSym_symToRowSSYT}
+\leanhelper
+\leanok
+The forward and inverse maps of the multiset--row SSYT bijection are inverses:
+converting a multiset to a row SSYT and back gives the original multiset.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Sorting a multiset and extracting it gives back the original multiset.
+\end{proof}
+
+\begin{definition}
+\label{def.sf.finset-to-col-ssyt}
+\lean{SymmetricFunctions.finsetToColSSYT}
+\leanhelper
+\leanok
+Convert a subset $s \subseteq \mathrm{Fin}\,N$ of size $n$ to an SSYT
+of column partition shape $(1^n, 0^{N-n})$: column $0$ contains the
+sorted elements of $s$ in strictly increasing order.
+\end{definition}
+
+\begin{lemma}
+\label{lem.sf.col-ssyt-entry-strict-mono}
+\lean{SymmetricFunctions.colSSYTEntry_strictMono}
+\leanhelper
+\leanok
+The column entries of any SSYT of column partition shape are
+strictly increasing: if $k_1 < k_2 < n$, then $T(k_1, 0) < T(k_2, 0)$.
+This follows from the column-strict condition of semistandard tableaux.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By induction on $k_2 - k_1$: the consecutive case uses
+column-strictness of SSYT directly; the general case follows by
+transitivity.
+\end{proof}
+
+\subsection{The Pieri rules}
+
+\begin{definition}
+\label{def.sf.horizontal-n-strip-partitions}
+\lean{SymmetricFunctions.horizontalNStripPartitions}
+\leanhelper
+\leanok
+The finite set of $N$-partitions $\lambda$ such that $\lambda/\mu$ is a
+horizontal $n$-strip. This is computed by filtering all functions bounded
+by the horizontal strip constraints for weak decrease, horizontal strip
+condition, and size difference.
+\end{definition}
+
+\begin{definition}
+\label{def.sf.vertical-n-strip-partitions}
+\lean{SymmetricFunctions.verticalNStripPartitions}
+\leanhelper
+\leanok
+The finite set of $N$-partitions $\lambda$ such that $\lambda/\mu$ is a
+vertical $n$-strip. This is computed by filtering all functions bounded
+by the vertical strip constraints.
+\end{definition}
+
+\begin{lemma}
+\label{lem.sf.horizontal-strip-membership}
+\lean{SymmetricFunctions.mem_horizontalNStripPartitions_iff}
+\leanhelper
+\leanok
+An $N$-partition $\lambda$ belongs to $\mathrm{horizontalNStripPartitions}(\mu, n)$
+if and only if $\mu \subseteq \lambda$, $\lambda/\mu$ is a horizontal strip,
+and $|\lambda| - |\mu| = n$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Unfold the filter conditions and relate them to the strip definitions.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.vertical-strip-membership}
+\lean{SymmetricFunctions.mem_verticalNStripPartitions_iff}
+\leanhelper
+\leanok
+An $N$-partition $\lambda$ belongs to $\mathrm{verticalNStripPartitions}(\mu, n)$
+if and only if $\mu \subseteq \lambda$, $\lambda/\mu$ is a vertical strip,
+and $|\lambda| - |\mu| = n$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Unfold the filter conditions and relate them to the strip definitions.
+\end{proof}
+
+\begin{theorem}
+[Pieri rules]
+\label{thm.sf.pieri}
+\lean{SymmetricFunctions.pieri_horizontal, SymmetricFunctions.pieri_vertical}
+\leantarget
+Let $n\in\mathbb{N}$. Let $\mu$ be an
+$N$-partition. Then:
+
+\textbf{(a)} We have%
+\[
+h_{n}s_{\mu}=\sum_{\substack{\lambda\text{ is an }N\text{-partition;}%
+\\\lambda/\mu\text{ is a horizontal }n\text{-strip}}}s_{\lambda}.
+\]
+
+
+\textbf{(b)} We have%
+\[
+e_{n}s_{\mu}=\sum_{\substack{\lambda\text{ is an }N\text{-partition;}%
+\\\lambda/\mu\text{ is a vertical }n\text{-strip}}}s_{\lambda}.
+\]
+\end{theorem}
+
+\begin{proof}
+\textbf{(a)} The proof follows from the Littlewood--Richardson rule
+(Theorem~\ref{thm.sf.lr-zy}) by
+specializing to the case where one of the partitions is a single row
+$(n, 0, 0, \ldots, 0)$.
+
+Alternatively, a direct combinatorial proof uses the RSK row insertion:
+\begin{enumerate}
+\item Expand $h_n = \sum_{s \in \mathrm{Sym}(\mathrm{Fin}\,N, n)} \prod_{j \in s} x_j$
+and $s_\mu = \sum_{T \in \mathrm{SSYT}(\mu)} x_T$.
+\item Distribute to get $h_n \cdot s_\mu = \sum_{s, T} \prod_{j \in s} x_j \cdot x_T$.
+\item Apply the RSK row insertion bijection:
+$\{(s, T) : \mathrm{Sym}(\mathrm{Fin}\,N, n) \times \mathrm{SSYT}(\mu)\}
+\simeq \bigsqcup_{\lambda/\mu \text{ horiz } n\text{-strip}} \mathrm{SSYT}(\lambda)$.
+Given a sorted multiset $s = \{a_1, \ldots, a_n\}$ and tableau $T$ of shape~$\mu$,
+row-insert $a_1, \ldots, a_n$ into $T$ to get a tableau $T'$ of shape $\lambda$
+where $\lambda/\mu$ is a horizontal $n$-strip.
+\item Weight preservation: $\prod_{j \in s} x_j \cdot x_T = x_{T'}$.
+\item Conclude $h_n \cdot s_\mu = \sum_\lambda s_\lambda$.
+\end{enumerate}
+
+\textbf{(b)} Analogous using RSK column insertion, or via the $\omega$-involution.
+\end{proof}
+
+\subsection{The Jacobi--Trudi identities}
+
+\begin{definition}
+\label{def.sf.hsymm-ext}
+\lean{SymmetricFunctions.hsymmExt}
+\leanhelper
+\leanok
+The extended $h_n$: $h_n = 0$ for $n < 0$, $h_0 = 1$.
+This is needed since the Jacobi--Trudi formula may have negative indices.
+\end{definition}
+
+\begin{lemma}
+\label{lem.sf.lattice-path-sym-equiv}
+\lean{SymmetricFunctions.latticePathSymEquiv}
+\leanhelper
+\leanok
+There is a canonical equivalence
+\[
+\mathrm{LatticePath}(a, c) \simeq \mathrm{Sym}(\mathrm{Fin}\,N, (c-a)^+)
+\]
+between lattice paths from $(a, 1)$ to $(c, N)$ and multisets of size
+$(c - a)^+$ from $\mathrm{Fin}\,N$.
+The forward map extracts the multiset of east-step heights;
+the inverse sorts a multiset into a weakly increasing list.
+\end{lemma}
+
+\begin{proof}
+Roundtrip properties follow from the
+fact that sorting a weakly increasing list is the identity, and
+sorting a multiset then extracting gives back the multiset.
+\end{proof}
+
+\begin{definition}
+\label{def.sf.nipat}
+\lean{SymmetricFunctions.Nipat}
+\leanhelper
+\leanok
+A \emph{non-intersecting path tuple} (nipat) from
+$\mathbf{A} = (A_1, \ldots, A_N)$ to $\mathbf{B} = (B_1, \ldots, B_N)$
+is an $N$-tuple of lattice paths $(p_1, \ldots, p_N)$ where
+$p_i$ goes from $(\mu_i - i, 1)$ to $(\lambda_i - i, N)$, subject to
+a column-strictness condition: for $i < j$, if east steps $k$ (in path~$i$)
+and $k'$ (in path~$j$) correspond to the same tableau column
+($\mu_i + k = \mu_j + k'$), then the height of path~$i$ at step~$k$
+is strictly less than the height of path~$j$ at step~$k'$.
+
+The \emph{weight} of a nipat is $\prod_{i} w(p_i)$.
+\end{definition}
+
+\begin{theorem}
+[Observation 1]
+\label{thm.sf.jt-obs1}
+\lean{SymmetricFunctions.pathWeightSum_eq_hsymm}
+\leanhelper
+\leanok
+Let $a$ and $c$ be two integers. Then,
+\[
+\sum_{\substack{p\text{ is a path}\\\text{from }\left(  a,1\right)  \text{ to
+}\left(  c,N\right)  }}w\left(  p\right)  =h_{c-a}.
+\]
+\end{theorem}
+
+\begin{proof}
+When $c - a \geq 0$, the bijection between lattice paths and
+$\mathrm{Sym}(\mathrm{Fin}\,N, (c-a))$ (via
+Lemma~\ref{lem.sf.lattice-path-sym-equiv}) gives:
+\[
+\sum_p w(p) = \sum_{s \in \mathrm{Sym}(\mathrm{Fin}\,N, (c-a))}
+\prod_{j \in s} x_j = h_{c-a}.
+\]
+When $c - a < 0$, both sides are $0$.
+\end{proof}
+
+\subsubsection{Nipat--SSYT bijection infrastructure}
+
+\begin{definition}
+\label{def.sf.nipat-to-ssyt}
+\lean{SymmetricFunctions.nipatToSSYT}
+\leanhelper
+\leanok
+The forward map of the nipat--SSYT bijection: given a nipat
+$\mathbf{p} = (p_1, \ldots, p_N)$, construct the skew SSYT $T(\mathbf{p})$
+of shape $\lambda/\mu$ whose $i$-th row contains the east-step heights
+of path~$p_i$.
+
+Row-weakness follows from the weakly increasing property of each path's
+east-step heights. Column-strictness follows from the
+column-strictness condition of the nipat.
+\end{definition}
+
+\begin{definition}
+\label{def.sf.ssyt-to-nipat}
+\lean{SymmetricFunctions.ssytToNipat}
+\leanhelper
+\leanok
+The inverse map of the nipat--SSYT bijection: given a skew SSYT $T$
+of shape $\lambda/\mu$, construct the nipat $\mathbf{p}(T)$
+whose $i$-th path has east-step heights given by row~$i$ of $T$.
+
+The weakly increasing property of each path follows from row-weakness
+of $T$. The column-strictness condition follows from
+column-strictness of non-adjacent rows in $T$.
+\end{definition}
+
+\begin{lemma}
+\label{lem.sf.ssyt-nipat-roundtrip-1}
+\lean{SymmetricFunctions.ssytToNipat_nipatToSSYT}
+\leanhelper
+\leanok
+Converting a nipat to a tableau and back gives the original nipat.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The entries of each row of the constructed tableau are
+the east-step heights of the original nipat. Converting back
+produces the same east-step lists.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.ssyt-nipat-roundtrip-2}
+\lean{SymmetricFunctions.nipatToSSYT_ssytToNipat}
+\leanhelper
+\leanok
+Converting a tableau to a nipat and back gives the original tableau.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The proof uses entry specification lemmas to show the entries agree pointwise.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.nipat-to-ssyt-weight}
+\lean{SymmetricFunctions.nipatToSSYT_weight}
+\leanhelper
+\leanok
+The weight of a nipat equals the monomial of the corresponding tableau:
+$w(\mathbf{p}) = x_{T(\mathbf{p})}$ for every nipat $\mathbf{p}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The weight of a nipat is $\prod_i w(p_i)$ and the monomial of the SSYT
+is $\prod_i \prod_k x_{T(i,k)}$. Since the $k$-th entry of row $i$ in the
+tableau equals the $k$-th east-step height of path $p_i$,
+these are equal.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.nipat-ssyt-equiv}
+\lean{SymmetricFunctions.nipatSSYTEquiv}
+\leanhelper
+\leanok
+The forward and inverse maps of the nipat--SSYT bijection form an
+equivalence of types:
+\[
+\mathrm{Nipat}(\lambda, \mu) \simeq \mathrm{SkewSSYT}(\lambda/\mu).
+\]
+\end{lemma}
+
+\begin{proof}
+Combine the two roundtrip lemmas.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.nipat-weight-eq-ssyt-sum}
+\lean{SymmetricFunctions.nipatWeightSum_eq_ssytSum}
+\leanhelper
+\leanok
+The sum of nipat weights equals the sum of SSYT monomials:
+\[
+\sum_{\mathbf{p} \in \mathrm{Nipat}(\lambda, \mu)} w(\mathbf{p})
+= \sum_{T \in \mathrm{SkewSSYT}(\lambda/\mu)} x_T.
+\]
+\end{lemma}
+
+\begin{proof}
+Transport the sum along the equivalence with weight preservation.
+\end{proof}
+
+\begin{theorem}
+[Observation 2: Nipat--SSYT bijection]
+\label{thm.sf.jt-obs2}
+\lean{SymmetricFunctions.nipat_ssyt_bijection}
+\leanhelper
+\leanok
+There is a bijection
+\[
+\{\text{nipats from } \mathbf{A} \text{ to } \mathbf{B}\}
+\xrightarrow{\sim} \mathrm{SSYT}(\lambda/\mu),
+\qquad \mathbf{p} \mapsto T(\mathbf{p}),
+\]
+where for a nipat $\mathbf{p} = (p_1, \ldots, p_N)$, the tableau
+$T(\mathbf{p})$ has its $i$-th row consisting of the heights of the
+east-steps of $p_i$.
+
+Moreover, $w(\mathbf{p}) = x_{T(\mathbf{p})}$ for every nipat $\mathbf{p}$.
+\end{theorem}
+
+\begin{proof}
+\leanok
+The forward map sends a nipat $\mathbf{p}$ to the tableau $T(\mathbf{p})$;
+the inverse extracts the east-step heights from each row of a skew SSYT.
+The bijectivity is proved via:
+\begin{itemize}
+\item Injectivity: Lemma~\ref{lem.sf.ssyt-nipat-roundtrip-1} shows
+that converting a nipat to a tableau and back gives the original nipat.
+\item Surjectivity: Lemma~\ref{lem.sf.ssyt-nipat-roundtrip-2} shows
+that converting a tableau to a nipat and back gives the original tableau.
+\end{itemize}
+Weight preservation (Lemma~\ref{lem.sf.nipat-to-ssyt-weight}) follows from the
+fact that the weight of each component path is the product of $x_j$
+over its east-step heights, which are exactly the row entries of the tableau.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.nipat-weight-eq-skew-schur}
+\lean{SymmetricFunctions.nipatWeightSum_eq_skewSchur}
+\leanhelper
+\leanok
+The sum of nipat weights equals the skew Schur polynomial:
+\[
+\sum_{\mathbf{p} \text{ nipat}} w(\mathbf{p}) = s_{\lambda/\mu}.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+Follows from the nipat--SSYT bijection (Theorem~\ref{thm.sf.jt-obs2})
+and the definition of $s_{\lambda/\mu}$ as a sum over SSYT monomials.
+The proof uses Lemma~\ref{lem.sf.nipat-weight-eq-ssyt-sum} followed by
+a bijective reindexing to relate the finset sum to the type sum.
+\end{proof}
+
+\subsubsection{LGV connection for Jacobi--Trudi}
+
+\begin{definition}
+\label{def.sf.jt-arc-weight}
+\lean{SymmetricFunctions.jacobiTrudiArcWeight}
+\leanhelper
+\leanok
+The arc weight function for the Jacobi--Trudi proof on the integer lattice
+$\mathbb{Z}^2$: east-steps at height $y$ (with $1 \leq y \leq N$) are
+weighted by $x_{y-1}$; north-steps are weighted by $1$.
+\end{definition}
+
+\begin{definition}
+\label{def.sf.jt-source-target}
+\lean{SymmetricFunctions.jacobiTrudiSourceVertex, SymmetricFunctions.jacobiTrudiTargetVertex}
+\leanhelper
+\leanok
+Define two $N$-vertices
+$\mathbf{A} = (A_1, \ldots, A_N)$ and $\mathbf{B} = (B_1, \ldots, B_N)$
+by
+\[
+A_i := (\mu_i - i,\; 1) \quad \text{and} \quad B_i := (\lambda_i - i,\; N)
+\quad \text{for each } i \in [N].
+\]
+\end{definition}
+
+\begin{lemma}
+\label{lem.sf.jt-source-x-decreasing}
+\lean{SymmetricFunctions.jacobiTrudiSourceX_antitone}
+\leanhelper
+\leanok
+The source $x$-coordinates are weakly decreasing:
+$\mu_i - i \geq \mu_j - j$ when $i \leq j$.
+This follows from the partition being weakly decreasing:
+$\mu_i \geq \mu_j$ and $i \leq j$ imply $\mu_i - i \geq \mu_j - j$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Direct computation from the weakly decreasing property of partitions.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.jt-target-x-decreasing}
+\lean{SymmetricFunctions.jacobiTrudiTargetX_antitone}
+\leanhelper
+\leanok
+The target $x$-coordinates are weakly decreasing:
+$\lambda_i - i \geq \lambda_j - j$ when $i \leq j$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Analogous to Lemma~\ref{lem.sf.jt-source-x-decreasing}.
+\end{proof}
+
+\begin{definition}
+\label{def.sf.lgv-path-to-lattice-path}
+\lean{SymmetricFunctions.lgvPathToLatticePath}
+\leanhelper
+\leanok
+Convert an LGV path (in the integer lattice digraph)
+from $(a, 1)$ to $(c, N)$ into a lattice path by
+extracting the $y$-coordinates at which east-steps occur and converting
+them to $\mathrm{Fin}\,N$ values (by subtracting $1$).
+\end{definition}
+
+\begin{lemma}
+\label{lem.sf.lgv-east-step-length}
+\lean{SymmetricFunctions.lgvPathEastStepYCoords_length_eq_xDisplacement}
+\leanhelper
+\leanok
+The number of east-step $y$-coordinates extracted from an LGV path vertex
+list equals the $x$-displacement (final $x$ minus initial $x$).
+This is a key property for the bijection between LGV paths and
+lattice paths.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By induction on the vertex list: each east-step increases the count by $1$
+and the $x$-coordinate by $1$; north-steps change neither.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.lgv-east-step-weakly-increasing}
+\lean{SymmetricFunctions.lgvPathEastStepYCoords_weaklyIncreasing}
+\leanhelper
+\leanok
+The east-step $y$-coordinates extracted from an LGV path are weakly
+increasing: since paths can only go north or east, $y$-coordinates
+can only increase or stay the same along the path.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By induction on the vertex list. For an east-step from $v_0$ to $v_1$,
+the $y$-coordinates satisfy $y(v_0) = y(v_1)$, and the remaining heights
+are $\geq y(v_1)$ by the inductive hypothesis and $y$-monotonicity.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.lgv-east-step-bounded}
+\lean{SymmetricFunctions.lgvPathEastStepYCoords_bounded}
+\leanhelper
+\leanok
+Each east-step $y$-coordinate is bounded between the starting and
+ending $y$-coordinates of the path:
+if $y$ is an east-step $y$-coordinate of a path from $(a, y_0)$ to $(c, y_1)$,
+then $y_0 \leq y \leq y_1$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Each east-step $y$-coordinate is the $y$-coordinate of some vertex
+of the path. The bound follows from $y$-monotonicity along the path.
+\end{proof}
+
+\begin{theorem}
+\label{thm.sf.lgv-path-weight-sum-eq-hsymm-ext}
+\lean{SymmetricFunctions.lgv_pathWeightSum_eq_hsymmExt}
+\leanhelper
+\leanok
+The LGV path weight sum from $(a, 1)$ to $(c, N)$ using the
+Jacobi--Trudi arc weight equals $h_{c-a}$:
+\[
+\sum_{p : (a,1) \to (c,N)} w_{\mathrm{LGV}}(p) = h_{c-a}.
+\]
+When $c - a \geq 0$, this is proved via a weight-preserving bijection between
+LGV paths and our lattice path type, composed with
+Theorem~\ref{thm.sf.jt-obs1}. When $c - a < 0$, both sides are $0$.
+\end{theorem}
+
+\begin{proof}
+For $c - a \geq 0$: compose the LGV-path-to-lattice-path bijection
+with the lattice path--multiset equivalence (Lemma~\ref{lem.sf.lattice-path-sym-equiv}),
+then apply Theorem~\ref{thm.sf.jt-obs1}.
+For $c - a < 0$: the set of LGV paths is empty (no path can have
+decreasing $x$-coordinate), and $h_{c-a} = 0$ by convention.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.lgv-path-to-lattice-path-weight}
+\lean{SymmetricFunctions.lgvPathToLatticePath_weight_eq}
+\leanhelper
+\leanok
+The LGV arc-weight product of a path equals the lattice path weight
+of its conversion.
+This follows from the fact that the arc weight assigns $x_{y-1}$ to
+east-steps at height $y$, which matches the $\prod x_j$ formula for
+lattice path weight.
+\end{lemma}
+
+\begin{proof}
+Reduce to showing that the product of $x_{y-1}$ over east-step
+$y$-coordinates equals the product of $x_h$ over the converted
+$\mathrm{Fin}\,N$ heights.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.lgv-path-to-lattice-path-injective}
+\lean{SymmetricFunctions.lgvPathToLatticePath_injective}
+\leanhelper
+\leanok
+The conversion from LGV path to lattice path is injective:
+two LGV paths with the same east-step $y$-coordinates have
+the same vertex sequence.
+This is because a path in the integer lattice is uniquely determined
+by its starting point and the sequence of east-step positions.
+\end{lemma}
+
+\begin{proof}
+Two paths with the same start, end, and east-step $y$-coordinates
+must have identical vertex lists, since at each step the direction
+(north or east) is determined by the remaining east-step $y$-coordinates
+and the current position.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.jt-matrix-eq-path-weight}
+\lean{SymmetricFunctions.jacobiTrudiMatrixH_eq_pathWeightMatrix_transpose}
+\leanhelper
+\leanok
+The Jacobi--Trudi matrix $H$ equals the transpose of the LGV path weight matrix:
+\[
+H = M^T \quad \text{where } M_{i,j} = \sum_{p : A_i \to B_j} w(p).
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+Each entry $H_{i,j} = h_{\lambda_i - \mu_j - i + j}$ equals the
+path weight sum from $A_j$ to $B_i$ by
+Theorem~\ref{thm.sf.lgv-path-weight-sum-eq-hsymm-ext}, since the path length is
+$(\lambda_i - i) - (\mu_j - j) = \lambda_i - \mu_j - i + j$.
+The transposition accounts for the index swap.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.jt-det-eq-det-path-weight}
+\lean{SymmetricFunctions.det_jacobiTrudiMatrixH_eq_det_pathWeightMatrix}
+\leanhelper
+\leanok
+The determinant of the Jacobi--Trudi matrix equals the determinant
+of the LGV path weight matrix:
+$\det(H) = \det(M)$.
+This follows from $H = M^T$ and $\det(M^T) = \det(M)$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Apply $\det(H) = \det(M^T) = \det(M)$ using
+Lemma~\ref{lem.sf.jt-matrix-eq-path-weight} and the
+transpose-determinant identity.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.jt-lgv-connection}
+\lean{SymmetricFunctions.lgv_nipatWeightSum_eq_nipatSum}
+\leanhelper
+\leanok
+The LGV non-intersecting path tuple weight sum (using the LGV non-intersection condition)
+equals the nipat weight sum (using the column-strictness condition):
+\[
+\sum_{\mathbf{p} \text{ LGV-nipat}} w(\mathbf{p})
+= \sum_{\mathbf{p} \text{ nipat}} w(\mathbf{p}).
+\]
+\end{lemma}
+
+\begin{proof}
+This requires constructing an explicit weight-preserving bijection between
+LGV path tuples and nipats.
+The bijection extracts east-step
+$y$-coordinates from LGV paths and converts them to weakly increasing
+sequences in $\mathrm{Fin}\,N$.
+Non-intersection in the LGV sense corresponds to column-strictness
+in the nipat sense.
+Injectivity follows from Lemma~\ref{lem.sf.lgv-path-to-lattice-path-injective};
+weight preservation from Lemma~\ref{lem.sf.lgv-path-to-lattice-path-weight}.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.paths-above-stays-above}
+\lean{SymmetricFunctions.paths_above_at_x_stays_above}
+\leanhelper
+\leanok
+If two non-intersecting lattice paths $p$ and $p'$ have starting
+$y$-coordinates satisfying $y_{\mathrm{start}}(p) < y_{\mathrm{start}}(p')$,
+and at some column $x_0$
+the path $p$ is weakly above $p'$ (in $y$-coordinate), then $p$
+stays weakly above $p'$ at all subsequent columns.
+
+This is the key geometric lemma ensuring that non-intersecting
+paths with ordered starting positions maintain their relative order.
+\end{lemma}
+
+\begin{proof}
+By the integer lattice topology: if $p$ is above $p'$ at column $x_0$
+but $p'$ rises above $p$ at some later column, then by the intermediate
+value property of lattice paths, the paths must share a vertex,
+contradicting non-intersection.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.jt-det-eq-nipat}
+\lean{SymmetricFunctions.det_jacobiTrudiMatrixH_eq_nipatSum}
+\leanhelper
+\leanok
+The determinant of the Jacobi--Trudi matrix equals the sum of nipat weights:
+\[
+\det(H) = \sum_{\mathbf{p} \text{ nipat}} w(\mathbf{p}).
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+The proof proceeds in steps:
+\begin{enumerate}
+\item $\det(H) = \det(M)$ by
+Lemma~\ref{lem.sf.jt-det-eq-det-path-weight}.
+\item Apply the LGV nonpermutable lemma to obtain
+$\det(M) = \sum_{\text{LGV-nipats}} w(\mathbf{p})$.
+The required sorting conditions on $\mathbf{A}$ and $\mathbf{B}$
+follow from Lemmas~\ref{lem.sf.jt-source-x-decreasing}
+and~\ref{lem.sf.jt-target-x-decreasing}.
+\item Connect LGV non-intersecting path tuples to non-intersecting path tuples
+(Definition~\ref{def.sf.nipat}) via
+Lemma~\ref{lem.sf.jt-lgv-connection}.
+\end{enumerate}
+\end{proof}
+
+\begin{theorem}
+[First Jacobi--Trudi formula]
+\label{thm.sf.jt-h}
+\lean{SymmetricFunctions.jacobiTrudi_h}
+\leantarget
+\leanok
+Let $M\in\mathbb{N}$. Let
+$\lambda=\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{M}\right)  $ and
+$\mu=\left(  \mu_{1},\mu_{2},\ldots,\mu_{M}\right)  $ be two $M$-partitions
+(i.e., weakly decreasing $M$-tuples of nonnegative integers). Then,%
+\[
+s_{\lambda/\mu}=\det\left(  \left(  h_{\lambda_{i}-\mu_{j}-i+j}\right)
+_{1\leq i\leq M,\ 1\leq j\leq M}\right)  .
+\]
+\end{theorem}
+
+\begin{proof}
+The proof combines two key lemmas.
+Lemma~\ref{lem.sf.nipat-weight-eq-skew-schur} yields
+\[
+s_{\lambda/\mu}
+= \sum_{\mathbf{p} \text{ nipat}} w(\mathbf{p}),
+\]
+and then Lemma~\ref{lem.sf.jt-det-eq-nipat} gives
+\[
+\sum_{\mathbf{p} \text{ nipat}} w(\mathbf{p})
+= \det\left( \left( h_{\lambda_i - \mu_j - i + j} \right)_{i,j} \right).
+\]
+\end{proof}
+
+\begin{theorem}
+[Second Jacobi--Trudi formula]
+\label{thm.sf.jt-e}
+\lean{SymmetricFunctions.jacobiTrudi_e}
+\leantarget
+Let $\lambda$ and $\mu$ be two partitions. Let $\lambda^{t}$ and $\mu^{t}$
+be the transposes of $\lambda$
+and $\mu$. Let $M\in\mathbb{N}$ be such that both $\lambda^{t}$ and $\mu^{t}$
+have length $\leq M$. We extend the partitions $\lambda^{t}$ and $\mu^{t}$
+to $M$-tuples (by inserting zeroes at the end). Write these $M$-tuples
+$\lambda^{t}$ and $\mu^{t}$ as $\lambda^{t}=\left(  \lambda_{1}^{t}%
+,\lambda_{2}^{t},\ldots,\lambda_{M}^{t}\right)  $ and $\mu^{t}=\left(  \mu_{1}%
+^{t},\mu_{2}^{t},\ldots,\mu_{M}^{t}\right)  $. Then,%
+\[
+s_{\lambda/\mu}=\det\left(  \left(  e_{\lambda_{i}^{t}-\mu_{j}^{t}%
+-i+j}\right)  _{1\leq i\leq M,\ 1\leq j\leq M}\right)  .
+\]
+\end{theorem}
+
+\begin{proof}
+From the first Jacobi--Trudi formula (Theorem~\ref{thm.sf.jt-h}) applied
+to the transpose partitions $\lambda^t$ and $\mu^t$:
+$s_{\lambda^t/\mu^t} = \det(h_{(\lambda^t)_i - (\mu^t)_j - i + j})$.
+Applying the $\omega$-involution ($\omega(h_n) = e_n$,
+$\omega(s_{\lambda/\mu}) = s_{\lambda^t/\mu^t}$)
+and using that $\omega^2 = \mathrm{id}$ gives
+$s_{\lambda/\mu} = \omega(s_{\lambda^t/\mu^t})
+= \det(\omega(h_{(\lambda^t)_i - (\mu^t)_j - i + j}))
+= \det(e_{(\lambda^t)_i - (\mu^t)_j - i + j})$.
+\end{proof}
+
+\subsection{Special cases}
+
+\begin{theorem}
+\label{thm.sf.jt-h-nonskew}
+\lean{SymmetricFunctions.jacobiTrudi_h_nonSkew}
+\leanhelper
+\leanok
+For non-skew Schur polynomials ($\mu = 0$):
+\[
+s_\lambda = \det\left( \left( h_{\lambda_i - i + j}
+\right)_{1 \leq i,j \leq N} \right).
+\]
+\end{theorem}
+
+\begin{proof}
+Relate $s_\lambda$ to $s_{\lambda/0}$ via
+Lemma~\ref{lem.sf.schur-eq-skewschur-zero}, then apply the general
+Jacobi--Trudi formula (Theorem~\ref{thm.sf.jt-h}) with $\mu = 0$.
+\end{proof}
+
+\subsection{Symmetry of Schur polynomials via Jacobi--Trudi}
+
+\begin{lemma}
+\label{lem.sf.hsymm-ext-symmetric}
+\lean{SymmetricFunctions.hsymmExt_isSymmetric}
+\leanhelper
+\leanok
+The extended complete homogeneous symmetric polynomial $h_n$ (for any
+$n \in \mathbb{Z}$) is a symmetric polynomial: for any permutation
+$\sigma$ of $\mathrm{Fin}\,N$, we have $\sigma(h_n) = h_n$.
+When $n \geq 0$, this follows from the symmetry of $h_n$.
+When $n < 0$, $h_n = 0$ is trivially symmetric.
+\end{lemma}
+
+\begin{proof}
+By case analysis on $n$: the non-negative case uses the
+symmetry of $h_n$; the negative case is trivial.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.det-symmetric-of-entries-symmetric}
+\lean{SymmetricFunctions.det_isSymmetric_of_entries_symmetric}
+\leanhelper
+\leanok
+If all entries of a matrix $M$ over $R[x_1, \ldots, x_N]$ are symmetric
+polynomials, then $\det(M)$ is a symmetric polynomial.
+This is because for any permutation $\sigma$,
+$\sigma(\det(M)) = \det(\sigma(M)) = \det(M)$,
+where the first equality uses that $\sigma$ is a ring homomorphism and
+the second uses that $\sigma$ fixes each entry.
+\end{lemma}
+
+\begin{proof}
+For any permutation $\sigma$ of $\mathrm{Fin}\,N$,
+the renaming by $\sigma$ commutes with determinant (as a ring homomorphism
+preserves sums, products, and signs). Since each entry is fixed by
+the renaming, the determinant is also fixed.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.jt-matrix-entries-symmetric}
+\lean{SymmetricFunctions.jacobiTrudiMatrixH_entries_isSymmetric}
+\leanhelper
+\leanok
+Every entry of the Jacobi--Trudi matrix $H$ is a symmetric polynomial.
+This follows from the fact that each entry is $h_{\lambda_i - \mu_j - i + j}$,
+which is symmetric by Lemma~\ref{lem.sf.hsymm-ext-symmetric}.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Each entry is an extended $h$-polynomial, which is symmetric.
+\end{proof}
+
+\begin{theorem}
+\label{thm.sf.jt-matrix-det-symmetric}
+\lean{SymmetricFunctions.jacobiTrudiMatrixH_det_isSymmetric}
+\leanhelper
+\leanok
+The determinant of the Jacobi--Trudi matrix $\det(H)$ is a symmetric
+polynomial.
+\end{theorem}
+
+\begin{proof}
+\leanok
+Apply Lemma~\ref{lem.sf.det-symmetric-of-entries-symmetric} with
+the entry symmetry from Lemma~\ref{lem.sf.jt-matrix-entries-symmetric}.
+\end{proof}
+
+\begin{theorem}
+\label{thm.sf.skew-schur-symm-jt}
+\lean{SymmetricFunctions.skewSchur_isSymmetric_jacobiTrudi}
+\leanhelper
+\leanok
+Skew Schur polynomials are symmetric: for any partitions
+$\lambda \supseteq \mu$, $s_{\lambda/\mu}$ is a symmetric polynomial.
+
+This provides a proof of symmetry via the Jacobi--Trudi formula,
+without relying on the Bender--Knuth involution.
+\end{theorem}
+
+\begin{proof}
+By Theorem~\ref{thm.sf.jt-h}, $s_{\lambda/\mu} = \det(H)$.
+By Theorem~\ref{thm.sf.jt-matrix-det-symmetric}, $\det(H)$ is symmetric.
+\end{proof}
+
+\begin{theorem}
+\label{thm.sf.schur-symm-jt}
+\lean{SymmetricFunctions.schur_isSymmetric_jacobiTrudi}
+\leanhelper
+\leanok
+Schur polynomials are symmetric: for any partition $\lambda$,
+$s_\lambda$ is a symmetric polynomial.
+
+This is a corollary of Theorem~\ref{thm.sf.skew-schur-symm-jt}
+with $\mu = 0$.
+\end{theorem}
+
+\begin{proof}
+By Lemma~\ref{lem.sf.schur-eq-skewschur-zero}, $s_\lambda = s_{\lambda/0}$.
+Apply Theorem~\ref{thm.sf.skew-schur-symm-jt}.
+\end{proof}
+
+\subsection{The $\omega$-involution}
+
+The $\omega$-involution is an algebra automorphism of the ring of symmetric
+functions that swaps the elementary and complete homogeneous symmetric
+polynomials: $\omega(e_n) = h_n$ and $\omega(h_n) = e_n$.
+It is essential for proving the second Jacobi--Trudi formula from the first.
+
+\begin{definition}
+\label{def.sf.hsymm-alg-hom}
+\lean{SymmetricFunctions.hsymmAlgHom}
+\leanhelper
+\leanok
+The $R$-algebra homomorphism from $R[x_1, \ldots, x_n]$ to the symmetric
+subalgebra sending $x_i$ to $h_{i+1}$.
+This is the analogous construction to the elementary symmetric algebra homomorphism
+(which sends $x_i$ to $e_{i+1}$), using complete homogeneous instead of elementary
+symmetric polynomials.
+\end{definition}
+
+\begin{definition}
+\label{def.sf.omega-involution}
+\lean{SymmetricFunctions.omegaInvolution}
+\leanhelper
+\leanok
+The \emph{$\omega$-involution} on the symmetric subalgebra, defined as
+the composition of the complete homogeneous algebra homomorphism with the
+inverse of the elementary symmetric algebra equivalence.
+This maps $e_k \mapsto h_k$ for $1 \leq k \leq n$ and extends
+algebraically to all symmetric polynomials.
+\end{definition}
+
+\begin{theorem}
+\label{thm.sf.omega-esymm}
+\lean{SymmetricFunctions.omegaInvolution_esymm_succ}
+\leanhelper
+\leanok
+The $\omega$-involution maps elementary to complete homogeneous:
+$\omega(e_{k+1}) = h_{k+1}$ for $k < n$.
+\end{theorem}
+
+\begin{proof}
+\leanok
+By definition of $\omega$: since $\omega$ is the composition of the $h$-algebra
+homomorphism with the inverse of the $e$-algebra equivalence, applying it
+to $e_{k+1}$ first sends $e_{k+1}$ to the generator $X_k$, then maps
+$X_k$ to $h_{k+1}$.
+\end{proof}
+
+\begin{theorem}
+\label{thm.sf.newton-girard-he}
+\lean{SymmetricFunctions.newtonGirard_he}
+\leanhelper
+\leanok
+The symmetric Newton--Girard identity:
+\[
+\sum_{j=0}^{n} (-1)^j h_j \, e_{n-j} = 0 \quad \text{for } n > 0.
+\]
+This is the ``$h$-first'' version of the Newton--Girard relations,
+obtained from the standard ``$e$-first'' version by reindexing $j \mapsto n - j$
+and using commutativity and the sign identity $(-1)^{n-j} \cdot (-1)^n = (-1)^j$.
+\end{theorem}
+
+\begin{proof}
+Reindex the standard Newton--Girard identity $\sum_j (-1)^j e_j h_{n-j} = 0$
+via $j \mapsto n - j$ to obtain $\sum_j (-1)^{n-j} h_{n-j} e_j = 0$.
+Then factor out $(-1)^n$ and use the sign identity
+$(-1)^{n-j} = (-1)^n \cdot (-1)^j$ (up to rearrangement and
+$(-1)^{2j} = 1$).
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.hsymm-recurrence}
+\lean{SymmetricFunctions.hsymm_recurrence_eh}
+\leanhelper
+\leanok
+Recurrence for $h_n$ from Newton--Girard: for $n > 0$,
+\[
+h_n = \sum_{j=1}^{n} (-1)^{j+1}\, e_j \, h_{n-j}.
+\]
+This follows by isolating the $j = 0$ term in the Newton--Girard identity
+$\sum_{j=0}^n (-1)^j e_j h_{n-j} = 0$ and rearranging.
+\end{lemma}
+
+\begin{proof}
+From $\sum_{j=0}^n (-1)^j e_j h_{n-j} = 0$, isolate $j = 0$:
+$h_n + \sum_{j=1}^n (-1)^j e_j h_{n-j} = 0$, hence
+$h_n = -\sum_{j=1}^n (-1)^j e_j h_{n-j} = \sum_{j=1}^n (-1)^{j+1} e_j h_{n-j}$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.esymm-recurrence}
+\lean{SymmetricFunctions.esymm_recurrence_he}
+\leanhelper
+\leanok
+Recurrence for $e_n$ from the symmetric Newton--Girard: for $n > 0$,
+\[
+e_n = \sum_{j=1}^{n} (-1)^{j+1}\, h_j \, e_{n-j}.
+\]
+This follows from $\sum_{j=0}^n (-1)^j h_j e_{n-j} = 0$
+(Theorem~\ref{thm.sf.newton-girard-he}) by isolating $j = 0$.
+\end{lemma}
+
+\begin{proof}
+Analogous to Lemma~\ref{lem.sf.hsymm-recurrence}.
+\end{proof}
+
+\begin{theorem}
+\label{thm.sf.omega-hsymm}
+\lean{SymmetricFunctions.omegaInvolution_hsymm_succ}
+\leanhelper
+\leanok
+The $\omega$-involution maps complete homogeneous to elementary:
+$\omega(h_{k+1}) = e_{k+1}$ for $k < n$.
+\end{theorem}
+
+\begin{proof}
+\leanok
+By strong induction on $k$:
+\begin{itemize}
+\item Base case ($k = 0$): $h_1 = e_1$, so
+$\omega(h_1) = \omega(e_1) = h_1 = e_1$.
+\item Inductive step: Use the Newton--Girard recurrence
+(Lemma~\ref{lem.sf.hsymm-recurrence}) to write
+$h_{k+1} = \sum_{j=1}^{k+1} (-1)^{j+1}\, e_j\, h_{k+1-j}$.
+Apply $\omega$: by Theorem~\ref{thm.sf.omega-esymm},
+$\omega(e_j) = h_j$, and by the IH,
+$\omega(h_{k+1-j}) = e_{k+1-j}$ for $k+1-j \leq k$.
+Hence $\omega(h_{k+1}) = \sum_{j=1}^{k+1} (-1)^{j+1}\, h_j\, e_{k+1-j}$,
+which equals $e_{k+1}$ by the symmetric
+Newton--Girard recurrence (Lemma~\ref{lem.sf.esymm-recurrence}).
+\end{itemize}
+\end{proof}
+
+\begin{theorem}
+\label{thm.sf.omega-involutive}
+\lean{SymmetricFunctions.omegaInvolution_involutive}
+\leanhelper
+\leanok
+The $\omega$-involution is an involution: $\omega \circ \omega = \mathrm{id}$.
+\end{theorem}
+
+\begin{proof}
+\leanok
+To show $\omega \circ \omega = \mathrm{id}$, it suffices to check on
+generators. Every element of the symmetric subalgebra is a polynomial
+in $e_1, e_2, \ldots, e_n$ (fundamental theorem of symmetric polynomials).
+For each generator $e_k$:
+$\omega(\omega(e_k)) = \omega(h_k) = e_k$.
+Since $\omega$ is an algebra homomorphism, the identity extends to all
+elements by linearity and multiplicativity.
+\end{proof}
+
+\begin{theorem}
+\label{thm.sf.omega-bijective}
+\lean{SymmetricFunctions.omegaInvolution_bijective}
+\leanhelper
+\leanok
+The $\omega$-involution is bijective.
+\end{theorem}
+
+\begin{proof}
+\leanok
+Both injectivity and surjectivity follow from $\omega \circ \omega = \mathrm{id}$
+(Theorem~\ref{thm.sf.omega-involutive}).
+\end{proof}
+
+\begin{definition}
+\label{def.sf.omega-equiv}
+\lean{SymmetricFunctions.omegaInvolutionEquiv}
+\leanhelper
+\leanok
+The $\omega$-involution promoted to an algebra equivalence
+$\omega : \Lambda_R \xrightarrow{\sim} \Lambda_R$.
+\end{definition}
+
+\begin{lemma}
+\label{lem.sf.omega-det-hsymm}
+\lean{SymmetricFunctions.omegaInvolution_det_hsymm}
+\leanhelper
+\leanok
+The $\omega$-involution commutes with determinants:
+for any matrix $M$ over the symmetric subalgebra,
+$\omega(\det(M)) = \det(\omega(M))$,
+where $\omega(M)$ applies $\omega$ entry-wise.
+This is because $\omega$ is an algebra homomorphism, and $\det$ is
+a polynomial expression in the entries (involving only addition,
+multiplication, and negation).
+\end{lemma}
+
+\begin{proof}
+This follows from the fact that any algebra homomorphism
+commutes with determinant.
+\end{proof}

@@ -1,0 +1,157 @@
+\subsection{Derivatives of FPSs}
+
+Our definition of the derivative of a FPS copycats the well-known formula for
+the derivative of a power series in analysis:
+
+\begin{definition}
+\label{def.fps.deriv}Let $f\in K\left[  \left[  x\right]  \right]  $ be an
+FPS. Then, the \emph{derivative} $f^{\prime}$ of $f$ is an FPS defined as
+follows: Write $f$ as $f=\sum_{n\in\mathbb{N}}f_{n}x^{n}$ (with $f_{0}%
+,f_{1},f_{2},\ldots\in K$), and set%
+\[
+f^{\prime}:=\sum_{n>0}nf_{n}x^{n-1}.
+\]
+
+\end{definition}
+
+To make sure that this derivative behaves nicely, we need to check that it
+satisfies the familiar properties of derivatives. And indeed, it does:
+
+\begin{theorem}
+\label{thm.fps.deriv.rules}\textbf{(a)} We have $\left(  f+g\right)  ^{\prime
+}=f^{\prime}+g^{\prime}$ for any $f,g\in K\left[  \left[  x\right]  \right]
+$. \medskip
+
+\textbf{(b)} If $\left(  f_{i}\right)  _{i\in I}$ is a summable family of
+FPSs, then the family $\left(  f_{i}^{\prime}\right)  _{i\in I}$ is summable
+as well, and we have%
+\[
+\left(  \sum_{i\in I}f_{i}\right)  ^{\prime}=\sum_{i\in I}f_{i}^{\prime}.
+\]
+
+
+\textbf{(c)} We have $\left(  cf\right)  ^{\prime}=cf^{\prime}$ for any $c\in
+K$ and $f\in K\left[  \left[  x\right]  \right]  $. \medskip
+
+\textbf{(d)} We have $\left(  fg\right)  ^{\prime}=f^{\prime}g+fg^{\prime}$
+for any $f,g\in K\left[  \left[  x\right]  \right]  $. (This is known as the
+\emph{Leibniz rule}.) \medskip
+
+\textbf{(e)} If $f,g\in K\left[  \left[  x\right]  \right]  $ are two FPSs
+such that $g$ is invertible, then%
+\[
+\left(  \dfrac{f}{g}\right)  ^{\prime}=\dfrac{f^{\prime}g-fg^{\prime}}{g^{2}%
+}.
+\]
+(This is known as the \emph{quotient rule}.) \medskip
+
+\textbf{(f)} If $g\in K\left[  \left[  x\right]  \right]  $ is an FPS, then
+$\left(  g^{n}\right)  ^{\prime}=ng^{\prime}g^{n-1}$ for any $n\in\mathbb{N}$
+(where the expression $ng^{\prime}g^{n-1}$ is to be understood as $0$ if
+$n=0$). \medskip
+
+\textbf{(g)} Given two FPSs $f,g\in K\left[  \left[  x\right]  \right]  $, we
+have
+\[
+\left(  f\circ g\right)  ^{\prime}=\left(  f^{\prime}\circ g\right)  \cdot
+g^{\prime}%
+\]
+if $f$ is a polynomial or if $\left[  x^{0}\right]  g=0$. (This is known as
+the \emph{chain rule}.) \medskip
+
+\textbf{(h)} If $K$ is a $\mathbb{Q}$-algebra, and if two FPSs $f,g\in
+K\left[  \left[  x\right]  \right]  $ satisfy $f^{\prime}=g^{\prime}$, then
+$f-g$ is constant.
+\end{theorem}
+
+Theorem \ref{thm.fps.deriv.rules} justifies Example 4 in Section
+\ref{sec.gf.exas} (specifically, Theorem \ref{thm.fps.deriv.rules}
+\textbf{(e)} is the quotient rule that we used to compute $\left(  \dfrac
+{1}{1-x}\right)  ^{\prime}$).
+
+\begin{proof}
+[Proof of Theorem \ref{thm.fps.deriv.rules} (sketched).]\textbf{(a)} This is
+part of \cite[Exercise 5 \textbf{(b)}]{19s-mt3s} (specifically, it is
+Statement 1 in \cite[solution to Exercise 5 \textbf{(b)}]{19s-mt3s}). Anyway,
+the proof is very easy. \medskip
+
+\textbf{(b)} This is just the natural generalization of Theorem
+\ref{thm.fps.deriv.rules} \textbf{(a)} to (potentially) infinite sums. The
+proof follows the same idea, but requires some straightforward technical
+verifications (mainly to check that the summation signs can be interchanged).
+\medskip
+
+\textbf{(c)} This is part of \cite[Exercise 5 \textbf{(b)}]{19s-mt3s}
+(specifically, it is Statement 3 in \cite[solution to Exercise 5 \textbf{(b)}%
+]{19s-mt3s}). \medskip
+
+\textbf{(d)} This is \cite[Exercise 5 \textbf{(c)}]{19s-mt3s} and
+\cite[Proposition 0.2 \textbf{(c)}]{logexp}. \medskip
+
+\textbf{(e)} Let $f,g\in K\left[  \left[  x\right]  \right]  $ be two FPSs
+such that $g$ is invertible. Then, Theorem \ref{thm.fps.deriv.rules}
+\textbf{(d)} (applied to $\dfrac{f}{g}$ instead of $f$) yields $\left(
+\dfrac{f}{g}\cdot g\right)  ^{\prime}=\left(  \dfrac{f}{g}\right)  ^{\prime
+}\cdot g+\dfrac{f}{g}\cdot g^{\prime}$. In view of $\dfrac{f}{g}\cdot g=f$,
+this rewrites as $f^{\prime}=\left(  \dfrac{f}{g}\right)  ^{\prime}\cdot
+g+\dfrac{f}{g}\cdot g^{\prime}$. Solving this for $\left(  \dfrac{f}%
+{g}\right)  ^{\prime}$, we find $\left(  \dfrac{f}{g}\right)  ^{\prime}%
+=\dfrac{f^{\prime}g-fg^{\prime}}{g^{2}}$. This proves Theorem
+\ref{thm.fps.deriv.rules} \textbf{(e)}. \medskip
+
+\textbf{(f)} This follows by induction on $n$, using part \textbf{(d)} (in the
+induction step) and $1^{\prime}=0$ (in the induction base). \medskip
+
+\textbf{(g)} Let $f,g\in K\left[  \left[  x\right]  \right]  $ be two FPSs
+such that $f$ is a polynomial or $\left[  x^{0}\right]  g=0$. Write the FPS
+$f$ in the form $f=\sum_{n\in\mathbb{N}}f_{n}x^{n}$ with $f_{0},f_{1}%
+,f_{2},\ldots\in K$. Then, either Definition \ref{def.fps.subs} or Definition
+\ref{def.pol.subs} (depending on whether we have $\left[  x^{0}\right]  g=0$
+or $f$ is a polynomial) yields $f\left[  g\right]  =\sum_{n\in\mathbb{N}}%
+f_{n}g^{n}$. Hence,%
+\begin{align}
+\left(  f\left[  g\right]  \right)  ^{\prime}  &  =\left(  \sum_{n\in
+\mathbb{N}}f_{n}g^{n}\right)  ^{\prime}=\sum_{n\in\mathbb{N}}%
+\underbrace{\left(  f_{n}g^{n}\right)  ^{\prime}}_{\substack{=f_{n}\left(
+g^{n}\right)  ^{\prime}\\\text{(by Theorem \ref{thm.fps.deriv.rules}
+\textbf{(c)})}}}\ \ \ \ \ \ \ \ \ \ \left(  \text{by Theorem
+\ref{thm.fps.deriv.rules} \textbf{(b)}}\right) \nonumber\\
+&  =\sum_{n\in\mathbb{N}}f_{n}\left(  g^{n}\right)  ^{\prime}=f_{0}%
+\underbrace{\left(  g^{0}\right)  ^{\prime}}_{=1^{\prime}=0}+\sum_{n>0}%
+f_{n}\underbrace{\left(  g^{n}\right)  ^{\prime}}_{\substack{=ng^{\prime
+}g^{n-1}\\\text{(by Theorem \ref{thm.fps.deriv.rules} \textbf{(f)})}%
+}}=\underbrace{f_{0}\cdot0}_{=0}+\sum_{n>0}f_{n}ng^{\prime}g^{n-1}\nonumber\\
+&  =\sum_{n>0}f_{n}n\underbrace{g^{\prime}g^{n-1}}_{=g^{n-1}g^{\prime}}%
+=\sum_{n>0}nf_{n}g^{n-1}g^{\prime}. \label{pf.thm.fps.deriv.rules.g.3}%
+\end{align}
+
+
+On the other hand, from $f=\sum_{n\in\mathbb{N}}f_{n}x^{n}$, we obtain
+$f^{\prime}=\sum_{n>0}nf_{n}x^{n-1}=\sum_{m\in\mathbb{N}}\left(  m+1\right)
+f_{m+1}x^{m}$ (here, we have substituted $m+1$ for $n$ in the sum). Hence,
+Definition \ref{def.fps.subs} or Definition \ref{def.pol.subs} (depending on
+whether we have $\left[  x^{0}\right]  g=0$ or $f$ is a polynomial) yields
+\[
+f^{\prime}\left[  g\right]  =\sum_{m\in\mathbb{N}}\left(  m+1\right)
+f_{m+1}g^{m}=\sum_{n>0}nf_{n}g^{n-1}%
+\]
+(here, we have substituted $n-1$ for $m$ in the sum). Multiplying both sides
+of this equality by $g^{\prime}$, we find%
+\[
+f^{\prime}\left[  g\right]  \cdot g^{\prime}=\left(  \sum_{n>0}nf_{n}%
+g^{n-1}\right)  \cdot g^{\prime}=\sum_{n>0}nf_{n}g^{n-1}g^{\prime}.
+\]
+Comparing this with (\ref{pf.thm.fps.deriv.rules.g.3}), we find $\left(
+f\left[  g\right]  \right)  ^{\prime}=f^{\prime}\left[  g\right]  \cdot
+g^{\prime}$. In other words, $\left(  f\circ g\right)  ^{\prime}=\left(
+f^{\prime}\circ g\right)  \cdot g^{\prime}$ (since $f\circ g$ is a synonym for
+$f\left[  g\right]  $). This proves Theorem \ref{thm.fps.deriv.rules}
+\textbf{(g)}. (Note that this proof is done in \cite[proof of Theorem 7.57
+(d)]{Loehr-BC} in the case when $f$ is a polynomial.) \medskip
+
+\textbf{(h)} The proof is easy and can be found in \cite[Lemma 0.3]{logexp}.
+Note that the condition that $K$ be a $\mathbb{Q}$-algebra is crucial, since
+it allows dividing by positive integers. (For example, if $K$ could be
+$\mathbb{Z}/2$, then we would easily get a counterexample, e.g., by taking
+$f=x^{2}$ and $g=0$.)
+\end{proof}

@@ -1,0 +1,1044 @@
+\subsection{\label{subsec.fps.exp}Exponentials and logarithms}
+
+\begin{convention}
+\label{conv.fps.exp.K-Q-alg}Throughout Section \ref{subsec.fps.exp}, we assume
+that $K$ is not just a commutative ring, but actually a commutative
+$\mathbb{Q}$-algebra.
+\end{convention}
+
+\subsubsection{Definitions}
+
+Convention \ref{conv.fps.exp.K-Q-alg} entails that elements of $K$ can be
+divided by the positive integers $1,2,3,\ldots$. We can use this to define
+three specific (and particularly important) FPSs over $K$:
+
+\begin{definition}
+\label{def.fps.exp-log}Define three FPS $\exp$, $\overline{\log}$ and
+$\overline{\exp}$ in $K\left[  \left[  x\right]  \right]  $ by%
+\begin{align*}
+\exp &  :=\sum_{n\in\mathbb{N}}\dfrac{1}{n!}x^{n},\\
+\overline{\log}  &  :=\sum_{n\geq1}\dfrac{\left(  -1\right)  ^{n-1}}{n}%
+x^{n},\\
+\overline{\exp}  &  :=\exp-1=\sum_{n\geq1}\dfrac{1}{n!}x^{n}.
+\end{align*}
+
+
+(The last equality sign here follows from $\exp=\sum_{n\in\mathbb{N}}\dfrac
+{1}{n!}x^{n}=\underbrace{\dfrac{1}{0!}}_{=1}\underbrace{x^{0}}_{=1}%
++\sum_{n\geq1}\dfrac{1}{n!}x^{n}=1+\sum_{n\geq1}\dfrac{1}{n!}x^{n}$.)
+\end{definition}
+
+Note that the FPS $\exp$ is the usual exponential series from analysis, but
+now manifesting itself as a FPS. Likewise, $\overline{\log}$ is the Mercator
+series for $\log\left(  1+x\right)  $, where $\log$ stands for the natural
+logarithm function. The natural logarithm function itself cannot be
+interpreted as an FPS, since $\log0$ is undefined.
+
+\subsubsection{The exponential and the logarithm are inverse}
+
+I will prove that
+\begin{equation}
+\overline{\exp}\circ\overline{\log}=\overline{\log}\circ\overline{\exp}=x.
+\label{eq.fps.exp-log-inverse.1}%
+\end{equation}
+This is an algebraic analogue of the well-known fact from analysis which
+states that the exponential and logarithm functions are mutually inverse.
+
+There is a short way of proving (\ref{eq.fps.exp-log-inverse.1}), which I will
+not take: Namely, one can show that any equality between holomorphic functions
+on an open disk around the origin leads to an equality between their Taylor
+series (viewed as FPSs). Thus, if you have proved in complex analysis that
+$\log\circ\exp=\operatorname*{id}$ on an open disk around $0$ and $\exp
+\circ\log=\operatorname*{id}$ on an open disk around $1$, then you
+automatically get (\ref{eq.fps.exp-log-inverse.1}) (indeed, $\overline{\exp}$
+and $\overline{\log}$ are the Taylor series of the functions $\exp$ and $\log$
+around $1$, with the reservation that the point $1$ has been moved to the
+origin by a shift). This approach uses nontrivial results from complex
+analysis, so I will not follow it and instead start from scratch.
+
+The main tool in the proof of (\ref{eq.fps.exp-log-inverse.1}) will be the
+following useful proposition (\cite[Lemma 0.4]{logexp}):
+
+\begin{proposition}
+\label{prop.fps.exp-log-der}Let $g\in K\left[  \left[  x\right]  \right]  $
+with $\left[  x^{0}\right]  g=0$. Then: \medskip
+
+\textbf{(a)} We have%
+\[
+\left(  \overline{\exp}\circ g\right)  ^{\prime}=\left(  \exp\circ g\right)
+^{\prime}=\left(  \exp\circ g\right)  \cdot g^{\prime}.
+\]
+
+
+\textbf{(b)} We have%
+\[
+\left(  \overline{\log}\circ g\right)  ^{\prime}=\left(  1+g\right)
+^{-1}\cdot g^{\prime}.
+\]
+
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.fps.exp-log-der}.]\textbf{(a)} Let us first
+show that $\overline{\exp}^{\prime}=\exp^{\prime}=\exp$. Indeed,
+$\overline{\exp}=\exp-1$, so that $\exp=\overline{\exp}+1$ and therefore%
+\begin{align}
+\exp^{\prime}  &  =\left(  \overline{\exp}+1\right)  ^{\prime}=\overline{\exp
+}^{\prime}+\underbrace{1^{\prime}}_{=0}\ \ \ \ \ \ \ \ \ \ \left(  \text{by
+Theorem \ref{thm.fps.deriv.rules} \textbf{(a)}}\right) \nonumber\\
+&  =\overline{\exp}^{\prime}. \label{pf.prop.fps.exp-log-der.a.1}%
+\end{align}
+Next, we recall that $\exp=\sum_{n\in\mathbb{N}}\dfrac{1}{n!}x^{n}$. Hence,
+the definition of a derivative yields%
+\begin{align}
+\exp^{\prime}  &  =\sum_{n\geq1}\underbrace{n\cdot\dfrac{1}{n!}}%
+_{\substack{=\dfrac{1}{\left(  n-1\right)  !}\\\text{(since }n!=n\cdot\left(
+n-1\right)  !\text{)}}}x^{n-1}=\sum_{n\geq1}\dfrac{1}{\left(  n-1\right)
+!}x^{n-1}=\sum_{n\in\mathbb{N}}\dfrac{1}{n!}x^{n}\nonumber\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{here, we have
+substituted }n\text{ for }n-1\text{ in the sum}\right) \nonumber\\
+&  =\exp. \label{pf.prop.fps.exp-log-der.a.2}%
+\end{align}
+Comparing this with (\ref{pf.prop.fps.exp-log-der.a.1}), we find
+\begin{equation}
+\overline{\exp}^{\prime}=\exp. \label{pf.prop.fps.exp-log-der.a.3}%
+\end{equation}
+
+
+Now, we can apply the chain rule (Theorem \ref{thm.fps.deriv.rules}
+\textbf{(g)}) to $f=\overline{\exp}$ (since $\left[  x^{0}\right]  g=0$), and
+thus obtain%
+\[
+\left(  \overline{\exp}\circ g\right)  ^{\prime}=\left(  \underbrace{\overline
+{\exp}^{\prime}}_{=\exp}\circ\,g\right)  \cdot g^{\prime}=\left(  \exp\circ
+g\right)  \cdot g^{\prime}.
+\]
+The same computation (but with $\overline{\exp}$ replaced by $\exp$) yields
+$\left(  \exp\circ g\right)  ^{\prime}=\left(  \exp\circ g\right)  \cdot
+g^{\prime}$. Combining these two formulas, we obtain $\left(  \overline{\exp
+}\circ g\right)  ^{\prime}=\left(  \exp\circ g\right)  ^{\prime}=\left(
+\exp\circ g\right)  \cdot g^{\prime}$. Thus, we have proved Proposition
+\ref{prop.fps.exp-log-der} \textbf{(a)}.
+
+\textbf{(b)} We have $\overline{\log}=\sum_{n\geq1}\dfrac{\left(  -1\right)
+^{n-1}}{n}x^{n}$. Thus,
+\begin{align*}
+\overline{\log}^{\prime}  &  =\left(  \sum_{n\geq1}\dfrac{\left(  -1\right)
+^{n-1}}{n}x^{n}\right)  ^{\prime}\\
+&  =\sum_{n\geq1}\dfrac{\left(  -1\right)  ^{n-1}}{n}\underbrace{\left(
+x^{n}\right)  ^{\prime}}_{\substack{=nx^{\prime}x^{n-1}\\\text{(by Theorem
+\ref{thm.fps.deriv.rules} \textbf{(f)},}\\\text{applied to }x\text{ instead of
+}g\text{)}}}\ \ \ \ \ \ \ \ \ \ \left(  \text{by Theorem
+\ref{thm.fps.deriv.rules} \textbf{(b)}}\right) \\
+&  =\sum_{n\geq1}\underbrace{\dfrac{\left(  -1\right)  ^{n-1}}{n}n}_{=\left(
+-1\right)  ^{n-1}}\underbrace{x^{\prime}}_{=1}x^{n-1}=\sum_{n\geq1}\left(
+-1\right)  ^{n-1}x^{n-1}=\sum_{n\in\mathbb{N}}\left(  -1\right)  ^{n}x^{n}%
+\end{align*}
+(here, we have substituted $n$ for $n-1$ in the sum). On the other hand,
+Proposition \ref{prop.fps.invertible} yields $\left(  1+x\right)  ^{-1}%
+=\sum_{n\in\mathbb{N}}\left(  -1\right)  ^{n}x^{n}$. Comparing these two
+equalities, we find%
+\begin{equation}
+\overline{\log}^{\prime}=\left(  1+x\right)  ^{-1}.
+\label{pf.prop.fps.exp-log-der.b.2}%
+\end{equation}
+
+
+Now, we can apply the chain rule (Theorem \ref{thm.fps.deriv.rules}
+\textbf{(g)}) to $f=\overline{\log}$ (since $\left[  x^{0}\right]  g=0$), and
+thus obtain%
+\begin{equation}
+\left(  \overline{\log}\circ g\right)  ^{\prime}=\left(  \underbrace{\overline
+{\log}^{\prime}}_{=\left(  1+x\right)  ^{-1}}\circ\,g\right)  \cdot g^{\prime
+}=\left(  \left(  1+x\right)  ^{-1}\circ g\right)  \cdot g^{\prime}.
+\label{pf.prop.fps.exp-log-der.b.3}%
+\end{equation}
+
+
+However, we claim that $\left(  1+x\right)  ^{-1}\circ g=\left(  1+g\right)
+^{-1}$. Indeed, Proposition \ref{prop.fps.subs.rules} \textbf{(c)} (applied to
+$f_{1}=1$ and $f_{2}=1+x$) yields $\dfrac{1}{1+x}\circ g=\dfrac{1\circ
+g}{\left(  1+x\right)  \circ g}$ (since the FPS $1+x$ is invertible). In view
+of $\dfrac{1}{1+x}=\left(  1+x\right)  ^{-1}$ and
+\[
+\underbrace{1}_{=\underline{1}}\circ\,g=\underline{1}\circ g=\underline{1}%
+\ \ \ \ \ \ \ \ \ \ \left(  \text{by Proposition \ref{prop.fps.subs.rules}
+\textbf{(f)}, applied to }a=1\right)
+\]
+and%
+\[
+\left(  1+x\right)  \circ g=1+g\ \ \ \ \ \ \ \ \ \ \left(  \text{this follows
+easily from Definition \ref{def.fps.subs}}\right)  ,
+\]
+this rewrites as $\left(  1+x\right)  ^{-1}\circ g=\dfrac{\underline{1}}%
+{1+g}=\left(  1+g\right)  ^{-1}$. Hence, (\ref{pf.prop.fps.exp-log-der.b.3})
+becomes%
+\[
+\left(  \overline{\log}\circ g\right)  ^{\prime}=\underbrace{\left(  \left(
+1+x\right)  ^{-1}\circ g\right)  }_{=\left(  1+g\right)  ^{-1}}\cdot
+\,g^{\prime}=\left(  1+g\right)  ^{-1}\cdot g^{\prime}.
+\]
+Thus, we have proved Proposition \ref{prop.fps.exp-log-der} \textbf{(b)}.
+\end{proof}
+
+We will need a very simple lemma, which says (in particular) that if two FPSs
+have constant terms $0$, then so does their composition:
+
+\begin{lemma}
+\label{lem.fps.compos-cst-term-0}Let $f,g\in K\left[  \left[  x\right]
+\right]  $ be two FPSs with $\left[  x^{0}\right]  g=0$. Then, $\left[
+x^{0}\right]  \left(  f\circ g\right)  =\left[  x^{0}\right]  f$.
+\end{lemma}
+
+\begin{proof}
+[Proof of Lemma \ref{lem.fps.compos-cst-term-0}.]Write $f$ in the form
+$f=\sum_{n\in\mathbb{N}}f_{n}x^{n}$ with $f_{0},f_{1},f_{2},\ldots\in K$.
+Thus, $f_{0}=\left[  x^{0}\right]  f$. Now, Definition \ref{def.fps.subs}
+yields $f\left[  g\right]  =\sum_{n\in\mathbb{N}}f_{n}g^{n}$. However,
+Proposition \ref{prop.fps.subs.wd} \textbf{(c)} yields $\left[  x^{0}\right]
+\left(  \sum_{n\in\mathbb{N}}f_{n}g^{n}\right)  =f_{0}=\left[  x^{0}\right]
+f$. In view of $f\circ g=f\left[  g\right]  =\sum_{n\in\mathbb{N}}f_{n}g^{n}$,
+we can rewrite this as $\left[  x^{0}\right]  \left(  f\circ g\right)
+=\left[  x^{0}\right]  f$. This proves Lemma \ref{lem.fps.compos-cst-term-0}.
+\end{proof}
+
+Now, we can prove the equalities we promised (\cite[Theorem 0.1]{logexp}):
+
+\begin{theorem}
+\label{thm.fps.exp-log-inv}We have%
+\[
+\overline{\exp}\circ\overline{\log}=x\ \ \ \ \ \ \ \ \ \ \text{and}%
+\ \ \ \ \ \ \ \ \ \ \overline{\log}\circ\overline{\exp}=x.
+\]
+
+\end{theorem}
+
+\begin{proof}
+[Proof of Theorem \ref{thm.fps.exp-log-inv}.]Let us first prove that
+$\overline{\log}\circ\overline{\exp}=x$.
+
+Indeed, the idea of this proof is to show that $\overline{\log}\circ
+\overline{\exp}$ and $x$ are two FPSs with the same constant term (namely,
+$0$) and with the same derivative. Once this is proved, Theorem
+\ref{thm.fps.deriv.rules} \textbf{(h)} will easily yield that they are equal.
+
+Let us fill in the details. We have $\left[  x^{0}\right]  \overline{\exp}=0$
+(since $\overline{\exp}=\sum_{n\geq1}\dfrac{1}{n!}x^{n}$). Hence, Lemma
+\ref{lem.fps.compos-cst-term-0} (applied to $f=\overline{\log}$ and
+$g=\overline{\exp}$) yields $\left[  x^{0}\right]  \left(  \overline{\log
+}\circ\overline{\exp}\right)  =\left[  x^{0}\right]  \overline{\log}=0$ (since
+$\overline{\log}=\sum_{n\geq1}\dfrac{\left(  -1\right)  ^{n-1}}{n}x^{n}$).
+Now, (\ref{pf.thm.fps.ring.xn(a-b)=}) yields%
+\begin{equation}
+\left[  x^{0}\right]  \left(  \overline{\log}\circ\overline{\exp}-x\right)
+=\underbrace{\left[  x^{0}\right]  \left(  \overline{\log}\circ\overline{\exp
+}\right)  }_{=0}-\underbrace{\left[  x^{0}\right]  x}_{=0}=0.
+\label{pf.thm.fps.exp-log-inv.a.1}%
+\end{equation}
+However, $\overline{\exp}=\exp-1$ and thus $1+\overline{\exp}=\exp$. Now,
+Proposition \ref{prop.fps.exp-log-der} \textbf{(b)} (applied to $g=\overline
+{\exp}$) yields
+\[
+\left(  \overline{\log}\circ\overline{\exp}\right)  ^{\prime}=\left(
+\underbrace{1+\overline{\exp}}_{=\exp}\right)  ^{-1}\cdot\underbrace{\overline
+{\exp}^{\prime}}_{\substack{=\exp\\\text{(by
+(\ref{pf.prop.fps.exp-log-der.a.3}))}}}=\exp^{-1}\cdot\exp=1=x^{\prime}%
+\]
+(since $x^{\prime}=1$). Hence, Theorem \ref{thm.fps.deriv.rules} \textbf{(h)}
+(applied to $f=\overline{\log}\circ\overline{\exp}$ and $g=x$) yields that
+$\overline{\log}\circ\overline{\exp}-x$ is constant. In other words,
+$\overline{\log}\circ\overline{\exp}-x=\underline{a}$ for some $a\in K$.
+Consider this $a$. From $\overline{\log}\circ\overline{\exp}-x=\underline{a}$,
+we obtain $\left[  x^{0}\right]  \left(  \overline{\log}\circ\overline{\exp
+}-x\right)  =\left[  x^{0}\right]  \underline{a}=a$. Comparing this with
+(\ref{pf.thm.fps.exp-log-inv.a.1}), we find $a=0$. Hence, $\overline{\log
+}\circ\overline{\exp}-x=\underline{a}$ rewrites as $\overline{\log}%
+\circ\overline{\exp}-x=\underline{0}$. In other words, $\overline{\log}%
+\circ\overline{\exp}=x$.
+
+Now it remains to prove that $\overline{\exp}\circ\overline{\log}=x$. There
+are (at least) two ways to do this:
+
+\begin{itemize}
+\item \textit{1st way:} A homework exercise (Exercise \ref{exe.fps.comp-inv})
+says that any FPS $f$ with $\left[  x^{0}\right]  f=0$ and with $\left[
+x^{1}\right]  f$ invertible has a unique compositional inverse (i.e., there is
+a unique FPS $g$ with $\left[  x^{0}\right]  g=0$ and $f\circ g=g\circ f=x$).
+We can apply this to $f=\overline{\log}$ (since $\left[  x^{0}\right]
+\overline{\log}=0$ and since $\left[  x^{1}\right]  \overline{\log}=1$ is
+invertible), and thus see that $\overline{\log}$ has a unique compositional
+inverse $g$. This compositional inverse $g$ must be $\overline{\exp}$, since
+$\overline{\log}\circ\overline{\exp}=x$ (indeed, comparing
+$\underbrace{\left(  g\circ\overline{\log}\right)  }_{=x}\circ\,\overline
+{\exp}=x\circ\overline{\exp}=\overline{\exp}$ with
+\begin{align*}
+\left(  g\circ\overline{\log}\right)  \circ\overline{\exp}  &  =g\circ
+\underbrace{\left(  \overline{\log}\circ\overline{\exp}\right)  }%
+_{=x}\ \ \ \ \ \ \ \ \ \ \left(  \text{by Proposition
+\ref{prop.fps.subs.rules} \textbf{(e)}}\right) \\
+&  =g\circ x=g
+\end{align*}
+yields $g=\overline{\exp}$). But this entails that $\overline{\exp}%
+\circ\overline{\log}=x$ as well.
+
+\item \textit{2nd way:} Here is a more direct argument. We shall first show
+that $\exp\circ\overline{\log}=1+x$.
+
+To wit: The FPS $1+x$ is invertible (by Proposition
+\ref{prop.fps.invertible.1+x}). Thus, applying the quotient rule (Theorem
+\ref{thm.fps.deriv.rules} \textbf{(e)}) to $f=\exp\circ\,\overline{\log}$ and
+$g=1+x$, we obtain%
+\[
+\left(  \dfrac{\exp\circ\,\overline{\log}}{1+x}\right)  ^{\prime}%
+=\dfrac{\left(  \exp\circ\,\overline{\log}\right)  ^{\prime}\cdot\left(
+1+x\right)  -\left(  \exp\circ\,\overline{\log}\right)  \cdot\left(
+1+x\right)  ^{\prime}}{\left(  1+x\right)  ^{2}}.
+\]
+In view of%
+\begin{align*}
+\left(  \exp\circ\,\overline{\log}\right)  ^{\prime}  &  =\left(  \exp
+\circ\,\overline{\log}\right)  \cdot\underbrace{\overline{\log}^{\prime}%
+}_{\substack{=\left(  1+x\right)  ^{-1}\\\text{(by
+(\ref{pf.prop.fps.exp-log-der.b.2}))}}}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{by Proposition
+\ref{prop.fps.exp-log-der} \textbf{(a)}, applied to }g=\overline{\log}\right)
+\\
+&  =\left(  \exp\circ\,\overline{\log}\right)  \cdot\left(  1+x\right)  ^{-1}%
+\end{align*}
+and $\left(  1+x\right)  ^{\prime}=1$, we can rewrite this as%
+\begin{align*}
+\left(  \dfrac{\exp\circ\,\overline{\log}}{1+x}\right)  ^{\prime}  &
+=\dfrac{\left(  \exp\circ\,\overline{\log}\right)  \cdot\left(  1+x\right)
+^{-1}\cdot\left(  1+x\right)  -\left(  \exp\circ\,\overline{\log}\right)
+\cdot1}{\left(  1+x\right)  ^{2}}\\
+&  =\dfrac{\left(  \exp\circ\,\overline{\log}\right)  -\left(  \exp
+\circ\,\overline{\log}\right)  }{\left(  1+x\right)  ^{2}}=0=0^{\prime}.
+\end{align*}
+Thus, Theorem \ref{thm.fps.deriv.rules} \textbf{(h)} (applied to
+$f=\dfrac{\exp\circ\,\overline{\log}}{1+x}$ and $g=0$) yields that
+$\dfrac{\exp\circ\,\overline{\log}}{1+x}-0$ is constant. In other words,
+$\dfrac{\exp\circ\,\overline{\log}}{1+x}$ is constant. In other words,
+$\dfrac{\exp\circ\,\overline{\log}}{1+x}=\underline{a}$ for some $a\in K$.
+Consider this $a$. From $\dfrac{\exp\circ\,\overline{\log}}{1+x}%
+=\underline{a}$, we obtain $\exp\circ\,\overline{\log}=\underline{a}\left(
+1+x\right)  =a\left(  1+x\right)  $. Thus,%
+\[
+\left[  x^{0}\right]  \left(  \exp\circ\,\overline{\log}\right)  =\left[
+x^{0}\right]  \left(  a\left(  1+x\right)  \right)  =a.
+\]
+However, it is easy to see that $\left[  x^{0}\right]  \left(  \exp
+\circ\,\overline{\log}\right)  =1$\ \ \ \ \footnote{\textit{Proof.} Recall
+that $\left[  x^{0}\right]  \overline{\log}=0$. Hence, Lemma
+\ref{lem.fps.compos-cst-term-0} (applied to $f=\exp$ and $g=\overline{\log}$)
+yields
+\begin{align*}
+\left[  x^{0}\right]  \left(  \exp\circ\,\overline{\log}\right)   &  =\left[
+x^{0}\right]  \exp=\dfrac{1}{0!}\ \ \ \ \ \ \ \ \ \ \left(  \text{since }%
+\exp=\sum_{n\in\mathbb{N}}\dfrac{1}{n!}x^{n}\right) \\
+&  =\dfrac{1}{1}=1.
+\end{align*}
+}. Comparing these two equalities, we find $a=1$. Thus, $\exp\circ
+\,\overline{\log}=\underbrace{a}_{=1}\left(  1+x\right)  =1+x$.
+
+Now, $\overline{\exp}=\exp-1=\exp+\,\underline{-1}$. Hence,
+\begin{align*}
+&  \overline{\exp}\circ\overline{\log}\\
+&  =\left(  \exp+\,\underline{-1}\right)  \circ\overline{\log}%
+=\underbrace{\exp\circ\,\overline{\log}}_{=1+x}+\underbrace{\underline{-1}%
+\circ\overline{\log}}_{\substack{=\underline{-1}\\\text{(by Proposition
+\ref{prop.fps.subs.rules} \textbf{(f)},}\\\text{applied to }-1\text{ and
+}\overline{\log}\text{ instead of }a\text{ and }g\text{)}}}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{by Proposition \ref{prop.fps.subs.rules} \textbf{(a)},}\\
+\text{applied to }f_{1}=\exp\text{ and }f_{2}=\underline{-1}\text{ and
+}g=\overline{\log}%
+\end{array}
+\right) \\
+&  =1+x+\underline{-1}=\underbrace{\left(  1+\underline{-1}\right)  }%
+_{=0}+\,x=x.
+\end{align*}
+
+\end{itemize}
+
+Either way, we have shown that $\overline{\exp}\circ\overline{\log}=x$. Thus,
+the proof of Theorem \ref{thm.fps.exp-log-inv} is complete.
+\end{proof}
+
+\subsubsection{The exponential and the logarithm of an FPS}
+
+In Definition \ref{def.fps.exp-log}, we have found algebraic versions of the
+exponential and logarithm functions as FPSs. Next, we shall define analogues
+of these functions as operators acting on FPSs (i.e., analogues not of the
+functions $\exp$ and $\log$ themselves, but rather of composition with these functions):
+
+\begin{definition}
+\label{def.fps.Exp-Log-maps}\textbf{(a)} We let $K\left[  \left[  x\right]
+\right]  _{0}$ denote the set of all FPSs $f\in K\left[  \left[  x\right]
+\right]  $ with $\left[  x^{0}\right]  f=0$. \medskip
+
+\textbf{(b)} We let $K\left[  \left[  x\right]  \right]  _{1}$ denote the set
+of all FPSs $f\in K\left[  \left[  x\right]  \right]  $ with $\left[
+x^{0}\right]  f=1$. \medskip
+
+\textbf{(c)} We define two maps%
+\begin{align*}
+\operatorname*{Exp}:K\left[  \left[  x\right]  \right]  _{0}  &  \rightarrow
+K\left[  \left[  x\right]  \right]  _{1},\\
+g  &  \mapsto\exp\circ g
+\end{align*}
+and%
+\begin{align*}
+\operatorname*{Log}:K\left[  \left[  x\right]  \right]  _{1}  &  \rightarrow
+K\left[  \left[  x\right]  \right]  _{0},\\
+f  &  \mapsto\overline{\log}\circ\left(  f-1\right)  .
+\end{align*}
+(These two maps are well-defined according to parts \textbf{(c)} and
+\textbf{(d)} of Lemma \ref{lem.fps.Exp-Log-maps-wd} below.)
+\end{definition}
+
+The maps $\operatorname*{Exp}$ and $\operatorname*{Log}$ are algebraic
+analogues of the maps in complex analysis that take any holomorphic function
+$f$ to its exponential and logarithm, respectively (at least within certain
+regions in which these things are well-defined). As one would hope, and as we
+will soon see, they are mutually inverse. Let us first check that their
+definition is justified:
+
+\begin{lemma}
+\label{lem.fps.Exp-Log-maps-wd}\textbf{(a)} For any $f,g\in K\left[  \left[
+x\right]  \right]  _{0}$, we have $f\circ g\in K\left[  \left[  x\right]
+\right]  _{0}$. \medskip
+
+\textbf{(b)} For any $f\in K\left[  \left[  x\right]  \right]  _{1}$ and $g\in
+K\left[  \left[  x\right]  \right]  _{0}$, we have $f\circ g\in K\left[
+\left[  x\right]  \right]  _{1}$. \medskip
+
+\textbf{(c)} For any $g\in K\left[  \left[  x\right]  \right]  _{0}$, we have
+$\exp\circ g\in K\left[  \left[  x\right]  \right]  _{1}$. \medskip
+
+\textbf{(d)} For any $f\in K\left[  \left[  x\right]  \right]  _{1}$, we have
+$f-1\in K\left[  \left[  x\right]  \right]  _{0}$ and $\overline{\log}%
+\circ\left(  f-1\right)  \in K\left[  \left[  x\right]  \right]  _{0}$.
+\end{lemma}
+
+\begin{proof}
+[Proof of Lemma \ref{lem.fps.Exp-Log-maps-wd}.]\textbf{(a)} Let $f,g\in
+K\left[  \left[  x\right]  \right]  _{0}$. In view of the definition of
+$K\left[  \left[  x\right]  \right]  _{0}$, this entails that $\left[
+x^{0}\right]  f=0$ and $\left[  x^{0}\right]  g=0$. Hence, Lemma
+\ref{lem.fps.compos-cst-term-0} yields $\left[  x^{0}\right]  \left(  f\circ
+g\right)  =\left[  x^{0}\right]  f=0$. In other words, $f\circ g\in K\left[
+\left[  x\right]  \right]  _{0}$ (by the definition of $K\left[  \left[
+x\right]  \right]  _{0}$). This proves Lemma \ref{lem.fps.Exp-Log-maps-wd}
+\textbf{(a)}.
+
+\textbf{(b)} This is analogous to the proof of Lemma
+\ref{lem.fps.Exp-Log-maps-wd} \textbf{(a)}.
+
+\textbf{(c)} Let $g\in K\left[  \left[  x\right]  \right]  _{0}$. From
+$\exp=\sum_{n\in\mathbb{N}}\dfrac{1}{n!}x^{n}$, we obtain $\left[
+x^{0}\right]  \exp=\dfrac{1}{0!}=1$, so that $\exp\in K\left[  \left[
+x\right]  \right]  _{1}$. Hence, Lemma \ref{lem.fps.Exp-Log-maps-wd}
+\textbf{(b)} (applied to $f=\exp$) yields $\exp\circ g\in K\left[  \left[
+x\right]  \right]  _{1}$. This proves Lemma \ref{lem.fps.Exp-Log-maps-wd}
+\textbf{(c)}.
+
+\textbf{(d)} Let $f\in K\left[  \left[  x\right]  \right]  _{1}$. Thus,
+$\left[  x^{0}\right]  f=1$. Now, (\ref{pf.thm.fps.ring.xn(a-b)=}) yields
+$\left[  x^{0}\right]  \left(  f-1\right)  =\underbrace{\left[  x^{0}\right]
+f}_{=1}-\underbrace{\left[  x^{0}\right]  1}_{=1}=1-1=0$, so that $f-1\in
+K\left[  \left[  x\right]  \right]  _{0}$. Furthermore, $\left[  x^{0}\right]
+\overline{\log}=0$ (since $\overline{\log}=\sum_{n\geq1}\dfrac{\left(
+-1\right)  ^{n-1}}{n}x^{n}$) and thus $\overline{\log}\in K\left[  \left[
+x\right]  \right]  _{0}$. Hence, Lemma \ref{lem.fps.Exp-Log-maps-wd}
+\textbf{(a)} (applied to $\overline{\log}$ and $f-1$ instead of $f$ and $g$)
+yields $\overline{\log}\circ\left(  f-1\right)  \in K\left[  \left[  x\right]
+\right]  _{0}$. Thus, Lemma \ref{lem.fps.Exp-Log-maps-wd} \textbf{(d)} is proven.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.Exp-Log-maps-inv}The maps $\operatorname*{Exp}$ and
+$\operatorname*{Log}$ are mutually inverse bijections between $K\left[
+\left[  x\right]  \right]  _{0}$ and $K\left[  \left[  x\right]  \right]
+_{1}$.
+\end{lemma}
+
+\begin{proof}
+[Proof of Lemma \ref{lem.fps.Exp-Log-maps-inv}.]First, we make a simple
+auxiliary observation: Each $g\in K\left[  \left[  x\right]  \right]  _{0}$
+satisfies\footnote{As before, the \textquotedblleft$\circ$\textquotedblright%
+\ operation behaves like multiplication in the sense of PEMDAS conventions.
+Thus, the expression \textquotedblleft$\overline{\exp}\circ g+1$%
+\textquotedblright\ means $\left(  \overline{\exp}\circ g\right)  +1$.}%
+\begin{equation}
+\exp\circ g=\overline{\exp}\circ g+1. \label{pf.lem.fps.Exp-Log-maps-inv.1}%
+\end{equation}
+
+
+[\textit{Proof of (\ref{pf.lem.fps.Exp-Log-maps-inv.1}):} Let $g\in K\left[
+\left[  x\right]  \right]  _{0}$. Recall that $\overline{\exp}=\exp-1$, so
+that $\exp=\overline{\exp}+1=\overline{\exp}+\underline{1}$. Hence,%
+\[
+\exp\circ g=\left(  \overline{\exp}+\underline{1}\right)  \circ g=\overline
+{\exp}\circ g+\underline{1}\circ g
+\]
+(by Proposition \ref{prop.fps.subs.rules} \textbf{(a)}, applied to
+$f_{1}=\overline{\exp}$ and $f_{2}=\underline{1}$). However, Proposition
+\ref{prop.fps.subs.rules} \textbf{(f)} (applied to $a=1$) yields
+$\underline{1}\circ g=\underline{1}=1$. Hence, $\exp\circ g=\overline{\exp
+}\circ g+\underbrace{\underline{1}\circ g}_{=1}=\overline{\exp}\circ g+1$.
+This proves (\ref{pf.lem.fps.Exp-Log-maps-inv.1}).]
+
+Now, let us show that $\operatorname*{Exp}\circ\operatorname*{Log}%
+=\operatorname*{id}$. Indeed, we fix some $f\in K\left[  \left[  x\right]
+\right]  _{1}$. Then, $f-1\in K\left[  \left[  x\right]  \right]  _{0}$ (by
+Lemma \ref{lem.fps.Exp-Log-maps-wd} \textbf{(d)}). Hence, Proposition
+\ref{prop.fps.subs.rules} \textbf{(e)} (applied to $\overline{\exp}$,
+$\overline{\log}$ and $f-1$ instead of $f$, $g$ and $h$) yields $\left(
+\overline{\exp}\circ\overline{\log}\right)  \circ\left(  f-1\right)
+=\overline{\exp}\circ\left(  \overline{\log}\circ\left(  f-1\right)  \right)
+$. Thus,%
+\begin{align}
+\overline{\exp}\circ\left(  \overline{\log}\circ\left(  f-1\right)  \right)
+&  =\underbrace{\left(  \overline{\exp}\circ\overline{\log}\right)
+}_{\substack{=x\\\text{(by Theorem \ref{thm.fps.exp-log-inv})}}}\circ\left(
+f-1\right)  =x\circ\left(  f-1\right) \nonumber\\
+&  =f-1 \label{pf.lem.fps.Exp-Log-maps-inv.a.1}%
+\end{align}
+(by Proposition \ref{prop.fps.subs.rules} \textbf{(g)}, applied to $g=f-1$).
+However,%
+\begin{align*}
+\left(  \operatorname*{Exp}\circ\operatorname*{Log}\right)  \left(  f\right)
+&  =\operatorname*{Exp}\left(  \operatorname*{Log}f\right) \\
+&  =\exp\circ\left(  \operatorname*{Log}f\right)  \ \ \ \ \ \ \ \ \ \ \left(
+\text{by the definition of }\operatorname*{Exp}\right) \\
+&  =\overline{\exp}\circ\underbrace{\left(  \operatorname*{Log}f\right)
+}_{\substack{=\overline{\log}\circ\left(  f-1\right)  \\\text{(by the
+definition of }\operatorname*{Log}\text{)}}}+\,1\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{by
+(\ref{pf.lem.fps.Exp-Log-maps-inv.1}), applied to }g=\operatorname*{Log}%
+f\right) \\
+&  =\underbrace{\overline{\exp}\circ\left(  \overline{\log}\circ\left(
+f-1\right)  \right)  }_{\substack{=f-1\\\text{(by
+(\ref{pf.lem.fps.Exp-Log-maps-inv.a.1}))}}}+\,1\\
+&  =\left(  f-1\right)  +1=f=\operatorname*{id}\left(  f\right)  .
+\end{align*}
+
+
+Forget that we fixed $f$. We thus have shown that $\left(  \operatorname*{Exp}%
+\circ\operatorname*{Log}\right)  \left(  f\right)  =\operatorname*{id}\left(
+f\right)  $ for each $f\in K\left[  \left[  x\right]  \right]  _{1}$. In other
+words, $\operatorname*{Exp}\circ\operatorname*{Log}=\operatorname*{id}$.
+
+Using a similar argument, we can show that $\operatorname*{Log}\circ
+\operatorname*{Exp}=\operatorname*{id}$. Indeed, let us fix some $g\in
+K\left[  \left[  x\right]  \right]  _{0}$. Hence, Proposition
+\ref{prop.fps.subs.rules} \textbf{(e)} (applied to $\overline{\log}$,
+$\overline{\exp}$ and $g$ instead of $f$, $g$ and $h$) yields $\left(
+\overline{\log}\circ\overline{\exp}\right)  \circ g=\overline{\log}%
+\circ\left(  \overline{\exp}\circ g\right)  $. Thus,%
+\begin{align}
+\overline{\log}\circ\left(  \overline{\exp}\circ g\right)   &
+=\underbrace{\left(  \overline{\log}\circ\overline{\exp}\right)
+}_{\substack{=x\\\text{(by Theorem \ref{thm.fps.exp-log-inv})}}}\circ
+\,g=x\circ g\nonumber\\
+&  =g \label{pf.lem.fps.Exp-Log-maps-inv.b.1}%
+\end{align}
+(by Proposition \ref{prop.fps.subs.rules} \textbf{(g)}). But the definition of
+$\operatorname*{Exp}$ yields $\operatorname*{Exp}g=\exp\circ g=\overline{\exp
+}\circ g+1$ (by (\ref{pf.lem.fps.Exp-Log-maps-inv.1})). Hence,
+$\operatorname*{Exp}g-1=\overline{\exp}\circ g$. Now,%
+\begin{align*}
+\left(  \operatorname*{Log}\circ\operatorname*{Exp}\right)  \left(  g\right)
+&  =\operatorname*{Log}\left(  \operatorname*{Exp}g\right) \\
+&  =\overline{\log}\circ\left(  \operatorname*{Exp}g-1\right)
+\ \ \ \ \ \ \ \ \ \ \left(  \text{by the definition of }\operatorname*{Log}%
+\right) \\
+&  =\overline{\log}\circ\left(  \overline{\exp}\circ g\right)
+\ \ \ \ \ \ \ \ \ \ \left(  \text{since }\operatorname*{Exp}g-1=\overline
+{\exp}\circ g\right) \\
+&  =g\ \ \ \ \ \ \ \ \ \ \left(  \text{by
+(\ref{pf.lem.fps.Exp-Log-maps-inv.b.1})}\right) \\
+&  =\operatorname*{id}\left(  g\right)  .
+\end{align*}
+
+
+Forget that we fixed $g$. We thus have shown that $\left(  \operatorname*{Log}%
+\circ\operatorname*{Exp}\right)  \left(  g\right)  =\operatorname*{id}\left(
+g\right)  $ for each $g\in K\left[  \left[  x\right]  \right]  _{0}$. In other
+words, $\operatorname*{Log}\circ\operatorname*{Exp}=\operatorname*{id}$.
+Combining this with $\operatorname*{Exp}\circ\operatorname*{Log}%
+=\operatorname*{id}$, we see that the maps $\operatorname*{Exp}$ and
+$\operatorname*{Log}$ are mutually inverse bijections between $K\left[
+\left[  x\right]  \right]  _{0}$ and $K\left[  \left[  x\right]  \right]
+_{1}$. This proves Lemma \ref{lem.fps.Exp-Log-maps-inv}.
+\end{proof}
+
+\subsubsection{Addition to multiplication}
+
+We will now prove another lemma, which says that the $\operatorname*{Exp}$ and
+$\operatorname*{Log}$ maps deserve their names:
+
+\begin{lemma}
+\label{lem.fps.Exp-Log-additive}\textbf{(a)} For any $f,g\in K\left[  \left[
+x\right]  \right]  _{0}$, we have%
+\[
+\operatorname*{Exp}\left(  f+g\right)  =\operatorname*{Exp}f\cdot
+\operatorname*{Exp}g.
+\]
+
+
+\textbf{(b)} For any $f,g\in K\left[  \left[  x\right]  \right]  _{1}$, we
+have%
+\[
+\operatorname*{Log}\left(  fg\right)  =\operatorname*{Log}%
+f+\operatorname*{Log}g.
+\]
+
+\end{lemma}
+
+\begin{proof}
+[Proof of Lemma \ref{lem.fps.Exp-Log-additive} (sketched).]\textbf{(a)} Like
+many of our arguments involving FPSs, this will be a short computation
+followed by lengthy technical arguments justifying the interchanges of
+summation signs. (In this aspect, our algebraic replica of the analysis of
+infinite sums doesn't differ that much from the original.) We begin with the
+computation; the justifying arguments will be sketched afterwards.
+
+Let $f,g\in K\left[  \left[  x\right]  \right]  _{0}$. Thus, $\left[
+x^{0}\right]  f=0$ and $\left[  x^{0}\right]  g=0$. Hence, $f+g\in K\left[
+\left[  x\right]  \right]  _{0}$ (since (\ref{pf.thm.fps.ring.xn(a+b)=})
+yields $\left[  x^{0}\right]  \left(  f+g\right)  =\underbrace{\left[
+x^{0}\right]  f}_{=0}+\underbrace{\left[  x^{0}\right]  g}_{=0}=0$).
+
+By the definition of $\operatorname*{Exp}$, we have%
+\[
+\operatorname*{Exp}f=\exp\circ f=\exp\left[  f\right]  =\sum_{n\in\mathbb{N}%
+}\dfrac{1}{n!}f^{n}%
+\]
+(by Definition \ref{def.fps.subs}, since $\exp=\sum_{n\in\mathbb{N}}\dfrac
+{1}{n!}x^{n}$). Similarly,%
+\[
+\operatorname*{Exp}g=\sum_{n\in\mathbb{N}}\dfrac{1}{n!}g^{n}%
+\]
+and%
+\[
+\operatorname*{Exp}\left(  f+g\right)  =\sum_{n\in\mathbb{N}}\dfrac{1}%
+{n!}\left(  f+g\right)  ^{n}.
+\]
+
+
+Now, the latter equality becomes%
+\begin{align*}
+\operatorname*{Exp}\left(  f+g\right)   &  =\sum_{n\in\mathbb{N}}\dfrac{1}%
+{n!}\underbrace{\left(  f+g\right)  ^{n}}_{\substack{=\sum\limits_{k=0}%
+^{n}\dbinom{n}{k}f^{k}g^{n-k}\\\text{(by the binomial theorem)}}}=\sum
+_{n\in\mathbb{N}}\dfrac{1}{n!}\sum\limits_{k=0}^{n}\dbinom{n}{k}f^{k}g^{n-k}\\
+&  =\sum_{n\in\mathbb{N}}\ \ \sum\limits_{k=0}^{n}\underbrace{\dfrac{1}%
+{n!}\dbinom{n}{k}}_{\substack{=\dfrac{1}{k!\left(  n-k\right)  !}\\\text{(by
+(\ref{eq.binom.fac-form}))}}}f^{k}g^{n-k}=\underbrace{\sum_{n\in\mathbb{N}%
+}\ \ \sum\limits_{k=0}^{n}}_{\substack{=\sum_{\substack{\left(  n,k\right)
+\in\mathbb{N}\times\mathbb{N};\\k\leq n}}\\=\sum_{k\in\mathbb{N}}%
+\ \ \sum\limits_{n\geq k}}}\dfrac{1}{k!\left(  n-k\right)  !}f^{k}g^{n-k}\\
+&  =\sum_{k\in\mathbb{N}}\ \ \sum\limits_{n\geq k}\dfrac{1}{k!\left(
+n-k\right)  !}f^{k}g^{n-k}=\sum_{k\in\mathbb{N}}\ \ \sum\limits_{\ell
+\in\mathbb{N}}\dfrac{1}{k!\ell!}f^{k}g^{\ell}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{here, we have
+substituted }\ell\text{ for }n-k\text{ in the second sum}\right)  .
+\end{align*}
+Comparing this with%
+\begin{align*}
+\operatorname*{Exp}f\cdot\operatorname*{Exp}g  &  =\left(  \sum_{k\in
+\mathbb{N}}\dfrac{1}{k!}f^{k}\right)  \cdot\left(  \sum_{\ell\in\mathbb{N}%
+}\dfrac{1}{\ell!}g^{\ell}\right) \\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{since }\operatorname*{Exp}f=\sum_{n\in\mathbb{N}}\dfrac{1}{n!}f^{n}%
+=\sum_{k\in\mathbb{N}}\dfrac{1}{k!}f^{k}\\
+\text{and }\operatorname*{Exp}g=\sum_{n\in\mathbb{N}}\dfrac{1}{n!}g^{n}%
+=\sum_{\ell\in\mathbb{N}}\dfrac{1}{\ell!}g^{\ell}%
+\end{array}
+\right) \\
+&  =\sum_{k\in\mathbb{N}}\ \ \sum_{\ell\in\mathbb{N}}\dfrac{1}{k!}f^{k}%
+\cdot\dfrac{1}{\ell!}g^{\ell}=\sum_{k\in\mathbb{N}}\ \ \sum_{\ell\in
+\mathbb{N}}\dfrac{1}{k!\ell!}f^{k}g^{\ell},
+\end{align*}
+we obtain $\operatorname*{Exp}\left(  f+g\right)  =\operatorname*{Exp}%
+f\cdot\operatorname*{Exp}g$.
+
+\begin{fineprint}
+This is sufficient to prove Lemma \ref{lem.fps.Exp-Log-additive} \textbf{(a)}
+if we can justify the above manipulations of infinite sums. Actually, there is
+just one manipulation that we need to justify, and that is our replacement of
+\textquotedblleft$\sum_{n\in\mathbb{N}}\ \ \sum\limits_{k=0}^{n}%
+$\textquotedblright\ by \textquotedblleft$\sum_{k\in\mathbb{N}}\ \ \sum
+\limits_{n\geq k}$\textquotedblright. This is an application of the
+\textquotedblleft discrete Fubini rule\textquotedblright\ (specifically, of a
+version thereof in which the summation is over all pairs $\left(  n,k\right)
+\in\mathbb{N}\times\mathbb{N}$ satisfying $k\leq n$). In order to justify this
+manipulation, we need to show that the family $\left(  \dfrac{1}{k!\left(
+n-k\right)  !}f^{k}g^{n-k}\right)  _{\left(  n,k\right)  \in\mathbb{N}%
+\times\mathbb{N}\text{ satisfying }k\leq n}$ is summable. In other words, we
+need to show the following statement:
+
+\begin{statement}
+\textit{Statement 1:} For each $m\in\mathbb{N}$, all but finitely many pairs
+$\left(  n,k\right)  \in\mathbb{N}\times\mathbb{N}$ satisfying $k\leq n$
+satisfy $\left[  x^{m}\right]  \left(  \dfrac{1}{k!\left(  n-k\right)  !}%
+f^{k}g^{n-k}\right)  =0$.
+\end{statement}
+
+We shall achieve this by proving the following statement:
+
+\begin{statement}
+\textit{Statement 2:} For any three nonnegative integers $m,k,\ell$ with
+$m<k+\ell$, we have $\left[  x^{m}\right]  \left(  f^{k}g^{\ell}\right)  =0$.
+\end{statement}
+
+[\textit{Proof of Statement 2:} Let $m,k,\ell$ be three nonnegative integers
+with $m<k+\ell$. We must show that $\left[  x^{m}\right]  \left(  f^{k}%
+g^{\ell}\right)  =0$.
+
+We have $\left[  x^{0}\right]  f=0$. Hence, Lemma \ref{lem.fps.g=xh} (applied
+to $a=f$) shows that there exists an $h\in K\left[  \left[  x\right]  \right]
+$ such that $f=xh$. Consider this $h$ and denote it by $u$. Thus, $u\in
+K\left[  \left[  x\right]  \right]  $ and $f=xu$.
+
+We have $\left[  x^{0}\right]  g=0$. Hence, Lemma \ref{lem.fps.g=xh} (applied
+to $a=g$) shows that there exists an $h\in K\left[  \left[  x\right]  \right]
+$ such that $g=xh$. Consider this $h$ and denote it by $v$. Thus, $v\in
+K\left[  \left[  x\right]  \right]  $ and $g=xv$.
+
+Now, from $f=xu$ and $g=xv$, we obtain $f^{k}g^{\ell}=\left(  xu\right)
+^{k}\left(  xv\right)  ^{\ell}=x^{k}u^{k}x^{\ell}v^{\ell}=x^{k+\ell}%
+u^{k}v^{\ell}$. However, Lemma \ref{lem.fps.first-n-coeffs-of-xna} (applied to
+$k+\ell$ and $u^{k}v^{\ell}$ instead of $k$ and $a$) shows that the first
+$k+\ell$ coefficients of the FPS $x^{k+\ell}u^{k}v^{\ell}$ are $0$. In other
+words, the first $k+\ell$ coefficients of the FPS $f^{k}g^{\ell}$ are $0$
+(since $f^{k}g^{\ell}=x^{k+\ell}u^{k}v^{\ell}$). But $\left[  x^{m}\right]
+\left(  f^{k}g^{\ell}\right)  $ is one of these first $k+\ell$ coefficients
+(since $m<k+\ell$). Thus, we conclude that $\left[  x^{m}\right]  \left(
+f^{k}g^{\ell}\right)  =0$. This proves Statement 2.]
+
+Note that Statement 2 entails that the family $\left(  f^{k}g^{\ell}\right)
+_{\left(  k,\ell\right)  \in\mathbb{N}\times\mathbb{N}}$ is summable (because
+when $m\in\mathbb{N}$ is given, all but finitely many pairs $\left(
+k,\ell\right)  \in\mathbb{N}\times\mathbb{N}$ satisfy $m<k+\ell$). However, we
+need to prove Statement 1, so let us do this:
+
+[\textit{Proof of Statement 1:} Let $m\in\mathbb{N}$. If $\left(  n,k\right)
+\in\mathbb{N}\times\mathbb{N}$ is a pair satisfying $k\leq n$ and $m<n$, then
+\begin{align*}
+\left[  x^{m}\right]  \left(  \dfrac{1}{k!\left(  n-k\right)  !}f^{k}%
+g^{n-k}\right)   &  =\dfrac{1}{k!\left(  n-k\right)  !}\underbrace{\left[
+x^{m}\right]  \left(  f^{k}g^{n-k}\right)  }_{\substack{=0\\\text{(by
+Statement 2}\\\text{(applied to }\ell=n-k\text{),}\\\text{since }m<n=k+\left(
+n-k\right)  \text{)}}}\ \ \ \ \ \ \ \ \ \ \left(  \text{by
+(\ref{pf.thm.fps.ring.xn(la)=})}\right) \\
+&  =0.
+\end{align*}
+Thus, all but finitely many pairs $\left(  n,k\right)  \in\mathbb{N}%
+\times\mathbb{N}$ satisfying $k\leq n$ satisfy \newline$\left[  x^{m}\right]
+\left(  \dfrac{1}{k!\left(  n-k\right)  !}f^{k}g^{n-k}\right)  =0$ (because
+all but finitely many such pairs satisfy $m<n$). This proves Statement 1.]
+
+As explained above, Statement 1 shows that the family \newline$\left(
+\dfrac{1}{k!\left(  n-k\right)  !}f^{k}g^{n-k}\right)  _{\left(  n,k\right)
+\in\mathbb{N}\times\mathbb{N}\text{ satisfying }k\leq n}$ is summable, and
+thus our interchange of summation signs made above is justified. This
+completes our proof of Lemma \ref{lem.fps.Exp-Log-additive} \textbf{(a)}.
+\end{fineprint}
+
+\bigskip
+
+\textbf{(b)} This easily follows from part \textbf{(a)}, since we know that
+$\operatorname*{Log}$ is inverse to $\operatorname*{Exp}$. Here are the details:
+
+Let $f,g\in K\left[  \left[  x\right]  \right]  _{1}$. Set
+$u=\operatorname*{Log}f$ and $v=\operatorname*{Log}g$; then, $u,v\in K\left[
+\left[  x\right]  \right]  _{0}$ (since $\operatorname*{Log}$ is a map from
+$K\left[  \left[  x\right]  \right]  _{1}$ to $K\left[  \left[  x\right]
+\right]  _{0}$). Hence, Lemma \ref{lem.fps.Exp-Log-additive} \textbf{(a)}
+(applied to $u$ and $v$ instead of $f$ and $g$) yields $\operatorname*{Exp}%
+\left(  u+v\right)  =\operatorname*{Exp}u\cdot\operatorname*{Exp}v$.
+
+However, Lemma \ref{lem.fps.Exp-Log-maps-inv} says that the maps
+$\operatorname*{Exp}$ and $\operatorname*{Log}$ are mutually inverse
+bijections between $K\left[  \left[  x\right]  \right]  _{0}$ and $K\left[
+\left[  x\right]  \right]  _{1}$. Hence, $\operatorname*{Exp}\circ
+\operatorname*{Log}=\operatorname*{id}$ and $\operatorname*{Log}%
+\circ\operatorname*{Exp}=\operatorname*{id}$.
+
+Now, from $u=\operatorname*{Log}f$, we obtain $\operatorname*{Exp}%
+u=\operatorname*{Exp}\left(  \operatorname*{Log}f\right)  =\underbrace{\left(
+\operatorname*{Exp}\circ\operatorname*{Log}\right)  }_{=\operatorname*{id}%
+}\left(  f\right)  =\operatorname*{id}\left(  f\right)  =f$. Similarly,
+$\operatorname*{Exp}v=g$. Multiplying these two equalities, we find
+$\operatorname*{Exp}u\cdot\operatorname*{Exp}v=fg$. Now, we have%
+\[
+\operatorname*{Log}\left(  \operatorname*{Exp}\left(  u+v\right)  \right)
+=\underbrace{\left(  \operatorname*{Log}\circ\operatorname*{Exp}\right)
+}_{=\operatorname*{id}}\left(  u+v\right)  =\operatorname*{id}\left(
+u+v\right)  =u+v=\operatorname*{Log}f+\operatorname*{Log}g
+\]
+(since $u=\operatorname*{Log}f$ and $v=\operatorname*{Log}g$). In view of
+$\operatorname*{Exp}\left(  u+v\right)  =\operatorname*{Exp}u\cdot
+\operatorname*{Exp}v=fg$, this rewrites as $\operatorname*{Log}\left(
+fg\right)  =\operatorname*{Log}f+\operatorname*{Log}g$. This proves Lemma
+\ref{lem.fps.Exp-Log-additive} \textbf{(b)}.
+\end{proof}
+
+We can neatly pack the last few lemmas into a single theorem through the use
+of group isomorphisms. To this purpose, we need to observe that $K\left[
+\left[  x\right]  \right]  _{0}$ is a group under addition and $K\left[
+\left[  x\right]  \right]  _{1}$ is a group under multiplication:
+
+\begin{proposition}
+\label{prop.fps.Exp-Log-groups}\textbf{(a)} The subset $K\left[  \left[
+x\right]  \right]  _{0}$ of $K\left[  \left[  x\right]  \right]  $ is closed
+under addition and subtraction and contains $0$, and thus forms a group
+$\left(  K\left[  \left[  x\right]  \right]  _{0},+,0\right)  $. \medskip
+
+\textbf{(b)} The subset $K\left[  \left[  x\right]  \right]  _{1}$ of
+$K\left[  \left[  x\right]  \right]  $ is closed under multiplication and
+division and contains $1$, and thus forms a group $\left(  K\left[  \left[
+x\right]  \right]  _{1},\cdot,1\right)  $.
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.fps.Exp-Log-groups}.]\textbf{(a)} It is clear
+that the set $K\left[  \left[  x\right]  \right]  _{0}$ contains the FPS $0$
+(since $\left[  x^{0}\right]  0=0$). Thus, it remains to show that $K\left[
+\left[  x\right]  \right]  _{0}$ is closed under addition and subtraction. But
+this is easy: If $f,g\in K\left[  \left[  x\right]  \right]  _{0}$, then
+$\left[  x^{0}\right]  f=0$ and $\left[  x^{0}\right]  g=0$, and therefore
+$f+g\in K\left[  \left[  x\right]  \right]  _{0}$ (since
+(\ref{pf.thm.fps.ring.xn(a+b)=}) yields $\left[  x^{0}\right]  \left(
+f+g\right)  =\underbrace{\left[  x^{0}\right]  f}_{=0}+\underbrace{\left[
+x^{0}\right]  g}_{=0}=0$) and $f-g\in K\left[  \left[  x\right]  \right]
+_{0}$ (by a similar argument using (\ref{pf.thm.fps.ring.xn(a-b)=})). Thus,
+$K\left[  \left[  x\right]  \right]  _{0}$ is closed under addition and
+subtraction. This proves Proposition \ref{prop.fps.Exp-Log-groups}
+\textbf{(a)}.
+
+\textbf{(b)} Any $a\in K\left[  \left[  x\right]  \right]  _{1}$ is invertible
+in $K\left[  \left[  x\right]  \right]  $ (indeed, $a\in K\left[  \left[
+x\right]  \right]  _{1}$ shows that $\left[  x^{0}\right]  a=1$; thus,
+$\left[  x^{0}\right]  a$ is invertible in $K$; therefore, Proposition
+\ref{prop.fps.invertible} entails that $a$ is invertible in $K\left[  \left[
+x\right]  \right]  $). Hence, $\dfrac{f}{g}$ is well-defined for any $f,g\in
+K\left[  \left[  x\right]  \right]  _{1}$.
+
+Next, we claim that $K\left[  \left[  x\right]  \right]  _{1}$ is closed under
+multiplication. Indeed, if $f,g\in K\left[  \left[  x\right]  \right]  _{1}$,
+then $\left[  x^{0}\right]  f=1$ and $\left[  x^{0}\right]  g=1$, and
+therefore $fg\in K\left[  \left[  x\right]  \right]  _{1}$ (since
+(\ref{pf.thm.fps.ring.x0(ab)=}) yields $\left[  x^{0}\right]  \left(
+fg\right)  =\underbrace{\left[  x^{0}\right]  f}_{=1}\cdot\underbrace{\left[
+x^{0}\right]  g}_{=1}=1$). This shows that $K\left[  \left[  x\right]
+\right]  _{1}$ is closed under multiplication.
+
+It remains to prove that $K\left[  \left[  x\right]  \right]  _{1}$ is closed
+under division. Indeed, if $f,g\in K\left[  \left[  x\right]  \right]  _{1}$,
+then $\left[  x^{0}\right]  f=1$ and $\left[  x^{0}\right]  g=1$, and
+therefore $\dfrac{f}{g}\in K\left[  \left[  x\right]  \right]  _{1}$ (because
+we have $f=\dfrac{f}{g}\cdot g$ and thus
+\begin{align*}
+\left[  x^{0}\right]  f  &  =\left[  x^{0}\right]  \left(  \dfrac{f}{g}\cdot
+g\right)  =\left[  x^{0}\right]  \dfrac{f}{g}\cdot\underbrace{\left[
+x^{0}\right]  g}_{=1}\ \ \ \ \ \ \ \ \ \ \left(  \text{by
+(\ref{pf.thm.fps.ring.x0(ab)=})}\right) \\
+&  =\left[  x^{0}\right]  \dfrac{f}{g}%
+\end{align*}
+and thus $\left[  x^{0}\right]  \dfrac{f}{g}=\left[  x^{0}\right]  f=1$, so
+that $\dfrac{f}{g}\in K\left[  \left[  x\right]  \right]  _{1}$). This shows
+that $K\left[  \left[  x\right]  \right]  _{1}$ is closed under division.
+Thus, Proposition \ref{prop.fps.Exp-Log-groups} \textbf{(b)} is proven.
+\end{proof}
+
+The two groups in Proposition \ref{prop.fps.Exp-Log-groups} can now be
+connected through $\operatorname*{Exp}$ and $\operatorname*{Log}$:
+
+\begin{theorem}
+\label{thm.fps.Exp-Log-group-iso}The maps
+\[
+\operatorname*{Exp}:\left(  K\left[  \left[  x\right]  \right]  _{0}%
+,+,0\right)  \rightarrow\left(  K\left[  \left[  x\right]  \right]  _{1}%
+,\cdot,1\right)
+\]
+and%
+\[
+\operatorname*{Log}:\left(  K\left[  \left[  x\right]  \right]  _{1}%
+,\cdot,1\right)  \rightarrow\left(  K\left[  \left[  x\right]  \right]
+_{0},+,0\right)
+\]
+are mutually inverse group isomorphisms.
+\end{theorem}
+
+\begin{proof}
+[Proof of Theorem \ref{thm.fps.Exp-Log-group-iso} (sketched).]Lemma
+\ref{lem.fps.Exp-Log-additive} yields that these two maps are group
+homomorphisms\footnote{Here, we are using the following fact: If $\left(
+G,\ast,e_{G}\right)  $ and $\left(  H,\ast,e_{H}\right)  $ are any two groups,
+and if $\Phi:G\rightarrow H$ is a map such that every $f,g\in G$ satisfy
+$\Phi\left(  f\ast g\right)  =\Phi\left(  f\right)  \ast\Phi\left(  g\right)
+$, then $\Phi$ is a group homomorphism.}. Lemma \ref{lem.fps.Exp-Log-maps-inv}
+shows that they are mutually inverse. Combining these results, we conclude
+that these two maps are mutually inverse group isomorphisms. This proves
+Theorem \ref{thm.fps.Exp-Log-group-iso}.
+\end{proof}
+
+Theorem \ref{thm.fps.Exp-Log-group-iso} helps us turn addition into
+multiplication and vice versa when it comes to FPSs, at least if the constant
+terms are the right ones. This will come useful rather soon.
+
+\subsubsection{The logarithmic derivative}
+
+For future use, we shall define and briefly study one more concept related to logarithms:
+
+\begin{definition}
+\label{def.fps.loder.1}In this definition, we do \textbf{not} use Convention
+\ref{conv.fps.exp.K-Q-alg}; thus, $K$ can be an arbitrary commutative ring.
+However, we set $K\left[  \left[  x\right]  \right]  _{1}=\left\{  f\in
+K\left[  \left[  x\right]  \right]  \ \mid\ \left[  x^{0}\right]  f=1\right\}
+$.
+
+For any FPS $f\in K\left[  \left[  x\right]  \right]  _{1}$, we define the
+\emph{logarithmic derivative} $\operatorname*{loder}f\in K\left[  \left[
+x\right]  \right]  $ to be the FPS $\dfrac{f^{\prime}}{f}$. (This is
+well-defined, since $f$ is easily seen to be invertible.\footnotemark)
+\end{definition}
+
+\footnotetext{Indeed: Let $f\in K\left[  \left[  x\right]  \right]  _{1}$.
+Then, $\left[  x^{0}\right]  f=1$. Thus, $\left[  x^{0}\right]  f$ is
+invertible. Hence, Proposition \ref{prop.fps.invertible} (applied to $a=f$)
+yields that $f$ is invertible.}The reason why this FPS $\operatorname*{loder}%
+f$ is called the logarithmic derivative of $f$ is made clear by the following
+simple fact:
+
+\begin{proposition}
+\label{prop.fps.loder.log}Let $K$ be a commutative $\mathbb{Q}$-algebra. Let
+$f\in K\left[  \left[  x\right]  \right]  _{1}$ be an FPS. Then,
+$\operatorname*{loder}f=\left(  \operatorname*{Log}f\right)  ^{\prime}$.
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.fps.loder.log}.]The definition of
+$\operatorname*{Log}$ yields $\operatorname*{Log}f=\overline{\log}\circ\left(
+f-1\right)  $.
+
+From $f\in K\left[  \left[  x\right]  \right]  _{1}$, we obtain $\left[
+x^{0}\right]  f=1=\left[  x^{0}\right]  1$. Now, $\left[  x^{0}\right]
+\left(  f-1\right)  =\left[  x^{0}\right]  f-\left[  x^{0}\right]  1=0$ (since
+$\left[  x^{0}\right]  f=\left[  x^{0}\right]  1$). Hence, Proposition
+\ref{prop.fps.exp-log-der} \textbf{(b)} (applied to $g=f-1$) yields
+\[
+\left(  \overline{\log}\circ\left(  f-1\right)  \right)  ^{\prime}=\left(
+\underbrace{1+\left(  f-1\right)  }_{=f}\right)  ^{-1}\cdot\left(  f-1\right)
+^{\prime}=f^{-1}\cdot\left(  f-1\right)  ^{\prime}=\dfrac{\left(  f-1\right)
+^{\prime}}{f}.
+\]
+In view of $\operatorname*{Log}f=\overline{\log}\circ\left(  f-1\right)  $, we
+can rewrite this as%
+\[
+\left(  \operatorname*{Log}f\right)  ^{\prime}=\dfrac{\left(  f-1\right)
+^{\prime}}{f}.
+\]
+
+
+Since $\left(  f-1\right)  ^{\prime}=f^{\prime}$ (which is easy to
+see\footnote{\textit{Proof.} Theorem \ref{thm.fps.deriv.rules} \textbf{(a)}
+(applied to $g=-1$) yields $\left(  f+\left(  -1\right)  \right)  ^{\prime
+}=f^{\prime}+\underbrace{\left(  -1\right)  ^{\prime}}_{=0}=f^{\prime}$. In
+other words, $\left(  f-1\right)  ^{\prime}=f^{\prime}$.}), we can rewrite
+this further as $\left(  \operatorname*{Log}f\right)  ^{\prime}=\dfrac
+{f^{\prime}}{f}=\operatorname*{loder}f$ (since $\operatorname*{loder}f$ is
+defined as $\dfrac{f^{\prime}}{f}$). This proves Proposition
+\ref{prop.fps.loder.log}.
+\end{proof}
+
+Note that Proposition \ref{prop.fps.loder.log} only makes sense when $K$ is a
+$\mathbb{Q}$-algebra (otherwise, $\operatorname*{Log}f$ would make no sense),
+which is why we are not using it as a definition of $\operatorname*{loder}f$.
+The logarithmic derivative is defined even when the logarithm is not!
+
+If you have seen the logarithmic derivative in analysis, you will likely
+expect the following property:
+
+\begin{proposition}
+\label{prop.fps.loder.prod}Let $f,g\in K\left[  \left[  x\right]  \right]
+_{1}$ be two FPSs. Then, $\operatorname*{loder}\left(  fg\right)
+=\operatorname*{loder}f+\operatorname*{loder}g$.
+
+(Here, we do \textbf{not} use Convention \ref{conv.fps.exp.K-Q-alg}; thus, $K$
+can be an arbitrary commutative ring.)
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.fps.loder.prod}.]The definition of a
+logarithmic derivative yields $\operatorname*{loder}f=\dfrac{f^{\prime}}{f}$
+and $\operatorname*{loder}g=\dfrac{g^{\prime}}{g}$, but it also yields%
+\begin{align*}
+\operatorname*{loder}\left(  fg\right)   &  =\dfrac{\left(  fg\right)
+^{\prime}}{fg}=\dfrac{f^{\prime}g+fg^{\prime}}{fg}\ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{since Theorem \ref{thm.fps.deriv.rules} \textbf{(d)}}\\
+\text{says that }\left(  fg\right)  ^{\prime}=f^{\prime}g+fg^{\prime}%
+\end{array}
+\right) \\
+&  =\underbrace{\dfrac{f^{\prime}}{f}}_{=\operatorname*{loder}f}%
++\underbrace{\dfrac{g^{\prime}}{g}}_{=\operatorname*{loder}g}%
+=\operatorname*{loder}f+\operatorname*{loder}g.
+\end{align*}
+This proves Proposition \ref{prop.fps.loder.prod}.
+\end{proof}
+
+\begin{corollary}
+\label{cor.fps.loder.prodk}Let $f_{1},f_{2},\ldots,f_{k}$ be any $k$ FPSs in
+$K\left[  \left[  x\right]  \right]  _{1}$. Then,
+\[
+\operatorname*{loder}\left(  f_{1}f_{2}\cdots f_{k}\right)
+=\operatorname*{loder}\left(  f_{1}\right)  +\operatorname*{loder}\left(
+f_{2}\right)  +\cdots+\operatorname*{loder}\left(  f_{k}\right)  .
+\]
+
+
+(Here, we do \textbf{not} use Convention \ref{conv.fps.exp.K-Q-alg}; thus, $K$
+can be an arbitrary commutative ring.)
+\end{corollary}
+
+\begin{proof}
+[Proof of Corollary \ref{cor.fps.loder.prodk}.]Induct on $k$. The \textit{base
+case} ($k=0$) requires showing that $\operatorname*{loder}1=0$, which is easy
+to see from the definition of a logarithmic derivative (since $1^{\prime}=0$).
+The \textit{induction step} follows easily from Proposition
+\ref{prop.fps.loder.prod}.
+\end{proof}
+
+\begin{corollary}
+\label{cor.fps.loder.inv}Let $f$ be any FPS in $K\left[  \left[  x\right]
+\right]  _{1}$. Then, $\operatorname*{loder}\left(  f^{-1}\right)
+=-\operatorname*{loder}f$.
+
+(Here, we do \textbf{not} use Convention \ref{conv.fps.exp.K-Q-alg}; thus, $K$
+can be an arbitrary commutative ring.)
+\end{corollary}
+
+\begin{proof}
+[Proof of Corollary \ref{cor.fps.loder.inv}.]First of all, $f$ is invertible
+(as we showed in Definition \ref{def.fps.loder.1}). This shows that $f^{-1}$
+is well-defined.
+
+Proposition \ref{prop.fps.loder.prod} (applied to $g=f^{-1}$) yields
+$\operatorname*{loder}\left(  ff^{-1}\right)  =\operatorname*{loder}%
+f+\operatorname*{loder}\left(  f^{-1}\right)  $. However, we also have
+$\operatorname*{loder}\left(  \underbrace{ff^{-1}}_{=1}\right)
+=\operatorname*{loder}1=0$ (since $1^{\prime}=0$). Comparing these two
+equalities, we obtain $\operatorname*{loder}f+\operatorname*{loder}\left(
+f^{-1}\right)  =0$. In other words, $\operatorname*{loder}\left(
+f^{-1}\right)  =-\operatorname*{loder}f$. This proves Corollary
+\ref{cor.fps.loder.inv}.
+\end{proof}

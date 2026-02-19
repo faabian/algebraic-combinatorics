@@ -1,0 +1,1078 @@
+\subsection{Euler's pentagonal number theorem}
+
+The following definition looks somewhat quaint; why define a notation for a
+specific quadratic function?
+
+\begin{definition}
+\label{def.pars.pent-num}For any $k\in\mathbb{Z}$, define a nonnegative
+integer $w_{k}\in\mathbb{N}$ by%
+\[
+w_{k}=\dfrac{\left(  3k-1\right)  k}{2}.
+\]
+This is called the $k$\emph{-th pentagonal number}.
+\end{definition}
+
+Here is a table of these pentagonal numbers:%
+\[%
+\begin{tabular}
+[c]{|c||c|c|c|c|c|c|c|c|c|c|c|c|c|}\hline
+$k$ & $\cdots$ & $-5$ & $-4$ & $-3$ & $-2$ & $-1$ & $0$ & $1$ & $2$ & $3$ &
+$4$ & $5$ & $\cdots$\\\hline
+$w_{k}$ & $\cdots$ & $40$ & $26$ & $15$ & $7$ & $2$ & $0$ & $1$ & $5$ & $12$ &
+$22$ & $35$ & $\cdots$\\\hline
+\end{tabular}
+\ \ \ \ .
+\]
+Note that $w_{k}$ really is a nonnegative integer for any $k\in\mathbb{Z}$
+(check this!). The name \textquotedblleft pentagonal numbers\textquotedblright%
+\ is historically motivated (see
+\href{https://en.wikipedia.org/wiki/Pentagonal_number}{the Wikipedia page} for
+details); the only thing we need to know about them (beside their definition)
+is the fact that they are nonnegative integers and grow quadratically with $n$
+in both directions (i.e., when $n\rightarrow\infty$ and when $n\rightarrow
+-\infty$). The latter fact ensures that the infinite sum $\sum_{k\in
+\mathbb{Z}}\left(  -1\right)  ^{k}x^{w_{k}}$ is a well-defined FPS in
+$\mathbb{Z}\left[  \left[  x\right]  \right]  $. Rather surprisingly, this
+infinite sum coincides with a particularly simple infinite product:
+
+\begin{theorem}
+[Euler's pentagonal number theorem]\label{thm.pars.pent}We have%
+\[
+\prod_{k=1}^{\infty}\left(  1-x^{k}\right)  =\sum_{k\in\mathbb{Z}}\left(
+-1\right)  ^{k}x^{w_{k}}.
+\]
+
+\end{theorem}
+
+Let us write this out concretely:%
+\begin{align*}
+&  \prod_{k=1}^{\infty}\left(  1-x^{k}\right) \\
+&  =\sum_{k\in\mathbb{Z}}\left(  -1\right)  ^{k}x^{w_{k}}\\
+&  =\cdots+x^{w_{-4}}-x^{w_{-3}}+x^{w_{-2}}-x^{w_{-1}}+x^{w_{0}}-x^{w_{1}%
+}+x^{w_{2}}-x^{w_{3}}+x^{w_{4}}-x^{w_{5}}\pm\cdots\\
+&  =\cdots+x^{26}-x^{15}+x^{7}-x^{2}+1-x+x^{5}-x^{12}+x^{22}-x^{35}\pm\cdots\\
+&  =1-x-x^{2}+x^{5}+x^{7}-x^{12}-x^{15}+x^{22}+x^{26}\pm\cdots.
+\end{align*}
+
+
+We will prove Theorem \ref{thm.pars.pent} in the next section (as a particular
+case of Jacobi's Triple Product Identity).\footnote{See \cite{Bell06} for the
+history of Theorem \ref{thm.pars.pent}.} First, let us use it to derive the
+following recursive formula for the partition numbers $p\left(  n\right)  $:
+
+\begin{corollary}
+\label{cor.pars.pn-rec}For each positive integer $n$, we have%
+\begin{align*}
+p\left(  n\right)   &  =\sum_{\substack{k\in\mathbb{Z};\\k\neq0}}\left(
+-1\right)  ^{k-1}p\left(  n-w_{k}\right) \\
+&  =p\left(  n-1\right)  +p\left(  n-2\right)  -p\left(  n-5\right)  -p\left(
+n-7\right) \\
+&  \ \ \ \ \ \ \ \ \ \ +p\left(  n-12\right)  +p\left(  n-15\right)  -p\left(
+n-22\right)  -p\left(  n-26\right)  \pm\cdots.
+\end{align*}
+
+\end{corollary}
+
+\begin{proof}
+[Proof of Corollary \ref{cor.pars.pn-rec} using Theorem \ref{thm.pars.pent}%
+.]We have%
+\[
+\sum_{m\in\mathbb{N}}p\left(  m\right)  x^{m}=\sum_{n\in\mathbb{N}}p\left(
+n\right)  x^{n}=\prod\limits_{k=1}^{\infty}\dfrac{1}{1-x^{k}}%
+\]
+(by Theorem \ref{thm.pars.main-gf}) and%
+\[
+\sum_{k\in\mathbb{Z}}\left(  -1\right)  ^{k}x^{w_{k}}=\prod\limits_{k=1}%
+^{\infty}\left(  1-x^{k}\right)
+\]
+(by Theorem \ref{thm.pars.pent}). Multiplying these two equalities, we obtain%
+\begin{align}
+\left(  \sum_{m\in\mathbb{N}}p\left(  m\right)  x^{m}\right)  \cdot\left(
+\sum_{k\in\mathbb{Z}}\left(  -1\right)  ^{k}x^{w_{k}}\right)   &  =\left(
+\prod\limits_{k=1}^{\infty}\dfrac{1}{1-x^{k}}\right)  \cdot\left(
+\prod\limits_{k=1}^{\infty}\left(  1-x^{k}\right)  \right) \nonumber\\
+&  =\prod\limits_{k=1}^{\infty}\underbrace{\left(  \dfrac{1}{1-x^{k}}%
+\cdot\left(  1-x^{k}\right)  \right)  }_{=1}\nonumber\\
+&  =1. \label{pf.cor.pars.pn-rec.1}%
+\end{align}
+
+
+Now, let us fix a positive integer $n$. We shall compare the $x^{n}%
+$-coefficients on both sides of (\ref{cor.pars.pn-rec}).
+
+The $x^{n}$-coefficient on the left hand side of (\ref{cor.pars.pn-rec}) is%
+\begin{align*}
+\sum_{\substack{m\in\mathbb{N};\\k\in\mathbb{Z};\\m+w_{k}=n}}p\left(
+m\right)  \cdot\left(  -1\right)  ^{k}  &  =\sum_{\substack{k\in
+\mathbb{Z};\\n-w_{k}\geq0}}p\left(  n-w_{k}\right)  \cdot\left(  -1\right)
+^{k}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have replaced }m\text{ by }n-w_{k}\\
+\text{in the sum, since the condition }m+w_{k}=n\\
+\text{forces }m\text{ to be }n-w_{k}%
+\end{array}
+\right) \\
+&  =\sum_{k\in\mathbb{Z}}p\left(  n-w_{k}\right)  \cdot\left(  -1\right)
+^{k}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have extended the range of}\\
+\text{summation; this does not change the sum,}\\
+\text{since }p\left(  n-w_{k}\right)  =0\text{ whenever }n-w_{k}<0
+\end{array}
+\right) \\
+&  =\sum_{k\in\mathbb{Z}}\left(  -1\right)  ^{k}p\left(  n-w_{k}\right) \\
+&  =\underbrace{\left(  -1\right)  ^{0}}_{=1}p\left(  n-\underbrace{w_{0}%
+}_{=0}\right)  +\sum_{\substack{k\in\mathbb{Z};\\k\neq0}}\left(  -1\right)
+^{k}p\left(  n-w_{k}\right) \\
+&  =p\left(  n\right)  +\sum_{\substack{k\in\mathbb{Z};\\k\neq0}}\left(
+-1\right)  ^{k}p\left(  n-w_{k}\right)  .
+\end{align*}
+But the $x^{n}$-coefficient on the right hand side of (\ref{cor.pars.pn-rec})
+is $0$ (since $n$ is positive). Hence, comparing the coefficients yields
+\[
+p\left(  n\right)  +\sum_{\substack{k\in\mathbb{Z};\\k\neq0}}\left(
+-1\right)  ^{k}p\left(  n-w_{k}\right)  =0.
+\]
+Solving this for $p\left(  n\right)  $, we find%
+\[
+p\left(  n\right)  =-\sum_{\substack{k\in\mathbb{Z};\\k\neq0}}\left(
+-1\right)  ^{k}p\left(  n-w_{k}\right)  =\sum_{\substack{k\in\mathbb{Z}%
+;\\k\neq0}}\left(  -1\right)  ^{k-1}p\left(  n-w_{k}\right)  .
+\]
+Corollary \ref{cor.pars.pn-rec} is thus proved.
+\end{proof}
+
+
+\subsection{Jacobi's triple product identity}
+
+\subsubsection{The identity}
+
+Instead of proving Theorem \ref{thm.pars.pent} directly, we shall prove a
+stronger result: \emph{Jacobi's triple product identity}. This identity can be
+stated as follows:%
+\begin{equation}
+\prod_{n>0}\left(  \left(  1+q^{2n-1}z\right)  \left(  1+q^{2n-1}%
+z^{-1}\right)  \left(  1-q^{2n}\right)  \right)  =\sum_{\ell\in\mathbb{Z}%
+}q^{\ell^{2}}z^{\ell}. \label{eq.pars.jtp.jtp}%
+\end{equation}
+What are $q$ and $z$ here? It appears that (\ref{eq.pars.jtp.jtp}) should be
+an identity between multivariate Laurent series (in the indeterminates $q$ and
+$z$), but we have never defined such a concept. Multivariate Laurent series
+can indeed be defined, but this is not as easy as the univariate case and
+involves some choices (see \cite{ApaKau13} for details).
+
+\begin{noncompile}
+However, it is not hard to see that any negative power of $z$ in
+(\ref{eq.pars.jtp.jtp}) is \textquotedblleft compensated\textquotedblright\ by
+a positive power of $q$. For example, the $q^{2n-1}z^{-1}$ term on the left
+hand side will always have total degree $\geq0$, and so will the $q^{\ell^{2}%
+}z^{\ell}$ term on the right hand side. So this is not as bad as Laurent
+series in general. (Commented this out because it is irrelevant and confusing.
+The same could be said about $\sum_{\ell\in\mathbb{Z}}q^{-\ell}z^{\ell}$,
+which is a bad series.)
+\end{noncompile}
+
+A simpler ring in which the identity (\ref{eq.pars.jtp.jtp}) can be placed is
+$\left(  \mathbb{Z}\left[  z^{\pm}\right]  \right)  \left[  \left[  q\right]
+\right]  $ (that is, the ring of FPSs in the indeterminate $q$ whose
+coefficients are Laurent polynomials over $\mathbb{Z}$ in the indeterminate
+$z$). In other words, we state the following:
+
+\begin{theorem}
+[Jacobi's triple product identity, take 1]\label{thm.pars.jtp1}In the ring
+$\left(  \mathbb{Z}\left[  z^{\pm}\right]  \right)  \left[  \left[  q\right]
+\right]  $, we have%
+\[
+\prod_{n>0}\left(  \left(  1+q^{2n-1}z\right)  \left(  1+q^{2n-1}%
+z^{-1}\right)  \left(  1-q^{2n}\right)  \right)  =\sum_{\ell\in\mathbb{Z}%
+}q^{\ell^{2}}z^{\ell}.
+\]
+
+\end{theorem}
+
+However, we aren't just planning to view this identity as a formal identity
+between power series; instead, we will later evaluate both sides at certain
+powers of another indeterminate $x$ (i.e., we will set $q=x^{a}$ and $z=x^{b}$
+for some positive integers $a$ and $b$). Alas, this is not an operation
+defined on the whole ring $\left(  \mathbb{Z}\left[  z^{\pm}\right]  \right)
+\left[  \left[  q\right]  \right]  $. For example, setting $q=x$ and $z=x$ in
+the sum $\sum_{\ell\in\mathbb{N}}q^{\ell}z^{-\ell}\in\left(  \mathbb{Z}\left[
+z^{\pm}\right]  \right)  \left[  \left[  q\right]  \right]  $ yields the
+nonsensical sum $\sum_{\ell\in\mathbb{N}}x^{\ell}x^{-\ell}=\sum_{\ell
+\in\mathbb{Z}}1$.
+
+Thus, Theorem \ref{thm.pars.jtp1} is not a version of Jacobi's triple product
+identity that we can use for our purposes. Instead, let us interpret the
+identity (\ref{eq.pars.jtp.jtp}) in a different way: Instead of treating $q$
+and $z$ as indeterminates, I will set them to be powers of a single
+indeterminate $x$ (more precisely, scalar multiples of such powers). This
+leads us to the following version of the identity:
+
+\begin{theorem}
+[Jacobi's triple product identity, take 2]\label{thm.pars.jtp2}Let $a$ and $b$
+be two integers such that $a>0$ and $a\geq\left\vert b\right\vert $. Let
+$u,v\in\mathbb{Q}$ be rational numbers with $v\neq0$. In the ring
+$\mathbb{Q}\left(  \left(  x\right)  \right)  $, set $q=ux^{a}$ and $z=vx^{b}%
+$. Then,%
+\[
+\prod_{n>0}\left(  \left(  1+q^{2n-1}z\right)  \left(  1+q^{2n-1}%
+z^{-1}\right)  \left(  1-q^{2n}\right)  \right)  =\sum_{\ell\in\mathbb{Z}%
+}q^{\ell^{2}}z^{\ell}.
+\]
+
+\end{theorem}
+
+Before we start proving this theorem, let us check that the infinite product
+on its left hand side and the infinite sum on its right are well-defined:
+
+\begin{itemize}
+\item The infinite product is%
+\begin{align*}
+&  \prod_{n>0}\left(  \left(  1+q^{2n-1}z\right)  \left(  1+q^{2n-1}%
+z^{-1}\right)  \left(  1-q^{2n}\right)  \right) \\
+&  =\prod_{n>0}\left(  \left(  1+\left(  ux^{a}\right)  ^{2n-1}\left(
+vx^{b}\right)  \right)  \left(  1+\left(  ux^{a}\right)  ^{2n-1}\left(
+vx^{b}\right)  ^{-1}\right)  \left(  1-\left(  ux^{a}\right)  ^{2n}\right)
+\right) \\
+&  =\prod_{n>0}\left(  \left(  1+u^{2n-1}vx^{\left(  2n-1\right)  a+b}\right)
+\left(  1+u^{2n-1}v^{-1}x^{\left(  2n-1\right)  a-b}\right)  \left(
+1-u^{2n}x^{2na}\right)  \right)  .
+\end{align*}
+All factors in this product belong to the ring $\mathbb{Q}\left[  \left[
+x\right]  \right]  $ (not just to $\mathbb{Q}\left(  \left(  x\right)
+\right)  $), since the exponents $\left(  2n-1\right)  a+b$ and $\left(
+2n-1\right)  a-b$ and $2na$ are always nonnegative for any $n>0$ (indeed, for
+any $n>0$, we have $\underbrace{\left(  2n-1\right)  }_{\geq1}\underbrace{a}%
+_{\geq\left\vert b\right\vert }+\,b\geq\left\vert b\right\vert +b\geq0$ and
+$\underbrace{\left(  2n-1\right)  }_{\geq1}\underbrace{a}_{\geq\left\vert
+b\right\vert }-\,b\geq\left\vert b\right\vert -b\geq0$ and $2n\underbrace{a}%
+_{>0}>0$). Moreover, this product is multipliable, because
+
+\begin{itemize}
+\item the number $\left(  2n-1\right)  a+b$ grows linearly when $n\rightarrow
+\infty$ (since $a>0$);
+
+\item the number $\left(  2n-1\right)  a-b$ grows linearly when $n\rightarrow
+\infty$ (since $a>0$);
+
+\item the number $2na$ grows linearly when $n\rightarrow\infty$ (since $a>0$).
+\end{itemize}
+
+Thus, the infinite product is well-defined.
+
+This argument also shows that the three subproducts $\prod_{n>0}\left(
+1+q^{2n-1}z\right)  $ and $\prod_{n>0}\left(  1+q^{2n-1}z^{-1}\right)  $ and
+$\prod_{n>0}\left(  1-q^{2n}\right)  $ are well-defined.
+
+\item The infinite sum is%
+\[
+\sum_{\ell\in\mathbb{Z}}q^{\ell^{2}}z^{\ell}=\sum_{\ell\in\mathbb{Z}}\left(
+ux^{a}\right)  ^{\ell^{2}}\left(  vx^{b}\right)  ^{\ell}=\sum_{\ell
+\in\mathbb{Z}}u^{\ell^{2}}v^{\ell}x^{a\ell^{2}+b\ell}.
+\]
+All addends in this sum belong to the ring $\mathbb{Q}\left[  \left[
+x\right]  \right]  $ (not just to $\mathbb{Q}\left(  \left(  x\right)
+\right)  $), since the exponent $a\ell^{2}+b\ell$ is always nonnegative for
+any $\ell\in\mathbb{Z}$ (indeed, we have $\underbrace{a}_{\geq\left\vert
+b\right\vert }\underbrace{\ell^{2}}_{=\left\vert \ell\right\vert ^{2}%
+}+\underbrace{b\ell}_{\geq-\left\vert b\ell\right\vert =-\left\vert
+b\right\vert \cdot\left\vert \ell\right\vert }\geq\left\vert b\right\vert
+\cdot\left\vert \ell\right\vert ^{2}-\left\vert b\right\vert \cdot\left\vert
+\ell\right\vert =\underbrace{\left\vert b\right\vert }_{\geq0}\cdot
+\underbrace{\left\vert \ell\right\vert \cdot\left(  \left\vert \ell\right\vert
+-1\right)  }_{\geq0}\geq0$ for any $\ell\in\mathbb{Z}$). Moreover, this sum is
+summable, because $a\ell^{2}+b\ell$ grows quadratically when $\ell
+\rightarrow+\infty$ or $\ell\rightarrow-\infty$ (since $a>0$).
+\end{itemize}
+
+\subsubsection{Jacobi implies Euler}
+
+We will give a proof of Jacobi's triple product identity that works equally
+for both versions of it (Theorem \ref{thm.pars.jtp1} and Theorem
+\ref{thm.pars.jtp2}). But first, let us see how it yields Euler's pentagonal
+number theorem as a particular case.
+
+\begin{proof}
+[Proof of Theorem \ref{thm.pars.pent} using Theorem \ref{thm.pars.jtp2}.]Set
+$q=x^{3}$ and $z=-x$ in Theorem \ref{thm.pars.jtp2}. (This means that we apply
+Theorem \ref{thm.pars.jtp2} to $a=3$ and $b=1$ and $u=1$ and $v=-1$). We get%
+\begin{align}
+&  \prod_{n>0}\left(  \left(  1+\left(  x^{3}\right)  ^{2n-1}\left(
+-x\right)  \right)  \left(  1+\left(  x^{3}\right)  ^{2n-1}\left(  -x\right)
+^{-1}\right)  \left(  1-\left(  x^{3}\right)  ^{2n}\right)  \right)
+\nonumber\\
+&  =\sum_{\ell\in\mathbb{Z}}\left(  x^{3}\right)  ^{\ell^{2}}\left(
+-x\right)  ^{\ell}. \label{pf.thm.pars.pent.1}%
+\end{align}
+The left hand side of this equality simplifies as follows:%
+\begin{align*}
+&  \prod_{n>0}\left(  \left(  1+\underbrace{\left(  x^{3}\right)
+^{2n-1}\left(  -x\right)  }_{\substack{=-x^{3\left(  2n-1\right)
++1}\\=-x^{6n-2}}}\right)  \left(  1+\underbrace{\left(  x^{3}\right)
+^{2n-1}\left(  -x\right)  ^{-1}}_{\substack{=-x^{3\left(  2n-1\right)
+-1}\\=-x^{6n-4}}}\right)  \left(  1-\underbrace{\left(  x^{3}\right)  ^{2n}%
+}_{=x^{6n}}\right)  \right) \\
+&  =\prod_{n>0}\left(  \left(  1-\underbrace{x^{6n-2}}_{=\left(  x^{2}\right)
+^{3n-1}}\right)  \left(  1-\underbrace{x^{6n-4}}_{=\left(  x^{2}\right)
+^{3n-2}}\right)  \left(  1-\underbrace{x^{6n}}_{=\left(  x^{2}\right)  ^{3n}%
+}\right)  \right) \\
+&  =\prod_{n>0}\left(  \left(  1-\left(  x^{2}\right)  ^{3n-1}\right)  \left(
+1-\left(  x^{2}\right)  ^{3n-2}\right)  \left(  1-\left(  x^{2}\right)
+^{3n}\right)  \right) \\
+&  =\prod_{k>0}\left(  1-\left(  x^{2}\right)  ^{k}\right)  ,
+\end{align*}
+since each positive integer $k$ can be uniquely represented as $3n-1$ or
+$3n-2$ or $3n$ for some positive integer $n$.
+
+Comparing this with (\ref{pf.thm.pars.pent.1}), we obtain%
+\begin{align}
+&  \prod_{k>0}\left(  1-\left(  x^{2}\right)  ^{k}\right) \nonumber\\
+&  =\sum_{\ell\in\mathbb{Z}}\underbrace{\left(  x^{3}\right)  ^{\ell^{2}%
+}\left(  -x\right)  ^{\ell}}_{=\left(  -1\right)  ^{\ell}x^{3\ell^{2}+\ell}%
+}=\sum_{\ell\in\mathbb{Z}}\left(  -1\right)  ^{\ell}\underbrace{x^{3\ell
+^{2}+\ell}}_{\substack{=x^{2w_{-\ell}}\\\text{(since }3\ell^{2}+\ell=\left(
+3\ell+1\right)  \ell=\left(  3\left(  -\ell\right)  -1\right)  \left(
+-\ell\right)  =2w_{-\ell}\\\text{(because }w_{-\ell}\text{ is defined as
+}\left(  3\left(  -\ell\right)  -1\right)  \left(  -\ell\right)  /2\text{))}%
+}}\nonumber\\
+&  =\sum_{\ell\in\mathbb{Z}}\underbrace{\left(  -1\right)  ^{\ell}}_{=\left(
+-1\right)  ^{-\ell}}\underbrace{x^{2w_{-\ell}}}_{=\left(  x^{2}\right)
+^{w_{-\ell}}}=\sum_{\ell\in\mathbb{Z}}\left(  -1\right)  ^{-\ell}\left(
+x^{2}\right)  ^{w_{-\ell}}\nonumber\\
+&  =\sum_{k\in\mathbb{Z}}\left(  -1\right)  ^{k}\left(  x^{2}\right)  ^{w_{k}}
+\label{pf.thm.pars.pent.2}%
+\end{align}
+(here, we have substituted $k$ for $-\ell$ in the sum).
+
+Now, let us \textquotedblleft substitute $x$ for $x^{2}$\textquotedblright\ in
+this equality (see below for how this works). As a result, we obtain%
+\[
+\prod_{k>0}\left(  1-x^{k}\right)  =\sum_{k\in\mathbb{Z}}\left(  -1\right)
+^{k}x^{w_{k}}.
+\]
+This is Euler's pentagonal number theorem (Theorem \ref{thm.pars.pent}).
+\end{proof}
+
+What did I mean by \textquotedblleft substituting $x$ for $x^{2}%
+$\textquotedblright? I meant using the following simple fact:
+
+\begin{lemma}
+\label{lem.fps.fxx=gxx}Let $K$ be a commutative ring. Let $f$ and $g$ be two
+FPSs in $K\left[  \left[  x\right]  \right]  $. Assume that $f\left[
+x^{2}\right]  =g\left[  x^{2}\right]  $. Then, $f=g$.
+\end{lemma}
+
+\begin{proof}
+This is easy: Write $f$ and $g$ as $f=\sum_{n\in\mathbb{N}}f_{n}x^{n}$ and
+$g=\sum_{n\in\mathbb{N}}g_{n}x^{n}$ where $f_{0},f_{1},f_{2},\ldots\in K$ and
+$g_{0},g_{1},g_{2},\ldots\in K$. Then, $f\left[  x^{2}\right]  =\sum
+_{n\in\mathbb{N}}f_{n}\left(  x^{2}\right)  ^{n}=\sum_{n\in\mathbb{N}}%
+f_{n}x^{2n}$ and similarly $g\left[  x^{2}\right]  =\sum_{n\in\mathbb{N}}%
+g_{n}x^{2n}$. Thus, our assumption $f\left[  x^{2}\right]  =g\left[
+x^{2}\right]  $ rewrites as $\sum_{n\in\mathbb{N}}f_{n}x^{2n}=\sum
+_{n\in\mathbb{N}}g_{n}x^{2n}$. Comparing $x^{2n}$-coefficients in this
+equality, we conclude that $f_{n}=g_{n}$ for each $n\in\mathbb{N}$. Hence,
+$\sum_{n\in\mathbb{N}}\underbrace{f_{n}}_{=g_{n}}x^{n}=\sum_{n\in\mathbb{N}%
+}g_{n}x^{n}$. In other words, $f=g$ (since $f=\sum_{n\in\mathbb{N}}f_{n}x^{n}$
+and $g=\sum_{n\in\mathbb{N}}g_{n}x^{n}$). This proves Lemma
+\ref{lem.fps.fxx=gxx}.
+\end{proof}
+
+Lemma \ref{lem.fps.fxx=gxx} justifies our \textquotedblleft substituting $x$
+for $x^{2}$\textquotedblright\ in the above proof; indeed, we can apply Lemma
+\ref{lem.fps.fxx=gxx} to $K=\mathbb{Q}$ and $f=\prod_{k>0}\left(
+1-x^{k}\right)  $ and $g=\sum_{k\in\mathbb{Z}}\left(  -1\right)  ^{k}x^{w_{k}%
+}$ (because (\ref{pf.thm.pars.pent.2}) says that these two FPSs $f$ and $g$
+satisfy $f\left[  x^{2}\right]  =g\left[  x^{2}\right]  $), and consequently
+obtain $\prod_{k>0}\left(  1-x^{k}\right)  =\sum_{k\in\mathbb{Z}}\left(
+-1\right)  ^{k}x^{w_{k}}$. Thus, Theorem \ref{thm.pars.pent} is proved using
+Theorem \ref{thm.pars.jtp2}. It therefore remains to prove the latter.
+
+\subsubsection{Proof of Jacobi's triple product identity}
+
+The following proof is due to Borcherds, and I have taken it from
+\cite[\S 8.3]{Camero16} (note that \cite[\S 11.2]{Loehr-BC} gives essentially
+the same proof, albeit in a different language).
+
+\begin{proof}
+[Proof of Theorem \ref{thm.pars.jtp1} and Theorem \ref{thm.pars.jtp2}.]The
+following argument applies equally to Theorem \ref{thm.pars.jtp1} and to
+Theorem \ref{thm.pars.jtp2}. (The meanings of $q$ and $z$ differ between these
+two theorems, but all the infinite sums and products considered below are
+well-defined in either case.)
+
+We will use a somewhat physics-inspired language:
+
+\begin{itemize}
+\item A \emph{level} will mean a number of the form $p+\dfrac{1}{2}$ with
+$p\in\mathbb{Z}$. (Thus, there is exactly one level midway between any two
+consecutive integers.)
+
+\item A \emph{state} will mean a set of levels that contains
+
+\begin{itemize}
+\item all but finitely many negative levels, and
+
+\item only finitely many positive levels.
+\end{itemize}
+\end{itemize}
+
+Here is an example of a state:%
+\[
+\left\{  \dfrac{-5}{2},\ \ \dfrac{-1}{2},\ \ \dfrac{1}{2},\ \ \dfrac{3}%
+{2},\ \ \dfrac{7}{2},\ \ \dfrac{13}{2}\right\}  \cup\left\{  \text{all levels
+}\leq\dfrac{-9}{2}\right\}  .
+\]
+Visually, it can be represented as follows:%
+\[%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\]
+where
+
+\begin{itemize}
+\item A white (=hollow) circle
+%TCIMACRO{\TeXButton{tikz hollow circle}{\raisebox{-0.5ex}{\tikz\draw
+%[black,fill=white] (0,0) circle (1ex);}}}%
+%BeginExpansion
+\raisebox{-0.5ex}{\tikz\draw[black,fill=white] (0,0) circle (1ex);}%
+%EndExpansion
+\ means a level that is contained in the state (you can think of it as an
+\textquotedblleft electron\textquotedblright).
+
+\item A black (=filled) circle
+%TCIMACRO{\TeXButton{tikz full circle}{\raisebox{-0.5ex}{\tikz\draw
+%[black,fill=black] (0,0) circle (1ex);}} }%
+%BeginExpansion
+\raisebox{-0.5ex}{\tikz\draw[black,fill=black] (0,0) circle (1ex);}
+%EndExpansion
+means a level that is not contained in the state (think of it as a
+\textquotedblleft hole\textquotedblright).
+\end{itemize}
+
+For any state $S$,
+
+\begin{itemize}
+\item we define the \emph{energy} of $S$ to be%
+\[
+\operatorname*{energy}S:=\sum_{\substack{p>0;\\p\in S}}\underbrace{2p}%
+_{>0}-\sum_{\substack{p<0;\\p\notin S}}\underbrace{2p}_{<0}\in\mathbb{N}%
+\]
+(where the summation index $p$ in the first sum runs over the finitely many
+positive levels contained in $S$, while the summation index $p$ in the second
+sum runs over the finitely many negative levels not contained in $S$).
+
+\item we define the \emph{particle number} of $S$ to be%
+\begin{align*}
+\operatorname*{parnum}S:=  &  \left(  \text{\# of levels }p>0\text{ such that
+}p\in S\right) \\
+&  \ \ \ \ \ \ \ \ \ \ -\left(  \text{\# of levels }p<0\text{ such that
+}p\notin S\right)  \in\mathbb{Z}.
+\end{align*}
+
+\end{itemize}
+
+For instance, in the above example, we have%
+\[
+\operatorname*{energy}S=1+3+7+13-\left(  -3\right)  -\left(  -7\right)  =34
+\]
+and%
+\[
+\operatorname*{parnum}S=4-2=2.
+\]
+
+
+We want to prove the identity%
+\[
+\prod_{n>0}\left(  \left(  1+q^{2n-1}z\right)  \left(  1+q^{2n-1}%
+z^{-1}\right)  \left(  1-q^{2n}\right)  \right)  =\sum_{\ell\in\mathbb{Z}%
+}q^{\ell^{2}}z^{\ell}.
+\]
+We will first transform this identity into an equivalent one: Namely, we move
+the $\left(  1-q^{2n}\right)  $ factors from the left hand side to the right
+hand side by multiplying both sides with $\prod_{n>0}\left(  1-q^{2n}\right)
+^{-1}$. Thus, we can rewrite our identity as%
+\[
+\prod_{n>0}\left(  \left(  1+q^{2n-1}z\right)  \left(  1+q^{2n-1}%
+z^{-1}\right)  \right)  =\left(  \sum_{\ell\in\mathbb{Z}}q^{\ell^{2}}z^{\ell
+}\right)  \prod_{n>0}\left(  1-q^{2n}\right)  ^{-1}.
+\]
+We will prove this new identity by showing that both of its sides are%
+\[
+\sum_{S\text{ is a state}}q^{\operatorname*{energy}S}z^{\operatorname*{parnum}%
+S}.
+\]
+
+
+\textit{Left hand side:} We have%
+\begin{align}
+&  \prod_{n>0}\left(  \left(  1+q^{2n-1}z\right)  \left(  1+q^{2n-1}%
+z^{-1}\right)  \right) \nonumber\\
+&  =\left(  \prod_{n>0}\left(  1+q^{2n-1}z\right)  \right)  \left(
+\prod_{n>0}\left(  1+q^{2n-1}z^{-1}\right)  \right) \nonumber\\
+&  =\left(  \prod_{p\text{ is a positive level}}\left(  1+q^{2p}z\right)
+\right)  \left(  \prod_{p\text{ is a negative level}}\left(  1+q^{-2p}%
+z^{-1}\right)  \right) \nonumber\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have substituted }p+\dfrac{1}{2}\text{ for }n\text{ in the
+first product,}\\
+\text{and have substituted }-p+\dfrac{1}{2}\text{ for }n\text{ in the second
+product}%
+\end{array}
+\right) \nonumber\\
+&  =\left(  \sum_{\substack{P\text{ is a finite set}\\\text{of positive
+levels}}}\ \ \prod_{p\in P}\left(  q^{2p}z\right)  \right)  \left(
+\sum_{\substack{N\text{ is a finite set}\\\text{of negative levels}}%
+}\ \ \prod_{p\in N}\left(  q^{-2p}z^{-1}\right)  \right) \nonumber\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{here, we have
+expanded both products using (\ref{eq.fps.prod.binary.prod-inf2})}\right)
+\nonumber\\
+&  =\sum_{\substack{P\text{ is a finite set}\\\text{of positive levels}%
+}}\ \ \sum_{\substack{N\text{ is a finite set}\\\text{of negative levels}%
+}}\ \ \underbrace{\prod_{p\in P}\left(  q^{2p}z\right)  \ \ \prod_{p\in
+N}\left(  q^{-2p}z^{-1}\right)  }_{=q^{2\left(  \text{sum of elements of
+}P\right)  -2\left(  \text{sum of elements of }N\right)  }z^{\left\vert
+P\right\vert -\left\vert N\right\vert }}\nonumber\\
+&  =\sum_{\substack{P\text{ is a finite set}\\\text{of positive levels}%
+}}\ \ \sum_{\substack{N\text{ is a finite set}\\\text{of negative levels}%
+}}q^{2\left(  \text{sum of elements of }P\right)  -2\left(  \text{sum of
+elements of }N\right)  }z^{\left\vert P\right\vert -\left\vert N\right\vert
+}\nonumber\\
+&  =\sum_{S\text{ is a state}}\underbrace{q^{2\left(  \text{sum of positive
+levels in }S\right)  -2\left(  \text{sum of negative levels not in }S\right)
+}}_{\substack{=q^{\operatorname*{energy}S}\\\text{(by the definition of
+}\operatorname*{energy}S\text{)}}}\nonumber\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \underbrace{z^{\left(  \text{number
+of positive levels in }S\right)  -\left(  \text{number of negative levels not
+in }S\right)  }}_{\substack{=z^{\operatorname*{parnum}S}\\\text{(by the
+definition of }\operatorname*{parnum}S\text{)}}}\nonumber\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have combined }P\text{ and }N\\
+\text{into a single state }S:=P\cup\overline{N}\text{,}\\
+\text{where }\overline{N}=\left\{  \text{all negative levels}\right\}
+\setminus N
+\end{array}
+\right) \nonumber\\
+&  =\sum_{S\text{ is a state}}q^{\operatorname*{energy}S}%
+z^{\operatorname*{parnum}S}. \label{pf.thm.pars.jtp2.lhs}%
+\end{align}
+
+
+\textit{Right hand side:} Recall that%
+\begin{align*}
+\prod_{n>0}\left(  1-x^{n}\right)  ^{-1}  &  =\prod_{n>0}\dfrac{1}{1-x^{n}%
+}=\sum_{n\in\mathbb{N}}p\left(  n\right)  x^{n}\ \ \ \ \ \ \ \ \ \ \left(
+\text{by Theorem \ref{thm.pars.main-gf}}\right) \\
+&  =\sum_{\substack{\lambda\text{ is a}\\\text{partition}}}x^{\left\vert
+\lambda\right\vert }%
+\end{align*}
+(because the sum $\sum_{\substack{\lambda\text{ is a}\\\text{partition}%
+}}x^{\left\vert \lambda\right\vert }$ contains each monomial $x^{n}$ precisely
+$p\left(  n\right)  $ times). Substituting $q^{2}$ for $x$ in this equality,
+we find%
+\[
+\prod_{n>0}\left(  1-\left(  q^{2}\right)  ^{n}\right)  ^{-1}=\sum
+_{\substack{\lambda\text{ is a}\\\text{partition}}}\left(  q^{2}\right)
+^{\left\vert \lambda\right\vert }.
+\]
+In other words,%
+\[
+\prod_{n>0}\left(  1-q^{2n}\right)  ^{-1}=\sum_{\substack{\lambda\text{ is
+a}\\\text{partition}}}q^{2\left\vert \lambda\right\vert }.
+\]
+Multiplying both sides of this equality by $\sum_{\ell\in\mathbb{Z}}%
+q^{\ell^{2}}z^{\ell}$, we obtain%
+\begin{align}
+\left(  \sum_{\ell\in\mathbb{Z}}q^{\ell^{2}}z^{\ell}\right)  \prod
+_{n>0}\left(  1-q^{2n}\right)  ^{-1}  &  =\left(  \sum_{\ell\in\mathbb{Z}%
+}q^{\ell^{2}}z^{\ell}\right)  \sum_{\substack{\lambda\text{ is a}%
+\\\text{partition}}}q^{2\left\vert \lambda\right\vert }\nonumber\\
+&  =\sum_{\ell\in\mathbb{Z}}\ \ \sum_{\substack{\lambda\text{ is
+a}\\\text{partition}}}q^{\ell^{2}+2\left\vert \lambda\right\vert }z^{\ell}.
+\label{pf.thm.pars.jtp2.rhs1}%
+\end{align}
+We want to show that this equals $\sum\limits_{S\text{ is a state}%
+}q^{\operatorname*{energy}S}z^{\operatorname*{parnum}S}$. In order to do this,
+we will find a bijection%
+\[
+\Phi_{\ell}:\left\{  \text{partitions}\right\}  \rightarrow\left\{
+\text{states with particle number }\ell\right\}
+\]
+for each $\ell\in\mathbb{Z}$, and we will show that this bijection satisfies
+\[
+\operatorname*{energy}\left(  \Phi_{\ell}\left(  \lambda\right)  \right)
+=\ell^{2}+2\left\vert \lambda\right\vert \ \ \ \ \ \ \ \ \ \ \text{for each
+}\ell\in\mathbb{Z}\text{ and }\lambda\in\left\{  \text{partitions}\right\}  .
+\]
+
+
+Let us do this. Fix $\ell\in\mathbb{Z}$. We define the state $G_{\ell}$
+(called the \textquotedblleft$\ell$-ground state\textquotedblright) by%
+\[
+G_{\ell}:=\left\{  \text{all levels }<\ell\right\}  =\left\{  \ell-\dfrac
+{1}{2},\ \ \ell-\dfrac{3}{2},\ \ \ell-\dfrac{5}{2},\ \ \ldots\right\}  .
+\]
+Here is how it looks like (for $\ell$ positive):%
+\[%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\]
+
+
+If $\ell\geq0$, then this state $G_{\ell}$ has energy
+\[
+\operatorname*{energy}G_{\ell}=1+3+5+\cdots+\left(  2\ell-1\right)  =\ell^{2}%
+\]
+and particle number%
+\[
+\operatorname*{parnum}G_{\ell}=\ell-0=\ell.
+\]
+If $\ell<0$, then it has energy%
+\[
+\operatorname*{energy}G_{\ell}=-\left(  -1\right)  -\left(  -3\right)
+-\left(  -5\right)  -\cdots-\left(  2\ell+1\right)  =\ell^{2}%
+\]
+and particle number%
+\[
+\operatorname*{parnum}G_{\ell}=0-\left(  -\ell\right)  =\ell.
+\]
+Note that the answers are the same in both cases. Thus, whatever sign $\ell$
+has, we have%
+\[
+\operatorname*{energy}G_{\ell}=\ell^{2}\ \ \ \ \ \ \ \ \ \ \text{and}%
+\ \ \ \ \ \ \ \ \ \ \operatorname*{parnum}G_{\ell}=\ell.
+\]
+
+
+If $S$ is a state, and if $p\in S$, and if $q$ is a positive integer such that
+$p+q\notin S$, then we define a new state%
+\[
+\operatorname*{jump}\nolimits_{p,q}S:=\left(  S\setminus\left\{  p\right\}
+\right)  \cup\left\{  p+q\right\}  .
+\]
+We say that this state $\operatorname*{jump}\nolimits_{p,q}S$ is obtained from
+$S$ by letting the electron at level $p$ \emph{jump} $q$ steps to the right.
+Note that $\operatorname*{jump}\nolimits_{p,q}S$ has the same particle number
+as $S$ (check this!\footnote{There are three cases:
+\par
+\textit{Case 1:} We have $p>0$ (that is, the particle jumps from a positive
+level to a positive level).
+\par
+\textit{Case 2:} We have $p<0$ and $p+q>0$ (that is, the particle jumps from a
+negative level to a positive level).
+\par
+\textit{Case 3:} We have $p+q<0$ (that is, the particle jumps from a negative
+level to a negative level).
+\par
+Each case is easy to check.}), whereas its energy is $2q$ higher than that of
+$S$ (check this!\footnote{Again, the same three cases are to be considered.}).
+Thus, a jumping electron raises the energy but keeps the particle number unchanged.
+
+For any partition $\lambda=\left(  \lambda_{1},\lambda_{2},\ldots,\lambda
+_{k}\right)  $, we define the state $E_{\ell,\lambda}$ (called an
+\textquotedblleft excited state\textquotedblright) by starting with the $\ell
+$-ground state $G_{\ell}$, and then successively letting the $k$ electrons at
+the highest levels (which are -- from highest to lowest -- the levels
+$\ell-1+\dfrac{1}{2},\ \ \ell-2+\dfrac{1}{2},\ \ \ldots,\ \ \ell-k+\dfrac
+{1}{2}$) jump $\lambda_{1},\lambda_{2},\ldots,\lambda_{k}$ steps to the right,
+respectively (starting with the rightmost electron). In other words,%
+\begin{align*}
+E_{\ell,\lambda}  &  :=\operatorname*{jump}\nolimits_{\ell-k+1/2,\ \ \lambda
+_{k}}\left(  \cdots\left(  \operatorname*{jump}\nolimits_{\ell
+-2+1/2,\ \ \lambda_{2}}\left(  \operatorname*{jump}\nolimits_{\ell
+-1+1/2,\ \ \lambda_{1}}\left(  G_{\ell}\right)  \right)  \right)  \right) \\
+&  =\left\{  \text{all levels }<\ell-k\right\}  \cup\left\{  \ell-i+\dfrac
+{1}{2}+\lambda_{i}\ \mid\ i\in\left\{  1,2,\ldots,k\right\}  \right\}  .
+\end{align*}
+(Check that these jumps are well-defined -- i.e., that each electron jumps to
+an unoccupied state.)
+
+[Example: Let $\ell=3$ and $k=4$ and $\lambda=\left(  \lambda_{1},\lambda
+_{2},\lambda_{3},\lambda_{4}\right)  =\left(  4,2,2,1\right)  $. Then,%
+\[
+E_{\ell,\lambda}=\left\{  \text{all levels }<-1\right\}  \cup\left\{
+\dfrac{3}{2},\ \ \dfrac{7}{2},\ \ \dfrac{9}{2},\ \ \dfrac{13}{2}\right\}  .
+\]
+Here is a picture of this state $E_{\ell,\lambda}$ and how it is constructed
+by a sequence of electron jumps (the top state is $G_{\ell}$; the bottom state
+is $E_{\ell,\lambda}$):%
+\[%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+.
+\]
+Note how the order of the electrons after the jumps is the same as before --
+i.e., the electron in the rightmost position before the jumps is still the
+rightmost one after the jumps, etc.]
+
+Recall that the $\ell$-ground state $G_{\ell}$ has energy $\ell^{2}$ and
+particle number $\ell$. The state $E_{\ell,\lambda}$ that we have just defined
+is obtained from this $\ell$-ground state $G_{\ell}$ by $k$ jumps, which are
+jumps by $\lambda_{1},\lambda_{2},\ldots,\lambda_{k}$ steps respectively.
+Recall that a jump by $q$ steps raises the energy by $2q$ but keeps the
+particle number unchanged. Thus, the \textquotedblleft excited
+state\textquotedblright\ $E_{\ell,\lambda}$ has energy $\ell^{2}%
++\underbrace{2\lambda_{1}+2\lambda_{2}+\cdots+2\lambda_{k}}_{=2\left\vert
+\lambda\right\vert }=\ell^{2}+2\left\vert \lambda\right\vert $ and particle
+number $\ell$. Furthermore, every state with particle number $\ell$ can be
+written as $E_{\ell,\lambda}$ for a unique partition $\lambda$ (check
+this!\footnote{Here is how to obtain this $\lambda$: For each $i\in\left\{
+1,2,3,\ldots\right\}  $, let $u_{i}$ be the $i$-th largest level in the state,
+and let $\lambda_{i}=u_{i}-\ell+i-\dfrac{1}{2}$. Then, $\left(  \lambda
+_{1},\lambda_{2},\lambda_{3},\ldots\right)  $ is a weakly decreasing sequence
+of nonnegative integers, and all but finitely many of its entries are $0$
+(since the state has particle number $\ell$, so that it is not hard to see
+that $u_{i}=\ell-i+\dfrac{1}{2}$ for any sufficiently large $i$). Removing all
+$0$s from this sequence $\left(  \lambda_{1},\lambda_{2},\lambda_{3}%
+,\ldots\right)  $ thus results in a finite tuple $\left(  \lambda_{1}%
+,\lambda_{2},\ldots,\lambda_{k}\right)  $, which is precisely the partition
+$\lambda$ whose corresponding $E_{\ell,\lambda}$ is our state.}).
+
+Thus, we obtain a bijection%
+\begin{align*}
+\Phi_{\ell}:\left\{  \text{partitions}\right\}   &  \rightarrow\left\{
+\text{states with particle number }\ell\right\}  ,\\
+\lambda &  \mapsto E_{\ell,\lambda}.
+\end{align*}
+This bijection satisfies%
+\[
+\operatorname*{energy}\left(  \Phi_{\ell}\left(  \lambda\right)  \right)
+=\operatorname*{energy}E_{\ell,\lambda}=\ell^{2}+2\left\vert \lambda
+\right\vert \ \ \ \ \ \ \ \ \ \ \text{for every partition }\lambda.
+\]
+Hence,%
+\begin{align}
+\sum_{\substack{\lambda\text{ is a}\\\text{partition}}}\underbrace{q^{\ell
+^{2}+2\left\vert \lambda\right\vert }}_{\substack{=q^{\operatorname*{energy}%
+\left(  \Phi_{\ell}\left(  \lambda\right)  \right)  }\\\text{(since
+}\operatorname*{energy}\left(  \Phi_{\ell}\left(  \lambda\right)  \right)
+=\ell^{2}+2\left\vert \lambda\right\vert \text{)}}}  &  =\sum
+_{\substack{\lambda\text{ is a}\\\text{partition}}}q^{\operatorname*{energy}%
+\left(  \Phi_{\ell}\left(  \lambda\right)  \right)  }\nonumber\\
+&  =\sum_{\substack{S\text{ is a state with}\\\text{particle number }\ell
+}}q^{\operatorname*{energy}S} \label{pf.thm.pars.jtp2.rhs5}%
+\end{align}
+(here, we have substituted $S$ for $\Phi_{\ell}\left(  \lambda\right)  $ in
+the sum, since the map $\Phi_{\ell}$ is a bijection).
+
+Forget that we fixed $\ell$. We thus have proved (\ref{pf.thm.pars.jtp2.rhs5})
+for each $\ell\in\mathbb{Z}$.
+
+Now, (\ref{pf.thm.pars.jtp2.rhs1}) becomes%
+\begin{align*}
+\left(  \sum_{\ell\in\mathbb{Z}}q^{\ell^{2}}z^{\ell}\right)  \prod
+_{n>0}\left(  1-q^{2n}\right)  ^{-1}  &  =\sum_{\ell\in\mathbb{Z}%
+}\ \ \underbrace{\sum_{\substack{\lambda\text{ is a}\\\text{partition}%
+}}q^{\ell^{2}+2\left\vert \lambda\right\vert }}_{\substack{=\sum
+_{\substack{S\text{ is a state with}\\\text{particle number }\ell
+}}q^{\operatorname*{energy}S}\\\text{(by (\ref{pf.thm.pars.jtp2.rhs5}))}%
+}}z^{\ell}\\
+&  =\sum_{\ell\in\mathbb{Z}}\ \ \sum_{\substack{S\text{ is a state
+with}\\\text{particle number }\ell}}q^{\operatorname*{energy}S}%
+\underbrace{z^{\ell}}_{\substack{=z^{\operatorname*{parnum}S}\\\text{(since
+}\ell=\operatorname*{parnum}S\text{)}}}\\
+&  =\underbrace{\sum_{\ell\in\mathbb{Z}}\ \ \sum_{\substack{S\text{ is a state
+with}\\\text{particle number }\ell}}}_{=\sum_{S\text{ is a state}}%
+}q^{\operatorname*{energy}S}z^{\operatorname*{parnum}S}\\
+&  =\sum_{S\text{ is a state}}q^{\operatorname*{energy}S}%
+z^{\operatorname*{parnum}S}.
+\end{align*}
+
+
+Comparing this with (\ref{pf.thm.pars.jtp2.lhs}), we obtain%
+\[
+\prod_{n>0}\left(  \left(  1+q^{2n-1}z\right)  \left(  1+q^{2n-1}%
+z^{-1}\right)  \right)  =\left(  \sum_{\ell\in\mathbb{Z}}q^{\ell^{2}}z^{\ell
+}\right)  \prod_{n>0}\left(  1-q^{2n}\right)  ^{-1}.
+\]
+Multiplying both sides of this identity with $\prod_{n>0}\left(
+1-q^{2n}\right)  $, we find%
+\[
+\prod_{n>0}\left(  \left(  1+q^{2n-1}z\right)  \left(  1+q^{2n-1}%
+z^{-1}\right)  \left(  1-q^{2n}\right)  \right)  =\sum_{\ell\in\mathbb{Z}%
+}q^{\ell^{2}}z^{\ell}.
+\]
+This proves Jacobi's Triple Product Identity (Theorem \ref{thm.pars.jtp1} and
+Theorem \ref{thm.pars.jtp2}).
+\end{proof}
+
+Other proofs of Jacobi's Triple Product Identity can be found in
+\cite[\S 3.4]{Aigner07}, \cite[Theorem 10.2]{Wagner08} and \cite[\S 1.3 and
+\S 1.4]{Hirsch17}.
+
+We note that proving Theorem \ref{thm.pars.pent} using Theorem
+\ref{thm.pars.jtp2} can be viewed as a kind of overkill; there are more direct
+proofs of Theorem \ref{thm.pars.pent} as well (see, e.g., \cite{Zabroc03} or
+\cite[\S 10]{Koch16} or \cite[Exercise 5]{18f-mt3s} or \cite[\S 3]{Bell06}).
+
+\subsubsection{Application: A recursion for the sum of divisors}
+
+Now that Theorem \ref{thm.pars.pent} is proven, we use the occasion to
+spotlight a truly unexpected application of it: Euler's recursion for the sum
+of divisors. We state it in the following form:
+
+\begin{theorem}
+\label{thm.pars.euler-sum-div-rec}For any positive integer $n$, let
+$\sigma\left(  n\right)  $ denote the sum of all positive divisors of $n$.
+(For example, $\sigma\left(  6\right)  =1+2+3+6=12$ and $\sigma\left(
+7\right)  =1+7=8$.)
+
+Then, for each positive integer $n$, we have%
+\[
+\sum_{\substack{k\in\mathbb{Z};\\w_{k}<n}}\left(  -1\right)  ^{k}\sigma\left(
+n-w_{k}\right)  =%
+\begin{cases}
+\left(  -1\right)  ^{k-1}n, & \text{if }n=w_{k}\text{ for some }k\in
+\mathbb{Z};\\
+0, & \text{if not.}%
+\end{cases}
+\]
+(Here, $w_{k}$ is the $k$-th pentagonal number, defined in Definition
+\ref{def.pars.pent-num}.)
+\end{theorem}
+
+The left hand side of the equality in Theorem \ref{thm.pars.euler-sum-div-rec}
+looks as follows:%
+\[
+\sigma\left(  n\right)  -\sigma\left(  n-1\right)  -\sigma\left(  n-2\right)
++\sigma\left(  n-5\right)  +\sigma\left(  n-7\right)  -\sigma\left(
+n-12\right)  -\sigma\left(  n-15\right)  \pm\cdots
+\]
+(the sum goes only as far as the arguments remain positive integers, so it is
+a finite sum). Thus, by solving this equality for $\sigma\left(  n\right)  $,
+we obtain a recursive formula for $\sigma\left(  n\right)  $. (In this form,
+Theorem \ref{thm.pars.euler-sum-div-rec} appears in many places, such as
+\cite[\S 23]{Ness61} and \cite[Theorem 37]{Johnso20}.) This does not give an
+efficient algorithm for computing $\sigma\left(  n\right)  $ (it is much
+slower than the formula in \cite[Exercise 2.18.1 \textbf{(b)}]{19s}, even
+though the latter requires computing the prime factorization of $n$), but its
+beauty and element of surprise (why would you expect the pentagonal numbers to
+have anything to do with sums of divisors?) make up for this practical
+uselessness. Even more surprisingly, it can be proved using Euler's pentagonal
+number theorem, even though it has seemingly nothing to do with partitions!
+
+\begin{proof}
+[Proof of Theorem \ref{thm.pars.euler-sum-div-rec} (sketched).]First, let us
+show that the right hand side in Theorem \ref{thm.pars.euler-sum-div-rec} is
+well-defined. Indeed, it is easy to see that
+\[
+w_{0}<w_{1}<w_{-1}<w_{2}<w_{-2}<w_{3}<w_{-3}<\cdots;
+\]
+thus, the pentagonal numbers $w_{k}$ for all $k\in\mathbb{Z}$ are distinct.
+Hence, if a positive integer $n$ satisfies $n=w_{k}$ for some $k\in\mathbb{Z}%
+$, then this latter $k$ is uniquely determined by $n$, and therefore the
+expression%
+\[%
+\begin{cases}
+\left(  -1\right)  ^{k-1}n, & \text{if }n=w_{k}\text{ for some }k\in
+\mathbb{Z};\\
+0, & \text{if not}%
+\end{cases}
+\]
+is well-defined. In other words, the right hand side in Theorem
+\ref{thm.pars.euler-sum-div-rec} is well-defined.
+
+Now, define the two FPSs $P$ and $S$ as in our above proof of Theorem
+\ref{thm.pars.sigma1}. In that very proof, we have shown that these FPSs
+satisfy
+\begin{equation}
+xP^{\prime}=SP. \label{pf.thm.pars.euler-sum-div-rec.xP'}%
+\end{equation}
+
+
+Next, we define a further FPS%
+\[
+Q:=\sum_{k\in\mathbb{Z}}\left(  -1\right)  ^{k}x^{w_{k}}\in\mathbb{Z}\left[
+\left[  x\right]  \right]  .
+\]
+
+
+Multiplying the equalities%
+\[
+P=\sum_{n\in\mathbb{N}}p\left(  n\right)  x^{n}=\prod_{k=1}^{\infty}\dfrac
+{1}{1-x^{k}}\ \ \ \ \ \ \ \ \ \ \left(  \text{by Theorem
+\ref{thm.pars.main-gf}}\right)
+\]
+and%
+\[
+Q=\sum_{k\in\mathbb{Z}}\left(  -1\right)  ^{k}x^{w_{k}}=\prod\limits_{k=1}%
+^{\infty}\left(  1-x^{k}\right)  \ \ \ \ \ \ \ \ \ \ \left(  \text{by Theorem
+\ref{thm.pars.pent}}\right)  ,
+\]
+we obtain%
+\[
+PQ=\left(  \prod_{k=1}^{\infty}\dfrac{1}{1-x^{k}}\right)  \left(
+\prod\limits_{k=1}^{\infty}\left(  1-x^{k}\right)  \right)  =\prod
+\limits_{k=1}^{\infty}\underbrace{\left(  \dfrac{1}{1-x^{k}}\cdot\left(
+1-x^{k}\right)  \right)  }_{=1}=1.
+\]
+
+
+Combining this equality with (\ref{pf.thm.pars.euler-sum-div-rec.xP'}), we can
+easily see that $xQ^{\prime}=-QS$. Indeed, here are two (essentially
+equivalent) ways to show this:
+
+\begin{itemize}
+\item From $PQ=1$, we obtain $Q=P^{-1}$. But $P\in\mathbb{Z}\left[  \left[
+x\right]  \right]  _{1}$ (since the constant coefficient of $P$ is $p\left(
+0\right)  =1$). Hence, Corollary \ref{cor.fps.loder.inv} (applied to $f=P$)
+yields $\operatorname*{loder}\left(  P^{-1}\right)  =-\operatorname*{loder}P$.
+In view of $P^{-1}=Q$, this rewrites as $\operatorname*{loder}%
+Q=-\operatorname*{loder}P$. But the definition of a logarithmic derivative
+yields $\operatorname*{loder}Q=\dfrac{Q^{\prime}}{Q}$ and
+$\operatorname*{loder}P=\dfrac{P^{\prime}}{P}$. Hence,
+\[
+\dfrac{Q^{\prime}}{Q}=\operatorname*{loder}Q=-\operatorname*{loder}%
+P=-\dfrac{P^{\prime}}{P}\ \ \ \ \ \ \ \ \ \ \left(  \text{since }%
+\operatorname*{loder}P=\dfrac{P^{\prime}}{P}\right)  .
+\]
+Multiplying this equality by $x$, we find%
+\begin{align*}
+\dfrac{xQ^{\prime}}{Q}  &  =-\dfrac{xP^{\prime}}{P}=-\dfrac{SP}{P}%
+\ \ \ \ \ \ \ \ \ \ \left(  \text{by (\ref{pf.thm.pars.euler-sum-div-rec.xP'}%
+)}\right) \\
+&  =-S,
+\end{align*}
+so that $xQ^{\prime}=-QS$.
+
+\item A less conceptual but slicker way to draw the same conclusion is the
+following: Taking derivatives in the equality $PQ=1$, we find $\left(
+PQ\right)  ^{\prime}=1^{\prime}=0$, so that $0=\left(  PQ\right)  ^{\prime
+}=P^{\prime}Q+PQ^{\prime}$ (by Theorem \ref{thm.fps.deriv.rules}
+\textbf{(d)}). Thus, $PQ^{\prime}=-P^{\prime}Q$. Multiplying this equality by
+$x$, we find $PQ^{\prime}\cdot x=-P^{\prime}Q\cdot x=-\underbrace{xP^{\prime}%
+}_{\substack{=SP\\\text{(by (\ref{pf.thm.pars.euler-sum-div-rec.xP'}))}%
+}}Q=-S\underbrace{PQ}_{=1}=-S$. Multiplying this further by $Q$, we obtain
+$PQ^{\prime}\cdot xQ=-SQ=-QS$. In view of $PQ^{\prime}\cdot xQ=xQ^{\prime
+}\cdot\underbrace{PQ}_{=1}=xQ^{\prime}$, we can rewrite this as $xQ^{\prime
+}=-QS$.
+\end{itemize}
+
+Either way, we now know that $xQ^{\prime}=-QS$. However, from $Q=\sum
+_{k\in\mathbb{Z}}\left(  -1\right)  ^{k}x^{w_{k}}$, we obtain%
+\[
+Q^{\prime}=\left(  \sum_{k\in\mathbb{Z}}\left(  -1\right)  ^{k}x^{w_{k}%
+}\right)  ^{\prime}=\sum_{k\in\mathbb{Z}}\left(  -1\right)  ^{k}%
+\underbrace{\left(  x^{w_{k}}\right)  ^{\prime}}_{\substack{=w_{k}x^{w_{k}%
+-1}\\\text{(where we understand this}\\\text{expression to mean }0\text{ if
+}w_{k}=0\text{)}}}=\sum_{k\in\mathbb{Z}}\left(  -1\right)  ^{k}w_{k}%
+x^{w_{k}-1}.
+\]
+Upon multiplication by $x$, this becomes%
+\[
+xQ^{\prime}=x\sum_{k\in\mathbb{Z}}\left(  -1\right)  ^{k}w_{k}x^{w_{k}-1}%
+=\sum_{k\in\mathbb{Z}}\left(  -1\right)  ^{k}w_{k}\underbrace{xx^{w_{k}-1}%
+}_{=x^{w_{k}}}=\sum_{k\in\mathbb{Z}}\left(  -1\right)  ^{k}w_{k}x^{w_{k}}.
+\]
+Hence,%
+\begin{align}
+\sum_{k\in\mathbb{Z}}\left(  -1\right)  ^{k}w_{k}x^{w_{k}}  &  =xQ^{\prime
+}=-\underbrace{Q}_{=\sum_{k\in\mathbb{Z}}\left(  -1\right)  ^{k}x^{w_{k}}%
+}\ \ \underbrace{S}_{\substack{=\sum_{k>0}\sigma\left(  k\right)  x^{k}%
+\\=\sum_{i>0}\sigma\left(  i\right)  x^{i}}}\nonumber\\
+&  =-\left(  \sum_{k\in\mathbb{Z}}\left(  -1\right)  ^{k}x^{w_{k}}\right)
+\left(  \sum_{i>0}\sigma\left(  i\right)  x^{i}\right) \nonumber\\
+&  =\sum_{k\in\mathbb{Z}}\ \ \sum_{i>0}\underbrace{\left(  -\left(  -1\right)
+^{k}\right)  }_{=\left(  -1\right)  ^{k-1}}\underbrace{x^{w_{k}}\sigma\left(
+i\right)  x^{i}}_{=\sigma\left(  i\right)  x^{w_{k}+i}}\nonumber\\
+&  =\sum_{k\in\mathbb{Z}}\ \ \sum_{i>0}\left(  -1\right)  ^{k-1}\sigma\left(
+i\right)  x^{w_{k}+i}\nonumber\\
+&  =\underbrace{\sum_{k\in\mathbb{Z}}\ \ \sum_{m>w_{k}}}_{=\sum_{m>0}%
+\ \ \sum_{\substack{k\in\mathbb{Z};\\m>w_{k}}}}\left(  -1\right)  ^{k-1}%
+\sigma\left(  m-w_{k}\right)  \underbrace{x^{w_{k}+\left(  m-w_{k}\right)  }%
+}_{=x^{m}}\nonumber\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have substituted }m-w_{k}\text{ for }i\\
+\text{in the inner sum}%
+\end{array}
+\right) \nonumber\\
+&  =\sum_{m>0}\ \ \sum_{\substack{k\in\mathbb{Z};\\m>w_{k}}}\left(  -1\right)
+^{k-1}\sigma\left(  m-w_{k}\right)  x^{m}.
+\label{pf.thm.pars.euler-sum-div-rec.4}%
+\end{align}
+
+
+Now, let $n$ be a positive integer. Let us compare the coefficients of $x^{n}$
+on the left and right hand sides of (\ref{pf.thm.pars.euler-sum-div-rec.4}).
+On the left hand side, the coefficient of $x^{n}$ is%
+\[%
+\begin{cases}
+\left(  -1\right)  ^{k}w_{k}, & \text{if }n=w_{k}\text{ for some }%
+k\in\mathbb{Z};\\
+0, & \text{if not}%
+\end{cases}
+\]
+(since the pentagonal numbers $w_{k}$ for all $k\in\mathbb{Z}$ are distinct,
+and thus the different addends on the left hand side of
+(\ref{pf.thm.pars.euler-sum-div-rec.4}) contribute to different monomials). On
+the right hand side, the coefficient of $x^{n}$ is obviously%
+\[
+\sum_{\substack{k\in\mathbb{Z};\\n>w_{k}}}\left(  -1\right)  ^{k-1}%
+\sigma\left(  n-w_{k}\right)  .
+\]
+Since these two coefficients are equal (because
+(\ref{pf.thm.pars.euler-sum-div-rec.4}) is an identity), we thus conclude that%
+\begin{align*}%
+\begin{cases}
+\left(  -1\right)  ^{k}w_{k}, & \text{if }n=w_{k}\text{ for some }%
+k\in\mathbb{Z};\\
+0, & \text{if not}%
+\end{cases}
+&  =\underbrace{\sum_{\substack{k\in\mathbb{Z};\\n>w_{k}}}}_{=\sum
+_{\substack{k\in\mathbb{Z};\\w_{k}<n}}}\underbrace{\left(  -1\right)  ^{k-1}%
+}_{=-\left(  -1\right)  ^{k}}\sigma\left(  n-w_{k}\right) \\
+&  =-\sum_{\substack{k\in\mathbb{Z};\\w_{k}<n}}\left(  -1\right)  ^{k}%
+\sigma\left(  n-w_{k}\right)  .
+\end{align*}
+Thus,%
+\begin{align*}
+\sum_{\substack{k\in\mathbb{Z};\\w_{k}<n}}\left(  -1\right)  ^{k}\sigma\left(
+n-w_{k}\right)   &  =-%
+\begin{cases}
+\left(  -1\right)  ^{k}w_{k}, & \text{if }n=w_{k}\text{ for some }%
+k\in\mathbb{Z};\\
+0, & \text{if not}%
+\end{cases}
+\\
+&  =%
+\begin{cases}
+-\left(  -1\right)  ^{k}w_{k}, & \text{if }n=w_{k}\text{ for some }%
+k\in\mathbb{Z};\\
+0, & \text{if not}%
+\end{cases}
+\\
+&  =%
+\begin{cases}
+\left(  -1\right)  ^{k-1}w_{k}, & \text{if }n=w_{k}\text{ for some }%
+k\in\mathbb{Z};\\
+0, & \text{if not}%
+\end{cases}
+\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{since }-\left(
+-1\right)  ^{k}=\left(  -1\right)  ^{k-1}\right) \\
+&  =%
+\begin{cases}
+\left(  -1\right)  ^{k-1}n, & \text{if }n=w_{k}\text{ for some }k\in
+\mathbb{Z};\\
+0, & \text{if not}%
+\end{cases}
+\end{align*}
+(because if $n=w_{k}$ for some $k\in\mathbb{Z}$, then $w_{k}=n$). This proves
+Theorem \ref{thm.pars.euler-sum-div-rec}.
+\end{proof}

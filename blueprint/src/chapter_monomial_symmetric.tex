@@ -1,0 +1,893 @@
+\section{$N$-partitions and monomial symmetric polynomials}
+
+Throughout this section, let $K$ be a commutative semiring and $N$ a nonnegative integer.
+We work with the polynomial ring $\mathcal{P} = K[x_1, x_2, \ldots, x_N]$
+and the subring $\mathcal{S}$ of symmetric polynomials in $\mathcal{P}$.
+
+\subsection{$N$-partitions}
+
+\begin{definition}
+\label{def.sf.Npar}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.NPartition}
+\leantarget
+\leanok
+An $N$\emph{-partition} will mean a weakly decreasing
+$N$-tuple of nonnegative integers. In other words, an $N$-partition means an
+$N$-tuple $\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{N}\right)
+\in\mathbb{N}^{N}$ with $\lambda_{1}\geq\lambda_{2}\geq\cdots\geq\lambda_{N}$.
+
+The \emph{size} (or weight) of an $N$-partition $\lambda = (\lambda_1, \lambda_2, \ldots, \lambda_N)$
+is defined to be $|\lambda| := \lambda_1 + \lambda_2 + \cdots + \lambda_N$.
+\end{definition}
+
+\begin{proposition}
+\label{prop.sf.Npar-as-par}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.NPartition.equivPartition}
+\leantarget
+\leanok
+There is a bijection%
+\begin{align*}
+\left\{  \text{partitions of length }\leq N\right\}   &  \rightarrow\left\{
+N\text{-partitions}\right\}  ,\\
+\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{\ell}\right)   &
+\mapsto\left(  \lambda_{1},\lambda_{2},\ldots,\lambda_{\ell}%
+,\underbrace{0,0,\ldots,0}_{N-\ell\text{ zeroes}}\right)  .
+\end{align*}
+\end{proposition}
+
+\begin{proof}
+Straightforward. The forward map pads a partition of length $\ell \leq N$ with
+$N - \ell$ trailing zeros, and the inverse map strips trailing zeros. The
+padded tuple is weakly decreasing because the original partition is weakly
+decreasing and its entries are positive (hence $\geq 0$). The composition in both
+directions is the identity: padding then stripping recovers the original
+partition, and stripping then padding recovers the original $N$-partition
+(since an $N$-partition is antitone, all zeros are trailing).
+\end{proof}
+
+\subsubsection{Basic $N$-partition API}
+
+\begin{lemma}
+\label{lem.sf.Npar-size}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.NPartition.size, AlgebraicCombinatorics.SymmetricFunctions.NPartition.parts_le_size, AlgebraicCombinatorics.SymmetricFunctions.NPartition.eq_zero_of_size_eq_zero, AlgebraicCombinatorics.SymmetricFunctions.NPartition.size_eq_zero_iff}
+\leanhelper
+\leanok
+Let $\lambda = (\lambda_1, \ldots, \lambda_N)$ be an $N$-partition.
+\begin{itemize}
+\item Each entry is bounded by the size: $\lambda_i \leq |\lambda|$ for all $i$.
+\item $|\lambda| = 0$ if and only if $\lambda = (0, \ldots, 0)$.
+\end{itemize}
+\end{lemma}
+
+\begin{proof}
+The bound $\lambda_i \leq \sum_j \lambda_j$ holds because each summand is nonneg\-ative.
+The second claim uses the bound to show all parts must be zero when the size is.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.Npar-length}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.NPartition.length, AlgebraicCombinatorics.SymmetricFunctions.NPartition.length_le, AlgebraicCombinatorics.SymmetricFunctions.NPartition.length_eq_zero_iff}
+\leanhelper
+\leanok
+The \emph{length} $\ell(\lambda)$ of an $N$-partition $\lambda$ is the number of nonzero entries.
+We have $\ell(\lambda) \leq N$ and $\ell(\lambda) = 0 \iff \lambda = (0, \ldots, 0)$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The length is the cardinality of $\{i : \lambda_i \neq 0\}$, which is a subset of $[N]$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.Npar-add}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.NPartition.add, AlgebraicCombinatorics.SymmetricFunctions.NPartition.add_size}
+\leanhelper
+\leanok
+The componentwise sum of two $N$-partitions is an $N$-partition, and
+$|\mu + \nu| = |\mu| + |\nu|$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Antitone is preserved under addition since each coordinate sum preserves the inequality.
+The size formula follows from rearranging a sum.
+\end{proof}
+
+\begin{definition}
+\label{def.sf.Npar-order}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.NPartition.instLE, AlgebraicCombinatorics.SymmetricFunctions.NPartition.instPartialOrder}
+\leanhelper
+\leanok
+We define a partial order on $N$-partitions by componentwise comparison:
+$\mu \leq \nu$ iff $\mu_i \leq \nu_i$ for all $i \in [N]$.
+\end{definition}
+
+\begin{lemma}
+\label{lem.sf.Npar-le-size}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.NPartition.size_le_of_le}
+\leanhelper
+\leanok
+If $\mu \leq \nu$ (componentwise), then $|\mu| \leq |\nu|$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Sum the componentwise inequalities.
+\end{proof}
+
+\subsubsection{Young diagrams of $N$-partitions}
+
+\begin{definition}
+\label{def.sf.Npar-youngDiagram}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.NPartition.youngDiagram}
+\leanhelper
+\leanok
+The \emph{Young diagram} $Y(\lambda)$ of an $N$-partition $\lambda$
+is the finite set of cells
+\[
+Y(\lambda) = \{(i, j) : i \in [N],\; 0 \leq j < \lambda_i\}.
+\]
+\end{definition}
+
+\begin{lemma}
+\label{lem.sf.Npar-youngDiagram-card}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.NPartition.youngDiagram_card}
+\leanhelper
+\leanok
+The cardinality of the Young diagram equals the size:
+$|Y(\lambda)| = |\lambda|$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The Young diagram is the disjoint union of rows, where row $i$ has $\lambda_i$ cells.
+Thus $|Y(\lambda)| = \sum_i \lambda_i = |\lambda|$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.Npar-youngDiagram-row}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.NPartition.youngDiagram_row_card}
+\leanhelper
+\leanok
+The number of cells in row $i$ of the Young diagram equals $\lambda_i$:
+$|\{(i, j) \in Y(\lambda)\}| = \lambda_i$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By definition, row $i$ consists of cells $(i, j)$ with $0 \leq j < \lambda_i$,
+which has exactly $\lambda_i$ elements.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.Npar-le-iff-youngDiagram}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.NPartition.le_iff_youngDiagram_subset}
+\leanhelper
+\leanok
+$\mu \leq \nu$ if and only if $Y(\mu) \subseteq Y(\nu)$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Forward: if $\mu_i \leq \nu_i$ for all $i$, then $j < \mu_i$ implies $j < \nu_i$,
+so $(i,j) \in Y(\mu)$ implies $(i,j) \in Y(\nu)$.
+Backward: if $Y(\mu) \subseteq Y(\nu)$ and $\mu_i > \nu_i$ for some $i$,
+then $(i, \nu_i) \in Y(\mu) \setminus Y(\nu)$, a contradiction.
+\end{proof}
+
+\begin{definition}
+\label{def.sf.Npar-skewYoungDiagram}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.NPartition.skewYoungDiagram}
+\leanhelper
+\leanok
+The \emph{skew Young diagram} $Y(\lambda/\mu)$ for $N$-partitions $\lambda, \mu$
+is the set difference $Y(\lambda) \setminus Y(\mu)$, consisting of cells $(i, j)$
+with $\mu_i \leq j < \lambda_i$.
+\end{definition}
+
+\begin{lemma}
+\label{lem.sf.Npar-skewYoungDiagram-card}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.NPartition.skewYoungDiagram_card}
+\leanhelper
+\leanok
+The cardinality of the skew Young diagram satisfies
+$|Y(\lambda/\mu)| = \sum_{i=1}^N (\lambda_i - \mu_i)$.
+When $\mu \leq \lambda$, this equals $|\lambda| - |\mu|$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The skew diagram is a subset of the Young diagram, and each row contributes
+$\max(\lambda_i - \mu_i, 0)$ cells. The identity with sizes uses telescoping.
+\end{proof}
+
+\subsubsection{Row and column partitions}
+
+\begin{lemma}
+\label{lem.sf.Npar-row-col}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.NPartition.rowPartition, AlgebraicCombinatorics.SymmetricFunctions.NPartition.colPartition, AlgebraicCombinatorics.SymmetricFunctions.NPartition.rowPartition_size, AlgebraicCombinatorics.SymmetricFunctions.NPartition.colPartition_size}
+\leanhelper
+\leanok
+The \emph{row partition} $(n, 0, \ldots, 0)$ has size $n$.
+The \emph{column partition} $(1, 1, \ldots, 1, 0, \ldots, 0)$ (with $n$ ones, $n \leq N$)
+has size $n$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Direct computation of sums.
+\end{proof}
+
+\subsection{Monomials and sorting}
+
+\begin{definition}
+\label{def.sf.sort}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.monomialExp, AlgebraicCombinatorics.SymmetricFunctions.sortTuple}
+\leantarget
+\leanok
+Let $a=\left(  a_{1},a_{2},\ldots,a_{N}\right)
+\in\mathbb{N}^{N}$. Then:
+
+\textbf{(a)} We let $x^{a}$ denote the monomial $x_{1}^{a_{1}}x_{2}^{a_{2}%
+}\cdots x_{N}^{a_{N}}$.
+
+\textbf{(b)} We let $\operatorname*{sort}a$ mean the $N$-partition obtained
+from $a$ by sorting the entries of $a$ in weakly decreasing order.
+\end{definition}
+
+\begin{definition}
+\label{def.sf.sort.b}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.sortTuple}
+\leanhelper
+\leanok
+For $a = (a_1, a_2, \ldots, a_N) \in \mathbb{N}^N$,
+$\operatorname{sort} a$ is the $N$-partition obtained by sorting the entries of $a$
+in weakly decreasing order.
+\end{definition}
+
+\begin{lemma}
+\label{lem.sf.sort-perm-invariant}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.sortTuple_comp_perm}
+\leanhelper
+\leanok
+Let $a \in \mathbb{N}^N$ and let $\sigma \in S_N$ be a permutation. Then
+$\operatorname{sort}(a \circ \sigma) = \operatorname{sort}(a)$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Sorting depends only on the multiset of values, which is invariant under permutation of the indices.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.sort-size}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.sortTuple_size}
+\leanhelper
+\leanok
+For any $a \in \mathbb{N}^N$, $|\operatorname{sort}(a)| = \sum_i a_i$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The sum of entries is preserved by sorting.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.sort-antitone}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.sortTuple_of_antitone}
+\leanhelper
+\leanok
+If $a \in \mathbb{N}^N$ is already weakly decreasing, then $\operatorname{sort}(a) = a$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+A weakly decreasing list is already sorted.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.sort-NPartition}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.sortTuple_of_NPartition}
+\leanhelper
+\leanok
+For any $N$-partition $\mu$, $\operatorname{sort}(\mu) = \mu$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+An $N$-partition is antitone by definition, so the result follows from
+Lemma~\ref{lem.sf.sort-antitone}.
+\end{proof}
+
+\subsubsection{Monomial API}
+
+\begin{lemma}
+\label{lem.sf.monomialExp-eq-monomial}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.monomialExp_eq_monomial}
+\leanhelper
+\leanok
+The monomial $x^a = \prod_i x_i^{a_i}$ equals the Mathlib monomial $\mathrm{monomial}(a, 1)$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Immediate from the definitions of monomial and product of powers.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.monomialExp-coeff}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.monomialExp_coeff_self, AlgebraicCombinatorics.SymmetricFunctions.monomialExp_coeff_ne}
+\leanhelper
+\leanok
+The coefficient of $x^a$ in $x^a$ is $1$.
+The coefficient of $x^b$ in $x^a$ is $0$ when $a \neq b$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By Lemma~\ref{lem.sf.monomialExp-eq-monomial}, $x^a = \mathrm{monomial}(a, 1)$, and
+the coefficient extraction from a single monomial is immediate.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.monomialExp-multiplicative}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.monomialExp_add, AlgebraicCombinatorics.SymmetricFunctions.monomialExp_zero}
+\leanhelper
+\leanok
+The monomial map is multiplicative: $x^{a+b} = x^a \cdot x^b$, and $x^0 = 1$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The identity $x^{a+b} = x^a \cdot x^b$ follows from $x_i^{a_i + b_i} = x_i^{a_i} \cdot x_i^{b_i}$
+and distributivity of products.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.monomialExp-degree}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.monomialExp_totalDegree}
+\leanhelper
+\leanok
+The total degree of $x^a$ equals $\sum_i a_i$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By Lemma~\ref{lem.sf.monomialExp-eq-monomial}, this reduces to the standard
+result that the total degree of a monomial equals the sum of its exponents.
+\end{proof}
+
+\subsubsection{Characterization of equal sorts}
+
+\begin{lemma}
+\label{lem.sf.sort-eq-iff}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.sortTuple_eq_iff}
+\leanhelper
+\leanok
+Two tuples $a, b \in \mathbb{N}^N$ have the same sort if and only if they have the
+same multiset of values (equivalently, $b$ is a permutation of $a$):
+\[
+\operatorname{sort}(a) = \operatorname{sort}(b) \iff \{a_1, \ldots, a_N\} = \{b_1, \ldots, b_N\}
+\quad \text{(as multisets)}.
+\]
+\end{lemma}
+
+\begin{proof}
+Forward: if the sorts are equal as $N$-partitions, then the sorted lists agree pointwise,
+hence are equal as lists, hence as multisets --- and the sorted list of a multiset equals
+the multiset itself.
+Backward: if the multisets of values are equal, sorting them gives the same list.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.sort-idempotent}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.sortTuple_idempotent}
+\leanhelper
+\leanok
+Sorting is idempotent: $\operatorname{sort}(\operatorname{sort}(a)) = \operatorname{sort}(a)$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+$\operatorname{sort}(a)$ is an $N$-partition, so by Lemma~\ref{lem.sf.sort-NPartition}
+it is its own sort.
+\end{proof}
+
+\subsubsection{The sort preimage}
+
+\begin{definition}
+\label{def.sf.sortPreimage}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.sortPreimage}
+\leanhelper
+\leanok
+For an $N$-partition $\mu$, the \emph{sort preimage} is the finite set
+\[
+\{a \in \mathbb{N}^N : \operatorname{sort}(a) = \mu,\; a_i < |\mu| + 1 \text{ for all } i\}.
+\]
+The bound $a_i < |\mu| + 1$ makes the set finite (it is contained in $\{0, \ldots, |\mu|\}^N$).
+\end{definition}
+
+\begin{lemma}
+\label{lem.sf.parts-mem-sortPreimage}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.parts_mem_sortPreimage}
+\leanhelper
+\leanok
+For any $N$-partition $\mu$, its parts tuple $\mu$ itself belongs to the sort preimage
+of $\mu$: $\mu \in \operatorname{sortPreimage}(\mu)$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+$\operatorname{sort}(\mu) = \mu$ by Lemma~\ref{lem.sf.sort-NPartition}, and each
+$\mu_i \leq |\mu| < |\mu| + 1$ by Lemma~\ref{lem.sf.Npar-size}.
+\end{proof}
+
+\subsection{Monomial symmetric polynomials}
+
+\begin{definition}
+\label{def.sf.m}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.monomialSymm}
+\leantarget
+\leanok
+Let $\lambda$ be any $N$-partition. Then, we define a
+symmetric polynomial $m_{\lambda}\in\mathcal{S}$ by%
+\[
+m_{\lambda}:=\sum_{\substack{a\in\mathbb{N}^{N};\\\operatorname*{sort}%
+a=\lambda}}x^{a}.
+\]
+This is called the \emph{monomial symmetric polynomial corresponding to
+}$\lambda$.
+\end{definition}
+
+\begin{lemma}
+\label{lem.sf.m-symmetric}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.monomialSymm_isSymmetric}
+\leanhelper
+\leanok
+For any $N$-partition $\mu$, the polynomial $m_\mu$ is symmetric.
+\end{lemma}
+
+\begin{proof}
+\leanok
+For any permutation $\sigma \in S_N$, we have
+$\sigma \cdot m_\mu = \sum_{a : \operatorname{sort}(a) = \mu} x^{a \circ \sigma^{-1}}$.
+Composition with $\sigma^{-1}$ is a bijection on
+$\{a \in \mathbb{N}^N : \operatorname{sort}(a) = \mu\}$
+by Lemma~\ref{lem.sf.sort-perm-invariant}, so the sum is unchanged.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.m-coeff-self}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.monomialSymm_coeff_self}
+\leanhelper
+\leanok
+For any $N$-partition $\mu$, the coefficient of $x^{\mu}$
+(i.e.\ $x_1^{\mu_1} x_2^{\mu_2} \cdots x_N^{\mu_N}$) in $m_\mu$ is $1$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The tuple $\mu$ itself is in the sort preimage of $\mu$ (by Lemma~\ref{lem.sf.parts-mem-sortPreimage}),
+and no other element of the sort preimage contributes to the coefficient of $x^\mu$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.m-coeff-ne}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.monomialSymm_coeff_ne}
+\leanhelper
+\leanok
+For any two distinct $N$-partitions $\mu \neq \nu$, the coefficient of
+$x^{\mu}$ in $m_\nu$ is $0$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Every $a$ in the sort preimage of $\nu$ satisfies $\operatorname{sort}(a) = \nu$.
+If $a = \mu$ (as a tuple), then $\operatorname{sort}(\mu) = \mu \neq \nu$
+(by Lemma~\ref{lem.sf.sort-NPartition}), a contradiction.
+So no element of the sort preimage of $\nu$ equals $\mu$, hence the coefficient is $0$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.m-homogeneous}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.monomialSymm_isHomogeneous}
+\leanhelper
+\leanok
+The monomial symmetric polynomial $m_\mu$ is homogeneous of degree $|\mu|$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Each monomial $x^a$ in the sum defining $m_\mu$ has degree $\sum_i a_i = |\operatorname{sort}(a)| = |\mu|$
+by Lemma~\ref{lem.sf.sort-size}.
+\end{proof}
+
+\subsection{Elementary, homogeneous, and power sum via monomial symmetric polynomials}
+
+\begin{proposition}
+\label{prop.sf.ehp-through-m}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.elem_symm_eq_monomialSymm, AlgebraicCombinatorics.SymmetricFunctions.homog_symm_eq_sum_monomialSymm, AlgebraicCombinatorics.SymmetricFunctions.power_sum_eq_monomialSymm}
+\leantarget
+\leanok
+\textbf{(a)} For each $n\in\left\{
+0,1,\ldots,N\right\}  $, we have%
+\[
+e_{n}=m_{\left(  1,1,\ldots,1,0,0,\ldots,0\right)  },
+\]
+where $\left(  1,1,\ldots,1,0,0,\ldots,0\right)  $ is the $N$-tuple that
+begins with $n$ many $1$'s and ends with $N-n$ many $0$'s.
+
+\textbf{(b)} For each $n\in\mathbb{N}$, we have%
+\[
+h_{n}=\sum_{\substack{\lambda\text{ is an }N\text{-partition;}\\\left\vert
+\lambda\right\vert =n}}m_{\lambda},
+\]
+where the \emph{size} $\left\vert \lambda\right\vert $ of an $N$-partition
+$\lambda$ is defined to be the sum of its entries (i.e., if $\lambda=\left(
+\lambda_{1},\lambda_{2},\ldots,\lambda_{N}\right)  $, then $\left\vert
+\lambda\right\vert :=\lambda_{1}+\lambda_{2}+\cdots+\lambda_{N}$).
+
+\textbf{(c)} Assume that $N>0$. For each $n\in\mathbb{N}$, we have%
+\[
+p_{n}=m_{\left(  n,0,0,\ldots,0\right)  },
+\]
+where $\left(  n,0,0,\ldots,0\right)  $ is the $N$-tuple that begins with an
+$n$ and ends with $N-1$ zeroes.
+\end{proposition}
+
+\begin{proof}
+This combines parts \textbf{(a)}, \textbf{(b)}, and \textbf{(c)}.
+\end{proof}
+
+\begin{definition}
+\label{def.sf.ehp-through-m.onesThenZeros}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.onesThenZeros}
+\leanhelper
+\leanok
+The $N$-partition $(1, 1, \ldots, 1, 0, 0, \ldots, 0)$ with $n$ ones and $N - n$ zeros.
+\end{definition}
+
+\begin{definition}
+\label{def.sf.ehp-through-m.singletonPartition}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.singletonPartition}
+\leanhelper
+\leanok
+The $N$-partition $(n, 0, 0, \ldots, 0)$ with $n$ in the first position and zeros elsewhere.
+\end{definition}
+
+\begin{theorem}
+\label{prop.sf.ehp-through-m.a}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.elem_symm_eq_monomialSymm}
+\leanhelper
+\leanok
+For each $n \in \{0, 1, \ldots, N\}$, we have
+$e_n = m_{(1, 1, \ldots, 1, 0, 0, \ldots, 0)}$
+where the $N$-tuple has $n$ ones followed by $N - n$ zeros.
+\end{theorem}
+
+\begin{proof}
+\leanok
+We have $e_n = \sum_{S \subseteq \{1,\ldots,N\},\, |S|=n} \prod_{i \in S} x_i$.
+Each product $\prod_{i \in S} x_i = x^{\chi_S}$ where $\chi_S$ is the indicator function of $S$.
+Every indicator function of an $n$-element subset sorts to
+$(1, \ldots, 1, 0, \ldots, 0)$ (with $n$ ones).
+Conversely, every $0$-$1$ tuple in the sort preimage of $(1, \ldots, 1, 0, \ldots, 0)$
+is the indicator function of some $n$-element subset.
+This gives a bijection between $n$-element subsets and the sort preimage, proving the result.
+\end{proof}
+
+\begin{definition}
+\label{def.sf.NPartitionsOfSize}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.NPartitionsOfSize}
+\leanhelper
+\leanok
+The finite set of $N$-partitions of size $n$.
+\end{definition}
+
+\begin{theorem}
+\label{prop.sf.ehp-through-m.b}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.homog_symm_eq_sum_monomialSymm}
+\leanhelper
+\leanok
+For each $n \in \mathbb{N}$, we have
+$h_n = \sum_{\substack{\lambda \text{ is an } N\text{-partition;} \\ |\lambda| = n}} m_\lambda$.
+\end{theorem}
+
+\begin{proof}
+\leanok
+We have $h_n = \sum_{\substack{a \in \mathbb{N}^N \\ a_1 + \cdots + a_N = n}} x^a$.
+We partition the sum by $\operatorname{sort}(a)$: the tuples $a$ with $\sum a_i = n$
+are partitioned into groups indexed by $N$-partitions $\mu$ of size $n$,
+and each group contributes $m_\mu$.
+\end{proof}
+
+\begin{theorem}
+\label{prop.sf.ehp-through-m.c}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.power_sum_eq_monomialSymm}
+\leanhelper
+\leanok
+Assume $N > 0$. For each $n \in \mathbb{N}$ with $n > 0$, we have
+$p_n = m_{(n, 0, 0, \ldots, 0)}$.
+\end{theorem}
+
+\begin{proof}
+\leanok
+We have $p_n = \sum_i x_i^n$. Each $x_i^n$ equals $x^{e_i \cdot n}$
+where $e_i$ is the $i$-th standard basis vector scaled by $n$.
+All such tuples $(0, \ldots, 0, n, 0, \ldots, 0)$ sort to $(n, 0, \ldots, 0)$.
+When $n > 0$, these are the \emph{only} elements of the sort preimage of
+$(n, 0, \ldots, 0)$, because if $\operatorname{sort}(a) = (n, 0, \ldots, 0)$ then
+the multiset of values of $a$ contains exactly one $n$ and $N-1$ zeros,
+so $a$ must be a standard basis vector times $n$.
+\end{proof}
+
+\subsubsection{Edge cases for $p_0$ and $m_0$}
+
+\begin{lemma}
+\label{lem.sf.psum-zero}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.psum_zero_eq_N}
+\leanhelper
+\leanok
+$p_0 = \sum_{i=1}^N x_i^0 = N$ (the constant polynomial $N$).
+This differs from the convention $p_0 = 1$ used in some textbooks;
+when $N > 0$ the identity $p_n = m_{(n,0,\ldots,0)}$ requires $n > 0$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Direct from the definition $p_0 = \sum_{i=1}^N x_i^0 = N$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.m-zero-partition}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.monomialSymm_zero_partition_eq_one}
+\leanhelper
+\leanok
+When $N > 0$, $m_{(0, 0, \ldots, 0)} = 1$.
+The sort preimage of the zero partition consists only of the zero tuple,
+and $x^{(0,\ldots,0)} = 1$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The zero partition has size $0$, so each entry $a_j$ of any $a$ in
+$\operatorname{sortPreimage}(0)$ satisfies $a_j < 0 + 1 = 1$, forcing $a_j = 0$.
+Thus the sort preimage is $\{(0, \ldots, 0)\}$ and $x^0 = 1$.
+\end{proof}
+
+\subsection{Permutation action on polynomial coefficients}
+
+\begin{proposition}
+\label{prop.sf.sigma-pol-coeff}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.sigma_coeff_permute}
+\leantarget
+\leanok
+Let $\sigma\in S_{N}$ and $f\in\mathcal{P}$.
+Then,%
+\[
+\left[  x_{1}^{a_{1}}x_{2}^{a_{2}}\cdots x_{N}^{a_{N}}\right]  \left(
+\sigma\cdot f\right)  =\left[  x_{1}^{a_{\sigma\left(  1\right)  }}%
+x_{2}^{a_{\sigma\left(  2\right)  }}\cdots x_{N}^{a_{\sigma\left(  N\right)
+}}\right]  f
+\]
+for any $\left(  a_{1},a_{2},\ldots,a_{N}\right)  \in\mathbb{N}^{N}$.
+\end{proposition}
+
+\begin{proof}
+The permutation action on $f$ sends $f(x_1, \ldots, x_N)$ to $f(x_{\sigma(1)}, \ldots, x_{\sigma(N)})$.
+The coefficient of $x^a = x_1^{a_1} \cdots x_N^{a_N}$ in $\sigma \cdot f$
+equals the coefficient of $x^{a \circ \sigma} = x_1^{a_{\sigma(1)}} \cdots x_N^{a_{\sigma(N)}}$ in $f$,
+which is exactly the stated identity.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.coeff-perm-symmetric}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.coeff_perm_eq_of_symmetric}
+\leanhelper
+\leanok
+Let $f \in \mathcal{P}$ be symmetric and let $\sigma \in S_N$.
+For any monomial exponent $d$, we have
+$[x^{\sigma \cdot d}] f = [x^d] f$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Since $f$ is symmetric, $\sigma \cdot f = f$.
+By Proposition~\ref{prop.sf.sigma-pol-coeff}, the coefficient of $x^{\sigma \cdot d}$
+in $\sigma \cdot f$ equals the coefficient of $x^d$ in $f$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.coeff-same-sort}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.coeff_eq_of_same_sort}
+\leanhelper
+\leanok
+Let $f \in \mathcal{P}$ be symmetric. If two exponent tuples $d_1$ and $d_2$
+satisfy $\operatorname{sort}(d_1) = \operatorname{sort}(d_2)$, then
+$[x^{d_1}] f = [x^{d_2}] f$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Equal sorts imply equal multisets of values (by Lemma~\ref{lem.sf.sort-eq-iff}),
+which means $d_1$ and $d_2$ differ by a
+permutation $\sigma$. The result then follows from Lemma~\ref{lem.sf.coeff-perm-symmetric}.
+\end{proof}
+
+\subsubsection{Helpers for the spanning proof}
+
+\begin{lemma}
+\label{lem.sf.support-closed-perm}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.support_closed_under_perm}
+\leanhelper
+\leanok
+If $f \in \mathcal{P}$ is symmetric and $d$ is in the support of $f$,
+then $\sigma \cdot d$ is also in the support of $f$ for any permutation $\sigma$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By Lemma~\ref{lem.sf.coeff-perm-symmetric}, $[x^{\sigma \cdot d}] f = [x^d] f \neq 0$.
+\end{proof}
+
+\begin{definition}
+\label{def.sf.sortTupleFinsupp}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.sortTupleFinsupp}
+\leanhelper
+\leanok
+The finitely-supported version of $\operatorname{sort}$: for a finitely-supported function $d$ from $[N]$ to $\mathbb{N}$,
+$\operatorname{sortFinsupp}(d) = \operatorname{sort}(d)$, where $d$ is viewed as a function $[N] \to \mathbb{N}$.
+\end{definition}
+
+\begin{lemma}
+\label{lem.sf.sortTupleFinsupp-perm}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.sortTupleFinsupp_perm}
+\leanhelper
+\leanok
+The finitely-supported sort is invariant under permutation:
+$\operatorname{sortFinsupp}(\sigma \cdot d) = \operatorname{sortFinsupp}(d)$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Unfold the definition and apply Lemma~\ref{lem.sf.sort-perm-invariant}.
+\end{proof}
+
+\subsection{Basis theorem}
+
+\begin{theorem}
+\label{thm.sf.m-basis}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.monomialSymm_linearIndependent, AlgebraicCombinatorics.SymmetricFunctions.monomialSymm_spans, AlgebraicCombinatorics.SymmetricFunctions.symm_eq_sum_coeff_monomialSymm, AlgebraicCombinatorics.SymmetricFunctions.symmHomogeneous, AlgebraicCombinatorics.SymmetricFunctions.monomialSymm_homogeneous_linearIndependent, AlgebraicCombinatorics.SymmetricFunctions.monomialSymm_homogeneous_spans, AlgebraicCombinatorics.SymmetricFunctions.monomialSymm_basis_homogeneous}
+\leantarget
+\leanok
+\textbf{(a)} The family $\left(  m_{\lambda}\right)
+_{\lambda\text{ is an }N\text{-partition}}$ is a basis of the $K$-module
+$\mathcal{S}$.
+
+\textbf{(b)} Each symmetric polynomial $f\in\mathcal{S}$ satisfies%
+\[
+f=\sum_{\substack{\lambda=\left(  \lambda_{1},\lambda_{2},\ldots,\lambda
+_{N}\right)  \\\text{is an }N\text{-partition}}}\left(  \left[  x_{1}%
+^{\lambda_{1}}x_{2}^{\lambda_{2}}\cdots x_{N}^{\lambda_{N}}\right]  f\right)
+m_{\lambda}.
+\]
+
+\textbf{(c)} Let $n\in\mathbb{N}$. Let%
+\[
+\mathcal{S}_{n}:=\left\{  \text{homogeneous symmetric polynomials }%
+f\in\mathcal{P}\text{ of degree }n\right\}
+\]
+(where we understand the zero polynomial $0\in\mathcal{P}$ to be homogeneous
+of every degree). Then, $\mathcal{S}_{n}$ is a $K$-submodule of $\mathcal{S}$.
+
+\textbf{(d)} The family
+$\left(  m_{\lambda}\right)  _{\lambda\text{ is an }N\text{-partition of size
+}n}$ is a basis of the $K$-module $\mathcal{S}_{n}$.
+\end{theorem}
+
+\begin{proof}
+This combines parts \textbf{(a)} through \textbf{(d)}.
+\end{proof}
+
+\begin{theorem}
+\label{thm.sf.m-basis.a.span}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.monomialSymm_spans}
+\leanhelper
+\leanok
+The family $(m_\mu)_{\mu \text{ is an } N\text{-partition}}$ spans the $K$-module
+$\mathcal{S}$.
+\end{theorem}
+
+\begin{proof}
+\leanok
+Let $f \in \mathcal{S}$. Write $f = \sum_{d \in \mathrm{supp}(f)} [x^d] f \cdot x^d$.
+Partition the support by $\operatorname{sort}(d)$: for each $N$-partition $\mu$,
+group together all $d$ with $\operatorname{sort}(d) = \mu$.
+Since $f$ is symmetric, all monomials in the same group have the same coefficient
+(by Lemma~\ref{lem.sf.coeff-same-sort}), which can be factored out.
+Since $f$ is symmetric, the support is closed under permutation, so the full
+sort preimage of each $\mu$ is present. The remaining sum of monomials
+in each group equals $m_\mu$, showing $f$ is in the span.
+\end{proof}
+
+\begin{theorem}
+\label{thm.sf.m-basis.b}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.symm_eq_sum_coeff_monomialSymm}
+\leanhelper
+\leanok
+Each symmetric polynomial $f \in \mathcal{S}$ satisfies
+\[
+f = \sum_{\lambda \text{ is an } N\text{-partition}}
+\bigl([x_1^{\lambda_1} x_2^{\lambda_2} \cdots x_N^{\lambda_N}] f\bigr) \, m_\lambda.
+\]
+\end{theorem}
+
+\begin{proof}
+We verify that both sides have the same coefficient for each exponent $d$.
+On the right-hand side, extract the coefficient of $x^d$: using
+Lemmas~\ref{lem.sf.m-coeff-self} and~\ref{lem.sf.m-coeff-ne}, only the term with
+$\lambda = \operatorname{sort}(d)$ survives, contributing
+$[x^{\lambda}] f$. By Lemma~\ref{lem.sf.coeff-same-sort},
+$[x^{\lambda}] f = [x^d] f$ since $\operatorname{sort}(d) = \operatorname{sort}(\lambda)$.
+\end{proof}
+
+\begin{definition}
+\label{thm.sf.m-basis.c}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.symmHomogeneous}
+\leanhelper
+\leanok
+Let $n \in \mathbb{N}$. The submodule of homogeneous symmetric polynomials of degree $n$ is
+\[
+\mathcal{S}_n := \{f \in \mathcal{P} \mid f \text{ is symmetric and homogeneous of degree } n\}.
+\]
+This is a $K$-submodule of $\mathcal{S}$.
+\end{definition}
+
+\begin{theorem}
+\label{thm.sf.m-basis.d.indep}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.monomialSymm_homogeneous_linearIndependent}
+\leanhelper
+\leanok
+The family $(m_\mu)_{\mu \text{ is an } N\text{-partition of size } n}$ is linearly
+independent over $K$.
+\end{theorem}
+
+\begin{proof}
+\leanok
+Extract the coefficient of $x^\nu$ for each $N$-partition $\nu$ of size $n$;
+only the $\mu = \nu$ term survives (by Lemmas~\ref{lem.sf.m-coeff-self}
+and~\ref{lem.sf.m-coeff-ne}), isolating each coefficient.
+\end{proof}
+
+\begin{theorem}
+\label{thm.sf.m-basis.d.span}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.monomialSymm_homogeneous_spans}
+\leanhelper
+\leanok
+The family $(m_\mu)_{\mu \text{ is an } N\text{-partition of size } n}$ spans the
+$K$-module $\mathcal{S}_n$.
+\end{theorem}
+
+\begin{proof}
+\leanok
+Let $f \in \mathcal{S}_n$. Since $f$ is symmetric, it lies in the span of all
+$m_\mu$ (by Theorem~\ref{thm.sf.m-basis.a.span}). Since $f$ is homogeneous of degree $n$,
+applying the degree-$n$ homogeneous component extracts exactly the $m_\mu$ with $|\mu| = n$
+(by Lemma~\ref{lem.sf.m-homogeneous}, $m_\mu$ is homogeneous of degree $|\mu|$,
+so the homogeneous component is $m_\mu$ when $|\mu| = n$ and $0$ otherwise).
+\end{proof}
+
+\begin{theorem}
+\label{thm.sf.m-basis.d}
+\lean{AlgebraicCombinatorics.SymmetricFunctions.monomialSymm_basis_homogeneous}
+\leanhelper
+\leanok
+The family $(m_\mu)_{\mu \text{ is an } N\text{-partition of size } n}$ is a basis of
+the $K$-module $\mathcal{S}_n$.
+\end{theorem}
+
+\begin{proof}
+\leanok
+Combines linear independence (Theorem~\ref{thm.sf.m-basis.d.indep})
+and spanning (Theorem~\ref{thm.sf.m-basis.d.span}).
+\end{proof}

@@ -1,0 +1,560 @@
+\subsection{\label{sec.fps.intcomps}Integer compositions}
+
+\subsubsection{Compositions}
+
+Next, let us count certain simple combinatorial objects known as \emph{integer
+compositions}. There are easy combinatorial ways to do this (see, e.g.,
+\cite[\S 2.10.1]{19fco}), but we shall employ generating functions, in order
+to see one more example of how these can be used.
+
+\begin{definition}
+\label{def.fps.comps}\textbf{(a)} An \emph{(integer) composition} means a
+(finite) tuple of positive integers. \medskip
+
+\textbf{(b)} The \emph{size} of an integer composition $\alpha=\left(
+\alpha_{1},\alpha_{2},\ldots,\alpha_{m}\right)  $ is defined to be the integer
+$\alpha_{1}+\alpha_{2}+\cdots+\alpha_{m}$. It is written $\left\vert
+\alpha\right\vert $. \medskip
+
+\textbf{(c)} The \emph{length} of an integer composition $\alpha=\left(
+\alpha_{1},\alpha_{2},\ldots,\alpha_{m}\right)  $ is defined to be the integer
+$m$. It is written $\ell\left(  \alpha\right)  $. \medskip
+
+\textbf{(d)} Let $n\in\mathbb{N}$. A \emph{composition of }$n$ means a
+composition whose size is $n$. \medskip
+
+\textbf{(e)} Let $n\in\mathbb{N}$ and $k\in\mathbb{N}$. A \emph{composition of
+}$n$\emph{ into }$k$\emph{ parts} is a composition whose size is $n$ and whose
+length is $k$.
+\end{definition}
+
+\begin{example}
+\label{exa.fps.comps.1}The tuple $\left(  3,8,6\right)  $ is a composition
+with size $3+8+6=17$ and length $3$. In other words, it is a composition of
+$17$ into $3$ parts.
+
+The empty tuple $\left(  {}\right)  $ is a composition of $0$ into $0$ parts.
+It is the only composition of $0$, and also is the only composition with
+length $0$.
+\end{example}
+
+The following \textbf{questions} arise quite naturally:
+
+\begin{enumerate}
+\item How many compositions of $n$ exist for a given $n\in\mathbb{N}$ ?
+
+\item How many compositions of $n$ into $k$ parts exist for given
+$n,k\in\mathbb{N}$ ?
+\end{enumerate}
+
+Let us use generating functions to answer question 2.
+
+\begin{proof}
+[Approach to question 2.]Fix $k\in\mathbb{N}$, but don't fix $n$. Let
+\begin{equation}
+a_{n,k}=\left(  \text{\# of compositions of }n\text{ into }k\text{
+parts}\right)  . \label{pf.thm.fps.comps.n-into-k-parts.1st.ank=}%
+\end{equation}
+We want to find $a_{n,k}$. We define the generating function%
+\begin{equation}
+A_{k}:=\sum_{n\in\mathbb{N}}a_{n,k}x^{n}=\left(  a_{0,k},a_{1,k}%
+,a_{2,k},\ldots\right)  \in\mathbb{Q}\left[  \left[  x\right]  \right]  .
+\label{pf.thm.fps.comps.n-into-k-parts.1st.Ak=}%
+\end{equation}
+
+
+Let us write $\mathbb{P}$ for the set $\left\{  1,2,3,\ldots\right\}  $. Then,
+a composition of $n$ into $k$ parts is nothing but a $k$-tuple $\left(
+\alpha_{1},\alpha_{2},\ldots,\alpha_{k}\right)  \in\mathbb{P}^{k}$ satisfying
+$\alpha_{1}+\alpha_{2}+\cdots+\alpha_{k}=n$. Hence,
+(\ref{pf.thm.fps.comps.n-into-k-parts.1st.ank=}) can be rewritten as%
+\begin{align}
+a_{n,k}  &  =\left(  \text{\# of all }k\text{-tuples }\left(  \alpha
+_{1},\alpha_{2},\ldots,\alpha_{k}\right)  \in\mathbb{P}^{k}\text{ satisfying
+}\alpha_{1}+\alpha_{2}+\cdots+\alpha_{k}=n\right) \nonumber\\
+&  =\sum\limits_{\substack{\left(  \alpha_{1},\alpha_{2},\ldots,\alpha
+_{k}\right)  \in\mathbb{P}^{k};\\\alpha_{1}+\alpha_{2}+\cdots+\alpha_{k}=n}}1.
+\label{pf.thm.fps.comps.n-into-k-parts.1st.ank=2}%
+\end{align}
+Thus, we can rewrite the equality $A_{k}=\sum_{n\in\mathbb{N}}a_{n,k}x^{n}$
+as
+\begin{align*}
+A_{k}  &  =\sum_{n\in\mathbb{N}}\left(  \sum\limits_{\substack{\left(
+\alpha_{1},\alpha_{2},\ldots,\alpha_{k}\right)  \in\mathbb{P}^{k};\\\alpha
+_{1}+\alpha_{2}+\cdots+\alpha_{k}=n}}1\right)  x^{n}=\sum_{n\in\mathbb{N}%
+}\ \ \sum\limits_{\substack{\left(  \alpha_{1},\alpha_{2},\ldots,\alpha
+_{k}\right)  \in\mathbb{P}^{k};\\\alpha_{1}+\alpha_{2}+\cdots+\alpha_{k}%
+=n}}\ \ \underbrace{x^{n}}_{\substack{=x^{\alpha_{1}+\alpha_{2}+\cdots
++\alpha_{k}}\\\text{(since }\alpha_{1}+\alpha_{2}+\cdots+\alpha_{k}=n\text{)}%
+}}\\
+&  =\underbrace{\sum_{n\in\mathbb{N}}\ \ \sum\limits_{\substack{\left(
+\alpha_{1},\alpha_{2},\ldots,\alpha_{k}\right)  \in\mathbb{P}^{k};\\\alpha
+_{1}+\alpha_{2}+\cdots+\alpha_{k}=n}}}_{=\sum\limits_{\left(  \alpha
+_{1},\alpha_{2},\ldots,\alpha_{k}\right)  \in\mathbb{P}^{k}}}%
+\ \ \underbrace{x^{\alpha_{1}+\alpha_{2}+\cdots+\alpha_{k}}}_{=x^{\alpha_{1}%
+}x^{\alpha_{2}}\cdots x^{\alpha_{k}}}=\sum\limits_{\left(  \alpha_{1}%
+,\alpha_{2},\ldots,\alpha_{k}\right)  \in\mathbb{P}^{k}}x^{\alpha_{1}%
+}x^{\alpha_{2}}\cdots x^{\alpha_{k}}\\
+&  =\left(  \sum_{\alpha_{1}\in\mathbb{P}}x^{\alpha_{1}}\right)  \left(
+\sum_{\alpha_{2}\in\mathbb{P}}x^{\alpha_{2}}\right)  \cdots\left(
+\sum_{\alpha_{k}\in\mathbb{P}}x^{\alpha_{k}}\right) \\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{by the same product rule that we used back}\\
+\text{in the proof of Theorem \ref{thm.fps.gen-newton}}%
+\end{array}
+\right) \\
+&  =\left(  \sum_{n\in\mathbb{P}}x^{n}\right)  ^{k}%
+\end{align*}
+(here, we have renamed all the $k$ summation indices as $n$, and realized that
+all $k$ sums are identical). Since%
+\[
+\sum_{n\in\mathbb{P}}x^{n}=x^{1}+x^{2}+x^{3}+\cdots=x\underbrace{\left(
+1+x+x^{2}+\cdots\right)  }_{=\dfrac{1}{1-x}}=x\cdot\dfrac{1}{1-x}=\dfrac
+{x}{1-x},
+\]
+this can be rewritten further as%
+\begin{equation}
+A_{k}=\left(  \dfrac{x}{1-x}\right)  ^{k}=x^{k}\left(  1-x\right)  ^{-k}.
+\label{pf.thm.fps.comps.num-comps-n-k.Ak=}%
+\end{equation}
+
+
+In order to simplify this, we need to expand $\left(  1-x\right)  ^{-k}$. This
+is routine by now: Theorem \ref{thm.fps.newton-binom} (applied to $-k$ instead
+of $n$) yields%
+\[
+\left(  1+x\right)  ^{-k}=\sum_{j\in\mathbb{N}}\dbinom{-k}{j}x^{j}.
+\]
+Substituting $-x$ for $x$ on both sides of this equality (i.e., applying the
+map $f\mapsto f\circ\left(  -x\right)  $), we obtain%
+\begin{align}
+\left(  1-x\right)  ^{-k}  &  =\sum_{j\in\mathbb{N}}\underbrace{\dbinom{-k}%
+{j}}_{\substack{=\left(  -1\right)  ^{j}\dbinom{j+k-1}{j}\\\text{(by Theorem
+\ref{thm.binom.upneg-n},}\\\text{applied to }k\text{ and }j\\\text{instead of
+}n\text{ and }k\text{)}}}\underbrace{\left(  -x\right)  ^{j}}_{=\left(
+-1\right)  ^{j}x^{j}}=\sum_{j\in\mathbb{N}}\left(  -1\right)  ^{j}%
+\dbinom{j+k-1}{j}\cdot\left(  -1\right)  ^{j}x^{j}\nonumber\\
+&  =\sum_{j\in\mathbb{N}}\underbrace{\left(  \left(  -1\right)  ^{j}\right)
+^{2}}_{=1}\dbinom{j+k-1}{j}x^{j}=\sum_{j\in\mathbb{N}}\dbinom{j+k-1}{j}%
+x^{j}\label{pf.thm.fps.comps.num-comps-n-k.1-x-k}\\
+&  =\sum\limits_{n\geq k}\dbinom{n-1}{n-k}x^{n-k}\nonumber
+\end{align}
+(here, we have substituted $n-k$ for $j$ in the sum). Hence, our above
+computation of $A_{k}$ can be completed as follows:
+\begin{align*}
+A_{k}  &  =x^{k}\underbrace{\left(  1-x\right)  ^{-k}}_{=\sum\limits_{n\geq
+k}\dbinom{n-1}{n-k}x^{n-k}}=x^{k}\sum\limits_{n\geq k}\dbinom{n-1}{n-k}%
+x^{n-k}\\
+&  =\sum\limits_{n\geq k}\dbinom{n-1}{n-k}\underbrace{x^{k}x^{n-k}}_{=x^{n}%
+}=\sum\limits_{n\geq k}\dbinom{n-1}{n-k}x^{n}=\sum\limits_{n\in\mathbb{N}%
+}\dbinom{n-1}{n-k}x^{n}%
+\end{align*}
+(here, we have extended the range of the summation from all $n\geq k$ to all
+$n\in\mathbb{N}$; this did not change the sum, since all the newly introduced
+addends with $n<k$ are $0$). Comparing coefficients, we thus obtain%
+\begin{equation}
+a_{n,k}=\dbinom{n-1}{n-k}\ \ \ \ \ \ \ \ \ \ \text{for each }n\in\mathbb{N}.
+\label{pf.thm.fps.comps.n-into-k-parts.1st.rhs1}%
+\end{equation}
+
+
+If $n>0$, then we can rewrite the right hand side of this equality as
+$\dbinom{n-1}{k-1}$ (using Theorem \ref{thm.binom.sym}). However, if $n=0$,
+then this right hand side equals $\delta_{k,0}$ instead (where we are using
+Definition \ref{def.kron-delta}). Thus, we can rewrite
+(\ref{pf.thm.fps.comps.n-into-k-parts.1st.rhs1}) as%
+\begin{equation}
+a_{n,k}=%
+\begin{cases}
+\dbinom{n-1}{k-1}, & \text{if }n>0;\\
+\delta_{k,0}, & \text{if }n=0
+\end{cases}
+\ \ \ \ \ \ \ \ \ \ \text{for each }n\in\mathbb{N}.
+\label{pf.thm.fps.comps.n-into-k-parts.1st.rhs2}%
+\end{equation}
+
+\end{proof}
+
+We have thus answered our Question 2. Let us summarize the two answers we have
+found ((\ref{pf.thm.fps.comps.n-into-k-parts.1st.rhs1}) and
+(\ref{pf.thm.fps.comps.n-into-k-parts.1st.rhs2})) in the following theorem
+(\cite[Theorem 2.10.1]{19fco}):
+
+\begin{theorem}
+\label{thm.fps.comps.num-comps-n-k}Let $n,k\in\mathbb{N}$. Then, the \# of
+compositions of $n$ into $k$ parts is%
+\[
+\dbinom{n-1}{n-k}=%
+\begin{cases}
+\dbinom{n-1}{k-1}, & \text{if }n>0;\\
+\delta_{k,0}, & \text{if }n=0.
+\end{cases}
+\]
+
+\end{theorem}
+
+This theorem has other proofs as well. See \cite[Proof of Theorem
+2.10.1]{19fco} for a proof by bijection and \cite[solution to Exercise
+2.10.2]{19fco} for a proof by induction.
+
+As an easy consequence of Theorem \ref{thm.fps.comps.num-comps-n-k}, we can
+now answer Question 1 as well:
+
+\begin{theorem}
+\label{thm.fps.comps.num-comps-n}Let $n\in\mathbb{N}$. Then, the \# of
+compositions of $n$ is%
+\[%
+\begin{cases}
+2^{n-1}, & \text{if }n>0;\\
+1, & \text{if }n=0.
+\end{cases}
+\]
+
+\end{theorem}
+
+\begin{proof}
+[Proof of Theorem \ref{thm.fps.comps.num-comps-n} (sketched).]If $n=0$, then
+the \# of compositions of $n$ is $1$ (since the empty tuple $\left(
+{}\right)  $ is the only composition of $0$). Thus, for the rest of this
+proof, we WLOG assume that $n\neq0$. Hence, we must prove that the \# of
+compositions of $n$ is $2^{n-1}$.
+
+If $\left(  n_{1},n_{2},\ldots,n_{m}\right)  $ is a composition of $n$, then
+$m\in\left\{  1,2,\ldots,n\right\}  $ (why?). In other words, any composition
+of $n$ is a composition of $n$ into $k$ parts for some $k\in\left\{
+1,2,\ldots,n\right\}  $. Hence,%
+\begin{align*}
+&  \left(  \text{\# of compositions of }n\right) \\
+&  =\sum_{k\in\left\{  1,2,\ldots,n\right\}  }\underbrace{\left(  \text{\# of
+compositions of }n\text{ into }k\text{ parts}\right)  }_{\substack{=\dbinom
+{n-1}{n-k}\\\text{(by Theorem \ref{thm.fps.comps.num-comps-n-k})}}}\\
+&  =\sum_{k\in\left\{  1,2,\ldots,n\right\}  }\dbinom{n-1}{n-k}=\sum_{k=1}%
+^{n}\dbinom{n-1}{n-k}=\sum_{k=0}^{n-1}\dbinom{n-1}{k}%
+\end{align*}
+(here, we have substituted $k$ for $n-k$ in the sum). Comparing this with%
+\begin{align*}
+2^{n-1}  &  =\left(  1+1\right)  ^{n-1}=\sum_{k=0}^{n-1}\dbinom{n-1}%
+{k}\underbrace{1^{k}1^{n-1-k}}_{=1}\ \ \ \ \ \ \ \ \ \ \left(  \text{by the
+binomial theorem}\right) \\
+&  =\sum_{k=0}^{n-1}\dbinom{n-1}{k},
+\end{align*}
+we obtain $\left(  \text{\# of compositions of }n\right)  =2^{n-1}$. This
+proves Theorem \ref{thm.fps.comps.num-comps-n}.
+\end{proof}
+
+\subsubsection{Weak compositions}
+
+A variant of compositions are the \emph{weak compositions}. These are like
+compositions, but their entries have to only be nonnegative rather than
+positive. For the sake of completeness, let us give their definition in
+full:\footnote{Beware that the word \textquotedblleft weak
+composition\textquotedblright\ does not have a unique meaning in the
+literature.}
+
+\begin{definition}
+\label{def.fps.wcomps}\textbf{(a)} An \emph{(integer) weak composition} means
+a (finite) tuple of nonnegative integers. \medskip
+
+\textbf{(b)} The \emph{size} of a weak composition $\alpha=\left(  \alpha
+_{1},\alpha_{2},\ldots,\alpha_{m}\right)  $ is defined to be the integer
+$\alpha_{1}+\alpha_{2}+\cdots+\alpha_{m}$. It is written $\left\vert
+\alpha\right\vert $. \medskip
+
+\textbf{(c)} The \emph{length} of a weak composition $\alpha=\left(
+\alpha_{1},\alpha_{2},\ldots,\alpha_{m}\right)  $ is defined to be the integer
+$m$. It is written $\ell\left(  \alpha\right)  $. \medskip
+
+\textbf{(d)} Let $n\in\mathbb{N}$. A \emph{weak composition of }$n$ means a
+weak composition whose size is $n$. \medskip
+
+\textbf{(e)} Let $n\in\mathbb{N}$ and $k\in\mathbb{N}$. A \emph{weak
+composition of }$n$\emph{ into }$k$\emph{ parts} is a weak composition whose
+size is $n$ and whose length is $k$.
+\end{definition}
+
+\begin{example}
+\label{exa.fps.wcomps.1}The tuple $\left(  3,0,1,2\right)  $ is a weak
+composition with size $3+0+1+2=6$ and length $4$. In other words, it is a weak
+composition of $6$ into $4$ parts. It is not a composition, since one of its
+entries is a $0$.
+\end{example}
+
+Weak compositions are a rather natural analogue of compositions, but behave
+dissimilarly in one important way: Any $n\in\mathbb{N}$ has infinitely many
+weak compositions. Indeed, all the tuples $\left(  n\right)  ,\ \left(
+n,0\right)  ,\ \left(  n,0,0\right)  ,\ \left(  n,0,0,0\right)  ,\ \ldots$ are
+weak compositions of $n$ (and of course, there are many more weak compositions
+of $n$, unless $n=0$). Thus, it makes no sense to look for an analogue of
+Theorem \ref{thm.fps.comps.num-comps-n} for weak compositions. However, an
+analogue of Theorem \ref{thm.fps.comps.num-comps-n-k} does exist:
+
+\begin{theorem}
+\label{thm.fps.comps.num-wcomps-n-k}Let $n,k\in\mathbb{N}$. Then, the \# of
+weak compositions of $n$ into $k$ parts is
+\[
+\dbinom{n+k-1}{n}=%
+\begin{cases}
+\dbinom{n+k-1}{k-1}, & \text{if }k>0;\\
+\delta_{n,0}, & \text{if }k=0.
+\end{cases}
+\]
+
+\end{theorem}
+
+\begin{proof}
+[Proof of Theorem \ref{thm.fps.comps.num-wcomps-n-k} (sketched).](See
+\cite[Theorem 2.10.5]{19fco} for details and alternative proofs.) Adding $1$
+to a nonnegative integer yields a positive integer. Furthermore, if we add $1$
+to each entry of a $k$-tuple, then the sum of all entries of the $k$-tuple
+increases by $k$.
+
+Thus, if $\left(  \alpha_{1},\alpha_{2},\ldots,\alpha_{k}\right)  $ is a weak
+composition of $n$ into $k$ parts, then \newline$\left(  \alpha_{1}%
++1,\alpha_{2}+1,\ldots,\alpha_{k}+1\right)  $ is a composition of $n+k$ into
+$k$ parts. Hence, we can define a map%
+\begin{align*}
+\left\{  \text{weak compositions of }n\text{ into }k\text{ parts}\right\}   &
+\rightarrow\left\{  \text{compositions of }n+k\text{ into }k\text{
+parts}\right\}  ,\\
+\left(  \alpha_{1},\alpha_{2},\ldots,\alpha_{k}\right)   &  \mapsto\left(
+\alpha_{1}+1,\alpha_{2}+1,\ldots,\alpha_{k}+1\right)  .
+\end{align*}
+Furthermore, it is easy to see that this map is a bijection (indeed, its
+inverse is rather easy to construct). Thus, by the bijection principle, we
+have%
+\begin{align*}
+&  \left\vert \left\{  \text{weak compositions of }n\text{ into }k\text{
+parts}\right\}  \right\vert \\
+&  =\left\vert \left\{  \text{compositions of }n+k\text{ into }k\text{
+parts}\right\}  \right\vert \\
+&  =\left(  \text{\# of compositions of }n+k\text{ into }k\text{ parts}\right)
+\\
+&  =\dbinom{n+k-1}{n+k-k}\ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{by the first equality sign in Theorem \ref{thm.fps.comps.num-comps-n-k}%
+,}\\
+\text{applied to }n+k\text{ instead of }n
+\end{array}
+\right) \\
+&  =\dbinom{n+k-1}{n}.
+\end{align*}
+Thus, we have shown that the \# of weak compositions of $n$ into $k$ parts is
+$\dbinom{n+k-1}{n}$. It remains to prove that this equals $%
+\begin{cases}
+\dbinom{n+k-1}{k-1}, & \text{if }k>0;\\
+\delta_{n,0}, & \text{if }k=0
+\end{cases}
+$ as well. This is similar to how we obtained
+(\ref{pf.thm.fps.comps.n-into-k-parts.1st.rhs2}): If $k=0$, then it is clear
+by inspection; otherwise it follows from Theorem \ref{thm.binom.sym}. Theorem
+\ref{thm.fps.comps.num-wcomps-n-k} is proven.
+\end{proof}
+
+\subsubsection{Weak compositions with entries from $\left\{  0,1,\ldots
+,p-1\right\}  $}
+
+Theorems \ref{thm.fps.comps.num-comps-n-k} and
+\ref{thm.fps.comps.num-wcomps-n-k} may stir up hopes that other tuple-counting
+problems also have simple answers. Let us see if this hope holds up.
+
+\begin{proof}
+[An attempt.]We fix three nonnegative integers $n$, $k$ and $p$. We are
+looking for the \# of $k$-tuples $\left(  \alpha_{1},\alpha_{2},\ldots
+,\alpha_{k}\right)  \in\left\{  0,1,\ldots,p-1\right\}  ^{k}$ satisfying
+$\alpha_{1}+\alpha_{2}+\cdots+\alpha_{k}=n$. In other words, we are looking
+for the \# of all weak compositions of $n$ into $k$ parts with the property
+that each entry is $<p$. Let us denote this \# by $w_{n,k,p}$.
+
+Just as when counting compositions, we invoke a generating function. Forget
+that we fixed $n$, and define the FPS%
+\[
+W_{k,p}:=\sum_{n\in\mathbb{N}}w_{n,k,p}x^{n}\in\mathbb{Q}\left[  \left[
+x\right]  \right]  .
+\]
+For each $n\in\mathbb{N}$, we have%
+\begin{align*}
+w_{n,k,p}  &  =\left(  \text{\# of all }k\text{-tuples }\left(  \alpha
+_{1},\alpha_{2},\ldots,\alpha_{k}\right)  \in\left\{  0,1,\ldots,p-1\right\}
+^{k}\text{ }\right. \\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left.  \text{satisfying }%
+\alpha_{1}+\alpha_{2}+\cdots+\alpha_{k}=n\right) \\
+&  =\sum\limits_{\substack{\left(  \alpha_{1},\alpha_{2},\ldots,\alpha
+_{k}\right)  \in\left\{  0,1,\ldots,p-1\right\}  ^{k};\\\alpha_{1}+\alpha
+_{2}+\cdots+\alpha_{k}=n}}1.
+\end{align*}
+Thus, we can rewrite the equality $W_{k,p}=\sum_{n\in\mathbb{N}}w_{n,k,p}%
+x^{n}$ as%
+\begin{align*}
+W_{k,p}  &  =\sum_{n\in\mathbb{N}}\left(  \sum\limits_{\substack{\left(
+\alpha_{1},\alpha_{2},\ldots,\alpha_{k}\right)  \in\left\{  0,1,\ldots
+,p-1\right\}  ^{k};\\\alpha_{1}+\alpha_{2}+\cdots+\alpha_{k}=n}}1\right)
+x^{n}\\
+&  =\sum_{n\in\mathbb{N}}\ \ \sum\limits_{\substack{\left(  \alpha_{1}%
+,\alpha_{2},\ldots,\alpha_{k}\right)  \in\left\{  0,1,\ldots,p-1\right\}
+^{k};\\\alpha_{1}+\alpha_{2}+\cdots+\alpha_{k}=n}}\ \ \underbrace{x^{n}%
+}_{\substack{=x^{\alpha_{1}+\alpha_{2}+\cdots+\alpha_{k}}\\\text{(since
+}\alpha_{1}+\alpha_{2}+\cdots+\alpha_{k}=n\text{)}}}\\
+&  =\underbrace{\sum_{n\in\mathbb{N}}\ \ \sum\limits_{\substack{\left(
+\alpha_{1},\alpha_{2},\ldots,\alpha_{k}\right)  \in\left\{  0,1,\ldots
+,p-1\right\}  ^{k};\\\alpha_{1}+\alpha_{2}+\cdots+\alpha_{k}=n}}}%
+_{=\sum\limits_{\left(  \alpha_{1},\alpha_{2},\ldots,\alpha_{k}\right)
+\in\left\{  0,1,\ldots,p-1\right\}  ^{k}}}\ \ \underbrace{x^{\alpha_{1}%
++\alpha_{2}+\cdots+\alpha_{k}}}_{=x^{\alpha_{1}}x^{\alpha_{2}}\cdots
+x^{\alpha_{k}}}\\
+&  =\sum\limits_{\left(  \alpha_{1},\alpha_{2},\ldots,\alpha_{k}\right)
+\in\left\{  0,1,\ldots,p-1\right\}  ^{k}}x^{\alpha_{1}}x^{\alpha_{2}}\cdots
+x^{\alpha_{k}}\\
+&  =\left(  \sum_{\alpha_{1}\in\left\{  0,1,\ldots,p-1\right\}  }x^{\alpha
+_{1}}\right)  \left(  \sum_{\alpha_{2}\in\left\{  0,1,\ldots,p-1\right\}
+}x^{\alpha_{2}}\right)  \cdots\left(  \sum_{\alpha_{k}\in\left\{
+0,1,\ldots,p-1\right\}  }x^{\alpha_{k}}\right) \\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{by the same product rule that we used back}\\
+\text{in the proof of Theorem \ref{thm.fps.gen-newton}}%
+\end{array}
+\right) \\
+&  =\left(  \sum_{n\in\left\{  0,1,\ldots,p-1\right\}  }x^{n}\right)  ^{k}%
+\end{align*}
+(here, we have renamed all the $k$ summation indices as $n$, and realized that
+all $k$ sums are identical). Since%
+\[
+\sum_{n\in\left\{  0,1,\ldots,p-1\right\}  }x^{n}=x^{0}+x^{1}+\cdots
++x^{p-1}=\dfrac{1-x^{p}}{1-x}%
+\]
+(the last equality sign here is easy to check\footnote{Just show that $\left(
+1-x\right)  \left(  x^{0}+x^{1}+\cdots+x^{p-1}\right)  =1-x^{p}$.}), this can
+be rewritten further as%
+\begin{equation}
+W_{k,p}=\left(  \dfrac{1-x^{p}}{1-x}\right)  ^{k}=\left(  1-x^{p}\right)
+^{k}\left(  1-x\right)  ^{-k}. \label{pf.thm.fps.comps.num-wpcomps-n-k.3}%
+\end{equation}
+In order to expand the right hand side, let us expand $\left(  1-x^{p}\right)
+^{k}$ and $\left(  1-x\right)  ^{-k}$ separately.
+
+The binomial theorem yields%
+\[
+\left(  1-x^{p}\right)  ^{k}=\sum_{j=0}^{k}\left(  -1\right)  ^{j}\dbinom
+{k}{j}\underbrace{\left(  x^{p}\right)  ^{j}}_{=x^{pj}}=\sum_{j=0}^{k}\left(
+-1\right)  ^{j}\dbinom{k}{j}x^{pj}=\sum_{j\in\mathbb{N}}\left(  -1\right)
+^{j}\dbinom{k}{j}x^{pj}%
+\]
+(here, we have extended the range of the summation from $j\in\left\{
+0,1,\ldots,k\right\}  $ to all $j\in\mathbb{N}$; this did not change the sum,
+since all the newly introduced addends are $0$). Multiplying this by
+(\ref{pf.thm.fps.comps.num-comps-n-k.1-x-k}), we obtain%
+\begin{align*}
+&  \left(  1-x^{p}\right)  ^{k}\left(  1-x\right)  ^{-k}\\
+&  =\left(  \sum_{j\in\mathbb{N}}\left(  -1\right)  ^{j}\dbinom{k}{j}%
+x^{pj}\right)  \left(  \sum_{j\in\mathbb{N}}\dbinom{j+k-1}{j}x^{j}\right) \\
+&  =\left(  \sum_{j\in\mathbb{N}}\left(  -1\right)  ^{j}\dbinom{k}{j}%
+x^{pj}\right)  \left(  \sum_{i\in\mathbb{N}}\dbinom{i+k-1}{i}x^{i}\right) \\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have renamed the summation index }j\\
+\text{as }i\text{ in the second sum}%
+\end{array}
+\right) \\
+&  =\underbrace{\sum_{\left(  i,j\right)  \in\mathbb{N}\times\mathbb{N}}%
+}_{=\sum_{n\in\mathbb{N}}\ \ \sum_{\substack{\left(  i,j\right)  \in
+\mathbb{N}\times\mathbb{N};\\pj+i=n}}}\left(  -1\right)  ^{j}\dbinom{k}%
+{j}\dbinom{i+k-1}{i}x^{pj+i}\\
+&  =\sum_{n\in\mathbb{N}}\ \ \sum_{\substack{\left(  i,j\right)  \in
+\mathbb{N}\times\mathbb{N};\\pj+i=n}}\left(  -1\right)  ^{j}\dbinom{k}%
+{j}\dbinom{i+k-1}{i}\underbrace{x^{pj+i}}_{\substack{=x^{n}\\\text{(since
+}pj+i=n\text{)}}}\\
+&  =\sum_{n\in\mathbb{N}}\ \ \sum_{\substack{\left(  i,j\right)  \in
+\mathbb{N}\times\mathbb{N};\\pj+i=n}}\left(  -1\right)  ^{j}\dbinom{k}%
+{j}\dbinom{i+k-1}{i}x^{n}\\
+&  =\sum_{n\in\mathbb{N}}\left(  \sum_{\substack{\left(  i,j\right)
+\in\mathbb{N}\times\mathbb{N};\\pj+i=n}}\left(  -1\right)  ^{j}\dbinom{k}%
+{j}\dbinom{i+k-1}{i}\right)  x^{n}.
+\end{align*}
+Thus, (\ref{pf.thm.fps.comps.num-wpcomps-n-k.3}) becomes
+\[
+W_{k,p}=\left(  1-x^{p}\right)  ^{k}\left(  1-x\right)  ^{-k}=\sum
+_{n\in\mathbb{N}}\left(  \sum_{\substack{\left(  i,j\right)  \in
+\mathbb{N}\times\mathbb{N};\\pj+i=n}}\left(  -1\right)  ^{j}\dbinom{k}%
+{j}\dbinom{i+k-1}{i}\right)  x^{n}.
+\]
+Comparing coefficients in this equality, we find that each $n\in\mathbb{N}$
+satisfies%
+\begin{align*}
+w_{n,k,p}  &  =\sum_{\substack{\left(  i,j\right)  \in\mathbb{N}%
+\times\mathbb{N};\\pj+i=n}}\left(  -1\right)  ^{j}\dbinom{k}{j}\dbinom
+{i+k-1}{i}\\
+&  =\sum_{\substack{j\in\mathbb{N};\\pj\leq n}}\left(  -1\right)  ^{j}%
+\dbinom{k}{j}\dbinom{n-pj+k-1}{n-pj}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have substituted }\left(  n-pj,j\right)  \text{ for }\left(
+i,j\right)  \text{ in the sum,}\\
+\text{since any pair }\left(  i,j\right)  \in\mathbb{N}\times\mathbb{N}\text{
+satisfying }pj+i=n\\
+\text{is uniquely determined by its second entry }j
+\end{array}
+\right) \\
+&  =\sum_{j\in\mathbb{N}}\left(  -1\right)  ^{j}\dbinom{k}{j}\dbinom
+{n-pj+k-1}{n-pj}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have extended the range of summation by}\\
+\text{dropping the \textquotedblleft}pj\leq n\text{\textquotedblright%
+\ requirement; this does not change}\\
+\text{the sum, since all newly introduced addends are }0
+\end{array}
+\right) \\
+&  =\sum_{j=0}^{k}\left(  -1\right)  ^{j}\dbinom{k}{j}\dbinom{n-pj+k-1}{n-pj}%
+\end{align*}
+(here, we have removed all addends with $j>k$ from the sum; this does not
+change the sum, since all these addends are $0$).
+\end{proof}
+
+Thus, we have proved the following fact:
+
+\begin{theorem}
+\label{thm.fps.comps.num-wpcomps-n-k}Let $n,k,p\in\mathbb{N}$. Then, the \# of
+$k$-tuples $\left(  \alpha_{1},\alpha_{2},\ldots,\alpha_{k}\right)
+\in\left\{  0,1,\ldots,p-1\right\}  ^{k}$ satisfying $\alpha_{1}+\alpha
+_{2}+\cdots+\alpha_{k}=n$ is%
+\[
+\sum_{j=0}^{k}\left(  -1\right)  ^{j}\dbinom{k}{j}\dbinom{n-pj+k-1}{n-pj}.
+\]
+
+\end{theorem}
+
+In general, this expression is the simplest we can get. A combinatorial proof
+of Theorem \ref{thm.fps.comps.num-wpcomps-n-k} can be found in \cite[Exercise
+2.10.6]{19fco}.
+
+However, the particular case when $p=2$ is worth exploring, as it allows for a
+much simpler expression. Indeed, the $k$-tuples $\left(  \alpha_{1},\alpha
+_{2},\ldots,\alpha_{k}\right)  \in\left\{  0,1\right\}  ^{k}$ are just the
+\textquotedblleft\emph{binary }$k$\emph{-strings}\textquotedblright, i.e., the
+$k$-tuples formed of $0$s and $1$s. Imposing the condition $\alpha_{1}%
++\alpha_{2}+\cdots+\alpha_{k}=n$ on such a $k$-tuple is tantamount to
+requiring that it contain exactly $n$ many $1$s. Therefore, the \# of all
+$k$-tuples $\left(  \alpha_{1},\alpha_{2},\ldots,\alpha_{k}\right)
+\in\left\{  0,1\right\}  ^{k}$ satisfying $\alpha_{1}+\alpha_{2}+\cdots
++\alpha_{k}=n$ is $\dbinom{k}{n}$, since we have to choose which $n$ of its
+$k$ positions will be occupied by $1$s (and then all remaining $k-n$ positions
+will be occupied by $0$s). However, Theorem
+\ref{thm.fps.comps.num-wpcomps-n-k} (applied to $p=2$) yields that this \#
+equals $\sum_{j=0}^{k}\left(  -1\right)  ^{j}\dbinom{k}{j}\dbinom
+{n-2j+k-1}{n-2j}$. Comparing these two results, we obtain the following identity:
+
+\begin{proposition}
+\label{prop.fps.comps.num-w2comps-n-k-id}Let $n,k\in\mathbb{N}$. Then,%
+\[
+\dbinom{k}{n}=\sum_{j=0}^{k}\left(  -1\right)  ^{j}\dbinom{k}{j}%
+\dbinom{n-2j+k-1}{n-2j}.
+\]
+
+\end{proposition}

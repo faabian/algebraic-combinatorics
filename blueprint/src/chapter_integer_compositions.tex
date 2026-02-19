@@ -1,0 +1,805 @@
+\section{Integer compositions}
+
+\subsection{Compositions}
+
+\begin{definition}
+\label{def.fps.comps}
+\lean{AlgebraicCombinatorics.Composition, AlgebraicCombinatorics.Composition.size, AlgebraicCombinatorics.Composition.len, AlgebraicCombinatorics.Composition.ofSize, AlgebraicCombinatorics.Composition.ofSizeIntoParts}
+\leantarget
+\leanok
+\textbf{(a)} An \emph{(integer) composition} means a
+(finite) tuple of positive integers. \medskip
+
+\textbf{(b)} The \emph{size} of an integer composition $\alpha=\left(
+\alpha_{1},\alpha_{2},\ldots,\alpha_{m}\right)  $ is defined to be the integer
+$\alpha_{1}+\alpha_{2}+\cdots+\alpha_{m}$. It is written $\left\vert
+\alpha\right\vert $. \medskip
+
+\textbf{(c)} The \emph{length} of an integer composition $\alpha=\left(
+\alpha_{1},\alpha_{2},\ldots,\alpha_{m}\right)  $ is defined to be the integer
+$m$. It is written $\ell\left(  \alpha\right)  $. \medskip
+
+\textbf{(d)} Let $n\in\mathbb{N}$. A \emph{composition of }$n$ means a
+composition whose size is $n$. \medskip
+
+\textbf{(e)} Let $n\in\mathbb{N}$ and $k\in\mathbb{N}$. A \emph{composition of
+}$n$\emph{ into }$k$\emph{ parts} is a composition whose size is $n$ and whose
+length is $k$.
+\end{definition}
+
+\begin{lemma}
+\label{lem.fps.comps.size-nil}
+\lean{AlgebraicCombinatorics.Composition.size_nil}
+\leanhelper
+\leanok
+The size of the empty composition is $0$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By definition.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.comps.len-nil}
+\lean{AlgebraicCombinatorics.Composition.len_nil}
+\leanhelper
+\leanok
+The length of the empty composition is $0$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By definition.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.comps.size-cons}
+\lean{AlgebraicCombinatorics.Composition.size_cons}
+\leanhelper
+\leanok
+The size of a composition $(a) \cdot \alpha$ (prepending $a$ to $\alpha$)
+is $a + |\alpha|$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By definition.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.comps.len-cons}
+\lean{AlgebraicCombinatorics.Composition.len_cons}
+\leanhelper
+\leanok
+The length of a composition $(a) \cdot \alpha$ (prepending $a$ to $\alpha$)
+is $\ell(\alpha) + 1$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By definition of length.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.comps.size-ge-len}
+\lean{AlgebraicCombinatorics.Composition.size_ge_len}
+\leanhelper
+\leanok
+The size of a composition is at least its length: $\ell(\alpha) \leq |\alpha|$,
+since each part is a positive integer (at least $1$).
+\end{lemma}
+
+\begin{proof}
+\leanok
+By induction on the composition. The base case (empty composition) is trivial.
+For the inductive step, $|\alpha| = a + |\beta| \geq 1 + \ell(\beta) = \ell(\alpha)$
+since $a \geq 1$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.comps.empty-of-size-zero}
+\lean{AlgebraicCombinatorics.Composition.empty_of_size_zero}
+\leanhelper
+\leanok
+The empty list is the only composition of size $0$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+If $\alpha = (a) \cdot \beta$, then $|\alpha| = a + |\beta| \geq 1 > 0$
+since $a$ is a positive integer. Hence a composition of size $0$ must be empty.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.comps.equiv-mathlib}
+\lean{AlgebraicCombinatorics.Composition.equivMathlib}
+\leanhelper
+\leanok
+The definition of compositions of $n$ from Definition~\ref{def.fps.comps}
+(as lists of positive integers with given sum) is equivalent to the definition
+from Mathlib's composition type.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Convert between lists of positive integers and lists of natural numbers
+with positivity proofs.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.comps.equiv-mathlib-filtered}
+\lean{AlgebraicCombinatorics.Composition.equivMathlibFiltered}
+\leanhelper
+\leanok
+There is an equivalence between compositions of $n$ into $k$ parts
+and the subtype of Mathlib compositions of $n$ having length $k$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Follows from the equivalence in Lemma~\ref{lem.fps.comps.equiv-mathlib},
+restricting to compositions of the appropriate length.
+\end{proof}
+
+\subsection{Helpers for Theorem~\ref{thm.fps.comps.num-comps-n-k}}
+
+\begin{lemma}
+\label{lem.fps.comps.compositionToFinset}
+\lean{AlgebraicCombinatorics.MathlibComposition.compositionToFinset}
+\leanhelper
+\leanok
+There is an equivalence between Mathlib's compositions of $n$ and
+subsets of $\{1, 2, \ldots, n-1\}$,
+obtained by composing two Mathlib equivalences.
+\end{lemma}
+
+\begin{proof}
+\leanok
+This is the composition of the Mathlib equivalences
+between compositions of $n$, composition-as-set representations,
+and finite subsets of $\{1, 2, \ldots, n-1\}$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.comps.compositionAsSetEquiv-card}
+\lean{AlgebraicCombinatorics.MathlibComposition.compositionAsSetEquiv_card_eq_length_sub_one}
+\leanhelper
+\leanok
+For $n > 0$ and a composition-as-set $c$ of $n$, the cardinality of the
+associated finset of interior boundary points $S(c)$ satisfies
+$|S(c)| + 1 = \ell(c)$.
+This holds because the equivalence extracts the interior boundary points
+(those other than $0$ and $n$), and a composition of length $k$ has exactly
+$k - 1$ such points.
+\end{lemma}
+
+\begin{proof}
+The boundary set of $c$ has $\ell(c) + 1$ elements (including $0$ and $n$).
+The equivalence maps to the interior points, obtained by removing $0$ and $n$.
+The resulting finset has $\ell(c) + 1 - 2 = \ell(c) - 1$ elements.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.comps.compositionToFinset-card}
+\lean{AlgebraicCombinatorics.MathlibComposition.compositionToFinset_card_add_one}
+\leanhelper
+\leanok
+For $n > 0$ and a composition $c$ of $n$, the finset $S(c)$ corresponding to $c$
+under the composition-to-finset equivalence satisfies
+$|S(c)| + 1 = \ell(c)$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Follows directly from Lemma~\ref{lem.fps.comps.compositionAsSetEquiv-card}
+applied to the composition-as-set representation of $c$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.comps.card-compositions-of-length}
+\lean{AlgebraicCombinatorics.MathlibComposition.card_compositions_of_length}
+\leanhelper
+\leanok
+For $n > 0$ and $k > 0$, the number of compositions of $n$ into $k$ parts
+(using Mathlib's composition type) equals $\binom{n-1}{k-1}$.
+The proof establishes a bijection between compositions of length $k$
+and $(k-1)$-element subsets of $\{1, 2, \ldots, n-1\}$ via
+Lemma~\ref{lem.fps.comps.compositionToFinset-card}, then uses
+the formula for counting subsets of a given size.
+\end{lemma}
+
+\begin{proof}
+Compositions of length $k$ correspond (via the composition-to-finset equivalence) to
+$(k-1)$-element subsets of $\{1, 2, \ldots, n-1\}$.
+These are counted by $\binom{n-1}{k-1}$.
+\end{proof}
+
+\begin{theorem}
+\label{thm.fps.comps.num-comps-n-k}
+\lean{AlgebraicCombinatorics.Composition.card_ofSizeIntoParts_pos, AlgebraicCombinatorics.Composition.card_ofSizeIntoParts_k_zero, AlgebraicCombinatorics.Composition.card_ofSizeIntoParts_zero}
+\leantarget
+\leanok
+Let $n,k\in\mathbb{N}$. Then, the \# of
+compositions of $n$ into $k$ parts is%
+\[
+\dbinom{n-1}{n-k}=%
+\begin{cases}
+\dbinom{n-1}{k-1}, & \text{if }n>0;\\
+\delta_{k,0}, & \text{if }n=0.
+\end{cases}
+\]
+\end{theorem}
+
+\begin{proof}
+Fix $k\in\mathbb{N}$, but don't fix $n$. Let
+\begin{equation}
+a_{n,k}=\left(  \text{\# of compositions of }n\text{ into }k\text{
+parts}\right)  . \label{pf.thm.fps.comps.n-into-k-parts.1st.ank=}%
+\end{equation}
+We want to find $a_{n,k}$. We define the generating function%
+\begin{equation}
+A_{k}:=\sum_{n\in\mathbb{N}}a_{n,k}x^{n}=\left(  a_{0,k},a_{1,k}%
+,a_{2,k},\ldots\right)  \in\mathbb{Q}\left[  \left[  x\right]  \right]  .
+\label{pf.thm.fps.comps.n-into-k-parts.1st.Ak=}%
+\end{equation}
+
+Let us write $\mathbb{P}$ for the set $\left\{  1,2,3,\ldots\right\}  $. Then,
+a composition of $n$ into $k$ parts is nothing but a $k$-tuple $\left(
+\alpha_{1},\alpha_{2},\ldots,\alpha_{k}\right)  \in\mathbb{P}^{k}$ satisfying
+$\alpha_{1}+\alpha_{2}+\cdots+\alpha_{k}=n$. Hence,
+(\ref{pf.thm.fps.comps.n-into-k-parts.1st.ank=}) can be rewritten as%
+\begin{align}
+a_{n,k}  &  =\left(  \text{\# of all }k\text{-tuples }\left(  \alpha
+_{1},\alpha_{2},\ldots,\alpha_{k}\right)  \in\mathbb{P}^{k}\text{ satisfying
+}\alpha_{1}+\alpha_{2}+\cdots+\alpha_{k}=n\right) \nonumber\\
+&  =\sum\limits_{\substack{\left(  \alpha_{1},\alpha_{2},\ldots,\alpha
+_{k}\right)  \in\mathbb{P}^{k};\\\alpha_{1}+\alpha_{2}+\cdots+\alpha_{k}=n}}1.
+\label{pf.thm.fps.comps.n-into-k-parts.1st.ank=2}%
+\end{align}
+Thus, we can rewrite the equality $A_{k}=\sum_{n\in\mathbb{N}}a_{n,k}x^{n}$
+as
+\begin{align*}
+A_{k}  &  =\sum_{n\in\mathbb{N}}\left(  \sum\limits_{\substack{\left(
+\alpha_{1},\alpha_{2},\ldots,\alpha_{k}\right)  \in\mathbb{P}^{k};\\\alpha
+_{1}+\alpha_{2}+\cdots+\alpha_{k}=n}}1\right)  x^{n}=\sum_{n\in\mathbb{N}%
+}\ \ \sum\limits_{\substack{\left(  \alpha_{1},\alpha_{2},\ldots,\alpha
+_{k}\right)  \in\mathbb{P}^{k};\\\alpha_{1}+\alpha_{2}+\cdots+\alpha_{k}%
+=n}}\ \ \underbrace{x^{n}}_{\substack{=x^{\alpha_{1}+\alpha_{2}+\cdots
++\alpha_{k}}\\\text{(since }\alpha_{1}+\alpha_{2}+\cdots+\alpha_{k}=n\text{)}%
+}}\\
+&  =\underbrace{\sum_{n\in\mathbb{N}}\ \ \sum\limits_{\substack{\left(
+\alpha_{1},\alpha_{2},\ldots,\alpha_{k}\right)  \in\mathbb{P}^{k};\\\alpha
+_{1}+\alpha_{2}+\cdots+\alpha_{k}=n}}}_{=\sum\limits_{\left(  \alpha
+_{1},\alpha_{2},\ldots,\alpha_{k}\right)  \in\mathbb{P}^{k}}}%
+\ \ \underbrace{x^{\alpha_{1}+\alpha_{2}+\cdots+\alpha_{k}}}_{=x^{\alpha_{1}%
+}x^{\alpha_{2}}\cdots x^{\alpha_{k}}}=\sum\limits_{\left(  \alpha_{1}%
+,\alpha_{2},\ldots,\alpha_{k}\right)  \in\mathbb{P}^{k}}x^{\alpha_{1}%
+}x^{\alpha_{2}}\cdots x^{\alpha_{k}}\\
+&  =\left(  \sum_{\alpha_{1}\in\mathbb{P}}x^{\alpha_{1}}\right)  \left(
+\sum_{\alpha_{2}\in\mathbb{P}}x^{\alpha_{2}}\right)  \cdots\left(
+\sum_{\alpha_{k}\in\mathbb{P}}x^{\alpha_{k}}\right) \\
+&  =\left(  \sum_{n\in\mathbb{P}}x^{n}\right)  ^{k}%
+\end{align*}
+(here, we have renamed all the $k$ summation indices as $n$, and realized that
+all $k$ sums are identical). Since%
+\[
+\sum_{n\in\mathbb{P}}x^{n}=x^{1}+x^{2}+x^{3}+\cdots=x\underbrace{\left(
+1+x+x^{2}+\cdots\right)  }_{=\dfrac{1}{1-x}}=x\cdot\dfrac{1}{1-x}=\dfrac
+{x}{1-x},
+\]
+this can be rewritten further as%
+\begin{equation}
+A_{k}=\left(  \dfrac{x}{1-x}\right)  ^{k}=x^{k}\left(  1-x\right)  ^{-k}.
+\label{pf.thm.fps.comps.num-comps-n-k.Ak=}%
+\end{equation}
+
+In order to simplify this, we need to expand $\left(  1-x\right)  ^{-k}$. This
+is routine by now: Theorem \ref{thm.fps.newton-binom} (applied to $-k$ instead
+of $n$) yields%
+\[
+\left(  1+x\right)  ^{-k}=\sum_{j\in\mathbb{N}}\dbinom{-k}{j}x^{j}.
+\]
+Substituting $-x$ for $x$ on both sides of this equality (i.e., applying the
+map $f\mapsto f\circ\left(  -x\right)  $), we obtain%
+\begin{align}
+\left(  1-x\right)  ^{-k}  &  =\sum_{j\in\mathbb{N}}\underbrace{\dbinom{-k}%
+{j}}_{=\left(  -1\right)  ^{j}\dbinom{j+k-1}{j}}\underbrace{\left(  -x\right)  ^{j}}_{=\left(
+-1\right)  ^{j}x^{j}}=\sum_{j\in\mathbb{N}}\left(  -1\right)  ^{j}%
+\dbinom{j+k-1}{j}\cdot\left(  -1\right)  ^{j}x^{j}\nonumber\\
+&  =\sum_{j\in\mathbb{N}}\underbrace{\left(  \left(  -1\right)  ^{j}\right)
+^{2}}_{=1}\dbinom{j+k-1}{j}x^{j}=\sum_{j\in\mathbb{N}}\dbinom{j+k-1}{j}%
+x^{j}\label{pf.thm.fps.comps.num-comps-n-k.1-x-k}\\
+&  =\sum\limits_{n\geq k}\dbinom{n-1}{n-k}x^{n-k}\nonumber
+\end{align}
+(where we used Theorem \ref{thm.binom.upneg-n}, applied to $k$ and $j$ instead of $n$ and $k$, to simplify $\dbinom{-k}{j}$;
+and we have substituted $n-k$ for $j$ in the sum). Hence, our above
+computation of $A_{k}$ can be completed as follows:
+\begin{align*}
+A_{k}  &  =x^{k}\underbrace{\left(  1-x\right)  ^{-k}}_{=\sum\limits_{n\geq
+k}\dbinom{n-1}{n-k}x^{n-k}}=x^{k}\sum\limits_{n\geq k}\dbinom{n-1}{n-k}%
+x^{n-k}\\
+&  =\sum\limits_{n\geq k}\dbinom{n-1}{n-k}\underbrace{x^{k}x^{n-k}}_{=x^{n}%
+}=\sum\limits_{n\geq k}\dbinom{n-1}{n-k}x^{n}=\sum\limits_{n\in\mathbb{N}%
+}\dbinom{n-1}{n-k}x^{n}%
+\end{align*}
+(here, we have extended the range of the summation from all $n\geq k$ to all
+$n\in\mathbb{N}$; this did not change the sum, since all the newly introduced
+addends with $n<k$ are $0$). Comparing coefficients, we thus obtain%
+\begin{equation}
+a_{n,k}=\dbinom{n-1}{n-k}\ \ \ \ \ \ \ \ \ \ \text{for each }n\in\mathbb{N}.
+\label{pf.thm.fps.comps.n-into-k-parts.1st.rhs1}%
+\end{equation}
+
+If $n>0$, then we can rewrite the right hand side of this equality as
+$\dbinom{n-1}{k-1}$ (using Theorem \ref{thm.binom.sym}). However, if $n=0$,
+then this right hand side equals $\delta_{k,0}$ instead (where we are using
+Definition \ref{def.kron-delta}). Thus, we can rewrite
+(\ref{pf.thm.fps.comps.n-into-k-parts.1st.rhs1}) as%
+\begin{equation}
+a_{n,k}=%
+\begin{cases}
+\dbinom{n-1}{k-1}, & \text{if }n>0;\\
+\delta_{k,0}, & \text{if }n=0
+\end{cases}
+\ \ \ \ \ \ \ \ \ \ \text{for each }n\in\mathbb{N}.
+\label{pf.thm.fps.comps.n-into-k-parts.1st.rhs2}%
+\end{equation}
+
+In the Lean formalization, this proceeds by:
+\begin{enumerate}
+\item Using the equivalence between our compositions and Mathlib's
+composition type (Lemma~\ref{lem.fps.comps.equiv-mathlib-filtered}).
+\item Using Mathlib's equivalence between compositions of $n$ and subsets of
+$\{1, 2, \ldots, n-1\}$.
+\item Showing that compositions of length $k$ correspond to subsets of size $k-1$.
+\item Computing $|\{S \subseteq \{1, \ldots, n-1\} \mid |S| = k-1\}| = \binom{n-1}{k-1}$
+using the formula for counting subsets of a given size.
+\end{enumerate}
+
+The edge cases are:
+\begin{itemize}
+\item For $n > 0$ and $k = 0$: There are no compositions (since parts are positive,
+and a tuple of zero positive integers sums to $0$, not $n$). This gives $0 = \binom{n-1}{-1} = 0$.
+\item For $n = 0$: The empty tuple is the only composition of $0$ (by
+Lemma~\ref{lem.fps.comps.empty-of-size-zero}), and it has length $0$.
+So the count is $\delta_{k,0}$.
+\end{itemize}
+\end{proof}
+
+\begin{theorem}
+\label{thm.fps.comps.num-comps-n}
+\lean{AlgebraicCombinatorics.Composition.card_ofSize, AlgebraicCombinatorics.Composition.card_ofSize_pos}
+\leantarget
+\leanok
+Let $n\in\mathbb{N}$. Then, the \# of
+compositions of $n$ is%
+\[%
+\begin{cases}
+2^{n-1}, & \text{if }n>0;\\
+1, & \text{if }n=0.
+\end{cases}
+\]
+\end{theorem}
+
+\begin{proof}
+If $n=0$, then
+the \# of compositions of $n$ is $1$ (since the empty tuple $\left(
+{}\right)  $ is the only composition of $0$). Thus, for the rest of this
+proof, we WLOG assume that $n\neq0$. Hence, we must prove that the \# of
+compositions of $n$ is $2^{n-1}$.
+
+If $\left(  n_{1},n_{2},\ldots,n_{m}\right)  $ is a composition of $n$, then
+$m\in\left\{  1,2,\ldots,n\right\}  $. In other words, any composition
+of $n$ is a composition of $n$ into $k$ parts for some $k\in\left\{
+1,2,\ldots,n\right\}  $. Hence,%
+\begin{align*}
+&  \left(  \text{\# of compositions of }n\right) \\
+&  =\sum_{k\in\left\{  1,2,\ldots,n\right\}  }\underbrace{\left(  \text{\# of
+compositions of }n\text{ into }k\text{ parts}\right)  }_{=\dbinom
+{n-1}{n-k}}\\
+&  =\sum_{k\in\left\{  1,2,\ldots,n\right\}  }\dbinom{n-1}{n-k}=\sum_{k=1}%
+^{n}\dbinom{n-1}{n-k}=\sum_{k=0}^{n-1}\dbinom{n-1}{k}%
+\end{align*}
+(where the second equality uses Theorem \ref{thm.fps.comps.num-comps-n-k};
+and we have substituted $k$ for $n-k$ in the sum). Comparing this with%
+\begin{align*}
+2^{n-1}  &  =\left(  1+1\right)  ^{n-1}=\sum_{k=0}^{n-1}\dbinom{n-1}%
+{k}\underbrace{1^{k}1^{n-1-k}}_{=1}\ \ \ \ \ \ \ \ \ \ \left(  \text{by the
+binomial theorem}\right) \\
+&  =\sum_{k=0}^{n-1}\dbinom{n-1}{k},
+\end{align*}
+we obtain $\left(  \text{\# of compositions of }n\right)  =2^{n-1}$.
+
+In the Lean formalization, this is proved by establishing an equivalence with
+Mathlib's composition type (Lemma~\ref{lem.fps.comps.equiv-mathlib})
+and using Mathlib's theorem on the cardinality of compositions.
+\end{proof}
+
+\subsection{Weak compositions}
+
+\begin{definition}
+\label{def.fps.wcomps}
+\lean{AlgebraicCombinatorics.WeakComposition, AlgebraicCombinatorics.WeakComposition.size, AlgebraicCombinatorics.WeakComposition.len, AlgebraicCombinatorics.WeakComposition.ofSize, AlgebraicCombinatorics.WeakComposition.ofSizeIntoParts}
+\leantarget
+\leanok
+\textbf{(a)} An \emph{(integer) weak composition} means
+a (finite) tuple of nonnegative integers. \medskip
+
+\textbf{(b)} The \emph{size} of a weak composition $\alpha=\left(  \alpha
+_{1},\alpha_{2},\ldots,\alpha_{m}\right)  $ is defined to be the integer
+$\alpha_{1}+\alpha_{2}+\cdots+\alpha_{m}$. It is written $\left\vert
+\alpha\right\vert $. \medskip
+
+\textbf{(c)} The \emph{length} of a weak composition $\alpha=\left(
+\alpha_{1},\alpha_{2},\ldots,\alpha_{m}\right)  $ is defined to be the integer
+$m$. It is written $\ell\left(  \alpha\right)  $. \medskip
+
+\textbf{(d)} Let $n\in\mathbb{N}$. A \emph{weak composition of }$n$ means a
+weak composition whose size is $n$. \medskip
+
+\textbf{(e)} Let $n\in\mathbb{N}$ and $k\in\mathbb{N}$. A \emph{weak
+composition of }$n$\emph{ into }$k$\emph{ parts} is a weak composition whose
+size is $n$ and whose length is $k$.
+\end{definition}
+
+\begin{lemma}
+\label{lem.fps.wcomps.equiv-fun}
+\lean{AlgebraicCombinatorics.WeakComposition.ofSizeIntoParts_equiv}
+\leanhelper
+\leanok
+The list-based representation of weak compositions of $n$ into $k$ parts
+is equivalent to the function-based representation
+$\{f : \{0, 1, \ldots, k-1\} \to \mathbb{N} \mid \sum_{i} f(i) = n\}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The forward direction converts a list $[\alpha_0, \alpha_1, \ldots, \alpha_{k-1}]$
+to the function $i \mapsto \alpha_i$.
+The backward direction converts a function $f$
+to the list $[f(0), f(1), \ldots, f(k-1)]$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.wcomps.equiv-sym}
+\lean{AlgebraicCombinatorics.WeakComposition.ofSizeIntoParts'.equivSym}
+\leanhelper
+\leanok
+The function-based weak compositions of $n$ into $k$ parts are equivalent
+to multisets of size $n$ from a $k$-element alphabet.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The bijection sends $f : \{0, \ldots, k-1\} \to \mathbb{N}$ with $\sum_i f(i) = n$
+to the multiset containing $f(i)$ copies of $i$ for each $i$, and the inverse sends a
+multiset $m$ to the function $i \mapsto \text{count}(i, m)$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.wcomps.to-composition}
+\lean{AlgebraicCombinatorics.WeakComposition.toComposition}
+\leanhelper
+\leanok
+There is a bijection between weak compositions of $n$ into $k$ parts
+and compositions of $n+k$ into $k$ parts, defined by adding $1$ to each entry.
+\end{lemma}
+
+\begin{proof}
+\leanok
+If $\left(  \alpha_{1},\alpha_{2},\ldots,\alpha_{k}\right)  $ is a weak
+composition of $n$ into $k$ parts, then $\left(  \alpha_{1}%
++1,\alpha_{2}+1,\ldots,\alpha_{k}+1\right)  $ is a composition of $n+k$ into
+$k$ parts (since adding $1$ to each nonnegative entry yields a positive integer,
+and the sum increases by $k$).
+The inverse map subtracts $1$ from each entry.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.wcomps.card-eq}
+\lean{AlgebraicCombinatorics.WeakComposition.ofSizeIntoParts'.card_eq}
+\leanhelper
+\leanok
+The number of function-based weak compositions of $n$ into $k$ parts
+equals $\binom{n+k-1}{n}$. The proof uses the equivalence with
+multisets of size $n$ from a $k$-element alphabet (Lemma~\ref{lem.fps.wcomps.equiv-sym})
+and the formula for counting such multisets.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By the equivalence with multisets of size $n$ from a $k$-element alphabet and the formula
+$\binom{n + k - 1}{n}$ for counting such multisets.
+\end{proof}
+
+\begin{theorem}
+\label{thm.fps.comps.num-wcomps-n-k}
+\lean{AlgebraicCombinatorics.WeakComposition.card_ofSizeIntoParts, AlgebraicCombinatorics.WeakComposition.card_ofSizeIntoParts_pos, AlgebraicCombinatorics.WeakComposition.card_ofSizeIntoParts_zero}
+\leantarget
+\leanok
+Let $n,k\in\mathbb{N}$. Then, the \# of
+weak compositions of $n$ into $k$ parts is
+\[
+\dbinom{n+k-1}{n}=%
+\begin{cases}
+\dbinom{n+k-1}{k-1}, & \text{if }k>0;\\
+\delta_{n,0}, & \text{if }k=0.
+\end{cases}
+\]
+\end{theorem}
+
+\begin{proof}
+Adding $1$
+to each entry of a weak composition of $n$ into $k$ parts gives
+a composition of $n+k$ into $k$ parts (Lemma~\ref{lem.fps.wcomps.to-composition}).
+This map is a bijection (its inverse subtracts $1$ from each entry).
+Thus, by the bijection principle, we
+have%
+\begin{align*}
+&  \left\vert \left\{  \text{weak compositions of }n\text{ into }k\text{
+parts}\right\}  \right\vert \\
+&  =\left\vert \left\{  \text{compositions of }n+k\text{ into }k\text{
+parts}\right\}  \right\vert \\
+&  =\left(  \text{\# of compositions of }n+k\text{ into }k\text{ parts}\right)
+\\
+&  =\dbinom{n+k-1}{n+k-k}
+=\dbinom{n+k-1}{n}.
+\end{align*}
+(Here, the last step follows by Theorem \ref{thm.fps.comps.num-comps-n-k},
+applied to $n+k$ instead of $n$.)
+It remains to prove that this equals $%
+\begin{cases}
+\dbinom{n+k-1}{k-1}, & \text{if }k>0;\\
+\delta_{n,0}, & \text{if }k=0
+\end{cases}
+$ as well. If $k=0$, then it is clear
+by inspection; otherwise it follows from Theorem \ref{thm.binom.sym}.
+
+In the Lean formalization, the primary proof uses the ``stars and bars'' technique:
+weak compositions of $n$ into $k$ parts are equivalent to multisets of size $n$ from
+a $k$-element alphabet, via
+Lemmas~\ref{lem.fps.wcomps.equiv-fun} and~\ref{lem.fps.wcomps.equiv-sym}.
+These are counted by $\binom{n+k-1}{n}$ using the formula for counting multisets.
+\end{proof}
+
+\subsection{Weak compositions with entries from $\left\{  0,1,\ldots
+,p-1\right\}  $}
+
+\begin{lemma}
+\label{lem.fps.comps.geom-series-mul}
+\lean{AlgebraicCombinatorics.BoundedWeakComposition.geom_series_mul_one_sub}
+\leanhelper
+\leanok
+The geometric series identity: $\left(\sum_{i=0}^{p-1} x^i\right)(1 - x) = 1 - x^p$.
+\end{lemma}
+
+\begin{proof}
+By induction on $p$ and ring arithmetic.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.comps.geom-series-eq-mul-inv}
+\lean{AlgebraicCombinatorics.BoundedWeakComposition.geom_series_eq_mul_inv}
+\leanhelper
+\leanok
+The geometric series equals $(1 - x^p) \cdot (1-x)^{-1}$:
+\[
+\sum_{i=0}^{p-1} x^i = (1 - x^p) \cdot (1-x)^{-1}.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+Multiply both sides by $(1 - x)$ and use Lemma~\ref{lem.fps.comps.geom-series-mul}.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.comps.invOneSubPow-pow}
+\lean{AlgebraicCombinatorics.BoundedWeakComposition.invOneSubPow_pow}
+\leanhelper
+\leanok
+For all $k \in \mathbb{N}$,
+$\left((1 - x)^{-1}\right)^k = (1 - x)^{-k}$.
+That is, the $k$-th power of the formal inverse of $(1 - x)$ equals
+the formal inverse of $(1 - x)^k$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By induction on $k$, using the identity $(1-x)^{-(a+b)} = (1-x)^{-a} \cdot (1-x)^{-b}$
+from Mathlib.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.comps.coeff-invOneSubPow}
+\lean{AlgebraicCombinatorics.BoundedWeakComposition.coeff_invOneSubPow}
+\leanhelper
+\leanok
+For $k > 0$, the coefficient of $x^n$ in $(1-x)^{-k}$ is
+$\binom{k - 1 + n}{k - 1}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+This is a standard result from Mathlib's power series library.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.comps.genFun-eq}
+\lean{AlgebraicCombinatorics.BoundedWeakComposition.genFun_eq}
+\leanhelper
+\leanok
+The generating function for bounded weak compositions satisfies
+$W_{k,p} = (1-x^p)^k \cdot (1-x)^{-k}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Use Lemma~\ref{lem.fps.comps.geom-series-eq-mul-inv} and raise both sides to the $k$-th power,
+using Lemma~\ref{lem.fps.comps.invOneSubPow-pow} to simplify
+$\left((1-x)^{-1}\right)^k = (1-x)^{-k}$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.comps.coeff-genFun}
+\lean{AlgebraicCombinatorics.BoundedWeakComposition.coeff_genFun}
+\leanhelper
+\leanok
+The coefficient of $x^n$ in the generating function $W_{k,p}$ equals the number of
+bounded weak compositions of $n$ into $k$ parts with entries in $\{0, 1, \ldots, p-1\}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Use the product rule for power series coefficients
+and show that the product of indicator functions picks out exactly the bounded
+weak compositions summing to $n$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.comps.coeff-genFun-formula}
+\lean{AlgebraicCombinatorics.BoundedWeakComposition.coeff_genFun_formula}
+\leanhelper
+\leanok
+The coefficient of $x^n$ in $W_{k,p}$ equals the inclusion-exclusion formula:
+\[
+[x^n] W_{k,p} = \sum_{\substack{j \in \{0,\ldots,k\} \\ pj \leq n}}
+(-1)^j \binom{k}{j} \binom{n - pj + k - 1}{n - pj}.
+\]
+\end{lemma}
+
+\begin{proof}
+Expand the product $(1-x^p)^k \cdot (1-x)^{-k}$ using the binomial theorem for
+$(1-x^p)^k$ and the expansion of $(1-x)^{-k}$ via
+Lemma~\ref{lem.fps.comps.coeff-invOneSubPow},
+then extract the coefficient of $x^n$ via the convolution formula.
+\end{proof}
+
+\begin{theorem}
+\label{thm.fps.comps.num-wpcomps-n-k}
+\lean{AlgebraicCombinatorics.BoundedWeakComposition.card}
+\leantarget
+\leanok
+Let $n,k,p\in\mathbb{N}$. Then, the \# of
+$k$-tuples $\left(  \alpha_{1},\alpha_{2},\ldots,\alpha_{k}\right)
+\in\left\{  0,1,\ldots,p-1\right\}  ^{k}$ satisfying $\alpha_{1}+\alpha
+_{2}+\cdots+\alpha_{k}=n$ is%
+\[
+\sum_{j=0}^{k}\left(  -1\right)  ^{j}\dbinom{k}{j}\dbinom{n-pj+k-1}{n-pj}.
+\]
+\end{theorem}
+
+\begin{proof}
+We fix three nonnegative integers $n$, $k$ and $p$. We are
+looking for the \# of $k$-tuples $\left(  \alpha_{1},\alpha_{2},\ldots
+,\alpha_{k}\right)  \in\left\{  0,1,\ldots,p-1\right\}  ^{k}$ satisfying
+$\alpha_{1}+\alpha_{2}+\cdots+\alpha_{k}=n$. In other words, we are looking
+for the \# of all weak compositions of $n$ into $k$ parts with the property
+that each entry is $<p$. Let us denote this \# by $w_{n,k,p}$.
+
+We invoke a generating function. Define the FPS%
+\[
+W_{k,p}:=\sum_{n\in\mathbb{N}}w_{n,k,p}x^{n}\in\mathbb{Q}\left[  \left[
+x\right]  \right]  .
+\]
+For each $n\in\mathbb{N}$, we have%
+\begin{align*}
+w_{n,k,p}
+&  =\sum\limits_{\substack{\left(  \alpha_{1},\alpha_{2},\ldots,\alpha
+_{k}\right)  \in\left\{  0,1,\ldots,p-1\right\}  ^{k};\\\alpha_{1}+\alpha
+_{2}+\cdots+\alpha_{k}=n}}1.
+\end{align*}
+Thus, we can rewrite $W_{k,p}=\sum_{n\in\mathbb{N}}w_{n,k,p}x^{n}$ as%
+\begin{align*}
+W_{k,p}
+&  =\sum\limits_{\left(  \alpha_{1},\alpha_{2},\ldots,\alpha_{k}\right)
+\in\left\{  0,1,\ldots,p-1\right\}  ^{k}}x^{\alpha_{1}}x^{\alpha_{2}}\cdots
+x^{\alpha_{k}}\\
+&  =\left(  \sum_{n\in\left\{  0,1,\ldots,p-1\right\}  }x^{n}\right)  ^{k}%
+\end{align*}
+(by the product rule). Since%
+\[
+\sum_{n\in\left\{  0,1,\ldots,p-1\right\}  }x^{n}=x^{0}+x^{1}+\cdots
++x^{p-1}=\dfrac{1-x^{p}}{1-x},
+\]
+this can be rewritten further as%
+\begin{equation}
+W_{k,p}=\left(  \dfrac{1-x^{p}}{1-x}\right)  ^{k}=\left(  1-x^{p}\right)
+^{k}\left(  1-x\right)  ^{-k}. \label{pf.thm.fps.comps.num-wpcomps-n-k.3}%
+\end{equation}
+In order to expand the right hand side, let us expand $\left(  1-x^{p}\right)
+^{k}$ and $\left(  1-x\right)  ^{-k}$ separately.
+
+The binomial theorem yields%
+\[
+\left(  1-x^{p}\right)  ^{k}=\sum_{j\in\mathbb{N}}\left(  -1\right)
+^{j}\dbinom{k}{j}x^{pj}.
+\]
+Multiplying this by
+(\ref{pf.thm.fps.comps.num-comps-n-k.1-x-k}), we obtain%
+\begin{align*}
+&  \left(  1-x^{p}\right)  ^{k}\left(  1-x\right)  ^{-k}\\
+&  =\sum_{n\in\mathbb{N}}\left(  \sum_{\substack{\left(  i,j\right)
+\in\mathbb{N}\times\mathbb{N};\\pj+i=n}}\left(  -1\right)  ^{j}\dbinom{k}%
+{j}\dbinom{i+k-1}{i}\right)  x^{n}.
+\end{align*}
+Thus, (\ref{pf.thm.fps.comps.num-wpcomps-n-k.3}) becomes
+\[
+W_{k,p}=\sum
+_{n\in\mathbb{N}}\left(  \sum_{\substack{\left(  i,j\right)  \in
+\mathbb{N}\times\mathbb{N};\\pj+i=n}}\left(  -1\right)  ^{j}\dbinom{k}%
+{j}\dbinom{i+k-1}{i}\right)  x^{n}.
+\]
+Comparing coefficients, we find that each $n\in\mathbb{N}$
+satisfies%
+\begin{align*}
+w_{n,k,p}
+&  =\sum_{j=0}^{k}\left(  -1\right)  ^{j}\dbinom{k}{j}\dbinom{n-pj+k-1}{n-pj}.
+\end{align*}
+\end{proof}
+
+\begin{lemma}
+\label{lem.fps.comps.card-bwc-2}
+\lean{AlgebraicCombinatorics.card_boundedWeakComposition_2}
+\leanhelper
+\leanok
+Let $n,k\in\mathbb{N}$. The number of binary $k$-strings with exactly $n$
+ones is $\binom{k}{n}$.
+\end{lemma}
+
+\begin{proof}
+Establish a bijection between binary $k$-strings with $n$ ones and $n$-element
+subsets of $\{1, 2, \ldots, k\}$ (a binary string corresponds to the set of positions
+where a $1$ appears). Then use the formula for counting subsets of a given size.
+\end{proof}
+
+\begin{proposition}
+\label{prop.fps.comps.num-w2comps-n-k-id}
+\lean{AlgebraicCombinatorics.binom_sum_identity}
+\leantarget
+\leanok
+Let $n,k\in\mathbb{N}$. Then,%
+\[
+\dbinom{k}{n}=\sum_{j=0}^{k}\left(  -1\right)  ^{j}\dbinom{k}{j}%
+\dbinom{n-2j+k-1}{n-2j}.
+\]
+\end{proposition}
+
+\begin{proof}
+The $k$-tuples $\left(  \alpha_{1},\alpha
+_{2},\ldots,\alpha_{k}\right)  \in\left\{  0,1\right\}  ^{k}$ are just the
+\emph{binary }$k$\emph{-strings}, i.e., the
+$k$-tuples formed of $0$s and $1$s. Imposing the condition $\alpha_{1}%
++\alpha_{2}+\cdots+\alpha_{k}=n$ on such a $k$-tuple is tantamount to
+requiring that it contain exactly $n$ many $1$s. Therefore, the \# of all
+$k$-tuples $\left(  \alpha_{1},\alpha_{2},\ldots,\alpha_{k}\right)
+\in\left\{  0,1\right\}  ^{k}$ satisfying $\alpha_{1}+\alpha_{2}+\cdots
++\alpha_{k}=n$ is $\dbinom{k}{n}$, since we have to choose which $n$ of its
+$k$ positions will be occupied by $1$s
+(Lemma~\ref{lem.fps.comps.card-bwc-2}).
+However, Theorem
+\ref{thm.fps.comps.num-wpcomps-n-k} (applied to $p=2$) yields that this \#
+equals $\sum_{j=0}^{k}\left(  -1\right)  ^{j}\dbinom{k}{j}\dbinom
+{n-2j+k-1}{n-2j}$. Comparing these two results, we obtain the identity.
+\end{proof}

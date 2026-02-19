@@ -1,0 +1,1079 @@
+\section{The Littlewood--Richardson rule}
+
+\subsection{Tuple arithmetic}
+
+\begin{definition}
+\label{def.sf.tuple-addition}
+\lean{AlgebraicCombinatorics.zeroTuple, AlgebraicCombinatorics.addTuple, AlgebraicCombinatorics.subTuple}
+\leantarget
+\leanok
+\textbf{(a)} We let $\mathbf{0}$ denote the
+$N$-tuple $\left(  0,0,\ldots,0\right)  \in\mathbb{N}^{N}$.
+
+\medskip
+
+\textbf{(b)} Let $\alpha=\left(  \alpha_{1},\alpha_{2},\ldots,\alpha
+_{N}\right)  $ and $\beta=\left(  \beta_{1},\beta_{2},\ldots,\beta_{N}\right)
+$ be two $N$-tuples in $\mathbb{N}^{N}$. Then, we set%
+\begin{align*}
+\alpha+\beta &  :=\left(  \alpha_{1}+\beta_{1},\alpha_{2}+\beta_{2}%
+,\ldots,\alpha_{N}+\beta_{N}\right)  \ \ \ \ \ \ \ \ \ \ \text{and}\\
+\alpha-\beta &  :=\left(  \alpha_{1}-\beta_{1},\alpha_{2}-\beta_{2}%
+,\ldots,\alpha_{N}-\beta_{N}\right)  .
+\end{align*}
+Note that $\alpha+\beta\in\mathbb{N}^{N}$, whereas $\alpha-\beta\in
+\mathbb{Z}^{N}$.
+\end{definition}
+
+\subsection{Content of a tableau}
+
+\begin{definition}
+\label{def.sf.content}
+\lean{AlgebraicCombinatorics.contentTableau}
+\leantarget
+\leanok
+Let $\lambda$ and $\mu$ be two $N$-partitions. Let $T$
+be a tableau of shape $\lambda/\mu$. We define the \emph{content} of $T$ to be
+the $N$-tuple $\left(  a_{1},a_{2},\ldots,a_{N}\right)  $, where%
+\[
+a_{i}:=\left(  \text{\# of }i\text{'s in }T\right)  =\left(  \text{\# of boxes
+}c\text{ of }T\text{ such that }T\left(  c\right)  =i\right)  .
+\]
+We denote this $N$-tuple by $\operatorname*{cont}T$.
+\end{definition}
+
+\subsection{Column restriction of tableaux}
+
+\begin{definition}
+\label{def.sf.col-tab}
+\lean{AlgebraicCombinatorics.colGeq}
+\leantarget
+\leanok
+Let $\lambda$ and $\mu$ be two $N$-partitions. Let $T$
+be a tableau of shape $\lambda/\mu$. Let $j$ be a positive integer. Then,
+$\operatorname{col}_{\geq j}T$ means the restriction of $T$ to columns
+$j,j+1,j+2,\ldots$ (that is, the result of removing the first $j-1$ columns
+from $T$). Formally speaking, this means the restriction of the map $T$ to the
+set $\left\{  \left(  u,v\right)  \in Y\left(  \lambda/\mu\right)
+\ \mid\ v\geq j\right\}  $.
+\end{definition}
+
+\subsection{Yamanouchi tableaux}
+
+\begin{definition}
+\label{def.sf.yamanouchi}
+\lean{AlgebraicCombinatorics.IsYamanouchi}
+\leantarget
+\leanok
+Let $\lambda,\mu,\nu$ be three $N$-partitions. A
+semistandard tableau $T$ of shape $\lambda/\mu$ is said to be $\nu
+$-\emph{Yamanouchi} (this is an adjective) if for each positive integer $j$,
+the $N$-tuple $\nu+\operatorname*{cont}\left(  \operatorname{col}_{\geq
+j}T\right)  \in\mathbb{N}^{N}$ is an $N$-partition (i.e., weakly decreasing).
+\end{definition}
+
+\subsection{Content and column restriction helpers}
+
+\begin{lemma}[Content of column-restricted tableau]
+\label{lem.sf.content-col-geq-one}
+\lean{AlgebraicCombinatorics.contentColGeq_one_eq_contentTableau}
+\leanhelper
+\leanok
+Let $T$ be a tableau of shape $\lambda/\mu$. Then
+$\operatorname{cont}(\operatorname{col}_{\geq 1} T) = \operatorname{cont}(T)$.
+In other words, since every cell in $Y(\lambda/\mu)$ has column $\geq 1$,
+the column restriction to $j = 1$ recovers the full content.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Every cell $(i, v) \in Y(\lambda/\mu)$ satisfies $v > \mu_i \geq 0$,
+hence $v \geq 1$, so $\operatorname{col}_{\geq 1} T$ has the same domain as~$T$.
+\end{proof}
+
+\begin{lemma}[Content monotonicity under column restriction]
+\label{lem.sf.content-col-geq-mono}
+\lean{AlgebraicCombinatorics.contentColGeq_mono}
+\leanhelper
+\leanok
+For any tableau $T$ of shape $\lambda/\mu$, row index $i$, and positive
+integer $j$:
+\[
+  \operatorname{cont}(\operatorname{col}_{\geq j+1} T)_i
+  \;\leq\;
+  \operatorname{cont}(\operatorname{col}_{\geq j} T)_i.
+\]
+That is, restricting to higher columns can only decrease the count
+of any entry.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The cells counted by $\operatorname{cont}(\operatorname{col}_{\geq j+1} T)_i$
+form a subset of those counted by $\operatorname{cont}(\operatorname{col}_{\geq j} T)_i$.
+\end{proof}
+
+\begin{lemma}[Column restriction vanishes beyond the shape]
+\label{lem.sf.content-col-geq-zero}
+\lean{AlgebraicCombinatorics.contentColGeq_eq_zero_of_large}
+\leanhelper
+\leanok
+If $j > \lambda_i$ for every row index $i$, then
+$\operatorname{cont}(\operatorname{col}_{\geq j} T) = \mathbf{0}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+When $j$ exceeds all column lengths, the domain
+$\{(u,v) \in Y(\lambda/\mu) \mid v \geq j\}$ is empty.
+\end{proof}
+
+\begin{lemma}[Content equality from pointwise characterization]
+\label{lem.sf.content-eq-of-iff}
+\lean{AlgebraicCombinatorics.contentTableau_eq_of_iff}
+\leanhelper
+\leanok
+If two tableaux $T, T'$ of the same shape satisfy
+$T'(c) = i \iff T(c) = i$ for all cells $c$, then
+$\operatorname{cont}(T')_i = \operatorname{cont}(T)_i$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The sets $\{c \mid T'(c) = i\}$ and $\{c \mid T(c) = i\}$ are equal
+by the hypothesis (each cell belongs to one set if and only if it belongs to the other),
+so they have the same cardinality.
+\end{proof}
+
+\subsection{Properties of alternants}
+
+\begin{lemma}
+\label{lem.sf.alternant-0-lr}
+\lean{AlgebraicCombinatorics.alternant_eq_zero_of_repeated, AlgebraicCombinatorics.alternant_swap}
+\leantarget
+\leanok
+Let $\alpha\in\mathbb{N}^{N}$.
+
+\medskip
+
+\textbf{(a)} If the $N$-tuple $\alpha$ has two equal entries, then $a_{\alpha
+}=0$.
+
+\medskip
+
+\textbf{(b)} Let $\beta\in\mathbb{N}^{N}$ be an $N$-tuple obtained from
+$\alpha$ by swapping two entries. Then, $a_{\beta}=-a_{\alpha}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Both parts follow from the definition of alternants as signed sums over
+permutations.
+
+\textbf{(a)} If $\alpha_i = \alpha_j$ with $i \neq j$, then the map
+$\sigma \mapsto (i\;j) \circ \sigma$ is a sign-reversing involution on $S_N$
+that preserves $x^{\alpha \circ \sigma}$ (since $\alpha$ is invariant under
+swapping $i$ and $j$). The terms cancel in pairs, giving $a_{\alpha} = 0$.
+
+\textbf{(b)} If $\beta = \alpha \circ (i\;j)$, then reindexing the sum
+defining $a_{\beta}$ via $\tau \mapsto (i\;j) \circ \tau$ introduces a factor
+of $\operatorname{sign}((i\;j)) = -1$, giving $a_{\beta} = -a_{\alpha}$.
+\end{proof}
+
+\subsection{Regular elements and cancellation}
+
+\begin{definition}
+\label{def.cring.reg}
+\lean{AlgebraicCombinatorics.IsRegularElement}
+\leantarget
+\leanok
+Let $L$ be a commutative ring. Let $a\in L$. The element
+$a$ of $L$ is said to be \emph{regular} if and only if every $x\in L$
+satisfying $ax=0$ satisfies $x=0$.
+\end{definition}
+
+\begin{lemma}
+\label{lem.cring.reg.cancel}
+\lean{AlgebraicCombinatorics.IsRegularElement.cancel}
+\leantarget
+\leanok
+Let $L$ be a commutative ring. Let $a,u,v\in L$ be
+such that $a$ is regular. Assume that $au=av$. Then, $u=v$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+We have $a\left(  u-v\right)
+=au-av=0$ (since $au=av$). However, $a$ is regular; in other words, every
+$x\in L$ satisfying $ax=0$ satisfies $x=0$ (by the definition of
+``regular''). Applying this to $x=u-v$, we
+obtain $u-v=0$ (since $a\left(  u-v\right)  =0$). Thus, $u=v$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.sf.arho-reg}
+\lean{AlgebraicCombinatorics.alternant_rho_isRegular}
+\leantarget
+\leanok
+The element $a_{\rho}$ of the polynomial ring
+$\mathcal{P}$ is regular.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Each of the
+indeterminates $x_{1},x_{2},\ldots,x_{N}$ is regular (as an element of
+$\mathcal{P}$). Indeed, multiplying a polynomial $f$ by an indeterminate
+$x_{i}$ merely shifts the coefficients of $f$ to different monomials; thus, if
+$x_{i}f=0$, then $f=0$. Next, the polynomial $x_{i}-x_{j}%
+\in\mathcal{P}$ is regular whenever $1\leq i<j\leq N$. Indeed, this polynomial
+$x_{i}-x_{j}$ is the image of the indeterminate $x_{i}$ under a
+$K$-algebra automorphism of $\mathcal{P}$ (the automorphism that
+sends $x_{i}$ to $x_{i}-x_{j}$ while leaving all other indeterminates
+unchanged), and therefore is regular because $x_{i}$ is
+regular (and because any ring automorphism sends regular elements to regular
+elements). Any finite product of regular elements is again regular. Thus,
+the element $\prod_{1\leq i<j\leq N}\left(  x_{i}-x_{j}\right)  \in
+\mathcal{P}$ is regular. Since
+$a_{\rho} = \prod_{1\leq i<j\leq N}\left(  x_{i}-x_{j}\right)$
+(the Vandermonde determinant), the element
+$a_{\rho}\in\mathcal{P}$ is regular.
+
+\emph{Lean note:} The Lean formalization takes a shortcut by assuming $R$ is
+an integral domain, which makes the polynomial ring an integral domain;
+regularity then follows from the Vandermonde polynomial being nonzero.
+\end{proof}
+
+\subsection{Bender--Knuth involution}
+
+\begin{definition}[Forced and free cells]
+\label{def.sf.bk-forced-free}
+\lean{AlgebraicCombinatorics.isForcedK, AlgebraicCombinatorics.isForcedKSucc, AlgebraicCombinatorics.isUnmatchedFreeK, AlgebraicCombinatorics.isUnmatchedFreeKSucc}
+\leanhelper
+\leanok
+Let $T$ be a semistandard tableau and let $k < N-1$.
+A cell $c = (i,j)$ with $T(c) = k$ is \emph{forced} if there exists a cell
+$(i+1,j)$ directly below with $T(i+1,j) = k+1$. Similarly for $T(c) = k+1$ with a cell directly above
+having value~$k$. Free cells are those that are not forced.
+
+Among the free cells, the \emph{parenthesis-matching algorithm} classifies
+each as \emph{matched} or \emph{unmatched}: reading free entries left-to-right
+in each row, each free $(k{+}1)$ matches with the nearest unmatched free $k$
+to its left. Unmatched entries are those remaining after this process.
+\end{definition}
+
+\begin{definition}[Bender--Knuth involution $\beta_k$]
+\label{def.sf.bk-involution}
+\lean{AlgebraicCombinatorics.benderKnuth}
+\leanhelper
+\leanok
+Let $T$ be a semistandard tableau of shape $\lambda/\mu$ and let
+$k < N-1$.  The \emph{Bender--Knuth involution} $\beta_k(T)$ is obtained
+from $T$ by swapping only the \emph{unmatched} free $k$'s and
+unmatched free $(k{+}1)$'s:
+\[
+  \beta_k(T)(c) = \begin{cases}
+    k+1 & \text{if } c \text{ is an unmatched free } k, \\
+    k   & \text{if } c \text{ is an unmatched free } k{+}1, \\
+    T(c) & \text{otherwise.}
+  \end{cases}
+\]
+Forced cells and matched free cells are left unchanged.
+\end{definition}
+
+\begin{lemma}[Bender--Knuth preserves semistandardness]
+\label{lem.sf.bk-semistandard}
+\lean{AlgebraicCombinatorics.benderKnuth_semistandard}
+\leanhelper
+\leanok
+If $T$ is semistandard and $\lambda$, $\mu$ are $N$-partitions, then
+$\beta_k(T)$ is semistandard.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Row-weak ordering is preserved because in each row, unmatched $(k{+}1)$'s
+(which become $k$) lie to the left of unmatched $k$'s (which become $k{+}1$),
+by the structure of the parenthesis matching (Lemma~\ref{lem.sf.bk-row-weak}).
+Column-strict ordering is preserved because the dangerous case
+(an unmatched $k$ above an unmatched $k{+}1$ in the same column) is ruled out
+by the partition property, which forces adjacent $k, k{+}1$ pairs to be forced
+(Lemma~\ref{lem.sf.bk-column-strict}).
+\end{proof}
+
+\begin{lemma}[Bender--Knuth row-weak preservation]
+\label{lem.sf.bk-row-weak}
+\lean{AlgebraicCombinatorics.benderKnuth_row_weak}
+\leanhelper
+\leanok
+For cells $(i, j_1)$ and $(i, j_2)$ in the same row with $j_1 < j_2$,
+$\beta_k(T)(i, j_1) \leq \beta_k(T)(i, j_2)$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The proof proceeds by case analysis on the status of $c_1$ and $c_2$
+(forced, matched free, unmatched free, or having value other than $k$ or $k{+}1$).
+The key insight is that unmatched $(k{+}1)$'s are the \emph{leftmost} free
+$(k{+}1)$'s and unmatched $k$'s are the \emph{rightmost} free $k$'s in each row.
+\end{proof}
+
+\begin{lemma}[Bender--Knuth column-strict preservation]
+\label{lem.sf.bk-column-strict}
+\lean{AlgebraicCombinatorics.benderKnuth_column_strict}
+\leanhelper
+\leanok
+For cells $(i_1, j)$ and $(i_2, j)$ in the same column with $i_1 < i_2$,
+$\beta_k(T)(i_1, j) < \beta_k(T)(i_2, j)$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The proof proceeds by case analysis on whether $c_1$ and $c_2$ are
+unmatched free $k$, unmatched free $(k{+}1)$, or unchanged.
+The dangerous case is when $c_1$ (above) is an unmatched free $k$
+(becoming $k{+}1$) and $c_2$ (below) is an unmatched free $(k{+}1)$
+(becoming $k$), which would violate strict ordering. But this cannot happen:
+if $T(c_1) = k$ and $T(c_2) = k{+}1$ in the same column, the partition
+property forces them to be in adjacent rows, making them a forced pair
+(not free), so they are unchanged by $\beta_k$.
+All other case combinations preserve strict ordering.
+\end{proof}
+
+\begin{lemma}[Bender--Knuth is an involution]
+\label{lem.sf.bk-involutive}
+\lean{AlgebraicCombinatorics.benderKnuth_involutive}
+\leanhelper
+\leanok
+For $N$-partitions $\lambda$, $\mu$ and a semistandard tableau $T$ of shape
+$\lambda/\mu$, the tableau $T' = \beta_k(T)$ is semistandard, and $\beta_k(T') = T$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The matching structure is symmetric under BK: an unmatched free $k$ becomes
+an unmatched free $(k{+}1)$ in $T'$ and vice versa; matched and forced cells
+are unchanged. Applying BK twice therefore returns every cell to its original value.
+\end{proof}
+
+\begin{lemma}[Forced cells are preserved under BK]
+\label{lem.sf.bk-forced-preserved}
+\lean{AlgebraicCombinatorics.forced_k_preserved', AlgebraicCombinatorics.forced_kSucc_preserved'}
+\leanhelper
+\leanok
+If $c$ is a forced $k$ cell in $T$, then $c$ is also a forced $k$ cell in
+$\beta_k(T)$. Similarly for forced $(k{+}1)$ cells.
+\end{lemma}
+
+\begin{proof}
+\leanok
+A forced $k$ cell has a forced $(k{+}1)$ partner directly below in the same
+column. Since forced cells are never unmatched, both cells retain their values
+under $\beta_k$, preserving the forced structure.
+\end{proof}
+
+\begin{lemma}[Unmatched cells swap status under BK]
+\label{lem.sf.bk-unmatched-becomes-unmatched}
+\lean{AlgebraicCombinatorics.unmatched_k_becomes_unmatched_kSucc', AlgebraicCombinatorics.unmatched_kSucc_becomes_unmatched_k'}
+\leanhelper
+\leanok
+An unmatched free $k$ in $T$ becomes an unmatched free $(k{+}1)$ in
+$\beta_k(T)$, and vice versa.
+\end{lemma}
+
+\begin{proof}
+\leanok
+After swapping the value from $k$ to $k{+}1$, the cell is free (not forced)
+because there is no cell directly above with value $k$. The counting argument
+shows that the cumulative counts shift appropriately to make the cell unmatched
+in its new role.
+\end{proof}
+
+\begin{lemma}[Matched cells stay matched under BK]
+\label{lem.sf.bk-matched-stays-matched}
+\lean{AlgebraicCombinatorics.matched_k_stays_matched', AlgebraicCombinatorics.matched_kSucc_stays_matched'}
+\leanhelper
+\leanok
+A matched free $k$ in $T$ remains a matched free $k$ in $\beta_k(T)$,
+and similarly for matched free $(k{+}1)$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Matched cells retain their original values. The counting argument for the
+parenthesis matching is preserved because the symmetric swap of unmatched
+cells leaves the matching structure invariant.
+\end{proof}
+
+\begin{lemma}[BK content swap]
+\label{lem.sf.bk-content-swap-lr}
+\lean{AlgebraicCombinatorics.benderKnuth_content_swap}
+\leanhelper
+\leanok
+Let $T' = \beta_k(T)$. Then
+\[
+  \operatorname{cont}(T')_k = \operatorname{cont}(T)_{k+1},
+  \quad
+  \operatorname{cont}(T')_{k+1} = \operatorname{cont}(T)_k,
+  \quad
+  \operatorname{cont}(T')_i = \operatorname{cont}(T)_i
+  \text{ for } i \notin \{k, k{+}1\}.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+For $i \notin \{k, k{+}1\}$, cells with value $i$ are unchanged by BK.
+For the swap of $k$ and $k{+}1$ counts, decompose each set into forced cells,
+matched free cells, and unmatched free cells. The forced bijection gives
+equal forced counts; matched counts are equal by the matching definition;
+and unmatched cells swap their values, contributing to the other count.
+\end{proof}
+
+\begin{lemma}[BK and the monomial of a tableau]
+\label{lem.sf.bk-monomial}
+\lean{AlgebraicCombinatorics.benderKnuth_monomial}
+\leanhelper
+\leanok
+For the monomial associated to a tableau,
+$x^{\operatorname{cont}(\beta_k(T))} = \operatorname{rename}_{(k\;k{+}1)}(x^{\operatorname{cont}(T)})$.
+That is, the BK involution acts on monomials by the transposition $(k\;k{+}1)$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+This follows directly from the content swap: renaming by $(k\;k{+}1)$
+exchanges the exponents of $x_k$ and $x_{k+1}$.
+\end{proof}
+
+\subsection{Symmetry of skew Schur polynomials}
+
+\begin{lemma}[Skew Schur polynomial is symmetric]
+\label{thm.sf.skew-schur-symm-lr}
+\lean{AlgebraicCombinatorics.skewSchurPoly_isSymmetric}
+\leanhelper
+\leanok
+For $N$-partitions $\lambda$ and $\mu$, the skew Schur polynomial
+$s_{\lambda/\mu} \in \mathcal{P}$ is symmetric (invariant under all
+permutations of the variables).
+\end{lemma}
+
+\begin{proof}
+\leanok
+It suffices to show invariance under adjacent transpositions $(k\;k{+}1)$,
+since these generate $S_N$.  For each $k$, the BK involution $\beta_k$ gives
+a bijection on semistandard tableaux with
+$x^{\operatorname{cont}(\beta_k(T))} = \operatorname{rename}_{(k\;k{+}1)}(x^{\operatorname{cont}(T)})$.
+Reindexing the sum defining $s_{\lambda/\mu}$ by this bijection shows invariance.
+\end{proof}
+
+\begin{lemma}[Alternant times skew Schur expansion]
+\label{lem.sf.alternant-mul-skew-schur}
+\lean{AlgebraicCombinatorics.alternant_mul_skewSchurPoly_eq_sum}
+\leanhelper
+\leanok
+For $N$-partitions $\lambda$, $\mu$ and any $N$-tuple $\alpha$:
+\[
+  a_\alpha \cdot s_{\lambda/\mu}
+  = \sum_{T \in \mathrm{SSYT}(\lambda/\mu)} a_{\alpha + \operatorname{cont}(T)}.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+Expand the alternant as $a_\alpha = \sum_\sigma (-1)^\sigma x^{\alpha \circ \sigma}$
+and multiply by $s_{\lambda/\mu} = \sum_T x^{\operatorname{cont}(T)}$. Using
+the symmetry of $s_{\lambda/\mu}$ and regrouping terms gives the result.
+\end{proof}
+
+\subsection{Stembridge's involution infrastructure}
+
+\begin{definition}[Violator columns and misstep indices]
+\label{def.sf.stemb-violator-misstep}
+\lean{AlgebraicCombinatorics.violatorColumns, AlgebraicCombinatorics.isMisstep, AlgebraicCombinatorics.misstepSet}
+\leanhelper
+\leanok
+Let $T$ be a semistandard tableau and $\nu$ an $N$-tuple. A positive integer
+$j$ is a \emph{violator column} if $\nu + \operatorname{cont}(\operatorname{col}_{\geq j} T)$
+is not an $N$-partition. An index $k$ is a \emph{misstep} for an $N$-tuple
+$\alpha$ if $k + 1 < N$ and $\alpha_k < \alpha_{k+1}$ (i.e., the partition
+condition fails at~$k$).
+\end{definition}
+
+\begin{lemma}[Non-Yamanouchi implies violator columns exist]
+\label{lem.sf.stemb-violator-nonempty}
+\lean{AlgebraicCombinatorics.violatorColumns_nonempty_of_not_yamanouchi}
+\leanhelper
+\leanok
+If $T$ is semistandard and not $\nu$-Yamanouchi, then the set of violator
+columns is nonempty.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By definition, $T$ is not $\nu$-Yamanouchi iff there exists $j > 0$ such that
+$\nu + \operatorname{cont}(\operatorname{col}_{\geq j} T)$ is not a partition.
+\end{proof}
+
+\begin{lemma}[Non-partition implies misstep exists]
+\label{lem.sf.stemb-misstep-nonempty}
+\lean{AlgebraicCombinatorics.not_isNPartition_iff_exists_misstep, AlgebraicCombinatorics.misstepSet_nonempty_of_not_partition}
+\leanhelper
+\leanok
+An $N$-tuple $\alpha$ is not an $N$-partition if and only if it has a misstep.
+In particular, the misstep set is nonempty when $\alpha$ is not a partition.
+\end{lemma}
+
+\begin{proof}
+\leanok
+If $\alpha$ is not weakly decreasing, there exist $i < j$ with
+$\alpha_i < \alpha_j$. By well-founded induction on $j - i$, we find
+consecutive indices with this property.
+\end{proof}
+
+\begin{definition}[Prefix-restricted Bender--Knuth]
+\label{def.sf.bk-prefix}
+\lean{AlgebraicCombinatorics.benderKnuthPrefixMatching}
+\leanhelper
+\leanok
+The \emph{prefix-restricted BK involution} $\beta_k^{<j}$ applies the
+parenthesis-matching swap of $k$ and $k{+}1$ only to cells in columns
+$< j$. Cells in columns $\geq j$ are left unchanged:
+\[
+  \beta_k^{<j}(T)(c) = \begin{cases}
+    k+1 & \text{if the column of } c \text{ is } < j \text{ and } c \text{ is unmatched free } k \text{ in prefix}, \\
+    k   & \text{if the column of } c \text{ is } < j \text{ and } c \text{ is unmatched free } k{+}1 \text{ in prefix}, \\
+    T(c) & \text{otherwise.}
+  \end{cases}
+\]
+\end{definition}
+
+\begin{lemma}[Prefix BK preserves suffix content]
+\label{lem.sf.bk-prefix-content-colgeq}
+\lean{AlgebraicCombinatorics.benderKnuthPrefixMatching_contentColGeq}
+\leanhelper
+\leanok
+The prefix-restricted BK involution leaves columns $\geq j$ unchanged,
+so
+$\operatorname{cont}(\operatorname{col}_{\geq j} \beta_k^{<j}(T))
+= \operatorname{cont}(\operatorname{col}_{\geq j} T)$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Cells in columns $\geq j$ are not modified by $\beta_k^{<j}$.
+\end{proof}
+
+\begin{lemma}[Prefix BK preserves semistandardness (Stembridge context)]
+\label{lem.sf.bk-prefix-semistandard}
+\lean{AlgebraicCombinatorics.benderKnuthPrefixMatching_semistandard_stembridge}
+\leanhelper
+\leanok
+Under the Stembridge context (where $\beta = \nu + \operatorname{cont}(\operatorname{col}_{\geq j+1} T)$
+is a partition and $k$ is a misstep for $\nu + \operatorname{cont}(\operatorname{col}_{\geq j} T)$),
+the prefix-restricted BK involution $\beta_k^{<j}(T)$ preserves semistandardness.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Row-weak and column-strict ordering are verified by case analysis,
+similar to the full BK involution but restricted to the prefix.
+The Stembridge context hypotheses ensure that boundary cells (at column $j$)
+interact correctly with the modified prefix.
+\end{proof}
+
+\begin{lemma}[Prefix BK involutivity in Stembridge context]
+\label{lem.sf.bk-prefix-involutive-stembridge}
+\lean{AlgebraicCombinatorics.benderKnuthPrefixMatching_involutive_stembridge}
+\leanhelper
+\leanok
+Under the Stembridge context, the prefix-restricted BK involution
+is an involution: $\beta_k^{<j}(\beta_k^{<j}(T)) = T$. Moreover,
+the Stembridge context is preserved: $T' = \beta_k^{<j}(T)$ again
+satisfies the partition and misstep conditions needed for the next application.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The suffix content is preserved (columns $\geq j$ are unchanged), so the
+violator column and misstep index remain the same. Applying $\beta_k^{<j}$
+twice returns every prefix cell to its original value by the matching symmetry.
+\end{proof}
+
+\begin{lemma}[Column $j$ has no entry $k$ at the max violator]
+\label{lem.sf.column-j-no-k}
+\lean{AlgebraicCombinatorics.column_j_no_k_at_max_violator}
+\leanhelper
+\leanok
+Under the Stembridge context (where $j$ is the max violator column and $k$
+is the misstep index), column $j$ contains no entry equal to $k$. In particular,
+$\operatorname{cont}(\operatorname{col}_{\geq j} T)_k
+= \operatorname{cont}(\operatorname{col}_{\geq j+1} T)_k$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Since $\beta = \nu + \operatorname{cont}(\operatorname{col}_{\geq j+1} T)$ is a partition
+and $\alpha = \nu + \operatorname{cont}(\operatorname{col}_{\geq j} T)$ has a misstep at $k$,
+the difference $\alpha_k - \beta_k$ must be zero. Otherwise the misstep at $k$
+in $\alpha$ would contradict the partition property of $\beta$ combined with the
+constraint $\alpha_{k+1} > \alpha_k$.
+\end{proof}
+
+\subsection{Stembridge's involution and sign-reversing property}
+
+\begin{definition}[Stembridge's involution]
+\label{def.sf.stemb-involution}
+\lean{AlgebraicCombinatorics.stembridgeInvolution}
+\leanhelper
+\leanok
+For a semistandard tableau $T$ that is not $\nu$-Yamanouchi, define
+$T^* = \operatorname{stemb}_\nu(T)$ as follows:
+\begin{enumerate}
+  \item Let $j$ be the \emph{largest} violator column (where $\nu + \operatorname{cont}(\operatorname{col}_{\geq j} T)$
+        is not a partition).
+  \item Let $k$ be the \emph{smallest} misstep index of $\nu + \operatorname{cont}(\operatorname{col}_{\geq j} T)$.
+  \item Apply the prefix-restricted BK involution: $T^* = \beta_k^{<j}(T)$.
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}[Stembridge involution preserves semistandardness]
+\label{lem.sf.stemb-semistandard}
+\lean{AlgebraicCombinatorics.stembridgeInvolution_semistandard}
+\leanhelper
+\leanok
+If $T$ is semistandard and not $\nu$-Yamanouchi, then
+$\operatorname{stemb}_\nu(T)$ is semistandard.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Follows from the involutivity theorem, which establishes semistandardness
+of $T'$ as a prerequisite.
+\end{proof}
+
+\begin{lemma}[Stembridge involution preserves non-Yamanouchi]
+\label{lem.sf.stemb-not-yamanouchi}
+\lean{AlgebraicCombinatorics.stembridgeInvolution_not_yamanouchi}
+\leanhelper
+\leanok
+If $T$ is not $\nu$-Yamanouchi, then
+$\operatorname{stemb}_\nu(T)$ is also not $\nu$-Yamanouchi.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The violator column $j$ remains a violator for $T'$ because $\beta_k^{<j}$
+leaves columns $\geq j$ unchanged, so
+$\nu + \operatorname{cont}(\operatorname{col}_{\geq j} T')
+= \nu + \operatorname{cont}(\operatorname{col}_{\geq j} T)$,
+which is not a partition.
+\end{proof}
+
+\begin{lemma}[Max violator column is preserved]
+\label{lem.sf.stemb-max-violator-preserved}
+\lean{AlgebraicCombinatorics.max_violator_succ_isNPartition}
+\leanhelper
+\leanok
+Let $j$ be the maximum violator column for $T$. Then
+$\nu + \operatorname{cont}(\operatorname{col}_{\geq j+1} T)$ is an $N$-partition.
+(This is because $j{+}1$ is \emph{not} a violator column, being larger than the maximum.)
+If $j{+}1$ exceeds all column indices, the result reduces to $\nu$ being a partition.
+\end{lemma}
+
+\begin{proof}
+\leanok
+If $j{+}1 \leq \max_i \lambda_i + 1$, then $j{+}1$ is in the range of potential
+violator columns but is not a violator (since $j$ is the max), so
+$\nu + \operatorname{cont}(\operatorname{col}_{\geq j+1} T)$ is a partition
+by definition. Otherwise, $\operatorname{cont}(\operatorname{col}_{\geq j+1} T) = \mathbf{0}$,
+and the result is $\nu$, which is a partition by hypothesis.
+\end{proof}
+
+\begin{theorem}[Stembridge involution is an involution]
+\label{lem.sf.stemb-involutive}
+\lean{AlgebraicCombinatorics.stembridgeInvolution_involutive}
+\leanhelper
+\leanok
+For $N$-partitions $\lambda, \mu, \nu$ and a semistandard tableau $T$ that
+is not $\nu$-Yamanouchi: let $T' = \operatorname{stemb}_\nu(T)$. Then
+$T'$ is semistandard, $T'$ is not $\nu$-Yamanouchi, and
+$\operatorname{stemb}_\nu(T') = T$.
+\end{theorem}
+
+\begin{proof}
+\leanok
+The key insight is that the parameters $(j, k)$ are \emph{the same} for $T$
+and $T'$: the max violator column $j'$ for $T'$ equals $j$ (since $\beta_k^{<j}$
+leaves columns $\geq j$ unchanged, and columns $> j$ are not violators for either
+tableau). The misstep set is unchanged because
+$\operatorname{cont}(\operatorname{col}_{\geq j} T')
+= \operatorname{cont}(\operatorname{col}_{\geq j} T)$.
+Therefore $\operatorname{stemb}_\nu(T') = \beta_k^{<j}(\beta_k^{<j}(T)) = T$.
+\end{proof}
+
+\begin{lemma}[Stembridge involution content transposition]
+\label{lem.sf.stemb-content-transposition}
+\lean{AlgebraicCombinatorics.stembridgeInvolution_content_transposition}
+\leanhelper
+\leanok
+Let $T' = \operatorname{stemb}_\nu(T)$. There exist indices $k \neq k'$
+(namely $k$ and $k{+}1$) such that
+\[
+  \nu + \operatorname{cont}(T') + \rho
+  = (\nu + \operatorname{cont}(T) + \rho) \circ (k\;k').
+\]
+That is, the full exponent tuple is related by a transposition.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The proof uses the decomposition of content into prefix and suffix parts.
+The suffix is unchanged ($\operatorname{col}_{\geq j}$ is preserved).
+The prefix content swaps: the number of $k$'s in the prefix of $T'$ equals
+the number of $(k{+}1)$'s in the prefix of $T$, and vice versa. Combined with
+the misstep condition $\alpha_{k+1} = \alpha_k + 1$ and the rho shift
+$\rho_k - \rho_{k+1} = 1$, the full expressions at positions $k$ and $k{+}1$
+are exchanged.
+\end{proof}
+
+\begin{lemma}[Prefix BK content swap]
+\label{lem.sf.bk-prefix-content-swap}
+\lean{AlgebraicCombinatorics.benderKnuthPrefixMatching_content_swap}
+\leanhelper
+\leanok
+For the prefix-restricted BK involution $T' = \beta_k^{<j}(T)$:
+\[
+  \operatorname{cont}(T')_k + \operatorname{cont}(\operatorname{col}_{\geq j} T)_{k+1}
+  = \operatorname{cont}(T)_{k+1} + \operatorname{cont}(\operatorname{col}_{\geq j} T)_k.
+\]
+This identity captures how the BK swap in the prefix interacts with the
+unchanged suffix.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Decompose $\operatorname{cont}(T)_i = (\text{prefix } i \text{ count}) + \operatorname{cont}(\operatorname{col}_{\geq j} T)_i$.
+The suffix is unchanged, so it suffices to show: $(\text{prefix } k \text{ count in } T') = (\text{prefix } (k{+}1) \text{ count in } T)$.
+The prefix cells where $T'(c) = k$ are exactly the prefix cells that were $k$ in $T$
+and stayed as $k$ (forced $k$'s and matched free $k$'s), plus the unmatched free
+$(k{+}1)$'s (which became $k$).
+The prefix cells where $T(c) = k{+}1$ decompose into cells that stay as $(k{+}1)$
+(forced and matched) and unmatched $(k{+}1)$'s (which become $k$).
+The unchanged cells contribute equally to both sides, and the
+unmatched $(k{+}1)$'s appear on both sides as well, yielding the identity.
+\end{proof}
+
+\begin{lemma}[Stembridge involution is sign-reversing]
+\label{lem.sf.stemb-sign-reversing}
+\lean{AlgebraicCombinatorics.stembridgeInvolution_sign_reversing}
+\leanhelper
+\leanok
+For a non-$\nu$-Yamanouchi semistandard tableau $T$:
+\[
+  a_{\nu + \operatorname{cont}(\operatorname{stemb}_\nu(T)) + \rho}
+  = -\,a_{\nu + \operatorname{cont}(T) + \rho}.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+By Lemma~\ref{lem.sf.stemb-content-transposition}, the exponent tuple is
+related by a transposition. By Lemma~\ref{lem.sf.alternant-0-lr}~\textbf{(b)},
+swapping two entries of the exponent negates the alternant.
+\end{proof}
+
+\begin{lemma}[Fixed points have zero alternant]
+\label{lem.sf.stemb-fixed-point-zero}
+\lean{AlgebraicCombinatorics.stembridgeInvolution_fixed_point_implies_alternant_zero}
+\leanhelper
+\leanok
+If $\operatorname{stemb}_\nu(T) = T$ (a fixed point), then
+$a_{\nu + \operatorname{cont}(T) + \rho} = 0$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+If $T' = T$, then $\operatorname{cont}(T') = \operatorname{cont}(T)$, so the
+content transposition gives $f = f \circ (k\;k')$ with $k \neq k'$, where
+$f = \nu + \operatorname{cont}(T) + \rho$. This forces $f(k) = f(k')$, so
+$f$ has repeated entries. By Lemma~\ref{lem.sf.alternant-0-lr}~\textbf{(a)},
+$a_f = 0$.
+\end{proof}
+
+\begin{lemma}[Non-Yamanouchi alternants cancel]
+\label{lem.sf.non-yamanouchi-cancel}
+\lean{AlgebraicCombinatorics.alternant_sum_non_yamanouchi_eq_zero}
+\leanhelper
+\leanok
+For $N$-partitions $\lambda, \mu, \nu$:
+\[
+  \sum_{\substack{T \in \mathrm{SSYT}(\lambda/\mu) \\ T \text{ not } \nu\text{-Yamanouchi}}}
+  a_{\nu + \operatorname{cont}(T) + \rho} = 0.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+The Stembridge involution partitions the non-Yamanouchi tableaux into orbits
+of size $1$ or $2$. For each pair $\{T, T^*\}$ with $T^* \neq T$, the sign-reversing
+property gives $a_{\nu + \operatorname{cont}(T) + \rho} + a_{\nu + \operatorname{cont}(T^*) + \rho} = 0$.
+At fixed points (where $T^* = T$), the alternant is zero by
+Lemma~\ref{lem.sf.stemb-fixed-point-zero}. Hence, all terms cancel and the sum is zero.
+\end{proof}
+
+\begin{lemma}[Alternant sum splits into Yamanouchi and non-Yamanouchi]
+\label{lem.sf.alternant-sum-split}
+\lean{AlgebraicCombinatorics.alternant_sum_split}
+\leanhelper
+\leanok
+The sum of alternants over all semistandard tableaux equals the sum over
+Yamanouchi tableaux plus the sum over non-Yamanouchi tableaux:
+\[
+  \sum_{T \in \mathrm{SSYT}} a_{\nu + \operatorname{cont}(T) + \rho}
+  = \sum_{\substack{T \in \mathrm{SSYT} \\ \nu\text{-Yam}}} a_{\nu + \operatorname{cont}(T) + \rho}
+  + \sum_{\substack{T \in \mathrm{SSYT} \\ \text{not } \nu\text{-Yam}}} a_{\nu + \operatorname{cont}(T) + \rho}.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+The semistandard tableaux partition into Yamanouchi and non-Yamanouchi subsets.
+The sum over a disjoint union equals the sum of the parts.
+\end{proof}
+
+\subsection{Stembridge's Lemma}
+
+\begin{lemma}[Stembridge's Lemma]
+\label{lem.sf.stemb-lem}
+\lean{AlgebraicCombinatorics.stembridgeLemma}
+\leantarget
+\leanok
+Let $\lambda,\mu,\nu$ be three
+$N$-partitions. Then,%
+\[
+a_{\nu+\rho}\cdot s_{\lambda/\mu}=\sum_{\substack{T\text{ is a }%
+\nu\text{-Yamanouchi}\\\text{semistandard tableau}\\\text{of shape }%
+\lambda/\mu}}a_{\nu+\operatorname*{cont}T+\rho}.
+\]
+\end{lemma}
+
+\begin{proof}
+\leanok
+The proof proceeds in several steps.
+
+\textbf{Step 1.} By Lemma~\ref{lem.sf.alternant-mul-skew-schur}
+(which uses the symmetry of $s_{\lambda/\mu}$ from
+Lemma~\ref{thm.sf.skew-schur-symm-lr}):
+\[
+a_{\nu+\rho} \cdot s_{\lambda/\mu}
+= \sum_{T \in \mathrm{SSYT}(\lambda/\mu)} a_{\nu + \operatorname{cont} T + \rho}.
+\]
+
+\textbf{Step 2.} By Lemma~\ref{lem.sf.alternant-sum-split}, split the sum into
+Yamanouchi and non-Yamanouchi tableaux.
+
+\textbf{Step 3.} By Lemma~\ref{lem.sf.non-yamanouchi-cancel}, the non-Yamanouchi
+sum is zero (using the Stembridge involution from
+Definition~\ref{def.sf.stemb-involution}, its sign-reversing property from
+Lemma~\ref{lem.sf.stemb-sign-reversing}, and its fixed-point behavior from
+Lemma~\ref{lem.sf.stemb-fixed-point-zero}).
+\end{proof}
+
+\subsection{Consequences of Stembridge's Lemma}
+
+\begin{lemma}
+\label{lem.sf.tab-greater-i}
+\lean{AlgebraicCombinatorics.tableau_entry_ge_row}
+\leantarget
+\leanok
+Let $\lambda$ be any $N$-partition. Let $T$ be a
+semistandard tableau of shape $\lambda$. Then, $T\left(  i,j\right)  \geq i$
+for each $\left(  i,j\right)  \in Y\left(  \lambda\right)  $.
+\end{lemma}
+
+\begin{proof}
+\leanok
+This lemma is an easy consequence
+of the fact that the entries of a semistandard tableau increase strictly down
+each column. More precisely, the cells
+$(1, j), (2, j), \ldots, (i, j)$ all belong to $Y(\lambda)$ (since $\lambda$
+is weakly decreasing), and the entries $T(1, j) < T(2, j) < \cdots < T(i, j)$
+are strictly increasing. Since $T(1, j) \geq 1$, we get $T(i, j) \geq i$ by
+induction.
+\end{proof}
+
+\begin{lemma}[Minimalistic tableau is semistandard]
+\label{lem.sf.minimalistic-semistandard}
+\lean{AlgebraicCombinatorics.minimalisticTableau_semistandard}
+\leanhelper
+\leanok
+The minimalistic tableau $T_0$ of shape $\lambda$ (where $T_0(i,j) = i$
+for all cells) is semistandard: entries are constant (hence weakly increasing)
+along rows, and strictly increasing down columns.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Row-weak: $T_0(i, j_1) = i = T_0(i, j_2)$ for any $j_1 < j_2$.
+Column-strict: if $i_1 < i_2$, then $T_0(i_1, j) = i_1 < i_2 = T_0(i_2, j)$.
+\end{proof}
+
+\begin{lemma}[Minimalistic tableau is Yamanouchi]
+\label{lem.sf.minimalistic-yamanouchi}
+\lean{AlgebraicCombinatorics.minimalisticTableau_yamanouchi}
+\leanhelper
+\leanok
+Let $\lambda$ be an $N$-partition. The minimalistic tableau $T_0$ of shape
+$\lambda$ (whose entry at each cell $(i,j)$ is $i$) is a $\mathbf{0}$-Yamanouchi semistandard tableau of shape
+$\lambda/\mathbf{0}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The minimalistic tableau is semistandard (entries weakly increase along rows
+and strictly increase down columns). For the $\mathbf{0}$-Yamanouchi condition,
+the content of $\operatorname{col}_{\geq j} T_0$ at row $i$ equals
+$\max\{\lambda_i - (j-1), 0\}$, which is weakly decreasing since $\lambda$ is.
+\end{proof}
+
+\begin{lemma}[Content of minimalistic tableau]
+\label{lem.sf.minimalistic-content}
+\lean{AlgebraicCombinatorics.contentTableau_minimalisticTableau}
+\leanhelper
+\leanok
+Let $\lambda$ be an $N$-partition. The content of the minimalistic tableau $T_0$
+equals $\lambda$: $\operatorname{cont}(T_0) = \lambda$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The minimalistic tableau has all entries in row $i$ equal to $i$, so the number
+of $i$'s in $T_0$ is $\lambda_i$ (the number of cells in row $i$).
+\end{proof}
+
+\begin{lemma}[Yamanouchi rightmost entry equals row index]
+\label{lem.sf.yamanouchi-rightmost}
+\lean{AlgebraicCombinatorics.yamanouchi_rightmost_entry}
+\leanhelper
+\leanok
+Let $\lambda$ be an $N$-partition and $T$ a $\mathbf{0}$-Yamanouchi tableau
+of shape $\lambda/\mathbf{0}$. For each row $i$ with $\lambda_i > 0$,
+the rightmost cell $(i, \lambda_i)$ satisfies $T(i, \lambda_i) = i$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By strong induction on $i$. Suppose $T(i, \lambda_i) = m \neq i$.
+By Lemma~\ref{lem.sf.tab-greater-i}, $m \geq i$, and since $m \neq i$, we have $m > i$.
+From the $\mathbf{0}$-Yamanouchi condition,
+$\operatorname{cont}(\operatorname{col}_{\geq \lambda_i} T)$ is a partition,
+so $\operatorname{cont}(\operatorname{col}_{\geq \lambda_i} T)_i
+\geq \operatorname{cont}(\operatorname{col}_{\geq \lambda_i} T)_m \geq 1$.
+Hence row $i$ has some entry $i$ in columns $\geq \lambda_i$.
+But $(i, \lambda_i)$ is the rightmost cell of row $i$, so
+$T(i, \lambda_i) \leq i$ by weak row increase from the cell where $i$ appears.
+For rows $i' < i$, the inductive hypothesis gives $T(i', \lambda_{i'}) = i'$;
+the strict column increase then prevents any cell in the same column as
+$(i, \lambda_i)$ from having value $i$ in an earlier row.
+This contradicts $m > i$.
+\end{proof}
+
+\begin{lemma}[Uniqueness of $\mathbf{0}$-Yamanouchi tableau]
+\label{lem.sf.minimalistic-unique}
+\lean{AlgebraicCombinatorics.minimalisticTableau_unique}
+\leanhelper
+\leanok
+Let $\lambda$ be an $N$-partition. If $T$ is a $\mathbf{0}$-Yamanouchi
+semistandard tableau of shape $\lambda/\mathbf{0}$, then $T$ is the
+minimalistic tableau $T_0$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By Lemma~\ref{lem.sf.yamanouchi-rightmost}, $T(i, \lambda_i) = i$ for each row.
+By Lemma~\ref{lem.sf.tab-greater-i}, $T(i, j) \geq i$ for all $(i, j)$.
+By weak row increase, $T(i, j) \leq T(i, \lambda_i) = i$ for all $j \leq \lambda_i$.
+Combining: $T(i, j) = i$ for all $(i, j)$, so $T = T_0$.
+\end{proof}
+
+\begin{lemma}[Schur--alternant relation]
+\label{lem.sf.schur-alternant}
+\lean{AlgebraicCombinatorics.schurPoly_eq_alternant_div}
+\leanhelper
+\leanok
+Let $\lambda$ be an $N$-partition. Then,
+\[
+a_{\lambda + \rho} = a_{\rho} \cdot s_{\lambda}.
+\]
+(This is Theorem~\ref{thm.sf.schur-symm}~\textbf{(b)}.)
+\end{lemma}
+
+\begin{proof}
+\leanok
+Apply Lemma~\ref{lem.sf.stemb-lem} with $\mu = \mathbf{0}$ and
+$\nu = \mathbf{0}$:
+\[
+a_{\rho} \cdot s_{\lambda}
+= \sum_{\substack{T \text{ is a } \mathbf{0}\text{-Yamanouchi} \\
+    \text{semistandard tableau of shape } \lambda/\mathbf{0}}}
+  a_{\operatorname{cont} T + \rho}.
+\]
+By Lemma~\ref{lem.sf.minimalistic-yamanouchi}, the minimalistic tableau $T_0$
+is $\mathbf{0}$-Yamanouchi, and by Lemma~\ref{lem.sf.minimalistic-unique},
+it is the \emph{only} such tableau. Therefore the sum has a single term.
+By Lemma~\ref{lem.sf.minimalistic-content},
+$\operatorname{cont}(T_0) = \lambda$, so we obtain
+$a_{\rho} \cdot s_{\lambda} = a_{\lambda + \rho}$.
+\end{proof}
+
+\subsection{The Littlewood--Richardson rule}
+
+\begin{theorem}[Zelevinsky's generalized Littlewood--Richardson rule, in Yamanouchi form]
+\label{thm.sf.lr-zy}
+\lean{AlgebraicCombinatorics.littlewoodRichardson}
+\leantarget
+\leanok
+Let $\lambda,\mu,\nu$ be three $N$-partitions. Then,%
+\begin{equation}
+s_{\nu}\cdot s_{\lambda/\mu}=\sum_{\substack{T\text{ is a }\nu
+\text{-Yamanouchi}\\\text{semistandard tableau}\\\text{of shape }\lambda/\mu
+}}s_{\nu+\operatorname*{cont}T}. \label{eq.thm.sf.lr-zy.eq}%
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+\leanok
+\textbf{Step 1.} By Lemma~\ref{lem.sf.schur-alternant} (applied to $\nu$
+instead of $\lambda$), $a_{\nu+\rho} = a_{\rho} \cdot s_{\nu}$.
+
+\textbf{Step 2.} By Lemma~\ref{lem.sf.stemb-lem},
+\[
+a_{\nu+\rho} \cdot s_{\lambda/\mu}
+= \sum_{\substack{T \text{ is a } \nu\text{-Yamanouchi} \\
+    \text{semistandard tableau} \\ \text{of shape } \lambda/\mu}}
+  a_{\nu + \operatorname{cont} T + \rho}.
+\]
+
+\textbf{Step 3.} For each $\nu$-Yamanouchi tableau $T$, the tuple
+$\nu + \operatorname{cont} T$ is an $N$-partition (by the $j=1$ case of the
+Yamanouchi condition), so Lemma~\ref{lem.sf.schur-alternant} yields
+$a_{\nu + \operatorname{cont} T + \rho} = a_{\rho} \cdot s_{\nu + \operatorname{cont} T}$.
+
+\textbf{Step 4.} Substituting Steps 1 and 3 into Step 2:
+\[
+a_{\rho} \cdot s_{\nu} \cdot s_{\lambda/\mu}
+= a_{\rho} \cdot \sum_{\substack{T \text{ is a } \nu\text{-Yamanouchi} \\
+    \text{semistandard tableau} \\ \text{of shape } \lambda/\mu}}
+  s_{\nu + \operatorname{cont} T}.
+\]
+
+\textbf{Step 5.} Since $a_{\rho}$ is regular (Lemma~\ref{lem.sf.arho-reg}),
+we can cancel it (Lemma~\ref{lem.cring.reg.cancel}) to obtain
+\[
+s_{\nu} \cdot s_{\lambda/\mu}
+= \sum_{\substack{T \text{ is a } \nu\text{-Yamanouchi} \\
+    \text{semistandard tableau} \\ \text{of shape } \lambda/\mu}}
+  s_{\nu + \operatorname{cont} T}.
+\]
+\end{proof}

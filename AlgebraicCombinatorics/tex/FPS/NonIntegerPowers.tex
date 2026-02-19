@@ -1,0 +1,750 @@
+\subsection{\label{sec.gf.nips}Non-integer powers}
+
+\subsubsection{Definition}
+
+Now, let us again recall Example 2 from Section \ref{sec.gf.exas}. In order to
+fully justify that example, we still need to explain what $\sqrt{1-4x}$ is.
+
+More generally, let us try to define non-integer powers of FPSs (since square
+roots are just $1/2$-th powers). Thus, we are trying to solve the following problem:
+
+\begin{statement}
+\textit{Problem:} Devise a reasonable definition of the $c$-th power $f^{c}$
+for any FPS $f\in K\left[  \left[  x\right]  \right]  $ and any $c\in K$.
+\end{statement}
+
+Here, \textquotedblleft reasonable\textquotedblright\ means that it should
+have some of the properties we would expect:
+
+\begin{itemize}
+\item It should not conflict with the existing notion of $f^{c}$ for
+$c\in\mathbb{N}$. That is, if $c\in\mathbb{N}$, then our new definition of
+$f^{c}$ should yield the same result as the existing meaning that $f^{c}$ has
+in this case (namely, $\underbrace{ff\cdots f}_{c\text{ times}}$). The same
+should hold for $c\in\mathbb{Z}$ when $f$ is invertible.
+
+\item Rules of exponents should hold: i.e., we should have%
+\begin{equation}
+f^{a+b}=f^{a}f^{b},\ \ \ \ \ \ \ \ \ \ \left(  fg\right)  ^{a}=f^{a}%
+g^{a},\ \ \ \ \ \ \ \ \ \ \left(  f^{a}\right)  ^{b}=f^{ab}
+\label{eq.sec.gf.nips.rules-of-exps}%
+\end{equation}
+for all $a,b\in K$ and $f,g\in K\left[  \left[  x\right]  \right]  $.
+
+\item For any positive integer $n$ and any FPS $f\in K\left[  \left[
+x\right]  \right]  $, the $1/n$-th power $f^{1/n}$ should be an $n$-th root of
+$f$ (that is, an FPS whose $n$-th power is $f$). (This actually follows from
+the previous two properties, since we can apply the rule $\left(
+f^{a}\right)  ^{b}=f^{ab}$ to $a=1/n$ and $b=n$.)
+\end{itemize}
+
+Clearly, we cannot solve the above problem in full generality:
+
+\begin{itemize}
+\item The power $0^{-1}$ cannot be reasonably defined (unless $K$ is trivial).
+Indeed, $0^{-1}\cdot0^{1}$ would have to equal $0^{-1+1}=0^{0}=1$, but this
+would contradict $0^{-1}\cdot0^{1}=0^{-1}\cdot0=0$.
+
+\item The power $x^{1/2}$ cannot be reasonably defined either (unless $K$ is
+trivial). Indeed, there is no FPS whose square is $x$. This will be proved in
+Exercise \ref{exe.fps.not-squares} \textbf{(a)}.
+
+\item Even the power $\left(  -1\right)  ^{1/2}$ cannot always be defined:
+There is no guarantee that $K$ contains a square root of $-1$ (and if $K$ does
+not, then it is easy to see that $K\left[  \left[  x\right]  \right]  $ does neither).
+\end{itemize}
+
+However, all we want is to make sense of $\sqrt{1-4x}$, so let us restrict
+ourselves to FPSs whose constant term is $1$. Using the notation from
+Definition \ref{def.fps.Exp-Log-maps} \textbf{(b)}, we are thus moving on to
+the following problem:
+
+\begin{statement}
+\textit{More realistic problem:} Devise a reasonable definition of the $c$-th
+power $f^{c}$ for any FPS $f\in K\left[  \left[  x\right]  \right]  _{1}$ and
+any $c\in K$.
+\end{statement}
+
+Besides imposing the above wishlist of properties, we want this $c$-th power
+$f^{c}$ itself to belong to $K\left[  \left[  x\right]  \right]  _{1}$, since
+otherwise the iterated power $\left(  f^{a}\right)  ^{b}$ in our rules of
+exponents might be undefined.
+
+It turns out that this is still too much to ask. Indeed, if $K=\mathbb{Z}/2$,
+then the FPS $1+x\in K\left[  \left[  x\right]  \right]  _{1}$ has no square
+root (you get to prove this in Exercise \ref{exe.fps.not-squares}
+\textbf{(c)}), so its $1/2$-th power $\left(  1+x\right)  ^{1/2}$ cannot be
+reasonably defined.
+
+However, if we assume (as in Convention \ref{conv.fps.exp.K-Q-alg}) that $K$
+is a commutative $\mathbb{Q}$-algebra, then we get lucky: Our
+\textquotedblleft more realistic problem\textquotedblright\ can be solved in
+(at least) two ways: \medskip
+
+\textit{1st solution:} We define
+\[
+\left(  1+x\right)  ^{c}:=\sum_{k\in\mathbb{N}}\dbinom{c}{k}x^{k}%
+\ \ \ \ \ \ \ \ \ \ \text{for each }c\in K,
+\]
+in order to make Newton's binomial formula (Theorem \ref{thm.fps.newton-binom}%
+) hold for arbitrary exponents\footnote{Note that $\dbinom{c}{k}%
+=\dfrac{c\left(  c-1\right)  \left(  c-2\right)  \cdots\left(  c-k+1\right)
+}{k!}$ is well-defined since $K$ is a commutative $\mathbb{Q}$-algebra.}.
+Subsequently, we define%
+\begin{equation}
+f^{c}:=\left(  1+x\right)  ^{c}\left[  f-1\right]
+\ \ \ \ \ \ \ \ \ \ \text{for any }f\in K\left[  \left[  x\right]  \right]
+_{1}\text{ and }c\in K \label{eq.sec.gf.nips.newton-def2}%
+\end{equation}
+(in order to have $\left(  1+g\right)  ^{c}=\sum_{k\in\mathbb{N}}\dbinom{c}%
+{k}g^{k}$ hold not only for $g=x$, but also for all $g\in K\left[  \left[
+x\right]  \right]  _{0}$).
+
+It is clear that the FPS $f^{c}$ is well-defined in this way. However, proving
+that this definition satisfies all our wishlist (particularly the rules of
+exponents (\ref{eq.sec.gf.nips.rules-of-exps})) is highly nontrivial. Some of
+this is done in \cite[\S 7.12]{Loehr-BC}, but it is still a lot of work.
+
+Thus, we shall discard this definition of $f^{c}$, and instead take a
+different way: \medskip
+
+\textit{2nd solution:} Recall the mutually inverse group isomorphisms%
+\begin{align*}
+\operatorname*{Exp}  &  :\left(  K\left[  \left[  x\right]  \right]
+_{0},+,0\right)  \rightarrow\left(  K\left[  \left[  x\right]  \right]
+_{1},\cdot,1\right)  \ \ \ \ \ \ \ \ \ \ \text{and}\\
+\operatorname*{Log}  &  :\left(  K\left[  \left[  x\right]  \right]
+_{1},\cdot,1\right)  \rightarrow\left(  K\left[  \left[  x\right]  \right]
+_{0},+,0\right)
+\end{align*}
+from Theorem \ref{thm.fps.Exp-Log-group-iso}. Thus, for any $f\in K\left[
+\left[  x\right]  \right]  _{1}$ and any $c\in\mathbb{Z}$, the equation%
+\[
+\operatorname*{Log}\left(  f^{c}\right)  =c\operatorname*{Log}f
+\]
+holds (since $\operatorname*{Log}$ is a group homomorphism). This suggests
+that we define $f^{c}$ for all $c\in K$ by the same equation. In other words,
+we define $f^{c}$ for all $c\in K$ by setting $f^{c}=\operatorname*{Exp}%
+\left(  c\operatorname*{Log}f\right)  $ (since the map $\operatorname*{Exp}$
+is inverse to $\operatorname*{Log}$). And this is what we shall do now:
+
+\begin{definition}
+\label{def.fps.power-c}Assume that $K$ is a commutative $\mathbb{Q}$-algebra.
+Let $f\in K\left[  \left[  x\right]  \right]  _{1}$ and $c\in K$. Then, we
+define an FPS%
+\[
+f^{c}:=\operatorname*{Exp}\left(  c\operatorname*{Log}f\right)  \in K\left[
+\left[  x\right]  \right]  _{1}.
+\]
+
+\end{definition}
+
+This definition of $f^{c}$ does not conflict with our original definition of
+$f^{c}$ when $c\in\mathbb{Z}$ because (as we said) the original definition of
+$f^{c}$ already satisfies $\operatorname*{Log}\left(  f^{c}\right)
+=c\operatorname*{Log}f$ and therefore $f^{c}=\operatorname*{Exp}\left(
+c\operatorname*{Log}f\right)  $.
+
+Moreover, Definition \ref{def.fps.power-c} makes the rules of exponents hold:
+
+\begin{theorem}
+\label{thm.fps.power-c.rules}Assume that $K$ is a commutative $\mathbb{Q}%
+$-algebra. For any $a,b\in K$ and $f,g\in K\left[  \left[  x\right]  \right]
+_{1}$, we have
+\[
+f^{a+b}=f^{a}f^{b},\ \ \ \ \ \ \ \ \ \ \left(  fg\right)  ^{a}=f^{a}%
+g^{a},\ \ \ \ \ \ \ \ \ \ \left(  f^{a}\right)  ^{b}=f^{ab}.
+\]
+
+\end{theorem}
+
+\begin{proof}
+Easy exercise (Exercise \ref{exe.fps.power-c.rules}).
+\end{proof}
+
+Now, let us return to Example 2 from Section \ref{sec.gf.exas}. In that
+example, we had to solve the quadratic equation
+\[
+C\left(  x\right)  =1+x\left(  C\left(  x\right)  \right)  ^{2}%
+\ \ \ \ \ \ \ \ \ \ \text{for an FPS }C\left(  x\right)  \in\mathbb{Q}\left[
+\left[  x\right]  \right]  .
+\]
+Let us write $C$ for $C\left(  x\right)  $; thus, this quadratic equation
+becomes%
+\[
+C=1+xC^{2}.
+\]
+By completing the square, we can rewrite this equation in the equivalent form%
+\[
+\left(  1-2xC\right)  ^{2}=1-4x.
+\]
+Taking both sides of this equation to the $1/2$-th power, we obtain%
+\[
+\left(  \left(  1-2xC\right)  ^{2}\right)  ^{1/2}=\left(  1-4x\right)  ^{1/2}%
+\]
+(since both sides are FPSs with constant term $1$). However, the FPS $1-2xC$
+has constant term $1$; thus, the rules of exponents yield $\left(  \left(
+1-2xC\right)  ^{2}\right)  ^{1/2}=\left(  1-2xC\right)  ^{2\cdot1/2}=1-2xC$.
+Hence,%
+\[
+1-2xC=\left(  \left(  1-2xC\right)  ^{2}\right)  ^{1/2}=\left(  1-4x\right)
+^{1/2}.
+\]
+This is a linear equation in $C$; solving it for $C$ yields%
+\[
+C=\dfrac{1}{2x}\left(  1-\left(  1-4x\right)  ^{1/2}\right)  .
+\]
+This is precisely the \textquotedblleft square-root\textquotedblright%
+\ expression for $C=C\left(  x\right)  $ that we have obtained back in Section
+\ref{sec.gf.exas}, but now we have proved it rigorously.
+
+\subsubsection{The Newton binomial formula for arbitrary exponents}
+
+Is Example 2 from Section \ref{sec.gf.exas} fully justified now? No, because
+we still need to prove the identity (\ref{eq.sec.gf.exas.2.(1+x)1/2}) that we
+used back there. Since we are defining powers in the 2nd way (i.e., using
+Definition \ref{def.fps.power-c} rather than using
+(\ref{eq.sec.gf.nips.newton-def2})), it is not immediately obvious.
+Nevertheless, it can be proved. More generally, we can prove the following:
+
+\begin{theorem}
+[Generalized Newton binomial formula]\label{thm.fps.gen-newton}Assume that $K$
+is a commutative $\mathbb{Q}$-algebra. Let $c\in K$. Then,%
+\[
+\left(  1+x\right)  ^{c}=\sum_{k\in\mathbb{N}}\dbinom{c}{k}x^{k}.
+\]
+
+\end{theorem}
+
+The following proof illustrates a technique that will probably appear
+preposterous if you are seeing it for the first time, but is in fact both
+legitimate and rather useful.
+
+\begin{proof}
+[Proof of Theorem \ref{thm.fps.gen-newton} (sketched).]The definition of
+$\operatorname*{Log}$ yields
+\[
+\operatorname*{Log}\left(  1+x\right)  =\overline{\log}\circ\left(
+\underbrace{\left(  1+x\right)  -1}_{=x}\right)  =\overline{\log}\circ
+x=\overline{\log}%
+\]
+(by Proposition \ref{prop.fps.subs.rules} \textbf{(g)}, applied to
+$g=\overline{\log}$).
+
+Now, let us obstinately compute $\left(  1+x\right)  ^{c}$ using Definition
+\ref{def.fps.power-c} and the definitions of $\operatorname*{Exp}$ and
+$\operatorname*{Log}$. To wit: Let $\mathbb{P}$ denote the set $\left\{
+1,2,3,\ldots\right\}  $. By Definition \ref{def.fps.power-c}, we have%
+\begin{align}
+&  \left(  1+x\right)  ^{c}\nonumber\\
+&  =\operatorname*{Exp}\left(  c\operatorname*{Log}\left(  1+x\right)
+\right)  =\operatorname*{Exp}\left(  c\,\overline{\log}\right)
+\ \ \ \ \ \ \ \ \ \ \left(  \text{since }\operatorname*{Log}\left(
+1+x\right)  =\overline{\log}\right) \nonumber\\
+&  =\exp\circ\left(  c\,\overline{\log}\right)  \ \ \ \ \ \ \ \ \ \ \left(
+\text{by the definition of }\operatorname*{Exp}\right) \nonumber\\
+&  =\exp\circ\left(  c\sum_{n\geq1}\dfrac{\left(  -1\right)  ^{n-1}}{n}%
+x^{n}\right)  \ \ \ \ \ \ \ \ \ \ \left(  \text{since }\overline{\log}%
+=\sum_{n\geq1}\dfrac{\left(  -1\right)  ^{n-1}}{n}x^{n}\right) \nonumber\\
+&  =\exp\circ\left(  \sum_{n\geq1}\dfrac{\left(  -1\right)  ^{n-1}}{n}%
+cx^{n}\right) \nonumber\\
+&  =\sum_{m\in\mathbb{N}}\dfrac{1}{m!}\left(  \sum_{n\geq1}\dfrac{\left(
+-1\right)  ^{n-1}}{n}cx^{n}\right)  ^{m} \label{pf.thm.fps.gen-newton.1}%
+\end{align}
+(by Definition \ref{def.fps.subs}, since $\exp=\sum_{n\in\mathbb{N}}\dfrac
+{1}{n!}x^{n}=\sum_{m\in\mathbb{N}}\dfrac{1}{m!}x^{m}$).
+
+Now, fix $m\in\mathbb{N}$. We shall expand $\left(  \sum_{n\geq1}%
+\dfrac{\left(  -1\right)  ^{n-1}}{n}cx^{n}\right)  ^{m}$. Indeed, we can
+replace the \textquotedblleft$\sum_{n\geq1}$\textquotedblright\ sign by an
+\textquotedblleft$\sum_{n\in\mathbb{P}}$\textquotedblright\ sign, since
+$\mathbb{P}=\left\{  1,2,3,\ldots\right\}  $. Thus,%
+\begin{align*}
+&  \left(  \sum_{n\geq1}\dfrac{\left(  -1\right)  ^{n-1}}{n}cx^{n}\right)
+^{m}\\
+&  =\left(  \sum_{n\in\mathbb{P}}\dfrac{\left(  -1\right)  ^{n-1}}{n}%
+cx^{n}\right)  ^{m}\\
+&  =\underbrace{\left(  \sum_{n\in\mathbb{P}}\dfrac{\left(  -1\right)  ^{n-1}%
+}{n}cx^{n}\right)  \left(  \sum_{n\in\mathbb{P}}\dfrac{\left(  -1\right)
+^{n-1}}{n}cx^{n}\right)  \cdots\left(  \sum_{n\in\mathbb{P}}\dfrac{\left(
+-1\right)  ^{n-1}}{n}cx^{n}\right)  }_{m\text{ times}}\\
+&  =\left(  \sum_{n_{1}\in\mathbb{P}}\dfrac{\left(  -1\right)  ^{n_{1}-1}%
+}{n_{1}}cx^{n_{1}}\right)  \left(  \sum_{n_{2}\in\mathbb{P}}\dfrac{\left(
+-1\right)  ^{n_{2}-1}}{n_{2}}cx^{n_{2}}\right)  \cdots\left(  \sum_{n_{m}%
+\in\mathbb{P}}\dfrac{\left(  -1\right)  ^{n_{m}-1}}{n_{m}}cx^{n_{m}}\right) \\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{here, we have renamed
+the summation indices}\right) \\
+&  =\sum_{\left(  n_{1},n_{2},\ldots,n_{m}\right)  \in\mathbb{P}^{m}}\left(
+\dfrac{\left(  -1\right)  ^{n_{1}-1}}{n_{1}}cx^{n_{1}}\right)  \left(
+\dfrac{\left(  -1\right)  ^{n_{2}-1}}{n_{2}}cx^{n_{2}}\right)  \cdots\left(
+\dfrac{\left(  -1\right)  ^{n_{m}-1}}{n_{m}}cx^{n_{m}}\right)
+\end{align*}
+(by a product rule for the product of $m$ sums\footnote{This product rule says
+that
+\[
+\left(  \sum_{n_{1}\in A_{1}}a_{1,n_{1}}\right)  \left(  \sum_{n_{2}\in A_{2}%
+}a_{2,n_{2}}\right)  \cdots\left(  \sum_{n_{m}\in A_{m}}a_{m,n_{m}}\right)
+=\sum_{\left(  n_{1},n_{2},\ldots,n_{m}\right)  \in A_{1}\times A_{2}%
+\times\cdots\times A_{m}}a_{1,n_{1}}a_{2,n_{2}}\cdots a_{m,n_{m}}%
+\]
+for any $m$ sets $A_{1},A_{2},\ldots,A_{m}$ and any elements $a_{i,j}\in K$,
+provided that all the sums on the left hand side of this equality are
+summable. We leave it to the reader to convince himself of this rule
+(intuitively, it just says that we can expand a product of sums in the usual
+way, even when the sums are infinite) and to check that the sums we are
+applying it to are indeed summable.}). Hence,%
+\begin{align}
+&  \left(  \sum_{n\geq1}\dfrac{\left(  -1\right)  ^{n-1}}{n}cx^{n}\right)
+^{m}\nonumber\\
+&  =\underbrace{\sum_{\left(  n_{1},n_{2},\ldots,n_{m}\right)  \in
+\mathbb{P}^{m}}}_{=\sum_{k\in\mathbb{N}}\ \ \sum_{\substack{\left(
+n_{1},n_{2},\ldots,n_{m}\right)  \in\mathbb{P}^{m};\\n_{1}+n_{2}+\cdots
++n_{m}=k}}}\underbrace{\left(  \dfrac{\left(  -1\right)  ^{n_{1}-1}}{n_{1}%
+}cx^{n_{1}}\right)  \left(  \dfrac{\left(  -1\right)  ^{n_{2}-1}}{n_{2}%
+}cx^{n_{2}}\right)  \cdots\left(  \dfrac{\left(  -1\right)  ^{n_{m}-1}}{n_{m}%
+}cx^{n_{m}}\right)  }_{=\dfrac{\left(  -1\right)  ^{n_{1}+n_{2}+\cdots
++n_{m}-m}}{n_{1}n_{2}\cdots n_{m}}c^{m}x^{n_{1}+n_{2}+\cdots+n_{m}}%
+}\nonumber\\
+&  =\sum_{k\in\mathbb{N}}\ \ \sum_{\substack{\left(  n_{1},n_{2},\ldots
+,n_{m}\right)  \in\mathbb{P}^{m};\\n_{1}+n_{2}+\cdots+n_{m}=k}}\dfrac{\left(
+-1\right)  ^{n_{1}+n_{2}+\cdots+n_{m}-m}}{n_{1}n_{2}\cdots n_{m}}%
+c^{m}\underbrace{x^{n_{1}+n_{2}+\cdots+n_{m}}}_{\substack{=x^{k}\\\text{(since
+}n_{1}+n_{2}+\cdots+n_{m}=k\text{)}}}\nonumber\\
+&  =\sum_{k\in\mathbb{N}}\ \ \sum_{\substack{\left(  n_{1},n_{2},\ldots
+,n_{m}\right)  \in\mathbb{P}^{m};\\n_{1}+n_{2}+\cdots+n_{m}=k}}\dfrac{\left(
+-1\right)  ^{n_{1}+n_{2}+\cdots+n_{m}-m}}{n_{1}n_{2}\cdots n_{m}}c^{m}x^{k}.
+\label{pf.thm.fps.gen-newton.2}%
+\end{align}
+
+
+Now, forget that we fixed $m$. We thus have proved
+(\ref{pf.thm.fps.gen-newton.2}) for each $m\in\mathbb{N}$.
+
+Now, (\ref{pf.thm.fps.gen-newton.1}) becomes%
+\begin{align}
+&  \left(  1+x\right)  ^{c}\nonumber\\
+&  =\sum_{m\in\mathbb{N}}\dfrac{1}{m!}\left(  \sum_{n\geq1}\dfrac{\left(
+-1\right)  ^{n-1}}{n}cx^{n}\right)  ^{m}\nonumber\\
+&  =\sum_{m\in\mathbb{N}}\dfrac{1}{m!}\sum_{k\in\mathbb{N}}\ \ \sum
+_{\substack{\left(  n_{1},n_{2},\ldots,n_{m}\right)  \in\mathbb{P}^{m}%
+;\\n_{1}+n_{2}+\cdots+n_{m}=k}}\dfrac{\left(  -1\right)  ^{n_{1}+n_{2}%
++\cdots+n_{m}-m}}{n_{1}n_{2}\cdots n_{m}}c^{m}x^{k}\ \ \ \ \ \ \ \ \ \ \left(
+\text{by (\ref{pf.thm.fps.gen-newton.2})}\right) \nonumber\\
+&  =\sum_{k\in\mathbb{N}}\ \ \sum_{m\in\mathbb{N}}\ \ \sum_{\substack{\left(
+n_{1},n_{2},\ldots,n_{m}\right)  \in\mathbb{P}^{m};\\n_{1}+n_{2}+\cdots
++n_{m}=k}}\dfrac{1}{m!}\cdot\dfrac{\left(  -1\right)  ^{n_{1}+n_{2}%
++\cdots+n_{m}-m}}{n_{1}n_{2}\cdots n_{m}}c^{m}x^{k}\nonumber\\
+&  =\sum_{k\in\mathbb{N}}\left(  \sum_{m\in\mathbb{N}}\ \ \sum
+_{\substack{\left(  n_{1},n_{2},\ldots,n_{m}\right)  \in\mathbb{P}^{m}%
+;\\n_{1}+n_{2}+\cdots+n_{m}=k}}\dfrac{1}{m!}\cdot\dfrac{\left(  -1\right)
+^{n_{1}+n_{2}+\cdots+n_{m}-m}}{n_{1}n_{2}\cdots n_{m}}c^{m}\right)  x^{k}.
+\label{pf.thm.fps.gen-newton.3}%
+\end{align}
+
+
+Now, let $k\in\mathbb{N}$. Let us rewrite the \textquotedblleft middle
+sum\textquotedblright\ $\sum_{m\in\mathbb{N}}\ \ \sum_{\substack{\left(
+n_{1},n_{2},\ldots,n_{m}\right)  \in\mathbb{P}^{m};\\n_{1}+n_{2}+\cdots
++n_{m}=k}}\dfrac{1}{m!}\cdot\dfrac{\left(  -1\right)  ^{n_{1}+n_{2}%
++\cdots+n_{m}-m}}{n_{1}n_{2}\cdots n_{m}}c^{m}$ on the right hand side as a
+finite sum. Indeed, a \emph{composition} of $k$ shall mean a tuple $\left(
+n_{1},n_{2},\ldots,n_{m}\right)  $ of positive integers satisfying
+$n_{1}+n_{2}+\cdots+n_{m}=k$. (For example, $\left(  1,3,1\right)  $ is a
+composition of $5$. We will study compositions in more detail in Section
+\ref{sec.fps.intcomps}.) Let $\operatorname*{Comp}\left(  k\right)  $ denote
+the set of all compositions of $k$. It is easy to see that this set
+$\operatorname*{Comp}\left(  k\right)  $ is finite\footnote{\textit{Proof.}
+Let $\left(  n_{1},n_{2},\ldots,n_{m}\right)  \in\operatorname*{Comp}\left(
+k\right)  $. Thus, $\left(  n_{1},n_{2},\ldots,n_{m}\right)  $ is a
+composition of $k$. In other words, $\left(  n_{1},n_{2},\ldots,n_{m}\right)
+$ is a finite tuple of positive integers satisfying $n_{1}+n_{2}+\cdots
++n_{m}=k$. Hence, all its $m$ entries $n_{1},n_{2},\ldots,n_{m}$ are positive
+integers and thus are $\geq1$; therefore, $n_{1}+n_{2}+\cdots+n_{m}%
+\geq\underbrace{1+1+\cdots+1}_{m\text{ times}}=m$, so that $m\leq n_{1}%
++n_{2}+\cdots+n_{m}=k$. Thus, $m\in\left\{  0,1,\ldots,k\right\}  $.
+\par
+Furthermore, the sum $n_{1}+n_{2}+\cdots+n_{m}$ is $\geq$ to each of its $m$
+addends (since its $m$ addends $n_{1},n_{2},\ldots,n_{m}$ are positive). In
+other words, we have $n_{1}+n_{2}+\cdots+n_{m}\geq n_{i}$ for each
+$i\in\left\{  1,2,\ldots,m\right\}  $. Thus, for each $i\in\left\{
+1,2,\ldots,m\right\}  $, we have $n_{i}\leq n_{1}+n_{2}+\cdots+n_{m}=k$ and
+therefore $n_{i}\in\left\{  1,2,\ldots,k\right\}  $ (since $n_{i}$ is a
+positive integer). Hence,
+\[
+\left(  n_{1},n_{2},\ldots,n_{m}\right)  \in\left\{  1,2,\ldots,k\right\}
+^{m}\subseteq\bigcup_{\ell\in\left\{  0,1,\ldots,k\right\}  }\left\{
+1,2,\ldots,k\right\}  ^{\ell}%
+\]
+(since $m\in\left\{  0,1,\ldots,k\right\}  $).
+\par
+Now, forget that we fixed $\left(  n_{1},n_{2},\ldots,n_{m}\right)  $. We thus
+have shown that $\left(  n_{1},n_{2},\ldots,n_{m}\right)  \in\bigcup_{\ell
+\in\left\{  0,1,\ldots,k\right\}  }\left\{  1,2,\ldots,k\right\}  ^{\ell}$ for
+each $\left(  n_{1},n_{2},\ldots,n_{m}\right)  \in\operatorname*{Comp}\left(
+k\right)  $. In other words, $\operatorname*{Comp}\left(  k\right)
+\subseteq\bigcup_{\ell\in\left\{  0,1,\ldots,k\right\}  }\left\{
+1,2,\ldots,k\right\}  ^{\ell}$. Since the set $\bigcup_{\ell\in\left\{
+0,1,\ldots,k\right\}  }\left\{  1,2,\ldots,k\right\}  ^{\ell}$ is clearly
+finite (having size $\sum_{\ell\in\left\{  0,1,\ldots,k\right\}  }k^{\ell}$),
+this entails that the set $\operatorname*{Comp}\left(  k\right)  $ is finite
+as well, qed.
+\par
+(Incidentally, we will see in Section \ref{sec.fps.intcomps} that this set
+$\operatorname*{Comp}\left(  k\right)  $ has size $2^{k-1}$ for $k\geq1$, and
+size $1$ for $k=0$.)}. Now, we can rewrite the double summation sign
+\textquotedblleft$\sum_{m\in\mathbb{N}}\ \ \sum_{\substack{\left(  n_{1}%
+,n_{2},\ldots,n_{m}\right)  \in\mathbb{P}^{m};\\n_{1}+n_{2}+\cdots+n_{m}=k}%
+}$\textquotedblright\ as a single summation sign \textquotedblleft%
+$\sum_{\left(  n_{1},n_{2},\ldots,n_{m}\right)  \in\operatorname*{Comp}\left(
+k\right)  }$\textquotedblright\ (since $\operatorname*{Comp}\left(  k\right)
+$ is precisely the set of all tuples $\left(  n_{1},n_{2},\ldots,n_{m}\right)
+\in\mathbb{P}^{m}$ satisfying $n_{1}+n_{2}+\cdots+n_{m}=k$). Hence, we obtain
+\begin{align}
+&  \sum_{m\in\mathbb{N}}\ \ \sum_{\substack{\left(  n_{1},n_{2},\ldots
+,n_{m}\right)  \in\mathbb{P}^{m};\\n_{1}+n_{2}+\cdots+n_{m}=k}}\dfrac{1}%
+{m!}\cdot\dfrac{\left(  -1\right)  ^{n_{1}+n_{2}+\cdots+n_{m}-m}}{n_{1}%
+n_{2}\cdots n_{m}}c^{m}\nonumber\\
+&  =\sum_{\left(  n_{1},n_{2},\ldots,n_{m}\right)  \in\operatorname*{Comp}%
+\left(  k\right)  }\dfrac{1}{m!}\cdot\dfrac{\left(  -1\right)  ^{n_{1}%
++n_{2}+\cdots+n_{m}-m}}{n_{1}n_{2}\cdots n_{m}}c^{m}.
+\label{pf.thm.fps.gen-newton.4}%
+\end{align}
+
+
+Forget that we fixed $k$. Thus, for each $k\in\mathbb{N}$, we have defined a
+finite set $\operatorname*{Comp}\left(  k\right)  $ and shown that
+(\ref{pf.thm.fps.gen-newton.4}) holds.
+
+Using (\ref{pf.thm.fps.gen-newton.4}), we can rewrite
+(\ref{pf.thm.fps.gen-newton.3}) as%
+\begin{align}
+&  \left(  1+x\right)  ^{c}\nonumber\\
+&  =\sum_{k\in\mathbb{N}}\left(  \sum_{\left(  n_{1},n_{2},\ldots
+,n_{m}\right)  \in\operatorname*{Comp}\left(  k\right)  }\dfrac{1}{m!}%
+\cdot\dfrac{\left(  -1\right)  ^{n_{1}+n_{2}+\cdots+n_{m}-m}}{n_{1}n_{2}\cdots
+n_{m}}c^{m}\right)  x^{k}. \label{pf.thm.fps.gen-newton.5}%
+\end{align}
+
+
+Now, recall that our goal is to prove that this equals
+\[
+\sum_{k\in\mathbb{N}}\dbinom{c}{k}x^{k}.
+\]
+This is equivalent to proving that the equality%
+\begin{equation}
+\sum_{\left(  n_{1},n_{2},\ldots,n_{m}\right)  \in\operatorname*{Comp}\left(
+k\right)  }\dfrac{1}{m!}\cdot\dfrac{\left(  -1\right)  ^{n_{1}+n_{2}%
++\cdots+n_{m}-m}}{n_{1}n_{2}\cdots n_{m}}c^{m}=\dbinom{c}{k}
+\label{pf.thm.fps.gen-newton.polyeq}%
+\end{equation}
+holds for each $k\in\mathbb{N}$ (because two FPSs $u=\sum_{k\in\mathbb{N}%
+}u_{k}x^{k}$ and $v=\sum_{k\in\mathbb{N}}v_{k}x^{k}$ (with $u_{k}\in K$ and
+$v_{k}\in K$) are equal if and only if the equality $u_{k}=v_{k}$ holds for
+each $k\in\mathbb{N}$).
+
+Thus, we have reduced our original goal (which was to prove $\left(
+1+x\right)  ^{c}=\sum_{k\in\mathbb{N}}\dbinom{c}{k}x^{k}$) to the auxiliary
+goal of proving the equality (\ref{pf.thm.fps.gen-newton.polyeq}) for each
+$k\in\mathbb{N}$. However, this doesn't look very useful, since
+(\ref{pf.thm.fps.gen-newton.polyeq}) is too messy an equality to have a simple
+proof. We are seemingly stuck.
+
+However, it turns out that we are almost there -- we just need to take a
+bird's eye view. Here is the plan: We fix $k\in\mathbb{N}$. Instead of trying
+to prove the equality (\ref{pf.thm.fps.gen-newton.polyeq}) directly, we
+observe that both sides of this equality are polynomials (with rational
+coefficients) in $c$. (Indeed, the left hand side is clearly a polynomial in
+$c$, since it is a finite sum of \textquotedblleft rational number times a
+power of $c$\textquotedblright\ expressions. The right hand side is a
+polynomial in $c$ because $\dbinom{c}{k}=\dfrac{c\left(  c-1\right)  \left(
+c-2\right)  \cdots\left(  c-k+1\right)  }{k!}$.) Thus, the polynomial identity
+trick (which we learnt in Subsection \ref{subsec.gf.defs.cvi}) tells us that
+if we can prove this equality (\ref{pf.thm.fps.gen-newton.polyeq}) for each
+$c\in\mathbb{N}$, then it will automatically hold for each $c\in K$ (since the
+two polynomials that yield its left and right hand sides will have to be
+equal, having infinitely many equal values). Hence, in order to prove
+(\ref{pf.thm.fps.gen-newton.polyeq}) for each $c\in K$, it suffices to prove
+it for each $c\in\mathbb{N}$. Now, how can we prove it for each $c\in
+\mathbb{N}$ ? We forget that we fixed $k$, and we remember that the equality
+(\ref{pf.thm.fps.gen-newton.polyeq}) (for all $k\in\mathbb{N}$) is just an
+equivalent restatement of the FPS equality $\left(  1+x\right)  ^{c}%
+=\sum_{k\in\mathbb{N}}\dbinom{c}{k}x^{k}$ (that is, the equality we have
+originally set out to prove). However, we know for sure that this equality
+holds for each $c\in\mathbb{N}$ (by Theorem \ref{thm.fps.newton-binom},
+applied to $n=c$). Hence, the equality (\ref{pf.thm.fps.gen-newton.polyeq})
+also holds for each $c\in\mathbb{N}$ (and each $k\in\mathbb{N}$). And this is
+precisely what we needed to show!
+
+Let me explain this argument in detail now, as it is somewhat
+vertigo-inducing. We forget that we fixed $K$ and $c$. Now, fix $c\in
+\mathbb{N}$. Thus, $c\in\mathbb{N}\subseteq\mathbb{Z}$. Hence, in the ring
+$\mathbb{Q}\left[  \left[  x\right]  \right]  $, we have%
+\[
+\left(  1+x\right)  ^{c}=\sum_{k\in\mathbb{N}}\dbinom{c}{k}x^{k}%
+\ \ \ \ \ \ \ \ \ \ \left(  \text{by Theorem \ref{thm.fps.newton-binom},
+applied to }n=c\right)  .
+\]
+However, (\ref{pf.thm.fps.gen-newton.5}) (applied to $K=\mathbb{Q}$) shows
+that%
+\[
+\left(  1+x\right)  ^{c}=\sum_{k\in\mathbb{N}}\left(  \sum_{\left(
+n_{1},n_{2},\ldots,n_{m}\right)  \in\operatorname*{Comp}\left(  k\right)
+}\dfrac{1}{m!}\cdot\dfrac{\left(  -1\right)  ^{n_{1}+n_{2}+\cdots+n_{m}-m}%
+}{n_{1}n_{2}\cdots n_{m}}c^{m}\right)  x^{k}.
+\]
+Comparing these two equalities, we obtain%
+\[
+\sum_{k\in\mathbb{N}}\left(  \sum_{\left(  n_{1},n_{2},\ldots,n_{m}\right)
+\in\operatorname*{Comp}\left(  k\right)  }\dfrac{1}{m!}\cdot\dfrac{\left(
+-1\right)  ^{n_{1}+n_{2}+\cdots+n_{m}-m}}{n_{1}n_{2}\cdots n_{m}}c^{m}\right)
+x^{k}=\sum_{k\in\mathbb{N}}\dbinom{c}{k}x^{k}.
+\]
+Comparing coefficients in this equality, we see that%
+\begin{equation}
+\sum_{\left(  n_{1},n_{2},\ldots,n_{m}\right)  \in\operatorname*{Comp}\left(
+k\right)  }\dfrac{1}{m!}\cdot\dfrac{\left(  -1\right)  ^{n_{1}+n_{2}%
++\cdots+n_{m}-m}}{n_{1}n_{2}\cdots n_{m}}c^{m}=\dbinom{c}{k}
+\label{pf.thm.fps.gen-newton.finale.1}%
+\end{equation}
+for each $k\in\mathbb{N}$. This is an equality between two rational numbers.
+
+Now, forget that we fixed $c$. We thus have shown that
+(\ref{pf.thm.fps.gen-newton.finale.1}) holds for each $k\in\mathbb{N}$ and
+each $c\in\mathbb{N}$.
+
+Let us now fix $k\in\mathbb{N}$. We have just shown that the equality
+(\ref{pf.thm.fps.gen-newton.finale.1}) holds for each $c\in\mathbb{N}$. In
+other words, the two polynomials%
+\[
+f:=\sum_{\left(  n_{1},n_{2},\ldots,n_{m}\right)  \in\operatorname*{Comp}%
+\left(  k\right)  }\dfrac{1}{m!}\cdot\dfrac{\left(  -1\right)  ^{n_{1}%
++n_{2}+\cdots+n_{m}-m}}{n_{1}n_{2}\cdots n_{m}}x^{m}\in\mathbb{Q}\left[
+x\right]
+\]
+and%
+\[
+g:=\dbinom{x}{k}=\dfrac{x\left(  x-1\right)  \left(  x-2\right)  \cdots\left(
+x-k+1\right)  }{k!}\in\mathbb{Q}\left[  x\right]
+\]
+satisfy $f\left[  c\right]  =g\left[  c\right]  $ for each $c\in\mathbb{N}$
+(because $f\left[  c\right]  $ is the left hand side of
+(\ref{pf.thm.fps.gen-newton.finale.1}), while $g\left[  c\right]  $ is the
+right hand side of (\ref{pf.thm.fps.gen-newton.finale.1})). Thus, each
+$c\in\mathbb{N}$ satisfies $\left(  f-g\right)  \left[  c\right]
+=\underbrace{f\left[  c\right]  }_{=g\left[  c\right]  }-\,g\left[  c\right]
+=g\left[  c\right]  -g\left[  c\right]  =0$. In other words, each
+$c\in\mathbb{N}$ is a root of $f-g$. Hence, the polynomial $f-g$ has
+infinitely many roots in $\mathbb{Q}$ (since there are infinitely many
+$c\in\mathbb{N}$). Since $f-g$ is a polynomial with rational coefficients,
+this is impossible unless $f-g=0$. We thus must have $f-g=0$, so that $f=g$.
+In other words,
+\begin{equation}
+\sum_{\left(  n_{1},n_{2},\ldots,n_{m}\right)  \in\operatorname*{Comp}\left(
+k\right)  }\dfrac{1}{m!}\cdot\dfrac{\left(  -1\right)  ^{n_{1}+n_{2}%
++\cdots+n_{m}-m}}{n_{1}n_{2}\cdots n_{m}}x^{m}=\dbinom{x}{k}
+\label{pf.thm.fps.gen-newton.finale.4}%
+\end{equation}
+holds in the polynomial ring $\mathbb{Q}\left[  x\right]  $.
+
+Now, forget that we fixed $k$. We thus have shown that the equality
+(\ref{pf.thm.fps.gen-newton.finale.4}) holds for each $k\in\mathbb{N}$.
+
+Now, fix a commutative $\mathbb{Q}$-algebra $K$ and an arbitrary element $c\in
+K$. For each $k\in\mathbb{N}$, we then have%
+\begin{equation}
+\sum_{\left(  n_{1},n_{2},\ldots,n_{m}\right)  \in\operatorname*{Comp}\left(
+k\right)  }\dfrac{1}{m!}\cdot\dfrac{\left(  -1\right)  ^{n_{1}+n_{2}%
++\cdots+n_{m}-m}}{n_{1}n_{2}\cdots n_{m}}c^{m}=\dbinom{c}{k}
+\label{pf.thm.fps.gen-newton.finale.5}%
+\end{equation}
+(by substituting $c$ for $x$ on both sides of the equality
+(\ref{pf.thm.fps.gen-newton.finale.4})). Consequently, we can rewrite
+(\ref{pf.thm.fps.gen-newton.5}) as%
+\[
+\left(  1+x\right)  ^{c}=\sum_{k\in\mathbb{N}}\dbinom{c}{k}x^{k}.
+\]
+This proves Theorem \ref{thm.fps.gen-newton}.
+\end{proof}
+
+The method we used in the above proof is worth recapitulating in broad strokes:
+
+\begin{itemize}
+\item We had to prove a fairly abstract statement (namely, the identity
+$\left(  1+x\right)  ^{c}=\sum_{k\in\mathbb{N}}\dbinom{c}{k}x^{k}$).
+
+\item We translated this statement into an awkward but more concrete statement
+(namely, the equality (\ref{pf.thm.fps.gen-newton.polyeq})).
+
+\item We then argued that this concrete statement needs only to be proven in a
+special case (viz., for all $c\in\mathbb{N}$ rather than for all $c\in K$),
+because it is an equality between two polynomials with rational coefficients.
+
+\item To prove this concrete statement in this special case, we translated it
+back into the abstract language of FPSs, and realized that in this special
+case it is already known (as a consequence of Theorem
+\ref{thm.fps.newton-binom}).
+\end{itemize}
+
+Thus, by strategically switching between the abstract and the concrete, we
+have managed to use the advantages of both sides.
+
+Now that Theorem \ref{thm.fps.gen-newton} is proved, Example 2 from Section
+\ref{sec.gf.exas} is fully justified (since we can obtain
+(\ref{eq.sec.gf.exas.2.(1+x)1/2}) by applying Theorem \ref{thm.fps.gen-newton}
+to $K=\mathbb{Q}$ and $c=1/2$).
+
+\subsubsection{Another application}
+
+Let us show yet another application of powers with non-integer exponents and
+the generalized Newton formula. We shall show the following binomial identity:
+
+\begin{proposition}
+\label{prop.binom.nCk-2i-qedmo.CN}Let $n\in\mathbb{C}$ and $k\in\mathbb{N}$.
+Then,%
+\[
+\sum_{i=0}^{k}\dbinom{n+i-1}{i}\dbinom{n}{k-2i}=\dbinom{n+k-1}{k}.
+\]
+
+\end{proposition}
+
+Proposition \ref{prop.binom.nCk-2i-qedmo.CN} can be proved in various ways.
+For example, a mostly combinatorial proof is found in \cite[Exercise 2.10.7
+and Exercise 2.10.8]{19fco}\footnote{Specifically, \cite[Exercise
+2.10.7]{19fco} proves Proposition \ref{prop.binom.nCk-2i-qedmo.CN} in the
+particular case when $n\in\mathbb{N}$; then, \cite[Exercise 2.10.8]{19fco}
+extends it to the case when $n\in\mathbb{R}$. However, the latter argument can
+just as well be used to extend it to arbitrary $n\in\mathbb{C}$.}. We shall
+give a proof using generating functions instead.
+
+\begin{proof}
+[Proof of Proposition \ref{prop.binom.nCk-2i-qedmo.CN}.]Define two FPSs
+$f,g\in\mathbb{C}\left[  \left[  x\right]  \right]  $ by
+\begin{align}
+f  &  =\sum_{i\in\mathbb{N}}\dbinom{n+i-1}{i}x^{2i}%
+\label{pf.prop.binom.nCk-2i-qedmo.CN.f=}\\
+\text{and}\ \ \ \ \ \ \ \ \ \ g  &  =\sum_{j\in\mathbb{N}}\dbinom{n}{j}x^{j}.
+\label{pf.prop.binom.nCk-2i-qedmo.CN.g=}%
+\end{align}
+(We will soon see why we chose to define them this way.) Multiplying the two
+equalities (\ref{pf.prop.binom.nCk-2i-qedmo.CN.f=}) and
+(\ref{pf.prop.binom.nCk-2i-qedmo.CN.g=}), we find%
+\begin{align*}
+fg  &  =\left(  \sum_{i\in\mathbb{N}}\dbinom{n+i-1}{i}x^{2i}\right)  \left(
+\sum_{j\in\mathbb{N}}\dbinom{n}{j}x^{j}\right) \\
+&  =\underbrace{\sum_{i\in\mathbb{N}}\ \ \sum_{j\in\mathbb{N}}}_{=\sum
+_{\left(  i,j\right)  \in\mathbb{N}\times\mathbb{N}}}\ \ \underbrace{\dbinom
+{n+i-1}{i}x^{2i}\dbinom{n}{j}x^{j}}_{=\dbinom{n+i-1}{i}\dbinom{n}{j}x^{2i+j}%
+}\\
+&  =\underbrace{\sum_{\left(  i,j\right)  \in\mathbb{N}\times\mathbb{N}}%
+}_{=\sum_{m\in\mathbb{N}}\ \ \sum_{\substack{\left(  i,j\right)  \in
+\mathbb{N}\times\mathbb{N};\\2i+j=m}}}\dbinom{n+i-1}{i}\dbinom{n}{j}x^{2i+j}\\
+&  =\sum_{m\in\mathbb{N}}\ \ \sum_{\substack{\left(  i,j\right)  \in
+\mathbb{N}\times\mathbb{N};\\2i+j=m}}\dbinom{n+i-1}{i}\dbinom{n}%
+{j}\underbrace{x^{2i+j}}_{\substack{=x^{m}\\\text{(since }2i+j=m\text{)}}}\\
+&  =\sum_{m\in\mathbb{N}}\ \ \sum_{\substack{\left(  i,j\right)  \in
+\mathbb{N}\times\mathbb{N};\\2i+j=m}}\dbinom{n+i-1}{i}\dbinom{n}{j}x^{m}\\
+&  =\sum_{m\in\mathbb{N}}\left(  \sum_{\substack{\left(  i,j\right)
+\in\mathbb{N}\times\mathbb{N};\\2i+j=m}}\dbinom{n+i-1}{i}\dbinom{n}{j}\right)
+x^{m}.
+\end{align*}
+Hence, the $x^{k}$-coefficient of this FPS $fg$ is%
+\begin{equation}
+\left[  x^{k}\right]  \left(  fg\right)  =\sum_{\substack{\left(  i,j\right)
+\in\mathbb{N}\times\mathbb{N};\\2i+j=k}}\dbinom{n+i-1}{i}\dbinom{n}{j}.
+\label{pf.prop.binom.nCk-2i-qedmo.CN.3}%
+\end{equation}
+
+
+Now, a pair $\left(  i,j\right)  \in\mathbb{N}\times\mathbb{N}$ satisfying
+$2i+j=k$ is uniquely determined by its first entry $i$, since its second entry
+$j$ is given by $j=k-2i$. Hence, we can substitute $\left(  i,k-2i\right)  $
+for $\left(  i,j\right)  $ in the sum $\sum_{\substack{\left(  i,j\right)
+\in\mathbb{N}\times\mathbb{N};\\2i+j=k}}\dbinom{n+i-1}{i}\dbinom{n}{j}$, thus
+rewriting this sum as $\sum_{\substack{i\in\mathbb{N};\\k-2i\in\mathbb{N}%
+}}\dbinom{n+i-1}{i}\dbinom{n}{k-2i}$. Hence,%
+\begin{align*}
+\sum_{\substack{\left(  i,j\right)  \in\mathbb{N}\times\mathbb{N}%
+;\\2i+j=k}}\dbinom{n+i-1}{i}\dbinom{n}{j}  &  =\sum_{\substack{i\in
+\mathbb{N};\\k-2i\in\mathbb{N}}}\dbinom{n+i-1}{i}\dbinom{n}{k-2i}\\
+&  =\sum_{\substack{i\in\mathbb{N};\\2i\leq k}}\dbinom{n+i-1}{i}\dbinom
+{n}{k-2i}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{since an }i\in\mathbb{N}\text{ satisfies }k-2i\in\mathbb{N}\\
+\text{if and only if it satisfies }2i\leq k
+\end{array}
+\right) \\
+&  =\sum_{\substack{i\in\mathbb{N};\\i\leq k}}\dbinom{n+i-1}{i}\dbinom
+{n}{k-2i}%
+\end{align*}
+(here, we have replaced the condition \textquotedblleft$2i\leq k$%
+\textquotedblright\ under the summation sign by the weaker condition
+\textquotedblleft$i\leq k$\textquotedblright, thus extending the range of the
+sum; but this did not change the sum, since all the newly introduced addends
+are $0$ because of the vanishing $\dbinom{n}{k-2i}$ factor). Thus,
+(\ref{pf.prop.binom.nCk-2i-qedmo.CN.3}) becomes%
+\begin{align}
+\left[  x^{k}\right]  \left(  fg\right)   &  =\sum_{\substack{\left(
+i,j\right)  \in\mathbb{N}\times\mathbb{N};\\2i+j=k}}\dbinom{n+i-1}{i}%
+\dbinom{n}{j}\nonumber\\
+&  =\sum_{\substack{i\in\mathbb{N};\\i\leq k}}\dbinom{n+i-1}{i}\dbinom
+{n}{k-2i}\nonumber\\
+&  =\sum_{i=0}^{k}\dbinom{n+i-1}{i}\dbinom{n}{k-2i}.
+\label{pf.prop.binom.nCk-2i-qedmo.CN.5}%
+\end{align}
+Note that the right hand side here is precisely the left hand side of the
+identity we are trying to prove. This is why we defined $f$ and $g$ as we did.
+With a bit of experience, the computation above can easily be
+reverse-engineered, and the definitions of $f$ and $g$ are essentially forced
+by the goal of making (\ref{pf.prop.binom.nCk-2i-qedmo.CN.5}) hold.
+
+Anyway, it is now clear that a simple expression for $fg$ would move us
+forward. So let us try to simplify $f$ and $g$. For $g$, the answer is
+easiest: We have%
+\[
+g=\sum_{j\in\mathbb{N}}\dbinom{n}{j}x^{j}=\left(  1+x\right)  ^{n},
+\]
+because Theorem \ref{thm.fps.gen-newton} (applied to $c=n$) yields $\left(
+1+x\right)  ^{n}=\sum_{j\in\mathbb{N}}\dbinom{n}{j}x^{j}$. For $f$, we need a
+few more steps. Proposition \ref{prop.fps.anti-newton-binom} yields%
+\begin{equation}
+\left(  1+x\right)  ^{-n}=\sum_{i\in\mathbb{N}}\left(  -1\right)  ^{i}%
+\dbinom{n+i-1}{i}x^{i}. \label{pf.prop.binom.nCk-2i-qedmo.CN.9}%
+\end{equation}
+Substituting $-x^{2}$ for $x$ on both sides of this equality, we obtain%
+\begin{align*}
+\left(  1-x^{2}\right)  ^{-n}  &  =\sum_{i\in\mathbb{N}}\left(  -1\right)
+^{i}\dbinom{n+i-1}{i}\underbrace{\left(  -x^{2}\right)  ^{i}}_{=\left(
+-1\right)  ^{i}x^{2i}}=\sum_{i\in\mathbb{N}}\left(  -1\right)  ^{i}%
+\dbinom{n+i-1}{i}\left(  -1\right)  ^{i}x^{2i}\\
+&  =\sum_{i\in\mathbb{N}}\underbrace{\left(  -1\right)  ^{i}\left(  -1\right)
+^{i}}_{=1}\dbinom{n+i-1}{i}x^{2i}=\sum_{i\in\mathbb{N}}\dbinom{n+i-1}{i}%
+x^{2i}=f
+\end{align*}
+and thus $f=\left(  1-x^{2}\right)  ^{-n}$. Multiplying this equality by
+$g=\left(  1+x\right)  ^{n}$, we obtain%
+\begin{align*}
+fg  &  =\left(  1-x^{2}\right)  ^{-n}\left(  1+x\right)  ^{n}=\left(
+\dfrac{1+x}{1-x^{2}}\right)  ^{n}=\left(  \dfrac{1-x^{2}}{1+x}\right)  ^{-n}\\
+&  =\left(  1-x\right)  ^{-n}\ \ \ \ \ \ \ \ \ \ \left(  \text{since }%
+\dfrac{1-x^{2}}{1+x}=\dfrac{\left(  1-x\right)  \left(  1+x\right)  }%
+{1+x}=1-x\right) \\
+&  =\sum_{i\in\mathbb{N}}\left(  -1\right)  ^{i}\dbinom{n+i-1}{i}%
+\underbrace{\left(  -x\right)  ^{i}}_{=\left(  -1\right)  ^{i}x^{i}}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{this follows by
+substituting }-x\text{ for }x\text{ on both sides of
+(\ref{pf.prop.binom.nCk-2i-qedmo.CN.9})}\right) \\
+&  =\sum_{i\in\mathbb{N}}\left(  -1\right)  ^{i}\dbinom{n+i-1}{i}\left(
+-1\right)  ^{i}x^{i}=\sum_{i\in\mathbb{N}}\underbrace{\left(  -1\right)
+^{i}\left(  -1\right)  ^{i}}_{=1}\dbinom{n+i-1}{i}x^{i}\\
+&  =\sum_{i\in\mathbb{N}}\dbinom{n+i-1}{i}x^{i}.
+\end{align*}
+Hence, the $x^{k}$-coefficient in $fg$ is $\left[  x^{k}\right]  \left(
+fg\right)  =\dbinom{n+k-1}{k}$. Comparing this with
+(\ref{pf.prop.binom.nCk-2i-qedmo.CN.5}), we obtain%
+\[
+\sum_{i=0}^{k}\dbinom{n+i-1}{i}\dbinom{n}{k-2i}=\dbinom{n+k-1}{k}.
+\]
+Thus, Proposition \ref{prop.binom.nCk-2i-qedmo.CN} is proved.
+\end{proof}

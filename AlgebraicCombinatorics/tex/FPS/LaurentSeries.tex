@@ -1,0 +1,565 @@
+\subsection{\label{sec.gf.laure}Laurent power series}
+
+\subsubsection{Motivation}
+
+Next, we shall try to extend the concept of FPSs to allow negative powers of
+$x$. First, however, let me motivate this by showing an example where the need
+for such negative powers arises.
+
+First, we recall the binary positional system for nonnegative integers:
+
+\begin{definition}
+A \emph{binary representation} of an integer $n$ means an essentially finite
+sequence $\left(  b_{i}\right)  _{i\in\mathbb{N}}=\left(  b_{0},b_{1}%
+,b_{2},\ldots\right)  \in\left\{  0,1\right\}  ^{\mathbb{N}}$ such that%
+\[
+n=\sum_{i\in\mathbb{N}}b_{i}2^{i}.
+\]
+(Recall that \textquotedblleft essentially finite\textquotedblright\ means
+\textquotedblleft all but finitely many $i\in\mathbb{N}$ satisfy $b_{i}%
+=0$\textquotedblright.)
+\end{definition}
+
+The following theorem is well-known (and has been proved in Subsection
+\ref{subsec.gf.prod.exa}):
+
+\begin{theorem}
+\label{thm.fps.laure.binary-rep-uniq}Each $n\in\mathbb{N}$ has a unique binary representation.
+\end{theorem}
+
+Note that we are encoding the digits (actually, bits) of a binary
+representation as essentially finite sequences instead of finite tuples. This
+way, we don't have to worry about leading zeros breaking the uniqueness in
+Theorem \ref{thm.fps.laure.binary-rep-uniq}. \medskip
+
+Let us now define a variation of binary representation:
+
+\begin{definition}
+A \emph{balanced ternary representation} of an integer $n$ means an
+essentially finite sequence $\left(  b_{i}\right)  _{i\in\mathbb{N}}=\left(
+b_{0},b_{1},b_{2},\ldots\right)  \in\left\{  0,1,-1\right\}  ^{\mathbb{N}}$
+such that%
+\[
+n=\sum_{i\in\mathbb{N}}b_{i}3^{i}.
+\]
+
+\end{definition}
+
+Here are some examples:
+
+\begin{itemize}
+\item The integer $19$ has a balanced ternary representation $\left(
+1,0,-1,1,0,0,0,\ldots\right)  $, because%
+\[
+19=1-9+27=3^{0}-3^{2}+3^{3}=1\cdot3^{0}+\left(  -1\right)  \cdot3^{2}%
++1\cdot3^{3}.
+\]
+
+
+\item The integer $42$ has a balanced ternary representation $\left(
+0,-1,-1,-1,1,0,0,0,\ldots\right)  $, because%
+\[
+42=81-27-9-3=3^{4}-3^{3}-3^{2}-3^{1}.
+\]
+
+
+\item Note that (unlike with binary representations) even negative integers
+can have balanced ternary representations. For example, the integer $-11$ has
+a balanced ternary representation $\left(  1,-1,-1,0,0,0,\ldots\right)  $.
+\end{itemize}
+
+In the Soviet Union of the 1960s/70s, balanced ternary representations have
+been used as a foundation for computers (see
+\href{https://en.wikipedia.org/wiki/Setun}{the Setun computer}). The idea was
+shelved in the 1970s, but a noticeable amount of algorithms have been invented
+for working with balanced ternary representations. (See \cite[\S 4.1]%
+{Knuth-TAoCP2} for some discussion of these.) The following theorem (which
+goes back to Fibonacci) is crucial for making balanced ternary representations useful:
+
+\begin{theorem}
+\label{thm.fps.laure.balanced-tern-rep-uniq}Each integer $n$ has a unique
+balanced ternary representation.
+\end{theorem}
+
+There are various ways to prove this (see, e.g., \cite[solution to Exercise
+3.7.8]{20f} for an elementary one). Let us here try to prove it using FPSs
+(imitating our proof of Theorem \ref{thm.fps.laure.binary-rep-uniq} in
+Subsection \ref{subsec.gf.prod.exa}). Since the $b_{i}$ can be $-1$s, we must
+allow for negative powers of $x$.
+
+Let us first argue informally; we will later see whether we can make sense of
+what we have done. The following informal argument was proposed by Euler
+(\cite[\S 331]{Euler48}). We shall compute the product%
+\[
+\left(  1+x+x^{-1}\right)  \left(  1+x^{3}+x^{-3}\right)  \left(
+1+x^{9}+x^{-9}\right)  \cdots=\prod_{i\geq0}\left(  1+x^{3^{i}}+x^{-3^{i}%
+}\right)
+\]
+in two ways:
+
+\begin{itemize}
+\item On the one hand, this product equals%
+\begin{align}
+&  \prod_{i\geq0}\underbrace{\left(  1+x^{3^{i}}+x^{-3^{i}}\right)  }%
+_{=\sum_{b\in\left\{  0,1,-1\right\}  }x^{b\cdot3^{i}}}\nonumber\\
+&  =\prod_{i\geq0}\ \ \sum_{b\in\left\{  0,1,-1\right\}  }x^{b\cdot3^{i}%
+}\nonumber\\
+&  =\sum_{\substack{\left(  b_{0},b_{1},b_{2},\ldots\right)  \in\left\{
+0,1,-1\right\}  ^{\mathbb{N}}\\\text{is essentially finite}}}x^{b_{0}3^{0}%
+}x^{b_{1}3^{1}}x^{b_{2}3^{2}}\cdots\nonumber\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have just expanded the product using
+(\ref{eq.prop.fps.prodrule-inf-inf.eq})}\\
+\text{(hoping that (\ref{eq.prop.fps.prodrule-inf-inf.eq}) still works in our
+setting)}%
+\end{array}
+\right) \nonumber\\
+&  =\sum_{\substack{\left(  b_{0},b_{1},b_{2},\ldots\right)  \in\left\{
+0,1,-1\right\}  ^{\mathbb{N}}\\\text{is essentially finite}}}x^{b_{0}%
+3^{0}+b_{1}3^{1}+b_{2}3^{2}+\cdots}\nonumber\\
+&  =\sum_{n\in\mathbb{Z}}\ \ \sum_{\substack{\left(  b_{0},b_{1},b_{2}%
+,\ldots\right)  \in\left\{  0,1,-1\right\}  ^{\mathbb{N}}\\\text{is
+essentially finite;}\\b_{0}3^{0}+b_{1}3^{1}+b_{2}3^{2}+\cdots=n}%
+}x^{n}\nonumber\\
+&  =\sum_{n\in\mathbb{Z}}\left(  \text{\# of balanced ternary representations
+of }n\right)  \cdot x^{n}, \label{eq.thm.fps.laure.balanced-tern-rep-uniq.1}%
+\end{align}
+since a balanced ternary representation of $n$ is precisely an essentially
+finite sequence $\left(  b_{0},b_{1},b_{2},\ldots\right)  \in\left\{
+0,1,-1\right\}  ^{\mathbb{N}}$ satisfying $b_{0}3^{0}+b_{1}3^{1}+b_{2}%
+3^{2}+\cdots=n$.
+
+\item On the other hand, we have $1+x+x^{-1}=\dfrac{1-x^{3}}{x\left(
+1-x\right)  }$. Substituting $x^{3^{i}}$ for $x$ in this equality, we obtain%
+\[
+1+x^{3^{i}}+x^{-3^{i}}=\dfrac{1-\left(  x^{3^{i}}\right)  ^{3}}{x^{3^{i}%
+}\left(  1-x^{3^{i}}\right)  }=\dfrac{1-x^{3^{i+1}}}{x^{3^{i}}\left(
+1-x^{3^{i}}\right)  }\ \ \ \ \ \ \ \ \ \ \text{for each }i\geq0.
+\]
+Hence,
+\begin{align}
+&  \prod_{i\geq0}\left(  1+x^{3^{i}}+x^{-3^{i}}\right) \nonumber\\
+&  =\prod_{i\geq0}\dfrac{1-x^{3^{i+1}}}{x^{3^{i}}\left(  1-x^{3^{i}}\right)
+}\nonumber\\
+&  =\dfrac{1-x^{3}}{x\left(  1-x\right)  }\cdot\dfrac{1-x^{9}}{x^{3}\left(
+1-x^{3}\right)  }\cdot\dfrac{1-x^{27}}{x^{9}\left(  1-x^{9}\right)  }%
+\cdot\dfrac{1-x^{81}}{x^{27}\left(  1-x^{27}\right)  }\cdot\cdots\nonumber\\
+&  =\underbrace{\dfrac{1}{xx^{3}x^{9}x^{27}\cdots}}_{\substack{=x^{-\infty
+}\\\text{(whatever this means)}}}\cdot\underbrace{\dfrac{1}{1-x}}%
+_{=1+x+x^{2}+x^{3}+\cdots}\nonumber\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here we cancelled the factors }1-x^{3},\ \ 1-x^{9},\ \ 1-x^{27}%
+,\ \ \ldots\\
+\text{by a somewhat daring use of the telescope principle}%
+\end{array}
+\right) \nonumber\\
+&  =x^{-\infty}\left(  1+x+x^{2}+x^{3}+\cdots\right) \nonumber\\
+&  =\cdots+x^{-2}+x^{-1}+x^{0}+x^{1}+x^{2}+\cdots\nonumber\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{with some artistic license,}\\
+\text{since }x^{i}\left(  1+x+x^{2}+x^{3}+\cdots\right)  =x^{i}+x^{i+1}%
++x^{i+2}+\cdots\\
+\text{for each }i\in\mathbb{Z}%
+\end{array}
+\right) \nonumber\\
+&  =\sum_{n\in\mathbb{Z}}x^{n}.
+\label{eq.thm.fps.laure.balanced-tern-rep-uniq.2}%
+\end{align}
+
+\end{itemize}
+
+Comparing (\ref{eq.thm.fps.laure.balanced-tern-rep-uniq.1}) with
+(\ref{eq.thm.fps.laure.balanced-tern-rep-uniq.2}), we find%
+\[
+\sum_{n\in\mathbb{Z}}\left(  \text{\# of balanced ternary representations of
+}n\right)  \cdot x^{n}=\sum_{n\in\mathbb{Z}}x^{n}.
+\]
+Comparing coefficients, we thus conclude that%
+\[
+\left(  \text{\# of balanced ternary representations of }n\right)  =1
+\]
+for each $n\in\mathbb{Z}$. This \textquotedblleft proves\textquotedblright%
+\ Theorem \ref{thm.fps.laure.balanced-tern-rep-uniq}; we just need to make our
+computations rigorous -- i.e., define the ring in which we have been
+computing, explain what $x$ is, and justify the well-definedness of our
+infinite products and sums.
+
+Let us first play around a bit further. We have%
+\begin{align*}
+&  \left(  1-x\right)  \left(  \cdots+x^{-2}+x^{-1}+x^{0}+x^{1}+x^{2}%
++\cdots\right) \\
+&  =\left(  \cdots+x^{-2}+x^{-1}+x^{0}+x^{1}+x^{2}+\cdots\right)
+-\underbrace{x\left(  \cdots+x^{-2}+x^{-1}+x^{0}+x^{1}+x^{2}+\cdots\right)
+}_{\substack{=\cdots+x^{-1}+x^{0}+x^{1}+x^{2}+x^{3}+\cdots\\=\cdots
++x^{-2}+x^{-1}+x^{0}+x^{1}+x^{2}+\cdots}}\\
+&  =\left(  \cdots+x^{-2}+x^{-1}+x^{0}+x^{1}+x^{2}+\cdots\right)  -\left(
+\cdots+x^{-2}+x^{-1}+x^{0}+x^{1}+x^{2}+\cdots\right) \\
+&  =0.
+\end{align*}
+Thus, dividing by $1-x$, we obtain%
+\[
+\cdots+x^{-2}+x^{-1}+x^{0}+x^{1}+x^{2}+\cdots=0.
+\]
+Comparing coefficients, we conclude that%
+\[
+1=0\ \ \ \ \ \ \ \ \ \ \text{for each }n\in\mathbb{Z}.
+\]
+Oops! Looks like we have overtaxed our artistic license.
+
+So we need to be careful with negative powers of $x$. Not everything that
+looks like a valid computation actually is one. Thus, we need to be rigorous
+and delimit what can and what cannot be done with negative powers of $x$.
+
+\subsubsection{The space $K\left[  \left[  x^{\pm}\right]  \right]  $}
+
+Let us try to define \textquotedblleft FPSs with negative powers of
+$x$\textquotedblright\ formally. First, we define the largest possible space
+of such FPSs:
+
+\begin{definition}
+\label{def.fps.laure.double}Let $K\left[  \left[  x^{\pm}\right]  \right]  $
+be the $K$-module $K^{\mathbb{Z}}$ of all families $\left(  a_{n}\right)
+_{n\in\mathbb{Z}}=\left(  \ldots,a_{-2},a_{-1},a_{0},a_{1},a_{2}%
+,\ldots\right)  $ of elements of $K$. Its addition and its scaling are defined
+entrywise:%
+\begin{align*}
+\left(  a_{n}\right)  _{n\in\mathbb{Z}}+\left(  b_{n}\right)  _{n\in
+\mathbb{Z}}  &  =\left(  a_{n}+b_{n}\right)  _{n\in\mathbb{Z}};\\
+\lambda\left(  a_{n}\right)  _{n\in\mathbb{Z}}  &  =\left(  \lambda
+a_{n}\right)  _{n\in\mathbb{Z}}\ \ \ \ \ \ \ \ \ \ \text{for each }\lambda\in
+K.
+\end{align*}
+An element of $K\left[  \left[  x^{\pm}\right]  \right]  $ will be called a
+\emph{doubly infinite power series}. This name is justified by the fact that
+we will later use the notation $\sum_{n\in\mathbb{Z}}a_{n}x^{n}$ for a family
+$\left(  a_{n}\right)  _{n\in\mathbb{Z}}\in K\left[  \left[  x^{\pm}\right]
+\right]  $.
+\end{definition}
+
+Now, let us try to define a multiplication on this $K$-module $K\left[
+\left[  x^{\pm}\right]  \right]  $, in order to turn it into a $K$-algebra
+(like $K\left[  \left[  x\right]  \right]  $). This multiplication should
+satisfy%
+\[
+\left(  a_{n}\right)  _{n\in\mathbb{Z}}\cdot\left(  b_{n}\right)
+_{n\in\mathbb{Z}}=\left(  c_{n}\right)  _{n\in\mathbb{Z}}%
+,\ \ \ \ \ \ \ \ \ \ \text{where}\ \ \ \ \ \ \ \ \ \ c_{n}=\sum_{i\in
+\mathbb{Z}}a_{i}b_{n-i}%
+\]
+(since this is what we would get if we expanded $\left(  \sum_{n\in\mathbb{Z}%
+}a_{n}x^{n}\right)  \left(  \sum_{n\in\mathbb{Z}}b_{n}x^{n}\right)  $ and
+combined like powers of $x$). Unfortunately, the sum $\sum_{i\in\mathbb{Z}%
+}a_{i}b_{n-i}$ is now infinite (unlike for $K\left[  \left[  x\right]
+\right]  $), and is not always well-defined. Thus, the product $\left(
+a_{n}\right)  _{n\in\mathbb{Z}}\cdot\left(  b_{n}\right)  _{n\in\mathbb{Z}}$
+of two elements of $K\left[  \left[  x^{\pm}\right]  \right]  $ does not
+always exist\footnote{The simplest example for this is $\left(  1\right)
+_{n\in\mathbb{Z}}\cdot\left(  1\right)  _{n\in\mathbb{Z}}$. If this product
+existed, then it should be $\left(  c_{n}\right)  _{n\in\mathbb{Z}}$, where
+$c_{n}=\sum_{i\in\mathbb{Z}}1\cdot1$, but the latter sum clearly does not
+exist.}. Therefore, the $K$-module $K\left[  \left[  x^{\pm}\right]  \right]
+$ is not a $K$-algebra. This explains why our above computations have led us astray.
+
+\subsubsection{Laurent polynomials}
+
+If we cannot multiply two arbitrary elements of $K\left[  \left[  x^{\pm
+}\right]  \right]  $, can we perhaps restrict ourselves to a smaller
+$K$-submodule of $K\left[  \left[  x^{\pm}\right]  \right]  $ whose elements
+can be multiplied?
+
+One such submodule is $K\left[  \left[  x\right]  \right]  $, which is
+embedded in $K\left[  \left[  x^{\pm}\right]  \right]  $ in the
+\textquotedblleft obvious\textquotedblright\ way (by identifying each FPS
+$\left(  a_{n}\right)  _{n\in\mathbb{N}}$ with the doubly infinite power
+series $\left(  a_{n}\right)  _{n\in\mathbb{Z}}$, where we set $a_{n}:=0$ for
+all $n<0$). But there are also some others. Here is one:\footnote{For proofs
+of the statements made (implicitly and explicitly) in the following (or at
+least for the less obvious among these proofs), we refer to Section
+\ref{sec.details.gf.laure}.}
+
+\begin{definition}
+\label{def.fps.laure.laupol}Let $K\left[  x^{\pm}\right]  $ be the
+$K$-submodule of $K\left[  \left[  x^{\pm}\right]  \right]  $ consisting of
+all \textbf{essentially finite} families $\left(  a_{n}\right)  _{n\in
+\mathbb{Z}}$. This is indeed a $K$-submodule (check it!). It should be thought
+of as an analogue of the ring of polynomials $K\left[  x\right]  $, but now
+allowing for negative powers of $x$.
+
+The elements of $K\left[  x^{\pm}\right]  $ are called \emph{Laurent
+polynomials} in the indeterminate $x$ over $K$.
+
+We define a multiplication on $K\left[  x^{\pm}\right]  $ by setting%
+\[
+\left(  a_{n}\right)  _{n\in\mathbb{Z}}\cdot\left(  b_{n}\right)
+_{n\in\mathbb{Z}}=\left(  c_{n}\right)  _{n\in\mathbb{Z}}%
+,\ \ \ \ \ \ \ \ \ \ \text{where}\ \ \ \ \ \ \ \ \ \ c_{n}=\sum_{i\in
+\mathbb{Z}}a_{i}b_{n-i}.
+\]
+Note that the sum $\sum_{i\in\mathbb{Z}}a_{i}b_{n-i}$ is now well-defined,
+because it is essentially finite.
+
+We define an element $x\in K\left[  x^{\pm}\right]  $ by%
+\[
+x=\left(  \delta_{i,1}\right)  _{i\in\mathbb{Z}}%
+\]
+(where we are using the Kronecker delta notation again, as in Definition
+\ref{def.kron-delta}).
+\end{definition}
+
+\begin{theorem}
+\label{thm.fps.laure.laupol-ring}The $K$-module $K\left[  x^{\pm}\right]  $,
+equipped with the multiplication we just defined, is a commutative
+$K$-algebra. Its unity is $\left(  \delta_{i,0}\right)  _{i\in\mathbb{Z}}$.
+The element $x$ is invertible in this $K$-algebra.
+\end{theorem}
+
+This $K$-algebra $K\left[  x^{\pm}\right]  $ is called the \emph{Laurent
+polynomial ring} in one indeterminate $x$ over $K$. It is often denoted by
+$K\left[  x^{\pm1}\right]  $ or $K\left[  x,x^{-1}\right]  $ as well.
+
+\begin{proposition}
+\label{prop.fps.laure.a=sumaixi}Any doubly infinite power series $a=\left(
+a_{i}\right)  _{i\in\mathbb{Z}}\in K\left[  \left[  x^{\pm}\right]  \right]  $
+satisfies%
+\[
+a=\sum_{i\in\mathbb{Z}}a_{i}x^{i}.
+\]
+Here, the powers $x^{i}$ are taken in the Laurent polynomial ring $K\left[
+x^{\pm}\right]  $, but the infinite sum $\sum_{i\in\mathbb{Z}}a_{i}x^{i}$ is
+taken in the $K$-module $K\left[  \left[  x^{\pm}\right]  \right]  $. (The
+notions of summable families and infinite sums are defined in $K\left[
+\left[  x^{\pm}\right]  \right]  $ in the same way as they are defined in
+$K\left[  \left[  x\right]  \right]  $.)
+\end{proposition}
+
+Examples of Laurent polynomials are
+
+\begin{itemize}
+\item any polynomial in $K\left[  x\right]  $;
+
+\item $x^{-15}$;
+
+\item $x^{2}+3+7x^{-3}$.
+\end{itemize}
+
+There are other, equivalent ways to define the Laurent polynomial ring
+$K\left[  x^{\pm}\right]  $:
+
+\begin{itemize}
+\item as the group algebra of the cyclic group $\mathbb{Z}$ over $K$;
+
+\item as the localization of the polynomial ring $K\left[  x\right]  $ at the
+powers of $x$.
+\end{itemize}
+
+(These are done in some textbooks on abstract algebra -- e.g., see
+\cite[Exercise 3.6.32]{Ford21} for a quick overview.)
+
+\subsubsection{Laurent polynomials are not enough}
+
+Now let us see if we can make our above proof of Theorem
+\ref{thm.fps.laure.balanced-tern-rep-uniq} rigorous using Laurent polynomials.
+Unfortunately, $K\left[  x^{\pm}\right]  $ is \textquotedblleft too
+small\textquotedblright\ to contain the infinite product $\prod_{i\geq
+0}\left(  1+x^{3^{i}}+x^{-3^{i}}\right)  $. However, we can try using its
+partial products, which are finite. For each $k\in\mathbb{N}$, we have%
+\begin{align*}
+&  \prod_{i=0}^{k}\left(  1+x^{3^{i}}+x^{-3^{i}}\right) \\
+&  =\left(  1+x+x^{-1}\right)  \left(  1+x^{3}+x^{-3}\right)  \cdots\left(
+1+x^{3^{k}}+x^{-3^{k}}\right) \\
+&  =\dfrac{1-x^{3}}{x\left(  1-x\right)  }\cdot\dfrac{1-x^{9}}{x^{3}\left(
+1-x^{3}\right)  }\cdot\cdots\cdot\dfrac{1-x^{3^{k+1}}}{x^{3^{k}}\left(
+1-x^{3^{k}}\right)  }\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{this is somewhat unrigorous, since }1-x^{3^{i}}\text{ are not
+invertible}\\
+\text{in }K\left[  x^{\pm}\right]  \text{, but this will soon be made
+rigorous}%
+\end{array}
+\right) \\
+&  =\underbrace{\dfrac{1}{xx^{3}x^{9}\cdots x^{3^{k}}}}_{=x^{-\left(
+3^{0}+3^{1}+\cdots+3^{k}\right)  }}\cdot\underbrace{\dfrac{1-x^{3^{k+1}}}%
+{1-x}}_{=1+x+x^{2}+\cdots+x^{3^{k+1}-1}}\ \ \ \ \ \ \ \ \ \ \left(  \text{by
+cancelling factors}\right) \\
+&  =x^{-\left(  3^{0}+3^{1}+\cdots+3^{k}\right)  }\cdot\left(  1+x+x^{2}%
++\cdots+x^{3^{k+1}-1}\right) \\
+&  =x^{-\left(  3^{0}+3^{1}+\cdots+3^{k}\right)  }\cdot\left(  1+x+x^{2}%
++\cdots+x^{2\left(  3^{0}+3^{1}+\cdots+3^{k}\right)  }\right) \\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{since }%
+3^{k+1}-1=2\cdot\left(  3^{0}+3^{1}+\cdots+3^{k}\right)  \text{ (check
+this!)}\right) \\
+&  =x^{-\left(  3^{0}+3^{1}+\cdots+3^{k}\right)  }+x^{-\left(  3^{0}%
++3^{1}+\cdots+3^{k}\right)  +1}+x^{-\left(  3^{0}+3^{1}+\cdots+3^{k}\right)
++2}+\cdots+x^{3^{0}+3^{1}+\cdots+3^{k}}\\
+&  =\sum_{\substack{n\in\mathbb{Z};\\\left\vert n\right\vert \leq3^{0}%
++3^{1}+\cdots+3^{k}}}x^{n}.
+\end{align*}
+On the other hand,%
+\begin{align*}
+&  \prod_{i=0}^{k}\underbrace{\left(  1+x^{3^{i}}+x^{-3^{i}}\right)  }%
+_{=\sum_{b\in\left\{  0,1,-1\right\}  }x^{b\cdot3^{i}}}\\
+&  =\prod_{i=0}^{k}\ \ \sum_{b\in\left\{  0,1,-1\right\}  }x^{b\cdot3^{i}}\\
+&  =\sum_{\left(  b_{0},b_{1},\ldots,b_{k}\right)  \in\left\{  0,1,-1\right\}
+^{k+1}}x^{b_{0}3^{0}}x^{b_{1}3^{1}}\cdots x^{b_{k}3^{k}}%
+\ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{by expanding the product}\\
+\text{using Proposition \ref{prop.fps.prodrule-fin-fin}}%
+\end{array}
+\right) \\
+&  =\sum_{\left(  b_{0},b_{1},\ldots,b_{k}\right)  \in\left\{  0,1,-1\right\}
+^{k+1}}x^{b_{0}3^{0}+b_{1}3^{1}+\cdots+b_{k}3^{k}}\\
+&  =\sum_{n\in\mathbb{Z}}\ \ \sum_{\substack{\left(  b_{0},b_{1},\ldots
+,b_{k}\right)  \in\left\{  0,1,-1\right\}  ^{k+1};\\b_{0}3^{0}+b_{1}%
+3^{1}+\cdots+b_{k}3^{k}=n}}x^{n}\\
+&  =\sum_{n\in\mathbb{Z}}\left(  \text{\# of }k\text{-bounded balanced ternary
+representations of }n\right)  \cdot x^{n},
+\end{align*}
+where a balanced ternary representation $\left(  b_{0},b_{1},b_{2}%
+,\ldots\right)  $ is said to be $k$\emph{-bounded} if $b_{k+1}=b_{k+2}%
+=b_{k+3}=\cdots=0$. Comparing the two results, we find%
+\begin{align*}
+&  \sum_{n\in\mathbb{Z}}\left(  \text{\# of }k\text{-bounded balanced ternary
+representations of }n\right)  \cdot x^{n}\\
+&  =\sum_{\substack{n\in\mathbb{Z};\\\left\vert n\right\vert \leq3^{0}%
++3^{1}+\cdots+3^{k}}}x^{n}.
+\end{align*}
+Comparing coefficients, we thus see that each $n\in\mathbb{Z}$ satisfying
+$\left\vert n\right\vert \leq3^{0}+3^{1}+\cdots+3^{k}$ has a unique
+$k$-bounded balanced ternary representation. Letting $k\rightarrow\infty$ now
+quickly yields Theorem \ref{thm.fps.laure.balanced-tern-rep-uniq} (because any
+balanced ternary representation is $k$-bounded for any sufficiently large $k$).
+
+Thus we have proved Theorem \ref{thm.fps.laure.balanced-tern-rep-uniq} up to
+the fact that we have divided by the polynomials $1-x$, $1-x^{3}$, $1-x^{9}$,
+$\ldots$, which are not invertible in the Laurent polynomial ring $K\left[
+x^{\pm}\right]  $. In order to fill this gap, we need a new $K$-algebra: The
+Laurent polynomial ring $K\left[  x^{\pm}\right]  $ is too small, whereas the
+original $K$-module $K\left[  \left[  x^{\pm}\right]  \right]  $ is not a
+ring. We need some kind of middle ground: some $K$-module lying between
+$K\left[  x^{\pm}\right]  $ and $K\left[  \left[  x^{\pm}\right]  \right]  $
+that is a ring but allows division by $1-x$, $1-x^{3}$, $1-x^{9}$, $\ldots$
+(and, more generally, by $1-x^{i}$ for each positive integer $i$).
+
+\subsubsection{Laurent series}
+
+This middle ground is called $K\left(  \left(  x\right)  \right)  $ and is
+defined as follows:
+
+\begin{definition}
+\label{def.fps.laure.lauser}We let $K\left(  \left(  x\right)  \right)  $ be
+the subset of $K\left[  \left[  x^{\pm}\right]  \right]  $ consisting of all
+families $\left(  a_{i}\right)  _{i\in\mathbb{Z}}\in K\left[  \left[  x^{\pm
+}\right]  \right]  $ such that the sequence $\left(  a_{-1},a_{-2}%
+,a_{-3},\ldots\right)  $ is essentially finite -- i.e., such that all
+sufficiently low $i\in\mathbb{Z}$ satisfy $a_{i}=0$.
+
+The elements of $K\left(  \left(  x\right)  \right)  $ are called
+\emph{Laurent series} in one indeterminate $x$ over $K$.
+\end{definition}
+
+For example (for $K=\mathbb{Z}$):
+
+\begin{itemize}
+\item the \textquotedblleft series\textquotedblright\ $x^{-3}+x^{-2}%
++x^{-1}+x^{0}+x^{1}+\cdots$ belongs to $K\left(  \left(  x\right)  \right)  $;
+
+\item the \textquotedblleft series\textquotedblright\ $1+x^{-1}+x^{-2}%
++x^{-3}+\cdots$ does not belong to $K\left(  \left(  x\right)  \right)  $;
+
+\item the \textquotedblleft series\textquotedblright\ $\sum_{n\in\mathbb{Z}%
+}x^{n}=\cdots+x^{-2}+x^{-1}+x^{0}+x^{1}+x^{2}+\cdots$ does not belong to
+$K\left(  \left(  x\right)  \right)  $.
+\end{itemize}
+
+The subset $K\left(  \left(  x\right)  \right)  $ turns out to behave as
+nicely as we might hope for:\footnote{See Section \ref{sec.details.gf.laure}
+for a proof of Theorem \ref{thm.fps.laure.lauser-ring}.}
+
+\begin{theorem}
+\label{thm.fps.laure.lauser-ring}The subset $K\left(  \left(  x\right)
+\right)  $ is a $K$-submodule of $K\left[  \left[  x^{\pm}\right]  \right]  $.
+But it has a multiplication (unlike $K\left[  \left[  x^{\pm}\right]  \right]
+$). This multiplication is given by the same rule as the multiplication of
+$K\left[  x^{\pm}\right]  $: namely,%
+\[
+\left(  a_{n}\right)  _{n\in\mathbb{Z}}\cdot\left(  b_{n}\right)
+_{n\in\mathbb{Z}}=\left(  c_{n}\right)  _{n\in\mathbb{Z}}%
+,\ \ \ \ \ \ \ \ \ \ \text{where}\ \ \ \ \ \ \ \ \ \ c_{n}=\sum_{i\in
+\mathbb{Z}}a_{i}b_{n-i}.
+\]
+The sum $\sum_{i\in\mathbb{Z}}a_{i}b_{n-i}$ here is well-defined, because it
+is essentially finite (indeed, for all sufficiently low $i\in\mathbb{Z}$, we
+have $a_{i}=0$ and thus $a_{i}b_{n-i}=0$; on the other hand, for all
+sufficiently high $i\in\mathbb{Z}$, we have $b_{n-i}=0$ and thus $a_{i}%
+b_{n-i}=0$).
+
+Equipped with the multiplication we just defined, the $K$-module $K\left(
+\left(  x\right)  \right)  $ becomes a commutative $K$-algebra with unity
+$\left(  \delta_{i,0}\right)  _{i\in\mathbb{Z}}$.
+\end{theorem}
+
+Now, the ring $K\left(  \left(  x\right)  \right)  $ contains both the FPS
+ring $K\left[  \left[  x\right]  \right]  $ and the Laurent polynomial ring
+$K\left[  x^{\pm}\right]  $ as subrings (and actually as $K$-subalgebras).
+This makes it one of the most convenient places for formal manipulation of
+FPSs. (However, it has a disadvantage compared to the FPS ring $K\left[
+\left[  x\right]  \right]  $: Namely, you cannot easily substitute something
+for $x$ in a Laurent series $f\in K\left(  \left(  x\right)  \right)  $.)
+
+Now, our above computation of $\prod_{i=0}^{k}\left(  1+x^{3^{i}}+x^{-3^{i}%
+}\right)  $ makes perfect sense in the Laurent series ring $K\left(  \left(
+x\right)  \right)  $: Indeed, for each positive integer $i$, the power series
+$1-x^{i}$ is invertible in $K\left[  \left[  x\right]  \right]  $ and thus
+also invertible in $K\left(  \left(  x\right)  \right)  $. Hence, at last, we
+have a rigorous proof of Theorem \ref{thm.fps.laure.balanced-tern-rep-uniq}.
+
+Actually, you \textbf{could} also make sense of our original argument for
+proving Theorem \ref{thm.fps.laure.balanced-tern-rep-uniq}, with the infinite
+product $\prod_{i\geq0}\left(  1+x^{3^{i}}+x^{-3^{i}}\right)  $, as long as
+you made sure to interpret it correctly: First, compute the finite products
+$\prod_{i=0}^{k}\left(  1+x^{3^{i}}+x^{-3^{i}}\right)  $ in the ring $K\left(
+\left(  x\right)  \right)  $. Then, take their limit $\lim
+\limits_{k\rightarrow\infty}\prod_{i=0}^{k}\left(  1+x^{3^{i}}+x^{-3^{i}%
+}\right)  $ in $K\left[  \left[  x^{\pm}\right]  \right]  $ (this is not a
+ring, but the notion of a limit in $K\left[  \left[  x^{\pm}\right]  \right]
+$ is defined just as it was in $K\left[  \left[  x\right]  \right]  $).
+
+More can be said about the $K$-algebra $K\left(  \left(  x\right)  \right)  $
+when $K$ is a field: Indeed, in this case, it is itself a field! This fact
+(whose proof is Exercise \ref{exe.fps.laure.field}) is not very useful in
+combinatorics, but quite so in abstract algebra.
+
+\subsubsection{A $K\left[  x^{\pm}\right]  $-module structure on $K\left[
+\left[  x^{\pm}\right]  \right]  $}
+
+One more remark is in order. As we have explained, $K\left[  \left[  x^{\pm
+}\right]  \right]  $ is not a ring. However, some semblance of multiplication
+can be defined in $K\left[  \left[  x^{\pm}\right]  \right]  $. Namely, a
+\textquotedblleft doubly infinite power series\textquotedblright\ $\sum
+_{n\in\mathbb{Z}}a_{n}x^{n}=\left(  a_{n}\right)  _{n\in\mathbb{Z}}\in
+K\left[  \left[  x^{\pm}\right]  \right]  $ can be multiplied by a Laurent
+polynomial $\sum_{n\in\mathbb{Z}}b_{n}x^{n}=\left(  b_{n}\right)
+_{n\in\mathbb{Z}}\in K\left[  x^{\pm}\right]  $, because in this case the sums
+$\sum_{i\in\mathbb{Z}}a_{i}b_{n-i}$ will be essentially finite. Thus, while we
+cannot always multiply two elements of $K\left[  \left[  x^{\pm}\right]
+\right]  $, we can always multiply an element of $K\left[  \left[  x^{\pm
+}\right]  \right]  $ with an element of $K\left[  x^{\pm}\right]  $. This
+makes $K\left[  \left[  x^{\pm}\right]  \right]  $ into a $K\left[  x^{\pm
+}\right]  $-module. The equality%
+\[
+\left(  1-x\right)  \left(  \cdots+x^{-2}+x^{-1}+x^{0}+x^{1}+x^{2}%
++\cdots\right)  =0
+\]
+reveals that this module has torsion (i.e., a product of two nonzero factors
+can be zero). Thus, while we can multiply a doubly infinite power series by
+$1-x$, we cannot (in general) divide it by $1-x$.

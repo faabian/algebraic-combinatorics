@@ -1,0 +1,236 @@
+\subsection{\label{sec.gf.multivar}Multivariate FPSs}%
+
+\[%
+\begin{tabular}
+[c]{||l||}\hline\hline
+\textbf{TODO: This section needs more details.}\\\hline\hline
+\end{tabular}
+\]
+
+
+Multivariate FPSs are just FPSs in several variables. Their theory is mostly
+analogous to the theory of univariate FPSs (which is what we have been
+studying above), but requires more subscripts. I will just discuss the main differences.
+
+For instance, FPSs in two variables $x$ and $y$ have the form $\sum
+_{i,j\in\mathbb{N}}a_{i,j}x^{i}y^{j}$, where the summation sign $\sum
+_{i,j\in\mathbb{N}}$ means $\sum_{\left(  i,j\right)  \in\mathbb{N}^{2}}$ of
+course. Formally, such an FPS is a family $\left(  a_{i,j}\right)  _{\left(
+i,j\right)  \in\mathbb{N}^{2}}$ of elements of $K$. The indeterminates $x$ and
+$y$ are defined by%
+\[
+x=\left(  \delta_{\left(  i,j\right)  ,\left(  1,0\right)  }\right)  _{\left(
+i,j\right)  \in\mathbb{N}^{2}}\ \ \ \ \ \ \ \ \ \ \text{and}%
+\ \ \ \ \ \ \ \ \ \ y=\left(  \delta_{\left(  i,j\right)  ,\left(  0,1\right)
+}\right)  _{\left(  i,j\right)  \in\mathbb{N}^{2}}%
+\]
+(so that each indeterminate has exactly one coefficient equal to $1$, while
+all other coefficients are $0$). The rules for addition, subtraction, scaling
+and multiplication are essentially as they are for univariate FPSs, except
+that now the indexing set is $\mathbb{N}^{2}$ instead of $\mathbb{N}$. For
+example, multiplication of FPSs in $x$ and $y$ is defined by the formula%
+\[
+\left[  x^{n}y^{m}\right]  \left(  ab\right)  =\sum_{\substack{\left(
+i,j\right)  ,\ \left(  k,\ell\right)  \in\mathbb{N}^{2};\\i+k=n;\\j+\ell
+=m}}\left[  x^{i}y^{j}\right]  a\cdot\left[  x^{k}y^{\ell}\right]  b
+\]
+(for any two FPSs $a$ and $b$ and any $n,m\in\mathbb{N}$).
+
+More generally, for any $k\in\mathbb{N}$, the FPSs in $k$ variables
+$x_{1},x_{2},\ldots,x_{k}$ are defined to be the families $\left(
+a_{\mathbf{i}}\right)  _{\mathbf{i}\in\mathbb{N}^{k}}$ of elements of $K$
+indexed by $k$-tuples $\mathbf{i}=\left(  i_{1},i_{2},\ldots,i_{k}\right)
+\in\mathbb{N}^{k}$. Addition, subtraction and scaling of such families is
+defined entrywise. Multiplication is defined by the formula%
+\[
+\left[  \mathbf{x}^{\mathbf{n}}\right]  \left(  ab\right)  =\sum
+_{\substack{\mathbf{i},\mathbf{j}\in\mathbb{N}^{k};\\\mathbf{i}+\mathbf{j}%
+=\mathbf{n}}}\left[  \mathbf{x}^{\mathbf{i}}\right]  a\cdot\left[
+\mathbf{x}^{\mathbf{j}}\right]  b
+\]
+(for any two FPSs $a$ and $b$ and any $\mathbf{n}\in\mathbb{N}^{k}$), where
+
+\begin{itemize}
+\item the sum $\mathbf{i}+\mathbf{j}$ means the entrywise sum of the
+$k$-tuples $\mathbf{i}$ and $\mathbf{j}$ (that is, $\mathbf{i}+\mathbf{j}%
+=\left(  i_{1}+j_{1},i_{2}+j_{2},\ldots,i_{k}+j_{k}\right)  $, where
+$\mathbf{i}=\left(  i_{1},i_{2},\ldots,i_{k}\right)  $ and $\mathbf{j}=\left(
+j_{1},j_{2},\ldots,j_{k}\right)  $);
+
+\item if $\mathbf{m}\in\mathbb{N}^{k}$ and $h$ is an FPS in $x_{1}%
+,x_{2},\ldots,x_{k}$, then $\left[  \mathbf{x}^{\mathbf{m}}\right]  h$ is the
+$\mathbf{m}$-th entry of the family $h$. Just as in the univariate case, this
+entry $\left[  \mathbf{x}^{\mathbf{m}}\right]  h$ is called the
+\emph{coefficient of the monomial} $\mathbf{x}^{\mathbf{m}}:=x_{1}^{m_{1}%
+}x_{2}^{m_{2}}\cdots x_{k}^{m_{k}}$ in $h$ (where $\mathbf{m}=\left(
+m_{1},m_{2},\ldots,m_{k}\right)  $).
+\end{itemize}
+
+With this notation, the formula for $ab$ doesn't look any more complicated
+than the analogous formula in the univariate case. The only difference is that
+the monomials and the coefficients are now indexed not by the nonnegative
+integers, but by the $k$-tuples of nonnegative integers instead.
+
+The indeterminates $x_{1},x_{2},\ldots,x_{k}$ are defined by%
+\[
+x_{i}=\left(  \delta_{\mathbf{n},\left(  0,0,\ldots,0,1,0,0,\ldots,0\right)
+}\right)  _{\mathbf{n}\in\mathbb{N}^{k}},
+\]
+where the tuple $\left(  0,0,\ldots,0,1,0,0,\ldots,0\right)  $ is a $k$-tuple
+with a lone $1$ in its $i$-th position. Thus, if $\mathbf{m}=\left(
+m_{1},m_{2},\ldots,m_{k}\right)  \in\mathbb{N}^{k}$, then%
+\[
+x_{1}^{m_{1}}x_{2}^{m_{2}}\cdots x_{k}^{m_{k}}=\left(  \delta_{\mathbf{n}%
+,\mathbf{m}}\right)  _{\mathbf{n}\in\mathbb{N}^{k}},
+\]
+so that each FPS $f=\left(  f_{\mathbf{m}}\right)  _{\mathbf{m}\in
+\mathbb{N}^{k}}$ satisfies%
+\[
+f=\sum_{\mathbf{m}=\left(  m_{1},m_{2},\ldots,m_{k}\right)  \in\mathbb{N}^{k}%
+}f_{\mathbf{m}}x_{1}^{m_{1}}x_{2}^{m_{2}}\cdots x_{k}^{m_{k}}.
+\]
+
+
+Most of what we have said about FPSs in one variable applies similarly to FPSs
+in multiple variables. The proofs are similar but more laborious due to the
+need for subscripts. Instead of the derivative of an FPS, there are now $k$
+derivatives (one for each variable); they are called \emph{partial
+derivatives}. One needs to be somewhat careful with substitution -- e.g., one
+cannot substitute non-commuting elements into a multivariate polynomial. For
+example, you cannot substitute two non-commuting matrices $A$ and $B$ for $x$
+and $y$ into the polynomial $xy$, at least not without sacrificing the rule
+that a value of the product of two polynomials should be the product of their
+values (since $\underbrace{x\left[  A,B\right]  }_{=A}\cdot
+\underbrace{y\left[  A,B\right]  }_{=B}=AB$ would have to equal
+$\underbrace{y\left[  A,B\right]  }_{=B}\cdot\underbrace{x\left[  A,B\right]
+}_{=A}=BA$). But you can still substitute $k$ commuting elements for the $k$
+indeterminates in a $k$-variable polynomial. You can also compose multivariate
+FPSs as long as appropriate summability conditions are satisfied.
+
+\begin{definition}
+Let $k\in\mathbb{N}$. The $K$-algebra of all FPSs in $k$ variables
+$x_{1},x_{2},\ldots,x_{k}$ over $K$ will be denoted by $K\left[  \left[
+x_{1},x_{2},\ldots,x_{k}\right]  \right]  $.
+\end{definition}
+
+Sometimes we will use different names for our variables. For example, if we
+work with $2$ variables, we will commonly call them $x$ and $y$ instead of
+$x_{1}$ and $x_{2}$. Correspondingly, we will use the notation $K\left[
+\left[  x,y\right]  \right]  $ (instead of $K\left[  \left[  x_{1}%
+,x_{2}\right]  \right]  $) for the $K$-algebra of FPSs in these two variables.
+
+Let me give an example of working with multivariate FPSs.
+
+Let us work in $K\left[  \left[  x,y\right]  \right]  $. On the one hand, we
+have%
+\begin{align*}
+\sum_{n,k\in\mathbb{N}}\dbinom{n}{k}x^{n}y^{k}  &  =\sum_{n\in\mathbb{N}%
+}\ \ \sum_{k\in\mathbb{N}}\dbinom{n}{k}x^{n}y^{k}=\sum_{n\in\mathbb{N}}%
+x^{n}\underbrace{\sum_{k\in\mathbb{N}}\dbinom{n}{k}y^{k}}_{\substack{=\left(
+1+y\right)  ^{n}\\\text{(by the binomial formula)}}}\\
+&  =\sum_{n\in\mathbb{N}}x^{n}\left(  1+y\right)  ^{n}=\sum_{n\in\mathbb{N}%
+}\left(  x\left(  1+y\right)  \right)  ^{n}=\dfrac{1}{1-x\left(  1+y\right)
+}\\
+&  \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have substituted }x\left(  1+y\right)  \text{ for }x\text{
+in}\\
+\text{the formula }\sum_{n\in\mathbb{N}}x^{n}=\dfrac{1}{1-x}\text{;}\\
+\text{this is allowed since }x\left(  1+y\right)  \text{ has constant term }0
+\end{array}
+\right) \\
+&  =\dfrac{1}{1-x}\cdot\dfrac{1}{1-\dfrac{x}{1-x}y}\ \ \ \ \ \ \ \ \ \ \left(
+\text{easy to check by computation}\right) \\
+&  =\dfrac{1}{1-x}\cdot\sum_{k\in\mathbb{N}}\left(  \dfrac{x}{1-x}y\right)
+^{k}\\
+&  \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have substituted }\dfrac{x}{1-x}y\text{ for }x\\
+\text{in the formula }\dfrac{1}{1-x}=\sum_{k\in\mathbb{N}}x^{k}%
+\end{array}
+\right) \\
+&  =\dfrac{1}{1-x}\cdot\sum_{k\in\mathbb{N}}\dfrac{x^{k}}{\left(  1-x\right)
+^{k}}y^{k}=\sum_{k\in\mathbb{N}}\dfrac{x^{k}}{\left(  1-x\right)  ^{k+1}}%
+y^{k}.
+\end{align*}
+On the other hand, we have%
+\[
+\sum_{n,k\in\mathbb{N}}\dbinom{n}{k}x^{n}y^{k}=\sum_{k\in\mathbb{N}}%
+\ \ \sum_{n\in\mathbb{N}}\dbinom{n}{k}x^{n}y^{k}=\sum_{k\in\mathbb{N}}\left(
+\sum_{n\in\mathbb{N}}\dbinom{n}{k}x^{n}\right)  y^{k}.
+\]
+Comparing these two equalities, we find%
+\begin{equation}
+\sum_{k\in\mathbb{N}}\dfrac{x^{k}}{\left(  1-x\right)  ^{k+1}}y^{k}=\sum
+_{k\in\mathbb{N}}\left(  \sum_{n\in\mathbb{N}}\dbinom{n}{k}x^{n}\right)
+y^{k}. \label{eq.fps.mulvar.exa1.xyk}%
+\end{equation}
+
+
+Now, comparing coefficients in front of $x^{i}y^{k}$ in
+(\ref{eq.fps.mulvar.exa1.xyk}), we conclude that%
+\begin{equation}
+\dfrac{x^{k}}{\left(  1-x\right)  ^{k+1}}=\sum_{n\in\mathbb{N}}\dbinom{n}%
+{k}x^{n}\ \ \ \ \ \ \ \ \ \ \text{for each }k\in\mathbb{N}.
+\label{eq.fps.mulvar.exa1.res1}%
+\end{equation}
+Let me explain in a bit more detail what I mean by \textquotedblleft comparing
+coefficients in front of $x^{i}y^{k}$\textquotedblright. What we have used is
+the following simple fact:
+
+\begin{proposition}
+\label{prop.fps.mulvar.comp-y-coeff}Let $f_{0},f_{1},f_{2},\ldots$ and
+$g_{0},g_{1},g_{2},\ldots$ be FPSs in a single variable $x$ such that%
+\begin{equation}
+\sum_{k\in\mathbb{N}}f_{k}y^{k}=\sum_{k\in\mathbb{N}}g_{k}y^{k}%
+\ \ \ \ \ \ \ \ \ \ \text{in }K\left[  \left[  x,y\right]  \right]  .
+\label{eq.prop.fps.mulvar.comp-y-coeff.ass}%
+\end{equation}
+Then, $f_{k}=g_{k}$ for each $k\in\mathbb{N}$.
+\end{proposition}
+
+\begin{proof}
+For each $k\in\mathbb{N}$, let us write the two FPSs $f_{k}$ and $g_{k}$ as
+$f_{k}=\sum_{n\in\mathbb{N}}f_{k,n}x^{n}$ and $g_{k}=\sum_{n\in\mathbb{N}%
+}g_{k,n}x^{n}$ with $f_{k,n},g_{k,n}\in K$. Then, the equality
+(\ref{eq.prop.fps.mulvar.comp-y-coeff.ass}) can be rewritten as
+\[
+\sum_{k\in\mathbb{N}}\ \ \sum_{n\in\mathbb{N}}f_{k,n}x^{n}y^{k}=\sum
+_{k\in\mathbb{N}}\ \ \sum_{n\in\mathbb{N}}g_{k,n}x^{n}y^{k}.
+\]
+Now, comparing coefficients in front of $x^{n}y^{k}$ in this equality, we
+obtain $f_{k,n}=g_{k,n}$ for each $k,n\in\mathbb{N}$. Therefore, $f_{k}=g_{k}$
+for each $k\in\mathbb{N}$. This proves Proposition
+\ref{prop.fps.mulvar.comp-y-coeff}.
+\end{proof}
+
+Now, because of (\ref{eq.fps.mulvar.exa1.xyk}), we can apply Proposition
+\ref{prop.fps.mulvar.comp-y-coeff} to $f_{k}=\dfrac{x^{k}}{\left(  1-x\right)
+^{k+1}}$ and $g_{k}=\sum_{n\in\mathbb{N}}\dbinom{n}{k}x^{n}$. Thus, we obtain
+the equality%
+\[
+\dfrac{x^{k}}{\left(  1-x\right)  ^{k+1}}=\sum_{n\in\mathbb{N}}\dbinom{n}%
+{k}x^{n}\ \ \ \ \ \ \ \ \ \ \text{for each }k\in\mathbb{N}.
+\]
+This is an equality between \textbf{univariate} FPSs, even though we have
+obtained it by manipulating \textbf{bivariate} FPSs (i.e., FPSs in two
+variables $x$ and $y$). As a homework exercise (Exercise
+\ref{exe.fps.sum-n-choose-k-xn-elementary}), you can prove this equality in a
+more elementary, univariate way. But the idea to introduce extra variables (in
+our case, in order to discover an equality) is highly useful in many
+situations (some of which we will see later in this course).
+
+\section{\label{chap.pars}Integer partitions and $q$-binomial coefficients}
+
+We have previously counted compositions of an $n\in\mathbb{N}$. These are
+(roughly speaking) ways to write $n$ as a sum of finitely many positive
+integers, where the order matters. For example, $3=3=2+1=1+2=1+1+1$, so $3$
+has $4$ compositions. Formally, compositions are tuples of positive integers.
+
+Now, let us disregard the order. There are two ways to make this rigorous:
+either we replace tuples by multisets, or we require the tuples to be weakly
+decreasing. These result in the same count, but we will use the 2nd way, just
+because tuples are easier to work with than multisets. This will lead to the
+notion of \emph{integer partitions}.

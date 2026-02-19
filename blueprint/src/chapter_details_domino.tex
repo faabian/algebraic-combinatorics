@@ -1,0 +1,896 @@
+\section{Domino tilings of height-3 rectangles}
+
+\subsection{The tilings $A_n$, $B_n$, and $C$}
+
+\begin{definition}
+\label{def.gf.weighted-set.domino.Rn3.ABC}
+\lean{AlgebraicCombinatorics.DominoTilings.TilingA, AlgebraicCombinatorics.DominoTilings.TilingB, AlgebraicCombinatorics.DominoTilings.TilingC}
+\leantarget
+\leanok
+\textbf{(a)} For each even positive
+integer $n$, we let $A_{n}$ be the domino tiling of $R_{n,3}$
+consisting of the following dominos:
+
+\begin{itemize}
+\item the horizontal dominos $\left\{  \left(  2i-1,\ 1\right)  ,\ \left(
+2i,\ 1\right)  \right\}  $ for all $i\in\left[  n/2\right]  $, which fill the
+bottom row of $R_{n,3}$, and which we call the \textbf{basement dominos};
+
+\item the vertical domino $\left\{  \left(  1,2\right)  ,\ \left(  1,3\right)
+\right\}  $ in the first column, which we call the \textbf{left wall};
+
+\item the vertical domino $\left\{  \left(  n,2\right)  ,\ \left(  n,3\right)
+\right\}  $ in the last column, which we call the \textbf{right wall};
+
+\item the horizontal dominos $\left\{  \left(  2i,\ 2\right)  ,\ \left(
+2i+1,\ 2\right)  \right\}  $ for all $i\in\left[  n/2-1\right]  $, which fill
+the middle row of $R_{n,3}$ (except for the first and last columns), and which
+we call the \textbf{middle dominos};
+
+\item the horizontal dominos $\left\{  \left(  2i,\ 3\right)  ,\ \left(
+2i+1,\ 3\right)  \right\}  $ for all $i\in\left[  n/2-1\right]  $, which fill
+the top row of $R_{n,3}$ (except for the first and last columns), and which we
+call the \textbf{top dominos}.
+\end{itemize}
+
+\textbf{(b)} For each even positive integer $n$, we let $B_{n}$ be the domino
+tiling of $R_{n,3}$ obtained by reflecting $A_{n}$ across the horizontal axis of
+symmetry of $R_{n,3}$ (swapping row $1$ with row $3$ and fixing row $2$). \medskip
+
+\textbf{(c)} We let $C$ denote the domino tiling of $R_{2,3}$ consisting of
+three horizontal dominos:
+$\left\{(1,1),(2,1)\right\}$,
+$\left\{(1,2),(2,2)\right\}$, and
+$\left\{(1,3),(2,3)\right\}$.
+\end{definition}
+
+\subsection{Properties of $A_n$, $B_n$, and $C$}
+
+\begin{lemma}
+\label{lem.details.domino.TilingA-hasTopVertical}
+\lean{AlgebraicCombinatorics.DominoTilings.TilingA_hasTopVertical}
+\leanhelper
+\leanok
+For each even $n \ge 2$, the tiling $A_n$ has a vertical domino in the top
+two squares of column~$1$, namely the left wall $\{(1,2),(1,3)\}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The left wall $\{(1,2),(1,3)\}$ is explicitly among the dominos of $A_n$,
+is vertical, lies in column~$1$, and covers rows $2$--$3$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.details.domino.TilingB-hasBottomVertical}
+\lean{AlgebraicCombinatorics.DominoTilings.TilingB_hasBottomVertical}
+\leanhelper
+\leanok
+For each even $n \ge 2$, the tiling $B_n$ has a vertical domino in the bottom
+two squares of column~$1$, namely the left wall $\{(1,1),(1,2)\}$ of $B_n$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The left wall of $B_n$ is $\{(1,1),(1,2)\}$, which is vertical, lies in
+column~$1$, and covers rows $1$--$2$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.details.domino.TilingC-noVertical}
+\lean{AlgebraicCombinatorics.DominoTilings.TilingC_noVerticalInCol1}
+\leanhelper
+\leanok
+The tiling $C$ has no vertical domino in column~$1$. All three dominos
+of $C$ are horizontal.
+\end{lemma}
+
+\begin{proof}
+\leanok
+$C$ consists of three horizontal dominos $\{(1,y),(2,y)\}$ for $y = 1, 2, 3$.
+None is vertical.
+\end{proof}
+
+\subsection{Faultfreeness of $A_n$, $B_n$, and $C$}
+
+\begin{lemma}
+\label{lem.details.domino.TilingA-faultfree}
+\lean{AlgebraicCombinatorics.DominoTilings.TilingA_isFaultfree}
+\leanhelper
+\leanok
+For each even $n \ge 2$, the tiling $A_n$ is faultfree.
+The basement dominos prevent faults between columns $2i-1$ and $2i$,
+while the middle and top dominos prevent faults between columns $2i$ and $2i+1$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Let $k$ be a column with $1 \le k < n$.
+If $k$ is even, say $k = 2j$, then the middle domino
+$\{(2j, 2), (2j+1, 2)\}$ spans columns $2j$ and $2j+1$,
+so there is no fault at column $k$.
+If $k$ is odd, say $k = 2j+1$, then the basement domino
+$\{(2j+1, 1), (2j+2, 1)\}$ spans columns $2j+1$ and $2j+2$,
+so there is no fault at column $k$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.details.domino.TilingB-faultfree}
+\lean{AlgebraicCombinatorics.DominoTilings.TilingB_isFaultfree}
+\leanhelper
+\leanok
+For each even $n \ge 2$, the tiling $B_n$ is faultfree.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Since $B_n$ is the reflection of $A_n$
+(Lemma~\ref{lem.details.domino.TilingB-eq-reflect}), and reflection preserves
+faultfreeness (Lemma~\ref{lem.details.domino.reflectTiling3-faultfree}),
+$B_n$ is faultfree because $A_n$ is (Lemma~\ref{lem.details.domino.TilingA-faultfree}).
+\end{proof}
+
+\begin{lemma}
+\label{lem.details.domino.TilingC-faultfree}
+\lean{AlgebraicCombinatorics.DominoTilings.TilingC_isFaultfree}
+\leanhelper
+\leanok
+The tiling $C$ is faultfree.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The only potential fault in $R_{2,3}$ is at column $1$. But the domino
+$\{(1,1),(2,1)\}$ spans columns $1$ and $2$, so there is no fault.
+\end{proof}
+
+\subsection{Reflection lemmas}
+
+\begin{definition}
+\label{def.details.domino.reflectTiling3}
+\lean{AlgebraicCombinatorics.DominoTilings.reflectTiling3}
+\leanhelper
+\leanok
+Given a tiling $T$ of $R_{n,3}$, the \emph{reflection} of $T$ is the tiling
+obtained by applying the cell map $(x, y) \mapsto (x, 4 - y)$ to every cell
+of every domino. This swaps rows $1 \leftrightarrow 3$ and fixes row $2$.
+\end{definition}
+
+\begin{proof}
+\leanok
+The reflected dominos are pairwise disjoint (since the cell map is injective)
+and their union covers $R_{n,3}$ (since the cell map is a bijection on
+$R_{n,3}$).
+\end{proof}
+
+\begin{lemma}
+\label{lem.details.domino.reflectTiling3-minCol-maxCol}
+\lean{AlgebraicCombinatorics.DominoTilings.reflectTiling3_dominos_minCol_maxCol}
+\leanhelper
+\leanok
+The reflection of a tiling preserves the minimum and maximum column
+of each domino: for every domino $d$ in $T$ and its reflected image $d'$,
+the minimum column of $d'$ equals that of $d$, and the maximum column
+of $d'$ equals that of $d$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The cell map $(x, y) \mapsto (x, 4-y)$ does not change the $x$-coordinate.
+Hence $\min$ and $\max$ of the $x$-coordinates of the cells are preserved.
+\end{proof}
+
+\begin{lemma}
+\label{lem.details.domino.reflectTiling3-faultfree}
+\lean{AlgebraicCombinatorics.DominoTilings.reflectTiling3_isFaultfree}
+\leanhelper
+\leanok
+If $T$ is a faultfree tiling of $R_{n,3}$, then its horizontal reflection
+is also faultfree.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Reflection only changes row coordinates, not column coordinates.
+Therefore the minimum and maximum column of each domino are
+preserved (Lemma~\ref{lem.details.domino.reflectTiling3-minCol-maxCol}),
+and faults (which depend only on column spans) are preserved.
+\end{proof}
+
+\begin{lemma}
+\label{lem.details.domino.reflectTiling3-top-bottom}
+\lean{AlgebraicCombinatorics.DominoTilings.reflectTiling3_hasTopVertical_iff_hasBottomVertical}
+\leanhelper
+\leanok
+A tiling $T$ of $R_{n,3}$ has a vertical domino in the top two squares
+of column $c$ if and only if its reflection has a vertical domino in the
+bottom two squares of column $c$ (and vice versa).
+\end{lemma}
+
+\begin{proof}
+\leanok
+The reflection swaps rows $1 \leftrightarrow 3$ and fixes row $2$.
+A vertical domino covering rows $2$--$3$ in column $c$ is sent to one
+covering rows $1$--$2$ in column $c$, and vice versa.
+\end{proof}
+
+\begin{lemma}
+\label{lem.details.domino.reflectTiling3-involutive}
+\lean{AlgebraicCombinatorics.DominoTilings.reflectTiling3_involutive}
+\leanhelper
+\leanok
+Reflecting a tiling of $R_{n,3}$ twice yields the original tiling.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The underlying cell reflection $(x, y) \mapsto (x, 4 - y)$ is an involution
+on cells with $1 \le y \le 3$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.details.domino.TilingB-eq-reflect}
+\lean{AlgebraicCombinatorics.DominoTilings.TilingB_eq_reflectTiling3_TilingA}
+\leanhelper
+\leanok
+For each even $n \ge 2$, $B_n$ equals the reflection of $A_n$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By direct computation of the reflected domino sets.
+The basement dominos of $A_n$ (in row $1$) reflect to the ``basement'' dominos
+of $B_n$ (in row $3$), the left wall $\{(1,2),(1,3)\}$ reflects to
+$\{(1,1),(1,2)\}$, and similarly for the right wall, middle, and top/bottom dominos.
+\end{proof}
+
+\begin{lemma}
+\label{lem.details.domino.reflectTiling3-preserves-equiv}
+\lean{AlgebraicCombinatorics.DominoTilings.reflectTiling3_preserves_TilingEquiv}
+\leanhelper
+\leanok
+If two tilings $T_1$ and $T_2$ of $R_{n,3}$ are equal,
+then their reflections are also equal.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Reflection acts on the cells of each domino, so if $T_1$ and $T_2$ are
+equal, so are their reflections.
+\end{proof}
+
+\subsection{Auxiliary lemmas for the classification}
+
+\begin{lemma}
+\label{lem.details.domino.parity}
+\lean{AlgebraicCombinatorics.DominoTilings.rectangle_tileable_iff_even}
+\leanhelper
+\leanok
+If $R_{n,3}$ admits a domino tiling, then $n$ is even (or $n = 0$).
+\end{lemma}
+
+\begin{proof}
+\leanok
+$R_{n,3}$ has $3n$ cells, and each domino covers exactly $2$ cells.
+Hence $3n$ must be even. Since $3$ is odd, $n$ must be even.
+\end{proof}
+
+\begin{lemma}
+\label{lem.details.domino.vertical-trichotomy}
+\lean{AlgebraicCombinatorics.DominoTilings.vertical_in_col1_trichotomy}
+\leanhelper
+\leanok
+If a tiling $T$ of $R_{n,3}$ has a vertical domino in column $1$,
+then either $T$ has a vertical domino in the \textbf{top} two squares
+of column~$1$ (rows $2$--$3$), or $T$ has a vertical domino in the
+\textbf{bottom} two squares of column~$1$ (rows $1$--$2$).
+\end{lemma}
+
+\begin{proof}
+\leanok
+A vertical domino in column $1$ covers two adjacent rows.
+With only $3$ rows available, the two adjacent rows must be
+$\{1,2\}$ or $\{2,3\}$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.details.domino.base-case-basement}
+\lean{AlgebraicCombinatorics.DominoTilings.base_case_basement}
+\leanhelper
+\leanok
+Let $T$ be a tiling of $R_{n,3}$ with $n \ge 2$ that has a vertical domino in the
+top two squares of column~$1$. Then $T$ contains the basement domino
+$\{(1,1),(2,1)\}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The vertical domino covers $(1,2)$ and $(1,3)$. The remaining cell
+$(1,1)$ in column~$1$ must be covered by some domino.
+It cannot be vertical (the cells above are taken).
+It cannot extend left (there is no column~$0$).
+So it must be horizontal extending right: $\{(1,1),(2,1)\}$.
+\end{proof}
+
+\begin{lemma}[Claim 1]
+\label{lem.details.domino.claim1}
+\lean{AlgebraicCombinatorics.DominoTilings.claim1_basement_middle_top}
+\leanhelper
+\leanok
+Let $T$ be a faultfree tiling of $R_{n,3}$ that has a vertical domino in the
+top two squares of column~$1$.
+For each positive integer $i < n/2$, the tiling $T$ contains:
+\begin{itemize}
+\item the basement domino $\left\{(2i-1,\, 1),\, (2i,\, 1)\right\}$,
+\item the middle domino $\left\{(2i,\, 2),\, (2i+1,\, 2)\right\}$,
+\item the top domino $\left\{(2i,\, 3),\, (2i+1,\, 3)\right\}$.
+\end{itemize}
+\end{lemma}
+
+\begin{proof}
+By strong induction on $i$.
+
+\emph{Base case ($i = 1$):}
+We must prove that $T$
+contains the basement domino $\left\{  \left(  1,1\right)  ,\ \left(
+2,1\right)  \right\}  $, the middle domino $\left\{  \left(  2,2\right)
+,\ \left(  3,2\right)  \right\}  $ and the top domino $\left\{  \left(
+2,3\right)  ,\ \left(  3,3\right)  \right\}  $. For the basement domino, we
+have already proved this (Lemma~\ref{lem.details.domino.base-case-basement}).
+For the middle and the top domino, we argue as
+follows: If $T$ had a vertical domino in the $2$-nd column, then this domino
+would cover the top two squares of that column (since the bottom square is
+already covered by the basement domino $\left\{  \left(  1,1\right)
+,\ \left(  2,1\right)  \right\}  $), and thus $T$ would have a fault between
+the $2$-nd and $3$-rd columns (since the basement domino $\left\{  \left(
+1,1\right)  ,\ \left(  2,1\right)  \right\}  $ also ends at the $2$-nd
+column), which would contradict the faultfreeness of $T$. Hence, $T$ has no
+vertical domino in the $2$-nd column. Thus, the top two squares of the $2$-nd
+column of $T$ must be covered by horizontal dominos. These horizontal dominos
+must both protrude into the $3$-rd column (since the corresponding squares in
+the $1$-st column are already covered by the left wall), and thus must be the
+middle domino $\left\{  \left(  2,2\right)  ,\ \left(  3,2\right)  \right\}  $
+and the top domino $\left\{  \left(  2,3\right)  ,\ \left(  3,3\right)
+\right\}  $.
+
+\emph{Induction step ($j \to j+1$):}
+By the induction hypothesis, $T$ contains the basement domino $\left\{  \left(  2j-1,\ 1\right)
+,\ \left(  2j,\ 1\right)  \right\}  $, the middle domino $\left\{  \left(
+2j,\ 2\right)  ,\ \left(  2j+1,\ 2\right)  \right\}  $ and the top domino
+$\left\{  \left(  2j,\ 3\right)  ,\ \left(  2j+1,\ 3\right)  \right\}  $. We
+must now show that $T$ also
+contains the basement domino $\left\{  \left(  2j+1,\ 1\right)  ,\ \left(
+2j+2,\ 1\right)  \right\}  $, the middle domino $\left\{  \left(
+2j+2,\ 2\right)  ,\ \left(  2j+3,\ 2\right)  \right\}  $ and the top domino
+$\left\{  \left(  2j+2,\ 3\right)  ,\ \left(  2j+3,\ 3\right)  \right\}  $.
+
+The square $\left(  2j+1,\ 1\right)  $ cannot be covered by a vertical
+domino in $T$, since this vertical domino would collide with the middle domino
+$\left\{  \left(  2j,\ 2\right)  ,\ \left(  2j+1,\ 2\right)  \right\}  $
+(which we already know to belong to $T$). Thus, this square must be covered by
+a horizontal domino. This horizontal domino cannot protrude into the $\left(
+2j\right)  $-th column (since it would then collide with the basement domino
+$\left\{  \left(  2j-1,\ 1\right)  ,\ \left(  2j,\ 1\right)  \right\}  $,
+which we already know to belong to $T$), and thus must be the basement domino
+$\left\{  \left(  2j+1,\ 1\right)  ,\ \left(  2j+2,\ 1\right)  \right\}  $.
+
+If $T$ had a vertical domino in the $\left(  2j+2\right)  $-nd column, then
+this domino would cover the top two squares of that column (since the bottom
+square is already covered by the basement domino $\left\{  \left(
+2j+1,\ 1\right)  ,\ \left(  2j+2,\ 1\right)  \right\}  $), and thus $T$ would
+have a fault between the $\left(  2j+2\right)  $-nd and $\left(  2j+3\right)
+$-rd columns (since the basement domino $\left\{  \left(  2j+1,\ 1\right)
+,\ \left(  2j+2,\ 1\right)  \right\}  $ also ends at the $\left(  2j+2\right)
+$-nd column), which would contradict the faultfreeness of $T$. Hence, $T$ has
+no vertical domino in the $\left(  2j+2\right)  $-nd column. Thus, the top two
+squares of the $\left(  2j+2\right)  $-nd column of $T$ must be covered by
+horizontal dominos. These horizontal dominos must both protrude into the
+$\left(  2j+3\right)  $-rd column (since the corresponding squares in the
+$\left(  2j+1\right)  $-st column are already covered by the middle domino
+$\left\{  \left(  2j,\ 2\right)  ,\ \left(  2j+1,\ 2\right)  \right\}  $ and
+the top domino $\left\{  \left(  2j,\ 3\right)  ,\ \left(  2j+1,\ 3\right)
+\right\}  $), and thus must be the middle domino $\left\{  \left(
+2j+2,\ 2\right)  ,\ \left(  2j+3,\ 2\right)  \right\}  $ and the top domino
+$\left\{  \left(  2j+2,\ 3\right)  ,\ \left(  2j+3,\ 3\right)  \right\}  $.
+\end{proof}
+
+\begin{lemma}[Claim 2]
+\label{lem.details.domino.claim2}
+\lean{AlgebraicCombinatorics.DominoTilings.claim2_n_even}
+\leanhelper
+\leanok
+Let $T$ be a faultfree tiling of $R_{n,3}$ that has a vertical domino in the
+top two squares of column~$1$. Then $n$ is even.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Since $T$ is a
+tiling of $R_{n,3}$ by dominos, the total \# of squares of $R_{n,3}$ must be
+even (since each domino covers exactly $2$ squares). But this total \# is
+$3n$. Thus, $3n$ must be even, so that $n$ must be even.
+
+(Alternatively, assuming $n$ is odd, one can derive a contradiction
+using Claim~1 applied to $i = (n-1)/2$, which forces the cell $(n,1)$
+to be covered by a domino that collides with existing ones.)
+\end{proof}
+
+\begin{lemma}
+\label{lem.details.domino.no-vertical-implies-n-eq-2}
+\lean{AlgebraicCombinatorics.DominoTilings.no_vertical_implies_n_eq_2}
+\leanhelper
+\leanok
+If $T$ is a faultfree tiling of $R_{n,3}$ with $n \ge 1$ and no vertical
+domino in column~$1$, then $n = 2$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Since the first column has no vertical domino, each of the three cells
+$(1,1)$, $(1,2)$, $(1,3)$ must be covered by a horizontal domino
+extending into column~$2$. These three dominos cover all of column~$2$ as
+well. If $n > 2$, no domino would span columns $2$ and $3$, creating a
+fault at column~$2$, which contradicts faultfreeness.
+For $n = 1$, the rectangle $R_{1,3}$ has $3$ cells, which is odd,
+so no domino tiling exists.
+\end{proof}
+
+\subsection{The classification}
+
+\begin{proposition}
+\label{prop.gf.weighted-set.domino.Rn3.ABC}
+\lean{AlgebraicCombinatorics.DominoTilings.faultfree_classification}
+\leantarget
+\leanok
+The faultfree domino tilings of
+height-$3$ rectangles are precisely the tilings%
+\[
+A_{2},A_{4},A_{6},A_{8},\ldots,\ \ \ \ \ \ \ \ \ \ B_{2},B_{4},B_{6}%
+,B_{8},\ldots,\ \ \ \ \ \ \ \ \ \ C.
+\]
+More concretely: \medskip
+
+\textbf{(a)} The faultfree domino tilings of a height-$3$ rectangle that
+contain a vertical domino in the \textbf{top} two squares of the first column
+are $A_{2},A_{4},A_{6},A_{8},\ldots$. \medskip
+
+\textbf{(b)} The faultfree domino tilings of a height-$3$ rectangle that
+contain a vertical domino in the \textbf{bottom} two squares of the first
+column are $B_{2},B_{4},B_{6},B_{8},\ldots$. \medskip
+
+\textbf{(c)} The only faultfree domino tiling of a height-$3$ rectangle that
+contains \textbf{no} vertical domino in the first column is $C$.
+\end{proposition}
+
+\begin{proof}
+It
+clearly suffices to prove parts \textbf{(a)}, \textbf{(b)} and \textbf{(c)}.
+We begin with the easiest part, which is \textbf{(c)}: \medskip
+
+\textbf{(c)} Clearly, $C$ is a faultfree domino tiling of $R_{2,3}$ that
+contains no vertical domino in the first column. It remains to show that $C$
+is the only such tiling.
+
+Indeed, let $T$ be any faultfree domino tiling of $R_{2,3}$ that contains no
+vertical domino in the first column. Thus, its first column must be filled
+with three horizontal dominos, which all must protrude into the second column
+and thus cover that second column as well. If $T$ had any further column, then
+$T$ would have a fault between its $2$-nd and its $3$-rd column, which is
+impossible for a faultfree tiling. Thus, $T$ must consist only of the three
+horizontal dominos already mentioned. In other words, $T=C$. \medskip
+
+\textbf{(a)} It is straightforward to check that the tilings $A_{2}%
+,A_{4},A_{6},A_{8},\ldots$ are faultfree (indeed, the basement dominos prevent
+faults between the $\left(  2i-1\right)  $-st and $\left(  2i\right)  $-th
+columns, whereas the top dominos prevent faults between the $\left(
+2i\right)  $-th and $\left(  2i+1\right)  $-st columns). Thus, they are
+faultfree domino tilings of a height-$3$ rectangle that contain a vertical
+domino in the \textbf{top} two squares of the first column. It remains to show
+that they are the only such tilings.
+
+Indeed, let $T$ be any faultfree domino tiling of a height-$3$ rectangle that
+contains a vertical domino in the \textbf{top} two squares of the first
+column. Let $n$ be the width of this rectangle (so that the rectangle is
+$R_{n,3}$). We shall show that $n$ is even, and that $T=A_{n}$.
+
+We know that $T$ contains a vertical domino in the \textbf{top} two squares of
+the first column. In other words, $T$ contains the left wall. The remaining square in the first column is the square $\left(
+1,1\right)  $, and it must thus be covered by the basement domino $\left\{
+\left(  1,1\right)  ,\ \left(  2,1\right)  \right\}  $ (since no other domino
+would fit). Hence, $T$ contains the basement domino $\left\{  \left(
+1,1\right)  ,\ \left(  2,1\right)  \right\}  $.
+
+Now, Claim 2 (Lemma~\ref{lem.details.domino.claim2}) shows that $n$ is even, so that $n/2$ is a positive integer.
+Furthermore, we know that the tiling $T$ contains the left wall, the first
+$n-1$ basement dominos
+(by Claim 1, Lemma~\ref{lem.details.domino.claim1}), all the middle dominos
+and all the top dominos
+(also by Claim 1). This leaves only the four squares $\left(  n-1,\ 1\right)
+$, $\left(  n,\ 1\right)  $, $\left(  n,\ 2\right)  $ and $\left(
+n,\ 3\right)  $ unaccounted for, but there is only one way to tile them:
+namely, with the last basement domino $\left\{  \left(  n-1,\ 1\right)
+,\ \left(  n,\ 1\right)  \right\}  $ and the right wall $\left\{  \left(
+n,2\right)  ,\ \left(  n,3\right)  \right\}  $. Thus, $T$ must contain all the
+basement dominos, all the middle dominos, all the top dominos and both walls
+(left and right). Since these dominos cover all the squares of $R_{n,3}$, this
+entails that $T$ consists precisely of these dominos. In other words,
+$T=A_{n}$. \medskip
+
+\textbf{(b)} Proposition \ref{prop.gf.weighted-set.domino.Rn3.ABC}
+\textbf{(b)} is just Proposition \ref{prop.gf.weighted-set.domino.Rn3.ABC}
+\textbf{(a)} reflected across the horizontal axis of symmetry of $R_{n,3}$.
+More precisely, if $T$ is a faultfree tiling with a bottom vertical in
+column~$1$, then its reflection $T'$ is faultfree
+(Lemma~\ref{lem.details.domino.reflectTiling3-faultfree}) with a top vertical
+in column~$1$ (Lemma~\ref{lem.details.domino.reflectTiling3-top-bottom}).
+By part~\textbf{(a)}, $T' = A_n$ for some even $n \ge 2$.
+Since $B_n$ is the reflection of $A_n$
+(Lemma~\ref{lem.details.domino.TilingB-eq-reflect}) and reflection preserves
+equality of tilings
+(Lemma~\ref{lem.details.domino.reflectTiling3-preserves-equiv}),
+reflecting back gives $T = B_n$.
+
+The overall classification follows by
+Lemma~\ref{lem.details.domino.vertical-trichotomy}: any faultfree tiling
+of $R_{n,3}$ with $n \ge 1$ falls into exactly one of the three cases
+(top vertical, bottom vertical, or no vertical in column~$1$).
+\end{proof}
+
+\begin{lemma}
+\label{lem.details.domino.classification-part-a}
+\lean{AlgebraicCombinatorics.DominoTilings.faultfree_top_vertical_classification}
+\leanhelper
+\leanok
+If $T$ is a faultfree tiling of $R_{n,3}$ with a vertical domino in the top
+two squares of column~$1$, then $n$ is even and $T = A_n$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By Claim~2, $n$ is even and $n \ge 2$.
+By Claim~1 and the base case lemma, $T$ contains all the dominos of $A_n$.
+Since both $T$ and $A_n$ tile the same rectangle, they have the same number
+of dominos, and so $T = A_n$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.details.domino.classification-part-b}
+\lean{AlgebraicCombinatorics.DominoTilings.faultfree_bottom_vertical_classification}
+\leanhelper
+\leanok
+If $T$ is a faultfree tiling of $R_{n,3}$ with a vertical domino in the bottom
+two squares of column~$1$, then $n$ is even and $T = B_n$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Reflect $T$ to obtain $T'$, which is faultfree with a top vertical in column~$1$.
+By part~\textbf{(a)}, $T' = A_n$ for some even $n \ge 2$.
+Since reflection is an involution, $T$ is the reflection of $T'$, and hence
+$T$ equals the reflection of $A_n$, which is $B_n$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.details.domino.classification-part-c}
+\lean{AlgebraicCombinatorics.DominoTilings.faultfree_no_vertical_unique}
+\leanhelper
+\leanok
+If $T$ is a faultfree tiling of $R_{2,3}$ with no vertical domino in column~$1$,
+then $T = C$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+In a $2 \times 3$ rectangle with no vertical domino in column~$1$,
+every domino must be horizontal (since a vertical domino in column~$2$
+would force its column-$1$ neighbor to also be vertical in column~$1$, or
+would leave a cell that can only be covered by a vertical domino in
+column~$1$). Hence the tiling consists of three horizontal dominos
+$\{(1,y),(2,y)\}$ for $y = 1, 2, 3$, which is exactly $C$.
+\end{proof}
+
+\subsection{Structural helpers for the classification}
+
+\begin{lemma}
+\label{lem.details.domino.hasTopVertical-implies-n-ge}
+\lean{AlgebraicCombinatorics.DominoTilings.hasTopVerticalInCol_implies_n_ge}
+\leanhelper
+\leanok
+If a tiling $T$ of $R_{n,3}$ has a vertical domino in the top two squares
+of some column $c$, then $n \ge c$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The vertical domino has column coordinate $c$. Since all cells of a
+tiling lie in $R_{n,3}$, the column coordinate satisfies $c \le n$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.details.domino.faultfree-hasTopVertical-implies-n-ge-two}
+\lean{AlgebraicCombinatorics.DominoTilings.faultfree_hasTopVerticalInCol_implies_n_ge_two}
+\leanhelper
+\leanok
+If $T$ is a faultfree tiling of $R_{n,3}$ with a vertical domino in the
+top two squares of column~$1$, then $n \ge 2$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By Claim~2 (Lemma~\ref{lem.details.domino.claim2}), $n$ is even.
+Since $T$ is nonempty (faultfree implies nonempty), $n \ge 1$,
+and being even forces $n \ge 2$.
+\end{proof}
+
+\subsection{Height-$2$ Fibonacci recurrence}
+
+These lemmas establish the Fibonacci recurrence $d_{n+2,2} = d_{n,2} + d_{n+1,2}$
+using the natural-number-based domino tiling formalization.
+
+\begin{lemma}
+\label{lem.details.domino.exists-domino-covering-11}
+\lean{AlgebraicCombinatorics.DominoTilings.DominoTiling.exists_domino_covering_11}
+\leanhelper
+\leanok
+For any tiling $T$ of $R_{n+1,2}$ (with $n + 1 \ge 1$), there exists a domino
+$d \in T$ that covers the cell $(1,1)$.
+\end{lemma}
+
+\begin{proof}
+The cell $(1,1) \in R_{n+1,2}$, and by the coverage condition, some
+domino in $T$ must contain it.
+\end{proof}
+
+\begin{lemma}
+\label{lem.details.domino.domino-covering-11-cells}
+\lean{AlgebraicCombinatorics.DominoTilings.DominoTiling.domino_covering_11_cells}
+\leanhelper
+\leanok
+If a domino $d$ in a tiling of $R_{n+2,2}$ contains $(1,1)$, then either
+$d$ is the vertical domino $\{(1,1),(1,2)\}$ or
+$d$ is the horizontal domino $\{(1,1),(2,1)\}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The domino is either horizontal or vertical. If horizontal, its second cell
+is $(2,1)$ (cannot be $(0,1)$ since $0 < 1$). If vertical, its second cell
+is $(1,2)$ (cannot be $(1,0)$ since $0 < 1$).
+\end{proof}
+
+\begin{lemma}
+\label{lem.details.domino.exists-horizontal-12}
+\lean{AlgebraicCombinatorics.DominoTilings.DominoTiling.exists_domino_covering_12_of_horizontal}
+\leanhelper
+\leanok
+If a tiling $T$ of $R_{n+2,2}$ contains a horizontal domino $d$ with
+$(1,1) \in d$, then $T$ also contains a domino $d'$ with
+$d' = \{(1,2),(2,2)\}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The cell $(1,2)$ must be covered by some domino $d'$. This $d'$ cannot
+overlap with $d$ (which occupies $(1,1)$ and $(2,1)$). The only
+possibility for $d'$ is $\{(1,2),(2,2)\}$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.details.domino.hasVerticalFirstColumn-or-horizontalPair}
+\lean{AlgebraicCombinatorics.DominoTilings.DominoTiling.hasVerticalFirstColumn_or_horizontalPair}
+\leanhelper
+\leanok
+Every tiling $T$ of $R_{n+2,2}$ either has a ``vertical first column''
+(a domino with cells $\{(1,1),(1,2)\}$) or has a ``horizontal pair''
+(two dominos with cells $\{(1,1),(2,1)\}$ and $\{(1,2),(2,2)\}$).
+\end{lemma}
+
+\begin{proof}
+\leanok
+By Lemma~\ref{lem.details.domino.exists-domino-covering-11}, some domino
+covers $(1,1)$. By Lemma~\ref{lem.details.domino.domino-covering-11-cells},
+it is either vertical (giving the first case) or horizontal (giving the
+second case by Lemma~\ref{lem.details.domino.exists-horizontal-12}).
+\end{proof}
+
+\begin{lemma}
+\label{lem.details.domino.prependVertical}
+\lean{AlgebraicCombinatorics.DominoTilings.DominoTiling.prependVertical}
+\leanhelper
+\leanok
+Given a tiling $T$ of $R_{n,2}$, prepending the vertical domino
+$\{(1,1),(1,2)\}$ and shifting all of $T$'s dominos right by $1$ gives a
+valid tiling of $R_{n+1,2}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The prepended vertical covers column~$1$; the shifted dominos cover
+columns $2$ through $n+1$. Pairwise disjointness holds by coordinate
+separation.
+\end{proof}
+
+\begin{lemma}
+\label{lem.details.domino.prependHorizontalPair}
+\lean{AlgebraicCombinatorics.DominoTilings.DominoTiling.prependHorizontalPair}
+\leanhelper
+\leanok
+Given a tiling $T$ of $R_{n,2}$, prepending the two horizontal
+dominos $\{(1,1),(2,1)\}$ and $\{(1,2),(2,2)\}$ and shifting all of $T$'s
+dominos right by $2$ gives a valid tiling of $R_{n+2,2}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The two horizontal dominos cover columns~$1$--$2$; the shifted dominos
+cover columns $3$ through $n+2$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.details.domino.restrictAfterVertical}
+\lean{AlgebraicCombinatorics.DominoTilings.DominoTiling.restrictAfterVertical}
+\leanhelper
+\leanok
+Given a tiling $T$ of $R_{n+1,2}$ that contains the vertical domino
+$\{(1,1),(1,2)\}$, removing it and shifting all other dominos left by $1$
+gives a valid tiling of $R_{n,2}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+After removing the vertical domino, the remaining dominos all have column
+coordinates $\ge 2$. Shifting left by $1$ maps them to $R_{n,2}$.
+Disjointness and coverage are preserved.
+\end{proof}
+
+\begin{lemma}
+\label{lem.details.domino.restrictAfterHorizontalPair}
+\lean{AlgebraicCombinatorics.DominoTilings.DominoTiling.restrictAfterHorizontalPair}
+\leanhelper
+\leanok
+Given a tiling $T$ of $R_{n+2,2}$ that contains both horizontal
+dominos $\{(1,1),(2,1)\}$ and $\{(1,2),(2,2)\}$, removing them and shifting
+all other dominos left by $2$ gives a valid tiling of $R_{n,2}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+After removing the two horizontal dominos, the remaining dominos all have
+column coordinates $\ge 3$. Shifting left by $2$ maps them to $R_{n,2}$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.details.domino.tiling-2-roundtrip}
+\lean{AlgebraicCombinatorics.DominoTilings.DominoTiling.tiling_2_roundtrip_TilingEquiv}
+\leanhelper
+\leanok
+For every tiling $T$ of $R_{n+2,2}$, classifying $T$ by
+its first-column structure (vertical or horizontal pair), restricting,
+and then prepending recovers $T$.
+\end{lemma}
+
+\begin{proof}
+If $T$ has a vertical first column, the restrict-then-prepend roundtrip
+produces a tiling whose dominos are the vertical domino plus all remaining
+dominos shifted right then left, recovering the original. The horizontal
+pair case is analogous.
+\end{proof}
+
+\begin{lemma}
+\label{lem.details.domino.tiling-2-from-sum-surjective}
+\lean{AlgebraicCombinatorics.DominoTilings.DominoTiling.tiling_2_from_sum_surjective_up_to_TilingEquiv}
+\leanhelper
+\leanok
+The map from $\mathrm{Tiling}(R_{n,2}) \sqcup \mathrm{Tiling}(R_{n+1,2})$
+to $\mathrm{Tiling}(R_{n+2,2})$ given by prepending the appropriate dominos
+is surjective:
+for every tiling $T$ of $R_{n+2,2}$, there exists an element $x$ of
+$\mathrm{Tiling}(R_{n,2}) \sqcup \mathrm{Tiling}(R_{n+1,2})$ whose
+prepended image equals $T$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Take $x$ to be the classification of $T$ (by its first-column structure). Then
+the prepended image equals $T$ by
+Lemma~\ref{lem.details.domino.tiling-2-roundtrip}.
+\end{proof}
+
+\begin{lemma}
+\label{lem.details.domino.tiling-2-to-sum-from-sum}
+\lean{AlgebraicCombinatorics.DominoTilings.DominoTiling.tiling_2_to_sum_from_sum}
+\leanhelper
+\leanok
+For every $x \in \mathrm{Tiling}(R_{n,2}) \sqcup \mathrm{Tiling}(R_{n+1,2})$,
+classifying the prepended tiling by its first-column structure and then
+restricting recovers $x$.
+This shows that the prepending map is injective and
+the classification map is surjective.
+\end{lemma}
+
+\begin{proof}
+\leanok
+If $x$ corresponds to a tiling $T$ of $R_{n+1,2}$: prepending a vertical
+domino produces a tiling whose first column is vertical,
+so the classification recovers $T$ after restriction.
+The key is that restricting after prepending a vertical domino recovers $T$.
+
+If $x$ corresponds to a tiling $T$ of $R_{n,2}$: prepending a horizontal pair
+produces a tiling whose first column is not vertical, so the classification
+recovers $T$ after restriction.
+\end{proof}
+
+\subsection{Bridge between $\mathbb{N}$-based and $\mathbb{Z}$-based domino tilings}
+
+\begin{definition}
+\label{def.details.domino.bridge-conversions}
+\lean{AlgebraicCombinatorics.DominoBridge.toDominoZ, AlgebraicCombinatorics.DominoBridge.toDominoN, AlgebraicCombinatorics.DominoBridge.toTilingZ}
+\leanhelper
+\leanok
+\textbf{(a)} There is a conversion from natural-number-based dominos
+(with natural number coordinates) to integer-based dominos (with integer
+coordinates) given by casting each coordinate. \medskip
+
+\textbf{(b)} There is a conversion from integer-based dominos
+with positive coordinates back to natural-number-based dominos. \medskip
+
+\textbf{(c)} There is a conversion from natural-number-based tilings
+of $R_{n,m}$ to integer-based tilings of $R_{n,m}$ obtained by converting
+each domino.
+\end{definition}
+
+\begin{proof}
+\leanok
+For the tiling conversion: the converted dominos are pairwise disjoint
+(since the coordinate casting preserves disjointness) and their union covers
+the integer-based rectangle (by the rectangle correspondence).
+\end{proof}
+
+\begin{lemma}
+\label{lem.details.domino.rectangle-correspondence}
+\lean{AlgebraicCombinatorics.DominoBridge.rectangle_correspondence}
+\leanhelper
+\leanok
+The $\mathbb{N}$-based rectangle $\{(i,j) \mid 1 \le i \le n, 1 \le j \le m\}$ and
+the $\mathbb{Z}$-based rectangle $\{(i,j) \in \mathbb{Z}^2 \mid 1 \le i \le n, 1 \le j \le m\}$
+are in bijection via the coordinate casting map.
+\end{lemma}
+
+\begin{proof}
+\leanok
+The map is injective (since $\mathbb{N} \hookrightarrow \mathbb{Z}$ is injective)
+and surjective onto elements with positive coordinates.
+\end{proof}
+
+\begin{lemma}
+\label{lem.details.domino.toDominoZ-pairwise-disjoint}
+\lean{AlgebraicCombinatorics.DominoBridge.toDominoZ_pairwise_disjoint}
+\leanhelper
+\leanok
+If a set of natural-number-based dominos is pairwise disjoint, then their images under
+the coordinate casting are also pairwise disjoint.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Since the coordinate casting preserves the cell set (up to the injective
+$\mathbb{N} \hookrightarrow \mathbb{Z}$ embedding), disjointness is preserved.
+\end{proof}
+
+\begin{lemma}
+\label{lem.details.domino.toDominoZ-cover}
+\lean{AlgebraicCombinatorics.DominoBridge.toDominoZ_cover}
+\leanhelper
+\leanok
+If a set of natural-number-based dominos covers the natural-number-based rectangle $R_{n,m}$,
+then their images under the coordinate casting cover the $\mathbb{Z}$-based rectangle
+$R_{n,m}$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Every cell $(i,j)$ in the $\mathbb{Z}$-based rectangle corresponds (via
+Lemma~\ref{lem.details.domino.rectangle-correspondence}) to a cell in the
+natural-number-based rectangle, which is covered by some domino. The image
+of that domino under the coordinate casting covers the original cell.
+\end{proof}

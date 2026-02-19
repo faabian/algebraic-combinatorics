@@ -1,0 +1,809 @@
+\subsubsection{More about lengths and simples}
+
+Let us continue studying lengths of permutations.
+
+\begin{proposition}
+\label{prop.perm.len.inv}Let $n\in\mathbb{N}$ and $\sigma\in S_{n}$. Then,
+$\ell\left(  \sigma^{-1}\right)  =\ell\left(  \sigma\right)  $.
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.perm.len.inv} (sketched).](See \cite[Exercise
+5.2 \textbf{(f)}]{detnotes} for details.)
+
+Recall that $\ell\left(  \sigma\right)  $ is the \# of inversions of $\sigma$,
+while $\ell\left(  \sigma^{-1}\right)  $ is the \# of inversions of
+$\sigma^{-1}$.
+
+Recall also that an inversion of $\sigma$ is a pair $\left(  i,j\right)
+\in\left[  n\right]  \times\left[  n\right]  $ such that $i<j$ and
+$\sigma\left(  i\right)  >\sigma\left(  j\right)  $. Likewise, an inversion of
+$\sigma^{-1}$ is a pair $\left(  u,v\right)  \in\left[  n\right]
+\times\left[  n\right]  $ such that $u<v$ and $\sigma^{-1}\left(  u\right)
+>\sigma^{-1}\left(  v\right)  $.
+
+Thus, if $\left(  i,j\right)  $ is an inversion of $\sigma$, then $\left(
+\sigma\left(  j\right)  ,\sigma\left(  i\right)  \right)  $ is an inversion of
+$\sigma^{-1}$. Hence, we obtain a map%
+\begin{align*}
+\left\{  \text{inversions of }\sigma\right\}   &  \rightarrow\left\{
+\text{inversions of }\sigma^{-1}\right\}  ,\\
+\left(  i,j\right)   &  \mapsto\left(  \sigma\left(  j\right)  ,\sigma\left(
+i\right)  \right)  .
+\end{align*}
+This map is furthermore bijective (indeed, it has an inverse map, which sends
+each $\left(  u,v\right)  \in\left\{  \text{inversions of }\sigma
+^{-1}\right\}  $ to $\left(  \sigma^{-1}\left(  v\right)  ,\sigma^{-1}\left(
+u\right)  \right)  $). Thus, the bijection principle yields%
+\[
+\left(  \text{\# of inversions of }\sigma\right)  =\left(  \text{\# of
+inversions of }\sigma^{-1}\right)  .
+\]
+In other words, $\ell\left(  \sigma\right)  =\ell\left(  \sigma^{-1}\right)
+$. This proves Proposition \ref{prop.perm.len.inv}.
+\end{proof}
+
+The following lemma is crucial for understanding lengths of permutations:
+
+\begin{lemma}
+[single swap lemma]\label{lem.perm.len.ssl}Let $n\in\mathbb{N}$, $\sigma\in
+S_{n}$ and $k\in\left[  n-1\right]  $. Then: \medskip
+
+\textbf{(a)} We have%
+\[
+\ell\left(  \sigma s_{k}\right)  =%
+\begin{cases}
+\ell\left(  \sigma\right)  +1, & \text{if }\sigma\left(  k\right)
+<\sigma\left(  k+1\right)  ;\\
+\ell\left(  \sigma\right)  -1, & \text{if }\sigma\left(  k\right)
+>\sigma\left(  k+1\right)  .
+\end{cases}
+\]
+
+
+\textbf{(b)} We have%
+\[
+\ell\left(  s_{k}\sigma\right)  =%
+\begin{cases}
+\ell\left(  \sigma\right)  +1, & \text{if }\sigma^{-1}\left(  k\right)
+<\sigma^{-1}\left(  k+1\right)  ;\\
+\ell\left(  \sigma\right)  -1, & \text{if }\sigma^{-1}\left(  k\right)
+>\sigma^{-1}\left(  k+1\right)  .
+\end{cases}
+\]
+
+
+[\textbf{Note:} If $i\in\left[  n\right]  $, then $\sigma\left(  i\right)  $
+is the \textbf{entry} in position $i$ of the one-line notation of $\sigma$,
+whereas $\sigma^{-1}\left(  i\right)  $ is the \textbf{position} in which the
+number $i$ appears in the one-line notation of $\sigma$. For example, if
+$\sigma=512364$ in one-line notation, then $\sigma\left(  6\right)  =4$ and
+$\sigma^{-1}\left(  6\right)  =5$.]
+\end{lemma}
+
+We will only outline the proof of Lemma \ref{lem.perm.len.ssl}; a detailed
+proof can be found in \cite[Exercise 5.2 \textbf{(a)}]{detnotes} (although it
+is a slightly different proof).
+
+\begin{proof}
+[Proof of Lemma \ref{lem.perm.len.ssl} (sketched).]\textbf{(b)} The
+OLN\footnote{Recall that \textquotedblleft OLN\textquotedblright\ means
+\textquotedblleft one-line notation\textquotedblright.} of $s_{k}\sigma$ is
+obtained from the OLN of $\sigma$ by swapping the two entries $k$ and $k+1$.
+This is best seen on an example: For example, if $\sigma=512364$ (in OLN),
+then $s_{3}\sigma=512463$. In general, this follows by observing that%
+\[
+\left(  s_{k}\sigma\right)  \left(  i\right)  =s_{k}\left(  \sigma\left(
+i\right)  \right)  =%
+\begin{cases}
+k+1, & \text{if }\sigma\left(  i\right)  =k;\\
+k, & \text{if }\sigma\left(  i\right)  =k+1;\\
+\sigma\left(  i\right)  , & \text{otherwise}%
+\end{cases}
+\ \ \ \ \ \ \ \ \ \ \text{for each }i\in\left[  n\right]  .
+\]
+
+
+Let us now use this observation to see how the inversions of $s_{k}\sigma$
+differ from the inversions of $\sigma$. Indeed, let us call an inversion
+$\left(  i,j\right)  $ of a permutation $\tau$ \emph{exceptional} if we have
+$\tau\left(  i\right)  =k+1$ and $\tau\left(  j\right)  =k$. All other
+inversions of $\tau$ will be called \emph{non-exceptional}.
+
+Now, we make the following observation:
+
+\begin{statement}
+\textit{Observation 1:} If $\left(  i,j\right)  $ is any non-exceptional
+inversion of $\sigma$, then $\left(  i,j\right)  $ is still a non-exceptional
+inversion of $s_{k}\sigma$.
+\end{statement}
+
+[\textit{Proof of Observation 1:} Let $\left(  i,j\right)  $ be a
+non-exceptional inversion of $\sigma$. Thus, we have the inequality
+$\sigma\left(  i\right)  >\sigma\left(  j\right)  $ (since $\left(
+i,j\right)  $ is an inversion of $\sigma$). This inequality cannot get
+reversed by applying $s_{k}$ to both its sides (i.e., we cannot have
+$s_{k}\left(  \sigma\left(  i\right)  \right)  <s_{k}\left(  \sigma\left(
+j\right)  \right)  $), since the only pair $\left(  u,v\right)  \in\left[
+n\right]  \times\left[  n\right]  $ satisfying $u>v$ and $s_{k}\left(
+u\right)  <s_{k}\left(  v\right)  $ is the pair $\left(  k+1,k\right)  $ (but
+our pair $\left(  \sigma\left(  i\right)  ,\sigma\left(  j\right)  \right)  $
+cannot equal this pair $\left(  k+1,k\right)  $, since the inversion $\left(
+i,j\right)  $ of $\sigma$ is non-exceptional). Hence, we have $s_{k}\left(
+\sigma\left(  i\right)  \right)  \geq s_{k}\left(  \sigma\left(  j\right)
+\right)  $. In other words, $\left(  s_{k}\sigma\right)  \left(  i\right)
+\geq\left(  s_{k}\sigma\right)  \left(  j\right)  $. Since the map
+$s_{k}\sigma$ is injective (being a permutation of $\left[  n\right]  $), we
+thus obtain $\left(  s_{k}\sigma\right)  \left(  i\right)  >\left(
+s_{k}\sigma\right)  \left(  j\right)  $ (since $i\neq j$). Thus, the pair
+$\left(  i,j\right)  $ is an inversion of $s_{k}\sigma$. Moreover, this
+inversion $\left(  i,j\right)  $ is non-exceptional (since otherwise we would
+have $\left(  s_{k}\sigma\right)  \left(  i\right)  =k+1$ and $\left(
+s_{k}\sigma\right)  \left(  j\right)  =k$, which would lead to $\sigma\left(
+i\right)  =k$ and $\sigma\left(  j\right)  =k+1$, which would contradict
+$\sigma\left(  i\right)  >\sigma\left(  j\right)  $). Thus, we have shown that
+$\left(  i,j\right)  $ is still a non-exceptional inversion of $s_{k}\sigma$.
+This proves Observation 1.]
+
+Similarly to Observation 1, we can prove the following:
+
+\begin{statement}
+\textit{Observation 2:} If $\left(  i,j\right)  $ is any non-exceptional
+inversion of $s_{k}\sigma$, then $\left(  i,j\right)  $ is still a
+non-exceptional inversion of $\sigma$.
+\end{statement}
+
+(Alternatively, we can obtain Observation 2 by applying Observation 1 to
+$s_{k}\sigma$ instead of $\sigma$, since we have $\underbrace{s_{k}s_{k}%
+}_{=s_{k}^{2}=\operatorname*{id}}\sigma=\sigma$.)
+
+Combining Observation 1 with Observation 2, we see that the non-exceptional
+inversions of $s_{k}\sigma$ are precisely the non-exceptional inversions of
+$\sigma$. Hence,%
+\begin{align}
+&  \left(  \text{\# of non-exceptional inversions of }s_{k}\sigma\right)
+\nonumber\\
+&  =\left(  \text{\# of non-exceptional inversions of }\sigma\right)  .
+\label{pf.lem.perm.len.ssl.eq-nonexc}%
+\end{align}
+
+
+What about the exceptional inversions? A permutation $\tau\in S_{n}$ has a
+unique exceptional inversion if $k$ appears after $k+1$ in the OLN of $\tau$
+(that is, if we have $\tau^{-1}\left(  k\right)  >\tau^{-1}\left(  k+1\right)
+$); otherwise, it has none. Thus:
+
+\begin{itemize}
+\item If $\sigma^{-1}\left(  k\right)  <\sigma^{-1}\left(  k+1\right)  $, then
+the permutation $s_{k}\sigma$ has a unique exceptional inversion, whereas the
+permutation $\sigma$ has none.
+
+\item If $\sigma^{-1}\left(  k\right)  >\sigma^{-1}\left(  k+1\right)  $, then
+the permutation $\sigma$ has a unique exceptional inversion, whereas the
+permutation $s_{k}\sigma$ has none.
+\end{itemize}
+
+Thus,%
+\begin{align}
+&  \left(  \text{\# of exceptional inversions of }s_{k}\sigma\right)
+\nonumber\\
+&  =\left(  \text{\# of exceptional inversions of }\sigma\right) \nonumber\\
+&  \ \ \ \ \ \ \ \ \ \ +%
+\begin{cases}
+1, & \text{if }\sigma^{-1}\left(  k\right)  <\sigma^{-1}\left(  k+1\right)
+;\\
+-1, & \text{if }\sigma^{-1}\left(  k\right)  >\sigma^{-1}\left(  k+1\right)  .
+\end{cases}
+\label{pf.lem.perm.len.ssl.eq-exc}%
+\end{align}
+
+
+Now, recall that each inversion of a permutation $\tau\in S_{n}$ is either
+exceptional or non-exceptional (and cannot be both at the same time). Thus,
+adding together the two equalities (\ref{pf.lem.perm.len.ssl.eq-exc}) and
+(\ref{pf.lem.perm.len.ssl.eq-nonexc}), we obtain%
+\begin{align*}
+&  \left(  \text{\# of inversions of }s_{k}\sigma\right) \\
+&  =\left(  \text{\# of inversions of }\sigma\right)  +%
+\begin{cases}
+1, & \text{if }\sigma^{-1}\left(  k\right)  <\sigma^{-1}\left(  k+1\right)
+;\\
+-1, & \text{if }\sigma^{-1}\left(  k\right)  >\sigma^{-1}\left(  k+1\right)
+\end{cases}
+\\
+&  =%
+\begin{cases}
+\left(  \text{\# of inversions of }\sigma\right)  +1, & \text{if }\sigma
+^{-1}\left(  k\right)  <\sigma^{-1}\left(  k+1\right)  ;\\
+\left(  \text{\# of inversions of }\sigma\right)  -1, & \text{if }\sigma
+^{-1}\left(  k\right)  >\sigma^{-1}\left(  k+1\right)  .
+\end{cases}
+\end{align*}
+In other words,%
+\[
+\ell\left(  s_{k}\sigma\right)  =%
+\begin{cases}
+\ell\left(  \sigma\right)  +1, & \text{if }\sigma^{-1}\left(  k\right)
+<\sigma^{-1}\left(  k+1\right)  ;\\
+\ell\left(  \sigma\right)  -1, & \text{if }\sigma^{-1}\left(  k\right)
+>\sigma^{-1}\left(  k+1\right)
+\end{cases}
+\]
+(since $\ell\left(  \tau\right)  $ denotes the \# of inversions of any
+permutation $\tau$). This proves Lemma \ref{lem.perm.len.ssl} \textbf{(b)}.
+\medskip
+
+\textbf{(a)} Applying Lemma \ref{lem.perm.len.ssl} \textbf{(b)} to
+$\sigma^{-1}$ instead of $\sigma$, we obtain%
+\begin{align}
+\ell\left(  s_{k}\sigma^{-1}\right)   &  =%
+\begin{cases}
+\ell\left(  \sigma^{-1}\right)  +1, & \text{if }\left(  \sigma^{-1}\right)
+^{-1}\left(  k\right)  <\left(  \sigma^{-1}\right)  ^{-1}\left(  k+1\right)
+;\\
+\ell\left(  \sigma^{-1}\right)  -1, & \text{if }\left(  \sigma^{-1}\right)
+^{-1}\left(  k\right)  >\left(  \sigma^{-1}\right)  ^{-1}\left(  k+1\right)
+\end{cases}
+\nonumber\\
+&  =%
+\begin{cases}
+\ell\left(  \sigma\right)  +1, & \text{if }\sigma\left(  k\right)
+<\sigma\left(  k+1\right)  ;\\
+\ell\left(  \sigma\right)  -1, & \text{if }\sigma\left(  k\right)
+>\sigma\left(  k+1\right)
+\end{cases}
+\label{pf.lem.perm.len.ssl.a.1}%
+\end{align}
+(since $\left(  \sigma^{-1}\right)  ^{-1}=\sigma$, and since Proposition
+\ref{prop.perm.len.inv} yields $\ell\left(  \sigma^{-1}\right)  =\ell\left(
+\sigma\right)  $). However, Proposition \ref{prop.perm.len.inv} (applied to
+$\sigma s_{k}$ instead of $\sigma$) yields $\ell\left(  \left(  \sigma
+s_{k}\right)  ^{-1}\right)  =\ell\left(  \sigma s_{k}\right)  $. In view of
+$\left(  \sigma s_{k}\right)  ^{-1}=\underbrace{s_{k}^{-1}}_{=s_{k}}%
+\sigma^{-1}=s_{k}\sigma^{-1}$, this rewrites as $\ell\left(  s_{k}\sigma
+^{-1}\right)  =\ell\left(  \sigma s_{k}\right)  $. Comparing this with
+(\ref{pf.lem.perm.len.ssl.a.1}), we obtain%
+\[
+\ell\left(  \sigma s_{k}\right)  =%
+\begin{cases}
+\ell\left(  \sigma\right)  +1, & \text{if }\sigma\left(  k\right)
+<\sigma\left(  k+1\right)  ;\\
+\ell\left(  \sigma\right)  -1, & \text{if }\sigma\left(  k\right)
+>\sigma\left(  k+1\right)  .
+\end{cases}
+\]
+This proves Lemma \ref{lem.perm.len.ssl} \textbf{(a)}.
+\end{proof}
+
+Lemma \ref{lem.perm.len.ssl} answers what happens to the length of a
+permutation when we compose it (from the left or the right) with a simple
+transposition $s_{k}$. What happens when we compose it with a non-simple
+transposition? The situation is more complicated, but it is still true that
+the length decreases or increases depending on whether the two entries that
+are being swapped formed an inversion or not. Here is the exact answer (stated
+only for $\sigma t_{i,j}$, but a version for $t_{i,j}\sigma$ can easily be
+derived from it):
+
+\begin{proposition}
+\label{prop.perm.lisitij}Let $n\in\mathbb{N}$ and $\sigma\in S_{n}$. Let $i$
+and $j$ be two elements of $\left[  n\right]  $ such that $i<j$. Then:
+\medskip
+
+\textbf{(a)} We have $\ell\left(  \sigma t_{i,j}\right)  <\ell\left(
+\sigma\right)  $ if $\sigma\left(  i\right)  >\sigma\left(  j\right)  $. We
+have $\ell\left(  \sigma t_{i,j}\right)  >\ell\left(  \sigma\right)  $ if
+$\sigma\left(  i\right)  <\sigma\left(  j\right)  $. \medskip
+
+\textbf{(b)} We have%
+\[
+\ell\left(  \sigma t_{i,j}\right)  =%
+\begin{cases}
+\ell\left(  \sigma\right)  -2\left\vert Q\right\vert -1, & \text{if }%
+\sigma\left(  i\right)  >\sigma\left(  j\right)  ;\\
+\ell\left(  \sigma\right)  +2\left\vert R\right\vert +1, & \text{if }%
+\sigma\left(  i\right)  <\sigma\left(  j\right)  ,
+\end{cases}
+\]
+where
+\begin{align*}
+Q  &  =\left\{  k\in\left\{  i+1,i+2,\ldots,j-1\right\}  \ \mid\ \sigma\left(
+i\right)  >\sigma\left(  k\right)  >\sigma\left(  j\right)  \right\}
+\ \ \ \ \ \ \ \ \ \ \text{and}\\
+R  &  =\left\{  k\in\left\{  i+1,i+2,\ldots,j-1\right\}  \ \mid\ \sigma\left(
+i\right)  <\sigma\left(  k\right)  <\sigma\left(  j\right)  \right\}  .
+\end{align*}
+
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.perm.lisitij} (sketched).]\textbf{(b)} This
+follows by a diligent analysis of the possible interactions between an
+inversion and composition by $t_{i,j}$. To be more concrete:
+
+\begin{itemize}
+\item The fact that $\ell\left(  \sigma t_{i,j}\right)  =\ell\left(
+\sigma\right)  -2\left\vert Q\right\vert -1$ when $\sigma\left(  i\right)
+>\sigma\left(  j\right)  $ is \cite[Exercise 5.20]{detnotes}. A
+straightforward proof was given by Elafandi in \cite[solution to Exercise
+1]{18f-hw4se}. (The proof given in \cite[solution to Exercise 5.20]{detnotes}
+is more circuitous, as it uses summation tricks to bypass case distinctions.)
+
+\item The fact that $\ell\left(  \sigma t_{i,j}\right)  =\ell\left(
+\sigma\right)  +2\left\vert R\right\vert +1$ when $\sigma\left(  i\right)
+<\sigma\left(  j\right)  $ follows by applying the previous fact to $\sigma
+t_{i,j}$ instead of $\sigma$. (Indeed, if $\sigma\left(  i\right)
+<\sigma\left(  j\right)  $, then $\left(  \sigma t_{i,j}\right)  \left(
+i\right)  =\sigma\left(  j\right)  >\sigma\left(  i\right)  =\left(  \sigma
+t_{i,j}\right)  \left(  j\right)  $ and $\sigma\underbrace{t_{i,j}t_{i,j}%
+}_{=t_{i,j}^{2}=\operatorname*{id}}=\sigma$. Moreover, when we replace
+$\sigma$ by $\sigma t_{i,j}$, the sets $Q$ and $R$ trade places.)
+\end{itemize}
+
+\textbf{(a)} This follows immediately from part \textbf{(b)}.
+\end{proof}
+
+Now we come to one of the main facts about permutations of a finite set.
+
+\begin{convention}
+\label{conv.perm.simple}We recall that a \emph{simple transposition} in
+$S_{n}$ means one of the $n-1$ transpositions $s_{1},s_{2},\ldots,s_{n-1}$. We
+shall occasionally abbreviate \textquotedblleft simple
+transposition\textquotedblright\ as \textquotedblleft\emph{simple}%
+\textquotedblright.
+\end{convention}
+
+\begin{theorem}
+[1st reduced word theorem for the symmetric group]%
+\label{thm.perm.len.redword1}Let $n\in\mathbb{N}$ and $\sigma\in S_{n}$. Then:
+\medskip
+
+\textbf{(a)} We can write $\sigma$ as a composition (i.e., product) of
+$\ell\left(  \sigma\right)  $ simples. \medskip
+
+\textbf{(b)} The number $\ell\left(  \sigma\right)  $ is the smallest
+$p\in\mathbb{N}$ such that we can write $\sigma$ as a composition of $p$
+simples. \medskip
+
+[\textbf{Keep in mind:} The composition of $0$ simples is $\operatorname*{id}%
+$, since $\operatorname*{id}$ is the neutral element of the group $S_{n}$.]
+\end{theorem}
+
+\begin{example}
+Let $\sigma\in S_{4}$ be the permutation $4132$ (in OLN). How can we write
+$\sigma$ as a composition of simples? There are several ways to do this; for
+example,%
+\[
+\sigma=\underbrace{s_{2}s_{3}s_{2}}_{=s_{3}s_{2}s_{3}}s_{1}=s_{3}%
+s_{2}\underbrace{s_{3}s_{1}}_{=s_{1}s_{3}}=s_{3}s_{2}s_{1}s_{3}=s_{2}%
+s_{1}s_{1}s_{3}s_{2}s_{1}=s_{2}s_{1}s_{3}s_{1}s_{2}s_{1}=\cdots.
+\]
+The shortest of these representations involve $4$ simples, precisely as
+predicted by Theorem \ref{thm.perm.len.redword1} (since $\ell\left(
+\sigma\right)  =4$).
+\end{example}
+
+Before we prove Theorem \ref{thm.perm.len.redword1}, let me mention a
+geometric visualization of the symmetric group that will not be used in what
+follows, but sheds some light on the theorem and on the role of simple transpositions:
+
+\begin{remark}
+Let $n\in\mathbb{N}$. Then, the permutations of $\left[  n\right]  $ can be
+represented as the vertices of an $\left(  n-1\right)  $-dimensional polytope
+in $n$-dimensional space.
+
+Namely, each permutation $\sigma$ of $\left[  n\right]  $ gives rise to the
+point%
+\[
+V_{\sigma}:=\left(  \sigma\left(  1\right)  ,\sigma\left(  2\right)
+,\ldots,\sigma\left(  n\right)  \right)  \in\mathbb{R}^{n}.
+\]
+The convex hull of all these $n!$ many points $V_{\sigma}$ (for $\sigma\in
+S_{n}$) is a polytope (i.e., a bounded convex polyhedron in $\mathbb{R}^{n}$).
+This polytope is known as the
+\emph{\href{https://en.wikipedia.org/wiki/Permutohedron}{\emph{permutahedron}%
+}} (corresponding to $n$). It is actually $\left(  n-1\right)  $-dimensional,
+since all its vertices lie on the hyperplane with equation $x_{1}+x_{2}%
++\cdots+x_{n}=1+2+\cdots+n$. It can be shown (see, e.g., \cite{GaiGup77}) that:
+
+\begin{itemize}
+\item The vertices of this polytope are precisely the $n!$ points $V_{\sigma}$
+with $\sigma\in S_{n}$.
+
+\item Two vertices $V_{\sigma}$ and $V_{\tau}$ are joined by an edge if and
+only if $\sigma=s_{k}\tau$ for some $k\in\left[  n-1\right]  $.
+\end{itemize}
+
+\noindent The (intuitively obvious) fact that any two vertices of a polytope
+can be connected by a sequence of edges therefore yields that any $\sigma\in
+S_{n}$ can be written as a product of simples. This is a weaker version of
+Theorem \ref{thm.perm.len.redword1} \textbf{(a)}.
+
+We refer to textbooks on discrete geometry and geometric combinatorics for
+more about polytopes and permutahedra in particular. Let me here just show the
+permutahedra for $n=3$ and for $n=4$ (note that the permutahedron for $n=2$ is
+a boring line segment in $\mathbb{R}^{2}$):
+
+\begin{itemize}
+\item The permutahedron for $n=3$ is a regular hexagon:%
+\[%
+\begin{tabular}
+[c]{ccc}%
+$%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+$ & $\ \ \ \ \ \ \ \ \ \ $ & $%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+$%
+\end{tabular}
+\
+\]
+The picture on the left
+(\href{https://tex.stackexchange.com/a/321238/}{courtesy of tex.stackexchange
+user Jake}, released under the MIT license) shows the permutahedron embedded
+in $\mathbb{R}^{3}$; the picture on the right is a view from an orthogonal direction.
+
+\item The permutahedron for $n=4$ is a truncated octahedron:%
+\[%
+% [svg figure removed]
+%BeginExpansion
+\incpdftexpic{Permutohedron.pdf_tex}%
+%EndExpansion
+\]
+(\href{https://en.wikipedia.org/wiki/File:Permutohedron.svg}{picture courtesy
+of David Eppstein on the Wikipedia}).
+\end{itemize}
+\end{remark}
+
+Let us now outline a proof of Theorem \ref{thm.perm.len.redword1}.
+
+\begin{proof}
+[Proof of Theorem \ref{thm.perm.len.redword1} (sketched).]\textbf{(a)} (See
+\cite[Exercise 5.2 \textbf{(e)}]{detnotes} for details.)
+
+We proceed by induction on $\ell\left(  \sigma\right)  $:
+
+\textit{Induction base:} If $\ell\left(  \sigma\right)  =0$, then
+$\sigma=\operatorname*{id}$, so that we can write $\sigma$ as a composition of
+$0$ simples.
+
+\textit{Induction step:} Fix $h\in\mathbb{N}$. Assume (as the
+IH\footnote{\textquotedblleft IH\textquotedblright\ means \textquotedblleft
+induction hypothesis\textquotedblright.}) that Theorem
+\ref{thm.perm.len.redword1} \textbf{(a)} holds for $\ell\left(  \sigma\right)
+=h$.
+
+Now, let $\sigma\in S_{n}$ be such that $\ell\left(  \sigma\right)  =h+1$. We
+must prove that we can write $\sigma$ as a composition of $\ell\left(
+\sigma\right)  $ simples.
+
+We have $\ell\left(  \sigma\right)  =h+1>h\geq0$; hence, $\sigma$ has at least
+one inversion. Thus, we cannot have $\sigma\left(  1\right)  \leq\sigma\left(
+2\right)  \leq\cdots\leq\sigma\left(  n\right)  $. In other words, there
+exists some $k\in\left[  n-1\right]  $ such that $\sigma\left(  k\right)
+>\sigma\left(  k+1\right)  $. Let us fix such a $k$.
+
+Lemma \ref{lem.perm.len.ssl} \textbf{(a)} yields%
+\begin{align*}
+\ell\left(  \sigma s_{k}\right)   &  =%
+\begin{cases}
+\ell\left(  \sigma\right)  +1, & \text{if }\sigma\left(  k\right)
+<\sigma\left(  k+1\right)  ;\\
+\ell\left(  \sigma\right)  -1, & \text{if }\sigma\left(  k\right)
+>\sigma\left(  k+1\right)
+\end{cases}
+\\
+&  =\ell\left(  \sigma\right)  -1\ \ \ \ \ \ \ \ \ \ \left(  \text{since
+}\sigma\left(  k\right)  >\sigma\left(  k+1\right)  \right) \\
+&  =h\ \ \ \ \ \ \ \ \ \ \left(  \text{since }\ell\left(  \sigma\right)
+=h+1\right)  .
+\end{align*}
+Thus, the IH tells us that we can apply Theorem \ref{thm.perm.len.redword1}
+\textbf{(a)} to $\sigma s_{k}$ instead of $\sigma$. We conclude that we can
+write $\sigma s_{k}$ as a composition of $\ell\left(  \sigma s_{k}\right)  $
+simples. In other words, we can write $\sigma s_{k}$ as a composition of $h$
+simples (since $\ell\left(  \sigma s_{k}\right)  =h$). That is, we have%
+\[
+\sigma s_{k}=s_{i_{1}}s_{i_{2}}\cdots s_{i_{h}}\ \ \ \ \ \ \ \ \ \ \text{for
+some }i_{1},i_{2},\ldots,i_{h}\in\left[  n-1\right]  .
+\]
+Consider these $i_{1},i_{2},\ldots,i_{h}$. Now,%
+\[
+\sigma=\underbrace{\sigma s_{k}}_{=s_{i_{1}}s_{i_{2}}\cdots s_{i_{h}}%
+}\underbrace{s_{k}^{-1}}_{=s_{k}}=s_{i_{1}}s_{i_{2}}\cdots s_{i_{h}}s_{k}.
+\]
+This shows that we can write $\sigma$ as a composition of $h+1$ simples. In
+other words, we can write $\sigma$ as a composition of $\ell\left(
+\sigma\right)  $ simples (since $\ell\left(  \sigma\right)  =h+1$). Thus,
+Theorem \ref{thm.perm.len.redword1} \textbf{(a)} holds for $\ell\left(
+\sigma\right)  =h+1$. This completes the induction step, and so Theorem
+\ref{thm.perm.len.redword1} \textbf{(a)} is proved by induction. \medskip
+
+\textbf{(b)} (See \cite[Exercise 5.2 \textbf{(g)}]{detnotes} for details.)
+
+We already know from Theorem \ref{thm.perm.len.redword1} \textbf{(a)} that we
+can write $\sigma$ as a composition of $\ell\left(  \sigma\right)  $ simples.
+It thus remains to show that we cannot write $\sigma$ as a composition of
+fewer than $\ell\left(  \sigma\right)  $ simples.
+
+This will clearly follow if we can show that%
+\begin{equation}
+\ell\left(  s_{i_{1}}s_{i_{2}}\cdots s_{i_{g}}\right)  \leq g
+\label{pf.thm.perm.len.redword1.b.1}%
+\end{equation}
+for any $i_{1},i_{2},\ldots,i_{g}\in\left[  n-1\right]  $.
+
+In order to prove (\ref{thm.perm.len.redword1}), we first make a simple
+observation: For any $\sigma\in S_{n}$ and any $k\in\left[  n-1\right]  $, we
+have%
+\begin{equation}
+\ell\left(  \sigma s_{k}\right)  \leq\ell\left(  \sigma\right)  +1.
+\label{pf.thm.perm.len.redword1.b.2}%
+\end{equation}
+(This follows from Lemma \ref{lem.perm.len.ssl} \textbf{(a)}, since both
+numbers $\ell\left(  \sigma\right)  +1$ and $\ell\left(  \sigma\right)  -1$
+are $\leq\ell\left(  \sigma\right)  +1$.) Now, for any $i_{1},i_{2}%
+,\ldots,i_{g}\in\left[  n-1\right]  $, we have%
+\begin{align*}
+&  \ell\left(  s_{i_{1}}s_{i_{2}}\cdots s_{i_{g}}\right) \\
+&  \leq\ell\left(  s_{i_{1}}s_{i_{2}}\cdots s_{i_{g-1}}\right)
++1\ \ \ \ \ \ \ \ \ \ \left(  \text{by (\ref{pf.thm.perm.len.redword1.b.2}%
+)}\right) \\
+&  \leq\ell\left(  s_{i_{1}}s_{i_{2}}\cdots s_{i_{g-2}}\right)  +2\\
+&  \ \ \ \ \ \ \ \ \ \ \left(  \text{since (\ref{pf.thm.perm.len.redword1.b.2}%
+) yields }\ell\left(  s_{i_{1}}s_{i_{2}}\cdots s_{i_{g-1}}\right)  \leq
+\ell\left(  s_{i_{1}}s_{i_{2}}\cdots s_{i_{g-2}}\right)  +1\right) \\
+&  \leq\ell\left(  s_{i_{1}}s_{i_{2}}\cdots s_{i_{g-3}}\right)  +3\\
+&  \ \ \ \ \ \ \ \ \ \ \left(  \text{since (\ref{pf.thm.perm.len.redword1.b.2}%
+) yields }\ell\left(  s_{i_{1}}s_{i_{2}}\cdots s_{i_{g-2}}\right)  \leq
+\ell\left(  s_{i_{1}}s_{i_{2}}\cdots s_{i_{g-3}}\right)  +1\right) \\
+&  \leq\cdots\\
+&  \leq\underbrace{\ell\left(  \operatorname*{id}\right)  }_{=0}%
++g\ \ \ \ \ \ \ \ \ \ \left(  \text{since the product of }0\text{ simples is
+}\operatorname*{id}\right) \\
+&  =g.
+\end{align*}
+This proves (\ref{pf.thm.perm.len.redword1.b.1}), and thus concludes our proof
+of Theorem \ref{thm.perm.len.redword1} \textbf{(b)}.
+\end{proof}
+
+\begin{corollary}
+\label{cor.perm.red.sigtau}Let $n\in\mathbb{N}$. \medskip
+
+\textbf{(a)} We have $\ell\left(  \sigma\tau\right)  \equiv\ell\left(
+\sigma\right)  +\ell\left(  \tau\right)  \operatorname{mod}2$ for all
+$\sigma\in S_{n}$ and $\tau\in S_{n}$. \medskip
+
+\textbf{(b)} We have $\ell\left(  \sigma\tau\right)  \leq\ell\left(
+\sigma\right)  +\ell\left(  \tau\right)  $ for all $\sigma\in S_{n}$ and
+$\tau\in S_{n}$. \medskip
+
+\textbf{(c)} Let $k_{1},k_{2},\ldots,k_{q}\in\left[  n-1\right]  $, and let
+$\sigma=s_{k_{1}}s_{k_{2}}\cdots s_{k_{q}}$. Then, $q\geq\ell\left(
+\sigma\right)  $ and $q\equiv\ell\left(  \sigma\right)  \operatorname{mod}2$.
+\end{corollary}
+
+\begin{example}
+Let $n=4$. Consider the two permutations $\sigma=3214$ and $\tau=3142$ (both
+written in one-line notation). Then, $\ell\left(  \sigma\right)  =3$ and
+$\ell\left(  \tau\right)  =3$. Now, the permutation $\sigma\tau=1342$ has
+length $\ell\left(  \sigma\tau\right)  =2$.
+
+Corollary \ref{cor.perm.red.sigtau} \textbf{(a)} says $\ell\left(  \sigma
+\tau\right)  \equiv\ell\left(  \sigma\right)  +\ell\left(  \tau\right)
+\operatorname{mod}2$. In other words, $2\equiv3+3\operatorname{mod}2$.
+
+Corollary \ref{cor.perm.red.sigtau} \textbf{(b)} says $\ell\left(  \sigma
+\tau\right)  \leq\ell\left(  \sigma\right)  +\ell\left(  \tau\right)  $. In
+other words, $2\leq3+3$.
+\end{example}
+
+\begin{proof}
+[Proof of Corollary \ref{cor.perm.red.sigtau} (sketched).]\textbf{(a)} (See
+\cite[Exercise 5.2 \textbf{(b)}]{detnotes} for details.)
+
+For any $\sigma\in S_{n}$ and any $k\in\left[  n-1\right]  $, we have%
+\begin{equation}
+\ell\left(  \sigma s_{k}\right)  \equiv\ell\left(  \sigma\right)
++1\operatorname{mod}2. \label{pf.cor.perm.red.sigtau.a.1}%
+\end{equation}
+(This follows from Lemma \ref{lem.perm.len.ssl} \textbf{(a)}, since both
+numbers $\ell\left(  \sigma\right)  +1$ and $\ell\left(  \sigma\right)  -1$
+are congruent to $\ell\left(  \sigma\right)  +1$ modulo $2$.)
+
+Now, let $\sigma\in S_{n}$ and $\tau\in S_{n}$. Theorem
+\ref{thm.perm.len.redword1} \textbf{(a)} yields that we can write $\tau$ as a
+composition of $\ell\left(  \tau\right)  $ simples. In other words, we can
+write $\tau$ as $\tau=s_{k_{1}}s_{k_{2}}\cdots s_{k_{q}}$ for some
+$k_{1},k_{2},\ldots,k_{q}\in\left[  n-1\right]  $, where $q=\ell\left(
+\tau\right)  $. Consider these $k_{1},k_{2},\ldots,k_{q}$. Now,%
+\begin{align*}
+\ell\left(  \sigma\tau\right)   &  =\ell\left(  \sigma s_{k_{1}}s_{k_{2}%
+}\cdots s_{k_{q}}\right)  \ \ \ \ \ \ \ \ \ \ \left(  \text{since }%
+\tau=s_{k_{1}}s_{k_{2}}\cdots s_{k_{q}}\right) \\
+&  \equiv\ell\left(  \sigma s_{k_{1}}s_{k_{2}}\cdots s_{k_{q-1}}\right)
++1\ \ \ \ \ \ \ \ \ \ \left(  \text{by (\ref{pf.cor.perm.red.sigtau.a.1}%
+)}\right) \\
+&  \equiv\ell\left(  \sigma s_{k_{1}}s_{k_{2}}\cdots s_{k_{q-2}}\right)  +2\\
+&  \ \ \ \ \ \ \ \ \ \ \left(  \text{since (\ref{pf.cor.perm.red.sigtau.a.1})
+yields }\ell\left(  \sigma s_{k_{1}}s_{k_{2}}\cdots s_{k_{q-1}}\right)
+\equiv\ell\left(  \sigma s_{k_{1}}s_{k_{2}}\cdots s_{k_{q-2}}\right)
++1\operatorname{mod}2\right) \\
+&  \equiv\ell\left(  \sigma s_{k_{1}}s_{k_{2}}\cdots s_{k_{q-3}}\right)  +3\\
+&  \ \ \ \ \ \ \ \ \ \ \left(  \text{since (\ref{pf.cor.perm.red.sigtau.a.1})
+yields }\ell\left(  \sigma s_{k_{1}}s_{k_{2}}\cdots s_{k_{q-2}}\right)
+\equiv\ell\left(  \sigma s_{k_{1}}s_{k_{2}}\cdots s_{k_{q-3}}\right)
++1\operatorname{mod}2\right) \\
+&  \equiv\cdots\\
+&  \equiv\ell\left(  \sigma\right)  +\underbrace{q}_{=\ell\left(  \tau\right)
+}=\ell\left(  \sigma\right)  +\ell\left(  \tau\right)  \operatorname{mod}2.
+\end{align*}
+This proves Corollary \ref{cor.perm.red.sigtau} \textbf{(a)}. \medskip
+
+\textbf{(b)} (See \cite[Exercise 5.2 \textbf{(c)}]{detnotes} for details.)
+
+This is analogous to the proof of Corollary \ref{cor.perm.red.sigtau}
+\textbf{(a)} (but using inequalities instead of congruences, and using
+(\ref{pf.thm.perm.len.redword1.b.2}) instead of
+(\ref{pf.cor.perm.red.sigtau.a.1})). \medskip
+
+\textbf{(c)} Let $k_{1},k_{2},\ldots,k_{q}\in\left[  n-1\right]  $, and let
+$\sigma=s_{k_{1}}s_{k_{2}}\cdots s_{k_{q}}$. We must prove that $q\geq
+\ell\left(  \sigma\right)  $ and $q\equiv\ell\left(  \sigma\right)
+\operatorname{mod}2$.
+
+From $\sigma=s_{k_{1}}s_{k_{2}}\cdots s_{k_{q}}$, we obtain%
+\begin{align*}
+\ell\left(  \sigma\right)   &  =\ell\left(  s_{k_{1}}s_{k_{2}}\cdots s_{k_{q}%
+}\right) \\
+&  \equiv\ell\left(  s_{k_{1}}s_{k_{2}}\cdots s_{k_{q-1}}\right)
++1\ \ \ \ \ \ \ \ \ \ \left(  \text{by (\ref{pf.cor.perm.red.sigtau.a.1}%
+)}\right) \\
+&  \equiv\ell\left(  s_{k_{1}}s_{k_{2}}\cdots s_{k_{q-2}}\right)  +2\\
+&  \ \ \ \ \ \ \ \ \ \ \left(  \text{since (\ref{pf.cor.perm.red.sigtau.a.1})
+yields }\ell\left(  s_{k_{1}}s_{k_{2}}\cdots s_{k_{q-1}}\right)  \equiv
+\ell\left(  s_{k_{1}}s_{k_{2}}\cdots s_{k_{q-2}}\right)  +1\operatorname{mod}%
+2\right) \\
+&  \equiv\ell\left(  s_{k_{1}}s_{k_{2}}\cdots s_{k_{q-3}}\right)  +3\\
+&  \ \ \ \ \ \ \ \ \ \ \left(  \text{since (\ref{pf.cor.perm.red.sigtau.a.1})
+yields }\ell\left(  s_{k_{1}}s_{k_{2}}\cdots s_{k_{q-2}}\right)  \equiv
+\ell\left(  s_{k_{1}}s_{k_{2}}\cdots s_{k_{q-3}}\right)  +1\operatorname{mod}%
+2\right) \\
+&  \equiv\cdots\\
+&  \equiv\underbrace{\ell\left(  \operatorname*{id}\right)  }_{=0}%
++\,q\ \ \ \ \ \ \ \ \ \ \left(  \text{since the product of }0\text{ simples is
+}\operatorname*{id}\right) \\
+&  =q\operatorname{mod}2.
+\end{align*}
+In other words, $q\equiv\ell\left(  \sigma\right)  \operatorname{mod}2$. A
+similar argument (but using inequalities instead of congruences, and using
+(\ref{pf.thm.perm.len.redword1.b.2}) instead of
+(\ref{pf.cor.perm.red.sigtau.a.1})) shows that $q\geq\ell\left(
+\sigma\right)  $. Thus, Corollary \ref{cor.perm.red.sigtau} \textbf{(c)} is proved.
+\end{proof}
+
+\begin{corollary}
+\label{cor.perm.generated}Let $n\in\mathbb{N}$. Then, the group $S_{n}$ is
+generated by the simples $s_{1},s_{2},\ldots,s_{n-1}$.
+\end{corollary}
+
+\begin{proof}
+This follows directly from Theorem \ref{thm.perm.len.redword1} \textbf{(a)}.
+\end{proof}
+
+Theorem \ref{thm.perm.len.redword1} \textbf{(a)} shows that every permutation
+$\sigma\in S_{n}$ can be represented as a product of $\ell\left(
+\sigma\right)  $ simples (and in most cases, this can be done in many
+different ways). It turns out that there is a rather explicit way to find such
+a representation:
+
+\begin{remark}
+\label{rmk.perm.redword-lehmer}Let $n\in\mathbb{N}$ and $\sigma\in S_{n}$. Let
+us represent the Lehmer code of $\sigma$ visually as follows:
+
+We draw an (empty) $n\times n$-matrix.
+
+For each $i\in\left[  n\right]  $, we put a cross $\times$ into the cell
+$\left(  i,\sigma\left(  i\right)  \right)  $ of the matrix.
+
+In the following, I will use the case $n=6$ and $\sigma=513462$ (in one-line
+notation) as a running example. In this case, the matrix looks as follows:%
+\[%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\]
+
+
+Now, starting from each $\times$, we draw a vertical ray downwards and a
+horizontal ray eastwards. I will call these two rays the \emph{Lehmer lasers}.
+Here is how the rays look like in our running example:%
+\[%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\]
+
+
+This picture is called the \emph{Rothe diagram} of $\sigma$.
+
+Explicitly, a cell $\left(  i,j\right)  $ has a $\circ$ in it if and only if%
+\[
+\sigma\left(  i\right)  >j\text{ and }\sigma^{-1}\left(  j\right)  >i
+\]
+(indeed, the vertical laser in column $j$ hits cell $\left(  i,j\right)  $ if
+and only if $\sigma^{-1}\left(  j\right)  \leq i$, whereas the horizontal
+laser in row $i$ hits cell $\left(  i,j\right)  $ if and only if
+$\sigma\left(  i\right)  \leq j$).
+
+If we substitute $\sigma\left(  j\right)  $ for $j$ in this statement, then we
+obtain the following: A cell $\left(  i,\sigma\left(  j\right)  \right)  $ has
+a $\circ$ in it if and only if%
+\[
+\sigma\left(  i\right)  >\sigma\left(  j\right)  \text{ and }j>i.
+\]
+In other words, a cell $\left(  i,\sigma\left(  j\right)  \right)  $ has a
+$\circ$ in it if and only if $\left(  i,j\right)  $ is an inversion of
+$\sigma$.
+
+Thus,%
+\[
+\ell\left(  \sigma\right)  =\left(  \text{\# of inversions of }\sigma\right)
+=\left(  \text{\# of }\circ\text{'s}\right)  ,
+\]
+and%
+\[
+\ell_{i}\left(  \sigma\right)  =\left(  \text{\# of }\circ\text{'s in row
+}i\right)  \ \ \ \ \ \ \ \ \ \ \text{for each }i\in\left[  n\right]  .
+\]
+
+
+Finally, let us label the $\circ$'s as follows: For each $i\in\left[
+n\right]  $, we label the $\circ$'s in row $i$ from right to left by the
+simple transpositions $s_{i},s_{i+1},s_{i+2},\ldots,s_{i^{\prime}-1}$ where
+$i^{\prime}=i+\ell_{i}\left(  \sigma\right)  $. (This works, since there are
+precisely $\ell_{i}\left(  \sigma\right)  =i^{\prime}-i$ many $\circ$'s in row
+$i$.) Here is how this labeling looks in our running example:%
+\[%
+% [tikz figure removed]
+%BeginExpansion
+% [tikz figure removed]%
+%EndExpansion
+\]
+
+
+Finally, read the matrix row by row, starting with the top row, and reading
+each row from left to right. The result, in our running example, is%
+\[
+s_{4}s_{3}s_{2}s_{1}s_{3}s_{4}s_{5}.
+\]
+Reading this as a product, we obtain a product of $\ell\left(  \sigma\right)
+$ simples that equals $\sigma$.
+\end{remark}
+
+The claim of Remark \ref{rmk.perm.redword-lehmer} can be restated in a more
+direct (if less visual) fashion:
+
+\begin{proposition}
+\label{prop.perm.redword-lehmer}Let $n\in\mathbb{N}$. Let $\sigma\in S_{n}$.
+For each $i\in\left[  n\right]  $, we set%
+\begin{equation}
+a_{i}:=\operatorname*{cyc}\nolimits_{i^{\prime},i^{\prime}-1,i^{\prime
+}-2,\ldots,i}=s_{i^{\prime}-1}s_{i^{\prime}-2}s_{i^{\prime}-3}\cdots s_{i},
+\label{eq.prop.perm.redword-lehmer.1}%
+\end{equation}
+where $i^{\prime}=i+\ell_{i}\left(  \sigma\right)  $. Then, $\sigma=a_{1}%
+a_{2}\cdots a_{n}$. (The second equality sign in
+(\ref{eq.prop.perm.redword-lehmer.1}) is not hard to check. Note that
+$a_{n}=\operatorname*{id}$.)
+\end{proposition}
+
+We refer to \cite[Exercise 5.21 parts \textbf{(b)} and \textbf{(c)}]{detnotes}
+for a (detailed, but annoyingly long) proof of Proposition
+\ref{prop.perm.redword-lehmer}. (You are probably better off proving it yourself.)

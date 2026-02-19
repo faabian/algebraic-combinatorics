@@ -1,0 +1,787 @@
+\subsection{\label{sec.sign.pie}The principles of inclusion and exclusion}
+
+We have so far been applying the \textquotedblleft yoga\textquotedblright\ of
+sign-reversing involutions directly to alternating sums. However, some of its
+essence can also be crystallized into useful theorems. Most famous among such
+theorems are the \emph{principles of inclusion and exclusion} (also known as
+\emph{Sylvester sieve theorems} or \emph{Poincar\'{e}'s theorems}%
+)\footnote{People typically use the singular forms (\textquotedblleft
+principle\textquotedblright\ and \textquotedblleft theorem\textquotedblright%
+\ rather than \textquotedblleft principles\textquotedblright\ and
+\textquotedblleft theorems\textquotedblright), but often mean different
+things.}.
+
+\subsubsection{\label{subsec.sign.pie.size}The size version}
+
+The simplest such principle answers the following question: Assume that you
+have a finite set $U$, and some subsets $A_{1},A_{2},\ldots,A_{n}$ of $U$.
+Assume that, for each selection of some of these subsets, you know how many
+elements of $U$ belong to all selected sets at the same time. (For instance,
+you know how many elements of $U$ belong to $A_{2}$, $A_{3}$ and $A_{5}$ at
+the same time.) Does this help you count the elements of $U$ that belong to
+\textbf{none} of the $n$ subsets (i.e., that don't belong to $A_{1}\cup
+A_{2}\cup\cdots\cup A_{n}$) ?
+
+The answer is \textquotedblleft yes\textquotedblright, and there is an
+explicit formula for this count:
+
+\begin{theorem}
+[size version of the PIE]\label{thm.pie.1}Let $n\in\mathbb{N}$. Let $U$ be a
+finite set. Let $A_{1},A_{2},\ldots,A_{n}$ be $n$ subsets of $U$. Then,%
+\begin{align*}
+&  \left(  \text{\# of }u\in U\text{ that satisfy }u\notin A_{i}\text{ for all
+}i\in\left[  n\right]  \right) \\
+&  =\sum_{I\subseteq\left[  n\right]  }\left(  -1\right)  ^{\left\vert
+I\right\vert }\left(  \text{\# of }u\in U\text{ that satisfy }u\in A_{i}\text{
+for all }i\in I\right)  .
+\end{align*}
+
+\end{theorem}
+
+Some explanations are in order:
+
+\begin{itemize}
+\item Here and in the following, we are using the notation $\left[  n\right]
+$ for the set $\left\{  1,2,\ldots,n\right\}  $, as defined in Definition
+\ref{def.perm.Sn-iven}.
+
+\item The summation sign \textquotedblleft$\sum_{I\subseteq\left[  n\right]
+}$\textquotedblright\ means a sum over all subsets $I$ of $\left[  n\right]
+$. More generally, if $S$ is a given set, then the summation sign
+\textquotedblleft$\sum_{I\subseteq S}$\textquotedblright\ shall always mean a
+sum over all subsets $I$ of $S$.
+
+\item The shorthand \textquotedblleft\emph{PIE}\textquotedblright\ in the name
+of Theorem \ref{thm.pie.1} is short for \textquotedblleft\emph{Principle of
+Inclusion and Exclusion}\textquotedblright.
+\end{itemize}
+
+In one form or another, Theorem \ref{thm.pie.1} appears in almost any text on
+combinatorics (e.g., in \cite[Theorem 2.1.1]{Sagan19}, in \cite[\S 4.11]%
+{Loehr-BC}, in \cite[Theorem 5.3]{Strick20}, in \cite[Theorem 2.9.7]{19fco},
+or -- in almost the same form as above -- in \cite[Theorem 7.8.6]{20f}). Most
+commonly, its claim is stated in the shorter (if less transparent) form%
+\[
+\left\vert U\setminus\left(  A_{1}\cup A_{2}\cup\cdots\cup A_{n}\right)
+\right\vert =\sum_{I\subseteq\left[  n\right]  }\left(  -1\right)
+^{\left\vert I\right\vert }\left\vert \bigcap\limits_{i\in I}A_{i}\right\vert
+,
+\]
+where $\bigcap\limits_{i\in I}A_{i}$ denotes the set $\left\{  u\in
+U\ \mid\ u\in A_{i}\text{ for all }i\in I\right\}  $ whenever $I$ is a subset
+of $\left[  n\right]  $\ \ \ \ \footnote{This notation should be taken with a
+grain of salt. When $I$ is a \textbf{nonempty} subset of $\left[  n\right]  $,
+it is indeed true that the set $\bigcap\limits_{i\in I}A_{i}$ as we just
+defined it (i.e., the set $\left\{  u\in U\ \mid\ u\in A_{i}\text{ for all
+}i\in I\right\}  $) is the intersection of the sets $A_{i}$ over all $i\in I$
+(that is, if $I=\left\{  i_{1},i_{2},\ldots,i_{k}\right\}  $, then
+$\bigcap\limits_{i\in I}A_{i}=A_{i_{1}}\cap A_{i_{2}}\cap\cdots\cap A_{i_{k}}%
+$). However, if $I$ is the \textbf{empty} set, then the literal intersection
+of the sets $A_{i}$ over all $i\in I$ is not well-defined (indeed, by common
+sense, such an intersection should contain every object whatsoever; but there
+is no set that does this), whereas the set we just called $\bigcap
+\limits_{i\in I}A_{i}$ is simply the set $U$. This is still justified, since
+we should think of the sets $A_{i}$ not as arbitrary sets but rather as
+subsets of $U$ (so that any intersections are to be taken within $U$). This,
+incidentally, is the reason for the choice of the letter \textquotedblleft%
+$U$\textquotedblright: We think of $U$ as the \textquotedblleft
+universe\textquotedblright\ in which our objects live.}. This form is indeed
+equivalent to the claim of Theorem \ref{thm.pie.1}, since we have%
+\begin{align*}
+&  \left\vert U\setminus\left(  A_{1}\cup A_{2}\cup\cdots\cup A_{n}\right)
+\right\vert \\
+&  =\left(  \text{\# of }u\in U\text{ that satisfy }u\notin A_{1}\cup
+A_{2}\cup\cdots\cup A_{n}\right) \\
+&  =\left(  \text{\# of }u\in U\text{ that satisfy }u\notin A_{i}\text{ for
+all }i\in\left[  n\right]  \right)
+\end{align*}
+and since (for each subset $I$ of $\left[  n\right]  $) we have%
+\[
+\left\vert \bigcap\limits_{i\in I}A_{i}\right\vert =\left(  \text{\# of }u\in
+U\text{ that satisfy }u\in A_{i}\text{ for all }i\in I\right)
+\]
+(by the definition of $\bigcap\limits_{i\in I}A_{i}$ that we just gave).
+
+Rather than prove Theorem \ref{thm.pie.1} directly, we shall soon derive it
+from more general results (in order to avoid duplicating arguments). First,
+however, let us give an interpretation that makes Theorem \ref{thm.pie.1} a
+little bit more intuitive, and sketch four applications (more can be found in
+textbooks -- e.g., \cite[\S 2.1]{Sagan19}, \cite[Chapter 2]{Stanley-EC1},
+\cite[Chapter 3]{Wildon19}, \cite[Chapter 6]{AndFen04}, \cite[\S 2.9]{19fco}).
+
+\begin{statement}
+\textbf{\textquotedblleft Rule-breaking\textquotedblright\ interpretation of
+Theorem \ref{thm.pie.1}.} Assume that we are given a finite set $U$, and we
+are given $n$ rules (labelled $1,2,\ldots,n$) that each element of $U$ may or
+may not satisfy. (For instance, one element of $U$ might satisfy all of these
+rules; another might satisfy none; yet another might satisfy rules $1$ and $3$
+only. A rule can be something like \textquotedblleft thou shalt be divisible
+by $5$\textquotedblright\ (if the elements of $U$ are numbers) or
+\textquotedblleft thou shalt be a nonempty set\textquotedblright\ (if the
+elements of $U$ are sets).)
+
+Assume that, for each $I\subseteq\left[  n\right]  $, we know how many
+elements $u\in U$ satisfy all rules in $I$ (but may or may not satisfy the
+remaining rules). For example, this means that we know how many elements $u\in
+U$ satisfy rules $2,3,5$ (simultaneously). Then, we can compute the \# of
+elements $u\in U$ that violate all $n$ rules $1,2,\ldots,n$ by the following
+formula:%
+\begin{align*}
+&  \left(  \text{\# of elements }u\in U\text{ that violate all }n\text{ rules
+}1,2,\ldots,n\right) \\
+&  =\sum_{I\subseteq\left[  n\right]  }\left(  -1\right)  ^{\left\vert
+I\right\vert }\left(  \text{\# of elements }u\in U\text{ that satisfy all
+rules in }I\right)  .
+\end{align*}
+
+
+Indeed, this formula is precisely what we obtain if we apply Theorem
+\ref{thm.pie.1} to the $n$ subsets $A_{1},A_{2},\ldots,A_{n}$ defined by
+setting%
+\[
+A_{i}:=\left\{  u\in U\ \mid\ u\text{ satisfies rule }i\right\}
+\ \ \ \ \ \ \ \ \ \ \text{for each }i\in\left[  n\right]  .
+\]
+
+\end{statement}
+
+Thus, if you have a counting problem that can be restated as \textquotedblleft
+count things that violate a bunch of rules\textquotedblright, then you can
+apply Theorem \ref{thm.pie.1} (in the interpretation we just gave) to
+\textquotedblleft turn the problem positive\textquotedblright, i.e., to make
+it about counting rule-followers instead of rule-violators. If the
+\textquotedblleft positive\textquotedblright\ problem is easier, then this is
+a useful technique. We will now witness this on four examples.
+
+\subsubsection{\label{subsec.sign.pie.exas}Examples}
+
+\textbf{Example 1.} Let $n,m\in\mathbb{N}$. Let us compute the \# of
+surjective maps from $\left[  m\right]  $ to $\left[  n\right]  $. (We will
+outline the argument here; details can be found in \cite[\S 7.8.2]{20f} or
+\cite[\S 2.9.4]{19fco}.)
+
+What are surjective maps? They are maps that take each element of the target
+set as a value. Thus, in particular, a map $f:\left[  m\right]  \rightarrow
+\left[  n\right]  $ is surjective if and only if it takes each $i\in\left[
+n\right]  $ as a value.
+
+Hence, if we impose $n$ rules $1,2,\ldots,n$ on a map $f:\left[  m\right]
+\rightarrow\left[  n\right]  $, where rule $i$ says \textquotedblleft thou
+shalt not take $i$ as a value\textquotedblright, then the surjective maps
+$f:\left[  m\right]  \rightarrow\left[  n\right]  $ are precisely the maps
+$f:\left[  m\right]  \rightarrow\left[  n\right]  $ that violate all $n$
+rules. Hence,%
+\begin{align*}
+&  \left(  \text{\# of surjective maps }f:\left[  m\right]  \rightarrow\left[
+n\right]  \right) \\
+&  =\left(  \text{\# of maps }f:\left[  m\right]  \rightarrow\left[  n\right]
+\text{ that violate all }n\text{ rules }1,2,\ldots,n\right) \\
+&  =\sum_{I\subseteq\left[  n\right]  }\left(  -1\right)  ^{\left\vert
+I\right\vert }\left(  \text{\# of maps }f:\left[  m\right]  \rightarrow\left[
+n\right]  \text{ that satisfy all rules in }I\right)
+\end{align*}
+(by the \textquotedblleft rule-breaking\textquotedblright\ interpretation of
+Theorem \ref{thm.pie.1}).
+
+Now, fix some subset $I$ of $\left[  n\right]  $. What is the \# of maps
+$f:\left[  m\right]  \rightarrow\left[  n\right]  $ that satisfy all rules in
+$I$ ? A map $f:\left[  m\right]  \rightarrow\left[  n\right]  $ satisfies all
+rules in $I$ if and only if it takes none of the $i\in I$ as a value, i.e., if
+all its values belong to $\left[  n\right]  \setminus I$. Thus, the maps
+$f:\left[  m\right]  \rightarrow\left[  n\right]  $ that satisfy all rules in
+$I$ are nothing but the maps from $\left[  m\right]  $ to $\left[  n\right]
+\setminus I$. The \# of such maps is therefore $\left\vert \left[  n\right]
+\setminus I\right\vert ^{\left\vert \left[  m\right]  \right\vert }=\left(
+n-\left\vert I\right\vert \right)  ^{m}$ (since $I\subseteq\left[  n\right]  $
+entails $\left\vert \left[  n\right]  \setminus I\right\vert =\left\vert
+\left[  n\right]  \right\vert -\left\vert I\right\vert =n-\left\vert
+I\right\vert $, and since $\left\vert \left[  m\right]  \right\vert =m$).
+
+Forget that we fixed $I$. We thus have shown that for each subset $I$ of
+$\left[  n\right]  $, we have%
+\begin{align}
+&  \left(  \text{\# of maps }f:\left[  m\right]  \rightarrow\left[  n\right]
+\text{ that satisfy all rules in }I\right) \nonumber\\
+&  =\left(  n-\left\vert I\right\vert \right)  ^{m}. \label{eq.exa.pie1.1.3}%
+\end{align}
+Substituting this into the above computation, we find%
+\begin{align*}
+&  \left(  \text{\# of surjective maps }f:\left[  m\right]  \rightarrow\left[
+n\right]  \right) \\
+&  =\sum_{I\subseteq\left[  n\right]  }\left(  -1\right)  ^{\left\vert
+I\right\vert }\underbrace{\left(  \text{\# of maps }f:\left[  m\right]
+\rightarrow\left[  n\right]  \text{ that satisfy all rules in }I\right)
+}_{\substack{=\left(  n-\left\vert I\right\vert \right)  ^{m}\\\text{(by
+(\ref{eq.exa.pie1.1.3}))}}}\\
+&  =\sum_{I\subseteq\left[  n\right]  }\left(  -1\right)  ^{\left\vert
+I\right\vert }\left(  n-\left\vert I\right\vert \right)  ^{m}=\sum_{k=0}%
+^{n}\ \ \sum_{\substack{I\subseteq\left[  n\right]  ;\\\left\vert I\right\vert
+=k}}\underbrace{\left(  -1\right)  ^{\left\vert I\right\vert }\left(
+n-\left\vert I\right\vert \right)  ^{m}}_{\substack{=\left(  -1\right)
+^{k}\left(  n-k\right)  ^{m}\\\text{(since }\left\vert I\right\vert
+=k\text{)}}}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have split the sum according to}\\
+\text{the value of }\left\vert I\right\vert
+\end{array}
+\right) \\
+&  =\sum_{k=0}^{n}\ \ \underbrace{\sum_{\substack{I\subseteq\left[  n\right]
+;\\\left\vert I\right\vert =k}}\left(  -1\right)  ^{k}\left(  n-k\right)
+^{m}}_{\substack{=\dbinom{n}{k}\left(  -1\right)  ^{k}\left(  n-k\right)
+^{m}\\\text{(since this is a sum of }\dbinom{n}{k}\\\text{many equal
+addends)}}}=\sum_{k=0}^{n}\dbinom{n}{k}\left(  -1\right)  ^{k}\left(
+n-k\right)  ^{m}\\
+&  =\sum_{k=0}^{n}\left(  -1\right)  ^{k}\dbinom{n}{k}\left(  n-k\right)
+^{m}.
+\end{align*}
+
+
+Thus, we have proved the following theorem:
+
+\begin{theorem}
+\label{thm.pie.count-sur}Let $n,m\in\mathbb{N}$. Then,%
+\[
+\left(  \text{\# of surjective maps }f:\left[  m\right]  \rightarrow\left[
+n\right]  \right)  =\sum\limits_{k=0}^{n}\left(  -1\right)  ^{k}\dbinom{n}%
+{k}\left(  n-k\right)  ^{m}.
+\]
+
+\end{theorem}
+
+This is the simplest expression for this number. It has no product formula
+(unlike the \# of injective maps $f:\left[  m\right]  \rightarrow\left[
+n\right]  $, which is $n\left(  n-1\right)  \left(  n-2\right)  \cdots\left(
+n-m+1\right)  $).
+
+Before we move on to the next example, let us draw a few consequences from
+Theorem \ref{thm.pie.count-sur}:
+
+\begin{corollary}
+\label{cor.pie.count-sur.cors}Let $n\in\mathbb{N}$. Then: \medskip
+
+\textbf{(a)} We have $\sum\limits_{k=0}^{n}\left(  -1\right)  ^{k}\dbinom
+{n}{k}\left(  n-k\right)  ^{m}=0$ for any $m\in\mathbb{N}$ satisfying $m<n$.
+\medskip
+
+\textbf{(b)} We have $\sum\limits_{k=0}^{n}\left(  -1\right)  ^{k}\dbinom
+{n}{k}\left(  n-k\right)  ^{n}=n!$. \medskip
+
+\textbf{(c)} We have $\sum\limits_{k=0}^{n}\left(  -1\right)  ^{k}\dbinom
+{n}{k}\left(  n-k\right)  ^{m}\geq0$ for each $m\in\mathbb{N}$. \medskip
+
+\textbf{(d)} We have $n!\mid\sum\limits_{k=0}^{n}\left(  -1\right)
+^{k}\dbinom{n}{k}\left(  n-k\right)  ^{m}$ for each $m\in\mathbb{N}$.
+\end{corollary}
+
+\begin{proof}
+[Proof of Corollary \ref{cor.pie.count-sur.cors} (sketched).]\textbf{(a)} Let
+$m\in\mathbb{N}$ satisfy $m<n$. Theorem \ref{thm.pie.count-sur} shows that the
+sum $\sum\limits_{k=0}^{n}\left(  -1\right)  ^{k}\dbinom{n}{k}\left(
+n-k\right)  ^{m}$ equals the \# of surjective maps $f:\left[  m\right]
+\rightarrow\left[  n\right]  $. However, there are no such maps (by the
+Pigeonhole Principle for Surjections)\footnote{Indeed, the Pigeonhole
+Principle for Surjections shows that there are no surjective maps from a
+smaller set to a larger set. Thus, in particular, there are no surjective maps
+from $\left[  m\right]  $ to $\left[  n\right]  $ (since $m<n$).}; hence, this
+\# is $0$. Therefore, the sum is $0$. In other words, $\sum\limits_{k=0}%
+^{n}\left(  -1\right)  ^{k}\dbinom{n}{k}\left(  n-k\right)  ^{m}=0$. This
+proves Corollary \ref{cor.pie.count-sur.cors} \textbf{(a)}. \medskip
+
+\textbf{(b)} Theorem \ref{thm.pie.count-sur} (applied to $m=n$) shows that the
+sum $\sum\limits_{k=0}^{n}\left(  -1\right)  ^{k}\dbinom{n}{k}\left(
+n-k\right)  ^{n}$ equals the \# of surjective maps $f:\left[  n\right]
+\rightarrow\left[  n\right]  $. However, these maps are precisely the
+permutations of $\left[  n\right]  $ (by the Pigeonhole Principle for
+Surjections)\footnote{Indeed, the Pigeonhole Principle for Surjections shows
+that any surjective map between two finite sets of the same size is bijective.
+Thus, any surjective map $f:\left[  n\right]  \rightarrow\left[  n\right]  $
+is bijective, and hence is a permutation of $\left[  n\right]  $. The converse
+is true as well (i.e., any permutation of $\left[  n\right]  $ is a surjective
+map $f:\left[  n\right]  \rightarrow\left[  n\right]  $). Thus, the surjective
+maps $f:\left[  n\right]  \rightarrow\left[  n\right]  $ are precisely the
+permutations of $\left[  n\right]  $.}; therefore, this \# is $n!$. Therefore,
+this sum is $n!$. This proves Corollary \ref{cor.pie.count-sur.cors}
+\textbf{(b)}. \medskip
+
+\textbf{(c)} Let $m\in\mathbb{N}$. Theorem \ref{thm.pie.count-sur} shows that
+the sum $\sum\limits_{k=0}^{n}\left(  -1\right)  ^{k}\dbinom{n}{k}\left(
+n-k\right)  ^{m}$ equals the \# of surjective maps $f:\left[  m\right]
+\rightarrow\left[  n\right]  $. Hence, this sum is $\geq0$. This proves
+Corollary \ref{cor.pie.count-sur.cors} \textbf{(c)}. \medskip
+
+\textbf{(d)} Let $m\in\mathbb{N}$. Theorem \ref{thm.pie.count-sur} shows that
+the sum $\sum\limits_{k=0}^{n}\left(  -1\right)  ^{k}\dbinom{n}{k}\left(
+n-k\right)  ^{m}$ equals the \# of surjective maps $f:\left[  m\right]
+\rightarrow\left[  n\right]  $. Let
+\[
+U:=\left\{  \text{surjective maps }f:\left[  m\right]  \rightarrow\left[
+n\right]  \right\}  .
+\]
+Thus, this sum equals $\left\vert U\right\vert $. Hence, it remains to show
+that $n!\mid\left\vert U\right\vert $.
+
+The argument that follows will use the language of group actions (although it
+could be restated combinatorially)\footnote{For a refresher on group actions,
+see (e.g.) \cite[\S 3.2]{Quinlan21} or \cite[\S 9.11--\S 9.15]{Loehr-BC} or
+\cite[\S 6.7--\S 6.9]{Artin} or \cite[Fall 2018, Weeks 8--10]%
+{Armstrong-561fa18sp19} or \cite[\S 6.1]{Aigner07}. When $G$ is a group, we
+use the word \textquotedblleft$G$\emph{-set}\textquotedblright\ to mean a set
+on which $G$ acts.}. If $\sigma\in S_{n}$ is any permutation and $f:\left[
+m\right]  \rightarrow\left[  n\right]  $ is a surjective map, then the
+composition $\sigma\circ f:\left[  m\right]  \rightarrow\left[  n\right]  $ is
+again a surjective map. In other words, any $\sigma\in S_{n}$ and $f\in U$
+satisfy $\sigma\circ f\in U$. Hence, the symmetric group $S_{n}$ acts on the
+set $U$ by the rule\footnote{This is called \textquotedblleft acting by
+post-composition\textquotedblright\ (since $\sigma\circ f$ is obtained from
+$f$ by composing with $\sigma$ \textquotedblleft after\textquotedblright%
+\ $f$).}%
+\[
+\sigma\cdot f=\sigma\circ f\ \ \ \ \ \ \ \ \ \ \text{for all }\sigma\in
+S_{n}\text{ and }f\in U.
+\]
+(This is a well-defined group action, since composition of maps is associative.)
+
+This turns $U$ into an $S_{n}$-set. It is not hard to see that this action of
+$S_{n}$ on $U$ is free -- i.e., the stabilizer of each $f\in U$ is the trivial
+subgroup $\left\{  \operatorname*{id}\right\}  $ of $S_{n}$%
+\ \ \ \ \footnote{\textit{Proof.} Let $f\in U$. We must prove that the
+stabilizer of $f$ is $\left\{  \operatorname*{id}\right\}  $.
+\par
+Let $\sigma$ belong to the stabilizer of $f$. Thus, $\sigma\circ f=f$. Now,
+let $j\in\left[  n\right]  $. Recall that $f\in U$; hence, $f$ is surjective.
+Thus, there exists some $i\in\left[  m\right]  $ such that $j=f\left(
+i\right)  $. Consider this $i$. Now, from $j=f\left(  i\right)  $, we obtain
+$\sigma\left(  j\right)  =\sigma\left(  f\left(  i\right)  \right)
+=\underbrace{\left(  \sigma\circ f\right)  }_{=f}\left(  i\right)  =f\left(
+i\right)  =j$. Now, forget that we fixed $j$. We thus have shown that
+$\sigma\left(  j\right)  =j$ for each $j\in\left[  n\right]  $. In other
+words, $\sigma=\operatorname*{id}$.
+\par
+Forget that we fixed $\sigma$. We thus have shown that any $\sigma$ in the
+stabilizer of $f$ satisfies $\sigma=\operatorname*{id}$. In other words, the
+stabilizer of $f$ is a subset of $\left\{  \operatorname*{id}\right\}  $.
+Therefore, the stabilizer of $f$ must be $\left\{  \operatorname*{id}\right\}
+$ (since $\operatorname*{id}$ is clearly in the stabilizer of $f$).}. Thus,
+the Orbit-Stabilizer Theorem (see, e.g., \cite[Theorem 3.2.5]{Quinlan21})
+shows that each orbit of this action has size%
+\[
+\left[  S_{n}:\left\{  \operatorname*{id}\right\}  \right]
+=\underbrace{\left\vert S_{n}\right\vert }_{=n!}/\underbrace{\left\vert
+\left\{  \operatorname*{id}\right\}  \right\vert }_{=1}=n!/1=n!.
+\]
+However, the orbits of this action form a partition of $U$ (since each element
+of $U$ belongs to exactly one orbit). Thus, we have%
+\[
+\left\vert U\right\vert =\left(  \text{the sum of the sizes of the
+orbits}\right)  =\left(  \text{\# of orbits}\right)  \cdot n!
+\]
+(since each orbit has size $n!$). This entails $n!\mid\left\vert U\right\vert
+$, which is exactly what we wanted to show. This proves Corollary
+\ref{cor.pie.count-sur.cors} \textbf{(d)}.
+\end{proof}
+
+We note that parts \textbf{(a)} and \textbf{(b)} of Corollary
+\ref{cor.pie.count-sur.cors} can also be proved algebraically (see, e.g.,
+\cite[Exercise 5.4.2 \textbf{(d)}]{20f} for an algebraic generalization of
+Corollary \ref{cor.pie.count-sur.cors} \textbf{(a)}); but this is harder for
+Corollary \ref{cor.pie.count-sur.cors} \textbf{(d)} and (to my knowledge)
+impossible for Corollary \ref{cor.pie.count-sur.cors} \textbf{(c)}.
+
+\bigskip
+
+\textbf{Example 2.} (See \cite[\S 2.9.5]{19fco} for details.) We will use the
+following definition:
+
+\begin{definition}
+\label{def.pie.dera}A \emph{derangement} of a set $X$ means a permutation of
+$X$ that has no fixed points.
+\end{definition}
+
+Now, let $n\in\mathbb{N}$. How many derangements does $\left[  n\right]  $ have?
+
+Before answering this question, we establish notations and a few examples.
+
+Let $D_{n}$ be the \# of derangements of $\left[  n\right]  $. For example:
+
+\begin{itemize}
+\item The identity permutation $\operatorname*{id}\in S_{0}$ is a derangement,
+since it has no fixed points (since $\left[  0\right]  =\varnothing$ has no
+elements to begin with). Thus, $D_{0}=1$.
+
+\item The identity permutation $\operatorname*{id}\in S_{1}$ is \textbf{not} a
+derangement, since $\operatorname*{id}\left(  1\right)  =1$. Thus, $D_{1}=0$.
+
+\item In the symmetric group $S_{2}$, the identity is \textbf{not} a
+derangement, but the transposition $s_{1}=t_{1,2}$ is one. Thus, $D_{2}=1$.
+
+\item In the symmetric group $S_{3}$, the derangements are the $3$-cycles
+$\operatorname*{cyc}\nolimits_{1,2,3}$ and $\operatorname*{cyc}%
+\nolimits_{1,3,2}$. Thus, $D_{3}=2$.
+\end{itemize}
+
+Here is a table of early values of $D_{n}$:%
+\[%
+\begin{tabular}
+[c]{|c||c|c|c|c|c|c|c|c|c|c|c|}\hline
+$n$ & $0$ & $1$ & $2$ & $3$ & $4$ & $5$ & $6$ & $7$ & $8$ & $9$ & $10$\\\hline
+$D_{n}$ & $1$ & $0$ & $1$ & $2$ & $9$ & $44$ & $265$ & $1854$ & $14\ 833$ &
+$133\ 496$ & $1\ 334\ 961$\\\hline
+\end{tabular}
+\ \ \ \ \ \ \ .
+\]
+
+
+\textbf{Note:} The number $D_{n}$ is also called the \emph{subfactorial} of
+$n$ and is sometimes denoted by $!n$. Be careful with that notation: what is
+$2!2$ ?
+
+\bigskip
+
+Let us now try to compute $D_{n}$ in general. Fix $n\in\mathbb{N}$, and set
+$U:=S_{n}=\left\{  \text{permutations of }\left[  n\right]  \right\}  $. We
+impose $n$ rules $1,2,\ldots,n$ on a permutation $\sigma\in U$, with rule $i$
+being \textquotedblleft thou shalt leave the element $i$
+fixed\textquotedblright\ (in other words, rule $i$ requires a permutation
+$\sigma\in U$ to satisfy $\sigma\left(  i\right)  =i$). Now,%
+\begin{align*}
+D_{n}  &  =\left(  \text{\# of derangements of }\left[  n\right]  \right) \\
+&  =\left(  \text{\# of permutations }u\in U\text{ that violate all }n\text{
+rules }1,2,\ldots,n\right) \\
+&  =\sum_{I\subseteq\left[  n\right]  }\left(  -1\right)  ^{\left\vert
+I\right\vert }\left(  \text{\# of permutations }u\in U\text{ that satisfy all
+rules in }I\right)
+\end{align*}
+(by the \textquotedblleft rule-breaking\textquotedblright\ interpretation of
+Theorem \ref{thm.pie.1}).
+
+Now, let $I$ be a subset of $\left[  n\right]  $. What is the \# of
+permutations $u\in U$ that satisfy all rules in $I$ ? These permutations are
+the permutations of $\left[  n\right]  $ that leave each $i\in I$ fixed (but
+can do whatever they want with the remaining elements of $\left[  n\right]
+$). Clearly, there are $\left(  n-\left\vert I\right\vert \right)  !$ such
+permutations, since they are essentially the permutations of the $\left(
+n-\left\vert I\right\vert \right)  $-element set $\left[  n\right]  \setminus
+I$ (with the elements of $I$ tacked on as fixed points). (See \cite[Corollary
+2.9.16]{19fco} for the technical details of this intuitively obvious argument.)
+
+Forget that we fixed $I$. We thus have shown that%
+\begin{align}
+&  \left(  \text{\# of permutations }u\in U\text{ that satisfy all rules in
+}I\right) \nonumber\\
+&  =\left(  n-\left\vert I\right\vert \right)  ! \label{eq.exa.pie1.2.3}%
+\end{align}
+for any subset $I$ of $\left[  n\right]  $.
+
+Thus, the above computation becomes%
+\begin{align*}
+D_{n}  &  =\sum_{I\subseteq\left[  n\right]  }\left(  -1\right)  ^{\left\vert
+I\right\vert }\underbrace{\left(  \text{\# of permutations }u\in U\text{ that
+satisfy all rules in }I\right)  }_{\substack{=\left(  n-\left\vert
+I\right\vert \right)  !\\\text{(by (\ref{eq.exa.pie1.2.3}))}}}\\
+&  =\underbrace{\sum_{I\subseteq\left[  n\right]  }}_{=\sum_{k=0}^{n}%
+\ \ \sum_{\substack{I\subseteq\left[  n\right]  ;\\\left\vert I\right\vert
+=k}}}\left(  -1\right)  ^{\left\vert I\right\vert }\left(  n-\left\vert
+I\right\vert \right)  !=\sum_{k=0}^{n}\ \ \sum_{\substack{I\subseteq\left[
+n\right]  ;\\\left\vert I\right\vert =k}}\underbrace{\left(  -1\right)
+^{\left\vert I\right\vert }\left(  n-\left\vert I\right\vert \right)
+!}_{\substack{=\left(  -1\right)  ^{k}\left(  n-k\right)  !\\\text{(since
+}\left\vert I\right\vert =k\text{)}}}\\
+&  =\sum_{k=0}^{n}\ \ \underbrace{\sum_{\substack{I\subseteq\left[  n\right]
+;\\\left\vert I\right\vert =k}}\left(  -1\right)  ^{k}\left(  n-k\right)
+!}_{=\dbinom{n}{k}\left(  -1\right)  ^{k}\left(  n-k\right)  !}=\sum_{k=0}%
+^{n}\dbinom{n}{k}\left(  -1\right)  ^{k}\left(  n-k\right)  !\\
+&  =\sum_{k=0}^{n}\left(  -1\right)  ^{k}\underbrace{\dbinom{n}{k}\left(
+n-k\right)  !}_{\substack{=\dfrac{n!}{k!}\\\text{(by (\ref{eq.binom.fac-form}%
+))}}}=\sum_{k=0}^{n}\left(  -1\right)  ^{k}\dfrac{n!}{k!}=n!\cdot\sum
+_{k=0}^{n}\dfrac{\left(  -1\right)  ^{k}}{k!}.
+\end{align*}
+
+
+Let us summarize our results as a theorem:
+
+\begin{theorem}
+\label{thm.pie.count-der}Let $n\in\mathbb{N}$. Then, the \# of derangements of
+$\left[  n\right]  $ is
+\[
+D_{n}=\sum_{k=0}^{n}\left(  -1\right)  ^{k}\dbinom{n}{k}\left(  n-k\right)
+!=n!\cdot\sum_{k=0}^{n}\dfrac{\left(  -1\right)  ^{k}}{k!}.
+\]
+
+\end{theorem}
+
+\begin{remark}
+The sum on the right hand side is a partial sum of the well-known infinite
+series $\sum\limits_{k=0}^{\infty}\dfrac{\left(  -1\right)  ^{k}}{k!}=e^{-1}$
+(where $e=2.718\ldots$ is Euler's number). This is quite helpful in
+approximating $D_{n}$; indeed, it is easy to see (using some simple estimates)
+that%
+\[
+D_{n}=\operatorname*{round}\dfrac{n!}{e}\ \ \ \ \ \ \ \ \ \ \text{for each
+}n>0,
+\]
+where $\operatorname*{round}x$ means the result of rounding a real number $x$
+to the nearest integer (fortunately, since $e$ is irrational, we never get a tie).
+\end{remark}
+
+See Exercise \ref{exe.pie.dera.recs} and \cite[Chapter 1]{Wildon19} for more
+about derangements.
+
+\bigskip
+
+\textbf{Example 3.} Like many other things in these lectures, the following
+elementary number-theoretical result is due to Euler:
+
+\begin{theorem}
+\label{thm.pie.euler-tot}Let $c$ be a positive integer with prime
+factorization $p_{1}^{a_{1}}p_{2}^{a_{2}}\cdots p_{n}^{a_{n}}$, where
+$p_{1},p_{2},\ldots,p_{n}$ are distinct primes, and where $a_{1},a_{2}%
+,\ldots,a_{n}$ are positive integers. Then,%
+\[
+\left(  \text{\# of all }u\in\left[  c\right]  \text{ that are coprime to
+}c\right)  =c\cdot\prod_{i=1}^{n}\left(  1-\dfrac{1}{p_{i}}\right)
+=\prod_{i=1}^{n}\left(  p_{i}^{a_{i}}-p_{i}^{a_{i}-1}\right)  .
+\]
+
+\end{theorem}
+
+Note that the \# of all $u\in\left[  c\right]  $ that are coprime to $c$ is
+usually denoted by $\phi\left(  c\right)  $ in number theory, and the map
+$\phi:\left\{  1,2,3,\ldots\right\}  \rightarrow\mathbb{N}$ that sends each
+$c$ to $\phi\left(  c\right)  $ is called \emph{Euler's totient function}.
+
+Theorem \ref{thm.pie.euler-tot} can be proved in many ways (and a proof can be
+found in almost any text on elementary number theory). Probably the most
+transparent proof relies on the PIE:
+
+\begin{proof}
+[Proof of Theorem \ref{thm.pie.euler-tot} (sketched).](See \cite[proof of
+Theorem 2.9.19]{19fco} for the details of this argument.) Let $U=\left[
+c\right]  $. A number $u\in U$ is coprime to $c$ if and only if it is not
+divisible by any of the prime factors $p_{1},p_{2},\ldots,p_{n}$ of $c$.
+Again, this means that $u$ breaks all $n$ rules $1,2,\ldots,n$, where rule $i$
+says \textquotedblleft thou shalt be divisible by $p_{i}$\textquotedblright.
+Thus, by the \textquotedblleft rule-breaking\textquotedblright\ interpretation
+of Theorem \ref{thm.pie.1}, we obtain%
+\begin{align*}
+&  \left(  \text{\# of all }u\in\left[  c\right]  \text{ that are coprime to
+}c\right) \\
+&  =\sum_{I\subseteq\left[  n\right]  }\left(  -1\right)  ^{\left\vert
+I\right\vert }\underbrace{\left(  \text{\# of all }u\in\left[  c\right]
+\text{ that are divisible by all }p_{i}\text{ with }i\in I\right)
+}_{\substack{=\dfrac{c}{\prod_{i\in I}p_{i}}\\\text{(this is not hard to
+prove)}}}\\
+&  =\sum_{I\subseteq\left[  n\right]  }\left(  -1\right)  ^{\left\vert
+I\right\vert }\dfrac{c}{\prod_{i\in I}p_{i}}=c\cdot\underbrace{\sum
+_{I\subseteq\left[  n\right]  }\left(  -1\right)  ^{\left\vert I\right\vert
+}\prod_{i\in I}\dfrac{1}{p_{i}}}_{\substack{=\prod_{i=1}^{n}\left(
+1-\dfrac{1}{p_{i}}\right)  \\\text{(an easy consequence of
+(\ref{eq.lem.prodrule.sum-ai-plus-bi.eq}))}}}\\
+&  =\underbrace{c}_{\substack{=p_{1}^{a_{1}}p_{2}^{a_{2}}\cdots p_{n}^{a_{n}%
+}\\=\prod_{i=1}^{n}p_{i}^{a_{i}}}}\cdot\prod_{i=1}^{n}\left(  1-\dfrac
+{1}{p_{i}}\right)  =\left(  \prod_{i=1}^{n}p_{i}^{a_{i}}\right)  \cdot
+\prod_{i=1}^{n}\left(  1-\dfrac{1}{p_{i}}\right) \\
+&  =\prod_{i=1}^{n}\underbrace{\left(  p_{i}^{a_{i}}\left(  1-\dfrac{1}{p_{i}%
+}\right)  \right)  }_{=p_{i}^{a_{i}}-p_{i}^{a_{i}-1}}=\prod_{i=1}^{n}\left(
+p_{i}^{a_{i}}-p_{i}^{a_{i}-1}\right)  .
+\end{align*}
+This proves Theorem \ref{thm.pie.euler-tot}.
+\end{proof}
+
+\bigskip
+
+\textbf{Example 4.} (This one is taken from \cite[Theorem 2.3.3]{Sagan19}.)
+Recall Theorem \ref{thm.pars.odd-dist-equal}, which states that each
+$n\in\mathbb{N}$ satisfies%
+\[
+p_{\operatorname*{odd}}\left(  n\right)  =p_{\operatorname*{dist}}\left(
+n\right)  ,
+\]
+where%
+\begin{align*}
+p_{\operatorname*{odd}}\left(  n\right)   &  :=\left(  \text{\# of partitions
+of }n\text{ into odd parts}\right)  \ \ \ \ \ \ \ \ \ \ \text{and}\\
+p_{\operatorname*{dist}}\left(  n\right)   &  :=\left(  \text{\# of partitions
+of }n\text{ into distinct parts}\right)  .
+\end{align*}
+
+
+We have already proved this twice, but let us prove it again.
+
+\begin{proof}
+[Third proof of Theorem \ref{thm.pars.odd-dist-equal} (sketched).]Let
+$n\in\mathbb{N}$. We set $U:=\left\{  \text{partitions of }n\right\}  $.
+
+In this proof, the word \textquotedblleft partition\textquotedblright\ will
+always mean \textquotedblleft partition of $n$\textquotedblright. Thus, a
+partition cannot contain any of the entries $n+1,n+2,n+3,\ldots$ (because any
+of these entries would cause the partition to have size $>n$).
+
+We want to frame the partitions of $n$ into distinct parts as rule-breakers.
+We observe that%
+\begin{align*}
+&  \left\{  \text{partitions of }n\text{ into distinct parts}\right\} \\
+&  =\left\{  \text{partitions that contain none of the entries }%
+1,2,3,\ldots\text{ twice}\right\} \\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here and in the following, the word \textquotedblleft
+twice\textquotedblright}\\
+\text{means \textquotedblleft at least twice\textquotedblright}%
+\end{array}
+\right) \\
+&  =\left\{  \text{partitions that contain none of the entries }%
+1,2,\ldots,n\text{ twice}\right\}
+\end{align*}
+(since a partition cannot contain any of the entries $n+1,n+2,n+3,\ldots$). In
+other words, the partitions of $n$ into distinct parts are precisely the
+partitions that break all rules $1,2,\ldots,n$, where rule $i$ says
+\textquotedblleft thou shalt contain the entry $i$ twice\textquotedblright%
+\footnote{Once again, \textquotedblleft twice\textquotedblright\ means
+\textquotedblleft at least twice\textquotedblright.}.
+
+Thus, applying the PIE (specifically, the \textquotedblleft
+rule-breaking\textquotedblright\ interpretation of Theorem \ref{thm.pie.1}),
+we obtain%
+\begin{align}
+&  p_{\operatorname*{dist}}\left(  n\right) \nonumber\\
+&  =\sum_{I\subseteq\left[  n\right]  }\left(  -1\right)  ^{\left\vert
+I\right\vert }\left(  \text{\# of partitions that satisfy all rules in
+}I\right) \nonumber\\
+&  =\sum_{I\subseteq\left[  n\right]  }\left(  -1\right)  ^{\left\vert
+I\right\vert }\left(  \text{\# of partitions that contain each of the entries
+}i\in I\text{ twice}\right)  . \label{pf.thm.pars.odd-dist-equal.3rd.3}%
+\end{align}
+
+
+We can play the same game with $p_{\operatorname*{odd}}\left(  n\right)  $.
+This time, rule $i$ says \textquotedblleft thou shalt contain the entry
+$2i$\textquotedblright. Thus, again applying the PIE, we obtain%
+\begin{equation}
+p_{\operatorname*{odd}}\left(  n\right)  =\sum_{I\subseteq\left[  n\right]
+}\left(  -1\right)  ^{\left\vert I\right\vert }\left(  \text{\# of partitions
+that contain the entry }2i\text{ for each }i\in I\right)  .
+\label{pf.thm.pars.odd-dist-equal.3rd.4}%
+\end{equation}
+
+
+Now, comparing these two equalities, we see that in order to prove that
+$p_{\operatorname*{dist}}\left(  n\right)  =p_{\operatorname*{odd}}\left(
+n\right)  $, it will suffice to show that%
+\begin{align*}
+&  \left(  \text{\# of partitions that contain each of the entries }i\in
+I\text{ twice}\right) \\
+&  =\left(  \text{\# of partitions that contain the entry }2i\text{ for each
+}i\in I\right)
+\end{align*}
+for any subset $I$ of $\left[  n\right]  $.
+
+So let $I$ be a subset of $\left[  n\right]  $. We are looking for a
+bijection
+\begin{align*}
+&  \text{from }\left\{  \text{partitions that contain each of the entries
+}i\in I\text{ twice}\right\} \\
+&  \text{to }\left\{  \text{partitions that contain the entry }2i\text{ for
+each }i\in I\right\}  .
+\end{align*}
+Such a bijection can be obtained as follows: For each $i\in I$ (from highest
+to lowest\footnote{Actually, a bit of thought reveals that the order in which
+we go through the $i\in I$ does not affect the result; this becomes
+particularly clear if we identify each partition with the multiset of its
+entries. Thus, me saying \textquotedblleft from highest to
+lowest\textquotedblright\ is unnecessary.}), we remove two copies of $i$ from
+the partition, and insert a $2i$ into the partition in their stead. For
+example, if $I=\left\{  2,4,5\right\}  $ and $n=33$, then our bijection sends
+the partition
+\[
+\left(  5,5,4,4,3,3,2,2,2,2,1\right)  \text{ to }\left(
+10,8,4,3,3,2,2,1\right)  .
+\]
+(Note that the $4$ in the resulting partition is not one of the original two
+$4$s, but rather a new $4$ that was inserted when we removed two copies of
+$2$. On the other hand, the two $2$s in the resulting partition are inherited
+from the original partition, because (unlike the bijection $A$ in our Second
+proof of Theorem \ref{thm.pars.odd-dist-equal} above) our bijection only
+removes two copies of each $i\in I$.)
+
+It is easy to see that this purported bijection really is a
+bijection\footnote{Its inverse, of course, does what you would expect: For
+each $i\in I$, we remove a $2i$ from the partition, and insert two copies of
+$i$ in its stead.}. Thus, we have found our bijection. The bijection principle
+therefore yields%
+\begin{align*}
+&  \left(  \text{\# of partitions that contain each of the entries }i\in
+I\text{ twice}\right) \\
+&  =\left(  \text{\# of partitions that contain the entry }2i\text{ for each
+}i\in I\right)  .
+\end{align*}
+
+
+We have proved this equality for all $I\subseteq\left[  n\right]  $. Hence,
+the right hand sides of the equalities (\ref{pf.thm.pars.odd-dist-equal.3rd.3}%
+) and (\ref{pf.thm.pars.odd-dist-equal.3rd.4}) are equal. Thus, their left
+hand sides are equal as well. In other words, $p_{\operatorname*{dist}}\left(
+n\right)  =p_{\operatorname*{odd}}\left(  n\right)  $. This proves Theorem
+\ref{thm.pars.odd-dist-equal} again.
+\end{proof}
+
+\begin{remark}
+It is worth contrasting the above four examples (in which we applied the PIE
+to solve a counting problem, obtaining an alternating sum as a result) with
+our arguments in Section \ref{sec.sign.intro} (in which we computed
+alternating sums using sign-reversing involutions). Sign-reversing involutions
+help turn alternating sums into combinatorial problems, while the PIE moves us
+in the opposite direction. The two techniques are thus, in some way, inverse
+to each other. This will become less mysterious once we prove the PIE itself
+using a sign-reversing involution. The PIE can also be used backwards, to turn
+an alternating sum into a counting problem, which is how we proved Corollary
+\ref{cor.pie.count-sur.cors} above.
+\end{remark}
+
+\subsubsection{\label{subsec.sign.pie.wt}The weighted version}
+
+The main rule of algebra is to never turn down nature's gifts. The PIE (in the
+shape of Theorem \ref{thm.pie.1}) can be generalized with zero effort, so let
+us do it (\cite[Theorem 7.8.9]{20f}):
+
+\begin{theorem}
+[weighted version of the PIE]\label{thm.pie.2}Let $n\in\mathbb{N}$, and let
+$U$ be a finite set. Let $A_{1},A_{2},\ldots,A_{n}$ be $n$ subsets of $U$. Let
+$A$ be any additive abelian group (such as $\mathbb{R}$, or any vector space,
+or any ring). Let $w:U\rightarrow A$ be any map (i.e., let $w\left(  u\right)
+$ be an element of $A$ for each $u\in U$). Then,%
+\begin{equation}
+\sum_{\substack{u\in U;\\u\notin A_{i}\text{ for all }i\in\left[  n\right]
+}}w\left(  u\right)  =\sum_{I\subseteq\left[  n\right]  }\left(  -1\right)
+^{\left\vert I\right\vert }\sum_{\substack{u\in U;\\u\in A_{i}\text{ for all
+}i\in I}}w\left(  u\right)  . \label{eq.thm.pie.2.eq}%
+\end{equation}
+
+\end{theorem}
+
+We can think of each value $w\left(  u\right)  $ in Theorem \ref{thm.pie.2} as
+a kind of \textquotedblleft weight\textquotedblright\ of the respective
+element $u$. Thus, the left hand side of the equality (\ref{eq.thm.pie.2.eq})
+is the total weight of all \textquotedblleft rule-breaking\textquotedblright%
+\ $u\in U$ (that is, of all $u\in U$ that satisfy $\left(  u\notin A_{i}\text{
+for all }i\in\left[  n\right]  \right)  $), whereas the inner sum
+$\sum_{\substack{u\in U;\\u\in A_{i}\text{ for all }i\in I}}w\left(  u\right)
+$ on the right hand side is the total weight of all $u\in U$ that satisfy
+$\left(  u\in A_{i}\text{ for all }i\in I\right)  $. This is why we call
+Theorem \ref{thm.pie.2} the \emph{weighted version of the PIE} (or just the
+\emph{weighted PIE}).
+
+Theorem \ref{thm.pie.1} can be obtained from Theorem \ref{thm.pie.2} by taking
+$w$ to be constantly $1$ (that is, by setting $w\left(  u\right)  =1$ for each
+$u\in U$). Indeed, a sum of a bunch of $1$s equals the \# of $1$s being
+summed, so that sums generalize cardinalities.
+
+With Theorem \ref{thm.pie.2}, we can take any of our above four examples from
+Subsection \ref{subsec.sign.pie.exas}, and introduce weights into them --
+i.e., instead of asking for a number, we sum certain \textquotedblleft
+weights\textquotedblright. Little question (cf. the homework): What do you get?
+
+But we have no time for this now. Another generalization is calling!
+

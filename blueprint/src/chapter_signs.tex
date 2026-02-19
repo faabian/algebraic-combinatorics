@@ -1,0 +1,378 @@
+\section{Signs of permutations}
+
+The notion of the \emph{sign} (aka \emph{signature}) of a permutation is a
+simple consequence of that of its length; moreover, it is rather well-known,
+due to its role in the definition of a determinant. Thus we will survey its
+properties quickly and without proofs.
+
+\subsection{Definition and basic properties}
+
+\begin{definition}
+\label{def.perm.sign}
+\lean{Equiv.Perm.sign_eq_neg_one_pow_invCount, Equiv.Perm.sign_coe_eq_neg_one_pow_invCount}
+\leantarget
+\leanok
+Let $n \in \mathbb{N}$. The \emph{sign} of a permutation
+$\sigma \in S_n$ is defined to be the integer $(-1)^{\ell(\sigma)}$.
+
+It is denoted by $(-1)^{\sigma}$ or $\operatorname{sgn}(\sigma)$ or
+$\operatorname{sign}(\sigma)$ or $\varepsilon(\sigma)$. It is also known
+as the \emph{signature} of $\sigma$.
+\end{definition}
+
+\begin{proposition}
+\label{prop.perm.sign.props}
+\lean{Equiv.Perm.sign_id, Equiv.Perm.sign_transposition, Equiv.Perm.sign_isCycle, Equiv.Perm.sign_mul', Equiv.Perm.sign_prod_list, Equiv.Perm.sign_inv', Equiv.Perm.sign_eq_prod_pairs, Equiv.Perm.prod_diff_comp_perm}
+\leantarget
+\leanok
+Let $n \in \mathbb{N}$.
+
+\textbf{(a)} The sign of the identity permutation $\operatorname{id} \in S_n$
+is $(-1)^{\operatorname{id}} = 1$.
+
+\textbf{(b)} For any two distinct elements $i$ and $j$ of $[n]$, the
+transposition $t_{i,j} \in S_n$ has sign $(-1)^{t_{i,j}} = -1$.
+
+\textbf{(c)} For any positive integer $k$ and any distinct elements
+$i_1, i_2, \ldots, i_k \in [n]$, the $k$-cycle
+$\operatorname{cyc}_{i_1, i_2, \ldots, i_k}$ has sign
+$(-1)^{\operatorname{cyc}_{i_1, i_2, \ldots, i_k}} = (-1)^{k-1}$.
+
+\textbf{(d)} We have $(-1)^{\sigma\tau} = (-1)^{\sigma} \cdot (-1)^{\tau}$
+for any $\sigma \in S_n$ and $\tau \in S_n$.
+
+\textbf{(e)} We have $(-1)^{\sigma_1 \sigma_2 \cdots \sigma_p}
+= (-1)^{\sigma_1} (-1)^{\sigma_2} \cdots (-1)^{\sigma_p}$
+for any $\sigma_1, \sigma_2, \ldots, \sigma_p \in S_n$.
+
+\textbf{(f)} We have $(-1)^{\sigma^{-1}} = (-1)^{\sigma}$
+for any $\sigma \in S_n$. (The left hand side here has to be
+understood as $(-1)^{(\sigma^{-1})}$.)
+
+\textbf{(g)} We have
+\[
+(-1)^{\sigma} = \prod_{1 \leq i < j \leq n}
+\frac{\sigma(i) - \sigma(j)}{i - j}
+\qquad \text{for each } \sigma \in S_n.
+\]
+(The product sign ``$\prod_{1 \leq i < j \leq n}$'' means a product over
+all pairs $(i,j)$ of integers satisfying $1 \leq i < j \leq n$.
+There are $\binom{n}{2}$ such pairs.)
+
+\textbf{(h)} If $x_1, x_2, \ldots, x_n$ are any elements of some
+commutative ring, and if $\sigma \in S_n$, then
+\[
+\prod_{1 \leq i < j \leq n}
+\left( x_{\sigma(i)} - x_{\sigma(j)} \right)
+= (-1)^{\sigma}
+\prod_{1 \leq i < j \leq n}
+\left( x_i - x_j \right).
+\]
+\end{proposition}
+
+\begin{proof}
+Most of this follows easily from what we have proved above, but here are references to
+complete proofs:
+
+\textbf{(a)} This is \cite[Proposition 5.15 \textbf{(a)}]{detnotes}, and
+follows easily from $\ell(\operatorname{id}) = 0$.
+
+\textbf{(d)} This is \cite[Proposition 5.15 \textbf{(c)}]{detnotes}, and
+follows easily from Corollary~\ref{cor.perm.red.sigtau}~\textbf{(a)}.
+
+\textbf{(b)} This is \cite[Exercise 5.10 \textbf{(b)}]{detnotes}, and follows
+easily from the fact that a permutation has even length if and only if
+it has an even number of even-length cycles.
+
+\textbf{(c)} This is \cite[Exercise 5.17 \textbf{(d)}]{detnotes}, and follows
+easily from the fact that a cycle of length $\ell$ has exactly $\ell - 1$
+inversions, combined with Proposition
+\ref{prop.perm.sign.props}~\textbf{(d)}.
+
+\textbf{(e)} This is \cite[Proposition 5.28]{detnotes}, and follows by
+induction from Proposition~\ref{prop.perm.sign.props}~\textbf{(d)}.
+
+\textbf{(f)} This is \cite[Proposition 5.15 \textbf{(d)}]{detnotes}, and
+follows easily from Proposition~\ref{prop.perm.sign.props}~\textbf{(d)} or
+from Proposition~\ref{prop.perm.len.inv}.
+
+\textbf{(h)} This is \cite[Exercise 5.13 \textbf{(a)}]{detnotes} (or, rather,
+the straightforward generalization of \cite[Exercise 5.13 \textbf{(a)}]{detnotes}
+to arbitrary commutative rings). Each
+factor $x_{\sigma(i)} - x_{\sigma(j)}$ on the left
+hand side appears also on the right hand side, albeit with a different sign if
+$(i,j)$ is an inversion of $\sigma$. Thus, the products on both
+sides agree up to a sign, which is precisely $(-1)^{\ell(\sigma)} = (-1)^{\sigma}$.
+
+\textbf{(g)} This is \cite[Exercise 5.13 \textbf{(c)}]{detnotes}, and is a
+particular case of Proposition~\ref{prop.perm.sign.props}~\textbf{(h)}.
+\end{proof}
+
+\subsection{The sign homomorphism}
+
+\begin{corollary}
+\label{cor.perm.sign.hom}
+\lean{Equiv.Perm.sign_hom_mul}
+\leantarget
+\leanok
+Let $n \in \mathbb{N}$. The map
+\begin{align*}
+S_n &\to \{1, -1\}, \\
+\sigma &\mapsto (-1)^{\sigma}
+\end{align*}
+is a group homomorphism from the symmetric group $S_n$ to the order-$2$
+group $\{1, -1\}$. (Of course, $\{1, -1\}$ is a group with respect to
+multiplication.)
+\end{corollary}
+
+This map is known as the \emph{sign homomorphism}.
+
+\begin{proof}
+Proposition~\ref{prop.perm.sign.props}~\textbf{(d)} shows that this map
+respects multiplication (i.e., sends products to products). However, if a
+map between two groups respects multiplication, then it is automatically a
+group homomorphism. Thus, Corollary~\ref{cor.perm.sign.hom} follows.
+\end{proof}
+
+\subsection{Even and odd permutations}
+
+\begin{definition}
+\label{def.perm.even-odd}
+\lean{Equiv.Perm.IsEven, Equiv.Perm.IsOdd}
+\leantarget
+\leanok
+Let $n \in \mathbb{N}$. A permutation $\sigma \in S_n$ is said to be
+\begin{itemize}
+\item \emph{even} if $(-1)^{\sigma} = 1$ (that is, if $\ell(\sigma)$ is even);
+\item \emph{odd} if $(-1)^{\sigma} = -1$ (that is, if $\ell(\sigma)$ is odd).
+\end{itemize}
+\end{definition}
+
+\begin{lemma}
+\label{lem.perm.isEven_or_isOdd}
+\lean{Equiv.Perm.isEven_or_isOdd}
+\leanhelper
+\leanok
+Every permutation $\sigma$ is either even or odd.
+\end{lemma}
+
+\begin{proof}
+\leanok
+$(-1)^{\sigma} \in \{1, -1\}$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.perm.not_isEven_and_isOdd}
+\lean{Equiv.Perm.not_isEven_and_isOdd}
+\leanhelper
+\leanok
+A permutation cannot be both even and odd.
+\end{lemma}
+
+\begin{proof}
+\leanok
+$1 \neq -1$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.perm.isEven_one}
+\lean{Equiv.Perm.isEven_one}
+\leanhelper
+\leanok
+The identity permutation is even.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By Proposition~\ref{prop.perm.sign.props}~\textbf{(a)},
+$(-1)^{\operatorname{id}} = 1$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.perm.isOdd_swap}
+\lean{Equiv.Perm.isOdd_swap}
+\leanhelper
+\leanok
+A transposition of two distinct elements is an odd permutation.
+\end{lemma}
+
+\begin{proof}
+\leanok
+By Proposition~\ref{prop.perm.sign.props}~\textbf{(b)},
+$(-1)^{t_{i,j}} = -1$.
+\end{proof}
+
+\begin{lemma}
+\label{lem.perm.isEven_iff_mem_alternatingGroup}
+\lean{Equiv.Perm.isEven_iff_mem_alternatingGroup}
+\leanhelper
+\leanok
+A permutation $\sigma$ is even if and only if $\sigma \in A_n$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+This follows directly from the definition of $A_n$ as the kernel of the sign homomorphism:
+$\sigma \in A_n$ iff $\operatorname{sign}(\sigma) = 1$ iff $\sigma$ is even.
+\end{proof}
+
+\begin{lemma}
+\label{lem.perm.isOdd_iff_not_mem_alternatingGroup}
+\lean{Equiv.Perm.isOdd_iff_not_mem_alternatingGroup}
+\leanhelper
+\leanok
+A permutation $\sigma$ is odd if and only if $\sigma \notin A_n$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+Since every permutation is either even or odd
+(Lemma~\ref{lem.perm.isEven_or_isOdd}), and $\sigma$ is even iff
+$\sigma \in A_n$ (Lemma~\ref{lem.perm.isEven_iff_mem_alternatingGroup}),
+it follows that $\sigma$ is odd iff $\sigma \notin A_n$.
+\end{proof}
+
+\subsection{The alternating group}
+
+\begin{corollary}
+\label{cor.perm.altgp}
+\lean{Equiv.Perm.alternatingGroup_isNormal}
+\leantarget
+\leanok
+Let $n \in \mathbb{N}$. The set of all even permutations in $S_n$ is a
+normal subgroup of $S_n$.
+\end{corollary}
+
+This subgroup is known as the $n$-th \emph{alternating group} (commonly
+called $A_n$).
+
+\begin{proof}
+The set of all even permutations in $S_n$ is the kernel of the group
+homomorphism $S_n \to \{1, -1\}$ from Corollary~\ref{cor.perm.sign.hom}.
+Thus, it is a normal subgroup of $S_n$ (since any kernel is a normal
+subgroup).
+\end{proof}
+
+\subsection{Counting even and odd permutations}
+
+\begin{corollary}
+\label{cor.perm.num-even}
+\lean{Equiv.Perm.card_even_perms, Equiv.Perm.card_odd_eq_card_even}
+\leantarget
+\leanok
+Let $n \geq 2$. Then,
+\[
+\left(\text{\# of even permutations } \sigma \in S_n \right)
+= \left(\text{\# of odd permutations } \sigma \in S_n \right)
+= n!/2.
+\]
+\end{corollary}
+
+\begin{proof}
+The symmetric group $S_n$ contains the simple transposition $s_1$ (since
+$n \geq 2$). If $\sigma \in S_n$, then
+by Prop.~\ref{prop.perm.sign.props}~\textbf{(d)}, we get
+\[
+(-1)^{\sigma s_1}
+= (-1)^{\sigma} \cdot \underbrace{(-1)^{s_1}}_{
+\substack{= -1 \\ \text{(by Prop.~\textbf{(b)},} \\
+\text{since } s_1 = t_{1,2}\text{)}}}
+= -(-1)^{\sigma},
+\]
+where the underbrace uses Prop.~\ref{prop.perm.sign.props}~\textbf{(b)}.
+Hence, a permutation $\sigma \in S_n$ is even if and only if $\sigma s_1$
+is odd. Hence, the map
+\begin{align*}
+\{\text{even permutations } \sigma \in S_n\}
+&\to \{\text{odd permutations } \sigma \in S_n\}, \\
+\sigma &\mapsto \sigma s_1
+\end{align*}
+is well-defined. This map is furthermore a bijection (since $S_n$ is a
+group). Thus, the bijection principle yields
+\[
+\left(\text{\# of even permutations } \sigma \in S_n \right)
+= \left(\text{\# of odd permutations } \sigma \in S_n \right).
+\]
+Both sides of this equality must furthermore equal $n!/2$, since they add
+up to $|S_n| = n!$. This proves Corollary~\ref{cor.perm.num-even}.
+(See \cite[Exercise 5.4]{detnotes} for details.)
+\end{proof}
+
+As a consequence of Corollary~\ref{cor.perm.num-even}, we see that
+\begin{equation}
+\label{eq.cor.perm.num-even.sum-sign}
+\sum_{\sigma \in S_n} (-1)^{\sigma} = 0
+\qquad \text{for each } n \geq 2.
+\end{equation}
+(Indeed, the sum $\sum_{\sigma \in S_n} (-1)^{\sigma}$ can be
+rewritten as
+\[
+\left(\text{\# of even permutations } \sigma \in S_n \right)
+- \left(\text{\# of odd permutations } \sigma \in S_n \right),
+\]
+since the addends corresponding to the even permutations $\sigma \in S_n$ are
+equal to $1$ whereas the addends corresponding to the odd permutations
+$\sigma \in S_n$ are equal to $-1$.)
+
+\begin{lemma}
+\label{lem.perm.sum-sign-eq-zero}
+\lean{Equiv.Perm.sum_sign_eq_zero}
+\leanhelper
+\leanok
+For $n \geq 2$,
+$\displaystyle\sum_{\sigma \in S_n} (-1)^{\sigma} = 0$.
+\end{lemma}
+
+\begin{proof}
+\leanok
+This is a restatement of \eqref{eq.cor.perm.num-even.sum-sign}.
+\end{proof}
+
+\subsection{Sign for permutations of arbitrary finite sets}
+
+We note that the sign can be defined not only for a permutation
+$\sigma \in S_n$, but also for any permutation of any finite set $X$
+(even if the set $X$ has no chosen total order on it, as the set $[n]$ has).
+Here is one way to do so:
+
+\begin{proposition}
+\label{prop.perm.sign.X}
+\lean{Equiv.Perm.sign_conj_eq, Equiv.Perm.sign_id_finiteSet, Equiv.Perm.sign_mul_finiteSet}
+\leantarget
+\leanok
+Let $X$ be a finite set. We want to define the sign of any permutation of $X$.
+
+Fix a bijection $\phi : X \to [n]$ for some $n \in \mathbb{N}$. (Such a
+bijection always exists, since $X$ is finite.) For every permutation
+$\sigma$ of $X$, set
+\[
+(-1)_{\phi}^{\sigma} := (-1)^{\phi \circ \sigma \circ \phi^{-1}}.
+\]
+Here, the right hand side is well-defined, since
+$\phi \circ \sigma \circ \phi^{-1}$ is a permutation of $[n]$. Now:
+
+\textbf{(a)} This number $(-1)_{\phi}^{\sigma}$ depends only on the
+permutation $\sigma$, but not on the bijection $\phi$. (In other words,
+if $\phi_1$ and $\phi_2$ are two bijections from $X$ to $[n]$, then
+$(-1)_{\phi_1}^{\sigma} = (-1)_{\phi_2}^{\sigma}$.)
+
+Thus, we shall denote $(-1)_{\phi}^{\sigma}$ by $(-1)^{\sigma}$ from
+now on. We refer to this number $(-1)^{\sigma}$ as the \emph{sign} of the
+permutation $\sigma \in S_X$. (When $X = [n]$, this notation does not
+clash with Definition~\ref{def.perm.sign}, since we can pick the bijection
+$\phi = \operatorname{id}$ and obtain
+$(-1)_{\phi}^{\sigma} = (-1)^{\operatorname{id} \circ \sigma \circ
+\operatorname{id}^{-1}} = (-1)^{\sigma}$.)
+
+\textbf{(b)} The identity permutation $\operatorname{id} : X \to X$
+satisfies $(-1)^{\operatorname{id}} = 1$.
+
+\textbf{(c)} We have $(-1)^{\sigma\tau} = (-1)^{\sigma} \cdot (-1)^{\tau}$
+for any two permutations $\sigma$ and $\tau$ of $X$.
+\end{proposition}
+
+\begin{proof}
+This all follows quite easily from
+Proposition~\ref{prop.perm.sign.props}~\textbf{(d)}. See
+\cite[Exercise 5.12]{detnotes} for a detailed proof.
+\end{proof}

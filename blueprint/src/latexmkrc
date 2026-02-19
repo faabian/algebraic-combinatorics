@@ -1,0 +1,4 @@
+# latexmk configuration for the print version
+$pdf_mode = 1;
+$pdflatex = 'pdflatex -synctex=1';
+@default_files = ('print.tex');

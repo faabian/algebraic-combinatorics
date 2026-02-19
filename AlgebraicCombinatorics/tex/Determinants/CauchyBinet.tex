@@ -1,0 +1,1265 @@
+\subsubsection{Cauchy--Binet}
+
+The multiplicativity of the determinant generalizes to non-square matrices $A$
+and $B$, but the general statement is subtler and less famous:
+
+\begin{theorem}
+[Cauchy--Binet formula]\label{thm.det.CB}Let $n,m\in\mathbb{N}$. Let $A\in
+K^{n\times m}$ be an $n\times m$-matrix, and let $B\in K^{m\times n}$ be an
+$m\times n$-matrix. Then,%
+\[
+\det\left(  AB\right)  =\sum_{\substack{\left(  g_{1},g_{2},\ldots
+,g_{n}\right)  \in\left[  m\right]  ^{n};\\g_{1}<g_{2}<\cdots<g_{n}}%
+}\det\left(  \operatorname*{cols}\nolimits_{g_{1},g_{2},\ldots,g_{n}}A\right)
+\cdot\det\left(  \operatorname*{rows}\nolimits_{g_{1},g_{2},\ldots,g_{n}%
+}B\right)  .
+\]
+Here, we are using the following notations:
+
+\begin{itemize}
+\item We let $\operatorname*{cols}\nolimits_{g_{1},g_{2},\ldots,g_{n}}A$ be
+the $n\times n$-matrix obtained from $A$ by removing all columns other than
+the $g_{1}$-st, the $g_{2}$-nd, the $g_{3}$-rd, etc.. In other words,%
+\[
+\operatorname*{cols}\nolimits_{g_{1},g_{2},\ldots,g_{n}}A:=\left(  A_{i,g_{j}%
+}\right)  _{1\leq i\leq n,\ 1\leq j\leq n}.
+\]
+
+
+\item We let $\operatorname*{rows}\nolimits_{g_{1},g_{2},\ldots,g_{n}}B$ be
+the $n\times n$-matrix obtained from $B$ by removing all rows other than the
+$g_{1}$-st, the $g_{2}$-nd, the $g_{3}$-rd, etc.. In other words,%
+\[
+\operatorname*{rows}\nolimits_{g_{1},g_{2},\ldots,g_{n}}B:=\left(  B_{g_{i}%
+,j}\right)  _{1\leq i\leq n,\ 1\leq j\leq n}.
+\]
+
+\end{itemize}
+\end{theorem}
+
+Informally, we can rewrite the claim of Theorem \ref{thm.det.CB} as follows:%
+\[
+\det\left(  AB\right)  =\sum\det\left(  \text{some }n\text{ columns of
+}A\right)  \cdot\det\left(  \text{the corresponding }n\text{ rows of
+}B\right)  .
+\]
+The sum runs over all ways to form an $n\times n$-matrix by picking $n$
+columns of $A$ (in increasing order, with no repetitions). The corresponding
+$n$ rows of $B$ form an $n\times n$-matrix as well.
+
+\begin{example}
+Let $n=2$ and $m=3$, and let $A=\left(
+\begin{array}
+[c]{ccc}%
+a & b & c\\
+a^{\prime} & b^{\prime} & c^{\prime}%
+\end{array}
+\right)  $ and $B=\left(
+\begin{array}
+[c]{cc}%
+x & x^{\prime}\\
+y & y^{\prime}\\
+z & z^{\prime}%
+\end{array}
+\right)  $. Then, Theorem \ref{thm.det.CB} yields%
+\begin{align*}
+\det\left(  AB\right)   &  =\sum_{\substack{\left(  g_{1},g_{2}\right)
+\in\left[  3\right]  ^{2};\\g_{1}<g_{2}}}\det\left(  \operatorname*{cols}%
+\nolimits_{g_{1},g_{2}}A\right)  \cdot\det\left(  \operatorname*{rows}%
+\nolimits_{g_{1},g_{2}}B\right) \\
+&  =\det\left(  \operatorname*{cols}\nolimits_{1,2}A\right)  \cdot\det\left(
+\operatorname*{rows}\nolimits_{1,2}B\right) \\
+&  \ \ \ \ \ \ \ \ \ \ +\det\left(  \operatorname*{cols}\nolimits_{1,3}%
+A\right)  \cdot\det\left(  \operatorname*{rows}\nolimits_{1,3}B\right) \\
+&  \ \ \ \ \ \ \ \ \ \ +\det\left(  \operatorname*{cols}\nolimits_{2,3}%
+A\right)  \cdot\det\left(  \operatorname*{rows}\nolimits_{2,3}B\right) \\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{since the only }2\text{-tuples }\left(  g_{1},g_{2}\right)  \in\left[
+3\right]  ^{2}\\
+\text{satisfying }g_{1}<g_{2}\text{ are }\left(  1,2\right)  \text{ and
+}\left(  1,3\right)  \text{ and }\left(  2,3\right)
+\end{array}
+\right) \\
+&  =\det\left(
+\begin{array}
+[c]{cc}%
+a & b\\
+a^{\prime} & b^{\prime}%
+\end{array}
+\right)  \cdot\det\left(
+\begin{array}
+[c]{cc}%
+x & x^{\prime}\\
+y & y^{\prime}%
+\end{array}
+\right) \\
+&  \ \ \ \ \ \ \ \ \ \ +\det\left(
+\begin{array}
+[c]{cc}%
+a & c\\
+a^{\prime} & c^{\prime}%
+\end{array}
+\right)  \cdot\det\left(
+\begin{array}
+[c]{cc}%
+x & x^{\prime}\\
+z & z^{\prime}%
+\end{array}
+\right) \\
+&  \ \ \ \ \ \ \ \ \ \ +\det\left(
+\begin{array}
+[c]{cc}%
+b & c\\
+b^{\prime} & c^{\prime}%
+\end{array}
+\right)  \cdot\det\left(
+\begin{array}
+[c]{cc}%
+y & y^{\prime}\\
+z & z^{\prime}%
+\end{array}
+\right) \\
+&  =\left(  ab^{\prime}-ba^{\prime}\right)  \left(  xy^{\prime}-yx^{\prime
+}\right)  +\left(  ac^{\prime}-ca^{\prime}\right)  \left(  xz^{\prime
+}-zx^{\prime}\right) \\
+&  \ \ \ \ \ \ \ \ \ \ +\left(  bc^{\prime}-cb^{\prime}\right)  \left(
+yz^{\prime}-zy^{\prime}\right)  .
+\end{align*}
+You can check this against the equality%
+\begin{align*}
+\det\left(  AB\right)   &  =\left(  ax+by+cz\right)  \left(  a^{\prime
+}x^{\prime}+b^{\prime}y^{\prime}+c^{\prime}z^{\prime}\right) \\
+&  \ \ \ \ \ \ \ \ \ \ -\left(  ax^{\prime}+by^{\prime}+cz^{\prime}\right)
+\left(  a^{\prime}x+b^{\prime}y+c^{\prime}z\right)  ,
+\end{align*}
+which is obtained by directly computing%
+\[
+AB=\left(
+\begin{array}
+[c]{ccc}%
+a & b & c\\
+a^{\prime} & b^{\prime} & c^{\prime}%
+\end{array}
+\right)  \left(
+\begin{array}
+[c]{cc}%
+x & x^{\prime}\\
+y & y^{\prime}\\
+z & z^{\prime}%
+\end{array}
+\right)  =\left(
+\begin{array}
+[c]{cc}%
+ax+by+cz & ax^{\prime}+by^{\prime}+cz^{\prime}\\
+a^{\prime}x+b^{\prime}y+c^{\prime}z & a^{\prime}x^{\prime}+b^{\prime}%
+y^{\prime}+c^{\prime}z^{\prime}%
+\end{array}
+\right)  .
+\]
+
+\end{example}
+
+\begin{remark}
+If $m<n$, then the claim of Theorem \ref{thm.det.CB} becomes%
+\begin{align*}
+\det\left(  AB\right)   &  =\sum_{\substack{\left(  g_{1},g_{2},\ldots
+,g_{n}\right)  \in\left[  m\right]  ^{n};\\g_{1}<g_{2}<\cdots<g_{n}}%
+}\det\left(  \operatorname*{cols}\nolimits_{g_{1},g_{2},\ldots,g_{n}}A\right)
+\cdot\det\left(  \operatorname*{rows}\nolimits_{g_{1},g_{2},\ldots,g_{n}%
+}B\right) \\
+&  =\left(  \text{empty sum}\right) \\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{since the set
+}\left[  m\right]  \text{ has no }n\text{ distinct elements}\right) \\
+&  =0.
+\end{align*}
+When $K$ is a field, this can also be seen trivially from rank considerations
+(to wit, the matrix $A$ has rank $\leq m<n$, and thus the product $AB$ has
+rank $<n$ as well). When $K$ is not a field, the notion of a rank is not
+available, so we do need Theorem \ref{thm.det.CB} to obtain this (although
+there are ways around this).
+
+If $m=n$, then the claim of Theorem \ref{thm.det.CB} becomes%
+\begin{align*}
+\det\left(  AB\right)   &  =\sum_{\substack{\left(  g_{1},g_{2},\ldots
+,g_{n}\right)  \in\left[  n\right]  ^{n};\\g_{1}<g_{2}<\cdots<g_{n}}%
+}\det\left(  \operatorname*{cols}\nolimits_{g_{1},g_{2},\ldots,g_{n}}A\right)
+\cdot\det\left(  \operatorname*{rows}\nolimits_{g_{1},g_{2},\ldots,g_{n}%
+}B\right) \\
+&  =\det\underbrace{\left(  \operatorname*{cols}\nolimits_{1,2,\ldots
+,n}A\right)  }_{=A}\cdot\det\underbrace{\left(  \operatorname*{rows}%
+\nolimits_{1,2,\ldots,n}B\right)  }_{=B}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{since the only }n\text{-tuple }\left(  g_{1},g_{2},\ldots,g_{n}\right)
+\in\left[  n\right]  ^{n}\\
+\text{satisfying }g_{1}<g_{2}<\cdots<g_{n}\text{ is }\left(  1,2,\ldots
+,n\right)
+\end{array}
+\right) \\
+&  =\det A\cdot\det B,
+\end{align*}
+so that we recover the multiplicativity of the determinant (Theorem
+\ref{thm.det.detAB}).
+\end{remark}
+
+\begin{proof}
+[Proof of Theorem \ref{thm.det.CB}.]See \cite[Theorem 6.32]{detnotes} or
+\cite{Schwar16} or \cite[\S 1.2.3, Exercise 46]{Knuth-TAoCP1} or \cite[Theorem
+9.53]{Loehr-BC} or \cite[Theorem 9.4]{Stanle18} or \cite[\S 2]{Zeng93} (a
+fully combinatorial proof) or
+\url{https://math.stackexchange.com/questions/3243063/} .
+\end{proof}
+
+\subsubsection{$\det\left(  A+B\right)  $}
+
+So much for $\det\left(  AB\right)  $. What can we say about $\det\left(
+A+B\right)  $ ? The answer is somewhat cumbersome, but still rather useful. We
+need some notation to state it:
+
+\begin{definition}
+\label{def.det.sub}Let $n,m\in\mathbb{N}$. Let $A$ be an $n\times m$-matrix.
+
+Let $U$ be a subset of $\left[  n\right]  $. Let $V$ be a subset of $\left[
+m\right]  $.
+
+Then, $\operatorname*{sub}\nolimits_{U}^{V}A$ is the $\left\vert U\right\vert
+\times\left\vert V\right\vert $-matrix defined as follows:
+
+Writing the two sets $U$ and $V$ as%
+\[
+U=\left\{  u_{1},u_{2},\ldots,u_{p}\right\}  \ \ \ \ \ \ \ \ \ \ \text{and}%
+\ \ \ \ \ \ \ \ \ \ V=\left\{  v_{1},v_{2},\ldots,v_{q}\right\}
+\]
+with
+\[
+u_{1}<u_{2}<\cdots<u_{p}\ \ \ \ \ \ \ \ \ \ \text{and}%
+\ \ \ \ \ \ \ \ \ \ v_{1}<v_{2}<\cdots<v_{q},
+\]
+we set%
+\[
+\operatorname*{sub}\nolimits_{U}^{V}A:=\left(  A_{u_{i},v_{j}}\right)  _{1\leq
+i\leq p,\ 1\leq j\leq q}.
+\]
+
+
+Roughly speaking, $\operatorname*{sub}\nolimits_{U}^{V}A$ is the matrix
+obtained from $A$ by focusing only on the $i$-th rows for $i\in U$ (that is,
+removing all the other rows) and only on the $j$-th columns for $j\in V$ (that
+is, removing all the other columns).
+
+This matrix $\operatorname*{sub}\nolimits_{U}^{V}A$ is called the
+\emph{submatrix of }$A$\emph{ obtained by restricting to the }$U$\emph{-rows
+and the }$V$\emph{-columns}. If this matrix is square (i.e., if $\left\vert
+U\right\vert =\left\vert V\right\vert $), then its determinant $\det\left(
+\operatorname*{sub}\nolimits_{U}^{V}A\right)  $ is called a \emph{minor} of
+$A$.
+\end{definition}
+
+\begin{example}
+We have%
+\[
+\operatorname*{sub}\nolimits_{\left\{  1,2\right\}  }^{\left\{  1,3\right\}
+}\left(
+\begin{array}
+[c]{ccc}%
+a & b & c\\
+a^{\prime} & b^{\prime} & c^{\prime}\\
+a^{\prime\prime} & b^{\prime\prime} & c^{\prime\prime}%
+\end{array}
+\right)  =\left(
+\begin{array}
+[c]{cc}%
+a & c\\
+a^{\prime} & c^{\prime}%
+\end{array}
+\right)
+\]
+and%
+\[
+\operatorname*{sub}\nolimits_{\left\{  2\right\}  }^{\left\{  3\right\}
+}\left(
+\begin{array}
+[c]{ccc}%
+a & b & c\\
+a^{\prime} & b^{\prime} & c^{\prime}\\
+a^{\prime\prime} & b^{\prime\prime} & c^{\prime\prime}%
+\end{array}
+\right)  =\left(
+\begin{array}
+[c]{c}%
+c^{\prime}%
+\end{array}
+\right)  .
+\]
+
+\end{example}
+
+\begin{theorem}
+\label{thm.det.det(A+B)}Let $n\in\mathbb{N}$. For any subset $I$ of $\left[
+n\right]  $, we let $\widetilde{I}$ be the complement $\left[  n\right]
+\setminus I$ of $I$. (For example, if $n=4$ and $I=\left\{  1,4\right\}  $,
+then $\widetilde{I}=\left\{  2,3\right\}  $.)
+
+For any finite set $S$ of integers, define $\operatorname*{sum}S:=\sum_{s\in
+S}s$.
+
+Let $A$ and $B$ be two $n\times n$-matrices in $K^{n\times n}$. Then,%
+\[
+\det\left(  A+B\right)  =\sum_{P\subseteq\left[  n\right]  }\ \ \sum
+_{\substack{Q\subseteq\left[  n\right]  ;\\\left\vert P\right\vert =\left\vert
+Q\right\vert }}\left(  -1\right)  ^{\operatorname*{sum}P+\operatorname*{sum}%
+Q}\det\left(  \operatorname*{sub}\nolimits_{P}^{Q}A\right)  \cdot\det\left(
+\operatorname*{sub}\nolimits_{\widetilde{P}}^{\widetilde{Q}}B\right)  .
+\]
+
+\end{theorem}
+
+\begin{example}
+For $n=2$, this is saying that%
+\begin{align*}
+\det\left(  A+B\right)   &  =\underbrace{\left(  -1\right)
+^{\operatorname*{sum}\varnothing+\operatorname*{sum}\varnothing}}_{=\left(
+-1\right)  ^{0+0}=1}\underbrace{\det\left(  \operatorname*{sub}%
+\nolimits_{\varnothing}^{\varnothing}A\right)  }_{=\det\left(  {}\right)
+=1}\cdot\underbrace{\det\left(  \operatorname*{sub}\nolimits_{\left\{
+1,2\right\}  }^{\left\{  1,2\right\}  }B\right)  }_{=\det B}\\
+&  \ \ \ \ \ \ \ \ \ \ +\underbrace{\left(  -1\right)  ^{\operatorname*{sum}%
+\left\{  1\right\}  +\operatorname*{sum}\left\{  1\right\}  }}_{=\left(
+-1\right)  ^{1+1}=1}\underbrace{\det\left(  \operatorname*{sub}%
+\nolimits_{\left\{  1\right\}  }^{\left\{  1\right\}  }A\right)
+}_{\substack{=A_{1,1}\\\text{(since }\operatorname*{sub}\nolimits_{\left\{
+1\right\}  }^{\left\{  1\right\}  }A\text{ is}\\\text{the }1\times
+1\text{-matrix }\left(
+\begin{array}
+[c]{c}%
+A_{1,1}%
+\end{array}
+\right)  \text{)}}}\cdot\underbrace{\det\left(  \operatorname*{sub}%
+\nolimits_{\left\{  2\right\}  }^{\left\{  2\right\}  }B\right)  }_{=B_{2,2}%
+}\\
+&  \ \ \ \ \ \ \ \ \ \ +\underbrace{\left(  -1\right)  ^{\operatorname*{sum}%
+\left\{  1\right\}  +\operatorname*{sum}\left\{  2\right\}  }}_{=\left(
+-1\right)  ^{1+2}=-1}\underbrace{\det\left(  \operatorname*{sub}%
+\nolimits_{\left\{  1\right\}  }^{\left\{  2\right\}  }A\right)  }_{=A_{1,2}%
+}\cdot\underbrace{\det\left(  \operatorname*{sub}\nolimits_{\left\{
+2\right\}  }^{\left\{  1\right\}  }B\right)  }_{=B_{2,1}}\\
+&  \ \ \ \ \ \ \ \ \ \ +\underbrace{\left(  -1\right)  ^{\operatorname*{sum}%
+\left\{  2\right\}  +\operatorname*{sum}\left\{  1\right\}  }}_{=\left(
+-1\right)  ^{2+1}=-1}\underbrace{\det\left(  \operatorname*{sub}%
+\nolimits_{\left\{  2\right\}  }^{\left\{  1\right\}  }A\right)  }_{=A_{2,1}%
+}\cdot\underbrace{\det\left(  \operatorname*{sub}\nolimits_{\left\{
+1\right\}  }^{\left\{  2\right\}  }B\right)  }_{=B_{1,2}}\\
+&  \ \ \ \ \ \ \ \ \ \ +\underbrace{\left(  -1\right)  ^{\operatorname*{sum}%
+\left\{  2\right\}  +\operatorname*{sum}\left\{  2\right\}  }}_{=\left(
+-1\right)  ^{2+2}=1}\underbrace{\det\left(  \operatorname*{sub}%
+\nolimits_{\left\{  2\right\}  }^{\left\{  2\right\}  }A\right)  }_{=A_{2,2}%
+}\cdot\underbrace{\det\left(  \operatorname*{sub}\nolimits_{\left\{
+1\right\}  }^{\left\{  1\right\}  }B\right)  }_{=B_{1,1}}\\
+&  \ \ \ \ \ \ \ \ \ \ +\underbrace{\left(  -1\right)  ^{\operatorname*{sum}%
+\left\{  1,2\right\}  +\operatorname*{sum}\left\{  1,2\right\}  }}_{=\left(
+-1\right)  ^{3+3}=1}\underbrace{\det\left(  \operatorname*{sub}%
+\nolimits_{\left\{  1,2\right\}  }^{\left\{  1,2\right\}  }A\right)  }_{=\det
+A}\cdot\underbrace{\det\left(  \operatorname*{sub}\nolimits_{\varnothing
+}^{\varnothing}B\right)  }_{=\det\left(  {}\right)  =1}\\
+&  =\det B+A_{1,1}B_{2,2}-A_{1,2}B_{2,1}-A_{2,1}B_{1,2}+A_{2,2}B_{1,1}+\det
+A\\
+&  =\det A+\det B-A_{1,2}B_{2,1}-A_{2,1}B_{1,2}+A_{1,1}B_{2,2}+A_{2,2}B_{1,1}.
+\end{align*}
+
+\end{example}
+
+Theorem \ref{thm.det.det(A+B)} can be thought of as a kind of
+\textquotedblleft binomial theorem\textquotedblright\ for determinants: On its
+right hand side (for $n>0$) is a sum that contains both $\det A$ and $\det B$
+as addends (in fact, $\det A$ is the addend for $P=Q=\left[  n\right]  $,
+whereas $\det B$ is the addend for $P=Q=\varnothing$) as well as many
+\textquotedblleft mixed\textquotedblright\ addends that contain both a part of
+$A$ and a part of $B$.
+
+\begin{proof}
+[Proof of Theorem \ref{thm.det.det(A+B)}.]See \cite[Theorem 6.160]{detnotes}.
+(Note that $\operatorname*{sub}\nolimits_{P}^{Q}A$ is called
+$\operatorname*{sub}\nolimits_{w\left(  P\right)  }^{w\left(  Q\right)  }A$ in
+\cite{detnotes}.) The main difficulty of the proof is bookkeeping; the
+underlying idea is simple (expand everything and regroup). \medskip
+
+\begin{fineprint}
+Here is a rough outline of the argument. If $\sigma\in S_{n}$, and if $P$ is a
+subset of $\left[  n\right]  $, then $\sigma\left(  P\right)  =\left\{
+\sigma\left(  i\right)  \ \mid\ i\in P\right\}  $ is a subset of $\left[
+n\right]  $ as well, and has the same size as $P$ (since $\sigma$ is a
+permutation and therefore injective); thus, it satisfies $\left\vert
+P\right\vert =\left\vert \sigma\left(  P\right)  \right\vert $.
+
+The definition of $\det\left(  A+B\right)  $ yields%
+\begin{align*}
+\det\left(  A+B\right)   &  =\sum_{\sigma\in S_{n}}\left(  -1\right)
+^{\sigma}\underbrace{\left(  A_{1,\sigma\left(  1\right)  }+B_{1,\sigma\left(
+1\right)  }\right)  \left(  A_{2,\sigma\left(  2\right)  }+B_{2,\sigma\left(
+2\right)  }\right)  \cdots\left(  A_{n,\sigma\left(  n\right)  }%
++B_{n,\sigma\left(  n\right)  }\right)  }_{\substack{=\prod_{i=1}^{n}\left(
+A_{i,\sigma\left(  i\right)  }+B_{i,\sigma\left(  i\right)  }\right)
+=\sum\limits_{P\subseteq\left[  n\right]  }\left(  \prod\limits_{i\in
+P}A_{i,\sigma\left(  i\right)  }\right)  \left(  \prod\limits_{i\in
+\widetilde{P}}B_{i,\sigma\left(  i\right)  }\right)  \\\text{(by
+(\ref{eq.lem.prodrule.sum-ai-plus-bi.eq}), applied to }a_{i}=A_{i,\sigma
+\left(  i\right)  }\text{ and }b_{i}=B_{i,\sigma\left(  i\right)  }\text{)}%
+}}\\
+&  =\sum_{\sigma\in S_{n}}\left(  -1\right)  ^{\sigma}\sum\limits_{P\subseteq
+\left[  n\right]  }\left(  \prod\limits_{i\in P}A_{i,\sigma\left(  i\right)
+}\right)  \left(  \prod\limits_{i\in\widetilde{P}}B_{i,\sigma\left(  i\right)
+}\right) \\
+&  =\sum\limits_{P\subseteq\left[  n\right]  }\ \ \sum_{\sigma\in S_{n}%
+}\left(  -1\right)  ^{\sigma}\left(  \prod\limits_{i\in P}A_{i,\sigma\left(
+i\right)  }\right)  \left(  \prod\limits_{i\in\widetilde{P}}B_{i,\sigma\left(
+i\right)  }\right) \\
+&  =\sum\limits_{P\subseteq\left[  n\right]  }\ \ \sum_{\substack{Q\subseteq
+\left[  n\right]  ;\\\left\vert P\right\vert =\left\vert Q\right\vert
+}}\ \ \sum_{\substack{\sigma\in S_{n};\\\sigma\left(  P\right)  =Q}}\left(
+-1\right)  ^{\sigma}\left(  \prod\limits_{i\in P}A_{i,\sigma\left(  i\right)
+}\right)  \left(  \prod\limits_{i\in\widetilde{P}}B_{i,\sigma\left(  i\right)
+}\right)
+\end{align*}
+(here, we have split the inner sum according to the value of the subset
+$\sigma\left(  P\right)  =\left\{  \sigma\left(  i\right)  \ \mid\ i\in
+P\right\}  $, recalling that it satisfies $\left\vert P\right\vert =\left\vert
+\sigma\left(  P\right)  \right\vert $).
+
+Now, fix two subsets $P$ and $Q$ of $\left[  n\right]  $ satisfying
+$\left\vert P\right\vert =\left\vert Q\right\vert $. Thus, $\left\vert
+\widetilde{P}\right\vert =\left\vert \widetilde{Q}\right\vert $ as well. Write
+the sets $P$, $Q$, $\widetilde{P}$ and $\widetilde{Q}$ as%
+\begin{align*}
+P  &  =\left\{  p_{1}<p_{2}<\cdots<p_{k}\right\}
+\ \ \ \ \ \ \ \ \ \ \text{and}\ \ \ \ \ \ \ \ \ \ Q=\left\{  q_{1}%
+<q_{2}<\cdots<q_{k}\right\}  \ \ \ \ \ \ \ \ \ \ \text{and}\\
+\widetilde{P}  &  =\left\{  p_{1}^{\prime}<p_{2}^{\prime}<\cdots<p_{\ell
+}^{\prime}\right\}  \ \ \ \ \ \ \ \ \ \ \text{and}%
+\ \ \ \ \ \ \ \ \ \ \widetilde{Q}=\left\{  q_{1}^{\prime}<q_{2}^{\prime
+}<\cdots<q_{\ell}^{\prime}\right\}  ,
+\end{align*}
+where the notation \textquotedblleft$U=\left\{  u_{1}<u_{2}<\cdots
+<u_{a}\right\}  $\textquotedblright\ is just a shorthand way to say
+\textquotedblleft$U=\left\{  u_{1},u_{2},\ldots,u_{a}\right\}  $ and
+$u_{1}<u_{2}<\cdots<u_{a}$\textquotedblright\ (or, equivalently,
+\textquotedblleft the elements of $U$ in strictly increasing order are
+$u_{1},u_{2},\ldots,u_{a}$\textquotedblright). Now, for each permutation
+$\sigma\in S_{n}$ satisfying $\sigma\left(  P\right)  =Q$, we see that:
+
+\begin{itemize}
+\item The elements $\sigma\left(  p_{1}\right)  ,\sigma\left(  p_{2}\right)
+,\ldots,\sigma\left(  p_{k}\right)  $ are the elements $q_{1},q_{2}%
+,\ldots,q_{k}$ in some order (since $\sigma\left(  P\right)  =Q$), and thus
+there exists a unique permutation $\alpha\in S_{k}$ such that
+\[
+\sigma\left(  p_{i}\right)  =q_{\alpha\left(  i\right)  }%
+\ \ \ \ \ \ \ \ \ \ \text{for each }i\in\left[  k\right]  .
+\]
+We denote this $\alpha$ by $\alpha_{\sigma}$.
+
+\item The elements $\sigma\left(  p_{1}^{\prime}\right)  ,\sigma\left(
+p_{2}^{\prime}\right)  ,\ldots,\sigma\left(  p_{\ell}^{\prime}\right)  $ are
+the elements $q_{1}^{\prime},q_{2}^{\prime},\ldots,q_{\ell}^{\prime}$ in some
+order (since $\sigma\left(  P\right)  =Q$ entails $\sigma\left(
+\widetilde{P}\right)  =\widetilde{Q}$, because $\sigma$ is a permutation of
+$\left[  n\right]  $), and thus there exists a unique permutation $\beta\in
+S_{\ell}$ such that%
+\[
+\sigma\left(  p_{i}^{\prime}\right)  =q_{\beta\left(  i\right)  }^{\prime
+}\ \ \ \ \ \ \ \ \ \ \text{for each }i\in\left[  \ell\right]  .
+\]
+We denote this $\beta$ by $\beta_{\sigma}$.
+\end{itemize}
+
+Thus, for each permutation $\sigma\in S_{n}$ satisfying $\sigma\left(
+P\right)  =Q$, we have defined two permutations $\alpha_{\sigma}\in S_{k}$ and
+$\beta_{\sigma}\in S_{\ell}$ that (roughly speaking) describe the actions of
+$\sigma$ on the subsets $P$ and $\widetilde{P}$, respectively. It is not hard
+to see that the map%
+\begin{align*}
+\left\{  \text{permutations }\sigma\in S_{n}\text{ satisfying }\sigma\left(
+P\right)  =Q\right\}   &  \rightarrow S_{k}\times S_{\ell},\\
+\sigma &  \mapsto\left(  \alpha_{\sigma},\beta_{\sigma}\right)
+\end{align*}
+is a bijection. Moreover, for any permutation $\sigma\in S_{n}$ satisfying
+$\sigma\left(  P\right)  =Q$, we have
+\begin{equation}
+\left(  -1\right)  ^{\sigma}=\left(  -1\right)  ^{\operatorname*{sum}%
+P+\operatorname*{sum}Q}\left(  -1\right)  ^{\alpha_{\sigma}}\left(  -1\right)
+^{\beta_{\sigma}}. \label{pf.thm.det.det(A+B).signs-equal}%
+\end{equation}
+(Proving this is perhaps the least pleasant part of this proof, but it is pure
+combinatorics. It is probably easiest to reduce this to the case when
+$P=\left[  k\right]  $ and $Q=\left[  k\right]  $ by a reduction procedure
+that involves multiplying $\sigma$ by $\operatorname*{sum}%
+P+\operatorname*{sum}Q-2\cdot\left(  1+2+\cdots+k\right)  $ many
+transpositions\footnote{Specifically: Recall the simple transpositions $s_{i}$
+defined for all $i\in\left[  n-1\right]  $ in Definition \ref{def.perm.si}. By
+replacing $\sigma$ by $\sigma s_{i}$ (for some $i\in\left[  n-1\right]  $), we
+can swap two adjacent values of $\sigma$ (namely, $\sigma\left(  i\right)  $
+and $\sigma\left(  i+1\right)  $). Furthermore, $\sigma\left(  P\right)  =Q$
+implies $\left(  \sigma s_{i}\right)  \left(  s_{i}\left(  P\right)  \right)
+=Q$ (since $s_{i}s_{i}=s_{i}^{2}=\operatorname*{id}$). Thus, the equality
+$\sigma\left(  P\right)  =Q$ is preserved if we simultaneously replace
+$\sigma$ by $\sigma s_{i}$ and replace $P$ by $s_{i}\left(  P\right)  $. Such
+a simultaneous replacement will be called a \emph{shift}. Furthermore, if $i$
+is chosen in such a way that $i\notin P$ and $i+1\in P$, then this shift will
+be called a \emph{left shift}.
+\par
+Let us see what happens to $\sigma$, $P$, $\alpha_{\sigma}$ and $\beta
+_{\sigma}$ when we perform a left shift. Indeed, consider a left shift which
+replaces $\sigma$ by $\sigma s_{i}$ and replaces $P$ by $s_{i}\left(
+P\right)  $, where $i\in\left[  n-1\right]  $ is chosen in such a way that
+$i\notin P$ and $i+1\in P$. The set $s_{i}\left(  P\right)  $ is the set $P$
+with the element $i+1$ replaced by $i$. Thus, $\operatorname*{sum}\left(
+s_{i}\left(  P\right)  \right)  =\operatorname*{sum}P-1$. In other words, our
+left shift has decremented $\operatorname*{sum}P$ by $1$. Thus, our left shift
+has flipped the sign of $\left(  -1\right)  ^{\operatorname*{sum}%
+P+\operatorname*{sum}Q}$ (since $\operatorname*{sum}Q$ obviously stays
+unchanged). The permutation $\sigma$ has been replaced by $\sigma s_{i}$,
+which is the same permutation as $\sigma$ but with the values $\sigma\left(
+i\right)  $ and $\sigma\left(  i+1\right)  $ swapped. Since $i\notin P$ and
+$i+1\in P$, this swap has not disturbed the relative order of the elements of
+$P$ and $\widetilde{P}$ (but merely replaced $i+1$ by $i$ in $P$ and replaced
+$i$ by $i+1$ in $\widetilde{P}$), so that the permutations $\alpha_{\sigma}$
+and $\beta_{\sigma}$ have not changed. Our left shift thus has left
+$\alpha_{\sigma}$ and $\beta_{\sigma}$ unchanged. It has, however, flipped the
+sign of $\left(  -1\right)  ^{\sigma}$ (because $\left(  -1\right)  ^{\sigma
+s_{i}}=\left(  -1\right)  ^{\sigma}\underbrace{\left(  -1\right)  ^{s_{i}}%
+}_{=-1}=-\left(  -1\right)  ^{\sigma}$).
+\par
+Let us summarize: Each left shift leaves $\alpha_{\sigma}$ and $\beta_{\sigma
+}$ unchanged, while flipping the signs of $\left(  -1\right)
+^{\operatorname*{sum}P+\operatorname*{sum}Q}$ and $\left(  -1\right)
+^{\sigma}$. However, by performing left shifts, we can move the smallest
+element of $P$ one step to the left, or (if the smallest element of $P$ is
+already $1$) we can move the second-smallest element of $P$ one step to the
+left, or (if the two smallest elements of $P$ are already $1$ and $2$) we can
+move the third-smallest element of $P$ one step to the left, and so on. After
+sufficiently many such left shifts, the set $P$ will have become $\left[
+k\right]  $, whereas $\alpha_{\sigma}$ and $\beta_{\sigma}$ will not have
+changed (because we have seen above that each left shift leaves $\alpha
+_{\sigma}$ and $\beta_{\sigma}$ unchanged). The total number of left shifts we
+need for this is $\left(  p_{1}-1\right)  +\left(  p_{2}-2\right)
++\cdots+\left(  p_{k}-k\right)  =\operatorname*{sum}P-\left(  1+2+\cdots
++k\right)  $.
+\par
+Likewise, we can define \emph{left co-shifts}, which are operations similar to
+left shifts but acting on the values rather than positions of $\sigma$ and
+acting on $Q$ rather than $P$. Explicitly, a left co-shift replaces $\sigma$
+by $s_{i}\sigma$ and replaces $Q$ by $s_{i}\left(  Q\right)  $, where
+$i\in\left[  n-1\right]  $ is chosen such that $i\notin Q$ and $i+1\in Q$.
+Again, we can see that each left co-shift leaves $\alpha_{\sigma}$ and
+$\beta_{\sigma}$ unchanged, while flipping the signs of $\left(  -1\right)
+^{\operatorname*{sum}P+\operatorname*{sum}Q}$ and $\left(  -1\right)
+^{\sigma}$. After a sequence of $\operatorname*{sum}Q-\left(  1+2+\cdots
++k\right)  $ left co-shifts, the set $Q$ will have become $\left[  k\right]
+$.
+\par
+Each left shift and each left co-shift multiplies the permutation $\sigma$ by
+a transposition. Hence, after our $\operatorname*{sum}P-\left(  1+2+\cdots
++k\right)  $ left shifts and our $\operatorname*{sum}Q-\left(  1+2+\cdots
++k\right)  $ left co-shifts, we will have multiplied $\sigma$ by altogether%
+\begin{align*}
+&  \left(  \operatorname*{sum}P-\left(  1+2+\cdots+k\right)  \right)  +\left(
+\operatorname*{sum}Q-\left(  1+2+\cdots+k\right)  \right) \\
+&  =\operatorname*{sum}P+\operatorname*{sum}Q-2\cdot\left(  1+2+\cdots
++k\right)
+\end{align*}
+many transpositions. At the end of this process, we have $P=\left[  k\right]
+$ and $Q=\left[  k\right]  $.}. Once we are in the case $P=\left[  k\right]  $
+and $Q=\left[  k\right]  $, we can prove
+(\ref{pf.thm.det.det(A+B).signs-equal}) by directly counting the inversions of
+$\sigma$ (showing that $\ell\left(  \sigma\right)  =\ell\left(  \alpha
+_{\sigma}\right)  +\ell\left(  \beta_{\sigma}\right)  $). Note that the proof
+I give in \cite[Theorem 6.160]{detnotes} avoids proving
+(\ref{pf.thm.det.det(A+B).signs-equal}), opting instead for an argument using
+row permutations; see \cite[solution to Exercise 6.44]{detnotes} for the details.)
+
+Now,%
+\begin{align}
+&  \sum_{\substack{\sigma\in S_{n};\\\sigma\left(  P\right)  =Q}%
+}\ \ \underbrace{\left(  -1\right)  ^{\sigma}}_{\substack{=\left(  -1\right)
+^{\operatorname*{sum}P+\operatorname*{sum}Q}\left(  -1\right)  ^{\alpha
+_{\sigma}}\left(  -1\right)  ^{\beta_{\sigma}}\\\text{(by
+(\ref{pf.thm.det.det(A+B).signs-equal}))}}}\underbrace{\left(  \prod
+\limits_{i\in P}A_{i,\sigma\left(  i\right)  }\right)  }_{\substack{=\prod
+_{i=1}^{k}A_{p_{i},q_{\alpha_{\sigma}\left(  i\right)  }}\\\text{(by the
+definition of }\alpha_{\sigma}\text{)}}}\ \ \underbrace{\left(  \prod
+\limits_{i\in\widetilde{P}}B_{i,\sigma\left(  i\right)  }\right)
+}_{\substack{=\prod_{i=1}^{\ell}B_{p_{i}^{\prime},q_{\beta_{\sigma}\left(
+i\right)  }^{\prime}}\\\text{(by the definition of }\beta_{\sigma}\text{)}%
+}}\nonumber\\
+&  =\sum_{\substack{\sigma\in S_{n};\\\sigma\left(  P\right)  =Q}}\left(
+-1\right)  ^{\operatorname*{sum}P+\operatorname*{sum}Q}\left(  -1\right)
+^{\alpha_{\sigma}}\left(  -1\right)  ^{\beta_{\sigma}}\left(  \prod_{i=1}%
+^{k}A_{p_{i},q_{\alpha_{\sigma}\left(  i\right)  }}\right)  \left(
+\prod_{i=1}^{\ell}B_{p_{i}^{\prime},q_{\beta_{\sigma}\left(  i\right)
+}^{\prime}}\right) \nonumber\\
+&  =\sum_{\left(  \alpha,\beta\right)  \in S_{k}\times S_{\ell}}\left(
+-1\right)  ^{\operatorname*{sum}P+\operatorname*{sum}Q}\left(  -1\right)
+^{\alpha}\left(  -1\right)  ^{\beta}\left(  \prod_{i=1}^{k}A_{p_{i}%
+,q_{\alpha\left(  i\right)  }}\right)  \left(  \prod_{i=1}^{\ell}%
+B_{p_{i}^{\prime},q_{\beta\left(  i\right)  }^{\prime}}\right) \nonumber\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have substituted }\left(  \alpha,\beta\right)  \text{ for
+}\left(  \alpha_{\sigma},\beta_{\sigma}\right)  \text{ in the sum,}\\
+\text{since the map }\sigma\mapsto\left(  \alpha_{\sigma},\beta_{\sigma
+}\right)  \text{ is a bijection}%
+\end{array}
+\right) \nonumber\\
+&  =\left(  -1\right)  ^{\operatorname*{sum}P+\operatorname*{sum}%
+Q}\underbrace{\left(  \sum_{\alpha\in S_{k}}\left(  -1\right)  ^{\alpha}%
+\prod_{i=1}^{k}A_{p_{i},q_{\alpha\left(  i\right)  }}\right)  }%
+_{\substack{=\det\left(  \operatorname*{sub}\nolimits_{P}^{Q}A\right)
+\\\text{(by the definition of }\operatorname*{sub}\nolimits_{P}^{Q}%
+A\\\text{and its determinant)}}}\underbrace{\left(  \sum_{\beta\in S_{\ell}%
+}\left(  -1\right)  ^{\beta}\prod_{i=1}^{\ell}B_{p_{i}^{\prime},q_{\beta
+\left(  i\right)  }^{\prime}}\right)  }_{\substack{=\det\left(
+\operatorname*{sub}\nolimits_{\widetilde{P}}^{\widetilde{Q}}B\right)
+\\\text{(by the definition of }\operatorname*{sub}\nolimits_{\widetilde{P}%
+}^{\widetilde{Q}}B\\\text{and its determinant)}}}\nonumber\\
+&  =\left(  -1\right)  ^{\operatorname*{sum}P+\operatorname*{sum}Q}\det\left(
+\operatorname*{sub}\nolimits_{P}^{Q}A\right)  \cdot\det\left(
+\operatorname*{sub}\nolimits_{\widetilde{P}}^{\widetilde{Q}}B\right)  .
+\label{pf.thm.det.det(A+B).sumPQ}%
+\end{align}
+
+
+Forget that we fixed $P$ and $Q$. We thus have proved
+(\ref{pf.thm.det.det(A+B).sumPQ}) for any two subsets $P$ and $Q$ of $\left[
+n\right]  $ satisfying $\left\vert P\right\vert =\left\vert Q\right\vert $.
+Thus, our original computation of $\det\left(  A+B\right)  $ becomes%
+\begin{align*}
+\det\left(  A+B\right)   &  =\sum\limits_{P\subseteq\left[  n\right]
+}\ \ \sum_{\substack{Q\subseteq\left[  n\right]  ;\\\left\vert P\right\vert
+=\left\vert Q\right\vert }}\ \ \underbrace{\sum_{\substack{\sigma\in
+S_{n};\\\sigma\left(  P\right)  =Q}}\left(  -1\right)  ^{\sigma}\left(
+\prod\limits_{i\in P}A_{i,\sigma\left(  i\right)  }\right)  \left(
+\prod\limits_{i\in\widetilde{P}}B_{i,\sigma\left(  i\right)  }\right)
+}_{\substack{=\left(  -1\right)  ^{\operatorname*{sum}P+\operatorname*{sum}%
+Q}\det\left(  \operatorname*{sub}\nolimits_{P}^{Q}A\right)  \cdot\det\left(
+\operatorname*{sub}\nolimits_{\widetilde{P}}^{\widetilde{Q}}B\right)
+\\\text{(by (\ref{pf.thm.det.det(A+B).sumPQ}))}}}\\
+&  =\sum_{P\subseteq\left[  n\right]  }\ \ \sum_{\substack{Q\subseteq\left[
+n\right]  ;\\\left\vert P\right\vert =\left\vert Q\right\vert }}\left(
+-1\right)  ^{\operatorname*{sum}P+\operatorname*{sum}Q}\det\left(
+\operatorname*{sub}\nolimits_{P}^{Q}A\right)  \cdot\det\left(
+\operatorname*{sub}\nolimits_{\widetilde{P}}^{\widetilde{Q}}B\right)  .
+\end{align*}
+This proves Theorem \ref{thm.det.det(A+B)}.
+\end{fineprint}
+\end{proof}
+
+We shall soon see a few applications of Theorem \ref{thm.det.det(A+B)}. First,
+let us observe a simple property of diagonal matrices:\footnote{We are using
+the Iverson bracket notation (see Definition \ref{def.iverson}) again.}
+
+\begin{lemma}
+\label{lem.det.minors-diag}Let $n\in\mathbb{N}$. Let $d_{1},d_{2},\ldots
+,d_{n}\in K$. Let%
+\[
+D:=\left(  d_{i}\left[  i=j\right]  \right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}=\left(
+\begin{array}
+[c]{cccc}%
+d_{1} & 0 & \cdots & 0\\
+0 & d_{2} & \cdots & 0\\
+\vdots & \vdots & \ddots & \vdots\\
+0 & 0 & \cdots & d_{n}%
+\end{array}
+\right)  \in K^{n\times n}%
+\]
+be the diagonal $n\times n$-matrix with diagonal entries $d_{1},d_{2}%
+,\ldots,d_{n}$. Then: \medskip
+
+\textbf{(a)} We have $\det\left(  \operatorname*{sub}\nolimits_{P}%
+^{P}D\right)  =\prod_{i\in P}d_{i}$ for any subset $P$ of $\left[  n\right]
+$. \medskip
+
+\textbf{(b)} Let $P$ and $Q$ be two distinct subsets of $\left[  n\right]  $
+satisfying $\left\vert P\right\vert =\left\vert Q\right\vert $. Then,
+$\det\left(  \operatorname*{sub}\nolimits_{P}^{Q}D\right)  =0$.
+\end{lemma}
+
+\begin{proof}
+[Proof of Lemma \ref{lem.det.minors-diag}.]This is \cite[Lemma 6.163]%
+{detnotes} (slightly rewritten); see \cite[Exercise 6.49]{detnotes} for a
+detailed proof. (That said, it is almost obvious: In part \textbf{(a)}, the
+submatrix $\operatorname*{sub}\nolimits_{P}^{P}D$ is itself diagonal, and its
+diagonal entries are precisely the $d_{i}$ for $i\in P$. In part \textbf{(b)},
+the submatrix $\operatorname*{sub}\nolimits_{P}^{Q}D$ has a zero row (indeed,
+from $\left\vert P\right\vert =\left\vert Q\right\vert $ and $P\neq Q$, we see
+that there exists some $i\in P\setminus Q$, and then the corresponding row of
+$\operatorname*{sub}\nolimits_{P}^{Q}D$ is zero) and thus has determinant $0$.)
+\end{proof}
+
+Lemma \ref{lem.det.minors-diag} gives very simple formulas for minors of
+diagonal matrices. Thus, the formula of Theorem \ref{thm.det.det(A+B)} becomes
+simpler when the matrix $B$ is diagonal:
+
+\begin{theorem}
+\label{thm.det.det(A+D)}Let $n\in\mathbb{N}$. Let $A$ and $D$ be two $n\times
+n$-matrices in $K^{n\times n}$ such that the matrix $D$ is diagonal. Let
+$d_{1},d_{2},\ldots,d_{n}$ be the diagonal entries of the diagonal matrix $D$,
+so that%
+\[
+D=\left(  d_{i}\left[  i=j\right]  \right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}=\left(
+\begin{array}
+[c]{cccc}%
+d_{1} & 0 & \cdots & 0\\
+0 & d_{2} & \cdots & 0\\
+\vdots & \vdots & \ddots & \vdots\\
+0 & 0 & \cdots & d_{n}%
+\end{array}
+\right)  \in K^{n\times n}.
+\]
+Then,%
+\[
+\det\left(  A+D\right)  =\sum_{P\subseteq\left[  n\right]  }\det\left(
+\operatorname*{sub}\nolimits_{P}^{P}A\right)  \cdot\prod_{i\in\left[
+n\right]  \setminus P}d_{i}.
+\]
+
+\end{theorem}
+
+The minors $\det\left(  \operatorname*{sub}\nolimits_{P}^{P}A\right)  $ of an
+$n\times n$-matrix $A$ are known as the \emph{principal minors} of $A$.
+
+\begin{example}
+For $n=3$, the claim of Theorem \ref{thm.det.det(A+D)} is%
+\begin{align*}
+&  \det\left(  A+D\right) \\
+&  =\sum_{P\subseteq\left[  3\right]  }\det\left(  \operatorname*{sub}%
+\nolimits_{P}^{P}A\right)  \cdot\prod_{i\in\left[  3\right]  \setminus P}%
+d_{i}\\
+&  =\underbrace{\det\left(  \operatorname*{sub}\nolimits_{\varnothing
+}^{\varnothing}A\right)  }_{=1}\cdot\underbrace{\prod_{i\in\left[  3\right]
+\setminus\varnothing}d_{i}}_{=d_{1}d_{2}d_{3}}+\underbrace{\det\left(
+\operatorname*{sub}\nolimits_{\left\{  1\right\}  }^{\left\{  1\right\}
+}A\right)  }_{=A_{1,1}}\cdot\underbrace{\prod_{i\in\left[  3\right]
+\setminus\left\{  1\right\}  }d_{i}}_{=d_{2}d_{3}}\\
+&  \ \ \ \ \ \ \ \ \ \ +\underbrace{\det\left(  \operatorname*{sub}%
+\nolimits_{\left\{  2\right\}  }^{\left\{  2\right\}  }A\right)  }_{=A_{2,2}%
+}\cdot\underbrace{\prod_{i\in\left[  3\right]  \setminus\left\{  2\right\}
+}d_{i}}_{=d_{1}d_{3}}+\underbrace{\det\left(  \operatorname*{sub}%
+\nolimits_{\left\{  3\right\}  }^{\left\{  3\right\}  }A\right)  }_{=A_{3,3}%
+}\cdot\underbrace{\prod_{i\in\left[  3\right]  \setminus\left\{  3\right\}
+}d_{i}}_{=d_{1}d_{2}}\\
+&  \ \ \ \ \ \ \ \ \ \ +\underbrace{\det\left(  \operatorname*{sub}%
+\nolimits_{\left\{  1,2\right\}  }^{\left\{  1,2\right\}  }A\right)  }%
+_{=\det\left(
+\begin{array}
+[c]{cc}%
+A_{1,1} & A_{1,2}\\
+A_{2,1} & A_{2,2}%
+\end{array}
+\right)  }\cdot\underbrace{\prod_{i\in\left[  3\right]  \setminus\left\{
+1,2\right\}  }d_{i}}_{=d_{3}}+\underbrace{\det\left(  \operatorname*{sub}%
+\nolimits_{\left\{  1,3\right\}  }^{\left\{  1,3\right\}  }A\right)  }%
+_{=\det\left(
+\begin{array}
+[c]{cc}%
+A_{1,1} & A_{1,3}\\
+A_{3,1} & A_{3,3}%
+\end{array}
+\right)  }\cdot\underbrace{\prod_{i\in\left[  3\right]  \setminus\left\{
+1,3\right\}  }d_{i}}_{=d_{2}}\\
+&  \ \ \ \ \ \ \ \ \ \ +\underbrace{\det\left(  \operatorname*{sub}%
+\nolimits_{\left\{  2,3\right\}  }^{\left\{  2,3\right\}  }A\right)  }%
+_{=\det\left(
+\begin{array}
+[c]{cc}%
+A_{2,2} & A_{2,3}\\
+A_{3,2} & A_{3,3}%
+\end{array}
+\right)  }\cdot\underbrace{\prod_{i\in\left[  3\right]  \setminus\left\{
+2,3\right\}  }d_{i}}_{=d_{1}}+\underbrace{\det\left(  \operatorname*{sub}%
+\nolimits_{\left\{  1,2,3\right\}  }^{\left\{  1,2,3\right\}  }A\right)
+}_{=\det A}\cdot\underbrace{\prod_{i\in\left[  3\right]  \setminus\left\{
+1,2,3\right\}  }d_{i}}_{\substack{=\left(  \text{empty product}\right)
+\\=1}}\\
+&  =d_{1}d_{2}d_{3}+A_{1,1}d_{2}d_{3}+A_{2,2}d_{1}d_{3}+A_{3,3}d_{1}d_{2}\\
+&  \ \ \ \ \ \ \ \ \ \ +\det\left(
+\begin{array}
+[c]{cc}%
+A_{1,1} & A_{1,2}\\
+A_{2,1} & A_{2,2}%
+\end{array}
+\right)  \cdot d_{3}+\det\left(
+\begin{array}
+[c]{cc}%
+A_{1,1} & A_{1,3}\\
+A_{3,1} & A_{3,3}%
+\end{array}
+\right)  \cdot d_{2}\\
+&  \ \ \ \ \ \ \ \ \ \ +\det\left(
+\begin{array}
+[c]{cc}%
+A_{2,2} & A_{2,3}\\
+A_{3,2} & A_{3,3}%
+\end{array}
+\right)  \cdot d_{1}+\det A.
+\end{align*}
+
+\end{example}
+
+\begin{proof}
+[Proof of Theorem \ref{thm.det.det(A+D)} (sketched).](See \cite[Corollary
+6.162]{detnotes} for details.) We shall use the notations $\widetilde{I}$ and
+$\operatorname*{sum}S$ as defined in Theorem \ref{thm.det.det(A+B)}. If $P$
+and $Q$ are two subsets of $\left[  n\right]  $ satisfying $\left\vert
+P\right\vert =\left\vert Q\right\vert $ but $P\neq Q$, then their complements
+$\widetilde{P}$ and $\widetilde{Q}$ are also distinct (since $P\neq Q$) and
+satisfy $\left\vert \widetilde{P}\right\vert =\left\vert \widetilde{Q}%
+\right\vert $ (since $\left\vert P\right\vert =\left\vert Q\right\vert $), and
+therefore Lemma \ref{lem.det.minors-diag} \textbf{(b)} (applied to
+$\widetilde{P}$ and $\widetilde{Q}$ instead of $P$ and $Q$) yields%
+\begin{equation}
+\det\left(  \operatorname*{sub}\nolimits_{\widetilde{P}}^{\widetilde{Q}%
+}D\right)  =0. \label{pf.thm.det.det(A+D).ex0}%
+\end{equation}
+
+
+Now, Theorem \ref{thm.det.det(A+B)} (applied to $B=D$) yields%
+\begin{align*}
+\det\left(  A+D\right)   &  =\sum_{P\subseteq\left[  n\right]  }%
+\ \ \sum_{\substack{Q\subseteq\left[  n\right]  ;\\\left\vert P\right\vert
+=\left\vert Q\right\vert }}\left(  -1\right)  ^{\operatorname*{sum}%
+P+\operatorname*{sum}Q}\det\left(  \operatorname*{sub}\nolimits_{P}%
+^{Q}A\right)  \cdot\underbrace{\det\left(  \operatorname*{sub}%
+\nolimits_{\widetilde{P}}^{\widetilde{Q}}D\right)  }_{\substack{\text{This is
+}0\text{ if }P\neq Q\\\text{(by (\ref{pf.thm.det.det(A+D).ex0}))}}}\\
+&  =\sum_{P\subseteq\left[  n\right]  }\underbrace{\left(  -1\right)
+^{\operatorname*{sum}P+\operatorname*{sum}P}}_{=1}\det\left(
+\operatorname*{sub}\nolimits_{P}^{P}A\right)  \cdot\underbrace{\det\left(
+\operatorname*{sub}\nolimits_{\widetilde{P}}^{\widetilde{P}}D\right)
+}_{\substack{=\prod_{i\in\widetilde{P}}d_{i}\\\text{(by Lemma
+\ref{lem.det.minors-diag} \textbf{(a)})}}}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have removed all addends with }P\neq Q\\
+\text{from the double sum, since these addends are }0
+\end{array}
+\right) \\
+&  =\sum_{P\subseteq\left[  n\right]  }\det\left(  \operatorname*{sub}%
+\nolimits_{P}^{P}A\right)  \cdot\prod_{i\in\widetilde{P}}d_{i}.
+\end{align*}
+This proves Theorem \ref{thm.det.det(A+D)} (since $\widetilde{P}=\left[
+n\right]  \setminus P$).
+\end{proof}
+
+As a particular case of Theorem \ref{thm.det.det(A+D)}, we quickly obtain the
+following formula for a class of determinants that frequently appear in graph theory:
+
+\begin{proposition}
+\label{prop.det.x+ai}Let $n\in\mathbb{N}$. Let $d_{1},d_{2},\ldots,d_{n}\in K$
+and $x\in K$. Let $F$ be the $n\times n$-matrix
+\[
+\left(  x+d_{i}\left[  i=j\right]  \right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}=\left(
+\begin{array}
+[c]{cccc}%
+x+d_{1} & x & \cdots & x\\
+x & x+d_{2} & \cdots & x\\
+\vdots & \vdots & \ddots & \vdots\\
+x & x & \cdots & x+d_{n}%
+\end{array}
+\right)  \in K^{n\times n}.
+\]
+Then,%
+\[
+\det F=d_{1}d_{2}\cdots d_{n}+x\sum_{i=1}^{n}d_{1}d_{2}\cdots\widehat{d_{i}%
+}\cdots d_{n},
+\]
+where the hat over the \textquotedblleft$d_{i}$\textquotedblright\ means
+\textquotedblleft omit the $d_{i}$ factor\textquotedblright\ (that is, the
+expression \textquotedblleft$d_{1}d_{2}\cdots\widehat{d_{i}}\cdots d_{n}%
+$\textquotedblright\ is to be understood as \textquotedblleft$d_{1}d_{2}\cdots
+d_{i-1}d_{i+1}d_{i+2}\cdots d_{n}$\textquotedblright).
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.det.x+ai} (sketched).]Define the two $n\times
+n$-matrices%
+\begin{align*}
+A  &  :=\left(  x\right)  _{1\leq i\leq n,\ 1\leq j\leq n}=\left(
+\begin{array}
+[c]{cccc}%
+x & x & \cdots & x\\
+x & x & \cdots & x\\
+\vdots & \vdots & \ddots & \vdots\\
+x & x & \cdots & x
+\end{array}
+\right)  \in K^{n\times n}\ \ \ \ \ \ \ \ \ \ \text{and}\\
+D  &  :=\left(  d_{i}\left[  i=j\right]  \right)  _{1\leq i\leq n,\ 1\leq
+j\leq n}=\left(
+\begin{array}
+[c]{cccc}%
+d_{1} & 0 & \cdots & 0\\
+0 & d_{2} & \cdots & 0\\
+\vdots & \vdots & \ddots & \vdots\\
+0 & 0 & \cdots & d_{n}%
+\end{array}
+\right)  \in K^{n\times n}.
+\end{align*}
+Then, it is clear that $F=A+D$. Moreover, the matrix $D$ is diagonal, and its
+diagonal entries are $d_{1},d_{2},\ldots,d_{n}$. Hence, Theorem
+\ref{thm.det.det(A+D)} yields%
+\begin{equation}
+\det\left(  A+D\right)  =\sum_{P\subseteq\left[  n\right]  }\det\left(
+\operatorname*{sub}\nolimits_{P}^{P}A\right)  \cdot\prod_{i\in\left[
+n\right]  \setminus P}d_{i}. \label{pf.prop.det.x+ai.1}%
+\end{equation}
+
+
+However, if $P$ is a subset of $\left[  n\right]  $, then $\operatorname*{sub}%
+\nolimits_{P}^{P}A$ is a submatrix of $A$ and thus has the form $\left(
+\begin{array}
+[c]{cccc}%
+x & x & \cdots & x\\
+x & x & \cdots & x\\
+\vdots & \vdots & \ddots & \vdots\\
+x & x & \cdots & x
+\end{array}
+\right)  $ (since all entries of $A$ equal $x$). If the subset $P$ of $\left[
+n\right]  $ has size $\geq2$, then this submatrix $\operatorname*{sub}%
+\nolimits_{P}^{P}A=\left(
+\begin{array}
+[c]{cccc}%
+x & x & \cdots & x\\
+x & x & \cdots & x\\
+\vdots & \vdots & \ddots & \vdots\\
+x & x & \cdots & x
+\end{array}
+\right)  $ has size $\left\vert P\right\vert \geq2$ and therefore has
+determinant $0$ (by (\ref{eq.prop.det.xiyj.cor-x}), applied to $\left\vert
+P\right\vert $ instead of $n$). In other words, we have%
+\begin{equation}
+\det\left(  \operatorname*{sub}\nolimits_{P}^{P}A\right)  =0
+\label{pf.prop.det.x+ai.2}%
+\end{equation}
+whenever $P\subseteq\left[  n\right]  $ satisfies $\left\vert P\right\vert
+\geq2$.
+
+Now, (\ref{pf.prop.det.x+ai.1}) becomes%
+\begin{align*}
+\det\left(  A+D\right)   &  =\sum_{P\subseteq\left[  n\right]  }\det\left(
+\operatorname*{sub}\nolimits_{P}^{P}A\right)  \cdot\prod_{i\in\left[
+n\right]  \setminus P}d_{i}\\
+&  =\sum_{\substack{P\subseteq\left[  n\right]  ;\\\left\vert P\right\vert
+\leq1}}\det\left(  \operatorname*{sub}\nolimits_{P}^{P}A\right)  \cdot
+\prod_{i\in\left[  n\right]  \setminus P}d_{i}+\sum_{\substack{P\subseteq
+\left[  n\right]  ;\\\left\vert P\right\vert \geq2}}\underbrace{\det\left(
+\operatorname*{sub}\nolimits_{P}^{P}A\right)  }_{\substack{=0\\\text{(by
+(\ref{pf.prop.det.x+ai.2}))}}}\cdot\prod_{i\in\left[  n\right]  \setminus
+P}d_{i}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{since each
+}P\subseteq\left[  n\right]  \text{ satisfies either }\left\vert P\right\vert
+\leq1\text{ or }\left\vert P\right\vert \geq2\right) \\
+&  =\sum_{\substack{P\subseteq\left[  n\right]  ;\\\left\vert P\right\vert
+\leq1}}\det\left(  \operatorname*{sub}\nolimits_{P}^{P}A\right)  \cdot
+\prod_{i\in\left[  n\right]  \setminus P}d_{i}\\
+&  =\underbrace{\det\left(  \operatorname*{sub}\nolimits_{\varnothing
+}^{\varnothing}A\right)  }_{\substack{=1\\\text{(since }\operatorname*{sub}%
+\nolimits_{\varnothing}^{\varnothing}A\text{ is}\\\text{a }0\times
+0\text{-matrix)}}}\cdot\underbrace{\prod_{i\in\left[  n\right]  \setminus
+\varnothing}d_{i}}_{\substack{=\prod_{i\in\left[  n\right]  }d_{i}%
+\\=d_{1}d_{2}\cdots d_{n}}}+\sum_{p=1}^{n}\underbrace{\det\left(
+\operatorname*{sub}\nolimits_{\left\{  p\right\}  }^{\left\{  p\right\}
+}A\right)  }_{\substack{=x\\\text{(since }\operatorname*{sub}%
+\nolimits_{\left\{  p\right\}  }^{\left\{  p\right\}  }A=\left(
+\begin{array}
+[c]{c}%
+x
+\end{array}
+\right)  \text{)}}}\cdot\underbrace{\prod_{i\in\left[  n\right]
+\setminus\left\{  p\right\}  }d_{i}}_{=d_{1}d_{2}\cdots\widehat{d_{p}}\cdots
+d_{n}}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{since the subsets }P\text{ of }\left[  n\right]  \text{ satisfying
+}\left\vert P\right\vert \leq1\\
+\text{are the }n+1\text{ subsets }\varnothing\text{, }\left\{  1\right\}
+\text{, }\left\{  2\right\}  \text{, }\ldots\text{, }\left\{  n\right\}
+\end{array}
+\right) \\
+&  =d_{1}d_{2}\cdots d_{n}+\sum_{p=1}^{n}x\cdot d_{1}d_{2}\cdots
+\widehat{d_{p}}\cdots d_{n}\\
+&  =d_{1}d_{2}\cdots d_{n}+x\sum_{p=1}^{n}d_{1}d_{2}\cdots\widehat{d_{p}%
+}\cdots d_{n}\\
+&  =d_{1}d_{2}\cdots d_{n}+x\sum_{i=1}^{n}d_{1}d_{2}\cdots\widehat{d_{i}%
+}\cdots d_{n}%
+\end{align*}
+(here, we have renamed the summation index $p$ as $i$). In view of $F=A+D$,
+this rewrites as%
+\[
+\det F=d_{1}d_{2}\cdots d_{n}+x\sum_{i=1}^{n}d_{1}d_{2}\cdots\widehat{d_{i}%
+}\cdots d_{n},
+\]
+Thus, Proposition \ref{prop.det.x+ai} is proven.
+
+(See \url{https://math.stackexchange.com/questions/2110766/} for some
+different proofs of Proposition \ref{prop.det.x+ai}.)
+\end{proof}
+
+Another application of Theorem \ref{thm.det.det(A+D)} is an explicit formula
+for the characteristic polynomial of a matrix. We recall that the
+characteristic polynomial of an $n\times n$-matrix $A\in K^{n\times n}$ is
+defined to be the polynomial\footnote{Here, $I_{n}$ denotes the $n\times n$
+identity matrix.} $\det\left(  xI_{n}-A\right)  \in K\left[  x\right]  $ (some
+authors define it to be $\det\left(  A-xI_{n}\right)  $ instead, but this is
+the same up to sign). This is a polynomial of degree $n$, whose leading term
+is $x^{n}$, whose next-highest term is $-\operatorname*{Tr}A\cdot x^{n-1}$
+where $\operatorname*{Tr}A:=\sum_{i=1}^{n}A_{i,i}$ is the \emph{trace} of $A$,
+and whose constant term is $\left(  -1\right)  ^{n}\det A$. We shall extend
+this by explicitly computing all coefficients of this polynomial. For the sake
+of simplicity, we will compute $\det\left(  A+xI_{n}\right)  $ instead of
+$\det\left(  xI_{n}-A\right)  $ (this is tantamount to replacing $x$ by $-x$),
+and we will take $x$ to be an element of $K$ rather than an indeterminate (but
+this setting is more general, since we can take $K$ itself to be a polynomial
+ring and then choose $x$ to be its indeterminate). Here is our formula:
+
+\begin{proposition}
+\label{prop.det.charpol-explicit}Let $n\in\mathbb{N}$. Let $A\in K^{n\times
+n}$ be an $n\times n$-matrix. Let $x\in K$. Let $I_{n}$ denote the $n\times n$
+identity matrix. Then,%
+\[
+\det\left(  A+xI_{n}\right)  =\sum_{P\subseteq\left[  n\right]  }\det\left(
+\operatorname*{sub}\nolimits_{P}^{P}A\right)  \cdot x^{n-\left\vert
+P\right\vert }=\sum_{k=0}^{n}\left(  \sum_{\substack{P\subseteq\left[
+n\right]  ;\\\left\vert P\right\vert =n-k}}\det\left(  \operatorname*{sub}%
+\nolimits_{P}^{P}A\right)  \right)  x^{k}.
+\]
+
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.det.charpol-explicit} (sketched).](See
+\cite[Corollary 6.164]{detnotes} for details.) The matrix $xI_{n}$ is
+diagonal, and its diagonal entries are $x,x,\ldots,x$; in fact,%
+\[
+xI_{n}=\left(  x\left[  i=j\right]  \right)  _{1\leq i\leq n,\ 1\leq j\leq
+n}=\left(
+\begin{array}
+[c]{cccc}%
+x & 0 & \cdots & 0\\
+0 & x & \cdots & 0\\
+\vdots & \vdots & \ddots & \vdots\\
+0 & 0 & \cdots & x
+\end{array}
+\right)  .
+\]
+Hence, Theorem \ref{thm.det.det(A+D)} (applied to $D=xI_{n}$ and $d_{i}=x$)
+yields%
+\begin{align*}
+&  \det\left(  A+xI_{n}\right) \\
+&  =\sum_{P\subseteq\left[  n\right]  }\det\left(  \operatorname*{sub}%
+\nolimits_{P}^{P}A\right)  \cdot\underbrace{\prod_{i\in\left[  n\right]
+\setminus P}x}_{\substack{=x^{\left\vert \left[  n\right]  \setminus
+P\right\vert }=x^{n-\left\vert P\right\vert }\\\text{(since }\left\vert
+\left[  n\right]  \setminus P\right\vert =\left\vert \left[  n\right]
+\right\vert -\left\vert P\right\vert =n-\left\vert P\right\vert \text{)}%
+}}=\sum_{P\subseteq\left[  n\right]  }\det\left(  \operatorname*{sub}%
+\nolimits_{P}^{P}A\right)  \cdot x^{n-\left\vert P\right\vert }\\
+&  =\sum_{k=0}^{n}\ \ \sum_{\substack{P\subseteq\left[  n\right]
+;\\\left\vert P\right\vert =k}}\det\left(  \operatorname*{sub}\nolimits_{P}%
+^{P}A\right)  x^{n-k}\ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have split the sum}\\
+\text{according to the value of }\left\vert P\right\vert
+\end{array}
+\right) \\
+&  =\sum_{k=0}^{n}\ \ \sum_{\substack{P\subseteq\left[  n\right]
+;\\\left\vert P\right\vert =n-k}}\det\left(  \operatorname*{sub}%
+\nolimits_{P}^{P}A\right)  x^{k}\ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we have substituted }n-k\\
+\text{for }k\text{ in the sum}%
+\end{array}
+\right) \\
+&  =\sum_{k=0}^{n}\left(  \sum_{\substack{P\subseteq\left[  n\right]
+;\\\left\vert P\right\vert =n-k}}\det\left(  \operatorname*{sub}%
+\nolimits_{P}^{P}A\right)  \right)  x^{k}.
+\end{align*}
+Proposition \ref{prop.det.charpol-explicit} is proven.
+\end{proof}
+
+\subsubsection{Factoring the matrix}
+
+Next, we will see some tricks for computing determinants.
+
+Let us compute a determinant that recently went viral on the internet after
+Timothy Gowers livestreamed himself computing it\footnote{See
+\url{https://www.youtube.com/watch?v=byjhpzEoXFs} and
+\url{https://www.youtube.com/watch?v=frvBdaqLgLo} and
+\url{https://www.youtube.com/watch?v=m8R9rVb0M5o} .} (\cite[Exercise
+6.11]{detnotes}, \cite{EdelStrang}):
+
+\begin{proposition}
+\label{prop.det.pascal-LU}Let $n\in\mathbb{N}$. Let $A$ be the $n\times
+n$-matrix%
+\[
+\left(  \dbinom{i+j-2}{i-1}\right)  _{1\leq i\leq n,\ 1\leq j\leq n}=\left(
+\begin{array}
+[c]{cccc}%
+\dbinom{0}{0} & \dbinom{1}{0} & \cdots & \dbinom{n-1}{0}\\
+\dbinom{1}{1} & \dbinom{2}{1} & \cdots & \dbinom{n}{1}\\
+\vdots & \vdots & \ddots & \vdots\\
+\dbinom{n-1}{n-1} & \dbinom{n}{n-1} & \cdots & \dbinom{2n-2}{n-1}%
+\end{array}
+\right)  .
+\]
+(For example, for $n=4$, we have $A=\left(
+\begin{array}
+[c]{cccc}%
+1 & 1 & 1 & 1\\
+1 & 2 & 3 & 4\\
+1 & 3 & 6 & 10\\
+1 & 4 & 10 & 20
+\end{array}
+\right)  $.)
+
+Then, $\det A=1$.
+\end{proposition}
+
+There are many ways to prove Proposition \ref{prop.det.pascal-LU}, but here is
+a particularly simple one:
+
+\begin{proof}
+[Proof of Proposition \ref{prop.det.pascal-LU} (sketched).](See \cite[Exercise
+6.11]{detnotes} for details.) For any $i,j\in\left[  n\right]  $, we have%
+\begin{align*}
+A_{i,j}  &  =\dbinom{i+j-2}{i-1}\ \ \ \ \ \ \ \ \ \ \left(  \text{by the
+definition of }A\right) \\
+&  =\dbinom{\left(  i-1\right)  +\left(  j-1\right)  }{i-1}=\dbinom{\left(
+i-1\right)  +\left(  j-1\right)  }{j-1}\ \ \ \ \ \ \ \ \ \ \left(  \text{by
+Theorem \ref{thm.binom.sym}}\right) \\
+&  =\sum_{k=0}^{i-1}\dbinom{i-1}{k}\underbrace{\dbinom{j-1}{j-1-k}%
+}_{\substack{=\dbinom{j-1}{k}\\\text{(by Theorem \ref{thm.binom.sym})}}}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{by Proposition \ref{prop.binom.vandermonde.NN}, applied to }i-1\text{,
+}j-1\text{ and }j-1\\
+\text{instead of }a\text{, }b\text{ and }n
+\end{array}
+\right) \\
+&  =\sum_{k=0}^{i-1}\dbinom{i-1}{k}\dbinom{j-1}{k}=\sum_{k=0}^{n-1}%
+\dbinom{i-1}{k}\dbinom{j-1}{k}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(
+\begin{array}
+[c]{c}%
+\text{here, we extended the sum upwards to }k=n-1\text{,}\\
+\text{but this has not changed the value of the sum,}\\
+\text{since all newly introduced addends are }0\\
+\text{(since }\dbinom{i-1}{k}=0\text{ whenever }k>i-1\text{)}%
+\end{array}
+\right) \\
+&  =\sum_{k=1}^{n}\dbinom{i-1}{k-1}\dbinom{j-1}{k-1}\\
+&  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \left(  \text{here, we have
+substituted }k-1\text{ for }k\text{ in the sum}\right)  .
+\end{align*}
+If we define two $n\times n$-matrices%
+\[
+L:=\left(  \dbinom{i-1}{k-1}\right)  _{1\leq i\leq n,\ 1\leq k\leq
+n}\ \ \ \ \ \ \ \ \ \ \text{and}\ \ \ \ \ \ \ \ \ \ U:=\left(  \dbinom
+{j-1}{k-1}\right)  _{1\leq k\leq n,\ 1\leq j\leq n},
+\]
+then this rewrites as%
+\[
+A_{i,j}=\sum_{k=1}^{n}L_{i,k}U_{k,j}=\left(  LU\right)  _{i,j}%
+\]
+(by the definition of the matrix product $LU$). Since this equality holds for
+all $i,j\in\left[  n\right]  $, we thus conclude that $A=LU$.
+
+Notice, however, that the matrix $L$ is lower-triangular (because if $i<k$,
+then $i-1<k-1$ and therefore $L_{i,k}=\dbinom{i-1}{k-1}=0$), and thus (by
+Theorem \ref{thm.det.triang}) its determinant is the product of its diagonal
+entries. In other words,%
+\[
+\det L=\dbinom{1-1}{1-1}\dbinom{2-1}{2-1}\cdots\dbinom{n-1}{n-1}=\prod
+_{k=1}^{n}\underbrace{\dbinom{k-1}{k-1}}_{=1}=1.
+\]
+
+
+Similarly, the matrix $U$ is upper-triangular, and its determinant is $\det
+U=1$ as well.
+
+Now, from $A=LU$, we obtain%
+\begin{align*}
+\det A  &  =\det\left(  LU\right)  =\underbrace{\det L}_{=1}\cdot
+\,\underbrace{\det U}_{=1}\ \ \ \ \ \ \ \ \ \ \left(  \text{by Theorem
+\ref{thm.det.detAB}}\right) \\
+&  =1;
+\end{align*}
+this proves Proposition \ref{prop.det.pascal-LU}.
+\end{proof}
+
+How can you discover such a proof? Our serendipitous factorization of $A$ as
+$LU$ might appear unmotivated, but from the viewpoint of linear algebra it is
+an instance of a well-known and well-understood kind of factorization, known
+as the \emph{LU-decomposition} or the \emph{LU-factorization}. Over a field,
+almost every square matrix\footnote{I will not go into details as to what
+\textquotedblleft almost every\textquotedblright\ means here.} has an
+LU-decomposition (i.e., a factorization as a product of a lower-triangular
+matrix with an upper-triangular matrix). This LU-decomposition is unique if
+you require (e.g.) the diagonal entries of the lower-triangular factor to all
+equal $1$. It can furthermore be algorithmically computed using Gaussian
+elimination (see, e.g., \cite[\S 1.3, Theorem 1.3]{OlvSha}). Now, computing
+the LU-decomposition of the matrix $A$ from Proposition
+\ref{prop.det.pascal-LU} for $n=4$, we find%
+\[
+\left(
+\begin{array}
+[c]{cccc}%
+1 & 1 & 1 & 1\\
+1 & 2 & 3 & 4\\
+1 & 3 & 6 & 10\\
+1 & 4 & 10 & 20
+\end{array}
+\right)  =\underbrace{\left(
+\begin{array}
+[c]{cccc}%
+1 & 0 & 0 & 0\\
+1 & 1 & 0 & 0\\
+1 & 2 & 1 & 0\\
+1 & 3 & 3 & 1
+\end{array}
+\right)  }_{\text{this is the lower-triangular factor}}%
+\ \ \ \underbrace{\left(
+\begin{array}
+[c]{cccc}%
+1 & 1 & 1 & 1\\
+0 & 1 & 2 & 3\\
+0 & 0 & 1 & 3\\
+0 & 0 & 0 & 1
+\end{array}
+\right)  }_{\text{this is the upper-triangular factor}}.
+\]
+The entries of both factors appear to be the binomial coefficients familiar
+from Pascal's triangle. This suggests that we might have%
+\[
+L=\left(  \dbinom{i-1}{k-1}\right)  _{1\leq i\leq n,\ 1\leq k\leq
+n}\ \ \ \ \ \ \ \ \ \ \text{and}\ \ \ \ \ \ \ \ \ \ U=\left(  \dbinom
+{j-1}{k-1}\right)  _{1\leq k\leq n,\ 1\leq j\leq n},
+\]
+not just for $n=4$ but also for arbitrary $n\in\mathbb{N}$. And once this
+guess has been made, it is easy to prove that $A=LU$ (our proof above is not
+the only one possible; four proofs appear in \cite{EdelStrang}).
+
+This is not the only example where LU-decomposition helps compute a
+determinant (see, e.g., \cite[\S 2.6]{Krattenthaler} for examples). Sometimes
+it is helpful to transpose a matrix, or to permute its rows or columns to
+obtain a matrix with a good LU-decomposition.
+

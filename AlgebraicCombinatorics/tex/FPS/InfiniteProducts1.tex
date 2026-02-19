@@ -1,0 +1,1109 @@
+\subsection{\label{sec.gf.prod}Infinite products}
+
+Let us now extend our FPS playground somewhat. We have made sense of infinite
+sums. What about infinite products?
+
+\subsubsection{\label{subsec.gf.prod.exa}An example}
+
+We start with a \textbf{motivating example} (due to Euler, in
+\cite[\S 328--329]{Euler48}), which we shall first discuss informally.
+
+Assume (for the time being) that the infinite product%
+\begin{equation}
+\prod_{i\in\mathbb{N}}\left(  1+x^{2^{i}}\right)  =\left(  1+x^{1}\right)
+\left(  1+x^{2}\right)  \left(  1+x^{4}\right)  \left(  1+x^{8}\right)
+\cdots\label{eq.fps.prod.binary.1}%
+\end{equation}
+in the ring $K\left[  \left[  x\right]  \right]  $ is meaningful, and that
+such products behave as nicely as finite products. Can we simplify this product?
+
+We can observe that each $i\in\mathbb{N}$ satisfies $1+x^{2^{i}}%
+=\dfrac{1-x^{2^{i+1}}}{1-x^{2^{i}}}$ (since $1-x^{2^{i+1}}=1-\left(  x^{2^{i}%
+}\right)  ^{2}=\left(  1-x^{2^{i}}\right)  \left(  1+x^{2^{i}}\right)  $).
+Multiplying these equalities over all $i\in\mathbb{N}$, we obtain%
+\[
+\prod_{i\in\mathbb{N}}\left(  1+x^{2^{i}}\right)  =\prod_{i\in\mathbb{N}%
+}\dfrac{1-x^{2^{i+1}}}{1-x^{2^{i}}}=\dfrac{1-x^{2}}{1-x^{1}}\cdot
+\dfrac{1-x^{4}}{1-x^{2}}\cdot\dfrac{1-x^{8}}{1-x^{4}}\cdot\dfrac{1-x^{16}%
+}{1-x^{8}}\cdot\cdots.
+\]
+The product on the right hand side here is a \emph{telescoping product} --
+meaning that each numerator is cancelled by the denominator of the following
+fraction. Assuming (somewhat plausibly, but far from rigorously) that we are
+allowed to cancel infinitely many factors from an infinite product, we thus
+end up with a single $1-x^{1}$ factor in the denominator. That is, our product
+simplifies to $\dfrac{1}{1-x^{1}}$. Thus, we obtain%
+\begin{equation}
+\prod_{i\in\mathbb{N}}\left(  1+x^{2^{i}}\right)  =\dfrac{1}{1-x^{1}}%
+=\dfrac{1}{1-x}=1+x+x^{2}+x^{3}+\cdots. \label{eq.fps.prod.binary.2}%
+\end{equation}
+
+
+This was not very rigorous, so let us try to compute the product $\prod
+_{i\in\mathbb{N}}\left(  1+x^{2^{i}}\right)  $ in a different way. Namely, we
+recall a simple fact about finite products: If $a_{0},a_{1},\ldots,a_{m}$ are
+finitely many elements of a commutative ring, then the product
+\begin{equation}
+\prod_{i=0}^{m}\left(  1+a_{i}\right)  =\left(  1+a_{0}\right)  \left(
+1+a_{1}\right)  \cdots\left(  1+a_{m}\right)
+\label{eq.fps.prod.binary.prod-fin}%
+\end{equation}
+equals the sum\footnote{The indices $i_{1},i_{2},\ldots,i_{k}$ of the sum are
+supposed to be nonnegative integers.}
+\[
+\sum_{i_{1}<i_{2}<\cdots<i_{k}\leq m}a_{i_{1}}a_{i_{2}}\cdots a_{i_{k}}%
+\]
+of all the $2^{m+1}$ \textquotedblleft sub-products\textquotedblright\ of the
+product $a_{0}a_{1}\cdots a_{m}$ (because this sum is what we obtain if we
+expand $\prod_{i=0}^{m}\left(  1+a_{i}\right)  $ by repeatedly applying
+distributivity). For example, for $m=2$, this is saying that%
+\begin{align*}
+&  \left(  1+a_{0}\right)  \left(  1+a_{1}\right)  \left(  1+a_{2}\right) \\
+&  =1+a_{0}+a_{1}+a_{2}+a_{0}a_{1}+a_{0}a_{2}+a_{1}a_{2}+a_{0}a_{1}a_{2}.
+\end{align*}
+Now, it is plausible to expect the same formula $\prod_{i=0}^{m}\left(
+1+a_{i}\right)  =\sum_{I\subseteq\left\{  0,1,\ldots,m\right\}  }%
+\ \ \prod_{i\in I}a_{i}$ to hold if \textquotedblleft$m$ is $\infty
+$\textquotedblright\ (that is, if the product ranges over all $i\in\mathbb{N}%
+$), provided that the product is meaningful. In other words, it is plausible
+to expect that%
+\begin{equation}
+\prod_{i\in\mathbb{N}}\left(  1+a_{i}\right)  =\sum_{i_{1}<i_{2}<\cdots<i_{k}%
+}a_{i_{1}}a_{i_{2}}\cdots a_{i_{k}} \label{eq.fps.prod.binary.prod-inf}%
+\end{equation}
+for any infinite sequence $a_{0},a_{1},a_{2},\ldots$ as long as $\prod
+_{i\in\mathbb{N}}\left(  1+a_{i}\right)  $ makes sense. (It's a little bit
+more complicated than that, but we aren't trying to be fully rigorous yet. The
+correct condition is that the sequence $\left(  a_{0},a_{1},a_{2}%
+,\ldots\right)  $ is summable.) If we now apply
+(\ref{eq.fps.prod.binary.prod-inf}) to $a_{i}=x^{2^{i}}$, then we obtain%
+\begin{align}
+\prod_{i\in\mathbb{N}}\left(  1+x^{2^{i}}\right)   &  =\sum_{i_{1}%
+<i_{2}<\cdots<i_{k}}x^{2^{i_{1}}}x^{2^{i_{2}}}\cdots x^{2^{i_{k}}}=\sum
+_{i_{1}<i_{2}<\cdots<i_{k}}x^{2^{i_{1}}+2^{i_{2}}+\cdots+2^{i_{k}}}\nonumber\\
+&  =\sum_{n\in\mathbb{N}}q_{n}x^{n}, \label{eq.fps.prod.binary.5}%
+\end{align}
+where $q_{n}$ is the \# of ways to write the integer $n$ as a sum $2^{i_{1}%
+}+2^{i_{2}}+\cdots+2^{i_{k}}$ with nonnegative integers $i_{1},i_{2}%
+,\ldots,i_{k}$ satisfying $i_{1}<i_{2}<\cdots<i_{k}$. Comparing this with
+(\ref{eq.fps.prod.binary.2}), we obtain%
+\[
+\sum_{n\in\mathbb{N}}q_{n}x^{n}=1+x+x^{2}+x^{3}+\cdots=\sum_{n\in\mathbb{N}%
+}x^{n},
+\]
+at least if our assumptions were valid. Comparing coefficients, this would
+mean that $q_{n}=1$ for each $n\in\mathbb{N}$. In other words, each
+$n\in\mathbb{N}$ can be written in \textbf{exactly one} way as a sum
+$2^{i_{1}}+2^{i_{2}}+\cdots+2^{i_{k}}$ with nonnegative integers $i_{1}%
+,i_{2},\ldots,i_{k}$ satisfying $i_{1}<i_{2}<\cdots<i_{k}$. In other words,
+each $n\in\mathbb{N}$ can be written uniquely as a finite sum of distinct
+powers of $2$.
+
+Is this true? Yes, because this is just saying that each $n\in\mathbb{N}$ has
+a unique binary representation. For example, $21=2^{4}+2^{2}+2^{0}$
+corresponds to the binary representation $21=\left(  10101\right)  _{2}$.
+
+Thus, the two results we have obtained in (\ref{eq.fps.prod.binary.2}) and
+(\ref{eq.fps.prod.binary.5}) are actually equal, which is reassuring. Yet,
+this does not replace a formal definition of infinite products that rigorously
+justifies the above arguments.
+
+\subsubsection{\label{subsec.gf.prod.def}A rigorous definition}
+
+One way of rigorously defining infinite products of FPSs can be found in
+\cite[\S 7.5]{Loehr-BC}. However, this definition only defines infinite
+products of the form $\prod_{i\in\mathbb{N}}$ or $\prod_{i=1}^{\infty}$, but
+not (for example) of the form $\prod_{I\subseteq\mathbb{N}}$ or $\prod
+_{\left(  i,j\right)  \in\mathbb{N}\times\mathbb{N}}$. Another definition of
+infinite products uses the $\operatorname*{Log}$ and $\operatorname*{Exp}$
+bijections from Definition \ref{def.fps.Exp-Log-maps} to turn products into
+sums; but this requires $K$ to be a $\mathbb{Q}$-algebra (since
+$\operatorname*{Log}$ and $\operatorname*{Exp}$ aren't defined otherwise).
+Thus, we shall give a different definition here.
+
+We recall our definition of infinite sums of FPSs (Definition
+\ref{def.fps.summable}):
+
+\begin{statement}
+\textbf{Definition \ref{def.fps.summable} (repeated).} A (possibly infinite)
+family $\left(  \mathbf{a}_{i}\right)  _{i\in I}$ of FPSs is said to be
+\emph{summable} if%
+\[
+\text{for each }n\in\mathbb{N}\text{, all but finitely many }i\in I\text{
+satisfy }\left[  x^{n}\right]  \mathbf{a}_{i}=0.
+\]
+In this case, the sum $\sum_{i\in I}\mathbf{a}_{i}$ is defined to be the FPS
+with%
+\[
+\left[  x^{n}\right]  \left(  \sum_{i\in I}\mathbf{a}_{i}\right)
+=\underbrace{\sum_{i\in I}\left[  x^{n}\right]  \mathbf{a}_{i}}%
+_{\substack{\text{an essentially}\\\text{finite sum}}%
+}\ \ \ \ \ \ \ \ \ \ \text{for all }n\in\mathbb{N}\text{.}%
+\]
+
+\end{statement}
+
+This is how we defined infinite sums of FPSs. We cannot use the same
+definition for infinite products, because usually%
+\[
+\text{we \textbf{don't} expect to have }\left[  x^{n}\right]  \left(
+\prod_{i\in I}\mathbf{a}_{i}\right)  =\prod_{i\in I}\left[  x^{n}\right]
+\mathbf{a}_{i}%
+\]
+(after all, multiplication of FPSs is not defined coefficientwise). The
+condition \textquotedblleft all but finitely many $i\in I$ satisfy $\left[
+x^{n}\right]  \mathbf{a}_{i}=0$\textquotedblright\ is therefore not what we
+are looking for.
+
+Let us instead go back to the idea behind Definition \ref{def.fps.summable}.
+Let us fix some $n\in\mathbb{N}$. What was the actual purpose of the
+\textquotedblleft all but finitely many $i\in I$ satisfy $\left[
+x^{n}\right]  \mathbf{a}_{i}=0$\textquotedblright\ condition? The purpose was
+to ensure that the coefficient $\left[  x^{n}\right]  \left(  \sum_{i\in
+I}\mathbf{a}_{i}\right)  $ is determined by \textbf{finitely many} of the
+$\mathbf{a}_{i}$'s. In other words, the purpose was to ensure that there is a
+\textbf{finite} partial sum of $\sum_{i\in I}\mathbf{a}_{i}$ such that if we
+add any further $\mathbf{a}_{i}$'s to this partial sum, then the coefficient
+of $x^{n}$ does not change any more. Here is a way to restate this condition
+more rigorously: There is a \textbf{finite} subset $M$ of $I$ such that every
+finite subset $J$ of $I$ satisfying $M\subseteq J\subseteq I$ satisfies%
+\[
+\left[  x^{n}\right]  \left(  \sum_{i\in M}\mathbf{a}_{i}\right)  =\left[
+x^{n}\right]  \left(  \sum_{i\in J}\mathbf{a}_{i}\right)  .
+\]
+(The subset $M$ here is the indexing set of our finite partial sum, and the
+set $J$ is what it becomes if we add some further $\mathbf{a}_{i}$'s to this
+partial sum.)
+
+This condition is a mouthful; this is why we found it easier to boil it down
+to the simple \textquotedblleft all but finitely many $i\in I$ satisfy
+$\left[  x^{n}\right]  \mathbf{a}_{i}=0$\textquotedblright\ condition in the
+case of infinite sums. However, in the case of infinite products, we cannot
+boil it down to something this simple; thus, we have to live with it.
+
+Fortunately, we can simplify our life by giving this condition a name. To
+highlight the analogy, let us define it both for sums and for products:
+
+\begin{definition}
+\label{def.fps.determines-xn-coeff}Let $\left(  \mathbf{a}_{i}\right)  _{i\in
+I}\in K\left[  \left[  x\right]  \right]  ^{I}$ be a (possibly infinite)
+family of FPSs. Let $n\in\mathbb{N}$. Let $M$ be a finite subset of $I$.
+\medskip
+
+\textbf{(a)} We say that $M$ \emph{determines the }$x^{n}$\emph{-coefficient
+in the sum of }$\left(  \mathbf{a}_{i}\right)  _{i\in I}$ if every finite
+subset $J$ of $I$ satisfying $M\subseteq J\subseteq I$ satisfies%
+\[
+\left[  x^{n}\right]  \left(  \sum_{i\in J}\mathbf{a}_{i}\right)  =\left[
+x^{n}\right]  \left(  \sum_{i\in M}\mathbf{a}_{i}\right)  .
+\]
+(You can think of this condition as saying \textquotedblleft If you add any
+further $\mathbf{a}_{i}$s to the sum $\sum_{i\in M}\mathbf{a}_{i}$, then the
+$x^{n}$-coefficient stays unchanged\textquotedblright, or, more informally:
+\textquotedblleft If you want to know the $x^{n}$-coefficient of $\sum_{i\in
+I}\mathbf{a}_{i}$, it suffices to take the partial sum over all $i\in
+M$\textquotedblright.) \medskip
+
+\textbf{(b)} We say that $M$ \emph{determines the }$x^{n}$\emph{-coefficient
+in the product of }$\left(  \mathbf{a}_{i}\right)  _{i\in I}$ if every finite
+subset $J$ of $I$ satisfying $M\subseteq J\subseteq I$ satisfies%
+\[
+\left[  x^{n}\right]  \left(  \prod_{i\in J}\mathbf{a}_{i}\right)  =\left[
+x^{n}\right]  \left(  \prod_{i\in M}\mathbf{a}_{i}\right)  .
+\]
+(You can think of this condition as saying \textquotedblleft If you multiply
+any further $\mathbf{a}_{i}$s to the product $\prod_{i\in M}\mathbf{a}_{i}$,
+then the $x^{n}$-coefficient stays unchanged\textquotedblright, or, more
+informally: \textquotedblleft If you want to know the $x^{n}$-coefficient of
+$\prod_{i\in I}\mathbf{a}_{i}$, it suffices to take the partial product over
+all $i\in M$\textquotedblright.)
+\end{definition}
+
+\begin{example}
+\textbf{(a)} Consider the family
+\begin{align*}
+&  \left(  \left(  x+x^{2}\right)  ^{i}\right)  _{i\in\mathbb{N}}\\
+&  =\left(  \left(  x+x^{2}\right)  ^{0},\ \ \left(  x+x^{2}\right)
+^{1},\ \ \left(  x+x^{2}\right)  ^{2},\ \ \left(  x+x^{2}\right)
+^{3},\ \ \left(  x+x^{2}\right)  ^{4},\ \ \ldots\right) \\
+&  =\left(  1,\ \ x+x^{2},\ \ x^{2}+2x^{3}+x^{4},\ \ x^{3}+3x^{4}+3x^{5}%
++x^{6},\ \ x^{4}+4x^{5}+6x^{6}+4x^{7}+x^{8},\ \ \ldots\right)
+\end{align*}
+of FPSs. The subset $\left\{  2,3\right\}  $ of $\mathbb{N}$ determines the
+$x^{3}$-coefficient in the sum of this family $\left(  \left(  x+x^{2}\right)
+^{i}\right)  _{i\in\mathbb{N}}$, because every finite subset $J$ of
+$\mathbb{N}$ satisfying $\left\{  2,3\right\}  \subseteq J\subseteq\mathbb{N}$
+satisfies%
+\[
+\left[  x^{3}\right]  \left(  \sum_{i\in J}\left(  x+x^{2}\right)
+^{i}\right)  =\left[  x^{3}\right]  \left(  \sum_{i\in\left\{  2,3\right\}
+}\left(  x+x^{2}\right)  ^{i}\right)
+\]
+(this is simply a consequence of the fact that the only two entries of our
+family that have a nonzero $x^{3}$-coefficient are the entries $\left(
+x+x^{2}\right)  ^{i}$ for $i\in\left\{  2,3\right\}  $). Thus, any finite
+subset of $\mathbb{N}$ that contains $\left\{  2,3\right\}  $ as a subset
+determines the $x^{3}$-coefficient in the sum of this family $\left(  \left(
+x+x^{2}\right)  ^{i}\right)  _{i\in\mathbb{N}}$. \medskip
+
+\textbf{(b)} Consider the family%
+\[
+\left(  1+x^{i}\right)  _{i\in\mathbb{N}}=\left(  1+1,\ \ 1+x,\ \ 1+x^{2}%
+,\ \ 1+x^{3},\ \ 1+x^{4},\ \ \ldots\right)
+\]
+of FPSs over $K=\mathbb{Z}$. The subset $\left\{  0,1,2,3\right\}  $ of
+$\mathbb{N}$ determines the $x^{3}$-coefficient in the product of this family
+$\left(  1+x^{i}\right)  _{i\in\mathbb{N}}$, because every finite subset $J$
+of $\mathbb{N}$ satisfying $\left\{  0,1,2,3\right\}  \subseteq J\subseteq
+\mathbb{N}$ satisfies%
+\[
+\left[  x^{3}\right]  \left(  \prod_{i\in J}\left(  1+x^{i}\right)  \right)
+=\left[  x^{3}\right]  \left(  \prod_{i\in\left\{  0,1,2,3\right\}  }\left(
+1+x^{i}\right)  \right)  .
+\]
+(This is because multiplying an FPS by any of the polynomials $1+x^{4}%
+,\ \ 1+x^{5},\ \ 1+x^{6},\ \ \ldots$ leaves its $x^{3}$-coefficient
+unchanged.) Thus, any finite subset of $\mathbb{N}$ that contains $\left\{
+0,1,2,3\right\}  $ as a subset determines the $x^{3}$-coefficient in the
+product of this family $\left(  1+x^{i}\right)  _{i\in\mathbb{N}}$.
+
+On the other hand, the subset $\left\{  0,3\right\}  $ of $\mathbb{N}$ does
+\textbf{not} determine the $x^{3}$-coefficient in the product of $\left(
+1+x^{i}\right)  _{i\in\mathbb{N}}$. To see this, it suffices to notice that%
+\[
+\underbrace{\left[  x^{3}\right]  \left(  \prod_{i\in\left\{  0,1,2,3\right\}
+}\left(  1+x^{i}\right)  \right)  }_{\substack{=\left[  x^{3}\right]  \left(
+\left(  1+x^{0}\right)  \left(  1+x^{1}\right)  \left(  1+x^{2}\right)
+\left(  1+x^{3}\right)  \right)  \\=4}}\neq\underbrace{\left[  x^{3}\right]
+\left(  \prod_{i\in\left\{  0,3\right\}  }\left(  1+x^{i}\right)  \right)
+}_{\substack{=\left[  x^{3}\right]  \left(  \left(  1+x^{0}\right)  \left(
+1+x^{3}\right)  \right)  \\=2}}.
+\]
+(The philosophical reason is that, even though the monomial $x^{3}$ itself
+does not appear in any of the entries $1+x^{1}$ and $1+x^{2}$, it does emerge
+in the product of these two entries with the constant term of $\prod
+_{i\in\left\{  0,3\right\}  }\left(  1+x^{i}\right)  =\left(  1+1\right)
+\left(  1+x^{3}\right)  $.) \medskip
+
+\textbf{(c)} Here is a simple but somewhat slippery example: Let $I=\left\{
+1,2,3\right\}  $, and define the FPS $\mathbf{a}_{i}=1+\left(  -1\right)
+^{i}x$ over $K=\mathbb{Z}$ for each $i\in I$ (so that $\mathbf{a}%
+_{1}=\mathbf{a}_{3}=1-x$ and $\mathbf{a}_{2}=1+x$). Consider the finite family
+$\left(  \mathbf{a}_{i}\right)  _{i\in I}$. Its product is already
+well-defined by dint of its finiteness:%
+\[
+\prod_{i\in I}\mathbf{a}_{i}=\left(  1-x\right)  \left(  1+x\right)  \left(
+1-x\right)  =1-x-x^{2}+x^{3}.
+\]
+But let us nevertheless see which subsets $M$ of $I$ determine the $x^{1}%
+$-coefficient in the product of $\left(  \mathbf{a}_{i}\right)  _{i\in I}$.
+The subset $I$ itself clearly does (since the only finite subset $J$ of $I$
+satisfying $I\subseteq J\subseteq I$ is $I$ itself). The subset $\left\{
+1\right\}  $ of $I$, however, does not, even though the product $\prod_{i\in
+I}\mathbf{a}_{i}$ has the same $x^{1}$-coefficient as its subproduct
+$\prod_{i\in\left\{  1\right\}  }\mathbf{a}_{i}$. (To see why $\left\{
+1\right\}  $ does not determine the $x^{1}$-coefficient in the product of
+$\left(  \mathbf{a}_{i}\right)  _{i\in I}$, it suffices to check that not
+every finite subset $J$ of $I$ satisfying $\left\{  1\right\}  \subseteq
+J\subseteq I$ satisfies the equality%
+\[
+\left[  x^{1}\right]  \left(  \prod_{i\in J}\mathbf{a}_{i}\right)  =\left[
+x^{1}\right]  \left(  \prod_{i\in\left\{  1\right\}  }\mathbf{a}_{i}\right)
+.
+\]
+For example, $J=\left\{  1,2\right\}  $ does not, since $\left[  x^{1}\right]
+\left(  \prod_{i\in\left\{  1\right\}  }\mathbf{a}_{i}\right)  =-1$ but
+$\left[  x^{1}\right]  \left(  \prod_{i\in\left\{  1,2\right\}  }%
+\mathbf{a}_{i}\right)  =0$.)
+
+This shows that, in order for a subset $M$ of $I$ to determine the $x^{n}%
+$-coefficient in the product of a family $\left(  \mathbf{a}_{i}\right)
+_{i\in I}$, it does \textbf{not} suffice to check that $\left[  x^{n}\right]
+\left(  \prod_{i\in I}\mathbf{a}_{i}\right)  =\left[  x^{n}\right]  \left(
+\prod_{i\in M}\mathbf{a}_{i}\right)  $; it rather needs to be shown that
+$\left[  x^{n}\right]  \left(  \prod_{i\in J}\mathbf{a}_{i}\right)  =\left[
+x^{n}\right]  \left(  \prod_{i\in M}\mathbf{a}_{i}\right)  $ for each finite
+subset $J$ of $I$ satisfying $M\subseteq J\subseteq I$.
+\end{example}
+
+\begin{definition}
+\label{def.fps.xn-coeff-fin-determined}Let $\left(  \mathbf{a}_{i}\right)
+_{i\in I}\in K\left[  \left[  x\right]  \right]  ^{I}$ be a (possibly
+infinite) family of FPSs. Let $n\in\mathbb{N}$. \medskip
+
+\textbf{(a)} We say that \emph{the }$x^{n}$\emph{-coefficient in the sum of
+}$\left(  \mathbf{a}_{i}\right)  _{i\in I}$\emph{ is finitely determined} if
+there is a finite subset $M$ of $I$ that determines the $x^{n}$-coefficient in
+the sum of $\left(  \mathbf{a}_{i}\right)  _{i\in I}$. \medskip
+
+\textbf{(b)} We say that \emph{the }$x^{n}$\emph{-coefficient in the product
+of }$\left(  \mathbf{a}_{i}\right)  _{i\in I}$\emph{ is finitely determined}
+if there is a finite subset $M$ of $I$ that determines the $x^{n}$-coefficient
+in the product of $\left(  \mathbf{a}_{i}\right)  _{i\in I}$.
+\end{definition}
+
+Using these concepts, we can now reword our definition of infinite sums as follows:
+
+\begin{proposition}
+\label{prop.fps.summable=fin-det}Let $\left(  \mathbf{a}_{i}\right)  _{i\in
+I}\in K\left[  \left[  x\right]  \right]  ^{I}$ be a (possibly infinite)
+family of FPSs. Then: \medskip
+
+\textbf{(a)} The family $\left(  \mathbf{a}_{i}\right)  _{i\in I}$ is summable
+if and only if each coefficient in its sum is finitely determined (i.e., for
+each $n\in\mathbb{N}$, the $x^{n}$-coefficient in the sum of $\left(
+\mathbf{a}_{i}\right)  _{i\in I}$ is finitely determined). \medskip
+
+\textbf{(b)} If the family $\left(  \mathbf{a}_{i}\right)  _{i\in I}$ is
+summable, then its sum $\sum_{i\in I}\mathbf{a}_{i}$ is the FPS whose $x^{n}%
+$-coefficient (for any $n\in\mathbb{N}$) can be computed as follows: If
+$n\in\mathbb{N}$, and if $M$ is a finite subset of $I$ that determines the
+$x^{n}$-coefficient in the sum of $\left(  \mathbf{a}_{i}\right)  _{i\in I}$,
+then
+\[
+\left[  x^{n}\right]  \left(  \sum_{i\in I}\mathbf{a}_{i}\right)  =\left[
+x^{n}\right]  \left(  \sum_{i\in M}\mathbf{a}_{i}\right)  .
+\]
+
+\end{proposition}
+
+\begin{proof}
+Easy and LTTR.
+\end{proof}
+
+Inspired by Proposition \ref{prop.fps.summable=fin-det}, we can now define
+infinite products of FPSs at last:
+
+\begin{definition}
+\label{def.fps.multipliable}Let $\left(  \mathbf{a}_{i}\right)  _{i\in I}$ be
+a (possibly infinite) family of FPSs. Then: \medskip
+
+\textbf{(a)} The family $\left(  \mathbf{a}_{i}\right)  _{i\in I}$ is said to
+be \emph{multipliable} if and only if each coefficient in its product is
+finitely determined. \medskip
+
+\textbf{(b)} If the family $\left(  \mathbf{a}_{i}\right)  _{i\in I}$ is
+multipliable, then its \emph{product} $\prod_{i\in I}\mathbf{a}_{i}$ is
+defined to be the FPS whose $x^{n}$-coefficient (for any $n\in\mathbb{N}$) can
+be computed as follows: If $n\in\mathbb{N}$, and if $M$ is a finite subset of
+$I$ that determines the $x^{n}$-coefficient in the product of $\left(
+\mathbf{a}_{i}\right)  _{i\in I}$, then
+\[
+\left[  x^{n}\right]  \left(  \prod_{i\in I}\mathbf{a}_{i}\right)  =\left[
+x^{n}\right]  \left(  \prod_{i\in M}\mathbf{a}_{i}\right)  .
+\]
+
+\end{definition}
+
+\begin{proposition}
+\label{prop.fps.multipliable.prod-wd}This definition of $\prod_{i\in
+I}\mathbf{a}_{i}$ is well-defined -- i.e., the coefficient $\left[
+x^{n}\right]  \left(  \prod_{i\in M}\mathbf{a}_{i}\right)  $ does not depend
+on $M$ (as long as $M$ is a finite subset of $I$ that determines the $x^{n}%
+$-coefficient in the product of $\left(  \mathbf{a}_{i}\right)  _{i\in I}$).
+\end{proposition}
+
+\begin{proof}
+Let $n\in\mathbb{N}$. We need to check that the coefficient $\left[
+x^{n}\right]  \left(  \prod_{i\in M}\mathbf{a}_{i}\right)  $ does not depend
+on $M$ (as long as $M$ is a finite subset of $I$ that determines the $x^{n}%
+$-coefficient in the product of $\left(  \mathbf{a}_{i}\right)  _{i\in I}$).
+In other words, we need to check that if $M_{1}$ and $M_{2}$ are two finite
+subsets of $I$ that each determine the $x^{n}$-coefficient in the product of
+$\left(  \mathbf{a}_{i}\right)  _{i\in I}$, then%
+\begin{equation}
+\left[  x^{n}\right]  \left(  \prod_{i\in M_{1}}\mathbf{a}_{i}\right)
+=\left[  x^{n}\right]  \left(  \prod_{i\in M_{2}}\mathbf{a}_{i}\right)  .
+\label{pf.prop.fps.multipliable.prod-wd.goal}%
+\end{equation}
+
+
+So let us prove this. Let $M_{1}$ and $M_{2}$ be two finite subsets of $I$
+that each determine the $x^{n}$-coefficient in the product of $\left(
+\mathbf{a}_{i}\right)  _{i\in I}$. Thus, in particular, $M_{1}$ determines the
+$x^{n}$-coefficient in the product of $\left(  \mathbf{a}_{i}\right)  _{i\in
+I}$. In other words, every finite subset $J$ of $I$ satisfying $M_{1}\subseteq
+J\subseteq I$ satisfies%
+\[
+\left[  x^{n}\right]  \left(  \prod_{i\in J}\mathbf{a}_{i}\right)  =\left[
+x^{n}\right]  \left(  \prod_{i\in M_{1}}\mathbf{a}_{i}\right)  .
+\]
+Applying this to $J=M_{1}\cup M_{2}$, we obtain%
+\begin{equation}
+\left[  x^{n}\right]  \left(  \prod_{i\in M_{1}\cup M_{2}}\mathbf{a}%
+_{i}\right)  =\left[  x^{n}\right]  \left(  \prod_{i\in M_{1}}\mathbf{a}%
+_{i}\right)  \label{pf.prop.fps.multipliable.prod-wd.1}%
+\end{equation}
+(since $M_{1}\cup M_{2}$ is a subset of $I$ satisfying $M_{1}\subseteq
+M_{1}\cup M_{2}\subseteq I$). The same argument (with the roles of $M_{1}$ and
+$M_{2}$ swapped) yields%
+\begin{equation}
+\left[  x^{n}\right]  \left(  \prod_{i\in M_{2}\cup M_{1}}\mathbf{a}%
+_{i}\right)  =\left[  x^{n}\right]  \left(  \prod_{i\in M_{2}}\mathbf{a}%
+_{i}\right)  . \label{pf.prop.fps.multipliable.prod-wd.2}%
+\end{equation}
+The left hand sides of the equalities
+(\ref{pf.prop.fps.multipliable.prod-wd.1}) and
+(\ref{pf.prop.fps.multipliable.prod-wd.2}) are equal (since $M_{1}\cup
+M_{2}=M_{2}\cup M_{1}$). Thus, the right hand sides are equal as well. In
+other words, $\left[  x^{n}\right]  \left(  \prod_{i\in M_{1}}\mathbf{a}%
+_{i}\right)  =\left[  x^{n}\right]  \left(  \prod_{i\in M_{2}}\mathbf{a}%
+_{i}\right)  $. Thus, we have proved
+(\ref{pf.prop.fps.multipliable.prod-wd.goal}), and with it Proposition
+\ref{prop.fps.multipliable.prod-wd}.
+\end{proof}
+
+The attentive (and pedantic) reader might notice that there is one more thing
+that needs to be checked in order to make sure that Definition
+\ref{def.fps.multipliable} \textbf{(b)} is legitimate. In fact, this
+definition does not merely define (some) infinite products $\prod_{i\in
+I}\mathbf{a}_{i}$ of FPSs, but also \textquotedblleft
+accidentally\textquotedblright\ gives a new meaning to \textbf{finite}
+products $\prod_{i\in I}\mathbf{a}_{i}$ (since a finite family $\left(
+\mathbf{a}_{i}\right)  _{i\in I}$ of FPSs is always multipliable). We
+therefore need to check that this new meaning does not conflict with the
+original definition of a finite product of elements of a commutative ring. In
+other words, we need to prove the following:
+
+\begin{proposition}
+\label{prop.fps.multipliable.prod-wd2}Let $\left(  \mathbf{a}_{i}\right)
+_{i\in I}$ be a finite family of FPSs. Then, the product $\prod_{i\in
+I}\mathbf{a}_{i}$ defined according to Definition \ref{def.fps.multipliable}
+\textbf{(b)} equals the finite product $\prod_{i\in I}\mathbf{a}_{i}$ defined
+in the usual way (i.e., defined as in any commutative ring).
+\end{proposition}
+
+\begin{proof}
+Argue that $I$ itself is a subset of $I$ that determines all coefficients in
+the product of $\left(  \mathbf{a}_{i}\right)  _{i\in I}$. See Section
+\ref{sec.details.gf.prod} for a detailed proof.
+\end{proof}
+
+We shall apply Convention \ref{conv.fps.infsum} to infinite products just like
+we have been applying it to infinite sums. For instance, the product sign
+$\prod\limits_{k=m}^{\infty}$ (for a fixed $m\in\mathbb{Z}$) means
+$\prod\limits_{k\in\left\{  m,m+1,m+2,\ldots\right\}  }$.
+
+\subsubsection{Why $\prod_{i\in\mathbb{N}}\left(  1+x^{2^{i}}\right)  $ works
+and $\prod_{i\in\mathbb{N}}\left(  1+ix\right)  $ doesn't}
+
+Let us now see how Definition \ref{def.fps.multipliable} legitimizes our
+product $\prod_{i\in\mathbb{N}}\left(  1+x^{2^{i}}\right)  $ from Subsection
+\ref{subsec.gf.prod.exa}. Indeed,%
+\[
+\prod_{i\in\mathbb{N}}\left(  1+x^{2^{i}}\right)  =\left(  1+x^{1}\right)
+\left(  1+x^{2}\right)  \left(  1+x^{4}\right)  \left(  1+x^{8}\right)
+\cdots.
+\]
+If you want to compute the $x^{6}$-coefficient in this product, you only need
+to multiply the first 3 factors $\left(  1+x^{1}\right)  \left(
+1+x^{2}\right)  \left(  1+x^{4}\right)  $; none of the other factors will
+change this coefficient in any way, because multiplying an FPS by $1+x^{m}$
+(for some $m>0$) does not change its first $m$ coefficients\footnote{For
+example, let us check this for $m=3$: If we multiply an FPS $a_{0}x^{0}%
++a_{1}x^{1}+a_{2}x^{2}+\cdots$ by $1+x^{3}$, then we obtain%
+\begin{align*}
+&  \left(  a_{0}x^{0}+a_{1}x^{1}+a_{2}x^{2}+\cdots\right)  \left(
+1+x^{3}\right) \\
+&  =a_{0}x^{0}+a_{1}x^{1}+a_{2}x^{2}+\left(  a_{3}+a_{0}\right)  x^{3}+\left(
+a_{4}+a_{1}\right)  x^{4}+\left(  a_{5}+a_{2}\right)  x^{5}+\cdots,
+\end{align*}
+and so the first $3$ coefficients are left unchanged.}. Likewise, if you want
+to compute the $x^{13}$-coefficient of the above product, then you only need
+to multiply the first $4$ factors; none of the others will have any effect on
+this coefficient. The same logic applies to the $x^{n}$-coefficient for any
+$n\in\mathbb{N}$; it is determined by the first $\left\lfloor \log
+_{2}n\right\rfloor +1$ factors of the product. Thus, each coefficient in the
+product is finitely determined. This means that the family is multipliable;
+thus, its product makes sense.
+
+In contrast, the product%
+\[
+\left(  1+0x\right)  \left(  1+1x\right)  \left(  1+2x\right)  \left(
+1+3x\right)  \left(  1+4x\right)  \cdots=\prod_{i\in\mathbb{N}}\left(
+1+ix\right)
+\]
+does not make sense. Indeed, its $x^{1}$-coefficient is not finitely
+determined (any of the factors other than $1+0x$ affects it), so the family
+$\left(  1+ix\right)  _{i\in\mathbb{N}}$ is not multipliable.
+
+Likewise, the product%
+\[
+\left(  1+\dfrac{x}{1^{2}}\right)  \left(  1+\dfrac{x}{2^{2}}\right)  \left(
+1+\dfrac{x}{3^{2}}\right)  \cdots=\prod_{i\in\left\{  1,2,3,\ldots\right\}
+}\left(  1+\dfrac{x}{i^{2}}\right)
+\]
+does not make sense in $K\left[  \left[  x\right]  \right]  $ (although the
+analogous product in complex analysis defines a holomorphic function).
+
+\subsubsection{A general criterion for multipliability}
+
+Recall our reasoning that we used above to prove that the family $\left(
+1+x^{2^{i}}\right)  _{i\in\mathbb{N}}$ is multipliable. The core of this
+reasoning was the observation that multiplying an FPS by $1+x^{m}$ (for some
+$m>0$) does not change its first $m$ coefficients. This can be generalized: If
+$f\in K\left[  \left[  x\right]  \right]  $ is an FPS whose first $m$
+coefficients are $0$ (for example, $f$ can be $x^{m}$, in which case we
+recover the statement in our preceding sentence), then multiplying an FPS $a$
+by $1+f$ does not change its first $m$ coefficients (that is, the first $m$
+coefficients of $a\left(  1+f\right)  $ are the first $m$ coefficients of
+$a$). This is a useful fact, so let us state it as a lemma (renaming $m$ as
+$n+1$):
+
+\begin{lemma}
+\label{lem.fps.prod.irlv.1}Let $a,f\in K\left[  \left[  x\right]  \right]  $
+be two FPSs. Let $n\in\mathbb{N}$. Assume that
+\begin{equation}
+\left[  x^{m}\right]  f=0\ \ \ \ \ \ \ \ \ \ \text{for each }m\in\left\{
+0,1,\ldots,n\right\}  . \label{eq.lem.fps.prod.irlv.1.ass}%
+\end{equation}
+Then,
+\[
+\left[  x^{m}\right]  \left(  a\left(  1+f\right)  \right)  =\left[
+x^{m}\right]  a\ \ \ \ \ \ \ \ \ \ \text{for each }m\in\left\{  0,1,\ldots
+,n\right\}  .
+\]
+
+\end{lemma}
+
+\begin{proof}
+[Proof of Lemma \ref{lem.fps.prod.irlv.1}.]The FPS $af$ is a multiple of $f$
+(since $af=fa$). Hence, Lemma \ref{lem.fps.prod.irlv.mul} (applied to $u=f$
+and $v=af$) yields that%
+\begin{equation}
+\left[  x^{m}\right]  \left(  af\right)  =0\ \ \ \ \ \ \ \ \ \ \text{for each
+}m\in\left\{  0,1,\ldots,n\right\}  \label{pf.lem.fps.prod.irlv.1.4}%
+\end{equation}
+(since we have assumed that $\left[  x^{m}\right]  f=0$ for each $m\in\left\{
+0,1,\ldots,n\right\}  $).
+
+Now, for each $m\in\left\{  0,1,\ldots,n\right\}  $, we have
+\begin{align*}
+\left[  x^{m}\right]  \left(  \underbrace{a\left(  1+f\right)  }%
+_{=a+af}\right)   &  =\left[  x^{m}\right]  \left(  a+af\right)  =\left[
+x^{m}\right]  a+\underbrace{\left[  x^{m}\right]  \left(  af\right)
+}_{\substack{=0\\\text{(by (\ref{pf.lem.fps.prod.irlv.1.4}))}}%
+}\ \ \ \ \ \ \ \ \ \ \left(  \text{by (\ref{pf.thm.fps.ring.xn(a+b)=})}\right)
+\\
+&  =\left[  x^{m}\right]  a.
+\end{align*}
+This proves Lemma \ref{lem.fps.prod.irlv.1}.
+\end{proof}
+
+For convenience, let us extend Lemma \ref{lem.fps.prod.irlv.1} to products of
+several factors:
+
+\begin{lemma}
+\label{lem.fps.prod.irlv.fin}Let $a\in K\left[  \left[  x\right]  \right]  $
+be an FPS. Let $\left(  f_{i}\right)  _{i\in J}\in K\left[  \left[  x\right]
+\right]  ^{J}$ be a finite family of FPSs. Let $n\in\mathbb{N}$. Assume that
+each $i\in J$ satisfies
+\begin{equation}
+\left[  x^{m}\right]  \left(  f_{i}\right)  =0\ \ \ \ \ \ \ \ \ \ \text{for
+each }m\in\left\{  0,1,\ldots,n\right\}  .
+\label{eq.lem.fps.prod.irlv.fin.ass}%
+\end{equation}
+Then,
+\[
+\left[  x^{m}\right]  \left(  a\prod_{i\in J}\left(  1+f_{i}\right)  \right)
+=\left[  x^{m}\right]  a\ \ \ \ \ \ \ \ \ \ \text{for each }m\in\left\{
+0,1,\ldots,n\right\}  .
+\]
+
+\end{lemma}
+
+\begin{proof}
+[Proof of Lemma \ref{lem.fps.prod.irlv.fin}.]This is just Lemma
+\ref{lem.fps.prod.irlv.1}, applied several times (specifically, $\left\vert
+J\right\vert $ many times). See Section \ref{sec.details.gf.prod} for a
+detailed proof.
+\end{proof}
+
+Now, using Lemma \ref{lem.fps.prod.irlv.fin}, we can obtain the following
+convenient criterion for multipliability:
+
+\begin{theorem}
+\label{thm.fps.1+f-mulable}Let $\left(  f_{i}\right)  _{i\in I}\in K\left[
+\left[  x\right]  \right]  ^{I}$ be a (possibly infinite) summable family of
+FPSs. Then, the family $\left(  1+f_{i}\right)  _{i\in I}$ is multipliable.
+\end{theorem}
+
+\begin{proof}
+[Proof of Theorem \ref{thm.fps.1+f-mulable}.]This is an easy consequence of
+Lemma \ref{lem.fps.prod.irlv.fin}. See Section \ref{sec.details.gf.prod} for a
+detailed proof.
+\end{proof}
+
+We notice two simple sufficient (if rarely satisfied) criteria for multipliability:
+
+\begin{proposition}
+\label{prop.fps.1-mulable}If all but finitely many entries of a family
+$\left(  \mathbf{a}_{i}\right)  _{i\in I}\in K\left[  \left[  x\right]
+\right]  ^{I}$ equal $1$ (that is, if all but finitely many $i\in I$ satisfy
+$\mathbf{a}_{i}=1$), then this family is multipliable.
+\end{proposition}
+
+\begin{proof}
+LTTR. (See Section \ref{sec.details.gf.prod} for a detailed proof.)
+\end{proof}
+
+\begin{remark}
+\label{rmk.fps.0-mulable}If a family $\left(  \mathbf{a}_{i}\right)  _{i\in
+I}\in K\left[  \left[  x\right]  \right]  ^{I}$ contains $0$ as an entry
+(i.e., if there exists an $i\in I$ such that $\mathbf{a}_{i}=0$), then this
+family is automatically multipliable, and its product is $0$.
+\end{remark}
+
+\begin{proof}
+Assume that the family $\left(  \mathbf{a}_{i}\right)  _{i\in I}$ contains $0$
+as an entry. That is, there exists some $j\in I$ such that $\mathbf{a}_{j}=0$.
+Consider this $j$. Now, it is easy to see that the subset $\left\{  j\right\}
+$ of $I$ determines all coefficients in the product of $\left(  \mathbf{a}%
+_{i}\right)  _{i\in I}$. The details are LTTR.
+\end{proof}
+
+\subsubsection{$x^{n}$-approximators}
+
+Working with multipliable families gets slightly easier using the following notion:
+
+\begin{definition}
+\label{def.fps.infprod-approx}Let $\left(  \mathbf{a}_{i}\right)  _{i\in I}\in
+K\left[  \left[  x\right]  \right]  ^{I}$ be a family of FPSs. Let
+$n\in\mathbb{N}$. An $x^{n}$\emph{-approximator} for $\left(  \mathbf{a}%
+_{i}\right)  _{i\in I}$ means a finite subset $M$ of $I$ that determines the
+first $n+1$ coefficients in the product of $\left(  \mathbf{a}_{i}\right)
+_{i\in I}$. (In other words, $M$ has to determine the $x^{m}$-coefficient in
+the product of $\left(  \mathbf{a}_{i}\right)  _{i\in I}$ for each
+$m\in\left\{  0,1,\ldots,n\right\}  $.)
+\end{definition}
+
+The name \textquotedblleft$x^{n}$-approximator\textquotedblright\ is supposed
+to hint at the fact that if $M$ is an $x^{n}$-approximator for a multipliable
+family $\left(  \mathbf{a}_{i}\right)  _{i\in I}$, then the (finite)
+subproduct $\prod_{i\in M}\mathbf{a}_{i}$ \textquotedblleft
+approximates\textquotedblright\ the full product $\prod_{i\in I}\mathbf{a}%
+_{i}$ up until the $x^{n}$-coefficient (i.e., the first $n+1$ coefficients of
+$\prod_{i\in M}\mathbf{a}_{i}$ equal the respective coefficients of
+$\prod_{i\in I}\mathbf{a}_{i}$). See Proposition
+\ref{prop.fps.infprod-approx-xneq} \textbf{(b)} below for the precise
+statement of this fact.
+
+Clearly, an $x^{n}$-approximator for a family $\left(  \mathbf{a}_{i}\right)
+_{i\in I}$ always determines the $x^{n}$-coefficient in the product of
+$\left(  \mathbf{a}_{i}\right)  _{i\in I}$. But the converse is not true, as
+the following example shows:
+
+\begin{example}
+Consider the family
+\[
+\left(  1+x^{2^{i}}\right)  _{i\in\mathbb{N}}=\left(  1+x^{1},\ \ 1+x^{2}%
+,\ \ 1+x^{4},\ \ 1+x^{8},\ \ \ldots\right)
+\]
+of FPSs. The finite subset $\left\{  1,2\right\}  $ of $\mathbb{N}$ determines
+the $x^{6}$-coefficient in the product of this family (indeed, the $x^{6}%
+$-coefficient of the product $\left(  1+x^{2}\right)  \left(  1+x^{4}\right)
+$ is $1$, and this does not change if we multiply any further factors onto
+this product), but is not an $x^{6}$-approximator for this family (since,
+e.g., it does not determine the $x^{5}$-coefficient in its product).
+\end{example}
+
+\begin{lemma}
+\label{lem.fps.mulable.approx}Let $\left(  \mathbf{a}_{i}\right)  _{i\in I}\in
+K\left[  \left[  x\right]  \right]  ^{I}$ be a multipliable family of FPSs.
+Let $n\in\mathbb{N}$. Then, there exists an $x^{n}$-approximator for $\left(
+\mathbf{a}_{i}\right)  _{i\in I}$.
+\end{lemma}
+
+\begin{proof}
+[Proof of Lemma \ref{lem.fps.mulable.approx} (sketched).]This is an easy
+consequence of the fact that a union of finitely many finite sets is finite. A
+detailed proof can be found in Section \ref{sec.details.gf.prod}.
+\end{proof}
+
+As promised above, we can use $x^{n}$-approximators to \textquotedblleft
+approximate\textquotedblright\ infinite products of FPSs (in the sense of:
+compute the first $n+1$ coefficients of these products). Here is why this
+works:\footnote{See Definition \ref{def.fps.xneq} for the meaning of the
+symbol \textquotedblleft$\overset{x^{n}}{\equiv}$\textquotedblright\ appearing
+in this proposition.}
+
+\begin{proposition}
+\label{prop.fps.infprod-approx-xneq}Let $\left(  \mathbf{a}_{i}\right)  _{i\in
+I}\in K\left[  \left[  x\right]  \right]  ^{I}$ be a family of FPSs. Let
+$n\in\mathbb{N}$. Let $M$ be an $x^{n}$-approximator for $\left(
+\mathbf{a}_{i}\right)  _{i\in I}$. Then: \medskip
+
+\textbf{(a)} Every finite subset $J$ of $I$ satisfying $M\subseteq J\subseteq
+I$ satisfies%
+\[
+\prod_{i\in J}\mathbf{a}_{i}\overset{x^{n}}{\equiv}\prod_{i\in M}%
+\mathbf{a}_{i}.
+\]
+
+
+\textbf{(b)} If the family $\left(  \mathbf{a}_{i}\right)  _{i\in I}$ is
+multipliable, then
+\[
+\prod_{i\in I}\mathbf{a}_{i}\overset{x^{n}}{\equiv}\prod_{i\in M}%
+\mathbf{a}_{i}.
+\]
+
+\end{proposition}
+
+\begin{proof}
+This follows easily from Definition \ref{def.fps.infprod-approx} and
+Definition \ref{def.fps.multipliable} \textbf{(b)}. See Section
+\ref{sec.details.gf.prod} for a detailed proof.
+\end{proof}
+
+\subsubsection{Properties of infinite products}
+
+We shall now establish some general properties of infinite products. By and
+large, these properties are analogous to corresponding properties of finite
+products, although they need a few technical requirements (see Remark
+\ref{rmk.fps.subfamily-not-mulable} for why).
+
+We begin with the first property, which says in essence that a product can be
+broken into two parts:
+
+\begin{proposition}
+\label{prop.fps.union-mulable}Let $\left(  \mathbf{a}_{i}\right)  _{i\in I}\in
+K\left[  \left[  x\right]  \right]  ^{I}$ be a family of FPSs. Let $J$ be a
+subset of $I$. Assume that the subfamilies $\left(  \mathbf{a}_{i}\right)
+_{i\in J}$ and $\left(  \mathbf{a}_{i}\right)  _{i\in I\setminus J}$ are
+multipliable. Then: \medskip
+
+\textbf{(a)} The entire family $\left(  \mathbf{a}_{i}\right)  _{i\in I}$ is
+multipliable. \medskip
+
+\textbf{(b)} We have
+\[
+\prod_{i\in I}\mathbf{a}_{i}=\left(  \prod_{i\in J}\mathbf{a}_{i}\right)
+\cdot\left(  \prod_{i\in I\setminus J}\mathbf{a}_{i}\right)  .
+\]
+
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.fps.union-mulable} (sketched).]Here is the
+idea: Fix $n\in\mathbb{N}$. Lemma \ref{lem.fps.mulable.approx} (applied to $J$
+instead of $I$) shows that there exists an $x^{n}$-approximator $U$ for
+$\left(  \mathbf{a}_{i}\right)  _{i\in J}$. Consider this $U$. Lemma
+\ref{lem.fps.mulable.approx} (applied to $J$ instead of $I$) shows that there
+exists an $x^{n}$-approximator $V$ for $\left(  \mathbf{a}_{i}\right)  _{i\in
+I\setminus J}$. Consider this $V$. Note that $U\cup V$ is finite (since $U$
+and $V$ are finite). Now, it is not hard to see that $U\cup V$ determines the
+$x^{n}$-coefficient in the product of $\left(  \mathbf{a}_{i}\right)  _{i\in
+I}$ (indeed, it is not much harder to see that $U\cup V$ is an $x^{n}%
+$-approximator for $\left(  \mathbf{a}_{i}\right)  _{i\in I}$). Hence, the
+$x^{n}$-coefficient in the product of $\left(  \mathbf{a}_{i}\right)  _{i\in
+I}$ is finitely determined (since $U\cup V$ is finite). Now, forget that we
+fixed $n$, and conclude that the family $\left(  \mathbf{a}_{i}\right)  _{i\in
+I}$ is multipliable. This proves part \textbf{(a)}. Part \textbf{(b)} easily
+follows using Proposition \ref{prop.fps.infprod-approx-xneq} \textbf{(b)}.
+
+The details of this proof can be found in Section \ref{sec.details.gf.prod}.
+\end{proof}
+
+A useful particular case of Proposition \ref{prop.fps.union-mulable} is
+obtained when the subset $J$ is a single-element set $\left\{  j\right\}  $.
+In this case, the proposition says that%
+\[
+\prod_{i\in I}\mathbf{a}_{i}=\mathbf{a}_{j}\cdot\prod_{i\in I\setminus\left\{
+j\right\}  }\mathbf{a}_{i}%
+\]
+(assuming that the family $\left(  \mathbf{a}_{i}\right)  _{i\in
+I\setminus\left\{  j\right\}  }$ is multipliable\footnote{The one-element
+family $\left(  \mathbf{a}_{i}\right)  _{i\in\left\{  j\right\}  }$ is, of
+course, always multipliable.}). This rule allows us to split off any factor
+from a multipliable product, as long as the rest of the product is still
+multipliable. \medskip
+
+Our next property generalizes the classical rule $\prod_{i\in I}\left(
+a_{i}b_{i}\right)  =\left(  \prod_{i\in I}a_{i}\right)  \cdot\left(
+\prod_{i\in I}b_{i}\right)  $ of finite products to infinite ones:
+
+\begin{proposition}
+\label{prop.fps.prod-mulable}Let $\left(  \mathbf{a}_{i}\right)  _{i\in I}\in
+K\left[  \left[  x\right]  \right]  ^{I}$ and $\left(  \mathbf{b}_{i}\right)
+_{i\in I}\in K\left[  \left[  x\right]  \right]  ^{I}$ be two multipliable
+families of FPSs. Then: \medskip
+
+\textbf{(a)} The family $\left(  \mathbf{a}_{i}\mathbf{b}_{i}\right)  _{i\in
+I}$ is multipliable. \medskip
+
+\textbf{(b)} We have%
+\[
+\prod_{i\in I}\left(  \mathbf{a}_{i}\mathbf{b}_{i}\right)  =\left(
+\prod_{i\in I}\mathbf{a}_{i}\right)  \cdot\left(  \prod_{i\in I}\mathbf{b}%
+_{i}\right)  .
+\]
+
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.fps.prod-mulable} (sketched).]Here is the
+idea: Fix $n\in\mathbb{N}$. Lemma \ref{lem.fps.mulable.approx} shows that
+there exists an $x^{n}$-approximator $U$ for $\left(  \mathbf{a}_{i}\right)
+_{i\in I}$. Consider this $U$. Lemma \ref{lem.fps.mulable.approx} (applied to
+$\mathbf{b}_{i}$ instead of $\mathbf{a}_{i}$) shows that there exists an
+$x^{n}$-approximator $V$ for $\left(  \mathbf{b}_{i}\right)  _{i\in I}$.
+Consider this $V$. Note that $U\cup V$ is finite (since $U$ and $V$ are
+finite). Now, it is not hard to see that $U\cup V$ is an $x^{n}$-approximator
+for $\left(  \mathbf{a}_{i}\mathbf{b}_{i}\right)  _{i\in I}$. From here,
+proceed as in the proof of Proposition \ref{prop.fps.union-mulable}.
+
+The details of this proof can be found in Section \ref{sec.details.gf.prod}.
+\end{proof}
+
+Next comes an analogous property for quotients instead of products:
+
+\begin{proposition}
+\label{prop.fps.div-mulable}Let $\left(  \mathbf{a}_{i}\right)  _{i\in I}\in
+K\left[  \left[  x\right]  \right]  ^{I}$ and $\left(  \mathbf{b}_{i}\right)
+_{i\in I}\in K\left[  \left[  x\right]  \right]  ^{I}$ be two multipliable
+families of FPSs. Assume that the FPS $\mathbf{b}_{i}$ is invertible for each
+$i\in I$. Then: \medskip
+
+\textbf{(a)} The family $\left(  \dfrac{\mathbf{a}_{i}}{\mathbf{b}_{i}%
+}\right)  _{i\in I}$ is multipliable. \medskip
+
+\textbf{(b)} We have%
+\[
+\prod_{i\in I}\dfrac{\mathbf{a}_{i}}{\mathbf{b}_{i}}=\dfrac{\prod\limits_{i\in
+I}\mathbf{a}_{i}}{\prod\limits_{i\in I}\mathbf{b}_{i}}.
+\]
+
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.fps.div-mulable} (sketch).]This is similar to
+the proof of Proposition \ref{prop.fps.prod-mulable}, but using
+(\ref{eq.thm.fps.xneq.props.e./}) instead of Lemma
+\ref{lem.fps.prod.irlv.cong-mul}. The details of this proof can be found in
+Section \ref{sec.details.gf.prod}.
+\end{proof}
+
+Now we come to an annoying technicality. In Proposition
+\ref{prop.fps.summable.sub}, we have learnt that any subfamily of a summable
+family is again summable. Alas, the analogous fact for multipliability is false:
+
+\begin{remark}
+\label{rmk.fps.subfamily-not-mulable}Not every subfamily of a multipliable
+family is itself multipliable. For example, for $K=\mathbb{Z}$, the family
+$\left(  0,1,2,3,\ldots\right)  $ is multipliable, but its subfamily $\left(
+1,2,3,\ldots\right)  $ is not.
+\end{remark}
+
+Nevertheless, if a family of \textbf{invertible} FPSs is multipliable, then so
+is any subfamily of it. In other words:
+
+\begin{proposition}
+\label{prop.fps.prods-mulable-subfams}Let $\left(  \mathbf{a}_{i}\right)
+_{i\in I}\in K\left[  \left[  x\right]  \right]  ^{I}$ be a multipliable
+family of invertible FPSs. Then, any subfamily of $\left(  \mathbf{a}%
+_{i}\right)  _{i\in I}$ is multipliable.
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.fps.prods-mulable-subfams} (sketched).]This is
+another proof in the tradition of the proofs of Proposition
+\ref{prop.fps.union-mulable} and Proposition \ref{prop.fps.prod-mulable}. We
+must show that the family $\left(  \mathbf{a}_{i}\right)  _{i\in J}$ is
+multipliable whenever $J$ is a subset of $I$. The idea is to show that if $U$
+is an $x^{n}$-approximator for $\left(  \mathbf{a}_{i}\right)  _{i\in I}$,
+then $U\cap J$ determines the $x^{n}$-coefficient in the product of $\left(
+\mathbf{a}_{i}\right)  _{i\in J}$ (and, in fact, is an $x^{n}$-approximator
+for $\left(  \mathbf{a}_{i}\right)  _{i\in J}$). This relies on the
+invertibility of $\prod_{i\in U\setminus J}\mathbf{a}_{i}$; this is why the
+FPS $\mathbf{a}_{i}$ are required to be invertible in the proposition.
+
+The details of this proof can be found in Section \ref{sec.details.gf.prod}.
+\end{proof}
+
+As Remark \ref{rmk.fps.subfamily-not-mulable} shows, Proposition
+\ref{prop.fps.prods-mulable-subfams} would not hold without the word
+\textquotedblleft invertible\textquotedblright. \medskip
+
+Now let us state a trivial rule that is nevertheless worth stating. Recall
+that finite products can be reindexed using a bijection -- i.e., if
+$f:S\rightarrow T$ is a bijection between two finite sets $S$ and $T$, then
+any product $\prod_{t\in T}\mathbf{a}_{t}$ can be rewritten as $\prod_{s\in
+S}\mathbf{a}_{f\left(  s\right)  }$. The same holds for infinite products:
+
+\begin{proposition}
+\label{prop.fps.prods-mulable-rules.reindex}Let $S$ and $T$ be two sets. Let
+$f:S\rightarrow T$ be a bijection. Let $\left(  \mathbf{a}_{t}\right)  _{t\in
+T}\in K\left[  \left[  x\right]  \right]  ^{T}$ be a multipliable family of
+FPSs. Then,
+\[
+\prod_{t\in T}\mathbf{a}_{t}=\prod_{s\in S}\mathbf{a}_{f\left(  s\right)  }%
+\]
+(and, in particular, the product on the right hand side is well-defined, i.e.,
+the family $\left(  \mathbf{a}_{f\left(  s\right)  }\right)  _{s\in S}$ is multipliable).
+\end{proposition}
+
+In other words, if we reindex a multipliable family of FPSs (using a
+bijection), then the resulting family will still be multipliable and have the
+same product as the original family.
+
+\begin{proof}
+[Proof of Proposition \ref{prop.fps.prods-mulable-rules.reindex}
+(sketched).]This is a trivial consequence of the definitions of
+multipliability and infinite products.
+\end{proof}
+
+Next comes a rule that allows us to break an infinite product into any amount
+(possibly infinite!) of subproducts:
+
+\begin{proposition}
+\label{prop.fps.prods-mulable-rules.SW1}Let $\left(  \mathbf{a}_{s}\right)
+_{s\in S}\in K\left[  \left[  x\right]  \right]  ^{S}$ be a multipliable
+family of FPSs. Let $W$ be a set. Let $f:S\rightarrow W$ be a map. Assume that
+for each $w\in W$, the family $\left(  \mathbf{a}_{s}\right)  _{s\in
+S;\ f\left(  s\right)  =w}$ is multipliable.\footnotemark\ Then,%
+\begin{equation}
+\prod_{s\in S}\mathbf{a}_{s}=\prod_{w\in W}\ \ \prod_{\substack{s\in
+S;\\f\left(  s\right)  =w}}\mathbf{a}_{s}.
+\label{eq.prop.fps.prods-mulable-rules.SW1.eq}%
+\end{equation}
+(In particular, the right hand side is well-defined -- i.e., the family
+$\left(  \prod_{\substack{s\in S;\\f\left(  s\right)  =w}}\mathbf{a}%
+_{s}\right)  _{w\in W}$ is multipliable.)
+\end{proposition}
+
+\footnotetext{Note that this assumption automatically holds if we assume that
+all FPSs $\mathbf{a}_{s}$ are invertible. Indeed, the family $\left(
+\mathbf{a}_{s}\right)  _{s\in S;\ f\left(  s\right)  =w}$ is a subfamily of
+the multipliable family $\left(  \mathbf{a}_{s}\right)  _{s\in S}$ and thus
+must itself be multipliable if all the $\mathbf{a}_{s}$ are invertible (by
+Proposition \ref{prop.fps.prods-mulable-subfams}).}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.fps.prods-mulable-rules.SW1} (sketched).]This
+can be derived from the analogous property of finite products, since all
+coefficients in a multipliable product are finitely determined (conveniently
+using $x^{n}$-approximators, which determine several coefficients at the same
+time). See Section \ref{sec.details.gf.prod} for the details of this proof.
+\end{proof}
+
+The next rule allows (under certain technical conditions) to interchange
+product signs, and to rewrite a nested product as a product over pairs:
+
+\begin{proposition}
+[Fubini rule for infinite products of FPSs]%
+\label{prop.fps.prods-mulable-rules.fubini1}Let $I$ and $J$ be two sets. Let
+$\left(  \mathbf{a}_{\left(  i,j\right)  }\right)  _{\left(  i,j\right)  \in
+I\times J}\in K\left[  \left[  x\right]  \right]  ^{I\times J}$ be a
+multipliable family of FPSs. Assume that for each $i\in I$, the family
+$\left(  \mathbf{a}_{\left(  i,j\right)  }\right)  _{j\in J}$ is multipliable.
+Assume that for each $j\in J$, the family $\left(  \mathbf{a}_{\left(
+i,j\right)  }\right)  _{i\in I}$ is multipliable.\ Then,%
+\[
+\prod_{i\in I}\ \ \prod_{j\in J}\mathbf{a}_{\left(  i,j\right)  }%
+=\prod_{\left(  i,j\right)  \in I\times J}\mathbf{a}_{\left(  i,j\right)
+}=\prod_{j\in J}\mathbf{\ \ }\prod_{i\in I}\mathbf{a}_{\left(  i,j\right)  }.
+\]
+(In particular, all the products appearing in this equality are well-defined.)
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.fps.prods-mulable-rules.fubini1}
+(sketched).]The first equality follows by applying Proposition
+\ref{prop.fps.prods-mulable-rules.SW1} to $S=I\times J$ and $W=I$ and
+$f\left(  i,j\right)  =i$ (and appropriately reindexing the products). The
+second equality is analogous. See Section \ref{sec.details.gf.prod} for the
+details of this proof.
+\end{proof}
+
+The above rules (Proposition \ref{prop.fps.union-mulable}, Proposition
+\ref{prop.fps.prod-mulable}, Proposition \ref{prop.fps.div-mulable},
+Proposition \ref{prop.fps.prods-mulable-subfams}, Proposition
+\ref{prop.fps.prods-mulable-rules.reindex}, Proposition
+\ref{prop.fps.prods-mulable-rules.SW1}, Proposition
+\ref{prop.fps.prods-mulable-rules.fubini1}) show that infinite products (as we
+have defined them) are well-behaved -- i.e., satisfy the usual rules that
+finite products satisfy, with only one minor caveat: Subfamilies of
+multipliable families might fail to be multipliable (as saw in Remark
+\ref{rmk.fps.subfamily-not-mulable}). If we restrict ourselves to multipliable
+families of \textbf{invertible} FPSs, then even this caveat is avoided:
+
+\begin{proposition}
+[Fubini rule for infinite products of FPSs, invertible case]%
+\label{prop.fps.prods-mulable-rules.fubini}Let $I$ and $J$ be two sets. Let
+$\left(  \mathbf{a}_{\left(  i,j\right)  }\right)  _{\left(  i,j\right)  \in
+I\times J}\in K\left[  \left[  x\right]  \right]  ^{I\times J}$ be a
+multipliable family of invertible FPSs. Then,%
+\[
+\prod_{i\in I}\ \ \prod_{j\in J}\mathbf{a}_{\left(  i,j\right)  }%
+=\prod_{\left(  i,j\right)  \in I\times J}\mathbf{a}_{\left(  i,j\right)
+}=\prod_{j\in J}\mathbf{\ \ }\prod_{i\in I}\mathbf{a}_{\left(  i,j\right)  }.
+\]
+(In particular, all the products appearing in this equality are well-defined.)
+\end{proposition}
+
+\begin{proof}
+[Proof of Proposition \ref{prop.fps.prods-mulable-rules.fubini} (sketched).]%
+See Section \ref{sec.details.gf.prod}.
+\end{proof}
+
+These rules (and some similar ones, which the reader can easily invent and
+prove\footnote{For example, if $\left(  \mathbf{a}_{i}\right)  _{i\in I}$ is a
+multipliable family of FPSs, and if $k\in\mathbb{N}$, then $\prod_{i\in
+I}\mathbf{a}_{i}^{k}=\left(  \prod_{i\in I}\mathbf{a}_{i}\right)  ^{k}$. If
+the $\mathbf{a}_{i}$ are moreover invertible, then this equality also holds
+for all $k\in\mathbb{Z}$.}) allow us to work with infinite products almost as
+comfortably as with finite ones. Of course, we need to check that our families
+are multipliable, and occasionally verify that a few other technical
+requirements are met (such as multipliability of subfamilies), but usually
+such verifications are straightforward and easy and can be done in one's head.
+
+Does this justify our manipulations in Subsection \ref{subsec.gf.prod.exa}? To
+some extent. We need to be careful with the telescope principle, whose
+infinite analogue is rather subtle and needs some qualifications. Here is an
+example of how not to use the telescope principle:
+\[
+\dfrac{1}{2}\cdot\dfrac{2}{2}\cdot\dfrac{2}{2}\cdot\dfrac{2}{2}\cdot\cdots
+\neq1.
+\]
+It is tempting to argue that the infinitely many $2$'s in these fractions
+cancel each other out, and yet the $1$ that remains is not the right result.
+See Exercise \ref{exe.fps.prods.telescope1} \textbf{(b)} for how an infinite
+telescope principle should actually look like. Anyway, our computations in
+Subsection \ref{subsec.gf.prod.exa} did not truly need the telescope
+principle; they can just as well be made using more fundamental
+rules\footnote{To wit, we can argue as follows: We have%
+\[
+\prod_{i\in\mathbb{N}}\left(  1+x^{2^{i}}\right)  =\prod_{i\in\mathbb{N}%
+}\dfrac{1-x^{2^{i+1}}}{1-x^{2^{i}}}=\dfrac{\prod_{i\in\mathbb{N}}\left(
+1-x^{2^{i+1}}\right)  }{\prod_{i\in\mathbb{N}}\left(  1-x^{2^{i}}\right)  },
+\]
+where the last step used Proposition \ref{prop.fps.div-mulable} and relied on
+the fact that both families $\left(  1-x^{2^{i+1}}\right)  _{i\in\mathbb{N}}$
+and $\left(  1-x^{2^{i}}\right)  _{i\in\mathbb{N}}$ are multipliable (this is
+important, but very easy to check in this case) and that each FPS $1-x^{2^{i}%
+}$ is invertible (because its constant term is $1$). However, splitting off
+the factor for $i=0$ from the product $\prod_{i\in\mathbb{N}}\left(
+1-x^{2^{i}}\right)  $, we obtain
+\[
+\prod_{i\in\mathbb{N}}\left(  1-x^{2^{i}}\right)  =\underbrace{\left(
+1-x^{2^{0}}\right)  }_{=1-x^{1}=1-x}\cdot\underbrace{\prod_{i>0}\left(
+1-x^{2^{i}}\right)  }_{\substack{=\prod_{i\in\mathbb{N}}\left(  1-x^{2^{i+1}%
+}\right)  \\\text{(here, we substituted }i+1\\\text{for }i\text{ in the
+product)}}}=\left(  1-x\right)  \cdot\prod_{i\in\mathbb{N}}\left(
+1-x^{2^{i+1}}\right)  ,
+\]
+so that%
+\[
+\dfrac{\prod_{i\in\mathbb{N}}\left(  1-x^{2^{i+1}}\right)  }{\prod
+_{i\in\mathbb{N}}\left(  1-x^{2^{i}}\right)  }=\dfrac{1}{1-x}.
+\]
+Hence, $\prod_{i\in\mathbb{N}}\left(  1+x^{2^{i}}\right)  =\dfrac{\prod
+_{i\in\mathbb{N}}\left(  1-x^{2^{i+1}}\right)  }{\prod_{i\in\mathbb{N}}\left(
+1-x^{2^{i}}\right)  }=\dfrac{1}{1-x}$. So we don't need the telescope
+principle to justify this equality.}.
+
+There is one more rule that we have used in Subsection
+\ref{subsec.gf.prod.exa} and have not justified yet: the equality
+(\ref{eq.fps.prod.binary.prod-inf}). We will justify it next.
+
