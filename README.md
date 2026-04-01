@@ -40,7 +40,7 @@ Cumulative lines added and removed:
 
 ![Code churn over time](assets/churn_over_time.png)
 
-Target theorem status — each square is one of the 340 proved targets:
+Target theorem status — each square is one of the 340 proved targets (the 4 last ones are exercises and were not attempted)
 
 ![Theorem-level formalization status](assets/dep_graph_theorems.png)
 
