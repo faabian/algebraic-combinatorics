@@ -1,7 +1,7 @@
 # Formalization of *Algebraic Combinatorics*
 
 [![Blueprint Website](https://img.shields.io/badge/Blueprint-Website-blue?style=for-the-badge)](https://faabian.github.io/algebraic-combinatorics/)
-[![Blueprint PDF](https://img.shields.io/badge/Blueprint-PDF-red?style=for-the-badge)](https://github.com/faabian/algebraic-combinatorics/raw/main/blueprint/print/print.pdf)
+<a href="https://github.com/faabian/algebraic-combinatorics/raw/main/blueprint/print/print.pdf" target="_blank"><img src="https://img.shields.io/badge/Blueprint-PDF-red?style=for-the-badge" alt="Blueprint PDF"></a>
 [![Paper PDF](https://img.shields.io/badge/Paper-PDF-red?style=for-the-badge)](https://github.com/facebookresearch/repoprover/raw/main/auto_textbook_formalization.pdf)
 [![Formalization Codebase](https://img.shields.io/badge/Formalization-Codebase-green?style=for-the-badge)](https://github.com/facebookresearch/repoprover/)
 
