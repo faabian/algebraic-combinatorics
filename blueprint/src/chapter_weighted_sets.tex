@@ -4,7 +4,7 @@
 
 \begin{definition}
 \label{def.gf-ws.weighted-sets}
-\lean{AlgebraicCombinatorics.WeightedSet, AlgebraicCombinatorics.WeightedSet.IsFiniteType, AlgebraicCombinatorics.WeightedSet.weightGenFun, AlgebraicCombinatorics.WeightedSet.Isomorphism, AlgebraicCombinatorics.WeightedSet.AreIsomorphic}
+\lean{WeightedSet, WeightedSet.IsFiniteType, WeightedSet.weightGenFun, WeightedSet.Isomorphism, WeightedSet.AreIsomorphic}
 \leantarget
 \leanok
 \textbf{(a)} A \emph{weighted set} is a set $A$
@@ -44,7 +44,7 @@ $B$.
 
 \begin{proposition}
 \label{prop.gf-ws.iso}
-\lean{AlgebraicCombinatorics.WeightedSet.weightGenFun_eq_of_isomorphic}
+\lean{WeightedSet.weightGenFun_eq_of_isomorphic}
 \leantarget
 \leanok
 Let $A$ and $B$ be two isomorphic finite-type weighted
@@ -86,7 +86,7 @@ we obtain $\overline{A}=\overline{B}$.
 
 \begin{definition}
 \label{def.gf-ws.djun}
-\lean{AlgebraicCombinatorics.WeightedSet.disjointUnion}
+\lean{WeightedSet.disjointUnion}
 \leantarget
 \leanok
 Let $A$ and $B$ be two weighted sets. Then, the weighted
@@ -109,7 +109,7 @@ and%
 
 \begin{proposition}
 \label{prop.gf-ws.djun}
-\lean{AlgebraicCombinatorics.WeightedSet.disjointUnion_isFiniteType, AlgebraicCombinatorics.WeightedSet.weightGenFun_disjointUnion}
+\lean{WeightedSet.disjointUnion_isFiniteType, WeightedSet.weightGenFun_disjointUnion}
 \leantarget
 \leanok
 Let $A$ and $B$ be two finite-type weighted sets. Then,
@@ -159,7 +159,7 @@ B}x^{\left\vert b\right\vert }}_{=\overline{B}}=\overline{A}+\overline{B}.
 
 \begin{definition}
 \label{def.gf-ws.prod}
-\lean{AlgebraicCombinatorics.WeightedSet.prod}
+\lean{WeightedSet.prod}
 \leantarget
 \leanok
 Let $A$ and $B$ be two weighted sets. Then, the weighted
@@ -175,7 +175,7 @@ a,b\right)  \in A\times B$, we set%
 
 \begin{proposition}
 \label{prop.gf-ws.prod}
-\lean{AlgebraicCombinatorics.WeightedSet.prod_isFiniteType, AlgebraicCombinatorics.WeightedSet.weightGenFun_prod}
+\lean{WeightedSet.prod_isFiniteType, WeightedSet.weightGenFun_prod}
 \leantarget
 \leanok
 Let $A$ and $B$ be two finite-type weighted sets. Then,
@@ -233,7 +233,7 @@ weighted set $\underbrace{A\times A\times\cdots\times A}_{k\text{ times}}$.
 
 \begin{proposition}
 \label{prop.gf-ws.pow}
-\lean{AlgebraicCombinatorics.WeightedSet.pow_isFiniteType, AlgebraicCombinatorics.WeightedSet.weightGenFun_pow}
+\lean{WeightedSet.pow_isFiniteType, WeightedSet.weightGenFun_pow}
 \leantarget
 \leanok
 Let $A$ be a finite-type weighted set. Let
@@ -258,7 +258,7 @@ $\overline{A^{k+1}} = \overline{A} \cdot \overline{A}^k = \overline{A}^{k+1}$.
 
 \begin{lemma}
 \label{lem.gf-ws.pow-succ-equiv}
-\lean{AlgebraicCombinatorics.WeightedSet.pow_succ_equiv}
+\lean{WeightedSet.pow_succ_equiv}
 \leanhelper
 \leanok
 For any weighted set $A$ and any $n \in \mathbb{N}$, there is a canonical
@@ -274,7 +274,7 @@ is unchanged.
 
 \begin{lemma}
 \label{lem.gf-ws.tuples-finite-type}
-\lean{AlgebraicCombinatorics.WeightedSet.tuples_isFiniteType}
+\lean{WeightedSet.tuples_isFiniteType}
 \leanhelper
 \leanok
 Let $A$ be a finite-type weighted set such that every element has weight
@@ -296,7 +296,7 @@ Proposition~\ref{prop.gf-ws.pow}). Hence the disjoint union is finite-type.
 
 \begin{definition}
 \label{def.domino.shapes-and-tilings}
-\lean{AlgebraicCombinatorics.DominoTilingsZ.Shape, AlgebraicCombinatorics.DominoTilingsZ.Rectangle, AlgebraicCombinatorics.DominoTilingsZ.Domino, AlgebraicCombinatorics.DominoTilingsZ.Tiling, AlgebraicCombinatorics.DominoTilingsZ.numTilings}
+\lean{DominoTilingsZ.Shape, DominoTilingsZ.Rectangle, DominoTilingsZ.Domino, DominoTilingsZ.Tiling, DominoTilingsZ.numTilings}
 \leantarget
 \leanok
 \textbf{(a)} A \emph{shape} means a
@@ -357,7 +357,7 @@ F:=\left\{  \text{\textbf{faultfree} domino tilings of }R_{n,2}\text{ with
 
 \begin{lemma}
 \label{lem.gf.weighted-set.domino.fd}
-\lean{AlgebraicCombinatorics.DominoTilingsZ.tiling_decomposition_isomorphism}
+\lean{DominoTilingsZ.tiling_decomposition_isomorphism}
 \leantarget
 \leanok
 Any domino tiling of a height-$2$

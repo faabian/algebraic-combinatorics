@@ -3,51 +3,6 @@ Copyright (c) Meta Platforms, Inc. and affiliates.
 All rights reserved.
 -/
 
-/-!
-# Algebraic Combinatorics
-
-This is the root import file for the Algebraic Combinatorics library.
-Importing this file provides access to all public-facing modules in the library.
-
-## Namespace Convention
-
-This library uses two top-level namespaces:
-- `AlgebraicCombinatorics` — the primary namespace for most definitions and theorems
-- `AlgComb` — a shorter alias used in some modules (determinants, symmetric functions)
-
-Both namespaces are valid and coexist intentionally. When writing new code:
-- Use `AlgebraicCombinatorics` for new files unless extending existing `AlgComb` modules
-- Use `AlgComb` when adding to files that already use this namespace
-- Cross-namespace references work via explicit qualification or `open` declarations
-
-The two namespaces arose organically during development. `AlgComb` is shorter and convenient
-for frequently-used definitions, while `AlgebraicCombinatorics` is more descriptive.
-
-## Contents
-
-The library is organized into the following major areas:
-
-### Formal Power Series (FPS)
-Basic definitions, operations, and properties of formal power series.
-
-### Partitions
-Integer partitions, q-binomial coefficients, and related combinatorics.
-
-### Permutations
-Permutation groups, inversions, signs, cycles, and Lehmer codes.
-
-### Signed Counting
-Inclusion-exclusion, alternating sums, and Möbius inversion.
-
-### Symmetric Functions
-Symmetric polynomials, monomial symmetric functions, Schur polynomials,
-and the Littlewood-Richardson rule.
-
-### Determinants
-Basic properties, Cauchy-Binet formula, Desnanot-Jacobi identity,
-and the Lindström-Gessel-Viennot lemma.
--/
-
 -- ============================================================================
 -- Formal Power Series (FPS)
 -- ============================================================================
@@ -157,3 +112,48 @@ import AlgebraicCombinatorics.Details.InfiniteProducts2
 -- ============================================================================
 
 import AlgebraicCombinatorics.Extra.Pfaffian
+
+/-!
+# Algebraic Combinatorics
+
+This is the root import file for the Algebraic Combinatorics library.
+Importing this file provides access to all public-facing modules in the library.
+
+## Namespace Convention
+
+This library uses two top-level namespaces:
+- `AlgebraicCombinatorics` — the primary namespace for most definitions and theorems
+- `AlgComb` — a shorter alias used in some modules (determinants, symmetric functions)
+
+Both namespaces are valid and coexist intentionally. When writing new code:
+- Use `AlgebraicCombinatorics` for new files unless extending existing `AlgComb` modules
+- Use `AlgComb` when adding to files that already use this namespace
+- Cross-namespace references work via explicit qualification or `open` declarations
+
+The two namespaces arose organically during development. `AlgComb` is shorter and convenient
+for frequently-used definitions, while `AlgebraicCombinatorics` is more descriptive.
+
+## Contents
+
+The library is organized into the following major areas:
+
+### Formal Power Series (FPS)
+Basic definitions, operations, and properties of formal power series.
+
+### Partitions
+Integer partitions, q-binomial coefficients, and related combinatorics.
+
+### Permutations
+Permutation groups, inversions, signs, cycles, and Lehmer codes.
+
+### Signed Counting
+Inclusion-exclusion, alternating sums, and Möbius inversion.
+
+### Symmetric Functions
+Symmetric polynomials, monomial symmetric functions, Schur polynomials,
+and the Littlewood-Richardson rule.
+
+### Determinants
+Basic properties, Cauchy-Binet formula, Desnanot-Jacobi identity,
+and the Lindström-Gessel-Viennot lemma.
+-/

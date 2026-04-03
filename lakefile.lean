@@ -21,4 +21,4 @@ require checkdecls from git
 
 @[default_target]
 lean_lib «AlgebraicCombinatorics» where
-  globs := #[.submodules `AlgebraicCombinatorics]
+  globs := #[.andSubmodules `AlgebraicCombinatorics]

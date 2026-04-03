@@ -140,7 +140,7 @@ $[n{+}1]_q = [k{+}1]_q + q^{k+1} [n{-}k]_q$.
 
 \begin{lemma}
 \label{lem.prodrule.sum-ai-plus-bi}
-\lean{AlgebraicCombinatorics.prod_add_eq_sum_over_subsets}
+\lean{AlgebraicCombinatorics.QBinomialRec.prod_add_eq_sum_over_subsets}
 \leantarget
 \leanok
 Let $L$ be a commutative ring. Let
@@ -212,7 +212,7 @@ By induction on $n$, using the $q$-Pascal recurrence and algebraic manipulation.
 \begin{theorem}
 [1st $q$-binomial theorem]
 \label{thm.pars.qbinom.binom1}
-\lean{AlgebraicCombinatorics.qBinomial_first_theorem}
+\lean{AlgebraicCombinatorics.QBinomialRec.qBinomial_first_theorem}
 \leantarget
 \leanok
 Let $K$ be a
@@ -312,7 +312,7 @@ $b \cdot a^{k+1} = b \cdot a^k \cdot a = \omega^k (a^k b) \cdot a
 \begin{theorem}
 [2nd $q$-binomial theorem, aka Potter's binomial theorem]
 \label{thm.pars.qbinom.binom2}
-\lean{AlgebraicCombinatorics.qBinomial_second_theorem}
+\lean{AlgebraicCombinatorics.QBinomialRec.qBinomial_second_theorem}
 \leantarget
 \leanok
 Let $L$ be a commutative ring. Let $\omega\in
@@ -372,7 +372,7 @@ $\prod_{i=0}^{k-1}(|F|^k - |F|^i)$.
 
 \begin{lemma}
 \label{lem.linalg.lin-ind-via-span}
-\lean{AlgebraicCombinatorics.linearIndependent_iff_not_mem_span_of_lt}
+\lean{AlgebraicCombinatorics.QBinomialRec.linearIndependent_iff_not_mem_span_of_lt}
 \leantarget
 \leanok
 Let $F$ be a field. Let $V$ be an
@@ -431,7 +431,7 @@ v_{1},v_{2},\ldots,v_{i-1}\right)  $, contradicting our assumption.
 
 \begin{lemma}
 \label{lem.pars.qbinom.lin-ind-count}
-\lean{AlgebraicCombinatorics.card_linearIndependent_tuples}
+\lean{AlgebraicCombinatorics.QBinomialRec.card_linearIndependent_tuples}
 \leantarget
 \leanok
 Let $F$ be a finite field. Let
@@ -487,7 +487,7 @@ in an $n$-dimensional space.
 \begin{lemma}
 [Multijection principle]
 \label{lem.count.multijection}
-\lean{AlgebraicCombinatorics.card_eq_mul_of_fibers}
+\lean{AlgebraicCombinatorics.QBinomialRec.card_eq_mul_of_fibers}
 \leantarget
 \leanok
 Let $A$ and $B$ be two
@@ -509,7 +509,7 @@ Hence $|A| = \sum_{b \in B} m = m \cdot |B|$.
 
 \begin{theorem}
 \label{thm.pars.qbinom.subsp-count}
-\lean{AlgebraicCombinatorics.qBinomial_subspace_count}
+\lean{AlgebraicCombinatorics.QBinomialRec.qBinomial_subspace_count}
 \leantarget
 \leanok
 Let $F$ be a finite field. Let
@@ -690,7 +690,7 @@ partition count to the count of partitions with at most $k$ parts.
 
 \begin{proposition}
 \label{prop.pars.qbinom.lim1}
-\lean{AlgebraicCombinatorics.qBinomial_limit}
+\lean{AlgebraicCombinatorics.QBinomialRec.qBinomial_limit}
 \leantarget
 \leanok
 Let $k\in\mathbb{N}$ be fixed. Then,

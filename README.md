@@ -1,8 +1,8 @@
 # Formalization of *Algebraic Combinatorics*
 
 [![Blueprint Website](https://img.shields.io/badge/Blueprint-Website-blue?style=for-the-badge)](https://faabian.github.io/algebraic-combinatorics/)
-[![Blueprint PDF](https://img.shields.io/badge/Blueprint-PDF-red?style=for-the-badge)](https://github.com/facebookresearch/algebraic-combinatorics/blob/main/blueprint/print/print.pdf)
-[![Paper PDF](https://img.shields.io/badge/Paper-PDF-red?style=for-the-badge)](https://github.com/facebookresearch/repoprover/blob/main/auto_textbook_formalization.pdf)
+[![Blueprint PDF](https://img.shields.io/badge/Blueprint-PDF-red?style=for-the-badge)](https://github.com/faabian/algebraic-combinatorics/raw/main/blueprint/print/print.pdf)
+[![Paper PDF](https://img.shields.io/badge/Paper-PDF-red?style=for-the-badge)](https://github.com/facebookresearch/repoprover/raw/main/auto_textbook_formalization.pdf)
 [![Formalization Codebase](https://img.shields.io/badge/Formalization-Codebase-green?style=for-the-badge)](https://github.com/facebookresearch/repoprover/)
 
 A Lean 4 formalization of the textbook [**An Introduction to Algebraic

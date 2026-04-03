@@ -59,10 +59,10 @@ Then open `http://localhost:8000` in your browser.
 
 ## Building the blueprint
 
-The blueprint is built using [leanblueprint](https://github.com/PatrickMassot/leanblueprint). Install it with:
+The blueprint is built using [leanblueprint](https://github.com/faabian/leanblueprint/tree/side-by-side-layout). Install it with:
 
 ```bash
-pip install leanblueprint
+pip install git+https://github.com/faabian/leanblueprint.git@side-by-side-layout
 ```
 
 To build and preview locally:
@@ -74,35 +74,51 @@ leanblueprint serve
 
 Then open `http://0.0.0.0:8000/` in your browser.
 
-## Publishing to GitHub Pages
+## Building the unified site
 
-The API docs and blueprint can be hosted on GitHub Pages. Install `ghp-import` if you haven't already:
+To prepare the unified site containing the landing page, blueprint, API docs, and target theorems, you can run the end-to-end build script:
 
 ```bash
-pip install ghp-import
+python3 scripts/build_all.py
 ```
 
-### API docs
+This script automates the following steps:
+1. Builds the Lean API documentation using `lake build AlgebraicCombinatorics:docs`.
+2. Builds the blueprint web version using `leanblueprint web`.
+3. Runs `leanblueprint checkdecls` to verify that all theorems mentioned in the blueprint exist in the Lean code.
+4. Collects the results and generates a unified site in the `site/` directory, including a "Project Targets" page that flags any missing formalizations.
 
-Build and push to the `gh-pages` branch:
+Alternatively, you can run the steps manually:
 
 ```bash
+# 1. Build the API docs
 cd docbuild
 lake build AlgebraicCombinatorics:docs
 cd ..
-ghp-import -n -p -f docbuild/.lake/build/doc
+
+# 2. Build the blueprint
+leanblueprint web
+
+# 3. Create the unified site structure
+mkdir -p site/docs site/blueprint
+cp -r docbuild/.lake/build/doc/* site/docs/
+cp -r blueprint/web/* site/blueprint/
+
+# 4. Generate the landing page and targets page
+python3 scripts/build_site.py
 ```
 
-### Blueprint
+## Publishing to GitHub Pages
 
-Build and push to the `gh-pages` branch (use a separate repo or branch if hosting both):
+The unified site is automatically deployed to GitHub Pages via a GitHub Actions workflow when changes to the `site/` directory are pushed to the `main` branch.
+
+To deploy updates, simply run the build steps above to regenerate the `site/` contents, then commit and push them:
 
 ```bash
-leanblueprint web
-ghp-import -n -p -f blueprint/web
+git add site/
+git commit -m "Update unified site"
+git push origin main
 ```
-
-Enable GitHub Pages in Settings > Pages with source set to the `gh-pages` branch at `/ (root)`.
 
 ## Regenerating charts
 

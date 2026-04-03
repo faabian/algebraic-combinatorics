@@ -1,0 +1,200 @@
+<html lang="en"><head><meta charset="UTF-8"></meta><meta name="viewport" content="width=device-width, initial-scale=1"></meta><link rel="stylesheet" href="../.././style.css"></link><link rel="icon" href="../.././favicon.svg"></link><link rel="mask-icon" href="../.././favicon.svg" color="#000000"></link><link rel="prefetch" href="../.././/declarations/declaration-data.bmp" as="image"></link><title>AlgebraicCombinatorics.Extra.Pfaffian</title><script defer="true" src="../.././mathjax-config.js"></script><script defer="true" src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script defer="true" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><script>const SITE_ROOT="../.././";</script><script>const MODULE_NAME="AlgebraicCombinatorics.Extra.Pfaffian";</script><script type="module" src="../.././jump-src.js"></script><script type="module" src="../.././search.js"></script><script type="module" src="../.././expand-nav.js"></script><script type="module" src="../.././how-about.js"></script><script type="module" src="../.././instances.js"></script><script type="module" src="../.././importedBy.js"></script></head><body><input id="nav_toggle" type="checkbox"></input><header><h1><label for="nav_toggle"></label><span>Documentation</span></h1><h2 class="header_filename break_within"><span class="name">AlgebraicCombinatorics</span>.<span class="name">Extra</span>.<span class="name">Pfaffian</span></h2><form id="search_form"><input type="text" name="q" autocomplete="off"></input>&#32;<button id="search_button" onclick="javascript: form.action='../.././search.html';">Search</button></form></header><nav class="internal_nav"><p><a href="#top">return to top</a></p><p class="gh_nav_link"><a href="https://github.com/faabian/algebraic-combinatorics/blob/b6022318e986a0c20764569208ba8ebbe1c04dbf/AlgebraicCombinatorics/Extra/Pfaffian.lean">source</a></p><div class="imports"><details><summary>Imports</summary><ul><li><a href="../.././Init.html">Init</a></li><li><a href="../.././Mathlib.html">Mathlib</a></li></ul></details><details><summary>Imported by</summary><ul id="imported-by-AlgebraicCombinatorics.Extra.Pfaffian" class="imported-by-list"></ul></details></div><div class="nav_link"><a class="break_within" href="#Matrix.IsSkewSymmetric"><span class="name">Matrix</span>.<span class="name">IsSkewSymmetric</span></a></div><div class="nav_link"><a class="break_within" href="#Matrix.IsSkewSymmetric.diag_eq_zero"><span class="name">Matrix</span>.<span class="name">IsSkewSymmetric</span>.<span class="name">diag_eq_zero</span></a></div><div class="nav_link"><a class="break_within" href="#Matrix.IsSkewSymmetric.apply_neg"><span class="name">Matrix</span>.<span class="name">IsSkewSymmetric</span>.<span class="name">apply_neg</span></a></div><div class="nav_link"><a class="break_within" href="#Matrix.IsSkewSymmetric.reindex"><span class="name">Matrix</span>.<span class="name">IsSkewSymmetric</span>.<span class="name">reindex</span></a></div><div class="nav_link"><a class="break_within" href="#Matrix.IsSkewSymmetric.map"><span class="name">Matrix</span>.<span class="name">IsSkewSymmetric</span>.<span class="name">map</span></a></div><div class="nav_link"><a class="break_within" href="#Matrix.IsSkewSymmetric.smul"><span class="name">Matrix</span>.<span class="name">IsSkewSymmetric</span>.<span class="name">smul</span></a></div><div class="nav_link"><a class="break_within" href="#Matrix.IsSkewSymmetric.zero"><span class="name">Matrix</span>.<span class="name">IsSkewSymmetric</span>.<span class="name">zero</span></a></div><div class="nav_link"><a class="break_within" href="#Matrix.IsSkewSymmetric.add"><span class="name">Matrix</span>.<span class="name">IsSkewSymmetric</span>.<span class="name">add</span></a></div><div class="nav_link"><a class="break_within" href="#Matrix.IsSkewSymmetric.neg"><span class="name">Matrix</span>.<span class="name">IsSkewSymmetric</span>.<span class="name">neg</span></a></div><div class="nav_link"><a class="break_within" href="#Matrix.IsSkewSymmetric.sub"><span class="name">Matrix</span>.<span class="name">IsSkewSymmetric</span>.<span class="name">sub</span></a></div><div class="nav_link"><a class="break_within" href="#Matrix.IsSkewSymmetric.det_eq_zero_of_odd"><span class="name">Matrix</span>.<span class="name">IsSkewSymmetric</span>.<span class="name">det_eq_zero_of_odd</span></a></div></nav><main>
+<div class="mod_doc"><h1 id="Skew-Symmetric-Matrices" class="markdown-heading">Skew-Symmetric Matrices <a class="hover-link" href="#Skew-Symmetric-Matrices">#</a></h1><p>This file defines skew-symmetric matrices and proves basic properties.</p><p>A matrix A is skew-symmetric (also called antisymmetric) if A^T = -A.</p><h2 id="Main-definitions" class="markdown-heading">Main definitions <a class="hover-link" href="#Main-definitions">#</a></h2><ul><li><code><a href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric">Matrix.IsSkewSymmetric</a></code>: A matrix A is skew-symmetric if A^T = -A.</li></ul><h2 id="Main-results" class="markdown-heading">Main results <a class="hover-link" href="#Main-results">#</a></h2><ul><li><code><a href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric.diag_eq_zero">Matrix.IsSkewSymmetric.diag_eq_zero</a></code>: Diagonal entries of a skew-symmetric matrix are zero
+(in characteristic ≠ 2).</li><li><code><a href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric.apply_neg">Matrix.IsSkewSymmetric.apply_neg</a></code>: For a skew-symmetric matrix, A i j = -A j i.</li><li><code><a href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric.det_eq_zero_of_odd">Matrix.IsSkewSymmetric.det_eq_zero_of_odd</a></code>: The determinant of an odd-dimensional
+skew-symmetric matrix is zero (in characteristic ≠ 2).</li></ul><h2 id="Notes" class="markdown-heading">Notes <a class="hover-link" href="#Notes">#</a></h2><p>This file provides basic infrastructure for skew-symmetric matrices. The Pfaffian of a
+skew-symmetric matrix and Kasteleyn's formula for counting domino tilings would require
+substantial additional infrastructure.</p><p>Note: Mathlib has <code><a href="../.././Mathlib/LinearAlgebra/Matrix/SesquilinearForm.html#Matrix.IsSkewAdjoint">Matrix.IsSkewAdjoint</a> J A</code> which is the more general notion of
+A being skew-adjoint with respect to a bilinear form J (i.e., Aᵀ * J = -J * A).
+Our <code><a href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric">IsSkewSymmetric</a></code> is the special case where J = I, i.e., simply Aᵀ = -A.</p><h2 id="References" class="markdown-heading">References <a class="hover-link" href="#References">#</a></h2><ul><li>[Horn-Johnson, Matrix Analysis] for skew-symmetric matrix properties</li></ul></div><div class="mod_doc"><h2 id="Skew-Symmetric-Matrices" class="markdown-heading">Skew-Symmetric Matrices <a class="hover-link" href="#Skew-Symmetric-Matrices">#</a></h2></div><div class="decl" id="Matrix.IsSkewSymmetric"><div class="def"><div class="gh_link"><a href="https://github.com/faabian/algebraic-combinatorics/blob/b6022318e986a0c20764569208ba8ebbe1c04dbf/AlgebraicCombinatorics/Extra/Pfaffian.lean#L43-L46">source</a></div><div class="decl_header"><span class="decl_kind">def</span>
+<span class="decl_name"><a class="break_within" href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric"><span class="name">Matrix</span>.<span class="name">IsSkewSymmetric</span></a></span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">n</span> : <a href="../.././foundational_types.html">Type</a> u_1}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Mathlib/Data/Fintype/Defs.html#Fintype">Fintype</a> <span class="fn">n</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Init/Prelude.html#DecidableEq">DecidableEq</a> <span class="fn">n</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">R</span> : <a href="../.././foundational_types.html">Type</a> u_2}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Mathlib/Algebra/Ring/Defs.html#Ring">Ring</a> <span class="fn">R</span></span>]</span></span>
+</span><span class="decl_args">
+<span class="fn">(<span class="fn">A</span> : <span class="fn"><a href="../.././Mathlib/LinearAlgebra/Matrix/Defs.html#Matrix">Matrix</a> <span class="fn">n</span> <span class="fn">n</span> <span class="fn">R</span></span>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><a href="../.././foundational_types.html">Prop</a></div></div><p>A matrix A is skew-symmetric if A^T = -A.</p><details><summary>Equations</summary><ul class="equations"><li class="equation"><span class="fn"><span class="fn">A</span>.<a href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric">IsSkewSymmetric</a></span> <a href="../.././Init/Prelude.html#Eq">=</a> (<span class="fn"><span class="fn">A</span>.<a href="../.././Mathlib/LinearAlgebra/Matrix/Defs.html#Matrix.transpose">transpose</a></span> <a href="../.././Init/Prelude.html#Eq">=</a> <a href="../.././Init/Prelude.html#Neg.neg">-</a><span class="fn">A</span>)</li></ul></details><details id="instances-for-list-Matrix.IsSkewSymmetric" class="instances-for-list"><summary>Instances For</summary><ul class="instances-for-enum"></ul></details></div></div><div class="decl" id="Matrix.IsSkewSymmetric.diag_eq_zero"><div class="theorem"><div class="gh_link"><a href="https://github.com/faabian/algebraic-combinatorics/blob/b6022318e986a0c20764569208ba8ebbe1c04dbf/AlgebraicCombinatorics/Extra/Pfaffian.lean#L48-L61">source</a></div><div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a class="break_within" href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric.diag_eq_zero"><span class="name">Matrix</span>.<span class="name">IsSkewSymmetric</span>.<span class="name">diag_eq_zero</span></a></span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">n</span> : <a href="../.././foundational_types.html">Type</a> u_1}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Mathlib/Data/Fintype/Defs.html#Fintype">Fintype</a> <span class="fn">n</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Init/Prelude.html#DecidableEq">DecidableEq</a> <span class="fn">n</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">R</span> : <a href="../.././foundational_types.html">Type</a> u_2}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Mathlib/Algebra/Ring/Defs.html#Ring">Ring</a> <span class="fn">R</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Mathlib/Algebra/GroupWithZero/Defs.html#NoZeroDivisors">NoZeroDivisors</a> <span class="fn">R</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Mathlib/Algebra/CharZero/Defs.html#CharZero">CharZero</a> <span class="fn">R</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">A</span> : <span class="fn"><a href="../.././Mathlib/LinearAlgebra/Matrix/Defs.html#Matrix">Matrix</a> <span class="fn">n</span> <span class="fn">n</span> <span class="fn">R</span></span>}</span></span>
+</span><span class="decl_args">
+<span class="fn">(<span class="fn">hA</span> : <span class="fn"><span class="fn">A</span>.<a href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric">IsSkewSymmetric</a></span>)</span></span>
+<span class="decl_args">
+<span class="fn">(<span class="fn">i</span> : <span class="fn">n</span>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn"><span class="fn">A</span> <span class="fn">i</span> <span class="fn">i</span></span> <a href="../.././Init/Prelude.html#Eq">=</a> <span class="fn">0</span></div></div><p>Diagonal entries of a skew-symmetric matrix are zero (in characteristic ≠ 2).</p></div></div><div class="decl" id="Matrix.IsSkewSymmetric.apply_neg"><div class="theorem"><div class="gh_link"><a href="https://github.com/faabian/algebraic-combinatorics/blob/b6022318e986a0c20764569208ba8ebbe1c04dbf/AlgebraicCombinatorics/Extra/Pfaffian.lean#L63-L69">source</a></div><div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a class="break_within" href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric.apply_neg"><span class="name">Matrix</span>.<span class="name">IsSkewSymmetric</span>.<span class="name">apply_neg</span></a></span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">n</span> : <a href="../.././foundational_types.html">Type</a> u_1}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Mathlib/Data/Fintype/Defs.html#Fintype">Fintype</a> <span class="fn">n</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Init/Prelude.html#DecidableEq">DecidableEq</a> <span class="fn">n</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">R</span> : <a href="../.././foundational_types.html">Type</a> u_2}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Mathlib/Algebra/Ring/Defs.html#Ring">Ring</a> <span class="fn">R</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">A</span> : <span class="fn"><a href="../.././Mathlib/LinearAlgebra/Matrix/Defs.html#Matrix">Matrix</a> <span class="fn">n</span> <span class="fn">n</span> <span class="fn">R</span></span>}</span></span>
+</span><span class="decl_args">
+<span class="fn">(<span class="fn">hA</span> : <span class="fn"><span class="fn">A</span>.<a href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric">IsSkewSymmetric</a></span>)</span></span>
+<span class="decl_args">
+<span class="fn">(<span class="fn">i </span><span class="fn">j</span> : <span class="fn">n</span>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn"><span class="fn">A</span> <span class="fn">i</span> <span class="fn">j</span></span> <a href="../.././Init/Prelude.html#Eq">=</a> <a href="../.././Init/Prelude.html#Neg.neg">-</a><span class="fn"><span class="fn">A</span> <span class="fn">j</span> <span class="fn">i</span></span></div></div><p>For a skew-symmetric matrix, A i j = -A j i.</p></div></div><div class="decl" id="Matrix.IsSkewSymmetric.reindex"><div class="theorem"><div class="gh_link"><a href="https://github.com/faabian/algebraic-combinatorics/blob/b6022318e986a0c20764569208ba8ebbe1c04dbf/AlgebraicCombinatorics/Extra/Pfaffian.lean#L71-L83">source</a></div><div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a class="break_within" href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric.reindex"><span class="name">Matrix</span>.<span class="name">IsSkewSymmetric</span>.<span class="name">reindex</span></a></span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">n</span> : <a href="../.././foundational_types.html">Type</a> u_1}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">m</span> : <a href="../.././foundational_types.html">Type</a> u_2}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Mathlib/Data/Fintype/Defs.html#Fintype">Fintype</a> <span class="fn">n</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Init/Prelude.html#DecidableEq">DecidableEq</a> <span class="fn">n</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Mathlib/Data/Fintype/Defs.html#Fintype">Fintype</a> <span class="fn">m</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Init/Prelude.html#DecidableEq">DecidableEq</a> <span class="fn">m</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">R</span> : <a href="../.././foundational_types.html">Type</a> u_3}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Mathlib/Algebra/Ring/Defs.html#Ring">Ring</a> <span class="fn">R</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">A</span> : <span class="fn"><a href="../.././Mathlib/LinearAlgebra/Matrix/Defs.html#Matrix">Matrix</a> <span class="fn">n</span> <span class="fn">n</span> <span class="fn">R</span></span>}</span></span>
+</span><span class="decl_args">
+<span class="fn">(<span class="fn">hA</span> : <span class="fn"><span class="fn">A</span>.<a href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric">IsSkewSymmetric</a></span>)</span></span>
+<span class="decl_args">
+<span class="fn">(<span class="fn">e</span> : <span class="fn">n</span> <a href="../.././Mathlib/Logic/Equiv/Defs.html#Equiv">≃</a> <span class="fn">m</span>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn"><span class="fn">(<span class="fn">(<a href="../.././Mathlib/LinearAlgebra/Matrix/Defs.html#Matrix.reindex">Matrix.reindex</a> <span class="fn">e</span> <span class="fn">e</span>)</span> <span class="fn">A</span>)</span>.<a href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric">IsSkewSymmetric</a></span></div></div><p>Skew-symmetry is preserved under reindexing.</p></div></div><div class="decl" id="Matrix.IsSkewSymmetric.map"><div class="theorem"><div class="gh_link"><a href="https://github.com/faabian/algebraic-combinatorics/blob/b6022318e986a0c20764569208ba8ebbe1c04dbf/AlgebraicCombinatorics/Extra/Pfaffian.lean#L85-L96">source</a></div><div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a class="break_within" href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric.map"><span class="name">Matrix</span>.<span class="name">IsSkewSymmetric</span>.<span class="name">map</span></a></span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">n</span> : <a href="../.././foundational_types.html">Type</a> u_1}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Mathlib/Data/Fintype/Defs.html#Fintype">Fintype</a> <span class="fn">n</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Init/Prelude.html#DecidableEq">DecidableEq</a> <span class="fn">n</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">R</span> : <a href="../.././foundational_types.html">Type</a> u_2}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">S</span> : <a href="../.././foundational_types.html">Type</a> u_3}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Mathlib/Algebra/Ring/Defs.html#Ring">Ring</a> <span class="fn">R</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Mathlib/Algebra/Ring/Defs.html#Ring">Ring</a> <span class="fn">S</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">A</span> : <span class="fn"><a href="../.././Mathlib/LinearAlgebra/Matrix/Defs.html#Matrix">Matrix</a> <span class="fn">n</span> <span class="fn">n</span> <span class="fn">R</span></span>}</span></span>
+</span><span class="decl_args">
+<span class="fn">(<span class="fn">hA</span> : <span class="fn"><span class="fn">A</span>.<a href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric">IsSkewSymmetric</a></span>)</span></span>
+<span class="decl_args">
+<span class="fn">(<span class="fn">f</span> : <span class="fn"><span class="fn">R</span> → <span class="fn">S</span></span>)</span></span>
+<span class="decl_args">
+<span class="fn">(<span class="fn">hf</span> : <span class="fn">∀ (<span class="fn">x</span> : <span class="fn">R</span>), <span class="fn"><span class="fn">f</span> (<a href="../.././Init/Prelude.html#Neg.neg">-</a><span class="fn">x</span>)</span> <a href="../.././Init/Prelude.html#Eq">=</a> <a href="../.././Init/Prelude.html#Neg.neg">-</a><span class="fn"><span class="fn">f</span> <span class="fn">x</span></span></span>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn"><span class="fn">(<span class="fn"><span class="fn">A</span>.<a href="../.././Mathlib/LinearAlgebra/Matrix/Defs.html#Matrix.map">map</a></span> <span class="fn">f</span>)</span>.<a href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric">IsSkewSymmetric</a></span></div></div><p>Skew-symmetry is preserved under map when the map preserves negation.</p></div></div><div class="decl" id="Matrix.IsSkewSymmetric.smul"><div class="theorem"><div class="gh_link"><a href="https://github.com/faabian/algebraic-combinatorics/blob/b6022318e986a0c20764569208ba8ebbe1c04dbf/AlgebraicCombinatorics/Extra/Pfaffian.lean#L98-L107">source</a></div><div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a class="break_within" href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric.smul"><span class="name">Matrix</span>.<span class="name">IsSkewSymmetric</span>.<span class="name">smul</span></a></span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">n</span> : <a href="../.././foundational_types.html">Type</a> u_1}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Mathlib/Data/Fintype/Defs.html#Fintype">Fintype</a> <span class="fn">n</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Init/Prelude.html#DecidableEq">DecidableEq</a> <span class="fn">n</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">R</span> : <a href="../.././foundational_types.html">Type</a> u_2}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Mathlib/Algebra/Ring/Defs.html#Ring">Ring</a> <span class="fn">R</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">A</span> : <span class="fn"><a href="../.././Mathlib/LinearAlgebra/Matrix/Defs.html#Matrix">Matrix</a> <span class="fn">n</span> <span class="fn">n</span> <span class="fn">R</span></span>}</span></span>
+</span><span class="decl_args">
+<span class="fn">(<span class="fn">hA</span> : <span class="fn"><span class="fn">A</span>.<a href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric">IsSkewSymmetric</a></span>)</span></span>
+<span class="decl_args">
+<span class="fn">(<span class="fn">c</span> : <span class="fn">R</span>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn">(<span class="fn">c</span> <a href="../.././Init/Prelude.html#HSMul.hSMul">•</a> <span class="fn">A</span>).<a href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric">IsSkewSymmetric</a></span></div></div><p>Skew-symmetry is preserved under scalar multiplication.</p></div></div><div class="decl" id="Matrix.IsSkewSymmetric.zero"><div class="theorem"><div class="gh_link"><a href="https://github.com/faabian/algebraic-combinatorics/blob/b6022318e986a0c20764569208ba8ebbe1c04dbf/AlgebraicCombinatorics/Extra/Pfaffian.lean#L109-L113">source</a></div><div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a class="break_within" href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric.zero"><span class="name">Matrix</span>.<span class="name">IsSkewSymmetric</span>.<span class="name">zero</span></a></span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">n</span> : <a href="../.././foundational_types.html">Type</a> u_1}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Mathlib/Data/Fintype/Defs.html#Fintype">Fintype</a> <span class="fn">n</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Init/Prelude.html#DecidableEq">DecidableEq</a> <span class="fn">n</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">R</span> : <a href="../.././foundational_types.html">Type</a> u_2}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Mathlib/Algebra/Ring/Defs.html#Ring">Ring</a> <span class="fn">R</span></span>]</span></span>
+</span><span class="decl_args"> :</span><div class="decl_type"><span class="fn"><a href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric">IsSkewSymmetric</a> <span class="fn">0</span></span></div></div><p>The zero matrix is skew-symmetric.</p></div></div><div class="decl" id="Matrix.IsSkewSymmetric.add"><div class="theorem"><div class="gh_link"><a href="https://github.com/faabian/algebraic-combinatorics/blob/b6022318e986a0c20764569208ba8ebbe1c04dbf/AlgebraicCombinatorics/Extra/Pfaffian.lean#L115-L121">source</a></div><div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a class="break_within" href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric.add"><span class="name">Matrix</span>.<span class="name">IsSkewSymmetric</span>.<span class="name">add</span></a></span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">n</span> : <a href="../.././foundational_types.html">Type</a> u_1}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Mathlib/Data/Fintype/Defs.html#Fintype">Fintype</a> <span class="fn">n</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Init/Prelude.html#DecidableEq">DecidableEq</a> <span class="fn">n</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">R</span> : <a href="../.././foundational_types.html">Type</a> u_2}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Mathlib/Algebra/Ring/Defs.html#Ring">Ring</a> <span class="fn">R</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">A </span><span class="fn">B</span> : <span class="fn"><a href="../.././Mathlib/LinearAlgebra/Matrix/Defs.html#Matrix">Matrix</a> <span class="fn">n</span> <span class="fn">n</span> <span class="fn">R</span></span>}</span></span>
+</span><span class="decl_args">
+<span class="fn">(<span class="fn">hA</span> : <span class="fn"><span class="fn">A</span>.<a href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric">IsSkewSymmetric</a></span>)</span></span>
+<span class="decl_args">
+<span class="fn">(<span class="fn">hB</span> : <span class="fn"><span class="fn">B</span>.<a href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric">IsSkewSymmetric</a></span>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn">(<span class="fn">A</span> <a href="../.././Init/Prelude.html#HAdd.hAdd">+</a> <span class="fn">B</span>).<a href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric">IsSkewSymmetric</a></span></div></div><p>The sum of skew-symmetric matrices is skew-symmetric.</p></div></div><div class="decl" id="Matrix.IsSkewSymmetric.neg"><div class="theorem"><div class="gh_link"><a href="https://github.com/faabian/algebraic-combinatorics/blob/b6022318e986a0c20764569208ba8ebbe1c04dbf/AlgebraicCombinatorics/Extra/Pfaffian.lean#L123-L128">source</a></div><div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a class="break_within" href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric.neg"><span class="name">Matrix</span>.<span class="name">IsSkewSymmetric</span>.<span class="name">neg</span></a></span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">n</span> : <a href="../.././foundational_types.html">Type</a> u_1}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Mathlib/Data/Fintype/Defs.html#Fintype">Fintype</a> <span class="fn">n</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Init/Prelude.html#DecidableEq">DecidableEq</a> <span class="fn">n</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">R</span> : <a href="../.././foundational_types.html">Type</a> u_2}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Mathlib/Algebra/Ring/Defs.html#Ring">Ring</a> <span class="fn">R</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">A</span> : <span class="fn"><a href="../.././Mathlib/LinearAlgebra/Matrix/Defs.html#Matrix">Matrix</a> <span class="fn">n</span> <span class="fn">n</span> <span class="fn">R</span></span>}</span></span>
+</span><span class="decl_args">
+<span class="fn">(<span class="fn">hA</span> : <span class="fn"><span class="fn">A</span>.<a href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric">IsSkewSymmetric</a></span>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn">(<a href="../.././Init/Prelude.html#Neg.neg">-</a><span class="fn">A</span>).<a href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric">IsSkewSymmetric</a></span></div></div><p>The negation of a skew-symmetric matrix is skew-symmetric.</p></div></div><div class="decl" id="Matrix.IsSkewSymmetric.sub"><div class="theorem"><div class="gh_link"><a href="https://github.com/faabian/algebraic-combinatorics/blob/b6022318e986a0c20764569208ba8ebbe1c04dbf/AlgebraicCombinatorics/Extra/Pfaffian.lean#L130-L136">source</a></div><div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a class="break_within" href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric.sub"><span class="name">Matrix</span>.<span class="name">IsSkewSymmetric</span>.<span class="name">sub</span></a></span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">n</span> : <a href="../.././foundational_types.html">Type</a> u_1}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Mathlib/Data/Fintype/Defs.html#Fintype">Fintype</a> <span class="fn">n</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Init/Prelude.html#DecidableEq">DecidableEq</a> <span class="fn">n</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">R</span> : <a href="../.././foundational_types.html">Type</a> u_2}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Mathlib/Algebra/Ring/Defs.html#Ring">Ring</a> <span class="fn">R</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">A </span><span class="fn">B</span> : <span class="fn"><a href="../.././Mathlib/LinearAlgebra/Matrix/Defs.html#Matrix">Matrix</a> <span class="fn">n</span> <span class="fn">n</span> <span class="fn">R</span></span>}</span></span>
+</span><span class="decl_args">
+<span class="fn">(<span class="fn">hA</span> : <span class="fn"><span class="fn">A</span>.<a href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric">IsSkewSymmetric</a></span>)</span></span>
+<span class="decl_args">
+<span class="fn">(<span class="fn">hB</span> : <span class="fn"><span class="fn">B</span>.<a href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric">IsSkewSymmetric</a></span>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn">(<span class="fn">A</span> <a href="../.././Init/Prelude.html#HSub.hSub">-</a> <span class="fn">B</span>).<a href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric">IsSkewSymmetric</a></span></div></div><p>The difference of two skew-symmetric matrices is skew-symmetric.</p></div></div><div class="decl" id="Matrix.IsSkewSymmetric.det_eq_zero_of_odd"><div class="theorem"><div class="gh_link"><a href="https://github.com/faabian/algebraic-combinatorics/blob/b6022318e986a0c20764569208ba8ebbe1c04dbf/AlgebraicCombinatorics/Extra/Pfaffian.lean#L138-L164">source</a></div><div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a class="break_within" href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric.det_eq_zero_of_odd"><span class="name">Matrix</span>.<span class="name">IsSkewSymmetric</span>.<span class="name">det_eq_zero_of_odd</span></a></span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">n</span> : <a href="../.././Init/Prelude.html#Nat">ℕ</a>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{<span class="fn">R</span> : <a href="../.././foundational_types.html">Type</a> u_1}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Mathlib/Algebra/Ring/Defs.html#CommRing">CommRing</a> <span class="fn">R</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Mathlib/Algebra/GroupWithZero/Defs.html#NoZeroDivisors">NoZeroDivisors</a> <span class="fn">R</span></span>]</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">[<span class="fn"><a href="../.././Mathlib/Algebra/CharZero/Defs.html#CharZero">CharZero</a> <span class="fn">R</span></span>]</span></span>
+</span><span class="decl_args">
+<span class="fn">(<span class="fn">A</span> : <span class="fn"><a href="../.././Mathlib/LinearAlgebra/Matrix/Defs.html#Matrix">Matrix</a> <span class="fn">(<a href="../.././Init/Prelude.html#Fin">Fin</a> (<span class="fn">2</span> <a href="../.././Init/Prelude.html#HMul.hMul">*</a> <span class="fn">n</span> <a href="../.././Init/Prelude.html#HAdd.hAdd">+</a> <span class="fn">1</span>))</span> <span class="fn">(<a href="../.././Init/Prelude.html#Fin">Fin</a> (<span class="fn">2</span> <a href="../.././Init/Prelude.html#HMul.hMul">*</a> <span class="fn">n</span> <a href="../.././Init/Prelude.html#HAdd.hAdd">+</a> <span class="fn">1</span>))</span> <span class="fn">R</span></span>)</span></span>
+<span class="decl_args">
+<span class="fn">(<span class="fn">hA</span> : <span class="fn"><span class="fn">A</span>.<a href="../.././AlgebraicCombinatorics/Extra/Pfaffian.html#Matrix.IsSkewSymmetric">IsSkewSymmetric</a></span>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn"><span class="fn">A</span>.<a href="../.././Mathlib/LinearAlgebra/Matrix/Determinant/Basic.html#Matrix.det">det</a></span> <a href="../.././Init/Prelude.html#Eq">=</a> <span class="fn">0</span></div></div><p>The determinant of an odd-dimensional skew-symmetric matrix is zero.
+This follows from det(A) = det(Aᵀ) = det(-A) = (-1)^n det(A) = -det(A),
+hence 2 det(A) = 0, so det(A) = 0 (in characteristic ≠ 2).</p></div></div></main>
+<nav class="nav"><iframe src="../.././navbar.html" class="navframe" frameBorder="0"></iframe></nav></body></html>
