@@ -1,12 +1,7 @@
 # Formalization of *Algebraic Combinatorics*
 
-[![Blueprint Website](https://img.shields.io/badge/Blueprint-Website-blue?style=for-the-badge)](https://faabian.github.io/algebraic-combinatorics/)
-[![Blueprint PDF](https://img.shields.io/badge/Blueprint-PDF-red?style=for-the-badge)](https://github.com/facebookresearch/algebraic-combinatorics/blob/main/blueprint/print/print.pdf)
-[![Paper PDF](https://img.shields.io/badge/Paper-PDF-red?style=for-the-badge)](https://github.com/facebookresearch/repoprover/blob/main/auto_textbook_formalization.pdf)
-[![Formalization Codebase](https://img.shields.io/badge/Formalization-Codebase-green?style=for-the-badge)](https://github.com/facebookresearch/repoprover/)
-
-A Lean 4 formalization of the textbook [**An Introduction to Algebraic
-Combinatorics**](https://arxiv.org/abs/2506.00738) by Darij Grinberg, built on Mathlib.
+A Lean 4 formalization of the textbook **An Introduction to Algebraic
+Combinatorics** by Darij Grinberg, built on Mathlib.
 The formalization proves 340 target theorems across 45 chapters, from formal power
 series and integer partitions through permutations, determinants, and symmetric
 functions. Every theorem whose proof appears in the textbook has been fully formalized;
@@ -117,12 +112,6 @@ AlgebraicCombinatorics/
 ├── Fin/SkipTwo.lean              # (support) Fin index utilities
 └── Extra/Pfaffian.lean           # (support) Pfaffian infrastructure
 ```
-
----
-
-## Building
-
-See [BUILD.md](BUILD.md) for instructions on building the documentation and blueprint.
 
 ---
 
