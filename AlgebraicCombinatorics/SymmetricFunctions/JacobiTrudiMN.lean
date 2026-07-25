@@ -597,6 +597,36 @@ theorem det_jacobiTrudiMatrixHMN_eq_lgvNipatWeightSum
     (jacobiTrudiTargetVertexMN_xDecreasing N lam hlam)
     (jacobiTrudiTargetVertexMN_yIncreasing N lam)
 
+/-- The sole remaining geometric bridge needed by the independent-size proof.
+
+It says that LGV's vertex-disjoint path tuples and the east-step-height tuples
+used in the tableau equivalence have the same total weight.  Keeping this as an
+explicit proposition makes the remaining refactor obligation auditable. -/
+def JacobiTrudiMNBridge (N : ℕ) (lam mu : Fin M → ℕ)
+    (hlam : ∀ i j : Fin M, i ≤ j → lam j ≤ lam i)
+    (hmu : ∀ i j : Fin M, i ≤ j → mu j ≤ mu i)
+    (hcontained : ∀ i, mu i ≤ lam i) : Prop :=
+  LGV.nipatWeightSum LGV.integerLattice_pathFinite
+      (jacobiTrudiArcWeight (N := N) (R := R))
+      (jacobiTrudiSourceVertexMN mu)
+      (jacobiTrudiTargetVertexMN N lam) (Equiv.refl (Fin M)) =
+    ∑ np : NipatMN N lam mu hlam hmu hcontained, np.weight (R := R)
+
+/-- Once the geometric path-representation bridge is supplied, the full
+independent-`M`/`N` Jacobi--Trudi identity follows by the two compiled layers. -/
+theorem jacobiTrudi_h_mn_of_bridge
+    (hN : 0 < N) (lam mu : Fin M → ℕ)
+    (hlam : ∀ i j : Fin M, i ≤ j → lam j ≤ lam i)
+    (hmu : ∀ i j : Fin M, i ≤ j → mu j ≤ mu i)
+    (hcontained : ∀ i, mu i ≤ lam i)
+    (hbridge :
+      JacobiTrudiMNBridge (R := R) N lam mu hlam hmu hcontained) :
+    skewSchurMN (R := R) N
+        ⟨⟨lam, hlam⟩, ⟨mu, hmu⟩, fun i => hcontained i⟩ =
+      (jacobiTrudiMatrixHMN (R := R) N lam mu).det := by
+  rw [det_jacobiTrudiMatrixHMN_eq_lgvNipatWeightSum hN lam mu hlam hmu,
+    hbridge, nipatMNWeightSum_eq_skewSchurMN]
+
 /-- At equal row and alphabet sizes, a generalized tableau is the original tableau. -/
 def skewSSYTMNSelfEquiv (s : SkewPartition N) : SkewSSYTMN N s ≃ SkewSSYT s where
   toFun T :=
@@ -642,5 +672,18 @@ theorem skewSchurMN_self (s : SkewPartition N) :
 theorem jacobiTrudiMatrixHMN_self (lam mu : Fin N → ℕ) :
     jacobiTrudiMatrixHMN (R := R) N lam mu = jacobiTrudiMatrixH (R := R) lam mu :=
   rfl
+
+/-- The new statement specializes to the already-proved theorem when the two
+dimensions agree.  This is also a regression theorem for the compatibility
+layer; it does not use `JacobiTrudiMNBridge`. -/
+theorem jacobiTrudi_h_mn_self (lam mu : Fin N → ℕ)
+    (hlam : ∀ i j : Fin N, i ≤ j → lam j ≤ lam i)
+    (hmu : ∀ i j : Fin N, i ≤ j → mu j ≤ mu i)
+    (hcontained : ∀ i, mu i ≤ lam i) :
+    skewSchurMN (R := R) N
+        ⟨⟨lam, hlam⟩, ⟨mu, hmu⟩, fun i => hcontained i⟩ =
+      (jacobiTrudiMatrixHMN (R := R) N lam mu).det := by
+  rw [skewSchurMN_self, jacobiTrudiMatrixHMN_self]
+  exact jacobiTrudi_h (R := R) lam mu hlam hmu hcontained
 
 end SymmetricFunctions
