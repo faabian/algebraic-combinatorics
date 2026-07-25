@@ -234,19 +234,12 @@ noncomputable def jacobiTrudiMatrixHMN (N : ℕ) (lam mu : Fin M → ℕ) :
 
 /-! ## The independent-size path/tableau correspondence -/
 
-/-- An `M`-tuple of tableau paths whose east-step heights lie in `Fin N`. -/
-structure NipatMN (N : ℕ) (lam mu : Fin M → ℕ)
+/-- The rectangular path tuple from the foundational Jacobi--Trudi module. -/
+abbrev NipatMN (N : ℕ) (lam mu : Fin M → ℕ)
     (hlam : ∀ i j : Fin M, i ≤ j → lam j ≤ lam i)
     (hmu : ∀ i j : Fin M, i ≤ j → mu j ≤ mu i)
-    (hcontained : ∀ i, mu i ≤ lam i) where
-  paths : (i : Fin M) → LatticePath (N := N)
-    ((mu i : ℤ) - i.val) ((lam i : ℤ) - i.val)
-  colStrictPaths :
-    ∀ i j : Fin M, i < j →
-      ∀ k : ℕ, ∀ hk : k < (paths i).eastStepHeights.length,
-        ∀ k' : ℕ, ∀ hk' : k' < (paths j).eastStepHeights.length,
-          mu i + k = mu j + k' →
-            (paths i).eastStepHeights[k] < (paths j).eastStepHeights[k']
+    (hcontained : ∀ i, mu i ≤ lam i) :=
+  RectNipat N lam mu hlam hmu hcontained
 
 namespace NipatMN
 
@@ -257,7 +250,7 @@ noncomputable def weight {lam mu : Fin M → ℕ}
     {hcontained : ∀ i, mu i ≤ lam i}
     (np : NipatMN N lam mu hlam hmu hcontained) :
     MvPolynomial (Fin N) R :=
-  ∏ i : Fin M, (np.paths i).weight
+  RectNipat.weight np
 
 @[ext]
 theorem ext {lam mu : Fin M → ℕ}
@@ -445,7 +438,7 @@ theorem nipatMNToSSYT_weight {lam mu : Fin M → ℕ}
     {hcontained : ∀ i, mu i ≤ lam i}
     (np : NipatMN N lam mu hlam hmu hcontained) :
     np.weight (R := R) = (nipatMNToSSYT np).toMonomial := by
-  unfold NipatMN.weight SkewSSYTMN.toMonomial
+  unfold NipatMN.weight RectNipat.weight SkewSSYTMN.toMonomial
   congr 1
   funext i
   unfold LatticePath.weight
