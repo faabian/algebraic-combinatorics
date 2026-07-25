@@ -459,14 +459,6 @@ noncomputable instance SkewSSYTMN.fintype (N : ℕ) (s : SkewPartition M) :
       right_inv := fun T => by cases T; rfl }
   exact Fintype.ofEquiv S e
 
-noncomputable instance NipatMN.fintype (N : ℕ) (lam mu : Fin M → ℕ)
-    (hlam : ∀ i j : Fin M, i ≤ j → lam j ≤ lam i)
-    (hmu : ∀ i j : Fin M, i ≤ j → mu j ≤ mu i)
-    (hcontained : ∀ i, mu i ≤ lam i) :
-    Fintype (NipatMN N lam mu hlam hmu hcontained) :=
-  Fintype.ofEquiv _
-    (nipatMNSSYTEquiv (N := N) lam mu hlam hmu hcontained).symm
-
 /-- Summing the independent-size path weights gives the tableau definition of
 the skew Schur polynomial. -/
 theorem nipatMNWeightSum_eq_skewSchurMN (lam mu : Fin M → ℕ)
@@ -605,6 +597,25 @@ def JacobiTrudiMNBridge (N : ℕ) (lam mu : Fin M → ℕ)
       (jacobiTrudiTargetVertexMN N lam) (Equiv.refl (Fin M)) =
     ∑ np : NipatMN N lam mu hlam hmu hcontained, np.weight (R := R)
 
+/-- The generalized geometric bridge, obtained from the rectangular version of
+the repository's full nonintersection/east-step-height proof. -/
+theorem jacobiTrudiMNBridge
+    (hN : 0 < N) (lam mu : Fin M → ℕ)
+    (hlam : ∀ i j : Fin M, i ≤ j → lam j ≤ lam i)
+    (hmu : ∀ i j : Fin M, i ≤ j → mu j ≤ mu i)
+    (hcontained : ∀ i, mu i ≤ lam i) :
+    JacobiTrudiMNBridge (R := R) N lam mu hlam hmu hcontained := by
+  unfold JacobiTrudiMNBridge NipatMN.weight
+  change
+    LGV.nipatWeightSum LGV.integerLattice_pathFinite
+        (jacobiTrudiArcWeight (N := N) (R := R))
+        (jacobiTrudiSourceVertexRect mu)
+        (jacobiTrudiTargetVertexRect N lam) (Equiv.refl (Fin M)) =
+      ∑ np : RectNipat N lam mu hlam hmu hcontained,
+        np.weight (R := R)
+  exact lgv_nipatWeightSum_eq_rectNipatSum (R := R) N lam mu
+    (fun _ => hN) hlam hmu hcontained
+
 /-- Once the geometric path-representation bridge is supplied, the full
 independent-`M`/`N` Jacobi--Trudi identity follows by the two compiled layers. -/
 theorem jacobiTrudi_h_mn_of_bridge
@@ -619,6 +630,19 @@ theorem jacobiTrudi_h_mn_of_bridge
       (jacobiTrudiMatrixHMN (R := R) N lam mu).det := by
   rw [det_jacobiTrudiMatrixHMN_eq_lgvNipatWeightSum hN lam mu hlam hmu,
     hbridge, nipatMNWeightSum_eq_skewSchurMN]
+
+/-- First Jacobi--Trudi with independent determinant size `M` and alphabet
+size `N`. -/
+theorem jacobiTrudi_h_mn
+    (hN : 0 < N) (lam mu : Fin M → ℕ)
+    (hlam : ∀ i j : Fin M, i ≤ j → lam j ≤ lam i)
+    (hmu : ∀ i j : Fin M, i ≤ j → mu j ≤ mu i)
+    (hcontained : ∀ i, mu i ≤ lam i) :
+    skewSchurMN (R := R) N
+        ⟨⟨lam, hlam⟩, ⟨mu, hmu⟩, fun i => hcontained i⟩ =
+      (jacobiTrudiMatrixHMN (R := R) N lam mu).det :=
+  jacobiTrudi_h_mn_of_bridge hN lam mu hlam hmu hcontained
+    (jacobiTrudiMNBridge hN lam mu hlam hmu hcontained)
 
 /-- At equal row and alphabet sizes, a generalized tableau is the original tableau. -/
 def skewSSYTMNSelfEquiv (s : SkewPartition N) : SkewSSYTMN N s ≃ SkewSSYT s where
