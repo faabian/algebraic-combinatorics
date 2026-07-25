@@ -508,6 +508,95 @@ theorem nipatMNWeightSum_eq_skewSchurMN (lam mu : Fin M → ℕ)
   · intro T _
     rfl
 
+/-! ## Independent-size LGV determinant layer -/
+
+/-- The `M` source vertices for Jacobi--Trudi. -/
+def jacobiTrudiSourceVertexMN (mu : Fin M → ℕ) :
+    LGV.kVertex (ℤ × ℤ) M :=
+  fun i => ((mu i : ℤ) - i.val, 1)
+
+/-- The `M` target vertices, at alphabet height `N`. -/
+def jacobiTrudiTargetVertexMN (N : ℕ) (lam : Fin M → ℕ) :
+    LGV.kVertex (ℤ × ℤ) M :=
+  fun i => ((lam i : ℤ) - i.val, N)
+
+theorem jacobiTrudiSourceVertexMN_xDecreasing (mu : Fin M → ℕ)
+    (hmu : ∀ i j : Fin M, i ≤ j → mu j ≤ mu i) :
+    LGV.xDecreasing (jacobiTrudiSourceVertexMN mu) := by
+  intro i j hij
+  simp only [LGV.xCoord, jacobiTrudiSourceVertexMN]
+  have := hmu i j hij
+  omega
+
+theorem jacobiTrudiTargetVertexMN_xDecreasing (N : ℕ) (lam : Fin M → ℕ)
+    (hlam : ∀ i j : Fin M, i ≤ j → lam j ≤ lam i) :
+    LGV.xDecreasing (jacobiTrudiTargetVertexMN N lam) := by
+  intro i j hij
+  simp only [LGV.xCoord, jacobiTrudiTargetVertexMN]
+  have := hlam i j hij
+  omega
+
+theorem jacobiTrudiSourceVertexMN_yIncreasing (mu : Fin M → ℕ) :
+    LGV.yIncreasing (jacobiTrudiSourceVertexMN mu) := by
+  intro i j _
+  simp [LGV.yCoord, jacobiTrudiSourceVertexMN]
+
+theorem jacobiTrudiTargetVertexMN_yIncreasing (N : ℕ) (lam : Fin M → ℕ) :
+    LGV.yIncreasing (jacobiTrudiTargetVertexMN N lam) := by
+  intro i j _
+  simp [LGV.yCoord, jacobiTrudiTargetVertexMN]
+
+/-- The generalized Jacobi--Trudi matrix is the transpose of its LGV path
+weight matrix.  Positivity of `N` is exactly what the lattice-path encoding,
+whose vertical interval is from height `1` to height `N`, requires. -/
+theorem jacobiTrudiMatrixHMN_eq_pathWeightMatrix_transpose
+    (hN : 0 < N) (lam mu : Fin M → ℕ) :
+    jacobiTrudiMatrixHMN (R := R) N lam mu =
+      (LGV.pathWeightMatrix LGV.integerLattice_pathFinite
+        (jacobiTrudiArcWeight (N := N) (R := R))
+        (jacobiTrudiSourceVertexMN mu)
+        (jacobiTrudiTargetVertexMN N lam))ᵀ := by
+  apply Matrix.ext
+  intro i j
+  simp only [jacobiTrudiMatrixHMN, Matrix.transpose_apply,
+    LGV.pathWeightMatrix, Matrix.of_apply, jacobiTrudiSourceVertexMN,
+    jacobiTrudiTargetVertexMN]
+  rw [lgv_pathWeightSum_eq_hsymmExt _ _ hN]
+  congr 1
+  ring
+
+/-- Determinant form of `jacobiTrudiMatrixHMN_eq_pathWeightMatrix_transpose`. -/
+theorem det_jacobiTrudiMatrixHMN_eq_det_pathWeightMatrix
+    (hN : 0 < N) (lam mu : Fin M → ℕ) :
+    (jacobiTrudiMatrixHMN (R := R) N lam mu).det =
+      (LGV.pathWeightMatrix LGV.integerLattice_pathFinite
+        (jacobiTrudiArcWeight (N := N) (R := R))
+        (jacobiTrudiSourceVertexMN mu)
+        (jacobiTrudiTargetVertexMN N lam)).det := by
+  rw [jacobiTrudiMatrixHMN_eq_pathWeightMatrix_transpose hN,
+    Matrix.det_transpose]
+
+/-- LGV expresses the generalized determinant as the sum over
+nonintersecting `M`-tuples of paths. -/
+theorem det_jacobiTrudiMatrixHMN_eq_lgvNipatWeightSum
+    (hN : 0 < N) (lam mu : Fin M → ℕ)
+    (hlam : ∀ i j : Fin M, i ≤ j → lam j ≤ lam i)
+    (hmu : ∀ i j : Fin M, i ≤ j → mu j ≤ mu i) :
+    (jacobiTrudiMatrixHMN (R := R) N lam mu).det =
+      LGV.nipatWeightSum LGV.integerLattice_pathFinite
+        (jacobiTrudiArcWeight (N := N) (R := R))
+        (jacobiTrudiSourceVertexMN mu)
+        (jacobiTrudiTargetVertexMN N lam) (Equiv.refl (Fin M)) := by
+  rw [det_jacobiTrudiMatrixHMN_eq_det_pathWeightMatrix hN]
+  exact LGV.lgv_nonpermutable
+    (jacobiTrudiArcWeight (N := N) (R := R))
+    (jacobiTrudiSourceVertexMN mu)
+    (jacobiTrudiTargetVertexMN N lam)
+    (jacobiTrudiSourceVertexMN_xDecreasing mu hmu)
+    (jacobiTrudiSourceVertexMN_yIncreasing mu)
+    (jacobiTrudiTargetVertexMN_xDecreasing N lam hlam)
+    (jacobiTrudiTargetVertexMN_yIncreasing N lam)
+
 /-- At equal row and alphabet sizes, a generalized tableau is the original tableau. -/
 def skewSSYTMNSelfEquiv (s : SkewPartition N) : SkewSSYTMN N s ≃ SkewSSYT s where
   toFun T :=
