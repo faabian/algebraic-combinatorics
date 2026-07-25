@@ -141,6 +141,86 @@ theorem skewSSYTMNFinset_mem (s : SkewPartition M) (T : SkewSSYTMN N s) :
   · cases T
     rfl
 
+/-- Adjacent column strictness implies column strictness between arbitrary rows. -/
+theorem SkewSSYTMN.colStrict_nonadjacent {s : SkewPartition M}
+    (T : SkewSSYTMN N s) (i j : Fin M) (hij : i < j)
+    (k : Fin (s.outer.parts i - s.inner.parts i))
+    (k' : Fin (s.outer.parts j - s.inner.parts j))
+    (hcol_eq : s.inner.parts i + k.val = s.inner.parts j + k'.val) :
+    T.entries i k < T.entries j k' := by
+  obtain ⟨d, hd_eq⟩ : ∃ d, j.val - i.val = d + 1 :=
+    ⟨j.val - i.val - 1, by omega⟩
+  induction d using Nat.strong_induction_on generalizing i j k k' with
+  | _ d ih =>
+    by_cases hd : d = 0
+    · have hj_eq : j.val = i.val + 1 := by omega
+      have hi_lt : i.val + 1 < M := by omega
+      have hj_fin : j = ⟨i.val + 1, hi_lt⟩ := by
+        apply Fin.ext
+        exact hj_eq
+      subst hj_fin
+      have hcol :
+          s.inner.parts i + k.val + 1 >
+              s.inner.parts ⟨i.val + 1, hi_lt⟩ ∧
+            s.inner.parts i + k.val + 1 ≤
+              s.outer.parts ⟨i.val + 1, hi_lt⟩ := by
+        constructor <;> omega
+      let k''_val :=
+        s.inner.parts i + k.val - s.inner.parts ⟨i.val + 1, hi_lt⟩
+      have hk''_eq : k''_val = k'.val := by omega
+      have hk''_lt :
+          k''_val <
+            s.outer.parts ⟨i.val + 1, hi_lt⟩ -
+              s.inner.parts ⟨i.val + 1, hi_lt⟩ := by
+        rw [hk''_eq]
+        exact k'.isLt
+      have hres := T.colStrict i hi_lt k hcol hk''_lt
+      convert hres using 2
+      apply Fin.ext
+      exact hk''_eq.symm
+    · have hj_gt : j.val > i.val + 1 := by omega
+      let j' : Fin M := ⟨j.val - 1, by omega⟩
+      have hij' : i < j' := by simp only [j', Fin.lt_def]; omega
+      have hj'j : j' < j := by simp only [j', Fin.lt_def]; omega
+      let k''_val := s.inner.parts i + k.val - s.inner.parts j'
+      have hk''_lt :
+          k''_val < s.outer.parts j' - s.inner.parts j' := by
+        simp only [k''_val]
+        have hinner : s.inner.parts j' ≤ s.inner.parts i :=
+          s.inner.weaklyDecreasing i j' (le_of_lt hij')
+        have houter : s.outer.parts j ≤ s.outer.parts j' :=
+          s.outer.weaklyDecreasing j' j (le_of_lt hj'j)
+        omega
+      let k'' : Fin (s.outer.parts j' - s.inner.parts j') :=
+        ⟨k''_val, hk''_lt⟩
+      have hcol_eq' :
+          s.inner.parts i + k.val = s.inner.parts j' + k''.val := by
+        simp only [k'', k''_val]
+        have hinner : s.inner.parts j' ≤ s.inner.parts i :=
+          s.inner.weaklyDecreasing i j' (le_of_lt hij')
+        omega
+      have hdiff' : j'.val - i.val - 1 < d := by
+        simp only [j']
+        omega
+      have hdiff'_eq : j'.val - i.val = (j'.val - i.val - 1) + 1 := by
+        omega
+      have h₁ : T.entries i k < T.entries j' k'' :=
+        ih (j'.val - i.val - 1) hdiff' i j' hij' k k'' hcol_eq'
+          hdiff'_eq
+      have hcol_eq'' :
+          s.inner.parts j' + k''.val = s.inner.parts j + k'.val := by
+        rw [← hcol_eq', hcol_eq]
+      have hdiff'' : j.val - j'.val - 1 < d := by
+        simp only [j']
+        omega
+      have hdiff''_eq : j.val - j'.val = (j.val - j'.val - 1) + 1 := by
+        simp only [j']
+        omega
+      have h₂ : T.entries j' k'' < T.entries j k' :=
+        ih (j.val - j'.val - 1) hdiff'' j' j hj'j k'' k' hcol_eq''
+          hdiff''_eq
+      exact lt_trans h₁ h₂
+
 /-- The skew Schur polynomial of an `M`-row shape in `N` variables. -/
 noncomputable def skewSchurMN (N : ℕ) (s : SkewPartition M) :
     MvPolynomial (Fin N) R :=
@@ -151,6 +231,282 @@ noncomputable def jacobiTrudiMatrixHMN (N : ℕ) (lam mu : Fin M → ℕ) :
     Matrix (Fin M) (Fin M) (MvPolynomial (Fin N) R) :=
   fun i j => hsymmExt (N := N) (R := R)
     ((lam i : ℤ) - (mu j : ℤ) - (i.val : ℤ) + (j.val : ℤ))
+
+/-! ## The independent-size path/tableau correspondence -/
+
+/-- An `M`-tuple of tableau paths whose east-step heights lie in `Fin N`. -/
+structure NipatMN (N : ℕ) (lam mu : Fin M → ℕ)
+    (hlam : ∀ i j : Fin M, i ≤ j → lam j ≤ lam i)
+    (hmu : ∀ i j : Fin M, i ≤ j → mu j ≤ mu i)
+    (hcontained : ∀ i, mu i ≤ lam i) where
+  paths : (i : Fin M) → LatticePath (N := N)
+    ((mu i : ℤ) - i.val) ((lam i : ℤ) - i.val)
+  colStrictPaths :
+    ∀ i j : Fin M, i < j →
+      ∀ k : ℕ, ∀ hk : k < (paths i).eastStepHeights.length,
+        ∀ k' : ℕ, ∀ hk' : k' < (paths j).eastStepHeights.length,
+          mu i + k = mu j + k' →
+            (paths i).eastStepHeights[k] < (paths j).eastStepHeights[k']
+
+namespace NipatMN
+
+/-- The product of the weights of the component paths. -/
+noncomputable def weight {lam mu : Fin M → ℕ}
+    {hlam : ∀ i j : Fin M, i ≤ j → lam j ≤ lam i}
+    {hmu : ∀ i j : Fin M, i ≤ j → mu j ≤ mu i}
+    {hcontained : ∀ i, mu i ≤ lam i}
+    (np : NipatMN N lam mu hlam hmu hcontained) :
+    MvPolynomial (Fin N) R :=
+  ∏ i : Fin M, (np.paths i).weight
+
+@[ext]
+theorem ext {lam mu : Fin M → ℕ}
+    {hlam : ∀ i j : Fin M, i ≤ j → lam j ≤ lam i}
+    {hmu : ∀ i j : Fin M, i ≤ j → mu j ≤ mu i}
+    {hcontained : ∀ i, mu i ≤ lam i}
+    {p q : NipatMN N lam mu hlam hmu hcontained}
+    (h : p.paths = q.paths) : p = q := by
+  cases p
+  cases q
+  simp only at h
+  subst h
+  rfl
+
+end NipatMN
+
+private theorem list_isChain_getElem_le_getElem_of_le_MN
+    {α : Type*} [Preorder α] {l : List α} (h : l.IsChain (· ≤ ·))
+    {i j : ℕ} (hi : i < l.length) (hj : j < l.length) (hij : i ≤ j) :
+    l[i] ≤ l[j] := by
+  induction j with
+  | zero => simp_all
+  | succ j ih =>
+    by_cases heq : i = j + 1
+    · simp [heq]
+    · by_cases hij' : i ≤ j
+      · have hj' : j < l.length := by omega
+        have h₁ := ih hj' hij'
+        rw [List.isChain_iff_getElem] at h
+        exact h₁.trans (h j hj)
+      · omega
+
+/-- Build one tableau path from the entries in a row. -/
+def mkLatticePathFromEntriesMN (lam mu i : ℕ)
+    (entries : Fin (lam - mu) → Fin N)
+    (hrowWeak :
+      ∀ j k : Fin (lam - mu), j ≤ k → entries j ≤ entries k) :
+    LatticePath (N := N) ((mu : ℤ) - i) ((lam : ℤ) - i) where
+  eastStepHeights := List.ofFn entries
+  weaklyIncreasing := by
+    rw [List.isChain_iff_pairwise, List.pairwise_ofFn]
+    intro j k hjk
+    exact hrowWeak j k (le_of_lt hjk)
+  length_eq := by simp
+
+/-- Turn an independent-size path tuple into its skew tableau. -/
+noncomputable def nipatMNToSSYT {lam mu : Fin M → ℕ}
+    {hlam : ∀ i j : Fin M, i ≤ j → lam j ≤ lam i}
+    {hmu : ∀ i j : Fin M, i ≤ j → mu j ≤ mu i}
+    {hcontained : ∀ i, mu i ≤ lam i}
+    (np : NipatMN N lam mu hlam hmu hcontained) :
+    SkewSSYTMN N
+      ⟨⟨lam, hlam⟩, ⟨mu, hmu⟩, fun i => hcontained i⟩ where
+  entries := fun i k => (np.paths i).eastStepHeights.get ⟨k.val, by
+    rw [(np.paths i).length_eq]
+    simp only [sub_sub_sub_cancel_right]
+    omega⟩
+  rowWeak := fun i j k hjk => by
+    simp only [List.get_eq_getElem]
+    exact list_isChain_getElem_le_getElem_of_le_MN
+      (np.paths i).weaklyIncreasing
+      (by
+        rw [(np.paths i).length_eq]
+        simp only [sub_sub_sub_cancel_right]
+        simpa using j.isLt)
+      (by
+        rw [(np.paths i).length_eq]
+        simp only [sub_sub_sub_cancel_right]
+        simpa using k.isLt)
+      hjk
+  colStrict := fun i hi k hcol hk' => by
+    simp only [List.get_eq_getElem]
+    change mu i + k.val + 1 > mu ⟨i.val + 1, hi⟩ ∧
+      mu i + k.val + 1 ≤ lam ⟨i.val + 1, hi⟩ at hcol
+    change mu i + k.val - mu ⟨i.val + 1, hi⟩ <
+      lam ⟨i.val + 1, hi⟩ - mu ⟨i.val + 1, hi⟩ at hk'
+    have hij : i < (⟨i.val + 1, hi⟩ : Fin M) := by
+      simp only [Fin.lt_def]
+      omega
+    have hk :
+        k.val < (np.paths i).eastStepHeights.length := by
+      have hlen : (np.paths i).eastStepHeights.length = lam i - mu i := by
+        rw [(np.paths i).length_eq]
+        simp only [sub_sub_sub_cancel_right]
+        omega
+      rw [hlen]
+      exact k.isLt
+    have hkNext :
+        mu i + k.val - mu ⟨i.val + 1, hi⟩ <
+          (np.paths ⟨i.val + 1, hi⟩).eastStepHeights.length := by
+      have hlen :
+          (np.paths ⟨i.val + 1, hi⟩).eastStepHeights.length =
+            lam ⟨i.val + 1, hi⟩ - mu ⟨i.val + 1, hi⟩ := by
+        rw [(np.paths ⟨i.val + 1, hi⟩).length_eq]
+        simp only [sub_sub_sub_cancel_right]
+        omega
+      rw [hlen]
+      exact hk'
+    exact np.colStrictPaths i ⟨i.val + 1, hi⟩ hij k.val hk
+      (mu i + k.val - mu ⟨i.val + 1, hi⟩) hkNext (by omega)
+
+/-- Turn an independent-size skew tableau into its tuple of tableau paths. -/
+noncomputable def ssytToNipatMN {lam mu : Fin M → ℕ}
+    {hlam : ∀ i j : Fin M, i ≤ j → lam j ≤ lam i}
+    {hmu : ∀ i j : Fin M, i ≤ j → mu j ≤ mu i}
+    {hcontained : ∀ i, mu i ≤ lam i}
+    (T : SkewSSYTMN N
+      ⟨⟨lam, hlam⟩, ⟨mu, hmu⟩, fun i => hcontained i⟩) :
+    NipatMN N lam mu hlam hmu hcontained where
+  paths := fun i =>
+    mkLatticePathFromEntriesMN (lam i) (mu i) i.val (T.entries i)
+      (T.rowWeak i)
+  colStrictPaths := fun i j hij k hk k' hk' hcol_eq => by
+    simp only [mkLatticePathFromEntriesMN, List.getElem_ofFn]
+    have hk_fin : k < lam i - mu i := by
+      simpa [mkLatticePathFromEntriesMN] using hk
+    have hk'_fin : k' < lam j - mu j := by
+      simpa [mkLatticePathFromEntriesMN] using hk'
+    exact T.colStrict_nonadjacent i j hij ⟨k, hk_fin⟩ ⟨k', hk'_fin⟩
+      hcol_eq
+
+@[simp]
+theorem ssytToNipatMN_nipatMNToSSYT {lam mu : Fin M → ℕ}
+    {hlam : ∀ i j : Fin M, i ≤ j → lam j ≤ lam i}
+    {hmu : ∀ i j : Fin M, i ≤ j → mu j ≤ mu i}
+    {hcontained : ∀ i, mu i ≤ lam i}
+    (np : NipatMN N lam mu hlam hmu hcontained) :
+    ssytToNipatMN (nipatMNToSSYT np) = np := by
+  apply NipatMN.ext
+  funext i
+  apply LatticePath.ext
+  simp only [ssytToNipatMN, nipatMNToSSYT, mkLatticePathFromEntriesMN]
+  apply List.ext_getElem
+  · simp only [List.length_ofFn]
+    rw [(np.paths i).length_eq]
+    simp only [sub_sub_sub_cancel_right]
+    omega
+  · intro k hk₁ hk₂
+    simp only [List.getElem_ofFn, List.get_eq_getElem]
+
+@[simp]
+theorem nipatMNToSSYT_ssytToNipatMN {lam mu : Fin M → ℕ}
+    {hlam : ∀ i j : Fin M, i ≤ j → lam j ≤ lam i}
+    {hmu : ∀ i j : Fin M, i ≤ j → mu j ≤ mu i}
+    {hcontained : ∀ i, mu i ≤ lam i}
+    (T : SkewSSYTMN N
+      ⟨⟨lam, hlam⟩, ⟨mu, hmu⟩, fun i => hcontained i⟩) :
+    nipatMNToSSYT (ssytToNipatMN T) = T := by
+  apply SkewSSYTMN.ext
+  funext i k
+  simp only [nipatMNToSSYT, ssytToNipatMN, mkLatticePathFromEntriesMN,
+    List.get_ofFn]
+  congr 1
+
+/-- The weight-preserving path/tableau equivalence with independent dimensions. -/
+noncomputable def nipatMNSSYTEquiv (lam mu : Fin M → ℕ)
+    (hlam : ∀ i j : Fin M, i ≤ j → lam j ≤ lam i)
+    (hmu : ∀ i j : Fin M, i ≤ j → mu j ≤ mu i)
+    (hcontained : ∀ i, mu i ≤ lam i) :
+    NipatMN N lam mu hlam hmu hcontained ≃
+      SkewSSYTMN N
+        ⟨⟨lam, hlam⟩, ⟨mu, hmu⟩, fun i => hcontained i⟩ where
+  toFun := nipatMNToSSYT
+  invFun := ssytToNipatMN
+  left_inv := ssytToNipatMN_nipatMNToSSYT
+  right_inv := nipatMNToSSYT_ssytToNipatMN
+
+private theorem list_prod_map_X_eq_finset_prod_MN
+    (l : List (Fin N)) (n : ℕ) (h : l.length = n) :
+    (l.map (fun j => X (R := R) j)).prod =
+      ∏ k : Fin n, X (l.get ⟨k.val, by rw [h]; exact k.isLt⟩) := by
+  subst h
+  induction l with
+  | nil => simp
+  | cons hd tl ih =>
+    simp only [List.map_cons, List.prod_cons, List.length_cons]
+    rw [Fin.prod_univ_succ]
+    simp only [Fin.val_zero, Fin.val_succ, List.get_cons_succ, List.get]
+    rw [mul_comm, ih, mul_comm]
+
+/-- The path/tableau equivalence preserves monomial weights. -/
+theorem nipatMNToSSYT_weight {lam mu : Fin M → ℕ}
+    {hlam : ∀ i j : Fin M, i ≤ j → lam j ≤ lam i}
+    {hmu : ∀ i j : Fin M, i ≤ j → mu j ≤ mu i}
+    {hcontained : ∀ i, mu i ≤ lam i}
+    (np : NipatMN N lam mu hlam hmu hcontained) :
+    np.weight (R := R) = (nipatMNToSSYT np).toMonomial := by
+  unfold NipatMN.weight SkewSSYTMN.toMonomial
+  congr 1
+  funext i
+  unfold LatticePath.weight
+  have hlen : (np.paths i).eastStepHeights.length = lam i - mu i := by
+    rw [(np.paths i).length_eq]
+    simp only [sub_sub_sub_cancel_right]
+    omega
+  rw [list_prod_map_X_eq_finset_prod_MN _ _ hlen]
+  congr 1
+
+noncomputable instance SkewSSYTMN.fintype (N : ℕ) (s : SkewPartition M) :
+    Fintype (SkewSSYTMN N s) := by
+  let S := {f : SkewFillingMN N s // isSSYTFillingMN s f}
+  let e : S ≃ SkewSSYTMN N s :=
+    { toFun := fun f => fillingToSkewSSYTMN f.1 f.2
+      invFun := fun T => ⟨T.entries, T.rowWeak, T.colStrict⟩
+      left_inv := fun f => by cases f; rfl
+      right_inv := fun T => by cases T; rfl }
+  exact Fintype.ofEquiv S e
+
+noncomputable instance NipatMN.fintype (N : ℕ) (lam mu : Fin M → ℕ)
+    (hlam : ∀ i j : Fin M, i ≤ j → lam j ≤ lam i)
+    (hmu : ∀ i j : Fin M, i ≤ j → mu j ≤ mu i)
+    (hcontained : ∀ i, mu i ≤ lam i) :
+    Fintype (NipatMN N lam mu hlam hmu hcontained) :=
+  Fintype.ofEquiv _
+    (nipatMNSSYTEquiv (N := N) lam mu hlam hmu hcontained).symm
+
+/-- Summing the independent-size path weights gives the tableau definition of
+the skew Schur polynomial. -/
+theorem nipatMNWeightSum_eq_skewSchurMN (lam mu : Fin M → ℕ)
+    (hlam : ∀ i j : Fin M, i ≤ j → lam j ≤ lam i)
+    (hmu : ∀ i j : Fin M, i ≤ j → mu j ≤ mu i)
+    (hcontained : ∀ i, mu i ≤ lam i) :
+    ∑ np : NipatMN N lam mu hlam hmu hcontained, np.weight (R := R) =
+      skewSchurMN (R := R) N
+        ⟨⟨lam, hlam⟩, ⟨mu, hmu⟩, fun i => hcontained i⟩ := by
+  let e := nipatMNSSYTEquiv (N := N) lam mu hlam hmu hcontained
+  rw [show (∑ np : NipatMN N lam mu hlam hmu hcontained,
+      np.weight (R := R)) =
+      ∑ T : SkewSSYTMN N
+        ⟨⟨lam, hlam⟩, ⟨mu, hmu⟩, fun i => hcontained i⟩,
+          T.toMonomial by
+    calc
+      _ = ∑ np : NipatMN N lam mu hlam hmu hcontained,
+          (e np).toMonomial := by
+            apply Finset.sum_congr rfl
+            intro np _
+            exact nipatMNToSSYT_weight np
+      _ = _ := Equiv.sum_comp e (fun T => T.toMonomial)]
+  unfold skewSchurMN
+  symm
+  apply Finset.sum_bij (fun T _ => T)
+  · intro T _
+    exact Finset.mem_univ T
+  · intro T₁ _ T₂ _ h
+    exact h
+  · intro T _
+    exact ⟨T, skewSSYTMNFinset_mem _ T, rfl⟩
+  · intro T _
+    rfl
 
 /-- At equal row and alphabet sizes, a generalized tableau is the original tableau. -/
 def skewSSYTMNSelfEquiv (s : SkewPartition N) : SkewSSYTMN N s ≃ SkewSSYT s where
