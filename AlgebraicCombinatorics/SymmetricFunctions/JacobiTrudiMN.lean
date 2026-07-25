@@ -315,11 +315,11 @@ noncomputable def nipatMNToSSYT {lam mu : Fin M → ℕ}
       (by
         rw [(np.paths i).length_eq]
         simp only [sub_sub_sub_cancel_right]
-        simpa using j.isLt)
+        simp)
       (by
         rw [(np.paths i).length_eq]
         simp only [sub_sub_sub_cancel_right]
-        simpa using k.isLt)
+        simp)
       hjk
   colStrict := fun i hi k hcol hk' => by
     simp only [List.get_eq_getElem]
