@@ -226,6 +226,19 @@ noncomputable def skewSchurMN (N : ℕ) (s : SkewPartition M) :
     MvPolynomial (Fin N) R :=
   ∑ T ∈ skewSSYTMNFinset N s, T.toMonomial
 
+/-- The skew Schur polynomial for two arbitrary partitions.  Following the
+source convention, it is zero when the inner partition is not contained in the
+outer partition. -/
+noncomputable def skewSchurFullMN (N : ℕ) (lam mu : Fin M → ℕ)
+    (hlam : ∀ i j : Fin M, i ≤ j → lam j ≤ lam i)
+    (hmu : ∀ i j : Fin M, i ≤ j → mu j ≤ mu i) :
+    MvPolynomial (Fin N) R :=
+  if hcontained : ∀ i, mu i ≤ lam i then
+    skewSchurMN (R := R) N
+      ⟨⟨lam, hlam⟩, ⟨mu, hmu⟩, hcontained⟩
+  else
+    0
+
 /-- Complete homogeneous functions with the negative-index convention. -/
 noncomputable def jacobiTrudiMatrixHMN (N : ℕ) (lam mu : Fin M → ℕ) :
     Matrix (Fin M) (Fin M) (MvPolynomial (Fin N) R) :=
@@ -643,6 +656,73 @@ theorem jacobiTrudi_h_mn
       (jacobiTrudiMatrixHMN (R := R) N lam mu).det :=
   jacobiTrudi_h_mn_of_bridge hN lam mu hlam hmu hcontained
     (jacobiTrudiMNBridge hN lam mu hlam hmu hcontained)
+
+/-- Every permutation of `Fin M` has an entry weakly above the diagonal in
+each initial square.  This is the finite pigeonhole step used in the
+noncontainment case of Jacobi--Trudi. -/
+private theorem perm_exists_ge_on_Iic (σ : Equiv.Perm (Fin M)) (k : Fin M) :
+    ∃ j : Fin M, j ≤ k ∧ k ≤ σ j := by
+  by_contra! h
+  have hmaps : Set.MapsTo σ (Finset.Iic k : Set (Fin M))
+      (Finset.Iio k : Set (Fin M)) := by
+    intro j hj
+    simp only [Finset.coe_Iic, Set.mem_Iic] at hj
+    simp only [Finset.coe_Iio, Set.mem_Iio]
+    exact h j hj
+  have hcard : #(Finset.Iio k) < #(Finset.Iic k) := by
+    simp only [Fin.card_Iio, Fin.card_Iic]
+    omega
+  obtain ⟨i, hi, j, hj, hij, heq⟩ :=
+    Finset.exists_ne_map_eq_of_card_lt_of_maps_to hcard hmaps
+  exact hij (σ.injective heq)
+
+/-- If the inner partition is not contained in the outer partition, the
+Jacobi--Trudi determinant vanishes.  In every Leibniz summand, pigeonhole
+forces a selected entry into the zero block below and to the left of a
+noncontained row. -/
+theorem jacobiTrudiMatrixHMN_det_eq_zero_of_not_contained
+    (lam mu : Fin M → ℕ)
+    (hlam : ∀ i j : Fin M, i ≤ j → lam j ≤ lam i)
+    (hmu : ∀ i j : Fin M, i ≤ j → mu j ≤ mu i)
+    (hnot : ¬ ∀ i, mu i ≤ lam i) :
+    (jacobiTrudiMatrixHMN (R := R) N lam mu).det = 0 := by
+  classical
+  push_neg at hnot
+  obtain ⟨k, hk⟩ := hnot
+  rw [Matrix.det_apply]
+  apply Finset.sum_eq_zero
+  intro σ _
+  obtain ⟨j, hjk, hkσj⟩ := perm_exists_ge_on_Iic σ k
+  have hlam_le : lam (σ j) ≤ lam k := hlam k (σ j) hkσj
+  have hmu_le : mu k ≤ mu j := hmu j k hjk
+  have hindex :
+      ¬ 0 ≤
+        ((lam (σ j) : ℤ) - (mu j : ℤ) - ((σ j).val : ℤ) +
+          (j.val : ℤ)) := by
+    omega
+  have hentry : jacobiTrudiMatrixHMN (R := R) N lam mu (σ j) j = 0 := by
+    simp only [jacobiTrudiMatrixHMN, hsymmExt, hindex, ↓reduceIte]
+  have hprod :
+      ∏ i : Fin M, jacobiTrudiMatrixHMN (R := R) N lam mu (σ i) i = 0 :=
+    Finset.prod_eq_zero (Finset.mem_univ j) hentry
+  rw [hprod, smul_zero]
+
+/-- First Jacobi--Trudi with independent determinant size `M` and alphabet
+size `N`, including the source convention that a noncontained skew shape has
+no tableaux and hence skew Schur polynomial zero. -/
+theorem jacobiTrudi_h_mn_full
+    (hN : 0 < N) (lam mu : Fin M → ℕ)
+    (hlam : ∀ i j : Fin M, i ≤ j → lam j ≤ lam i)
+    (hmu : ∀ i j : Fin M, i ≤ j → mu j ≤ mu i) :
+    skewSchurFullMN (R := R) N lam mu hlam hmu =
+      (jacobiTrudiMatrixHMN (R := R) N lam mu).det := by
+  classical
+  by_cases hcontained : ∀ i, mu i ≤ lam i
+  · rw [skewSchurFullMN, dif_pos hcontained]
+    exact jacobiTrudi_h_mn hN lam mu hlam hmu hcontained
+  · rw [skewSchurFullMN, dif_neg hcontained]
+    exact (jacobiTrudiMatrixHMN_det_eq_zero_of_not_contained
+      (R := R) (N := N) lam mu hlam hmu hcontained).symm
 
 /-- At equal row and alphabet sizes, a generalized tableau is the original tableau. -/
 def skewSSYTMNSelfEquiv (s : SkewPartition N) : SkewSSYTMN N s ≃ SkewSSYT s where
